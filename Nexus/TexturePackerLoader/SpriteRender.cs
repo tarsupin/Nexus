@@ -46,7 +46,7 @@ namespace TexturePackerLoader
                 origin: new Vector2(origin.X.IntValue, origin.Y.IntValue),
 				scale: new Vector2(scale, scale),
                 effects: spriteEffects,
-                layerDepth: 0.0f
+                layerDepth: 0.0f			// 0.0f is bottom layer, 1.0f is top layer
             );
         }
     }

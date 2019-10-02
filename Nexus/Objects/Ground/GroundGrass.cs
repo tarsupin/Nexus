@@ -6,7 +6,15 @@ namespace Nexus.Objects {
 
 	public class GroundGrass : Ground {
 
-		public GroundGrass(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
+		public static void ClassGenerate(LevelScene scene, byte subType) {
+
+			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
+			if(!scene.IsClassGameObjectRegistered()) {
+				new Ground(scene);
+			}
+		}
+
+		public GroundGrass(LevelScene scene, byte subType) : base(scene, subType) {
 
 		}
 

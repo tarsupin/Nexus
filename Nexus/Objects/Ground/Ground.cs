@@ -1,13 +1,12 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Ground : StaticGameObject {
+	public class Ground : ClassGameObject {
 
-		public Ground(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
-			this.Meta = scene.maps.MetaList[MetaGroup.Ground];
+		public Ground(LevelScene scene) : base(scene, AtlasGroup.Blocks) {
+			
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class Block : StaticGameObject {
 
 		public Block(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
-			this.Meta = scene.maps.MetaList[MetaGroup.Block];
+			this.Meta = scene.mapper.MetaList[MetaGroup.Block];
 
 			// TODO HIGH PRIORITY: Collisions for Blocks
 			// collision solid = Solidity.All

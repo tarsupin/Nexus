@@ -11,7 +11,7 @@ namespace Nexus.Gameplay {
 		public LayerEnum Layer { get; }
 		public SlotGroup SlotGroup { get; }
 
-		public IMetaData( Arch arch, LoadOrder loadOrder, Atlas atlas, SlotGroup slotGroup, LayerEnum layer ) {
+		public IMetaData( Arch arch, Atlas atlas, SlotGroup slotGroup, LayerEnum layer, LoadOrder loadOrder ) {
 			this.Archetype = arch;
 			this.LoadOrder = loadOrder;
 			this.Atlas = atlas;
@@ -83,19 +83,20 @@ namespace Nexus.Gameplay {
 
 	// LoadOrder is used to determine rendering layers.
 	public enum LoadOrder : byte {
-		Static,         // This is here so that Game.objects[] can contain 'Static' values. Side-effect of original code before enum.
-		Invisible,
-		Background,
-		Block,
-		MovingBlock,
-		ToggleBlock,
-		Decor,
-		Portal,
-		Interactives,
+		Tile,
+		//Static,         // This is here so that Game.objects[] can contain 'Static' values. Side-effect of original code before enum.
+		//Invisible,
+		//Background,
+		//Block,
+		//MovingBlock,
+		//ToggleBlock,
+		//Decor,
+		//Portal,
+		//Interactives,
 		Platform,
-		Collectable,
+		//Collectable,
 		Enemy,
-		ToggleBlockMobile,
+		//ToggleBlockMobile,			// TODO: This should be in "Item" LoadOrder, and otherwise handled in a Class Game Object, like with Toggle Block.
 		Item,
 		TrailingItem,
 		Character,

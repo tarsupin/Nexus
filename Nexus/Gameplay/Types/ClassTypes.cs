@@ -1,6 +1,65 @@
 ﻿
 namespace Nexus.Gameplay {
 
+	// Class Game Objects must have ONE state; it can have multiple properties, but all must be immutable.
+	public enum ClassGameObjectType {
+		
+		// Ground, Immutable
+		GroundGrass,
+		GroundDirt,
+		GroundMud,
+		GroundStone,
+		GroundSlime,
+		GroundCloud,
+
+		Wall,
+		Log,
+
+		// Ledges
+		LedgeGrass,
+		PlatformFixed,
+
+		// Decor, Immutable
+		DecorVeg,
+		DecorDesert,
+		DecorCave,
+		DecorWater,
+		DecorPet,
+		DecorItems,
+
+		PromptArrow,
+		PromptSign,
+		
+		// Solid, Toggled
+		// These can be ClassGameObjects because Toggles are global properties, they are not saved by the individual object.
+		BoxToggle,
+		ToggleBlockOn,
+		ToggleBlockOff,
+		PlatformToggleOn,
+		PlatformToggleOff,
+		
+		// Fixed, Touch-Effect
+		// These can be ClassGameObjects because they either exist or don't, which can be identfied by the Tile itself.
+		Box,
+		Lock,
+		Spike,
+
+		// These have multiple SubTypes, but are otherwise immutable in their behavior.
+		PuffBlock,
+		Conveyor,
+
+		// Collectables
+		CollectableCoin,
+		CollectableGoodie,
+		CollectableSuit,
+		CollectableHat,
+		CollectablePower,
+	}
+
+	// TODO CLEANUP: Am I even using this class? Can probably remove it.
+	// TODO CLEANUP: Right now, this doesn't interact with GameMaps.ObjectMap.
+	// TODO CLEANUP: If I don't update this by 10/5/2019 remove it.
+
 	//
 	// NOTE: If this section is updated, you must ALSO update GameMaps.ObjectMap
 	// NOTE: If this section is updated, you must ALSO update GameMaps.ObjectMap
@@ -18,8 +77,8 @@ namespace Nexus.Gameplay {
 		// ...
 		LedgeGrass = 10,
 		// ...
-		GroundWall = 20,
-		GroundLog = 21,
+		Wall = 20,
+		Log = 21,
 
 		// Decor, Immutable (30 - 49)
 		DecorVeg = 30,
@@ -49,12 +108,12 @@ namespace Nexus.Gameplay {
 		// Unused Section (80 - 99)
 
 		// Solid, but Moveable (100 - 149)
-		FixedBox = 100,
-		FixedBrick = 101,
+		Box = 100,
+		Brick = 101,
 		// ...
-		FixedLeaf = 105,
+		Leaf = 105,
 		// ...
-		FixedLock = 110,
+		Lock = 110,
 		// ...
 		PlatformDip = 120,
 		PlatformDelay = 121,
@@ -65,34 +124,34 @@ namespace Nexus.Gameplay {
 		ToggleBlockOff = 131,
 
 		// Land & Fixed Enemies (150 - 199)
-		FixedChomper = 150,
-		FixedChomperFire = 151,
-		FixedPlant = 152,
+		Chomper = 150,
+		ChomperFire = 151,
+		Plant = 152,
 		// ...
-		LandMoosh = 160,
-		LandShroom = 161,
-		LandBug = 162,
-		LandGoo = 163,
-		LandLiz = 164,
-		LandSnek = 167,
-		LandWurm = 168,
+		Moosh = 160,
+		Shroom = 161,
+		Bug = 162,
+		Goo = 163,
+		Liz = 164,
+		Snek = 167,
+		Wurm = 168,
 		// ...
-		LandTurtle = 170,
-		LandSnail = 171,
+		Turtle = 170,
+		Snail = 171,
 		// ...
-		LandBoom = 175,
+		Boom = 175,
 		// ...
-		LandOcto = 180,
-		LandBones = 181,
-		LandPoke = 182,
+		Octo = 180,
+		Bones = 181,
+		Poke = 182,
 		// ...
-		LandLich = 185,
+		Lich = 185,
 
 		// Flight Enemies (200 - 229)
-		FlightBuzz = 200,
+		Buzz = 200,
 		Saw = 201,
 		// ...
-		FlightDire = 205,
+		Dire = 205,
 		// ..
 		ElementalAir = 210,
 		ElementalEarth = 211,

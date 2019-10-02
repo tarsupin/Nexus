@@ -1,11 +1,32 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
 	public class LevelScene : Scene {
 
+		public TilemapBool tilemap;
+		public Dictionary<byte, Dictionary<ushort, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
+		public Dictionary<ushort, ClassGameObject> classObjects;
+
 		public LevelScene( Systems systems ) : base( systems ) {
+
+			// Tilemap
+			this.tilemap = new TilemapBool(400, 100);
+
+			// Game Objects
+			this.objects = new Dictionary<byte, Dictionary<ushort, DynamicGameObject>> {
+				[(byte) LoadOrder.Platform] = new Dictionary<ushort, DynamicGameObject>(),          // TODO: Change to Platform
+				[(byte) LoadOrder.Enemy] = new Dictionary<ushort, DynamicGameObject>(),				// TODO: Change to Enemy
+				[(byte) LoadOrder.Item] = new Dictionary<ushort, DynamicGameObject>(),				// TODO: Change to Item
+				[(byte) LoadOrder.TrailingItem] = new Dictionary<ushort, DynamicGameObject>(),      // TODO: Change to TrailingItem
+				[(byte) LoadOrder.Character] = new Dictionary<ushort, DynamicGameObject>(),			// TODO: Change to Character
+				[(byte) LoadOrder.Projectile] = new Dictionary<ushort, DynamicGameObject>()         // TODO: Change to Projectile
+			};
+
+			// Game Class Objects
+			this.classObjects = new Dictionary<ushort, ClassGameObject>();
 
 			// Generate Room 0
 			systems.handler.level.generate.GenerateRoom(this, "0");
@@ -13,6 +34,11 @@ namespace Nexus.GameEngine {
 
 		public void SpawnRoom() {
 
+		}
+
+		// Class Game Objects
+		public bool IsClassGameObjectRegistered( ClassGameObject cgo ) {
+			
 		}
 
 		public override void Update() {

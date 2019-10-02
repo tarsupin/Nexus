@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		public readonly TimerGlobal time;
 		public readonly Camera camera;
 		public readonly ScreenSys screen;
-		public readonly GameMapper maps;
+		public readonly GameMapper mapper;
 
 		public Scene( Systems systems ) {
 
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			this.time = systems.timer;
 			this.screen = systems.screen;
 			this.camera = new Camera(this);
-			this.maps = systems.mapper;
+			this.mapper = systems.mapper;
 		}
 
 		public virtual void Update() { throw new ArgumentNullException("Must implement Update() in Child Scene."); }

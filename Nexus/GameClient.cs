@@ -74,7 +74,7 @@ namespace Nexus
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-			this.spriteBatch.Begin();
+			this.spriteBatch.Begin(SpriteSortMode.BackToFront);
 
 			this.systems.scene.Draw();
 

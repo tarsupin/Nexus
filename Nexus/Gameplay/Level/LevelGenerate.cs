@@ -24,9 +24,9 @@ namespace Nexus.Gameplay {
 
 			RoomFormat room = this.level.data.room[roomNum];
 
-			this.GenerateLayer(room.bgLayer);
-			this.GenerateLayer(room.mainLayer);
-			this.GenerateLayer(room.cosmeticLayer);
+			this.GenerateLayer(room.bg);
+			this.GenerateLayer(room.main);
+			this.GenerateLayer(room.fg);
 		}
 
 		public void GenerateLayer(Dictionary<string, Dictionary<string, ArrayList>> layer) {
@@ -76,8 +76,11 @@ namespace Nexus.Gameplay {
 			);
 
 			// If the Object has a "Generate" method, run its special generation rules:
+			if(classType.GetMethod("ClassGenerate") != null) {
+				classType.GetMethod("ClassGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (byte)subType });
+
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
-			if(classType.GetMethod("Generate") != null) {
+			} else if(classType.GetMethod("Generate") != null) {
 				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (byte)subType, (FVector)pos, (object[])paramList });
 			} else {
 				var gameObj = Activator.CreateInstance(classType, new object[] { (Scene) this.scene, (byte) subType, (FVector) pos, (object[]) paramList });

@@ -10,6 +10,7 @@ namespace Nexus.Gameplay {
 
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
+		// TileMap, FGTileMap, ObjectMap
 		
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
@@ -23,45 +24,45 @@ namespace Nexus.Gameplay {
 			this.atlas[(byte)AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
 
 			// List of Game Object Metadata
-			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, LoadOrder.Block, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main);
+			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// All Ground, Leaf, Lock, GrowObj
-			MetaList[MetaGroup.Ledge] = new IMetaData(Arch.Platform, LoadOrder.Platform, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main);
-			MetaList[MetaGroup.Decor] = new IMetaData(Arch.Decor, LoadOrder.Decor, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Prompts, LayerEnum.Cosmetic);
-			MetaList[MetaGroup.Block] = new IMetaData(Arch.Block, LoadOrder.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main);
+			MetaList[MetaGroup.Ledge] = new IMetaData(Arch.Platform, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Platform);
+			MetaList[MetaGroup.Decor] = new IMetaData(Arch.Decor, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Prompts, LayerEnum.Cosmetic, LoadOrder.Tile); // LoadOrder.Decor
+			MetaList[MetaGroup.Block] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// PuffBlock, Exclaim, Box, Brick
-			MetaList[MetaGroup.ToggleBlock] = new IMetaData(Arch.ToggleBlock, LoadOrder.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.ColorToggles, LayerEnum.Main);
+			MetaList[MetaGroup.ToggleBlock] = new IMetaData(Arch.ToggleBlock, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// ToggleBlock, ToggleOnPlat, ToggleOffPlat, ToggleOn, ToggleOff, 
-			MetaList[MetaGroup.Conveyor] = new IMetaData(Arch.Block, LoadOrder.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main);
+			MetaList[MetaGroup.Conveyor] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// Conveyor
-			MetaList[MetaGroup.Platform] = new IMetaData(Arch.Platform, LoadOrder.Platform, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main);
+			MetaList[MetaGroup.Platform] = new IMetaData(Arch.Platform, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Platform);
 				// PlatSolid, PlatMove, PlatFall, PlatDip, PlatDelay
-			MetaList[MetaGroup.EnemyFixed] = new IMetaData(Arch.Enemy, LoadOrder.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.Fixed, LayerEnum.Main);
+			MetaList[MetaGroup.EnemyFixed] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Enemy);
 				// Chomper, Fire Chomper, Plant
-			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, LoadOrder.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyLand, LayerEnum.Main);
-			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, LoadOrder.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main);
-			MetaList[MetaGroup.BlockMoving] = new IMetaData(Arch.MovingBlock, LoadOrder.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main);
+			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyLand, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.BlockMoving] = new IMetaData(Arch.MovingBlock, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
 				// Slammer
-			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, LoadOrder.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Items, LayerEnum.Main);
+			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Items, LayerEnum.Main, LoadOrder.Item);
 				// Most Items (but not buttons)
-			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, LoadOrder.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.ColorToggles, LayerEnum.Main);
+			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Item);
 				// Buttons
-			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, LoadOrder.Block, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Fixed, LayerEnum.Main);
+			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// Cannon, Placer
-			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, LoadOrder.Collectable, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Collectables, LayerEnum.Main);
+			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Collectables, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Collectable
 				// Collectables
-			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, LoadOrder.Invisible, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Movers, LayerEnum.Main);
+			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Invisible
 				// Track, Clusuter
-			MetaList[MetaGroup.Door] = new IMetaData(Arch.Portal, LoadOrder.Portal, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main);
-			MetaList[MetaGroup.Interactives] = new IMetaData(Arch.Interactives, LoadOrder.Interactives, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main);
+			MetaList[MetaGroup.Door] = new IMetaData(Arch.Portal, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Portal
+			MetaList[MetaGroup.Interactives] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
 				// Chest, PeekMap
-			MetaList[MetaGroup.Flag] = new IMetaData(Arch.Collectable, LoadOrder.Interactives, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main);
-			MetaList[MetaGroup.NPC] = new IMetaData(Arch.Interactives, LoadOrder.Interactives, this.atlas[(byte)AtlasGroup.Characters], SlotGroup.Interactives, LayerEnum.Main);
+			MetaList[MetaGroup.Flag] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
+			MetaList[MetaGroup.NPC] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Characters], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
 		}
 
 		// List of Tile Types
 		// This includes any tile that isn't "foreground", including full-space tiles.
 		// Also includes fixed objects that can accept tile behavior for collision detection.
-		public Dictionary<ushort, Type> TileMap = new Dictionary<ushort, Type>() {
+		public Dictionary<byte, Type> TileMap = new Dictionary<byte, Type>() {
 			
 			// Ground, Immutable (0 - 9)
 			{ 1, Type.GetType("Nexus.Objects.GroundGrass") },
@@ -71,133 +72,152 @@ namespace Nexus.Gameplay {
 			{ 5, Type.GetType("Nexus.Objects.GroundSnow") },
 			{ 6, Type.GetType("Nexus.Objects.GroundSlime") },
 			{ 7, Type.GetType("Nexus.Objects.GroundCloud") },
+			
+			// Ground-Esque, Immutable (10 - 19)
+			{ 10, Type.GetType("Nexus.Objects.Wall") },
+			{ 11, Type.GetType("Nexus.Objects.Log") },
+			
+			// Ledges (20 - 29)
+			{ 20, Type.GetType("Nexus.Objects.LedgeGrass") },
+			{ 25, Type.GetType("Nexus.Objects.PlatformFixed") },
+			
+			// Reserved (30 - 39)
 
-			// Ledges (10 - 19)
-			{ 10, Type.GetType("Nexus.Objects.LedgeGrass") },
+			// Anything below this section has an ObjectID, Update(), and Passive Collision.
 
-			// Fixed, Immutable (20 - 29)
-			{ 20, Type.GetType("Nexus.Objects.GroundWall") },
-			{ 21, Type.GetType("Nexus.Objects.GroundLog") },
+			// Fixed, Touch-Effect (40 - 49)
+			{ 40, Type.GetType("Nexus.Objects.Brick") },
+			{ 41, Type.GetType("Nexus.Objects.Box") },
+			{ 42, Type.GetType("Nexus.Objects.Lock") },
+			{ 43, Type.GetType("Nexus.Objects.Leaf") },
+			{ 44, Type.GetType("Nexus.Objects.ExclaimBlock") },
+			{ 45, Type.GetType("Nexus.Objects.BoxToggle") },
+			{ 46, Type.GetType("Nexus.Objects.Spike") },
+			{ 47, Type.GetType("Nexus.Objects.PuffBlock") },
+			{ 48, Type.GetType("Nexus.Objects.Conveyor") },
+
+			// Solid, Toggled (50 - 54)
+			{ 50, Type.GetType("Nexus.Objects.ToggleBlockOn") },
+			{ 51, Type.GetType("Nexus.Objects.ToggleBlockOff") },
+			{ 52, Type.GetType("Nexus.Objects.PlatformToggleOn") },
+			{ 53, Type.GetType("Nexus.Objects.PlatformToggleOff") },
 			
-			// Pseudo-Tiles, Fixed, Unmoveable (50 - 79)
-			{ 50, Type.GetType("Nexus.Objects.Spike") },
-			{ 55, Type.GetType("Nexus.Objects.ExclaimBlock") },
-			{ 56, Type.GetType("Nexus.Objects.BoxToggle") },
-			{ 60, Type.GetType("Nexus.Objects.PuffBlock") },
-			{ 61, Type.GetType("Nexus.Objects.Conveyor") },
-			{ 70, Type.GetType("Nexus.Objects.PlatformFixed") },
-			{ 75, Type.GetType("Nexus.Objects.PlatformToggleOn") },
-			{ 76, Type.GetType("Nexus.Objects.PlatformToggleOff") },
+			// Generators (55 - 59)
+			{ 55, Type.GetType("Nexus.Objects.Cannon") },
+			{ 56, Type.GetType("Nexus.Objects.Placer") },
 			
-			// Solid, but Moveable (100 - 149)
-			{ 100, Type.GetType("Nexus.Objects.FixedBox") },
-			{ 101, Type.GetType("Nexus.Objects.FixedBrick") },
-			{ 105, Type.GetType("Nexus.Objects.FixedLeaf") },
-			{ 110, Type.GetType("Nexus.Objects.FixedLock") },
-			{ 130, Type.GetType("Nexus.Objects.ToggleBlockOn") },
-			{ 131, Type.GetType("Nexus.Objects.ToggleBlockOff") },
+			// Reserved (60 - 69)
+
+			// Anything below can only be interacted with by a character:
+			// These will have Passive Collision by Character Only.
+
+			// Character Interactives (70 - 79)
+			{ 70, Type.GetType("Nexus.Objects.Flag") },
+			{ 71, Type.GetType("Nexus.Objects.Chest") },
+			{ 72, Type.GetType("Nexus.Objects.NPC") },
+			{ 73, Type.GetType("Nexus.Objects.PeekMap") },
+
+			{ 75, Type.GetType("Nexus.Objects.Door") },
+			{ 76, Type.GetType("Nexus.Objects.DoorLock") },
 			
-			// Generators (270 - 279)
-			{ 270, Type.GetType("Nexus.Objects.Cannon") },
-			{ 271, Type.GetType("Nexus.Objects.Placer") },
-			
-			// Interactives (280 - 289)
-			{ 280, Type.GetType("Nexus.Objects.Flag") },
-			{ 281, Type.GetType("Nexus.Objects.Chest") },
-			{ 282, Type.GetType("Nexus.Objects.NPC") },
-			{ 283, Type.GetType("Nexus.Objects.PeekMap") },
-			{ 285, Type.GetType("Nexus.Objects.Door") },
-			{ 286, Type.GetType("Nexus.Objects.DoorLock") },
-			
-			// Collectables (300 - 309)
-			{ 300, Type.GetType("Nexus.Objects.CollectableCoin") },
-			{ 301, Type.GetType("Nexus.Objects.CollectableGoodie") },
-			{ 302, Type.GetType("Nexus.Objects.CollectableSuit") },
-			{ 303, Type.GetType("Nexus.Objects.CollectableHat") },
-			{ 304, Type.GetType("Nexus.Objects.CollectablePower") },
+			// Collectables (80 - 89)
+			{ 80, Type.GetType("Nexus.Objects.CollectableCoin") },
+			{ 81, Type.GetType("Nexus.Objects.CollectableGoodie") },
+			{ 82, Type.GetType("Nexus.Objects.CollectableSuit") },
+			{ 83, Type.GetType("Nexus.Objects.CollectableHat") },
+			{ 84, Type.GetType("Nexus.Objects.CollectablePower") },
 		};
 		
 		// List of Foreground Tile Types
 		// This includes decorations, prompts, or tiles that appear in the front; never collide.
-		public Dictionary<ushort, Type> FGTileMap = new Dictionary<ushort, Type>() {
+		public Dictionary<byte, Type> FGTileMap = new Dictionary<byte, Type>() {
 			
-			// Decor, Immutable (30 - 49)
-			{ 30, Type.GetType("Nexus.Objects.DecorVeg") },
-			{ 31, Type.GetType("Nexus.Objects.DecorDesert") },
-			{ 32, Type.GetType("Nexus.Objects.DecorCave") },
-			{ 33, Type.GetType("Nexus.Objects.DecorWater") },
+			// Decor, Terrain (1 - 19)
+			{ 1, Type.GetType("Nexus.Objects.DecorVeg") },
+			{ 2, Type.GetType("Nexus.Objects.DecorDesert") },
+			{ 3, Type.GetType("Nexus.Objects.DecorCave") },
+			{ 4, Type.GetType("Nexus.Objects.DecorWater") },
 
-			{ 40, Type.GetType("Nexus.Objects.DecorPet") },
-			{ 41, Type.GetType("Nexus.Objects.DecorItems") },
+			// Decor, Misc (20 - 29)
+			{ 20, Type.GetType("Nexus.Objects.DecorPet") },
+			{ 21, Type.GetType("Nexus.Objects.DecorItems") },
 
-			{ 42, Type.GetType("Nexus.Objects.PromptArrow") },
-			{ 43, Type.GetType("Nexus.Objects.PromptSign") },
+			// Prompts (30 - 39)
+			{ 30, Type.GetType("Nexus.Objects.PromptArrow") },
+			{ 31, Type.GetType("Nexus.Objects.PromptSign") },
 		};
 
 		// List of Game Object Types
 		public Dictionary<ushort, Type> ObjectMap = new Dictionary<ushort, Type>() {
 
-			// Special Flags and Placements (95 - 99)
-			{ 95, Type.GetType("Nexus.Objects.Character") },
-
-			// Platforms (100 - 149)
-			{ 120, Type.GetType("Nexus.Objects.PlatformDip") },
-			{ 121, Type.GetType("Nexus.Objects.PlatformDelay") },
-			{ 122, Type.GetType("Nexus.Objects.PlatformFall") },
-			{ 123, Type.GetType("Nexus.Objects.PlatformMove") },
+			// Platforms (1 - 4)
+			{ 1, Type.GetType("Nexus.Objects.PlatformDip") },
+			{ 2, Type.GetType("Nexus.Objects.PlatformDelay") },
+			{ 3, Type.GetType("Nexus.Objects.PlatformFall") },
+			{ 4, Type.GetType("Nexus.Objects.PlatformMove") },
 			
-			// Land & Fixed Enemies (150 - 199)
-			{ 150, Type.GetType("Nexus.Objects.FixedChomper") },
-			{ 151, Type.GetType("Nexus.Objects.FixedChomperFire") },
-			{ 152, Type.GetType("Nexus.Objects.FixedPlant") },
-
-			{ 160, Type.GetType("Nexus.Objects.LandMoosh") },
-			{ 161, Type.GetType("Nexus.Objects.LandShroom") },
-			{ 162, Type.GetType("Nexus.Objects.LandBug") },
-			{ 163, Type.GetType("Nexus.Objects.LandGoo") },
-			{ 164, Type.GetType("Nexus.Objects.LandLiz") },
-			{ 167, Type.GetType("Nexus.Objects.LandSnek") },
-			{ 168, Type.GetType("Nexus.Objects.LandWurm") },
-
-			{ 170, Type.GetType("Nexus.Objects.LandTurtle") },
-			{ 171, Type.GetType("Nexus.Objects.LandSnail") },
-			{ 175, Type.GetType("Nexus.Objects.LandBoom") },
-			{ 180, Type.GetType("Nexus.Objects.LandOcto") },
-			{ 181, Type.GetType("Nexus.Objects.LandBones") },
-			{ 182, Type.GetType("Nexus.Objects.LandPoke") },
-			{ 185, Type.GetType("Nexus.Objects.LandLich") },
+			// Tracks (5 - 9)
+			{ 5, Type.GetType("Nexus.Objects.Cluster") },
+			{ 6, Type.GetType("Nexus.Objects.Track") },
 			
-			// Flight Enemies (200 - 229)
-			{ 200, Type.GetType("Nexus.Objects.FlightBuzz") },
-			{ 201, Type.GetType("Nexus.Objects.Saw") },
-			{ 205, Type.GetType("Nexus.Objects.FlightDire") },
-			{ 210, Type.GetType("Nexus.Objects.ElementalAir") },
-			{ 211, Type.GetType("Nexus.Objects.ElementalEarth") },
-			{ 212, Type.GetType("Nexus.Objects.ElementalFire") },
-			{ 215, Type.GetType("Nexus.Objects.Ghost") },
-			{ 216, Type.GetType("Nexus.Objects.FlairElectric") },
-			{ 217, Type.GetType("Nexus.Objects.FlairFire") },
-			{ 218, Type.GetType("Nexus.Objects.FlairMagic") },
-			{ 220, Type.GetType("Nexus.Objects.ElementalEye") },
-			{ 221, Type.GetType("Nexus.Objects.ElementalMini") },
-			{ 225, Type.GetType("Nexus.Objects.Slammer") },
-			
-			// Items, Handheld (230 - 269)
-			{ 230, Type.GetType("Nexus.Objects.Shell") },
-			{ 231, Type.GetType("Nexus.Objects.Boulder") },
-			{ 235, Type.GetType("Nexus.Objects.TNT") },
-			{ 236, Type.GetType("Nexus.Objects.Bomb") },
-			{ 240, Type.GetType("Nexus.Objects.ButtonStandard") },
-			{ 241, Type.GetType("Nexus.Objects.ButtonFixed") },
-			{ 242, Type.GetType("Nexus.Objects.ButtonTimed") },
-			{ 245, Type.GetType("Nexus.Objects.SpringFixed") },
-			{ 246, Type.GetType("Nexus.Objects.SpringStandard") },
-			{ 250, Type.GetType("Nexus.Objects.Handheld") },
+			// Land & Fixed Enemies (10 - 39)
+			{ 10, Type.GetType("Nexus.Objects.Moosh") },
+			{ 11, Type.GetType("Nexus.Objects.Shroom") },
+			{ 12, Type.GetType("Nexus.Objects.Bug") },
+			{ 13, Type.GetType("Nexus.Objects.Goo") },
+			{ 14, Type.GetType("Nexus.Objects.Liz") },
+			{ 15, Type.GetType("Nexus.Objects.Snek") },
+			{ 16, Type.GetType("Nexus.Objects.Wurm") },
+			{ 17, Type.GetType("Nexus.Objects.Octo") },
+			{ 18, Type.GetType("Nexus.Objects.Bones") },
 
-			// Special (290 - 299)
-			{ 290, Type.GetType("Nexus.Objects.Cluster") },
-			{ 291, Type.GetType("Nexus.Objects.Track") },
-			{ 292, Type.GetType("Nexus.Objects.GrowObj") },
+			{ 20, Type.GetType("Nexus.Objects.Turtle") },
+			{ 21, Type.GetType("Nexus.Objects.Snail") },
+			{ 22, Type.GetType("Nexus.Objects.Boom") },
+
+			{ 25, Type.GetType("Nexus.Objects.Poke") },
+			{ 26, Type.GetType("Nexus.Objects.Lich") },
+
+			{ 30, Type.GetType("Nexus.Objects.Chomper") },
+			{ 31, Type.GetType("Nexus.Objects.ChomperFire") },
+			{ 32, Type.GetType("Nexus.Objects.Plant") },
+
+			// Flight Enemies (40 - 69)
+			{ 40, Type.GetType("Nexus.Objects.Ghost") },
+			{ 41, Type.GetType("Nexus.Objects.FlairElectric") },
+			{ 42, Type.GetType("Nexus.Objects.FlairFire") },
+			{ 43, Type.GetType("Nexus.Objects.FlairMagic") },
+
+			{ 45, Type.GetType("Nexus.Objects.ElementalAir") },
+			{ 46, Type.GetType("Nexus.Objects.ElementalEarth") },
+			{ 47, Type.GetType("Nexus.Objects.ElementalFire") },
+
+			{ 50, Type.GetType("Nexus.Objects.Buzz") },
+
+			{ 60, Type.GetType("Nexus.Objects.Saw") },
+			{ 61, Type.GetType("Nexus.Objects.Slammer") },
+			{ 62, Type.GetType("Nexus.Objects.ElementalEye") },
+			{ 63, Type.GetType("Nexus.Objects.WallBouncer") },
+
+			{ 65, Type.GetType("Nexus.Objects.Dire") },
+
+			// Items, Fixed (70 - 79)
+			{ 70, Type.GetType("Nexus.Objects.SpringFixed") },
+			{ 71, Type.GetType("Nexus.Objects.ButtonFixed") },
+
+			// Items, Mobile (80 - 99)
+			{ 80, Type.GetType("Nexus.Objects.Shell") },
+			{ 81, Type.GetType("Nexus.Objects.Boulder") },
+			{ 82, Type.GetType("Nexus.Objects.Bomb") },
+
+			{ 85, Type.GetType("Nexus.Objects.TNT") },
+
+			{ 90, Type.GetType("Nexus.Objects.SpringStandard") },
+			{ 91, Type.GetType("Nexus.Objects.ButtonStandard") },
+			{ 92, Type.GetType("Nexus.Objects.ButtonTimed") },
+
+			// Special Flags and Placements (100+)
+			{ 100, Type.GetType("Nexus.Objects.Character") },
 		};
 	}
 }

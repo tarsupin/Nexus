@@ -19,6 +19,7 @@ namespace Nexus.GameEngine {
 		public readonly byte subType;
 		public readonly FVector pos;
 		public readonly Bounds bounds;
+		public readonly float texLayer;			// 0.0f is bottom layer, 1.0f is top layer
 
 		// Rendering
 		public string Texture { get; protected set; }
@@ -38,6 +39,8 @@ namespace Nexus.GameEngine {
 			this.scene = scene;
 			this.subType = subType;
 			this.pos = pos;
+
+			// TODO HIGH PRIORITY: Assign Bounds
 			this.bounds = bounds;
 		}
 

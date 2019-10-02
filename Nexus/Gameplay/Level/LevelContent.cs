@@ -56,10 +56,10 @@ namespace Nexus.Gameplay {
 			levelStructure.id = levelId;
 			levelStructure.room["0"] = new RoomFormat();
 			//levelStructure.room["0"].bgLayer;
-			levelStructure.room["0"].mainLayer["16"]["0"].Add(1);
-			levelStructure.room["0"].mainLayer["16"]["0"].Add(1);
-			levelStructure.room["0"].mainLayer["16"]["1"].Add(1);
-			levelStructure.room["0"].mainLayer["16"]["1"].Add(1);
+			levelStructure.room["0"].main["16"]["0"].Add(1);
+			levelStructure.room["0"].main["16"]["0"].Add(1);
+			levelStructure.room["0"].main["16"]["1"].Add(1);
+			levelStructure.room["0"].main["16"]["1"].Add(1);
 			//levelStructure.room["0"].cosmeticLayer;
 
 			return levelStructure;

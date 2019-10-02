@@ -12,8 +12,8 @@ Scene Architecture:
 		- If resting, don't run gravity.
 
 	Tracking:
-		`objects`				Dictionary <Object ID, Object>
-		`charOnlyObjects`		Tilemap of some sort?
+		`objects`				Dictionary<ObjectGroup, Dictionary <Object ID, Object>>		// Need ObjectGroup for Rendering and Fast Loading
+		`objectClasses`			Dictionary <Class ID, Object>
 		`tilemap`				Tilemap
 		
 	(( Note: Objects in Scene Tracking don't add collision detection if they have a tile setting attached to them. ))
@@ -71,29 +71,22 @@ Tilemap Architecture:
 		- FG Tiles
 		- Objects
 
-	Optimizing the Tilemap:
-		- Use a bool 2d multi-array to identify any tilemap squares that are filled.
-		- Use a dictionary <ushort, new object[] PARAMS> to reference what exists at the tile.
-			- params = { tileType, fg_bg_options, textureString }
+Layering / Render Order:
+	
+	Render Order:
+		- Tiles are rendered first.
+		- Tiles have a background and foreground render (prompts, etc).
 
-		bool[,] tilemap = new bool[gridYCount, gridXCount];
+		- After tiles, certain orders are relevant:
+			- Platform
+			- Enemies
+			- Items
+			- Trailing Items
+			- Character
+			- Projectiles
 
-	parameter; tileType enum:
-		0 = standard tile with full collision (ground, boxes, etc)
-		1 = bg tile, decor, no collision
-		2 = fg tile, prompt, no collision
-		3 = bg and fg tiles, 
-		4 = special; point to object ID, the tile will be generated
-
-	parameter collisionType enum:
-		0 = no collision
-		1 = full collision
-		2 = ledge collision
-
-	It's possible for a tile instruction to include a "Point to Object ID" setting.
-		- In which case, the tile is an actual object in the scene; must interact with it accordingly.
-		- charOnly tiles behave in this way. They render, and can be touched by character during static tests.
-		- could also have enemyOnly, etc... many possibilities here.
+		// MonoGame can handle this with SpriteSortMode.BackToFront -- we will need to adjust the Draw() instructions to do this.
+		SpriteBatch.Begin (SpriteSortMode.BackToFront, BlendState)
 
 Collision Terminology:
 	

@@ -67,6 +67,8 @@
     <Compile Include="GameEngine\Collision\CollideImagine.cs" />
     <Compile Include="GameEngine\Collision\CollideSequence.cs" />
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
+    <Compile Include="GameEngine\ClassGameObject.cs" />
+    <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Level\LevelGenerate.cs" />
     <Compile Include="Gameplay\Types\GameTypes.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
@@ -81,6 +83,8 @@
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\Decor\DecorVeg.cs" />
+    <Compile Include="Objects\Decor\Decor.cs" />
     <Compile Include="Objects\Ledge\LedgeGrass.cs" />
     <Compile Include="Objects\Ground\GroundStone.cs" />
     <Compile Include="Objects\Ground\GroundSlime.cs" />
