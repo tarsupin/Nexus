@@ -28,7 +28,7 @@ namespace Nexus.GameEngine {
 		public ushort xCount { get; protected set; }
 		public ushort yCount { get; protected set; }
 
-		public TilemapBool( ushort xCount, ushort yCount ) {
+		public TilemapBool(ushort xCount, ushort yCount) {
 			this.xCount = xCount;
 			this.yCount = yCount;
 
@@ -38,7 +38,7 @@ namespace Nexus.GameEngine {
 			this.ids = new Dictionary<uint, ushort[]>();
 		}
 
-		public bool IsTilePresent( ushort gridX, ushort gridY ) {
+		public bool IsTilePresent(ushort gridX, ushort gridY) {
 			return this.boolData[gridY, gridX];
 		}
 
@@ -46,7 +46,7 @@ namespace Nexus.GameEngine {
 		//	Bitwise.Set4Bits()
 		//}
 
-		private bool[] BuildTileData( bool isTile, bool collides, bool fullSolid, bool charOnly ) {
+		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly) {
 
 			bool[] tileData = new bool[4];
 			tileData[0] = true;
@@ -58,7 +58,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddClassTile( ushort gridX, ushort gridY, byte classId, byte subTypeId, bool collides, bool fullSolid, bool charOnly ) {
+		public void AddClassTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool collides, bool fullSolid, bool charOnly) {
 			this.boolData[gridY, gridX] = true;
 
 			// The Tile Type is guaranteed to be TRUE (since it's a texture tile).
@@ -68,8 +68,7 @@ namespace Nexus.GameEngine {
 			uint gridId = this.GetGridID(gridX, gridY);
 
 			this.tiles[gridId] = tileData;
-			this.ids[gridId][0] = classId;
-			this.ids[gridId][1] = subTypeId;
+			this.ids[gridId] = new ushort[] { classId, subTypeId };
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
@@ -83,7 +82,7 @@ namespace Nexus.GameEngine {
 			uint gridId = this.GetGridID(gridX, gridY);
 
 			this.tiles[gridId] = tileData;
-			this.ids[gridId][0] = objectId;
+			this.ids[gridId] = new ushort[] { objectId };
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
@@ -94,7 +93,7 @@ namespace Nexus.GameEngine {
 			this.tiles.Remove(this.GetGridID(gridX, gridY));
 		}
 
-		private uint GetGridID( ushort gridX, ushort gridY ) {
+		public uint GetGridID( ushort gridX, ushort gridY ) {
 			return (uint) gridY * this.yCount + gridX;
 		}
 	}

@@ -29,7 +29,7 @@ namespace Nexus.Gameplay {
 		DecorItems,
 
 		PromptArrow,
-		PromptSign,
+		PromptIcon,
 		
 		// Solid, Toggled
 		// These can be ClassGameObjects because Toggles are global properties, they are not saved by the individual object.

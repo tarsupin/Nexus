@@ -4,11 +4,11 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Ground : ClassGameObject {
+	public class Ledge : ClassGameObject {
 
 		protected string[] Texture;
 
-		public Ground(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Blocks) {
+		public Ledge(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Blocks) {
 
 		}
 
@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
 		}
 
-		protected void BuildGroundTextures(string baseName) {
+		protected void BuildLedgeTextures(string baseName) {
 			this.Texture = new string[16];
 			this.Texture[(byte)GroundSubTypes.S] = baseName + "S";
 			this.Texture[(byte)GroundSubTypes.FUL] = baseName + "FUL";

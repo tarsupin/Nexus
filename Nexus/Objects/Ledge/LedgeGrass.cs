@@ -1,10 +1,9 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class LedgeGrass : Ground {
+	public class LedgeGrass : Ledge {
 
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
@@ -18,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public LedgeGrass(LevelScene scene) : base(scene, ClassGameObjectId.LedgeGrass) {
-			this.BuildGroundTextures("GrassLedge/");
+			this.BuildLedgeTextures("GrassLedge/");
 		}
 	}
 }

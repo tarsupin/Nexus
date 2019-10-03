@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
-using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 
@@ -148,7 +147,7 @@ namespace Nexus.Gameplay {
 		};
 
 		// List of Game Object Types
-		public Dictionary<ushort, Type> ObjectMap = new Dictionary<ushort, Type>() {
+		public Dictionary<byte, Type> ObjectMap = new Dictionary<byte, Type>() {
 
 			// Platforms (1 - 4)
 			{ 1, Type.GetType("Nexus.Objects.PlatformDip") },

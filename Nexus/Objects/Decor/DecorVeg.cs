@@ -1,10 +1,28 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
 	public class DecorVeg : Decor {
+
+		public enum VegSubType {
+			Grass1 = 0,
+			Grass2 = 1,
+			Plant1 = 2,
+			Plant2 = 3,
+			Plant3 = 4,
+			Plant4 = 5,
+			Vine1 = 6,
+			Vine2 = 7,
+			Vine3 = 8,
+			Fung1 = 9,
+			Fung2 = 10,
+			Fung3 = 11,
+			Fung4 = 12,
+			Fung5 = 13,
+			Tree1 = 14,
+			Tree2 = 15,
+		}
 
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
@@ -18,31 +36,27 @@ namespace Nexus.Objects {
 		}
 
 		public DecorVeg(LevelScene scene) : base(scene, ClassGameObjectId.DecorVeg) {
-			this.BuildDecorTextures("Decor/");
+			this.BuildTextures();
 		}
 
-		public void BuildDecorTextures(string baseName) {
-			this.DecorTexture = new string[16];
-			this.DecorTexture[(byte)GroundSubTypes.S] = baseName + "S";
-			this.DecorTexture[(byte)GroundSubTypes.FUL] = baseName + "FUL";
-			this.DecorTexture[(byte)GroundSubTypes.FU] = baseName + "FU";
-			this.DecorTexture[(byte)GroundSubTypes.FUR] = baseName + "FUR";
-			this.DecorTexture[(byte)GroundSubTypes.FL] = baseName + "FL";
-			this.DecorTexture[(byte)GroundSubTypes.FC] = baseName + "FC";
-			this.DecorTexture[(byte)GroundSubTypes.FR] = baseName + "FR";
-			this.DecorTexture[(byte)GroundSubTypes.FBL] = baseName + "FBL";
-			this.DecorTexture[(byte)GroundSubTypes.FB] = baseName + "FB";
-			this.DecorTexture[(byte)GroundSubTypes.FBR] = baseName + "FBR";
-			this.DecorTexture[(byte)GroundSubTypes.H1] = baseName + "H1";
-			this.DecorTexture[(byte)GroundSubTypes.H2] = baseName + "H2";
-			this.DecorTexture[(byte)GroundSubTypes.H3] = baseName + "H3";
-			this.DecorTexture[(byte)GroundSubTypes.V1] = baseName + "V1";
-			this.DecorTexture[(byte)GroundSubTypes.V2] = baseName + "V2";
-			this.DecorTexture[(byte)GroundSubTypes.V3] = baseName + "V3";
-		}
-
-		public virtual void Draw(byte subType, ushort posX, ushort posY) {
-			this.atlas.Draw(this.DecorTexture[subType], FVector.Create(posX, posY));
+		public void BuildTextures() {
+			this.Texture = new string[16];
+			this.Texture[(byte)VegSubType.Grass1] = "Decor/Grass1";
+			this.Texture[(byte)VegSubType.Grass2] = "Decor/Grass2";
+			this.Texture[(byte)VegSubType.Plant1] = "Decor/Plant1";
+			this.Texture[(byte)VegSubType.Plant2] = "Decor/Plant2";
+			this.Texture[(byte)VegSubType.Plant3] = "Decor/Plant3";
+			this.Texture[(byte)VegSubType.Plant4] = "Decor/Plant4";
+			this.Texture[(byte)VegSubType.Vine1] = "Decor/Vine1";
+			this.Texture[(byte)VegSubType.Vine2] = "Decor/Vine2";
+			this.Texture[(byte)VegSubType.Vine3] = "Decor/Vine3";
+			this.Texture[(byte)VegSubType.Fung1] = "Decor/Fung1";
+			this.Texture[(byte)VegSubType.Fung2] = "Decor/Fung2";
+			this.Texture[(byte)VegSubType.Fung3] = "Decor/Fung3";
+			this.Texture[(byte)VegSubType.Fung4] = "Decor/Fung4";
+			this.Texture[(byte)VegSubType.Fung5] = "Decor/Fung5";
+			this.Texture[(byte)VegSubType.Tree1] = "Decor/Tree1";
+			this.Texture[(byte)VegSubType.Tree2] = "Decor/Tree2";
 		}
 	}
 }

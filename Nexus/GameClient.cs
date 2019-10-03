@@ -34,6 +34,7 @@ namespace Nexus
 			// Resize Window
 			Window.AllowUserResizing = true;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(this.systems.screen.OnResizeWindow);
+			//Window.Position = new Point(0, 24);
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();
@@ -47,6 +48,7 @@ namespace Nexus
 
 			// Add Graphics to System
 			this.systems.AddGraphics(this, this.spriteBatch);
+			this.systems.screen.ResizeWindowToBestFit();
 
 			// TODO: use this.Content to load your game content here
 

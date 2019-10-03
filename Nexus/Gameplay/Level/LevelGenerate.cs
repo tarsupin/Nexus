@@ -3,7 +3,6 @@ using Nexus.GameEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace Nexus.Gameplay {
@@ -20,19 +19,42 @@ namespace Nexus.Gameplay {
 			this.level = level;
 		}
 
-		public void GenerateRoom(Scene scene, string roomNum) {
+		public void GenerateRoom(LevelScene scene, string roomNum) {
 			this.scene = scene;
 
+			// NOTE: If room properties are NULL, the LevelFormat probably broke and it needs to be updated (or level data was invalid structure).
 			RoomFormat room = this.level.data.room[roomNum];
 
-			if(room.obj == null) { Debugger.Break(); }
-
-			this.GenerateLayer(room.main);
-			this.GenerateLayer(room.obj);
-			this.GenerateLayer(room.fg);
+			this.GenerateTileLayer(room.main);
+			this.GenerateObjectLayer(room.obj);
+			this.GenerateTileLayer(room.fg, true);
 		}
 
-		public void GenerateLayer(Dictionary<string, Dictionary<string, ArrayList>> layer) {
+		private void GenerateTileLayer(Dictionary<string, Dictionary<string, ArrayList>> layer, bool useForeground = false) {
+
+			// TODO HIGH PRIORITY: This should be done by level, since we'll need to know it to create tilemap sizing.
+			// Prepare Minimum Width and Height for Level
+			ushort levelWidth = 24;
+			ushort levelHeight = 16;
+
+			// Loop through YData within the Layer Provided:
+			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
+				ushort gridY = ushort.Parse(yData.Key);
+
+				if(gridY > levelHeight) { levelHeight = gridY; }
+
+				// Loop through XData
+				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
+					ushort gridX = ushort.Parse(xData.Key);
+
+					if(gridX > levelWidth) { levelWidth = gridX; }
+
+					this.AddTileToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground);
+				}
+			}
+		}
+		
+		private void GenerateObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layer) {
 
 			// Prepare Minimum Width and Height for Level
 			ushort levelWidth = 24;
@@ -51,15 +73,29 @@ namespace Nexus.Gameplay {
 					if(gridX > levelWidth) { levelWidth = gridX; }
 
 					if(xData.Value.Count == 2) {
-						this.AddTileToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]));
+						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						this.AddTileToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]), xData.Value[2]);
+						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), xData.Value[2]);
 					}
 				}
 			}
 		}
 
-		public void AddTileToScene(ushort gridX, ushort gridY, ushort type, byte subType = 0, dynamic paramList = null) {
+		private void AddTileToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false) {
+			GameMapper mapper = this.systems.mapper;
+
+			// Identify Tile Class Type, If Applicable
+			Type classType;
+			bool hasType = useForeground ? mapper.FGTileMap.TryGetValue(type, out classType) : mapper.TileMap.TryGetValue(type, out classType);
+			if(!hasType || classType == null) { return; }
+
+			// If there is a "TileGenerate" method, run its special generation rules:
+			if(classType.GetMethod("TileGenerate") != null) {
+				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (ushort)gridX, (ushort)gridY, (byte)subType });
+			}
+		}
+
+		private void AddObjectToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, dynamic paramList = null) {
 
 			// Skip Certain Flags
 			// TODO: Might need to adjust how "Spawn" flags work here.
@@ -70,13 +106,7 @@ namespace Nexus.Gameplay {
 			// Identify Object Class Type
 			Type classType;
 			bool hasType = mapper.ObjectMap.TryGetValue(type, out classType);
-			if(!hasType|| classType == null) { return; }
-
-			// If there is a "TileGenerate" method, run its special generation rules:
-			if(classType.GetMethod("TileGenerate") != null) {
-				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (ushort) gridX, (ushort) gridY });
-				return;
-			}
+			if(!hasType || classType == null) { return; }
 
 			// Prepare Position
 			FVector pos = FVector.Create(

@@ -3,10 +3,17 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
-	class Collectable : DynamicGameObject {
 
-		public Collectable(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
+	public class Collectable : ClassGameObject {
 
+		protected string[] Texture;
+
+		public Collectable(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Other) {
+
+		}
+
+		public override void Draw(byte subType, ushort posX, ushort posY) {
+			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
 		}
 	}
 }

@@ -1,16 +1,22 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
 	public class LevelScene : Scene {
+
+		public Stopwatch stopwatch;
 
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<ushort, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 		public Dictionary<byte, ClassGameObject> classObjects;
 
 		public LevelScene( Systems systems ) : base( systems ) {
+
+			// TODO CLEANUP: Debugging stopwatch should be removed.
+			this.stopwatch = new Stopwatch();
 
 			// Tilemap
 			this.tilemap = new TilemapBool(400, 100);		// TODO: Get X,Y grid sizes from the level data.
@@ -38,7 +44,7 @@ namespace Nexus.GameEngine {
 
 		// Class Game Objects
 		public bool IsClassGameObjectRegistered( byte classId ) {
-			return (classObjects[classId] != null);
+			return classObjects.ContainsKey(classId);
 		}
 
 		public void RegisterClassGameObject(ClassGameObjectId classId, ClassGameObject cgo ) {
@@ -50,11 +56,37 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
+			this.stopwatch.Start();
 
-			// Render Objects
-			Atlas temp = this.systems.mapper.atlas[(byte)AtlasGroup.Blocks];
-			temp.Draw("Grass/S", FVector.Create(100, 100));
-			temp.Draw("Grass/H1", FVector.Create(160, 100));
+			uint gridX = 40;
+			uint gridY = 30;
+			
+			// Loop through the tilemap data:
+			for(ushort y = 0; y < gridY; y++) {
+				for(ushort x = 0; x < gridX; x++) {
+
+					// Skip if there is no tile present at this tile:
+					if(!this.tilemap.IsTilePresent(x, y)) { continue; }
+					
+					// Scan the Tiles Data at this grid square:
+					uint gridId = this.tilemap.GetGridID(x, y);
+
+					// If the tile is a Tile ID
+					bool[] tileData = this.tilemap.tiles[gridId];
+
+					if(tileData[0] == true) {
+
+						ushort[] idData = this.tilemap.ids[gridId];
+						
+						// Render the tile with its designated Class Object:
+						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], (ushort) (x * (byte) TilemapEnum.TileWidth), (ushort) (y * (byte) TilemapEnum.TileHeight));
+					};
+				};
+			}
+
+			// Debugging
+			this.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 	}
 }
