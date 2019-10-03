@@ -6,12 +6,19 @@ namespace Nexus.Objects {
 
 	public class LedgeGrass : Ground {
 
-		public LedgeGrass(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
-			System.Console.WriteLine("LedgeGrass Created");
+		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+
+			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
+			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.LedgeGrass)) {
+				new LedgeGrass(scene);
+			}
+
+			// Add to Tilemap
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.LedgeGrass, subTypeId, true, false, false);
 		}
 
-		public override void SetSubType(byte subType) {
-			this.Texture = "GrassLedge/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
+		public LedgeGrass(LevelScene scene) : base(scene, ClassGameObjectId.LedgeGrass) {
+			this.BuildGroundTextures("GrassLedge/");
 		}
 	}
 }

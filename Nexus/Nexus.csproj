@@ -90,8 +90,8 @@
     <Compile Include="Objects\Ground\GroundSlime.cs" />
     <Compile Include="Objects\Ground\GroundSnow.cs" />
     <Compile Include="Objects\Ground\GroundMud.cs" />
-    <Compile Include="Objects\Ground\GroundLog.cs" />
-    <Compile Include="Objects\Ground\GroundWall.cs" />
+    <Compile Include="Objects\Ground\Log.cs" />
+    <Compile Include="Objects\Ground\Wall.cs" />
     <Compile Include="Objects\Ground\GroundGrass.cs" />
     <Compile Include="Objects\Ground\Ground.cs" />
     <Compile Include="Gameplay\Settings\Settings.cs" />

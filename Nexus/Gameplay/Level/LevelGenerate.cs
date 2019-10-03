@@ -3,6 +3,7 @@ using Nexus.GameEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Nexus.Gameplay {
@@ -24,8 +25,10 @@ namespace Nexus.Gameplay {
 
 			RoomFormat room = this.level.data.room[roomNum];
 
-			this.GenerateLayer(room.bg);
+			if(room.obj == null) { Debugger.Break(); }
+
 			this.GenerateLayer(room.main);
+			this.GenerateLayer(room.obj);
 			this.GenerateLayer(room.fg);
 		}
 
@@ -48,15 +51,15 @@ namespace Nexus.Gameplay {
 					if(gridX > levelWidth) { levelWidth = gridX; }
 
 					if(xData.Value.Count == 2) {
-						this.AddObjectToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]));
+						this.AddTileToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						this.AddObjectToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]), xData.Value[2]);
+						this.AddTileToScene(gridX, gridY, Convert.ToUInt16(xData.Value[0]), Convert.ToByte(xData.Value[1]), xData.Value[2]);
 					}
 				}
 			}
 		}
 
-		public void AddObjectToScene(ushort gridX, ushort gridY, ushort type, byte subType = 0, dynamic paramList = null) {
+		public void AddTileToScene(ushort gridX, ushort gridY, ushort type, byte subType = 0, dynamic paramList = null) {
 
 			// Skip Certain Flags
 			// TODO: Might need to adjust how "Spawn" flags work here.
@@ -69,19 +72,23 @@ namespace Nexus.Gameplay {
 			bool hasType = mapper.ObjectMap.TryGetValue(type, out classType);
 			if(!hasType|| classType == null) { return; }
 
+			// If there is a "TileGenerate" method, run its special generation rules:
+			if(classType.GetMethod("TileGenerate") != null) {
+				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (ushort) gridX, (ushort) gridY });
+				return;
+			}
+
 			// Prepare Position
 			FVector pos = FVector.Create(
 				Snap.GridToPos((ushort)TilemapEnum.TileWidth, gridX),
 				Snap.GridToPos((ushort)TilemapEnum.TileHeight, gridY)
 			);
 
-			// If the Object has a "Generate" method, run its special generation rules:
-			if(classType.GetMethod("ClassGenerate") != null) {
-				classType.GetMethod("ClassGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (byte)subType });
-
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
-			} else if(classType.GetMethod("Generate") != null) {
+			if(classType.GetMethod("Generate") != null) {
 				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (byte)subType, (FVector)pos, (object[])paramList });
+
+			// Create Object
 			} else {
 				var gameObj = Activator.CreateInstance(classType, new object[] { (Scene) this.scene, (byte) subType, (FVector) pos, (object[]) paramList });
 			}

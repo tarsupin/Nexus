@@ -2,13 +2,14 @@
 namespace Nexus.Gameplay {
 
 	// Class Game Objects must have ONE state; it can have multiple properties, but all must be immutable.
-	public enum ClassGameObjectType {
+	public enum ClassGameObjectId {
 		
 		// Ground, Immutable
 		GroundGrass,
 		GroundDirt,
 		GroundMud,
 		GroundStone,
+		GroundSnow,
 		GroundSlime,
 		GroundCloud,
 

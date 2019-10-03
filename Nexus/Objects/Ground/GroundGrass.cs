@@ -1,25 +1,23 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
 	public class GroundGrass : Ground {
 
-		public static void ClassGenerate(LevelScene scene, byte subType) {
+		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered()) {
-				new Ground(scene);
+			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.GroundGrass)) {
+				new GroundGrass(scene);
 			}
+
+			// Add to Tilemap
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.GroundGrass, subTypeId, true, true, false);
 		}
 
-		public GroundGrass(LevelScene scene, byte subType) : base(scene, subType) {
-
-		}
-
-		public override void SetSubType( byte subType ) {
-			this.Texture = "Grass/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
+		public GroundGrass(LevelScene scene) : base(scene, ClassGameObjectId.GroundGrass) {
+			this.BuildGroundTextures("Grass/");
 		}
 	}
 }

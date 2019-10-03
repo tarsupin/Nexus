@@ -58,7 +58,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddClassTile( ushort gridX, ushort gridY, ushort classId, ushort subTypeId, bool collides, bool fullSolid, bool charOnly ) {
+		public void AddClassTile( ushort gridX, ushort gridY, byte classId, byte subTypeId, bool collides, bool fullSolid, bool charOnly ) {
 			this.boolData[gridY, gridX] = true;
 
 			// The Tile Type is guaranteed to be TRUE (since it's a texture tile).

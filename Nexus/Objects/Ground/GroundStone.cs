@@ -1,17 +1,23 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
 	public class GroundStone : Ground {
 
-		public GroundStone(Scene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
+		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
+			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
+			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.GroundStone)) {
+				new GroundStone(scene);
+			}
+
+			// Add to Tilemap
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.GroundStone, subTypeId, true, true, false);
 		}
 
-		public override void SetSubType( byte subType ) {
-			this.Texture = "Stone/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
+		public GroundStone(LevelScene scene) : base(scene, ClassGameObjectId.GroundStone) {
+			this.BuildGroundTextures("Stone/");
 		}
 	}
 }

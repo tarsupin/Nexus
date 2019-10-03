@@ -8,12 +8,12 @@ namespace Nexus.GameEngine {
 
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<ushort, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<ushort, ClassGameObject> classObjects;
+		public Dictionary<byte, ClassGameObject> classObjects;
 
 		public LevelScene( Systems systems ) : base( systems ) {
 
 			// Tilemap
-			this.tilemap = new TilemapBool(400, 100);
+			this.tilemap = new TilemapBool(400, 100);		// TODO: Get X,Y grid sizes from the level data.
 
 			// Game Objects
 			this.objects = new Dictionary<byte, Dictionary<ushort, DynamicGameObject>> {
@@ -26,7 +26,7 @@ namespace Nexus.GameEngine {
 			};
 
 			// Game Class Objects
-			this.classObjects = new Dictionary<ushort, ClassGameObject>();
+			this.classObjects = new Dictionary<byte, ClassGameObject>();
 
 			// Generate Room 0
 			systems.handler.level.generate.GenerateRoom(this, "0");
@@ -37,8 +37,12 @@ namespace Nexus.GameEngine {
 		}
 
 		// Class Game Objects
-		public bool IsClassGameObjectRegistered( ClassGameObject cgo ) {
-			
+		public bool IsClassGameObjectRegistered( byte classId ) {
+			return (classObjects[classId] != null);
+		}
+
+		public void RegisterClassGameObject(ClassGameObjectId classId, ClassGameObject cgo ) {
+			classObjects[(byte) classId] = cgo;
 		}
 
 		public override void Update() {

@@ -28,15 +28,15 @@ namespace Nexus.GameEngine {
 		public LevelScene scene;
 		public Atlas atlas;
 
-		public ClassGameObject(LevelScene scene, AtlasGroup atlasGroup) {
+		public ClassGameObject(LevelScene scene, ClassGameObjectId classId, AtlasGroup atlasGroup) {
 			this.scene = scene;
 			this.atlas = scene.mapper.atlas[(byte) atlasGroup];
 
-			this.scene.RegisterClassGameObject(this);
+			this.scene.RegisterClassGameObject(classId, this);
 		}
 
-		public virtual void Draw( string texture, ushort posX, ushort posY ) {
-			this.atlas.Draw(texture, FVector.Create(posX, posY));
+		public virtual void Draw( ushort posX, ushort posY ) {
+			//this.atlas.Draw(texture, FVector.Create(posX, posY));
 		}
 	}
 }
