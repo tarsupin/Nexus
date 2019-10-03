@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 /*
  * The InputPlayer class must:
@@ -32,7 +28,7 @@ namespace Nexus.Engine {
 	 *		Playmate: An active human player other than Self; one controlled through multiplayer on another system.
 	 */
 
-	public enum PlayerType {
+	public enum PlayerType : byte {
 		Self = 1,
 		Bot = 2,
 		Playmate = 3,
@@ -45,7 +41,7 @@ namespace Nexus.Engine {
 	 * Dictionary<Frame, [IKey, IKey, ...]>		// Each time IKey is activated, toggle it's state between up or down.
 	 */
 
-	public enum InputLoggingRules {
+	public enum InputLoggingRules : byte {
 		NoTracking = 0,
 		Debug = 1,
 	}

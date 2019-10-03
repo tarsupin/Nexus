@@ -4,7 +4,8 @@ using System;
 using System.IO;
 
 namespace Nexus.Engine {
-	class DataConvert {
+
+	public class DataConvert {
 
 		public static string ToJson<T>(T value) {
 			return JsonConvert.SerializeObject(value);

@@ -34,5 +34,11 @@ namespace Nexus.GameEngine {
 				return this.idCounter;
 			}
 		}
+
+		public virtual void ReceivePlayerInput( uint frame, byte playerId, IKey[] iKeysPressed, IKey[] iKeysReleased ) {
+
+			// Display Input on Console
+			Console.WriteLine("Input, Frame " + frame + ", Player " + playerId + ": " + iKeysPressed.ToString() + " & " + iKeysReleased.ToString());
+		}
 	}
 }

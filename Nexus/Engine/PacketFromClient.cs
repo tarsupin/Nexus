@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Nexus.Engine {
 
-	public enum PacketInstruction {
+	public enum ClientPacketIns : byte {
 		IKeysPressed = 1,
 		IKeysReleased = 2,
 		IKeysBoth = 3,
 	}
 
-	class PacketFromClient {
+	public class PacketFromClient {
 
 		/*
 		 * PacketIKeys:
@@ -21,24 +17,24 @@ namespace Nexus.Engine {
 		 *		- [x+] IKeys: The pressed IKeys and/or the released IKeys.
 		 *				- If [1] was set, then [1] pressed IKeys are added first, followed by released IKeys.
 		 */
-		public static string PacketIKeys( PacketInstruction instruction, IKey[] pressedIKeys, byte pressedNum, IKey[] releasedIKeys, byte releasedNum ) {
+		public static string PacketIKeys( ClientPacketIns instruction, IKey[] pressedIKeys, byte pressedNum, IKey[] releasedIKeys, byte releasedNum ) {
 
 			List<object> packet = new List<object>();
 			packet.Add((byte)instruction);
 
-			if(instruction == PacketInstruction.IKeysBoth) {
+			if(instruction == ClientPacketIns.IKeysBoth) {
 				packet.Add(pressedNum);
 			}
 
 			// Add Pressed IKeys to Packet
-			if(instruction == PacketInstruction.IKeysBoth || instruction == PacketInstruction.IKeysPressed) {
+			if(instruction == ClientPacketIns.IKeysBoth || instruction == ClientPacketIns.IKeysPressed) {
 				for( byte i = 0; i < pressedNum; i++ ) {
 					packet.Add(pressedIKeys[i]);
 				}
 			}
 
 			// Add Released IKeys to Packet
-			if(instruction == PacketInstruction.IKeysBoth || instruction == PacketInstruction.IKeysReleased) {
+			if(instruction == ClientPacketIns.IKeysBoth || instruction == ClientPacketIns.IKeysReleased) {
 				for(byte i = 0; i < releasedNum; i++) {
 					packet.Add(releasedIKeys[i]);
 				}

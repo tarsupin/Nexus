@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -61,6 +58,7 @@ namespace Nexus.Engine {
 	}
 
 	public class InputClient {
+		private readonly Systems systems;
 
 		// Bind Keys (and Reverse Lookup)
 		private Dictionary<Keys, IKey> keyMap;
@@ -71,6 +69,7 @@ namespace Nexus.Engine {
 		// Track when IKey is toggled (Pressed / Released) each frame. This will be sent to the server.
 		public IKey[] pressedIKeys;
 		public IKey[] releasedIKeys;
+		
 		private byte pressedNum;            // Tracks the array position of pressedIKeys.
 		private byte releasedNum;			// Tracks the array position of releasedIKeys.
 
@@ -78,7 +77,8 @@ namespace Nexus.Engine {
 		private KeyboardState curKeyState, prevKeyState;
 		private GamePadState curPadState, prevPadState;
 
-		public InputClient() {
+		public InputClient( Systems systems ) {
+			this.systems = systems;
 
 			this.pressedNum = 0;
 			this.pressedIKeys = new IKey[8];
@@ -107,13 +107,40 @@ namespace Nexus.Engine {
 			this.curKeyState = Keyboard.GetState();
 			this.curPadState = GamePad.GetState(PlayerIndex.One);
 
-			// Send Inputs to Server
 			this.ProcessIKeys();
-			this.SendIKeysToServer();
+
+			// SINGLE PLAYER: Send Input to RoomClient
+			this.SendIKeysLocalRoom();
+
+			// TODO: Handle Multiplayer Sending Keys
+			// MULTIPLAYER: Send Inputs to Server
+			//this.SendIKeysToServer();
 
 			// Save Previous Input States
 			this.prevKeyState = curKeyState;
 			this.prevPadState = curPadState;
+		}
+
+		private void SendIKeysLocalRoom() {
+
+			IKeyPacket packet = new IKeyPacket {
+				instruction = ServerPacketIns.IKeys,
+				frame = 10,
+				data = new Dictionary<byte, Dictionary<byte, IKey[]>>() {
+					{
+						0, new Dictionary<byte, IKey[]> {
+							{
+								0, new IKey[] { IKey.L1 }
+							},
+							{
+								1, new IKey[] { IKey.Down }
+							}
+						}
+					}
+				}
+			};
+
+			this.systems.roomClient.HandlePacket(packet);
 		}
 
 		private void SendIKeysToServer() {
@@ -122,12 +149,12 @@ namespace Nexus.Engine {
 			if(this.pressedNum == 0 && this.releasedNum == 0) { return; }
 
 			// Build IKey Packet
-			PacketInstruction packetInstruction;
+			ClientPacketIns packetInstruction;
 
 			if(this.pressedNum > 0) {
-				packetInstruction = this.releasedNum > 0 ? PacketInstruction.IKeysBoth : PacketInstruction.IKeysPressed;
+				packetInstruction = this.releasedNum > 0 ? ClientPacketIns.IKeysBoth : ClientPacketIns.IKeysPressed;
 			} else {
-				packetInstruction = PacketInstruction.IKeysReleased;
+				packetInstruction = ClientPacketIns.IKeysReleased;
 			}
 
 			string packet = PacketFromClient.PacketIKeys(packetInstruction, this.pressedIKeys, this.pressedNum, this.releasedIKeys, this.releasedNum);
@@ -135,11 +162,7 @@ namespace Nexus.Engine {
 			// TODO CONSOLE: Remove
 			Console.WriteLine("Packet Data" + packet + packetInstruction);
 
-
-			// IF NOT MULTIPLAYER
-
-
-			// TODO MULTIPLAYER: Send IKeys to Server
+			// Send IKeys to Server
 
 		}
 

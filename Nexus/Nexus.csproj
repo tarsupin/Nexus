@@ -52,6 +52,7 @@
     <Compile Include="Engine\InputClient.cs" />
     <Compile Include="Engine\InputSelf.cs" />
     <Compile Include="Engine\InputPlayer.cs" />
+    <Compile Include="Engine\PacketFromServer.cs" />
     <Compile Include="Engine\PacketFromClient.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\RoomServer.cs" />

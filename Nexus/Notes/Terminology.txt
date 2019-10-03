@@ -160,30 +160,40 @@ Input Process:
 		- Maps the keys and gamepad to actions.
 		- Translates the inputs.
 
-	PacketFromClient prepares a packet for IKeys
+		PacketFromClient prepares a packet for IKeys
 	
-	InputClient sends the IKey Packet to Socket
+	FOR MULTIPLAYER:
 
-	Socket sends IKey Packet to Server
+		InputClient sends the IKey Packet to Socket
 
-	Server Hub Receives IKey Packet
-		- Interprets instruction.
-		- Determines which room/hub to send to.
-		- Sends Packet to Room
+		Socket sends IKey Packet to Server
 
-	Server Room receives IKey Packet
-		- Interprets instruction.
-		- Updates player inputs by frame.
+		Server Hub Receives IKey Packet
+			- Interprets instruction.
+			- Determines which room/hub to send to.
+			- Sends Packet to Room
+
+		Server Room receives IKey Packet
+			- Interprets instruction.
+			- Updates player inputs by frame.
 	
-	Server Packet creates a RoomPacket to return to Clients
+		Server Packet creates InputPacket to return to Clients
 
-	Server Room sends RoomPacket to Clients
+		Server Room sends InputPacket to Clients
 
-	Clients receive RoomPacket
+	FOR SINGLE PLAYER:
 
-	ClientRoom receives RoomPacket
-		- Interprets IKeys toggled for every player.
-		- Updates player IKeyStates
+	Clients receive InputPacket
+		- Routes to RoomClient.HandleInput
+
+	RoomClient.HandleInput receives InputPacket
+		- Determines that it is an InputPacket.
+		- Interprets InputPacket
+		- Delivers Packet to Scene
+
+	Scene Receives Input Packet Decoded
+		- Interprets IKeys for each player.
+		- Updates player IKeyStates for assigned frame.
 	
-	Simulation Runs, using IKeyStates from each player.
+	Simulation Runs, using IKeyStates from each player on each frame assigned.
 		
