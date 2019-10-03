@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public Wall(LevelScene scene) : base(scene, ClassGameObjectId.Wall) {
-			this.BuildGroundTextures("Slab/Gray/");	// TODO: Change to Wall
+			this.BuildTextures("Slab/Gray/");	// TODO: Change to Wall
 		}
 	}
 }

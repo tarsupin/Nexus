@@ -8,11 +8,11 @@ namespace Nexus.GameEngine {
 	 *		[1] Bool (Char Only)			T: Only Char Interacts
 	 *		[2] Bool (Collision)			T: Has Collision
 	 *		[3] Bool (Full/Ledge)			T: Full Collision (all sides & solidity), F: Ledge Upward
+	 *		[4] Bool (Special Collision)	T: Has special collision rules; interact with class methods.
 	 *	
 	 *	.ids: ushort[2]
 	 *		[0] Object ID or Tile Class ID		// Points to Object ID (for GameObjects) or Tile Class ID (for ClassGameObjects) 
 	 *		[1] Tile SubType ID					// Only applies to Tile IDs. Provides SubType for that Tile.
-	 *	
 	 */
 
 	public class TilemapBool {
@@ -46,23 +46,24 @@ namespace Nexus.GameEngine {
 		//	Bitwise.Set4Bits()
 		//}
 
-		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly) {
+		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly, bool specialCol ) {
 
-			bool[] tileData = new bool[4];
+			bool[] tileData = new bool[5];
 			tileData[0] = true;
 			tileData[1] = charOnly;
 			tileData[2] = collides;
 			tileData[3] = fullSolid;
+			tileData[4] = specialCol;
 
 			return tileData;
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddClassTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool collides, bool fullSolid, bool charOnly) {
+		public void AddClassTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool collides, bool fullSolid, bool charOnly = false, bool specialCol = false ) {
 			this.boolData[gridY, gridX] = true;
 
 			// The Tile Type is guaranteed to be TRUE (since it's a texture tile).
-			bool[] tileData = this.BuildTileData(true, collides, fullSolid, charOnly);
+			bool[] tileData = this.BuildTileData(true, collides, fullSolid, charOnly, specialCol );
 
 			// Add Content to Dictionaries
 			uint gridId = this.GetGridID(gridX, gridY);
@@ -72,11 +73,11 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddObjectTile( ushort gridX, ushort gridY, ushort objectId, bool collides, bool fullSolid, bool charOnly ) {
+		public void AddObjectTile( ushort gridX, ushort gridY, ushort objectId, bool collides, bool fullSolid, bool charOnly = false, bool specialCol = false ) {
 			this.boolData[gridY, gridX] = true;
 
 			// The Tile Type is guaranteed to be FALSE (since it's an Object ID)
-			bool[] tileData = this.BuildTileData(false, collides, fullSolid, charOnly);
+			bool[] tileData = this.BuildTileData(false, collides, fullSolid, charOnly, specialCol);
 			
 			// Add Content to Dictionaries
 			uint gridId = this.GetGridID(gridX, gridY);

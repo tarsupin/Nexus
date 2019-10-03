@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public GroundSlime(LevelScene scene) : base(scene, ClassGameObjectId.GroundSlime) {
-			this.BuildGroundTextures("Slime/");
+			this.BuildTextures("Slime/");
 		}
 	}
 }

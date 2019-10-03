@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public GroundStone(LevelScene scene) : base(scene, ClassGameObjectId.GroundStone) {
-			this.BuildGroundTextures("Stone/");
+			this.BuildTextures("Stone/");
 		}
 	}
 }

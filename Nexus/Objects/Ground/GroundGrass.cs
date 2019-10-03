@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public GroundGrass(LevelScene scene) : base(scene, ClassGameObjectId.GroundGrass) {
-			this.BuildGroundTextures("Grass/");
+			this.BuildTextures("Grass/");
 		}
 	}
 }

@@ -109,18 +109,20 @@ namespace Nexus.Engine {
 
 			this.ProcessIKeys();
 
-			// SINGLE PLAYER: Send Input to RoomClient
-			this.SendIKeysLocalRoom();
-
-			// TODO: Handle Multiplayer Sending Keys
-			// MULTIPLAYER: Send Inputs to Server
-			//this.SendIKeysToServer();
+			// Send Input to LocalServer (if any input needs to be sent)
+			if(this.pressedNum > 0 && this.releasedNum > 0) {
+				this.SendIKeysLocalRoom();
+			}
 
 			// Save Previous Input States
 			this.prevKeyState = curKeyState;
 			this.prevPadState = curPadState;
 		}
 
+
+		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
+		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
+		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
 		private void SendIKeysLocalRoom() {
 
 			IKeyPacket packet = new IKeyPacket {

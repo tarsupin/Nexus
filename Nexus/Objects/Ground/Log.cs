@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public Log(LevelScene scene) : base(scene, ClassGameObjectId.Log) {
-			this.BuildGroundTextures("Log/");
+			this.BuildTextures("Log/");
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public LedgeGrass(LevelScene scene) : base(scene, ClassGameObjectId.LedgeGrass) {
-			this.BuildLedgeTextures("GrassLedge/");
+			this.BuildTextures("GrassLedge/");
 		}
 	}
 }

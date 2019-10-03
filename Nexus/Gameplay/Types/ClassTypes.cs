@@ -30,15 +30,20 @@ namespace Nexus.Gameplay {
 
 		PromptArrow,
 		PromptIcon,
-		
+
 		// Solid, Toggled
 		// These can be ClassGameObjects because Toggles are global properties, they are not saved by the individual object.
-		BoxToggle,
-		ToggleBlockOn,
-		ToggleBlockOff,
-		PlatformToggleOn,
-		PlatformToggleOff,
-		
+		ToggleBoxBR,
+		ToggleBoxGY,
+		ToggleBlockBlue,
+		ToggleBlockRed,
+		ToggleBlockGreen,
+		ToggleBlockYellow,
+		//ToggleBlockOn,
+		//ToggleBlockOff,
+		//PlatformToggleOn,
+		//PlatformToggleOff,
+
 		// Fixed, Touch-Effect
 		// These can be ClassGameObjects because they either exist or don't, which can be identfied by the Tile itself.
 		Box,

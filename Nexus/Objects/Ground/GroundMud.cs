@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		}
 
 		public GroundMud(LevelScene scene) : base(scene, ClassGameObjectId.GroundMud) {
-			this.BuildGroundTextures("Mud/");
+			this.BuildTextures("Mud/");
 		}
 	}
 }

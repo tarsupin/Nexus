@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
 		}
 
-		protected void BuildLedgeTextures(string baseName) {
+		protected void BuildTextures(string baseName) {
 			this.Texture = new string[16];
 			this.Texture[(byte)GroundSubTypes.S] = baseName + "S";
 			this.Texture[(byte)GroundSubTypes.FUL] = baseName + "FUL";
