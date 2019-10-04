@@ -15,7 +15,6 @@ namespace Nexus.Objects {
 
 		public override void Draw(byte subType, ushort posX, ushort posY) {
 
-			// TODO HIGH PRIORITY: Global Toggle Blocks
 			// If Global Toggle is ON for Blue/Red, draw accordingly:
 			this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, FVector.Create(posX, posY));
 		}

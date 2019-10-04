@@ -90,22 +90,30 @@ namespace Nexus.Gameplay {
 			{ 42, Type.GetType("Nexus.Objects.Lock") },
 			{ 43, Type.GetType("Nexus.Objects.Leaf") },
 			{ 44, Type.GetType("Nexus.Objects.ExclaimBlock") },
-			{ 45, Type.GetType("Nexus.Objects.BoxToggle") },
+			// ...
 			{ 46, Type.GetType("Nexus.Objects.Spike") },
 			{ 47, Type.GetType("Nexus.Objects.PuffBlock") },
 			{ 48, Type.GetType("Nexus.Objects.Conveyor") },
 
-			// Solid, Toggled (50 - 54)
-			{ 50, Type.GetType("Nexus.Objects.ToggleBlockOn") },
-			{ 51, Type.GetType("Nexus.Objects.ToggleBlockOff") },
-			{ 52, Type.GetType("Nexus.Objects.PlatformToggleOn") },
-			{ 53, Type.GetType("Nexus.Objects.PlatformToggleOff") },
+			// Solid, Toggled (50 - 55)
+			{ 50, Type.GetType("Nexus.Objects.ToggleBoxBR") },
+			{ 51, Type.GetType("Nexus.Objects.ToggleBoxGY") },
+			{ 52, Type.GetType("Nexus.Objects.ToggleBlockBlue") },
+			{ 53, Type.GetType("Nexus.Objects.ToggleBlockRed") },
+			{ 54, Type.GetType("Nexus.Objects.ToggleBlockGreen") },
+			{ 55, Type.GetType("Nexus.Objects.ToggleBlockYellow") },
 			
-			// Generators (55 - 59)
-			{ 55, Type.GetType("Nexus.Objects.Cannon") },
-			{ 56, Type.GetType("Nexus.Objects.Placer") },
+			// Solid, Toggled Platforms (56 - 59)
+			{ 56, Type.GetType("Nexus.Objects.TogglePlatBlue") },
+			{ 57, Type.GetType("Nexus.Objects.TogglePlatRed") },
+			{ 58, Type.GetType("Nexus.Objects.TogglePlatGreen") },
+			{ 59, Type.GetType("Nexus.Objects.TogglePlatYellow") },
+
+			// Generators (60 - 64)
+			{ 60, Type.GetType("Nexus.Objects.Cannon") },
+			{ 61, Type.GetType("Nexus.Objects.Placer") },
 			
-			// Reserved (60 - 69)
+			// Reserved (65 - 69)
 
 			// Anything below can only be interacted with by a character:
 			// These will have Passive Collision by Character Only.

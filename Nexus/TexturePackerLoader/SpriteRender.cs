@@ -18,7 +18,6 @@ namespace TexturePackerLoader
         }
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
-		[Obsolete]
 		public void Draw(SpriteFrame sprite, FVector position, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None)
         {
 			FVector origin = sprite.Origin;
@@ -36,7 +35,7 @@ namespace TexturePackerLoader
                 case SpriteEffects.FlipHorizontally: origin.X = sprite.SourceRectangle.Width - origin.X; break;
                 case SpriteEffects.FlipVertically: origin.Y = sprite.SourceRectangle.Height - origin.Y; break;
             }
-
+			
             spriteBatch.Draw(
                 texture: sprite.Texture,
                 position: new Vector2(position.X.IntValue, position.Y.IntValue),

@@ -5,11 +5,8 @@ namespace Nexus.Objects {
 
 	public class ToggleBlockRed : ToggleBlock {
 
-		// TODO HIGH PRIORITY: Point this to Global Scene Toggles.
 		protected new bool Toggled {
-			get {
-				return true;
-			}
+			get { return this.scene.flags.toggleBR; }
 		}
 
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {

@@ -6,20 +6,27 @@ namespace Nexus.Gameplay {
 
 	public enum GroundSubTypes : byte {
 		S,
-		FUL,
 		FU,
-		FUR,
 		FL,
 		FC,
 		FR,
-		FBL,
 		FB,
-		FBR,
 		H1,
 		H2,
 		H3,
 		V1,
 		V2,
 		V3,
+		FUL,
+		FUR,
+		FBL,
+		FBR,
+	}
+
+	public enum FixedPlatSubType {
+		Standard,
+		FaceLeft,
+		FaceRight,
+		UpsideDown,
 	}
 }

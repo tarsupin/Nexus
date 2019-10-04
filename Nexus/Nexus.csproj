@@ -84,6 +84,7 @@
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\Platforms\TogglePlatBlue.cs" />
     <Compile Include="Objects\Blocks\ToggleBoxGY.cs" />
     <Compile Include="Objects\Blocks\ToggleBoxBR.cs" />
     <Compile Include="Objects\Blocks\ToggleBlockYellow.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Gameplay\Types\ClassTypes.cs" />
     <Compile Include="Gameplay\Types\MetaTypes.cs" />
     <Compile Include="Gameplay\Types\ObjectTypes.cs" />
+    <Compile Include="Objects\Platforms\TogglePlat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TexturePackerLoader\SpriteFrame.cs" />
     <Compile Include="TexturePackerLoader\SpriteRender.cs" />
@@ -252,7 +254,12 @@
     <Content Include="Content\Atlas\World.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Notes\Process_TexturePack.txt" />
+    <Content Include="Notes\Process_Levels.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Notes\Process_TexturePack.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>

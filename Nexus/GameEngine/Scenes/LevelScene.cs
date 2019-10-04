@@ -5,6 +5,11 @@ using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
+	public class LevelFlags {
+		public bool toggleBR = true;
+		public bool toggleGY = true;
+	}
+
 	public class LevelScene : Scene {
 
 		public Stopwatch stopwatch;
@@ -12,6 +17,9 @@ namespace Nexus.GameEngine {
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<ushort, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 		public Dictionary<byte, ClassGameObject> classObjects;
+
+		// Level Data
+		public LevelFlags flags = new LevelFlags();
 
 		public LevelScene( Systems systems ) : base( systems ) {
 
@@ -76,6 +84,7 @@ namespace Nexus.GameEngine {
 
 					if(tileData[0] == true) {
 
+						// Check the .ids dictionary for the Tile Data (e.g. class object, class subType)
 						ushort[] idData = this.tilemap.ids[gridId];
 						
 						// Render the tile with its designated Class Object:

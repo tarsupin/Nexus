@@ -20,7 +20,7 @@ namespace Nexus.GameEngine {
 		// The Bool Array: Identifies if a grid square DOES or DOES NOT have tile data inside of it.
 		public bool[,] boolData { get; protected set; }
 
-		// Tile Data: Dictionaries of data that matches to the gridID (gridY* + gridX)
+		// Tile Data: Dictionaries of data that matches to the gridID (gridY*xCount + gridX)
 		public Dictionary<uint, bool[]> tiles;
 		public Dictionary<uint, ushort[]> ids;
 
@@ -95,7 +95,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public uint GetGridID( ushort gridX, ushort gridY ) {
-			return (uint) gridY * this.yCount + gridX;
+			return (uint) gridY * this.xCount + gridX;
 		}
 	}
 }

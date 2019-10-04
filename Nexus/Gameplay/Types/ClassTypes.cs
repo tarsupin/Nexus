@@ -39,10 +39,11 @@ namespace Nexus.Gameplay {
 		ToggleBlockRed,
 		ToggleBlockGreen,
 		ToggleBlockYellow,
-		//ToggleBlockOn,
-		//ToggleBlockOff,
-		//PlatformToggleOn,
-		//PlatformToggleOff,
+
+		TogglePlatBlue,
+		TogglePlatRed,
+		TogglePlatGreen,
+		TogglePlatYellow,
 
 		// Fixed, Touch-Effect
 		// These can be ClassGameObjects because they either exist or don't, which can be identfied by the Tile itself.
