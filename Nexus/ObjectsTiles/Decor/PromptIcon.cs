@@ -39,7 +39,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptIcon, subTypeId, true, true, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptIcon, subTypeId, false, false);
 		}
 
 		public PromptIcon(LevelScene scene) : base(scene, ClassGameObjectId.PromptIcon) {

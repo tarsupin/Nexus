@@ -40,7 +40,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.DecorPet, subTypeId, true, true, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.DecorPet, subTypeId, false, false);
 		}
 
 		public DecorPet(LevelScene scene) : base(scene, ClassGameObjectId.DecorPet) {

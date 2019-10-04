@@ -18,7 +18,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptArrow, subTypeId, true, true, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptArrow, subTypeId, false, false);
 		}
 
 		public PromptArrow(LevelScene scene) : base(scene, ClassGameObjectId.PromptArrow) {

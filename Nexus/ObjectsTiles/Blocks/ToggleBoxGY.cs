@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.ToggleBoxGY, subTypeId, true, false, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.ToggleBoxGY, subTypeId, true, true, false, false);
 		}
 
 		public ToggleBoxGY(LevelScene scene) : base(scene, ClassGameObjectId.ToggleBoxGY) {

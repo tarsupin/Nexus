@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.DecorCave, subTypeId, true, true, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.DecorCave, subTypeId, false, false);
 		}
 
 		public DecorCave(LevelScene scene) : base(scene, ClassGameObjectId.DecorCave) {

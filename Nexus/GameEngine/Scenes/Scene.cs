@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 	public class Scene {
 
-		public int idCounter;           // Tracks the last ID that was generated in the scene.
+		public uint idCounter;           // Tracks the last ID that was generated in the scene.
 
 		public readonly Systems systems;
 		public readonly TimerGlobal time;
@@ -28,7 +28,7 @@ namespace Nexus.GameEngine {
 		public virtual void Update() { throw new ArgumentNullException("Must implement Update() in Child Scene."); }
 		public virtual void Draw() { throw new ArgumentNullException("Must implement Draw() in Child Scene."); }
 
-		public int nextId {
+		public uint nextId {
 			get {
 				this.idCounter++;
 				return this.idCounter;

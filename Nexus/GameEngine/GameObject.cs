@@ -11,7 +11,7 @@ namespace Nexus.GameEngine {
 		// TODO: Pool (remove from game objects, put on projectiles exclusively)
 
 		// Metadata
-		public readonly int id;
+		public readonly uint id;
 		public IMetaData Meta { get; protected set; }
 
 		// Data

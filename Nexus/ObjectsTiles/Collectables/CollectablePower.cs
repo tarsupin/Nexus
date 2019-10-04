@@ -70,7 +70,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectablePower, subTypeId, true, true, false);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectablePower, subTypeId, true, false, true, true);
 		}
 
 		public CollectablePower(LevelScene scene) : base(scene, ClassGameObjectId.CollectablePower) {
