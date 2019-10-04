@@ -7,7 +7,6 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System;
 using System.Threading;
-using TexturePackerLoader;
 
 namespace Nexus
 {

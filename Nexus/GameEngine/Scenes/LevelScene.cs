@@ -66,12 +66,12 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			this.stopwatch.Start();
 
-			uint gridX = 40;
-			uint gridY = 30;
+			uint gridX = 29;
+			uint gridY = 16;
 			
 			// Loop through the tilemap data:
-			for(ushort y = 0; y < gridY; y++) {
-				for(ushort x = 0; x < gridX; x++) {
+			for(ushort y = 0; y <= gridY; y++) {
+				for(ushort x = 0; x <= gridX; x++) {
 
 					// Skip if there is no tile present at this tile:
 					if(!this.tilemap.IsTilePresent(x, y)) { continue; }
@@ -95,7 +95,7 @@ namespace Nexus.GameEngine {
 
 			// Debugging
 			this.stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 	}
 }

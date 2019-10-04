@@ -7,20 +7,20 @@ namespace Nexus.Gameplay {
 
 	public class GameMapper {
 
-		public readonly AtlasOld[] atlas;
+		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
 		// TileMap, FGTileMap, ObjectMap
 		
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
 			// Create Atlas List
-			this.atlas = new AtlasOld[6];
-			this.atlas[(byte)AtlasGroup.Blocks] = new AtlasOld(game, spriteBatch, "Atlas/Blocks.png");
-			this.atlas[(byte)AtlasGroup.Characters] = new AtlasOld(game, spriteBatch, "Atlas/Characters.png");
-			this.atlas[(byte)AtlasGroup.Enemies] = new AtlasOld(game, spriteBatch, "Atlas/Enemies.png");
-			this.atlas[(byte)AtlasGroup.Icons] = new AtlasOld(game, spriteBatch, "Atlas/Icons.png");
-			this.atlas[(byte)AtlasGroup.Other] = new AtlasOld(game, spriteBatch, "Atlas/Other.png");
-			this.atlas[(byte)AtlasGroup.World] = new AtlasOld(game, spriteBatch, "Atlas/World.png");
+			this.atlas = new Atlas[6];
+			this.atlas[(byte)AtlasGroup.Blocks] = new Atlas(game, spriteBatch, "Atlas/Blocks.png");
+			this.atlas[(byte)AtlasGroup.Characters] = new Atlas(game, spriteBatch, "Atlas/Characters.png");
+			this.atlas[(byte)AtlasGroup.Enemies] = new Atlas(game, spriteBatch, "Atlas/Enemies.png");
+			this.atlas[(byte)AtlasGroup.Icons] = new Atlas(game, spriteBatch, "Atlas/Icons.png");
+			this.atlas[(byte)AtlasGroup.Other] = new Atlas(game, spriteBatch, "Atlas/Other.png");
+			this.atlas[(byte)AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
 
 			// List of Game Object Metadata
 			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block

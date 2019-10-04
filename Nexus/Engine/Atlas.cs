@@ -21,6 +21,7 @@ namespace Nexus.Engine {
 		// Setup Atlas for Texture Packager
 		public Atlas(GameClient game, SpriteBatch spriteBatch, string filePath) {
 			this.spriteBatch = spriteBatch;
+			this.spriteList = new Dictionary<string, SpriteFrame>();
 			this.LoadAtlasData(game, filePath);
 		}
 
