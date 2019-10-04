@@ -26,7 +26,7 @@ namespace Nexus.GameEngine {
 	public class ClassGameObject {
 
 		public LevelScene scene;
-		public Atlas atlas;
+		public AtlasOld atlas;
 
 		public ClassGameObject(LevelScene scene, ClassGameObjectId classId, AtlasGroup atlasGroup) {
 			this.scene = scene;

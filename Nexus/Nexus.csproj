@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Render\Render.cs" />
+    <Compile Include="Engine\AtlasOld.cs" />
     <Compile Include="Engine\Calc\Snap.cs" />
     <Compile Include="Engine\Calc.cs" />
     <Compile Include="Engine\Bitwise.cs" />

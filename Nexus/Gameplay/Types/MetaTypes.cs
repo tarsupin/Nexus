@@ -7,11 +7,11 @@ namespace Nexus.Gameplay {
 	public class IMetaData {
 		public Arch Archetype { get; }
 		public LoadOrder LoadOrder { get; }
-		public Atlas Atlas { get; }
+		public AtlasOld Atlas { get; }
 		public LayerEnum Layer { get; }
 		public SlotGroup SlotGroup { get; }
 
-		public IMetaData( Arch arch, Atlas atlas, SlotGroup slotGroup, LayerEnum layer, LoadOrder loadOrder ) {
+		public IMetaData( Arch arch, AtlasOld atlas, SlotGroup slotGroup, LayerEnum layer, LoadOrder loadOrder ) {
 			this.Archetype = arch;
 			this.LoadOrder = loadOrder;
 			this.Atlas = atlas;
