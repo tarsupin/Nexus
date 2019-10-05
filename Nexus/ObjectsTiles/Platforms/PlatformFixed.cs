@@ -23,8 +23,8 @@ namespace Nexus.Objects {
 			this.BuildTexture("Platform/Fixed/");
 		}
 
-		public override void Draw(byte subType, ushort posX, ushort posY) {
-			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
+		public override void Draw(byte subType, int posX, int posY) {
+			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 
 		protected void BuildTexture(string baseName) {

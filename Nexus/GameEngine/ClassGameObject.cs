@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 			this.scene.RegisterClassGameObject(classId, this);
 		}
 
-		public virtual void Draw( byte subType, ushort posX, ushort posY ) {
+		public virtual void Draw( byte subType, int posX, int posY ) {
 			//this.atlas.Draw(texture, FVector.Create(posX, posY));
 		}
 	}

@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -25,10 +24,10 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public override void Draw(byte subType, ushort posX, ushort posY) {
+		public override void Draw(byte subType, int posX, int posY) {
 
 			// If Global Toggle is ON for Blue/Red, draw accordingly:
-			this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, FVector.Create(posX, posY));
+			this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
 		}
 	}
 }

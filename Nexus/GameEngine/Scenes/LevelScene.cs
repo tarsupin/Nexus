@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -69,6 +70,12 @@ namespace Nexus.GameEngine {
 			// TODO: Change this to the actual frame for this tick.
 			byte frame = 0;
 
+			// Update Timer
+			this.time.RunTick();
+
+			// Camera Movement
+			this.camera.MoveWithInput(this.localServer.MyPlayer.input);
+
 			// Loop through every player and update inputs for this frame tick:
 			foreach( var player in this.localServer.players ) {
 				player.Value.input.UpdateKeyStates(0);
@@ -78,12 +85,18 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			this.stopwatch.Start();
 
-			uint gridX = 29;
-			uint gridY = 16;
+			ushort startX = (ushort) Math.Max(this.camera.GridX - 1, 0);
+			ushort startY = (ushort) Math.Max(this.camera.GridY - 1, 0);
+
+			ushort gridX = (ushort) (startX + 29 + 2);
+			ushort gridY = (ushort) (startY + 16 + 2);
+
+			int camX = this.camera.pos.X.IntValue;
+			int camY = this.camera.pos.Y.IntValue;
 			
 			// Loop through the tilemap data:
-			for(ushort y = 0; y <= gridY; y++) {
-				for(ushort x = 0; x <= gridX; x++) {
+			for(ushort y = startY; y <= gridY; y++) {
+				for(ushort x = startX; x <= gridX; x++) {
 
 					// Skip if there is no tile present at this tile:
 					if(!this.tilemap.IsTilePresent(x, y)) { continue; }
@@ -100,7 +113,7 @@ namespace Nexus.GameEngine {
 						ushort[] idData = this.tilemap.ids[gridId];
 						
 						// Render the tile with its designated Class Object:
-						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], (ushort) (x * (byte) TilemapEnum.TileWidth), (ushort) (y * (byte) TilemapEnum.TileHeight));
+						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], (ushort) (x * (byte) TilemapEnum.TileWidth - camX), (ushort) (y * (byte) TilemapEnum.TileHeight - camY));
 					};
 				};
 			}

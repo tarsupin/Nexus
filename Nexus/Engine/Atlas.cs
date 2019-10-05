@@ -26,22 +26,35 @@ namespace Nexus.Engine {
 		}
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
-		public void Draw(string spriteName, FVector position) {
+		public void Draw(string spriteName, int posX, int posY) {
 			SpriteFrame sprite = this.spriteList[spriteName];
 			FVector origin = sprite.Origin;
 
 			spriteBatch.Draw(
 				texture: this.Texture,
-				position: new Vector2(position.X.IntValue, position.Y.IntValue),
+				position: new Vector2(posX, posY),
 				sourceRectangle: sprite.SourceRectangle,
-				color: null,
-				rotation: 0,
-				origin: new Vector2(origin.X.IntValue, origin.Y.IntValue),
-				scale: new Vector2(1, 1),
-				effects: SpriteEffects.None,
-				layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
+				color: null
 			);
+
+			//spriteBatch.Draw(
+			//	texture: this.Texture,
+			//	position: new Vector2(position.X.IntValue, position.Y.IntValue),
+			//	sourceRectangle: sprite.SourceRectangle,
+			//	color: null,
+			//	rotation: 0,
+			//	origin: new Vector2(origin.X.IntValue, origin.Y.IntValue),
+			//	scale: new Vector2(1, 1),
+			//	effects: SpriteEffects.None,
+			//	layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
+			//);
 		}
+
+		/*
+		 *	public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
+			public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth);
+			public void Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
+		*/
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
 		public void DrawAdvanced(string spriteName, FVector position, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {

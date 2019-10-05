@@ -40,6 +40,11 @@ namespace Nexus.GameEngine {
 			this.StartLocalGame();
 		}
 
+		// Returns the "Self" Player Instance
+		public Player MyPlayer {
+			get { return this.players[this.MyPlayerId]; }
+		}
+
 		public void StartLocalGame() {
 			this.RemoveAllPlayers();
 			this.AddPlayer(1);

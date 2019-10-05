@@ -74,7 +74,7 @@ namespace Nexus.Gameplay {
 
 		// TODO HIGH PRIORITY: Time Reset (see LevelState.ts)
 		public void TimerReset() {
-			this.timer.reset();
+			this.timer.ResetTimer();
 			this.timeShift = 0;
 		}
 

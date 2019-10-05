@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 		}
 		
 		public virtual void Draw() {
-			this.Meta.Atlas.Draw(this.Texture, FVector.Create(pos.X.IntValue, pos.Y.IntValue));
+			this.Meta.Atlas.Draw(this.Texture, pos.X.IntValue, pos.Y.IntValue);
 		}
 	}
 }

@@ -38,8 +38,8 @@ namespace Nexus.Objects {
 			this.Texture[(byte) BoxSubType.Gray] = "Box/Gray";
 		}
 
-		public override void Draw(byte subType, ushort posX, ushort posY) {
-			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
+		public override void Draw(byte subType, int posX, int posY) {
+			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}
 }

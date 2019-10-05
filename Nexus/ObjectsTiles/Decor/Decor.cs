@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -12,8 +11,8 @@ namespace Nexus.Objects {
 
 		}
 
-		public override void Draw(byte subType, ushort posX, ushort posY) {
-			this.atlas.Draw(this.Texture[subType], FVector.Create(posX, posY));
+		public override void Draw(byte subType, int posX, int posY) {
+			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}
 }

@@ -14,7 +14,8 @@ namespace Nexus.Engine {
 		public FVector pos;
 		private FVector centerOffset;		// X, Y offset to center the Camera.
 		private BoundsCamera bounds;		// Limits of how far within the scene the camera can travel.
-		private FInt speedMult;				// Camera follows or moves at this speed.
+		private FInt speedMult;             // Camera follows or moves at this speed.
+		private byte controlSpeed;			// Speed (Pixel Movement) when using Manual Control (Directions)
 
 		// Shake Effect, measured by Frames
 		private uint shakeStart;
@@ -26,10 +27,14 @@ namespace Nexus.Engine {
 			this.time = scene.time;
 			this.pos = FVector.Create(0, 0);
 			this.speedMult = FInt.FromParts(0, 80); // 0.08f;
+			this.controlSpeed = 10;
 			this.SetSize(FVector.Create(1440, 816));
 			this.bounds = new BoundsCamera();
 			this.BindToScene();
 		}
+
+		public ushort GridX { get { return (ushort)Math.Floor((double)this.pos.X.IntValue / (byte)TilemapEnum.TileWidth); } }
+		public ushort GridY { get { return (ushort)Math.Floor((double)this.pos.Y.IntValue / (byte)TilemapEnum.TileHeight); } }
 
 		public void SetSize( FVector size ) {
 			this.centerOffset = FVector.Create((int) Math.Floor((double) (size.X.IntValue / 2)), (int) Math.Floor((double) (size.Y.IntValue / 2)));
@@ -97,6 +102,24 @@ namespace Nexus.Engine {
 			}
 
 			// Force the Camera to remain within bounds.
+			this.StayBounded();
+		}
+
+		// Camera Input Control
+		public void MoveWithInput( PlayerInput input ) {
+
+			if(input.isDown(IKey.Left)) {
+				this.pos.X -= this.controlSpeed;
+			} else if(input.isDown(IKey.Right)) {
+				this.pos.X += this.controlSpeed;
+			}
+
+			if(input.isDown(IKey.Up)) {
+				this.pos.Y -= this.controlSpeed;
+			} else if(input.isDown(IKey.Down)) {
+				this.pos.Y += this.controlSpeed;
+			}
+
 			this.StayBounded();
 		}
 
