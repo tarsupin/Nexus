@@ -50,11 +50,11 @@
     <Compile Include="Engine\FilesLocal.cs" />
     <Compile Include="Engine\FPMath.cs" />
     <Compile Include="Engine\InputClient.cs" />
+    <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
     <Compile Include="GameEngine\LocalServer\Player.cs" />
     <Compile Include="GameEngine\LocalServer\LocalServer.cs" />
-    <Compile Include="Engine\SettingsLocal.cs" />
     <Compile Include="Engine\SocketClient.cs" />
     <Compile Include="Engine\ScreenSys.cs" />
     <Compile Include="Engine\Systems.cs" />
@@ -86,6 +86,9 @@
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
+    <Compile Include="Objects\EnemyLand\Moosh.cs" />
+    <Compile Include="Objects\EnemyLand\EnemyLand.cs" />
+    <Compile Include="Objects\Enemy.cs" />
     <Compile Include="ObjectsTiles\Platforms\TogglePlatYellow.cs" />
     <Compile Include="ObjectsTiles\Platforms\TogglePlatGreen.cs" />
     <Compile Include="ObjectsTiles\Platforms\TogglePlatRed.cs" />
@@ -265,6 +268,16 @@
     <Folder Include="Components\Survival\" />
     <Folder Include="Components\Toggle\" />
     <Folder Include="Components\TouchedEffect\" />
+    <Folder Include="ObjectComponents\Actions\" />
+    <Folder Include="ObjectComponents\Animation\" />
+    <Folder Include="ObjectComponents\Attachments\" />
+    <Folder Include="ObjectComponents\Behavior\" />
+    <Folder Include="ObjectComponents\Hats\" />
+    <Folder Include="ObjectComponents\Physics\" />
+    <Folder Include="ObjectComponents\Status\" />
+    <Folder Include="ObjectComponents\Suits\" />
+    <Folder Include="Objects\EnemyFixed\" />
+    <Folder Include="Objects\EnemyFlight\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

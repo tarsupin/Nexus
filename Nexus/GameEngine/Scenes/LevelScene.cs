@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 		public Stopwatch stopwatch;
 
 		public TilemapBool tilemap;
-		public Dictionary<byte, Dictionary<ushort, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
+		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 		public Dictionary<byte, ClassGameObject> classObjects;
 
 		// Level Data
@@ -36,13 +36,13 @@ namespace Nexus.GameEngine {
 			this.tilemap = new TilemapBool(400, 100);		// TODO: Get X,Y grid sizes from the level data.
 
 			// Game Objects
-			this.objects = new Dictionary<byte, Dictionary<ushort, DynamicGameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<ushort, DynamicGameObject>(),          // TODO: Change to Platform
-				[(byte) LoadOrder.Enemy] = new Dictionary<ushort, DynamicGameObject>(),				// TODO: Change to Enemy
-				[(byte) LoadOrder.Item] = new Dictionary<ushort, DynamicGameObject>(),				// TODO: Change to Item
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<ushort, DynamicGameObject>(),      // TODO: Change to TrailingItem
-				[(byte) LoadOrder.Character] = new Dictionary<ushort, DynamicGameObject>(),			// TODO: Change to Character
-				[(byte) LoadOrder.Projectile] = new Dictionary<ushort, DynamicGameObject>()         // TODO: Change to Projectile
+			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
+				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),          // TODO: Change to Platform
+				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),				// TODO: Change to Enemy
+				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),				// TODO: Change to Item
+				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),      // TODO: Change to TrailingItem
+				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),			// TODO: Change to Character
+				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()         // TODO: Change to Projectile
 			};
 
 			// Game Class Objects
@@ -83,16 +83,18 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
-			this.stopwatch.Start();
+			//this.stopwatch.Start();
 
-			ushort startX = (ushort) Math.Max(this.camera.GridX - 1, 0);
-			ushort startY = (ushort) Math.Max(this.camera.GridY - 1, 0);
+			ushort startX = this.camera.GridX;
+			ushort startY = this.camera.GridY;
 
-			ushort gridX = (ushort) (startX + 29 + 2);
-			ushort gridY = (ushort) (startY + 16 + 2);
+			ushort gridX = (ushort) (startX + 29 + 1);
+			ushort gridY = (ushort) (startY + 16 + 1);
 
 			int camX = this.camera.pos.X.IntValue;
 			int camY = this.camera.pos.Y.IntValue;
+			int camRight = camX + this.camera.width;
+			int camBottom = camY + this.camera.height;
 			
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {
@@ -113,14 +115,44 @@ namespace Nexus.GameEngine {
 						ushort[] idData = this.tilemap.ids[gridId];
 						
 						// Render the tile with its designated Class Object:
-						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], (ushort) (x * (byte) TilemapEnum.TileWidth - camX), (ushort) (y * (byte) TilemapEnum.TileHeight - camY));
+						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], x * (byte) TilemapEnum.TileWidth - camX, y * (byte) TilemapEnum.TileHeight - camY);
 					};
 				};
 			}
 
+			// Draw object data:
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Platform], camX, camY, camRight, camBottom );
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Enemy], camX, camY, camRight, camBottom );
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Item], camX, camY, camRight, camBottom );
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.TrailingItem], camX, camY, camRight, camBottom );
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Character], camX, camY, camRight, camBottom );
+			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
+
 			// Debugging
-			this.stopwatch.Stop();
+			//this.stopwatch.Stop();
 			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+		}
+
+		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
+
+			// Loop through each object ID in the dictionary:
+			foreach( var obj in objectGroup ) {
+				FVector pos = obj.Value.pos;
+
+				// Make sure the frame is visible:
+				if(pos.X.IntValue < camRight && pos.Y.IntValue < camBottom && pos.X.IntValue + 48 > camX && pos.Y.IntValue > camY) {
+
+					// Custom Rendering Rules
+					// TODO HIGH PRIOIRTY: if CUSTOM RENDER RULES, DO CUSTOM RENDER RULES
+
+					// Render Standard Objects
+					obj.Value.Draw( camX, camY );
+				}
+			}
+		}
+
+		public void AddToObjects( DynamicGameObject gameObject ) {
+			this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
 		}
 	}
 }

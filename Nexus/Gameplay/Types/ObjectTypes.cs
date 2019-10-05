@@ -14,6 +14,19 @@ namespace Nexus.Gameplay {
 		Forced = 6,                 // Forces a death, despite other values.
 	}
 
+	public enum DeathResult : byte {
+		Squish = 0,
+		Knockout = 1,
+		Special = 2,
+	}
+
+	public enum DeathCause : byte {
+		Squish = 0,
+		Power = 1,
+		TNT = 2,
+		Other = 3,
+	}
+
 	public enum TileSize : byte {
 		Single,
 		Wide,

@@ -12,6 +12,8 @@ namespace Nexus.Engine {
 
 		// Camera Traits
 		public FVector pos;
+		public ushort width;				// Width of the Camera (in pixels).
+		public ushort height;				// Height of the Camera (in pixels).
 		private FVector centerOffset;		// X, Y offset to center the Camera.
 		private BoundsCamera bounds;		// Limits of how far within the scene the camera can travel.
 		private FInt speedMult;             // Camera follows or moves at this speed.
@@ -28,7 +30,7 @@ namespace Nexus.Engine {
 			this.pos = FVector.Create(0, 0);
 			this.speedMult = FInt.FromParts(0, 80); // 0.08f;
 			this.controlSpeed = 10;
-			this.SetSize(FVector.Create(1440, 816));
+			this.SetSize(FVector.Create(1440, 816));		// TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
 			this.bounds = new BoundsCamera();
 			this.BindToScene();
 		}
@@ -38,6 +40,8 @@ namespace Nexus.Engine {
 
 		public void SetSize( FVector size ) {
 			this.centerOffset = FVector.Create((int) Math.Floor((double) (size.X.IntValue / 2)), (int) Math.Floor((double) (size.Y.IntValue / 2)));
+			this.width = (ushort) size.X.IntValue;
+			this.height = (ushort) size.Y.IntValue;
 		}
 
 		// Camera Bounds

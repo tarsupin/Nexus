@@ -12,7 +12,7 @@ namespace Nexus.Gameplay {
 		// References
 		private readonly Systems systems;
 		private readonly LevelContent level;
-		private Scene scene;
+		private LevelScene scene;
 
 		public LevelGenerate(LevelContent level, GameHandler gameHandler) {
 			this.systems = gameHandler.systems;
@@ -116,11 +116,16 @@ namespace Nexus.Gameplay {
 
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
 			if(classType.GetMethod("Generate") != null) {
-				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (byte)subType, (FVector)pos, (object[])paramList });
+				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (LevelScene)this.scene, (byte)subType, (FVector)pos, (object[])paramList });
 
 			// Create Object
 			} else {
-				var gameObj = Activator.CreateInstance(classType, new object[] { (Scene) this.scene, (byte) subType, (FVector) pos, (object[]) paramList });
+				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { this.scene, (byte) subType, (FVector) pos, (object[]) paramList });
+
+				// Add the Object to the Scene
+				if(gameObj is DynamicGameObject) {
+					this.scene.AddToObjects((DynamicGameObject) gameObj);
+				}
 			}
 		}
 

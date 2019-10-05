@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 		// Object Physics
 		// TODO: Collision, Physics, Sector (Tile Position; this exists in static, not needed here? might be.)
 
-		public GameObject(Scene scene, byte subType, FVector pos, object[] paramList = null) {
+		public GameObject(LevelScene scene, byte subType, FVector pos, object[] paramList = null) {
 			this.id = scene.nextId;
 			this.scene = scene;
 			this.subType = subType;
@@ -51,8 +51,8 @@ namespace Nexus.GameEngine {
 			//this.Texture = "BaseTexture/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
 		}
 		
-		public virtual void Draw() {
-			this.Meta.Atlas.Draw(this.Texture, pos.X.IntValue, pos.Y.IntValue);
+		public virtual void Draw( int camX, int camY ) {
+			this.Meta.Atlas.Draw(this.Texture, pos.X.IntValue - camX, pos.Y.IntValue - camY);
 		}
 	}
 }

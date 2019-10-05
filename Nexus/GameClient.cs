@@ -89,7 +89,7 @@ namespace Nexus
 		/// The main entry point for the application.
 		static void Main() {
 
-			SocketClient sc = new SocketClient();
+			//SocketClient sc = new SocketClient();
 
 			//while(true) {
 			//	Thread.Sleep(1000);
