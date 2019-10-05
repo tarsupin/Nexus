@@ -6,6 +6,7 @@ using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Nexus
@@ -34,6 +35,7 @@ namespace Nexus
 			Window.AllowUserResizing = true;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(this.systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
+			//TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();
@@ -63,25 +65,31 @@ namespace Nexus
 		protected override void UnloadContent() { }
 
         /// Run Game Logic; e.g. updating the world, checking for collisions, gathering input, playing audio, etc.
-        protected override void Update(GameTime gameTime)
-        {
+        protected override void Update(GameTime gameTime) {
+			//var stopwatch = new Stopwatch();
+			//stopwatch.Start();
+
 			this.systems.input.Update();
 			this.systems.scene.RunTick();
 
 			base.Update(gameTime);
-        }
 
-        /// This is called when the game should draw itself.
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-			this.spriteBatch.Begin(SpriteSortMode.BackToFront);
+			// Debugging
+			//stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + stopwatch.ElapsedTicks + ", " + stopwatch.ElapsedMilliseconds);
+		}
+
+		/// This is called when the game should draw itself.
+		protected override void Draw(GameTime gameTime) {
+
+			GraphicsDevice.Clear(Color.CornflowerBlue);
+			this.spriteBatch.Begin();
 
 			this.systems.scene.Draw();
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);
-        }
+		}
     }
 
 	public static class Program {

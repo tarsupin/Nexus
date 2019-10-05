@@ -1,6 +1,5 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -91,8 +90,8 @@ namespace Nexus.GameEngine {
 			ushort gridX = (ushort) (startX + 29 + 1);
 			ushort gridY = (ushort) (startY + 16 + 1);
 
-			int camX = this.camera.pos.X.IntValue;
-			int camY = this.camera.pos.Y.IntValue;
+			int camX = this.camera.posX;
+			int camY = this.camera.posY;
 			int camRight = camX + this.camera.width;
 			int camBottom = camY + this.camera.height;
 			
