@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -24,14 +25,21 @@ namespace Nexus.GameEngine {
 		public Dictionary<uint, bool[]> tiles;
 		public Dictionary<uint, ushort[]> ids;
 
-		// The Maximum Width and Height of the Tilemap:
+		// Width and Height of the Tilemap:
+		public int width { get; protected set; }
+		public int height { get; protected set; }
 		public ushort xCount { get; protected set; }
 		public ushort yCount { get; protected set; }
 
 		public TilemapBool(ushort xCount, ushort yCount) {
+
+			// Sizing
 			this.xCount = xCount;
 			this.yCount = yCount;
+			this.width = xCount * (ushort) TilemapEnum.TileWidth;
+			this.height = yCount * (ushort) TilemapEnum.TileWidth;
 
+			// Data
 			this.boolData = new bool[yCount, xCount];
 
 			this.tiles = new Dictionary<uint, bool[]>();

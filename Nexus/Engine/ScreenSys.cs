@@ -6,21 +6,25 @@ namespace Nexus.Engine {
 	public class ScreenSys {
 
 		public GraphicsDeviceManager graphics;
-		public readonly ushort width;
-		public readonly ushort height;
+		public ushort width;
+		public ushort height;
 		public ushort windowWidth;
 		public ushort windowHeight;
 
 		public ScreenSys(GameClient game) {
 			this.graphics = game.graphics;
+			this.UpdateSizes();
+		}
+
+		public void UpdateSizes() {
 
 			// Screen Size
 			this.width = (ushort)this.graphics.GraphicsDevice.DisplayMode.Width;
 			this.height = (ushort)this.graphics.GraphicsDevice.DisplayMode.Height;
 
 			// Window Size
-			this.windowWidth = (ushort) this.graphics.GraphicsDevice.Viewport.Width;
-			this.windowHeight = (ushort) this.graphics.GraphicsDevice.Viewport.Height;
+			this.windowWidth = (ushort)this.graphics.GraphicsDevice.Viewport.Width;
+			this.windowHeight = (ushort)this.graphics.GraphicsDevice.Viewport.Height;
 		}
 
 		public void ResizeWindowTo( ushort width, ushort height ) {
@@ -28,6 +32,7 @@ namespace Nexus.Engine {
 			graphics.PreferredBackBufferHeight = height;
 			//graphics.IsFullScreen = true;
 			graphics.ApplyChanges();
+			this.UpdateSizes();
 		}
 
 		public void ResizeWindowToBestFit() {
@@ -50,8 +55,7 @@ namespace Nexus.Engine {
 		}
 
 		public void OnResizeWindow(Object sender, EventArgs e) {
-			this.windowWidth = (ushort) this.graphics.GraphicsDevice.Viewport.Width;
-			this.windowHeight = (ushort) this.graphics.GraphicsDevice.Viewport.Height;
+			this.UpdateSizes();
 		}
 	}
 }

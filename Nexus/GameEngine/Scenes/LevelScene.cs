@@ -12,15 +12,15 @@ namespace Nexus.GameEngine {
 
 	public class LevelScene : Scene {
 
-		private readonly LocalServer localServer;
-
+		// References
+		protected readonly LocalServer localServer;
 		public Stopwatch stopwatch;
 
+		// Level Data
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 		public Dictionary<byte, ClassGameObject> classObjects;
 
-		// Level Data
 		public LevelFlags flags = new LevelFlags();
 
 		public LevelScene( Systems systems ) : base( systems ) {
@@ -31,17 +31,18 @@ namespace Nexus.GameEngine {
 			// References
 			this.localServer = systems.localServer;
 
-			// Tilemap
-			this.tilemap = new TilemapBool(400, 100);		// TODO: Get X,Y grid sizes from the level data.
+			// Important Components
+			this.tilemap = new TilemapBool(400, 100);       // TODO: Get X,Y grid sizes from the level data.
+			this.camera = new Camera(this);
 
 			// Game Objects
 			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),          // TODO: Change to Platform
-				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),				// TODO: Change to Enemy
-				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),				// TODO: Change to Item
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),      // TODO: Change to TrailingItem
-				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),			// TODO: Change to Character
-				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()         // TODO: Change to Projectile
+				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),
+				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),
+				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),
+				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),
+				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),
+				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
 			};
 
 			// Game Class Objects
@@ -50,6 +51,9 @@ namespace Nexus.GameEngine {
 			// Generate Room 0
 			systems.handler.level.generate.GenerateRoom(this, "0");
 		}
+
+		public override int Width { get { return this.tilemap.width; } }
+		public override int Height { get { return this.tilemap.height; } }
 
 		public void SpawnRoom() {
 
@@ -90,13 +94,20 @@ namespace Nexus.GameEngine {
 			ushort gridX = (ushort) (startX + 29 + 1);
 			ushort gridY = (ushort) (startY + 16 + 1);
 
-			int camX = this.camera.posX;
-			int camY = this.camera.posY;
+			// Camera Position
+			bool isShaking = camera.IsShaking();
+			int camX = this.camera.posX + (isShaking ? this.camera.GetCameraShakeOffsetX() : 0);
+			int camY = this.camera.posY + (isShaking ? this.camera.GetCameraShakeOffsetY() : 0); ;
 			int camRight = camX + this.camera.width;
 			int camBottom = camY + this.camera.height;
-			
+
+			// Run Parallax Handler
+			//if(this.parallax) { this.parallax.render(); }		// TODO HIGH PRIORITY: PARALLAX
+
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {
+				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
+
 				for(ushort x = startX; x <= gridX; x++) {
 
 					// Skip if there is no tile present at this tile:
@@ -114,7 +125,7 @@ namespace Nexus.GameEngine {
 						ushort[] idData = this.tilemap.ids[gridId];
 						
 						// Render the tile with its designated Class Object:
-						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], x * (byte) TilemapEnum.TileWidth - camX, y * (byte) TilemapEnum.TileHeight - camY);
+						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
 					};
 				};
 			}

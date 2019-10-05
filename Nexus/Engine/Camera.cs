@@ -52,8 +52,8 @@ namespace Nexus.Engine {
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
-			this.bounds.Right = right != 0 ? right : this.scene.screen.width - this.scene.screen.windowWidth;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.screen.height - this.scene.screen.windowHeight;
+			this.bounds.Right = right != 0 ? right : this.scene.Width - this.scene.screen.windowWidth;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - this.scene.screen.windowHeight;
 		}
 
 		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
@@ -144,13 +144,12 @@ namespace Nexus.Engine {
 			return this.shakeEnd > this.time.frame;
 		}
 
-		// TODO: CAMERA SHAKE
-		//public void GetCameraShakeOffsetX() {
-		//	return Calc.lerpEaseBothDir( -this.shakeStrength* 2, this.shakeStrength* 2, (this.time.elapsed % 240) / 240 );
-		//}
+		public int GetCameraShakeOffsetX() {
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (this.time.frame % 15) / 15);
+		}
 
-		//public void GetCameraShakeOffsetY() {
-		//	return Calc.lerpEaseBothDir( -this.shakeStrength, this.shakeStrength, (this.time.elapsed - this.shakeStart) / (this.shakeEnd - this.shakeStart) );
-		//}
+		public int GetCameraShakeOffsetY() {
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (this.time.frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
+		}
 	}
 }

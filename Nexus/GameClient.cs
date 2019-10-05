@@ -36,6 +36,12 @@ namespace Nexus
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(this.systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
 			//TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
+			//this.IsFixedTimeStep = false;
+
+			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because reasons? 60hz syncing, and if it skips a frame, issues?
+			// https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/
+			// https://www.geforce.com/hardware/technology/adaptive-vsync/technology
+			graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();

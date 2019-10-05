@@ -28,7 +28,6 @@ namespace Nexus.Engine {
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
 		public void Draw(string spriteName, int posX, int posY) {
 			SpriteFrame sprite = this.spriteList[spriteName];
-			FVector origin = sprite.Origin;
 
 			spriteBatch.Draw(
 				texture: this.Texture,
@@ -57,9 +56,9 @@ namespace Nexus.Engine {
 		*/
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
-		public void DrawAdvanced(string spriteName, FVector position, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {
+		public void DrawAdvanced(string spriteName, int posX, int posY, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {
 			SpriteFrame sprite = this.spriteList[spriteName];
-			FVector origin = sprite.Origin;
+			Vector2 origin = sprite.Origin;
 
 			//if(sprite.IsRotated) {
 			//	rotation -= ClockwiseNinetyDegreeRotation;
@@ -76,11 +75,11 @@ namespace Nexus.Engine {
 
 			spriteBatch.Draw(
 				texture: this.Texture,
-				position: new Vector2(position.X.IntValue, position.Y.IntValue),
+				position: new Vector2(posX, posY),
 				sourceRectangle: sprite.SourceRectangle,
 				color: color,
 				rotation: rotation,
-				origin: new Vector2(origin.X.IntValue, origin.Y.IntValue),
+				origin: new Vector2(origin.X, origin.Y),
 				scale: new Vector2(scale, scale),
 				effects: spriteEffects,
 				layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
@@ -121,11 +120,11 @@ namespace Nexus.Engine {
 					int.Parse(cols[4]),
 					int.Parse(cols[5]));
 
-				FVector size = FVector.Create(
+				Vector2 size = new Vector2(
 					int.Parse(cols[6]),
 					int.Parse(cols[7]));
 
-				FVector pivotPoint = FVector.Create(
+				Vector2 pivotPoint = new Vector2(
 					(int)float.Parse(cols[8], CultureInfo.InvariantCulture),
 					(int)float.Parse(cols[9], CultureInfo.InvariantCulture));
 
@@ -141,13 +140,13 @@ namespace Nexus.Engine {
 	public class SpriteFrame {
 
 		public Rectangle SourceRectangle { get; private set; }
-		public FVector Size { get; private set; }
-		public FVector Origin { get; private set; }
+		public Vector2 Size { get; private set; }
+		public Vector2 Origin { get; private set; }
 
-		public SpriteFrame(Rectangle sourceRect, FVector size, FVector pivotPoint) {
+		public SpriteFrame(Rectangle sourceRect, Vector2 size, Vector2 pivotPoint) {
 			this.SourceRectangle = sourceRect;
 			this.Size = size;
-			this.Origin = FVector.Create(sourceRect.Width * pivotPoint.X.IntValue, sourceRect.Height * pivotPoint.Y.IntValue);
+			this.Origin = new Vector2(sourceRect.Width * pivotPoint.X, sourceRect.Height * pivotPoint.Y);
 		}
 	}
 
