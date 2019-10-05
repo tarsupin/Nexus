@@ -12,6 +12,8 @@ namespace Nexus.GameEngine {
 
 	public class LevelScene : Scene {
 
+		private readonly LocalServer localServer;
+
 		public Stopwatch stopwatch;
 
 		public TilemapBool tilemap;
@@ -25,6 +27,9 @@ namespace Nexus.GameEngine {
 
 			// TODO CLEANUP: Debugging stopwatch should be removed.
 			this.stopwatch = new Stopwatch();
+
+			// References
+			this.localServer = systems.localServer;
 
 			// Tilemap
 			this.tilemap = new TilemapBool(400, 100);		// TODO: Get X,Y grid sizes from the level data.
@@ -59,8 +64,15 @@ namespace Nexus.GameEngine {
 			classObjects[(byte) classId] = cgo;
 		}
 
-		public override void Update() {
+		public override void RunTick() {
 
+			// TODO: Change this to the actual frame for this tick.
+			byte frame = 0;
+
+			// Loop through every player and update inputs for this frame tick:
+			foreach( var player in this.localServer.players ) {
+				player.Value.input.UpdateKeyStates(0);
+			}
 		}
 
 		public override void Draw() {
@@ -95,7 +107,7 @@ namespace Nexus.GameEngine {
 
 			// Debugging
 			this.stopwatch.Stop();
-			System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 	}
 }

@@ -25,20 +25,15 @@ namespace Nexus.GameEngine {
 			this.mapper = systems.mapper;
 		}
 
-		public virtual void Update() { throw new ArgumentNullException("Must implement Update() in Child Scene."); }
+		public virtual void RunTick() { throw new ArgumentNullException("Must implement RunTick() in Child Scene."); }
 		public virtual void Draw() { throw new ArgumentNullException("Must implement Draw() in Child Scene."); }
+		public virtual void EndScene() { }
 
 		public uint nextId {
 			get {
 				this.idCounter++;
 				return this.idCounter;
 			}
-		}
-
-		public virtual void ReceivePlayerInput( uint frame, byte playerId, IKey[] iKeysPressed, IKey[] iKeysReleased ) {
-
-			// Display Input on Console
-			Console.WriteLine("Input, Frame " + frame + ", Player " + playerId + ": " + iKeysPressed.ToString() + " & " + iKeysReleased.ToString());
 		}
 	}
 }

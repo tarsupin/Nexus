@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 		}
 
 		public DecorPet(LevelScene scene) : base(scene, ClassGameObjectId.DecorPet) {
-			this.atlas = scene.mapper.atlas[(byte) AtlasGroup.Other];
+			this.atlas = scene.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.BuildTextures();
 		}
 

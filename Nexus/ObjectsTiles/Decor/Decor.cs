@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		public string[] Texture;
 
-		public Decor(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Blocks) {
+		public Decor(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

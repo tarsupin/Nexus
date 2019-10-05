@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 		public string Texture;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public TogglePlat(LevelScene scene, byte subTypeId, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Blocks) {
+		public TogglePlat(LevelScene scene, byte subTypeId, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 			// Platform Faces Left
 			if(subTypeId == (byte) FixedPlatSubType.FaceLeft) {

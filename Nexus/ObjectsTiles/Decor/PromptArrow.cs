@@ -22,7 +22,7 @@ namespace Nexus.Objects {
 		}
 
 		public PromptArrow(LevelScene scene) : base(scene, ClassGameObjectId.PromptArrow) {
-			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Other];
+			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}
 

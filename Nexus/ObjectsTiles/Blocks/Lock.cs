@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.Lock, subTypeId, true, true, false, true);
 		}
 
-		public Lock(LevelScene scene) : base(scene, ClassGameObjectId.Lock, AtlasGroup.Blocks) {
+		public Lock(LevelScene scene) : base(scene, ClassGameObjectId.Lock, AtlasGroup.Tiles) {
 			this.Texture = "Lock/Lock";
 		}
 

@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.PlatformFixed, subTypeId, true, false, false);
 		}
 
-		public PlatformFixed(LevelScene scene) : base(scene, ClassGameObjectId.PlatformFixed, AtlasGroup.Blocks) {
+		public PlatformFixed(LevelScene scene) : base(scene, ClassGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
 			this.BuildTexture("Platform/Fixed/");
 		}
 

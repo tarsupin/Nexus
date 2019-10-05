@@ -7,7 +7,7 @@ namespace Nexus.Engine {
 	// Placeholder Scene
 	public class ScenePlaceholder : Scene {
 		public ScenePlaceholder(Systems systems) : base( systems ) { }
-		public override void Update() { }
+		public override void RunTick() { }
 	}
 
 	public class Systems {
@@ -19,7 +19,7 @@ namespace Nexus.Engine {
 		public readonly TimerGlobal timer;
 		public readonly FilesLocal filesLocal;
 		public readonly ScreenSys screen;
-		public readonly RoomClient roomClient;
+		public readonly LocalServer localServer;
 		public GameMapper mapper { get; protected set; }
 
 		// Settings & States
@@ -33,7 +33,7 @@ namespace Nexus.Engine {
 			timer = new TimerGlobal();
 			filesLocal = new FilesLocal();
 			screen = new ScreenSys(game);
-			roomClient = new RoomClient(this);
+			localServer = new LocalServer(this);
 
 			// Load Settings & States
 			settings = new Settings(this);

@@ -30,7 +30,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nexus.Engine {
 
-	public enum IKey {
+	public enum IKey : byte {
 		Up = 1,
 		Down = 2,
 		Left = 3,
@@ -50,7 +50,7 @@ namespace Nexus.Engine {
 		Other = 17,
 	};
 
-	public enum IKeyState {
+	public enum IKeyState : byte {
 		Off = 0,
 		Released = 1,
 		On = 2,
@@ -110,62 +110,20 @@ namespace Nexus.Engine {
 			this.ProcessIKeys();
 
 			// Send Input to LocalServer (if any input needs to be sent)
-			if(this.pressedNum > 0 && this.releasedNum > 0) {
-				this.SendIKeysLocalRoom();
+			if(this.pressedNum > 0 || this.releasedNum > 0) {
+
+				IKey[] kPressed = new IKey[this.pressedNum];
+				IKey[] kReleased = new IKey[this.releasedNum];
+
+				Array.Copy(this.pressedIKeys, 0, kPressed, 0, this.pressedNum);
+				Array.Copy(this.releasedIKeys, 0, kReleased, 0, this.releasedNum);
+
+				this.systems.localServer.CreateInputPacket( kPressed, kReleased );
 			}
 
 			// Save Previous Input States
 			this.prevKeyState = curKeyState;
 			this.prevPadState = curPadState;
-		}
-
-
-		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
-		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
-		// TODO HIGH PRIORITY: ADAPT THIS AND SENDIKEYSTOSERVER() FOR NEW LOCAL SERVER ARCHITECTURE
-		private void SendIKeysLocalRoom() {
-
-			IKeyPacket packet = new IKeyPacket {
-				instruction = ServerPacketIns.IKeys,
-				frame = 10,
-				data = new Dictionary<byte, Dictionary<byte, IKey[]>>() {
-					{
-						0, new Dictionary<byte, IKey[]> {
-							{
-								0, new IKey[] { IKey.L1 }
-							},
-							{
-								1, new IKey[] { IKey.Down }
-							}
-						}
-					}
-				}
-			};
-
-			this.systems.roomClient.HandlePacket(packet);
-		}
-
-		private void SendIKeysToServer() {
-
-			// If there are no updates, skip sending anything to server.
-			if(this.pressedNum == 0 && this.releasedNum == 0) { return; }
-
-			// Build IKey Packet
-			ClientPacketIns packetInstruction;
-
-			if(this.pressedNum > 0) {
-				packetInstruction = this.releasedNum > 0 ? ClientPacketIns.IKeysBoth : ClientPacketIns.IKeysPressed;
-			} else {
-				packetInstruction = ClientPacketIns.IKeysReleased;
-			}
-
-			string packet = PacketFromClient.PacketIKeys(packetInstruction, this.pressedIKeys, this.pressedNum, this.releasedIKeys, this.releasedNum);
-
-			// TODO CONSOLE: Remove
-			Console.WriteLine("Packet Data" + packet + packetInstruction);
-
-			// Send IKeys to Server
-
 		}
 
 		// Determine what IKeys were activated this frame.

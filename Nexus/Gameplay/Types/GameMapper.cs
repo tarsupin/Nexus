@@ -15,47 +15,44 @@ namespace Nexus.Gameplay {
 
 			// Create Atlas List
 			this.atlas = new Atlas[6];
-			this.atlas[(byte)AtlasGroup.Blocks] = new Atlas(game, spriteBatch, "Atlas/Blocks.png");
-			this.atlas[(byte)AtlasGroup.Characters] = new Atlas(game, spriteBatch, "Atlas/Characters.png");
-			this.atlas[(byte)AtlasGroup.Enemies] = new Atlas(game, spriteBatch, "Atlas/Enemies.png");
-			this.atlas[(byte)AtlasGroup.Icons] = new Atlas(game, spriteBatch, "Atlas/Icons.png");
-			this.atlas[(byte)AtlasGroup.Other] = new Atlas(game, spriteBatch, "Atlas/Other.png");
+			this.atlas[(byte)AtlasGroup.Tiles] = new Atlas(game, spriteBatch, "Atlas/Tiles.png");
+			this.atlas[(byte)AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
 			this.atlas[(byte)AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
 
 			// List of Game Object Metadata
-			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
+			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, this.atlas[(byte) AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// All Ground, Leaf, Lock, GrowObj
-			MetaList[MetaGroup.Ledge] = new IMetaData(Arch.Platform, this.atlas[(byte) AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Platform);
-			MetaList[MetaGroup.Decor] = new IMetaData(Arch.Decor, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Prompts, LayerEnum.Cosmetic, LoadOrder.Tile); // LoadOrder.Decor
-			MetaList[MetaGroup.Block] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
+			MetaList[MetaGroup.Ledge] = new IMetaData(Arch.Platform, this.atlas[(byte) AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Platform);
+			MetaList[MetaGroup.Decor] = new IMetaData(Arch.Decor, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Prompts, LayerEnum.Cosmetic, LoadOrder.Tile); // LoadOrder.Decor
+			MetaList[MetaGroup.Block] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// PuffBlock, Exclaim, Box, Brick
-			MetaList[MetaGroup.ToggleBlock] = new IMetaData(Arch.ToggleBlock, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
+			MetaList[MetaGroup.ToggleBlock] = new IMetaData(Arch.ToggleBlock, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// ToggleBlock, ToggleOnPlat, ToggleOffPlat, ToggleOn, ToggleOff, 
-			MetaList[MetaGroup.Conveyor] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
+			MetaList[MetaGroup.Conveyor] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// Conveyor
-			MetaList[MetaGroup.Platform] = new IMetaData(Arch.Platform, this.atlas[(byte)AtlasGroup.Blocks], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Platform);
+			MetaList[MetaGroup.Platform] = new IMetaData(Arch.Platform, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Platform);
 				// PlatSolid, PlatMove, PlatFall, PlatDip, PlatDelay
-			MetaList[MetaGroup.EnemyFixed] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyFixed] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Enemy);
 				// Chomper, Fire Chomper, Plant
-			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyLand, LayerEnum.Main, LoadOrder.Enemy);
-			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
-			MetaList[MetaGroup.BlockMoving] = new IMetaData(Arch.MovingBlock, this.atlas[(byte)AtlasGroup.Enemies], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemyLand, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
+			MetaList[MetaGroup.BlockMoving] = new IMetaData(Arch.MovingBlock, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemyFly, LayerEnum.Main, LoadOrder.Enemy);
 				// Slammer
-			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Items, LayerEnum.Main, LoadOrder.Item);
+			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Items, LayerEnum.Main, LoadOrder.Item);
 				// Most Items (but not buttons)
-			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Other], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Item);
+			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.ColorToggles, LayerEnum.Main, LoadOrder.Item);
 				// Buttons
-			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
+			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Fixed, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Block
 				// Cannon, Placer
-			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Collectables, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Collectable
+			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Collectables, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Collectable
 				// Collectables
-			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Invisible
+			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Movers, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Invisible
 				// Track, Clusuter
-			MetaList[MetaGroup.Door] = new IMetaData(Arch.Portal, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Portal
-			MetaList[MetaGroup.Interactives] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
+			MetaList[MetaGroup.Door] = new IMetaData(Arch.Portal, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Portal
+			MetaList[MetaGroup.Interactives] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
 				// Chest, PeekMap
-			MetaList[MetaGroup.Flag] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Other], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
-			MetaList[MetaGroup.NPC] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Characters], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
+			MetaList[MetaGroup.Flag] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
+			MetaList[MetaGroup.NPC] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
 		}
 
 		// List of Tile Types

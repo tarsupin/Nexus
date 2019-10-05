@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Ledge(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Blocks) {
+		public Ledge(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

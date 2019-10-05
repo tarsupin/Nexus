@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Collectable(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Other) {
+		public Collectable(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

@@ -66,7 +66,7 @@ namespace Nexus
         protected override void Update(GameTime gameTime)
         {
 			this.systems.input.Update();
-			this.systems.scene.Update();
+			this.systems.scene.RunTick();
 
 			base.Update(gameTime);
         }

@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.Box, subTypeId, true, true, false, true);
 		}
 
-		public Box(LevelScene scene) : base(scene, ClassGameObjectId.Box, AtlasGroup.Blocks) {
+		public Box(LevelScene scene) : base(scene, ClassGameObjectId.Box, AtlasGroup.Tiles) {
 			this.CreateTextures();
 		}
 

@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.Spike, subTypeId, true, true, false, true);
 		}
 
-		public Spike(LevelScene scene) : base(scene, ClassGameObjectId.Spike, AtlasGroup.Blocks) {
+		public Spike(LevelScene scene) : base(scene, ClassGameObjectId.Spike, AtlasGroup.Tiles) {
 			this.CreateTextures();
 		}
 

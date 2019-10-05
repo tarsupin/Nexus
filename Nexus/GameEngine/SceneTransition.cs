@@ -13,10 +13,6 @@ namespace Nexus.GameEngine {
 
 	public class SceneTransition {
 
-		public SceneTransition( Systems systems ) {
-			
-		}
-
 		// Go to World Scene
 		public static void ToWorld( Systems systems, string worldId, bool runMenu = false, bool runEditor = false ) {
 
@@ -34,6 +30,9 @@ namespace Nexus.GameEngine {
 
 			// Update the Level State
 			handler.levelState.FullLevelReset();
+
+			// End Old Level Scene
+			systems.scene.EndScene();
 
 			// Create New Level Scene
 			systems.scene = new LevelScene(systems);

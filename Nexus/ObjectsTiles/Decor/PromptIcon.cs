@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 		}
 
 		public PromptIcon(LevelScene scene) : base(scene, ClassGameObjectId.PromptIcon) {
-			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Other];
+			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}
 

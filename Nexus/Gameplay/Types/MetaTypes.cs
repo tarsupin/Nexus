@@ -67,12 +67,9 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum AtlasGroup : byte {
-		Blocks = 0,
-		Characters = 1,
-		Enemies = 2,
-		Icons = 3,
-		Other = 4,
-		World = 5,
+		Tiles = 0,
+		Objects = 1,
+		World = 2,
 	}
 
 	public enum LayerEnum : byte {

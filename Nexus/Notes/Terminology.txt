@@ -156,7 +156,7 @@ Input Process:
 	
 	Players create input through Keyboard and GamePads.
 
-	Input client processes the inputs.
+	InputClient processes the inputs.
 		- Maps the keys and gamepad to actions.
 		- Translates the inputs.
 
@@ -167,53 +167,16 @@ Input Process:
 			- LocalServer receives ServerInputPacket.
 			- LocalServer interprets ServerInputPackets recieved.
 	
-	LocalServer sends inputs to GameRoom.
 
-	GameRoom sends inputs to Scene.
-
-
-OBSOLETE / OUTDATED (NEEDS REVISION) Input Process:
+Simulation Process:
 	
-	Players create input through Keyboard and GamePads.
+	On every frame, attempt to get the "true" simulation frame.
 
-	InputClient processes the information, which is separate from the simulation ticks.
-		- Maps the keys and gamepad to actions.
-		- Translates the inputs.
 
-		PacketFromClient prepares a packet for IKeys
-	
-	FOR MULTIPLAYER:
+Server Instructions for New Scene:
 
-		InputClient sends the IKey Packet to Socket
+	1. Create a New Scene		// SceneTransition, Load Content, etc.
+	2. Wait for Connections		// A polite pause while others are loading.
+	3. "Begin" Instruction		// Signals frame 0, begins allowing input to matter.
+	4. New Frames ASAP			// Continues sending every next frame as soon as possible.
 
-		Socket sends IKey Packet to Server
-
-		Server Hub Receives IKey Packet
-			- Interprets instruction.
-			- Determines which room/hub to send to.
-			- Sends Packet to Room
-
-		Server Room receives IKey Packet
-			- Interprets instruction.
-			- Updates player inputs by frame.
-	
-		Server Packet creates InputPacket to return to Clients
-
-		Server Room sends InputPacket to Clients
-
-	FOR SINGLE PLAYER:
-
-	Clients receive InputPacket
-		- Routes to RoomClient.HandleInput
-
-	RoomClient.HandleInput receives InputPacket
-		- Determines that it is an InputPacket.
-		- Interprets InputPacket
-		- Delivers Packet to Scene
-
-	Scene Receives Input Packet Decoded
-		- Interprets IKeys for each player.
-		- Updates player IKeyStates for assigned frame.
-	
-	Simulation Runs, using IKeyStates from each player on each frame assigned.
-		
