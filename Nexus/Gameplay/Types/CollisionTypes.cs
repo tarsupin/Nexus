@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using Microsoft.Xna.Framework;
 using Nexus.GameEngine;
 
@@ -9,6 +9,16 @@ namespace Nexus.Gameplay {
 		public byte Right { get; set; }
 		public byte Top { get; set; }
 		public byte Bottom { get; set; }
+
+		public byte MidX => (byte)Math.Floor((double)(this.Right - this.Left) / 2);
+		public byte MidY => (byte)Math.Floor((double)(this.Bottom - this.Top) / 2);
+
+		public Bounds( byte Top, byte Left, byte Right, byte Bottom ) {
+			this.Top = Top;
+			this.Left = Left;
+			this.Right = Right;
+			this.Bottom = Bottom;
+		}
 	}
 
 	public class BoundsCamera {
@@ -19,6 +29,7 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum DirCardinal : byte {
+		Center = 5,
 		Up = 8,
 		Down = 2,
 		Left = 4,

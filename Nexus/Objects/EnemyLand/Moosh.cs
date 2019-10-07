@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -15,6 +16,18 @@ namespace Nexus.Objects {
 		public Moosh(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.EnemyLand];
 			this.AssignSubType(subType);
+
+			// Movement
+			this.speed = (FInt) 4;
+
+			// Physics, Collisions, etc.
+			this.physics = new Physics(this);
+			this.physics.SetGravity(FInt.FromParts(0, 350));
+			this.physics.velocity.X = (FInt)(0-this.speed);
+
+			this.bounds.Left += 4;
+			this.bounds.Right -= 4;
+			this.bounds.Top += 4;
 
 			// TODO: Basically everything in "Moosh"
 			// TODO: Basically everything in "Moosh"

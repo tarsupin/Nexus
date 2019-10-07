@@ -90,13 +90,13 @@ Layering / Render Order:
 
 Collision Terminology:
 	
-	Collisions:
-		RoomX: 1440 pixel wide columns across the level (Room 0 would be 0 to 1440).
-		RoomY: 1400 pixel tall rows across the level.
-		SectorX: (1440/5) 288 pixel wide columns across the level. (Sector 0 would be 0 to 288)
-		SectorY: (1440/5) 288 pixel tall rows across the level.
-		TileX: (288/6) 48 pixels wide.
-		TileY: (288/6) 48 pixels tall.
+	TilemapEnum:
+		SectorLargeX: 1440 pixel wide columns across the level (Room 0 would be 0 to 1440).
+		SectorLargeY: 1400 pixel tall rows across the level.
+		SectorXPixels: (1440/5) 288 pixel wide columns across the level. (Sector 0 would be 0 to 288)
+		SectorYPixels: (1440/5) 288 pixel tall rows across the level.
+		TileWidth: (288/6) 48 pixels wide.
+		TileHeight: (288/6) 48 pixels tall.
 	
 	Collision Rules:
 		Ignore.Dynamic
@@ -123,7 +123,6 @@ Collision Terminology:
 			Pass objects to CollideNarrow for further detection.
 	
 		Vertical-Based (2-Tile Size):
-			
 
 	CollideNarrow
 		- A Narrow-Phase Detection System, as a component.

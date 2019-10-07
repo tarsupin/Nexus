@@ -13,13 +13,13 @@ namespace Nexus.GameEngine {
 		// Metadata
 		public readonly uint id;
 		public IMetaData Meta { get; protected set; }
+		public readonly Scene scene;
+		public readonly float texLayer;         // 0.0f is bottom layer, 1.0f is top layer
 
 		// Data
-		public readonly Scene scene;
-		public readonly byte subType;
-		public readonly FVector pos;
-		public readonly Bounds bounds;
-		public readonly float texLayer;			// 0.0f is bottom layer, 1.0f is top layer
+		public byte subType;
+		public FVector pos;
+		public Bounds bounds;
 
 		// Rendering
 		public string Texture { get; protected set; }
@@ -41,7 +41,7 @@ namespace Nexus.GameEngine {
 			this.pos = pos;
 
 			// TODO HIGH PRIORITY: Assign Bounds
-			this.bounds = bounds;
+			this.bounds = new Bounds(0, 0, 48, 48);
 		}
 
 		public ushort GridX { get { return (ushort) Math.Floor((double) (this.pos.X.IntValue / 48)); } }

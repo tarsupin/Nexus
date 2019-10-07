@@ -5,6 +5,8 @@ namespace Nexus.Objects {
 
 	public class EnemyLand : Enemy {
 
+		protected FInt speed;
+
 		public EnemyLand(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 
 		}

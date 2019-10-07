@@ -70,6 +70,8 @@
     <Compile Include="Engine\FilesLocal.cs" />
     <Compile Include="Engine\FPMath.cs" />
     <Compile Include="Engine\InputClient.cs" />
+    <Compile Include="GameEngine\Collision\CollideFunc.cs" />
+    <Compile Include="GameEngine\Collision\CollideAffect.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
@@ -82,7 +84,7 @@
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\TimerGlobal.cs" />
     <Compile Include="GameClient.cs" />
-    <Compile Include="GameEngine\Collision\CollideNarrow.cs" />
+    <Compile Include="GameEngine\Collision\CollideDetect.cs" />
     <Compile Include="GameEngine\Collision\CollideBroad.cs" />
     <Compile Include="GameEngine\Collision\CollideSequence.cs" />
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
@@ -101,8 +103,9 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
-    <Compile Include="ObjectEffects\DetectObject.cs" />
-    <Compile Include="ObjectEffects\DetectTile.cs" />
+    <Compile Include="ObjectComponents\Collision\Collision.cs" />
+    <Compile Include="ObjectComponents\Physics\Touch.cs" />
+    <Compile Include="ObjectComponents\Physics\Physics.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
@@ -293,7 +296,6 @@
     <Folder Include="ObjectComponents\Attachments\" />
     <Folder Include="ObjectComponents\Behavior\" />
     <Folder Include="ObjectComponents\Hats\" />
-    <Folder Include="ObjectComponents\Physics\" />
     <Folder Include="ObjectComponents\Status\" />
     <Folder Include="ObjectComponents\Suits\" />
     <Folder Include="Objects\EnemyFixed\" />

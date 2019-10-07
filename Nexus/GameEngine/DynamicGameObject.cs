@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using Nexus.ObjectComponents;
 
 namespace Nexus.GameEngine {
 
@@ -20,7 +21,10 @@ namespace Nexus.GameEngine {
 		//status?: any;
 		//action: ActionTrait;			// Current Action
 		//behavior: BehaviorTrait;
-		//collision: CollisionDynamic;
+
+		// Physics Components
+		public Physics physics;
+		public Collision collision;
 
 		public DynamicGameObject(LevelScene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
 
@@ -29,7 +33,8 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 			//if(this.action is Action) { this.action.RunTick(); } else if(this.behavior is Behavior) { this.behavior.RunTick(); }
 
-			//if(this.physics.RunTickCustom) { this.physics.RunTickCustom(); } else { this.physics.RunTick() }; }
+			//if(this.RunTickCustom) { this.RunTickCustom(); } else { this.physics.RunTick() }; }
+			this.physics.RunTick();
 		}
 
 		// Destroys the instance of this object.

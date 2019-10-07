@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Gameplay;
 using System;
-using System.Diagnostics;
-using System.Threading;
 
 namespace Nexus
 {
@@ -38,7 +33,7 @@ namespace Nexus
 			//TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
 			//this.IsFixedTimeStep = false;
 
-			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because reasons? 60hz syncing, and if it skips a frame, issues?
+			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because of monitor speed, tearing, etc. Read more:
 			// https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/
 			// https://www.geforce.com/hardware/technology/adaptive-vsync/technology
 			graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.

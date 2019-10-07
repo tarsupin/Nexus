@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		// References
 		protected readonly LocalServer localServer;
+		protected readonly CollideSequence collideSequence;
 		public Stopwatch stopwatch;
 
 		// Level Data
@@ -30,6 +31,7 @@ namespace Nexus.GameEngine {
 
 			// References
 			this.localServer = systems.localServer;
+			this.collideSequence = new CollideSequence(this);
 
 			// Important Components
 			this.tilemap = new TilemapBool(400, 100);       // TODO: Get X,Y grid sizes from the level data.
@@ -70,18 +72,37 @@ namespace Nexus.GameEngine {
 
 		public override void RunTick() {
 
-			// TODO: Change this to the actual frame for this tick.
+			// TODO HIGH PRIORITY: Change this to the actual frame for this tick.
 			byte frame = 0;
 
 			// Update Timer
 			this.time.RunTick();
 
+			// Loop through every player and update inputs for this frame tick:
+			foreach(var player in this.localServer.players) {
+				player.Value.input.UpdateKeyStates(0);
+			}
+
+			// Update All Objects
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Enemy]);
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Item]);
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.TrailingItem]);
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
+			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
+
 			// Camera Movement
 			this.camera.MoveWithInput(this.localServer.MyPlayer.input);
 
-			// Loop through every player and update inputs for this frame tick:
-			foreach( var player in this.localServer.players ) {
-				player.Value.input.UpdateKeyStates(0);
+			// Run Collisions
+			this.collideSequence.RunCollisionSequence();
+		}
+
+		public void RunTickForObjectGroup(Dictionary<uint, DynamicGameObject> objectGroup) {
+
+			// Loop through each object in the dictionary, run it's tick:
+			foreach(var obj in objectGroup) {
+				obj.Value.RunTick();
 			}
 		}
 
@@ -145,7 +166,7 @@ namespace Nexus.GameEngine {
 
 		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
 
-			// Loop through each object ID in the dictionary:
+			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
 				FVector pos = obj.Value.pos;
 

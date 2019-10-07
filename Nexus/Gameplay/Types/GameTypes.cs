@@ -19,5 +19,8 @@ namespace Nexus.Gameplay {
 		SectorWidth = 6,
 		SectorHeight = 6,
 		SectorVertIncrement = 100,			// The step increment that sectors count vertically (e.g. 0, 100, 200, ...)
+
+		SectorXPixels = 288,
+		SectorYPixels = 288,
 	}
 }
