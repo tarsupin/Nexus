@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectableHat, subTypeId, true, false, true, true);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectableHat, subTypeId, true, false, true, false, true);
 		}
 
 		public CollectableHat(LevelScene scene) : base(scene, ClassGameObjectId.CollectableHat) {

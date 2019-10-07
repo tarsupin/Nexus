@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.Lock, subTypeId, true, true, false, true);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.Lock, subTypeId, true, true, false, false, true);
 		}
 
 		public Lock(LevelScene scene) : base(scene, ClassGameObjectId.Lock, AtlasGroup.Tiles) {

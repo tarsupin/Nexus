@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectableCoin, subTypeId, true, false, true, true);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.CollectableCoin, subTypeId, true, false, true, false, true);
 		}
 
 		public Coins(LevelScene scene) : base(scene, ClassGameObjectId.CollectableCoin) {

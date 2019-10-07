@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.TogglePlatYellow, subTypeId, true, false, false, true);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.TogglePlatYellow, subTypeId, true, false, false, true, false);
 		}
 
 		public TogglePlatYellow(LevelScene scene, byte subTypeId) : base(scene, subTypeId, ClassGameObjectId.TogglePlatYellow) {

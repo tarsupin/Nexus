@@ -21,7 +21,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.Spike, subTypeId, true, true, false, true);
+			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.Spike, subTypeId, true, true, false, false, true);
 		}
 
 		public Spike(LevelScene scene) : base(scene, ClassGameObjectId.Spike, AtlasGroup.Tiles) {
