@@ -97,7 +97,7 @@ namespace Nexus.Engine {
 			this.AssignDefaultButtonMap();
 		}
 
-		public void Update() {
+		public void PreProcess() {
 
 			// Reset Array Cursors/Positions
 			this.pressedNum = 0;

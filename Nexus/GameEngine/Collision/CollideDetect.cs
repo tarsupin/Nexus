@@ -206,6 +206,11 @@ namespace Nexus.GameEngine {
 			int overlapX = CollideDetect.GetOverlapX(obj, obj2, (sbyte) relativeX);
 			//int diffX = maxOverlapX - overlapX;
 
+			// NOTE GUESS:
+			// This section is because of corner-hits. In order to determine how a corner is hit, you need to know which direction to push the object.
+			// If the object was already higher than the collision point, it needs to be ignored in the relevant direction.
+			// So this section might be essential in determining corners.
+			
 			// TODO HIGH PRIORITY: This is no longer relevant. We're not testing against fractions, only against ints.
 			//// If there is precise X matching, might be against a wall. Need to ignore Y slivers.
 			//if(diffX < 0.001) {

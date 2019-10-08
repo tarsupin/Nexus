@@ -1,27 +1,33 @@
 ﻿using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
 	/*
-	 * .tiles: bool[6]:
-	 *		[0] Bool (Is Tile)				T: Is Tile, F: Is Object (has an Object ID)
-	 *		[1] Bool (Char Only)			T: Only Char Interacts
-	 *		[2] Bool (Collision)			T: Has Collision
-	 *		[3] Bool (Full/Side)			T: Full Collision (all sides & solidity), F: Ledge Upward
-	 *		[4] Bool (CollisionTest)		T: Has special collision TEST rules. If collision occurs, run CollisionTest() first.
-	 *		[5] Bool (CollisionEffect)		T: Has special collision EFFECT rules. If collision occurs, run CollisionEffect().
-	 *		
-	 *		// Optional bool[10] for slopes:
-	 *		[6] Bool (Slope)				T: Is Slope Piece
-	 *		[7] Bool (Slope Angle)			T: Tall Slope, F: Gentle Slope
-	 *		[8] Bool (Slope Horizontal)		T: Slope Faces Left, F: Slope Faces Right
-	 *		[9] Bool (Slope Vertical)		T: Slope is Upside Down, F: Slope is Upright (ground)
-	 *	
 	 *	.ids: ushort[2]
 	 *		[0] Object ID or Tile Class ID		// Points to Object ID (for GameObjects) or Tile Class ID (for ClassGameObjects) 
 	 *		[1] Tile SubType ID					// Only applies to Tile IDs. Provides SubType for that Tile.
 	 */
+
+	// .tiles: bool[10]
+	public enum TMBTiles : byte {
+		IsTile = 0,                     // [0] Bool (Is Tile)				T: Is Tile, F: Is Object (has an Object ID)
+		HasCollision = 1,               // [1] Bool (Collision)				T: Has Collision
+		CharOnly = 2,					// [2] Bool (Char Only)				T: Only Char Interacts
+		SpecialCollisionTest = 3,       // [3] Bool (CollisionTest)			T: Has special collision TEST rules. If collision occurs, run CollisionTest() first.
+		SpecialCollisionEffect = 4,     // [4] Bool (CollisionEffect)		T: Has special collision EFFECT rules. If collision occurs, run CollisionEffect().
+		FullCollision = 5,              // [5] Bool (Full/Side)				T: Full Collision (all sides & solidity), F: Ledge Upward
+
+		// If FullCollision = 0, then the result is either a Platform or a Slope:
+		SlopeOrPlatform = 6,			// [6] Bool (Slope/Platform)		T: Is Slope, F: Is Platform
+		HorizontalFacing = 7,			// [7] Bool (Facing Horizontal)		T: Platform/Slope faces Left, F: Platform/Slope faces Right
+		VerticalFacing = 8,				// [8] Bool (Facing Vertical)		T: Platform/Slope is Upright, F: Platform/Slope is Upside Down
+
+		// If dealing with a Slope, apply SlopeAngle. If dealing with a Platform, apply PlatformIsVert.
+		SlopeAngle = 9,                 // [9] Bool (Slope Angle)			T: Tall Slope, F: Gentle Slope
+		PlatformIsVert = 9,				// [9] Bool (Platform is Vertical)	T: Platform is Facing Up or Down, F: Platform is Facing Left or Right
+	}
 
 	public class TilemapBool {
 
@@ -61,23 +67,35 @@ namespace Nexus.GameEngine {
 		//	Bitwise.Set4Bits()
 		//}
 
-		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly, bool colTest, bool colEffect, bool isSlope = false, bool slopeAngle = false, bool slopeHor = false, bool slopeVert = false ) {
+		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly, bool colTest, bool colEffect, bool slopeOrPlatform = false, bool horCol = false, bool vertDir = false, bool vert = false) {
 
-			bool[] tileData = new bool[isSlope ? 10 : 6];
+			bool[] tileData = new bool[10];
 
-			tileData[0] = true;
-			tileData[1] = charOnly;
-			tileData[2] = collides;
-			tileData[3] = fullSolid;
-			tileData[4] = colTest;
-			tileData[5] = colEffect;
+			tileData[(byte) TMBTiles.IsTile] = true;
 
-			// Slopes have additional bools:
-			if(isSlope) {
-				tileData[6] = true;
-				tileData[7] = slopeAngle;
-				tileData[8] = slopeHor;
-				tileData[9] = slopeVert;
+			// If the Tile doesn't collide (like Decor), then no need to build any further:
+			if(collides) {
+
+				tileData[(byte)TMBTiles.HasCollision] = collides;
+				tileData[(byte)TMBTiles.CharOnly] = charOnly;
+				tileData[(byte)TMBTiles.FullCollision] = fullSolid;
+				tileData[(byte)TMBTiles.SpecialCollisionTest] = colTest;
+				tileData[(byte)TMBTiles.SpecialCollisionEffect] = colEffect;
+
+				// If the tile does not have a full-block collision, but also doesn't have a special collision test, then the result is either a Platform or a Slope:
+				if(!fullSolid && !colTest) {
+
+					// Platforms and Slopes have additional bool flags:
+					tileData[(byte)TMBTiles.SlopeOrPlatform] = slopeOrPlatform;
+					tileData[(byte)TMBTiles.HorizontalFacing] = horCol;
+					tileData[(byte)TMBTiles.VerticalFacing] = vertDir;
+
+					if(slopeOrPlatform == true) {
+						tileData[(byte)TMBTiles.SlopeAngle] = vert;
+					} else {
+						tileData[(byte)TMBTiles.PlatformIsVert] = vert;
+					}
+				}
 			}
 
 			return tileData;
@@ -137,5 +155,9 @@ namespace Nexus.GameEngine {
 		public uint GetGridID( ushort gridX, ushort gridY ) {
 			return (uint) gridY * this.xCount + gridX;
 		}
+
+		// Grid Square Positions
+		public static ushort GridX(int posX) { return (ushort) Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)); }
+		public static ushort GridY(int posY) { return (ushort) Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)); }
 	}
 }

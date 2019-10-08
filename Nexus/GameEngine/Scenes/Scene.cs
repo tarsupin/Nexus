@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		public readonly TimerGlobal time;
 		public readonly ScreenSys screen;
 		public readonly GameMapper mapper;
-		protected Camera camera;
+		public Camera camera { get; protected set; }
 
 		public Scene( Systems systems ) {
 

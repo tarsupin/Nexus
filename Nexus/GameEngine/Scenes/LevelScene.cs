@@ -102,7 +102,13 @@ namespace Nexus.GameEngine {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
+
+				// TODO HIGH PRIORITY: If activity is active, run tick, otherwise do not.
 				obj.Value.RunTick();
+
+				// Run Tile Detection for the Object
+				// TODO: Eventually check 1x1 size, and replace with a tile detection that can account for larger sets if it's not 1x1 tile sized.
+				CollideTile.RunQuadrantDetection(obj.Value);
 			}
 		}
 

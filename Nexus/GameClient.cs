@@ -57,6 +57,7 @@ namespace Nexus
 			// TODO: Change playtesting level to correct setup.
 			// Load a default level.
 			SceneTransition.ToLevel(systems, "", "QCALQOD16");
+			(this.systems.scene).camera.CenterAtPosition(1200, 0);
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(this.systems.handler.level.data.id);
@@ -70,8 +71,20 @@ namespace Nexus
 			//var stopwatch = new Stopwatch();
 			//stopwatch.Start();
 
-			this.systems.input.Update();
-			this.systems.scene.RunTick();
+			this.systems.input.PreProcess();
+
+			// TODO CLEANUP: MUST REMOVE THIS
+			// TODO CLEANUP: MUST REMOVE THIS
+			// TODO CLEANUP: MUST REMOVE THIS
+			// TODO CLEANUP: MUST REMOVE THIS
+			foreach(var player in this.systems.localServer.players) {
+				player.Value.input.UpdateKeyStates(0);
+			}
+
+			// TODO HIGH PRIORITY: Change this
+			if(this.systems.localServer.MyPlayer.input.isPressed(IKey.AButton)) {
+				this.systems.scene.RunTick();
+			}
 
 			base.Update(gameTime);
 

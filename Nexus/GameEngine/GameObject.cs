@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		// Metadata
 		public readonly uint id;
 		public IMetaData Meta { get; protected set; }
-		public readonly Scene scene;
+		public readonly LevelScene scene;
 		public readonly float texLayer;         // 0.0f is bottom layer, 1.0f is top layer
 
 		// Data
@@ -41,11 +41,15 @@ namespace Nexus.GameEngine {
 			this.pos = pos;
 
 			// TODO HIGH PRIORITY: Assign Bounds
-			this.bounds = new Bounds(0, 0, 48, 48);
+			// Note: Bounds must have -1 applied to RIGHT and BOTTOM, otherwise inaccurate overlaps (consider how pos 0 + bound 1 would cover 2 pixels).
+			this.bounds = new Bounds(0, 0, 48 - 1, 48 - 1);
 		}
 
-		public ushort GridX { get { return (ushort) Math.Floor((double) (this.pos.X.IntValue / 48)); } }
-		public ushort GridY { get { return (ushort) Math.Floor((double) (this.pos.Y.IntValue / 48)); } }
+		public ushort GridX { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Left) / (byte) TilemapEnum.TileWidth)); } }
+		public ushort GridY { get { return (ushort) Math.Floor((double) ((this.pos.Y.IntValue + this.bounds.Top) / (byte) TilemapEnum.TileHeight)); } }
+
+		public ushort GridX2 { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Right) / (byte) TilemapEnum.TileWidth)); } }
+		public ushort GridY2 { get { return (ushort) Math.Floor((double) ((this.pos.Y.IntValue + this.bounds.Bottom) / (byte) TilemapEnum.TileHeight)); } }
 
 		public virtual void SetSubType(byte subType) {
 			//this.Texture = "BaseTexture/" + System.Enum.GetName(typeof(GroundSubTypes), subType);

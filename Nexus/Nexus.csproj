@@ -70,6 +70,8 @@
     <Compile Include="Engine\FilesLocal.cs" />
     <Compile Include="Engine\FPMath.cs" />
     <Compile Include="Engine\InputClient.cs" />
+    <Compile Include="GameEngine\Collision\CollideTileAffect.cs" />
+    <Compile Include="GameEngine\Collision\CollideTile.cs" />
     <Compile Include="GameEngine\Collision\CollideFunc.cs" />
     <Compile Include="GameEngine\Collision\CollideAffect.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
