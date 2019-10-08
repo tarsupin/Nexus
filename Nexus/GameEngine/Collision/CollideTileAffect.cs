@@ -7,30 +7,30 @@ namespace Nexus.GameEngine {
 
 		public static void CollideUp( DynamicGameObject obj, int posY ) {
 			obj.physics.touch.TouchUp();
-			CollideTileAffect.AlignDown(obj, posY);
 			obj.physics.StopY();
+			CollideTileAffect.AlignDown(obj, posY);
 		}
 
 		public static void CollideDown( DynamicGameObject obj, int posY ) {
 			obj.physics.touch.TouchDown();
-			CollideTileAffect.AlignUp(obj, posY);
 			obj.physics.StopY();
+			CollideTileAffect.AlignUp(obj, posY);
 		}
 
 		public static void CollideLeft( DynamicGameObject obj, int posX ) {
 			obj.physics.touch.TouchLeft();
+			obj.physics.StopX();
 			CollideTileAffect.AlignRight(obj, posX);
-			obj.physics.StopY();
 		}
 
 		public static void CollideRight( DynamicGameObject obj, int posX ) {
 			obj.physics.touch.TouchRight();
+			obj.physics.StopX();
 			CollideTileAffect.AlignLeft(obj, posX);
-			obj.physics.StopY();
 		}
 
 		public static void AlignUp( DynamicGameObject obj, int posY ) {
-			obj.physics.MoveToPosY((FInt) (posY - obj.bounds.Bottom - 1));	// -1 is to account for True Bounds Height
+			obj.physics.MoveToPosY((FInt) posY);
 		}
 
 		public static void AlignDown( DynamicGameObject obj, int posY ) {
@@ -38,7 +38,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void AlignLeft( DynamicGameObject obj, int posX ) {
-			obj.physics.MoveToPosX((FInt) (posX - obj.bounds.Right - 1));   // -1 is to account for True Bounds Width
+			obj.physics.MoveToPosX((FInt) posX);
 		}
 
 		public static void AlignRight( DynamicGameObject obj, int posX) {

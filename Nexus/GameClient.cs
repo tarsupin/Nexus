@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
 using System;
@@ -25,6 +26,9 @@ namespace Nexus
 
 			// Prepare Engine Systems
 			this.systems = new Systems(this);
+
+			// Initialize Configurations
+			new DebugConfig();
 
 			// Resize Window
 			Window.AllowUserResizing = true;
@@ -72,19 +76,7 @@ namespace Nexus
 			//stopwatch.Start();
 
 			this.systems.input.PreProcess();
-
-			// TODO CLEANUP: MUST REMOVE THIS
-			// TODO CLEANUP: MUST REMOVE THIS
-			// TODO CLEANUP: MUST REMOVE THIS
-			// TODO CLEANUP: MUST REMOVE THIS
-			foreach(var player in this.systems.localServer.players) {
-				player.Value.input.UpdateKeyStates(0);
-			}
-
-			// TODO HIGH PRIORITY: Change this
-			if(this.systems.localServer.MyPlayer.input.isPressed(IKey.AButton)) {
-				this.systems.scene.RunTick();
-			}
+			this.systems.scene.RunTick();
 
 			base.Update(gameTime);
 

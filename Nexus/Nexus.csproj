@@ -60,7 +60,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\Render\Render.cs" />
+    <Compile Include="Config\DebugNexus.cs" />
     <Compile Include="Engine\Calc\Interpolation.cs" />
     <Compile Include="Engine\Calc\FPInterpolation.cs" />
     <Compile Include="Engine\Calc\Snap.cs" />
@@ -111,6 +111,7 @@
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
+    <Compile Include="Objects\EnemyLand\Shroom.cs" />
     <Compile Include="Objects\EnemyLand\Moosh.cs" />
     <Compile Include="Objects\EnemyLand\EnemyLand.cs" />
     <Compile Include="Objects\Enemy.cs" />
@@ -274,25 +275,6 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Action\" />
-    <Folder Include="Components\Animation\" />
-    <Folder Include="Components\Attack\" />
-    <Folder Include="Components\Behavior\" />
-    <Folder Include="Components\Collectable\" />
-    <Folder Include="Components\CollisionRules\" />
-    <Folder Include="Components\Collision\" />
-    <Folder Include="Components\Detection\" />
-    <Folder Include="Components\Emblem\" />
-    <Folder Include="Components\Graphics\" />
-    <Folder Include="Components\Input\" />
-    <Folder Include="Components\Interaction\" />
-    <Folder Include="Components\Item\" />
-    <Folder Include="Components\Movement\" />
-    <Folder Include="Components\Reaction\" />
-    <Folder Include="Components\Spawning\" />
-    <Folder Include="Components\Survival\" />
-    <Folder Include="Components\Toggle\" />
-    <Folder Include="Components\TouchedEffect\" />
     <Folder Include="ObjectComponents\Actions\" />
     <Folder Include="ObjectComponents\Animation\" />
     <Folder Include="ObjectComponents\Attachments\" />

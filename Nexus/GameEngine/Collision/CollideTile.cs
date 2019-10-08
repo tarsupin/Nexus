@@ -42,13 +42,13 @@ namespace Nexus.GameEngine {
 
 				// Run Collision & Alignment based on the direction moved:
 				if(dir == DirCardinal.Down) {
-					CollideTileAffect.CollideDown(obj, gridY * (byte)TilemapEnum.TileHeight);
+					CollideTileAffect.CollideDown(obj, gridY * (byte)TilemapEnum.TileHeight - obj.bounds.Bottom);
 				} else if(dir == DirCardinal.Right) {
-					CollideTileAffect.CollideRight(obj, gridX * (byte)TilemapEnum.TileWidth);
+					CollideTileAffect.CollideRight(obj, gridX * (byte)TilemapEnum.TileWidth + obj.bounds.Right);
 				} else if(dir == DirCardinal.Left) {
-					CollideTileAffect.CollideLeft(obj, gridX * (byte)TilemapEnum.TileWidth);
+					CollideTileAffect.CollideLeft(obj, gridX * (byte)TilemapEnum.TileWidth - obj.bounds.Left);
 				} else if(dir == DirCardinal.Up) {
-					CollideTileAffect.CollideUp(obj, gridY * (byte)TilemapEnum.TileHeight);
+					CollideTileAffect.CollideUp(obj, gridY * (byte)TilemapEnum.TileHeight + obj.bounds.Top);
 				}
 
 				// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
@@ -142,15 +142,15 @@ namespace Nexus.GameEngine {
 				if(horOnly) { return; }
 
 				int vel = obj.physics.velocity.Y.IntValue;
-				if(vel < 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY, DirCardinal.Up); }
-				else if(vel > 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY2, DirCardinal.Down); }
+				if(vel >= 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY2, DirCardinal.Down); }
+				else if(vel < 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY, DirCardinal.Up); }
 			}
 
 			// If the object is only interacting between two tiles (left and right).
 			else if(horOnly) {
 				int vel = obj.physics.velocity.X.IntValue;
-				if(vel < 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY, DirCardinal.Left); }
-				else if(vel > 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX2, gridY, DirCardinal.Right); }
+				if(vel >= 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX2, gridY, DirCardinal.Right); }
+				else if(vel < 0) { CollideTile.RunGridTest(obj, obj.scene.tilemap, gridX, gridY, DirCardinal.Left); }
 			}
 
 			// If the object is interacting with all four tiles (Top-Left to Bottom-Right).
@@ -185,15 +185,15 @@ namespace Nexus.GameEngine {
 				// Note: If you were already in the same grid squares last time, no collision tests are needed for the relevant squares.
 
 				// Lower-Left and Lower-Right Quadrants. Collide only if moving DOWN this frame.
-				if(velY > 0) {
+				if(velY >= 0) {
 					bottomRealigned = CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, DirCardinal.Down);
-					if(!bottomRealigned) { CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, DirCardinal.Down); }
+					if(!bottomRealigned) { bottomRealigned = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, DirCardinal.Down); }
 				}
 
 				// Upper-Left and Upper-Right Quadrants. Collide only if moving UP this frame.
 				else if(velY < 0) {
 					topRealigned = CollideTile.RunGridTest(obj, tilemap, gridX, gridY, DirCardinal.Up);
-					if(!topRealigned) { CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, DirCardinal.Up); }
+					if(!topRealigned) { topRealigned = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, DirCardinal.Up); }
 				}
 
 				// Upper-Left and Lower-Left Quadrants. Collide only if moving LEFT this frame.

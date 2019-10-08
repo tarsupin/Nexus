@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -75,13 +76,49 @@ namespace Nexus.GameEngine {
 			// TODO HIGH PRIORITY: Change this to the actual frame for this tick.
 			byte frame = 0;
 
-			// Update Timer
-			this.time.RunTick();
-
 			// Loop through every player and update inputs for this frame tick:
 			foreach(var player in this.localServer.players) {
 				player.Value.input.UpdateKeyStates(0);
 			}
+
+			// If we're in debug mode and want to run every tick by control:
+			if(DebugConfig.TickSpeed != (byte) DebugTickSpeed.StandardSpeed) {
+
+				switch(DebugConfig.TickSpeed) {
+
+					case DebugTickSpeed.HalfSpeed:
+						DebugConfig.trackTicks++;
+						if(DebugConfig.trackTicks % 2 != 0) { return; }
+						break;
+
+					case DebugTickSpeed.QuarterSpeed:
+						DebugConfig.trackTicks++;
+						if(DebugConfig.trackTicks % 4 != 0) { return; }
+						break;
+
+					case DebugTickSpeed.EighthSpeed:
+						DebugConfig.trackTicks++;
+						if(DebugConfig.trackTicks % 8 != 0) { return; }
+						break;
+
+					case DebugTickSpeed.WhenYPressed:
+						if(!this.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
+						break;
+
+					case DebugTickSpeed.WhileYHeld:
+						if(!this.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+						break;
+
+					case DebugTickSpeed.WhileYHeldSlow:
+						if(!this.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+						DebugConfig.trackTicks++;
+						if(DebugConfig.trackTicks % 4 != 0) { return; }
+						break;
+				}
+			}
+
+			// Update Timer
+			this.time.RunTick();
 
 			// Update All Objects
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);

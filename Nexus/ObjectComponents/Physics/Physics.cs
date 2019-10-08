@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -51,6 +52,11 @@ namespace Nexus.ObjectComponents {
 			this.lastPos = this.objRef.pos;
 			this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.velocity);
 			
+			// TODO CLEANUP: REMOVE
+			if(this.objRef.pos.Y.IntValue == 722 && this.objRef is Moosh && this.objRef.subType == (byte) MooshSubType.White) {
+				System.Console.WriteLine("Cleanup");
+			}
+
 			// Extra Movement (such as caused by Platforms or Conveyors)
 			if(hasExtraMovement) {
 				this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.extraMovement);
@@ -74,7 +80,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StopX() {
-			this.velocity.X = (FInt) 0;
+			this.velocity.X = (FInt)0;
 		}
 
 		public void StopY() {

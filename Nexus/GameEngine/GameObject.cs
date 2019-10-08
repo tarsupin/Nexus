@@ -57,6 +57,10 @@ namespace Nexus.GameEngine {
 		
 		public virtual void Draw( int camX, int camY ) {
 			this.Meta.Atlas.Draw(this.Texture, pos.X.IntValue - camX, pos.Y.IntValue - camY);
+
+			if(pos.Y.IntValue == 722) {
+				System.Console.WriteLine("Cleanup");
+			}
 		}
 	}
 }
