@@ -8,7 +8,6 @@ namespace Nexus.GameEngine {
 		// References
 		private readonly LevelScene scene;
 		private readonly CollideBroad broad;
-		private readonly CollideDetect narrow;
 
 		public ArrayPool<uint> pool;
 

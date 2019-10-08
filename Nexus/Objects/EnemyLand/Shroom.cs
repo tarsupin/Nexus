@@ -21,13 +21,11 @@ namespace Nexus.Objects {
 			this.speed = FInt.FromParts(1, 400);
 
 			// Physics, Collisions, etc.
+			this.AssignBoundsByAtlas(4, 6, -6);
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.FromParts(0, 350));
 			this.physics.velocity.X = (FInt)(0-this.speed);
 
-			this.bounds.Left += 6;
-			this.bounds.Right -= 6;
-			this.bounds.Top += 4;
 
 			// TODO: Basically everything in "Shroom"
 			// TODO: Basically everything in "Shroom"
@@ -36,12 +34,12 @@ namespace Nexus.Objects {
 
 		private void AssignSubType( byte subType ) {
 			if(subType == (byte) ShroomSubType.Black) {
-				this.Texture = "Shroom/Black/Left2";
+				this.SpriteName = "Shroom/Black/Left2";
 			} else if(subType == (byte) ShroomSubType.Red) {
-				this.Texture = "Shroom/Red/Left2";
+				this.SpriteName = "Shroom/Red/Left2";
 			} else if(subType == (byte) ShroomSubType.Purple) {
 				//this.behavior = new PrepareCharge(this, 1, 9, 30, 15);
-				this.Texture = "Shroom/Purple/Left2";
+				this.SpriteName = "Shroom/Purple/Left2";
 			}
 		}
 

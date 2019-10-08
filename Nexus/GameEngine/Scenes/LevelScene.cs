@@ -1,6 +1,7 @@
 ﻿using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -227,6 +228,44 @@ namespace Nexus.GameEngine {
 
 		public void AddToObjects( DynamicGameObject gameObject ) {
 			this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
+		}
+
+		public void RunCharacterDeath( Character character ) {
+			// TODO UI - Reset coin counter (if character was self)
+			// this.coinIcon.text.setText("0"); // Reset Coin Counter
+			// TODO HIGH PRIORITY:
+			// this.RestartLevel();		// true if all players are just self. for multiplayer, this changes... maybe a new scene for multiplayer?
+		}
+
+		public void RestartLevel() {
+			// Also had params: posX: number = null, posY: number = null, roomId: number = null
+
+			// Toggle Resets
+			// TODO HIGH PRIORITY:
+			// this.toggleRedBlue = true;
+			// this.toggleGreenYellow = true;
+			// this.toggleConveyor = true;
+
+			// Regenerate Room
+			// this.SpawnRoom(posX, posY, roomId);
+
+
+			// OLD CODE
+			//// Timer Reset
+			//this.time.unpause(); // Make sure timer is unpaused.
+			//this.time.reset();
+
+			//// Reset Character Status
+			//// The character may preserve suits or abilities that track timestamps. Need to reset these.
+			//this.character.status.reset();
+			//this.character.stats.reset();
+			//this.character.action = new StallAction(this.character, 250);
+
+			//// UI Resets
+			//let status = this.character.status;
+			//// TODO UI
+			//// if(this.healthIcons) { this.healthIcons.updateIcons( status.health, status.armor ); }
+			//// if(this.powerAttIcon) { this.powerAttIcon.setText(""); }
 		}
 	}
 }

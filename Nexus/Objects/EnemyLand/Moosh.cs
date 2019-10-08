@@ -21,13 +21,11 @@ namespace Nexus.Objects {
 			this.speed = FInt.FromParts(1, 400);
 
 			// Physics, Collisions, etc.
+			this.AssignBoundsByAtlas(4, 4, -4);
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.FromParts(0, 350));
+			this.physics.SetGravity(FInt.FromParts(0, 700));
 			this.physics.velocity.X = (FInt)(0-this.speed);
 
-			this.bounds.Left += 4;
-			this.bounds.Right -= 4;
-			this.bounds.Top += 4;
 
 			// TODO: Basically everything in "Moosh"
 			// TODO: Basically everything in "Moosh"
@@ -37,14 +35,14 @@ namespace Nexus.Objects {
 		private void AssignSubType( byte subType ) {
 			if(subType == (byte) MooshSubType.Brown) {
 				//this.behavior = new PrepareCharge(this, 4.5, 7, 30, 15);
-				this.Texture = "Moosh/Brown/Left2";
+				this.SpriteName = "Moosh/Brown/Left2";
 			} else if(subType == (byte) MooshSubType.White) {
 				//this.duration = 0;
 				//this.update = this.repeatBounce;
-				this.Texture = "Moosh/White/Left2";
+				this.SpriteName = "Moosh/White/Left2";
 			} else if(subType == (byte) MooshSubType.Purple) {
 				//this.behavior = new PrepareCharge(this, 1, 9, 30, 15);
-				this.Texture = "Moosh/Purple/Left2";
+				this.SpriteName = "Moosh/Purple/Left2";
 			}
 		}
 

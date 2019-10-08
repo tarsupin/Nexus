@@ -106,11 +106,15 @@
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
     <Compile Include="ObjectComponents\Collision\Collision.cs" />
+    <Compile Include="ObjectComponents\Wounds\CharacterWounds.cs" />
+    <Compile Include="ObjectComponents\Status\CharacterStatus.cs" />
+    <Compile Include="ObjectComponents\Stats\CharacterStats.cs" />
     <Compile Include="ObjectComponents\Physics\Touch.cs" />
     <Compile Include="ObjectComponents\Physics\Physics.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
+    <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\EnemyLand\Shroom.cs" />
     <Compile Include="Objects\EnemyLand\Moosh.cs" />
     <Compile Include="Objects\EnemyLand\EnemyLand.cs" />
@@ -245,27 +249,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <Content Include="Content\Atlas\Objects.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Atlas\Tiles.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Atlas\World.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Atlas\Objects.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Atlas\Objects.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Content\Atlas\Objects.txt" />
     <Content Include="Content\Atlas\Tiles.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Atlas\Tiles.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Content\Atlas\Tiles.txt" />
     <Content Include="Content\Atlas\World.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Atlas\World.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="Content\Atlas\World.txt" />
     <Content Include="Notes\Process_Levels.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -280,7 +287,6 @@
     <Folder Include="ObjectComponents\Attachments\" />
     <Folder Include="ObjectComponents\Behavior\" />
     <Folder Include="ObjectComponents\Hats\" />
-    <Folder Include="ObjectComponents\Status\" />
     <Folder Include="ObjectComponents\Suits\" />
     <Folder Include="Objects\EnemyFixed\" />
     <Folder Include="Objects\EnemyFlight\" />

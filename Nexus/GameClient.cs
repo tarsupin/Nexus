@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Objects;
 using System;
 
 namespace Nexus
@@ -62,6 +63,10 @@ namespace Nexus
 			// Load a default level.
 			SceneTransition.ToLevel(systems, "", "QCALQOD16");
 			(this.systems.scene).camera.CenterAtPosition(1200, 0);
+
+			// TODO CLEANUP: Remove Character from being inserted like this:
+			Character character = new Character((LevelScene) this.systems.scene, 0, FVector.Create(800, 300), null);
+			((LevelScene)(this.systems.scene)).AddToObjects(character);
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(this.systems.handler.level.data.id);

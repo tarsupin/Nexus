@@ -4,7 +4,7 @@
 
 namespace Nexus.Gameplay {
 
-	public enum DamageEnum : byte {
+	public enum DamageStrength : byte {
 		None = 0,                   // Does no damage.
 		Trivial = 1,                // 
 		Minor = 2,                  // 

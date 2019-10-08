@@ -6,18 +6,18 @@ namespace Nexus.Objects {
 
 	public class Enemy : DynamicGameObject {
 
-		public DamageEnum ProjectileResist { get; protected set; }
+		public DamageStrength ProjectileResist { get; protected set; }
 
 		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 
 		}
 
-		public void RunTick() {
+		public new void RunTick() {
 			base.RunTick();
 			// if this.animation, then this.animation.runTick();
 		}
 
-		public bool CanResistDamage( DamageEnum damage ) {
+		public bool CanResistDamage( DamageStrength damage ) {
 			return this.ProjectileResist >= damage;
 		}
 

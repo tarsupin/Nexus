@@ -28,6 +28,7 @@ namespace Nexus.Gameplay {
 		ToggleBlock,
 		Conveyor,
 		Platform,
+		Character,
 		EnemyFixed,
 		EnemyLand,
 		EnemyFly,

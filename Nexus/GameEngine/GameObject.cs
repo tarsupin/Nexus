@@ -1,4 +1,4 @@
-﻿
+﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 		public Bounds bounds;
 
 		// Rendering
-		public string Texture { get; protected set; }
+		public string SpriteName { get; protected set; }
 
 		// Facing
 		// TODO: RotationFacing, RotationSpeed, RotationRadian
@@ -39,10 +39,6 @@ namespace Nexus.GameEngine {
 			this.scene = scene;
 			this.subType = subType;
 			this.pos = pos;
-
-			// TODO HIGH PRIORITY: Assign Bounds
-			// Note: Bounds must have -1 applied to RIGHT and BOTTOM, otherwise inaccurate overlaps (consider how pos 0 + bound 1 would cover 2 pixels).
-			this.bounds = new Bounds(0, 0, 48 - 1, 48 - 1);
 		}
 
 		public ushort GridX { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Left) / (byte) TilemapEnum.TileWidth)); } }
@@ -56,11 +52,18 @@ namespace Nexus.GameEngine {
 		}
 		
 		public virtual void Draw( int camX, int camY ) {
-			this.Meta.Atlas.Draw(this.Texture, pos.X.IntValue - camX, pos.Y.IntValue - camY);
+			this.Meta.Atlas.Draw(this.SpriteName, pos.X.IntValue - camX, pos.Y.IntValue - camY);
+		}
 
-			if(pos.Y.IntValue == 722) {
-				System.Console.WriteLine("Cleanup");
-			}
+		// Note: Apply -1 to RIGHT and BOTTOM. Otherwise inaccurate overlaps (e.g. pos 0 + bound 1 would cover 2 pixels).
+		public void AssignBounds(byte top = 0, byte left = 0, byte right = 0, byte bottom = 0) {
+			this.bounds = new Bounds(top, left, right, bottom);
+		}
+
+		// Note: Texture Packer correctly applies -1 to RIGHT and BOTTOM. Otherwise inaccurate overlaps (e.g. pos 0 + bound 1 would cover 2 pixels).
+		public void AssignBoundsByAtlas(sbyte top = 0, sbyte left = 0, sbyte right = 0, sbyte bottom = 0) {
+			AtlasBounds quickBounds = this.Meta.Atlas.GetBounds(this.SpriteName);
+			this.bounds = new Bounds((byte)(quickBounds.Top + top), (byte)(quickBounds.Left + left), (byte)(quickBounds.Right + right), (byte)(quickBounds.Bottom + bottom));
 		}
 	}
 }

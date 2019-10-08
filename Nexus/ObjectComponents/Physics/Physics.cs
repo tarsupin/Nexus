@@ -52,11 +52,6 @@ namespace Nexus.ObjectComponents {
 			this.lastPos = this.objRef.pos;
 			this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.velocity);
 			
-			// TODO CLEANUP: REMOVE
-			if(this.objRef.pos.Y.IntValue == 722 && this.objRef is Moosh && this.objRef.subType == (byte) MooshSubType.White) {
-				System.Console.WriteLine("Cleanup");
-			}
-
 			// Extra Movement (such as caused by Platforms or Conveyors)
 			if(hasExtraMovement) {
 				this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.extraMovement);
