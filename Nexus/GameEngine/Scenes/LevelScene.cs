@@ -119,7 +119,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update Timer
-			this.time.RunTick();
+			this.timer.RunTick();
 
 			// Update All Objects
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);

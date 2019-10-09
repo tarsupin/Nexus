@@ -28,7 +28,7 @@ namespace Nexus.Engine {
 
 		public Camera( Scene scene ) {
 			this.scene = scene;
-			this.time = scene.time;
+			this.time = scene.timer;
 			this.posX = 0;
 			this.posY = 0;
 			this.speedMult = 0.08f; // 0.08f;

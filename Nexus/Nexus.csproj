@@ -93,6 +93,7 @@
     <Compile Include="GameEngine\ClassGameObject.cs" />
     <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Level\LevelGenerate.cs" />
+    <Compile Include="Gameplay\Types\ActionTypes.cs" />
     <Compile Include="Gameplay\Types\GameTypes.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
     <Compile Include="Gameplay\World\WorldContent.cs" />
@@ -105,7 +106,42 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\JumpAction.cs" />
+    <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
+    <Compile Include="ObjectComponents\Actions\FlightAction.cs" />
+    <Compile Include="ObjectComponents\Actions\AirBurst.cs" />
+    <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
     <Compile Include="ObjectComponents\Collision\Collision.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHat.cs" />
+    <Compile Include="ObjectComponents\Hats\TopHat.cs" />
+    <Compile Include="ObjectComponents\Hats\SpikeyHat.cs" />
+    <Compile Include="ObjectComponents\Hats\RangerHat.cs" />
+    <Compile Include="ObjectComponents\Hats\HardHat.cs" />
+    <Compile Include="ObjectComponents\Hats\FedoraHat.cs" />
+    <Compile Include="ObjectComponents\Hats\FeatheredHat.cs" />
+    <Compile Include="ObjectComponents\Hats\CowboyHat.cs" />
+    <Compile Include="ObjectComponents\Hats\BambooHat.cs" />
+    <Compile Include="ObjectComponents\Hats\Hat.cs" />
+    <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\HoverMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\FlightMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\BurstMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\AthleteMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\AirMobility.cs" />
+    <Compile Include="ObjectComponents\Actions\Action.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
+    <Compile Include="ObjectComponents\Powers\Power.cs" />
+    <Compile Include="ObjectComponents\Suits\WhiteWizard.cs" />
+    <Compile Include="ObjectComponents\Suits\RedWizard.cs" />
+    <Compile Include="ObjectComponents\Suits\GreenWizard.cs" />
+    <Compile Include="ObjectComponents\Suits\BlueWizard.cs" />
+    <Compile Include="ObjectComponents\Suits\WhiteNinja.cs" />
+    <Compile Include="ObjectComponents\Suits\RedNinja.cs" />
+    <Compile Include="ObjectComponents\Suits\GreenNinja.cs" />
+    <Compile Include="ObjectComponents\Suits\BlueNinja.cs" />
+    <Compile Include="ObjectComponents\Suits\BlackNinja.cs" />
+    <Compile Include="ObjectComponents\Suits\Suit.cs" />
     <Compile Include="ObjectComponents\Wounds\CharacterWounds.cs" />
     <Compile Include="ObjectComponents\Status\CharacterStatus.cs" />
     <Compile Include="ObjectComponents\Stats\CharacterStats.cs" />
@@ -264,15 +300,12 @@
     <Content Include="Content\Atlas\Objects.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Atlas\Objects.txt" />
     <Content Include="Content\Atlas\Tiles.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Atlas\Tiles.txt" />
     <Content Include="Content\Atlas\World.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Atlas\World.txt" />
     <Content Include="Notes\Process_Levels.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -282,12 +315,12 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ObjectComponents\Actions\" />
     <Folder Include="ObjectComponents\Animation\" />
     <Folder Include="ObjectComponents\Attachments\" />
     <Folder Include="ObjectComponents\Behavior\" />
-    <Folder Include="ObjectComponents\Hats\" />
-    <Folder Include="ObjectComponents\Suits\" />
+    <Folder Include="ObjectComponents\Powers\Projectiles\" />
+    <Folder Include="ObjectComponents\Powers\Thrown\" />
+    <Folder Include="ObjectComponents\Powers\Weapons\" />
     <Folder Include="Objects\EnemyFixed\" />
     <Folder Include="Objects\EnemyFlight\" />
   </ItemGroup>

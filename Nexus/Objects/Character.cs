@@ -15,8 +15,14 @@ namespace Nexus.Objects {
 		public Player player;       // The player that controls this character.
 		public PlayerInput input;   // The player's input class.
 
-		private readonly CharacterStats stats;
-		private readonly CharacterStatus status;
+		public readonly CharacterStats stats;
+		public readonly CharacterStatus status;
+		public readonly CharacterWounds wounds;
+
+		public Suit suit;
+		public Hat hat;
+		public PowerAttack attackPower;
+		public PowerMobility mobilityPower;
 
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.EnemyLand];
@@ -30,6 +36,7 @@ namespace Nexus.Objects {
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);
 			this.status = new CharacterStatus(this);
+			this.wounds = new CharacterWounds(this, scene.timer);
 		}
 
 		public void AssignPlayer( Player player ) {

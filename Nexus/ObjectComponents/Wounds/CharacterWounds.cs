@@ -19,21 +19,21 @@ namespace Nexus.ObjectComponents {
 		public byte ArmorAfterDeath;        // The number of armor restored after a death.
 
 		// Wound Values
-		public uint Invincible;             // If >= time.frame, the character is invincible to standard damage.
-		public byte Armor;                  // Each health soaks one damage, only after equipment is lost.
-		public byte Health;                 // Each armor soaks one damage, prior to equipment loss (thus preventing Suit and Hat loss).
+		protected uint Invincible;             // If >= time.frame, the character is invincible to standard damage.
+		protected byte Armor;                  // Each health soaks one damage, only after equipment is lost.
+		protected byte Health;                 // Each armor soaks one damage, prior to equipment loss (thus preventing Suit and Hat loss).
 
 		public CharacterWounds(Character character, TimerGlobal timer) {
 			this.character = character;
 			this.timer = timer;
-			this.ResetCharacterWounds();
+			this.ResetWoundSettings();
 		}
 
 		public bool IsInvincible {
 			get { return this.Invincible >= this.timer.frame; }
 		}
 
-		public void ResetCharacterWounds() {
+		public void ResetWoundSettings() {
 			InvincibleDuration = 60;
 			WoundMaximum = 3;
 			ArmorMaximum = 3;

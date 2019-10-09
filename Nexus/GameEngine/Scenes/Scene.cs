@@ -10,7 +10,7 @@ namespace Nexus.GameEngine {
 		public uint idCounter;           // Tracks the last ID that was generated in the scene.
 
 		public readonly Systems systems;
-		public readonly TimerGlobal time;
+		public readonly TimerGlobal timer;
 		public readonly ScreenSys screen;
 		public readonly GameMapper mapper;
 		public Camera camera { get; protected set; }
@@ -19,7 +19,7 @@ namespace Nexus.GameEngine {
 
 			// Systems
 			this.systems = systems;
-			this.time = systems.timer;
+			this.timer = systems.timer;
 			this.screen = systems.screen;
 			this.mapper = systems.mapper;
 		}
