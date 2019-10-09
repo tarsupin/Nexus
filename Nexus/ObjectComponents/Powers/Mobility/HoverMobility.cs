@@ -15,7 +15,7 @@ namespace Nexus.ObjectComponents {
 			// Make sure the power can be activated
 			if(!this.CanActivate()) { return; }
 
-			var action = this.character.action;
+			ActionCharacter action = this.character.action;
 
 			if(action is HoverAction) {
 
@@ -23,8 +23,8 @@ namespace Nexus.ObjectComponents {
 				if(action.duration > 0) { return; }
 
 				// TODO SOUND: Trigger a "Start Hover" sound, to identify that the hover has begun.
-				action.EndAction();
 
+				action.EndAction(this.character);
 			}
 
 			// TODO: This Hover Is Not Done; Requires some updates given the mapping for actions I'll be doing.

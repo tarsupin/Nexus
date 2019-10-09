@@ -4,7 +4,7 @@ namespace Nexus.ObjectComponents {
 
 	public class Action {
 
-		protected byte duration;
+		public byte duration;
 		protected bool endsOnLanding;			// TRUE if the action will end when the actor lands.
 
 		public Action() {

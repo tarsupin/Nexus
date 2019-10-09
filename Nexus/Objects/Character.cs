@@ -15,14 +15,22 @@ namespace Nexus.Objects {
 		public Player player;       // The player that controls this character.
 		public PlayerInput input;   // The player's input class.
 
+		// Stats & Statuses
 		public readonly CharacterStats stats;
 		public readonly CharacterStatus status;
 		public readonly CharacterWounds wounds;
 
+		// Behaviors & Actions
+		public ActionCharacter action;
+
+		// Equipment & Powers
 		public Suit suit;
 		public Hat hat;
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
+
+		// Miscellaneous
+		public bool faceRight;		// TRUE if the character is facing right.
 
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.EnemyLand];

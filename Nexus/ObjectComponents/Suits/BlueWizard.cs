@@ -10,7 +10,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void AssignSuitDefaultHat() {
-			this.character.hat = new BlueWizardHat(this.character);
+			this.character.hat = new CosmeticHat(this.character, "Hat/WizBlueHat" );
 		}
 
 		public override void UpdateCharacterStats() {

@@ -14,7 +14,7 @@ namespace Nexus.Gameplay {
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
 			// Create Atlas List
-			this.atlas = new Atlas[6];
+			this.atlas = new Atlas[3];
 			this.atlas[(byte)AtlasGroup.Tiles] = new Atlas(game, spriteBatch, "Atlas/Tiles.png");
 			this.atlas[(byte)AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
 			this.atlas[(byte)AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");

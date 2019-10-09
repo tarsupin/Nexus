@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 			if(!this.CanActivate()) { return; }
 
 			if(this.character.action is FlightAction) {
-				this.character.action.EndAction();
+				this.character.action.EndAction(this.character);
 
 				// TODO SOUND: Create an "End Flight" sound, to identify that the flight has been toggled off.
 
