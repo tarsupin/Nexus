@@ -37,7 +37,7 @@ namespace Nexus.Objects {
 			// Physics, Collisions, etc.
 			this.AssignBounds(8, 12, 28, 44);
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.FromParts(0, 350));
+			this.physics.SetGravity(FInt.FromParts(0, 700));
 
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);

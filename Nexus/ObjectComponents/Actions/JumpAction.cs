@@ -56,11 +56,11 @@ namespace Nexus.ObjectComponents {
 			Physics physics = character.physics;
 
 			// JUMP STRENGTH x0.6 (if not jumping), xSlowSpeed (if not running)
-			FInt jumpStrength = (stats.JumpStrength + status.actionNum1) * (status.actionBool1 ? (FInt) 1 : FInt.FromParts(0, 600)) * (status.actionBool2 ? (FInt) 1 : stats.SlowSpeedMult);
+			FInt jumpStrength = status.actionNum1 * (status.actionBool1 ? (FInt) 1 : FInt.FromParts(0, 600)) * (status.actionBool2 ? (FInt) 1 : stats.SlowSpeedMult);
 
 			// Vertical Movement
 			physics.velocity.Y = 0 - jumpStrength;
-
+			
 			// If the jump button has been released and the minimum duration has ended, end the jump:
 			if(!status.actionBool1 && character.scene.timer.frame > character.status.actionEnds - status.actionNum2) {
 				this.EndAction(character);
