@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 
 			stats.SlideWaitDuration = 30;
 			stats.SlideDuration = 15;
-			stats.SlideStrength = 14;
+			stats.SlideStrength = FInt.Create(14);
 		}
 	}
 }

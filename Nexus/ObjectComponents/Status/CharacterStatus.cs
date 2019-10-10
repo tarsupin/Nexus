@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.Objects;
+﻿using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -17,7 +16,8 @@ namespace Nexus.ObjectComponents {
 		public bool actionBool2;        // Generic Action Property
 
 		// Statuses
-		public byte jumpsUsed;			// The number of jumps currently used.
+		public byte jumpsUsed;          // The number of jumps currently used.
+		public uint nextSlide;			// The frame that the next slide is allowed (or after).
 
 		public CharacterStatus( Character character ) {
 			this.character = character;
@@ -25,7 +25,8 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void ResetCharacterStatus() {
-
+			this.jumpsUsed = 0;
+			this.nextSlide = 0;
 		}
 	}
 }

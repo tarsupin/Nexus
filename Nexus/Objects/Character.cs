@@ -93,15 +93,9 @@ namespace Nexus.Objects {
 		}
 
 		public override void RunTick() {
-			base.RunTick();
-
-			// Restrict to World Bounds (except below, for falling deaths)
-			this.RestrictWorldSides();
-			this.RestrictWorldTop();
-			this.CheckFallOfWorld();
 
 			// Ground Movement & Actions
-			if(this.physics.touch.toFloor) { this.OnFloorUpdate(); }
+			if(this.physics.touch.toBottom) { this.OnFloorUpdate(); }
 			
 			// In Air Update
 			else { this.InAirUpdate(); }
@@ -133,6 +127,14 @@ namespace Nexus.Objects {
 			// Update Animations
 			// TODO HIGH PRIORITY: Animation
 			// this.animation.run(timer);
+
+			// Restrict to World Bounds (except below, for falling deaths)
+			this.RestrictWorldSides();
+			this.RestrictWorldTop();
+			this.CheckFallOfWorld();
+			
+			// Run Physics
+			base.RunTick();
 		}
 
 		private void OnFloorUpdate() {
@@ -180,10 +182,45 @@ namespace Nexus.Objects {
 				this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.FromParts(0, 250));
 			}
 
-			// TODO HIGH PRIORITY: JUMP AND SLIDES
-			// TODO HIGH PRIORITY: JUMP AND SLIDES
-			// TODO HIGH PRIORITY: JUMP AND SLIDES
-			// TODO HIGH PRIORITY: JUMP AND SLIDES
+			// As long as we're not currently sliding:
+			if(status.action is SlideAction == false) {
+
+				// JUMP Button Pressed
+				if(input.isPressed(IKey.AButton)) {
+
+					// JUMP+DOWN (Slide or Platform Drop) is Activated
+					if(input.isDown(IKey.Down)) {
+
+						// TODO HIGH PRIORITY: Platform Down Jump
+						// If on a Platform, perform Down-Jump
+						//if(this.physics.touch.touchObj is Platform) {
+						//	status.dropdown = this.scene.timer.frame + 6;
+						//}
+
+						//// Slide, if able:
+						//else
+						if(SlideAction.IsAbleToSlide(this, this.faceRight)) {
+							this.ActionMap.Slide.StartAction(this, this.faceRight);
+						}
+
+						// Otherwise, JUMP:
+						else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
+							this.ActionMap.Jump.StartAction(this);
+						}
+					}
+
+					// JUMP
+					else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
+						this.ActionMap.Jump.StartAction(this);
+					}
+				}
+
+				// Reset Actions on Land
+				else {
+					if(status.action is ActionCharacter) { status.action.LandsOnGround(this);  }
+					status.jumpsUsed = 0;
+				}
+			}
 		}
 
 		private void InAirUpdate() {

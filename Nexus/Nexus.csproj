@@ -106,6 +106,7 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\SlideAction.cs" />
     <Compile Include="ObjectComponents\Actions\JumpAction.cs" />
     <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FlightAction.cs" />

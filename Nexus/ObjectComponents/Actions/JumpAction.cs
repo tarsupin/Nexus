@@ -31,6 +31,8 @@ namespace Nexus.ObjectComponents {
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);
 			status.actionBool1 = true; // TRUE if the Jump Key is down
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
+
+			// TODO SOUND: Jump Sound
 		}
 
 		public override void RunAction( Character character ) {

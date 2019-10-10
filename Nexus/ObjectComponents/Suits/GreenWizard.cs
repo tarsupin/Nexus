@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 
 			stats.SlideWaitDuration = 30;
 			stats.SlideDuration = 15;
-			stats.SlideStrength = 14;
+			stats.SlideStrength = FInt.Create(14);
 
 			stats.BaseGravity = FInt.FromParts(0, 900); // 0.7 - Has more weight so that the wizard feels faster in general.
 

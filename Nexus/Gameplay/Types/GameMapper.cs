@@ -12,6 +12,7 @@ namespace Nexus.Gameplay {
 		public readonly FlightAction Flight = new FlightAction();
 		public readonly HoverAction Hover = new HoverAction();
 		public readonly JumpAction Jump = new JumpAction();
+		public readonly SlideAction Slide = new SlideAction();
 	}
 	
 	public class GameMapper {

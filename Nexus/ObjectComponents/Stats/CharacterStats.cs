@@ -38,7 +38,7 @@ namespace Nexus.ObjectComponents {
 		// Sliding
 		public byte SlideWaitDuration;		// # of ticks the character must wait to continue sliding.
 		public byte SlideDuration;
-		public byte SlideStrength;
+		public FInt SlideStrength;
 
 		// General Stats
 		public FInt BaseGravity;            // The gravity that a character will reset to after landing.
@@ -76,7 +76,7 @@ namespace Nexus.ObjectComponents {
 
 			SlideWaitDuration = 36;
 			SlideDuration = 12;
-			SlideStrength = 12;
+			SlideStrength = FInt.Create(12);
 
 			BaseGravity = 0 - FInt.FromParts(0, 700);
 

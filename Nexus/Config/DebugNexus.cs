@@ -26,7 +26,7 @@ namespace Nexus.Config {
 			Debug = true;
 
 			if(Debug) {
-				TickSpeed = DebugTickSpeed.HalfSpeed;
+				TickSpeed = DebugTickSpeed.StandardSpeed;
 			}
 		}
 	}
