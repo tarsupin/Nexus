@@ -48,7 +48,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Trigger the Air Burst Action
-			this.character.action = AirBurst.StartAction(this.character, directionHor, directionVert);
+			this.character.ActionMap.AirBurst.StartAction(this.character, directionHor, directionVert);
 
 			// Display the "Air" particle event and play the "Air" sound.
 			// TODO UI: Display air particle. PEventAir.activate( char, char.scene.game.particles, dirHor, dirVert );

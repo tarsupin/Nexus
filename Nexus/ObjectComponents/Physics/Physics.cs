@@ -82,5 +82,4 @@ namespace Nexus.ObjectComponents {
 			this.velocity.Y = (FInt)0;
 		}
 	}
-
 }

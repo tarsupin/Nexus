@@ -7,6 +7,8 @@
  *		Playmate: An active human player other than Self; one controlled through multiplayer on another system.
  */
 
+using Nexus.Objects;
+
 namespace Nexus.GameEngine {
 
 	public class Player {
@@ -20,11 +22,17 @@ namespace Nexus.GameEngine {
 
 		public bool recordInputs;		// True if the player will maintain records of the inputs pressed this game.
 
-		public PlayerInput input;		// Tracks the input specific to the player.
+		public PlayerInput input;       // Tracks the input specific to the player.
+		public Character character;     // Reference to the Character the player controls.
 
 		public Player( byte playerId ) {
 			this.playerId = playerId;
 			this.input = new PlayerInput(this);
+		}
+
+		public void AssignCharacter( Character character ) {
+			this.character = character;
+			this.character.AssignPlayer(this);
 		}
 	}
 }

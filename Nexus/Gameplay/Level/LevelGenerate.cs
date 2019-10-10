@@ -99,7 +99,7 @@ namespace Nexus.Gameplay {
 
 			// Skip Certain Flags
 			// TODO: Might need to adjust how "Spawn" flags work here.
-			if(type == 95) { return; }      // "Character" flag should be ignored.
+			if(type == 100) { return; }      // "Character" flag should be ignored.
 
 			GameMapper mapper = this.systems.mapper;
 

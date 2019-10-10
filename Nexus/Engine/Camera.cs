@@ -98,7 +98,7 @@ namespace Nexus.Engine {
 				dist = (centerX - leewayX) - this.posX;
 				this.posX += (int) (dist * this.speedMult);
 			} else if(this.posX > centerX + leewayX) {
-				dist = this.posX - (centerX - leewayX);
+				dist = this.posX - (centerX + leewayX);
 				this.posX -= (int) (dist * this.speedMult);
 			}
 
@@ -107,7 +107,7 @@ namespace Nexus.Engine {
 				dist = (centerY - leewayY) - this.posY;
 				this.posY += (int) (dist * this.speedMult);
 			} else if(this.posY > centerY + leewayY) {
-				dist = this.posY - (centerY - leewayY);
+				dist = this.posY - (centerY + leewayY);
 				this.posY -= (int) (dist * this.speedMult);
 			}
 

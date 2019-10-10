@@ -68,6 +68,8 @@ namespace Nexus
 			Character character = new Character((LevelScene) this.systems.scene, 0, FVector.Create(800, 300), null);
 			((LevelScene)(this.systems.scene)).AddToObjects(character);
 
+			this.systems.localServer.MyPlayer.AssignCharacter(character);
+
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(this.systems.handler.level.data.id);
 		}

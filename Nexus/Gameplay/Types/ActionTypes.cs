@@ -27,11 +27,12 @@ namespace Nexus.Gameplay {
 		// Special
 		Death,
 		Stall,
+		
+		Charge,
+		HopUp,
 	}
 
 	// Enemy Action Classes; maps with ID
 	public enum EnemyActionId {
-		Charge,
-		HopUp,
 	}
 }

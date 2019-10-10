@@ -1,17 +1,30 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
+using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
 
+	// Action Map
+	public class ActionMap {
+		public readonly AirBurst AirBurst = new AirBurst();
+		public readonly FlightAction Flight = new FlightAction();
+		public readonly HoverAction Hover = new HoverAction();
+		public readonly JumpAction Jump = new JumpAction();
+	}
+	
 	public class GameMapper {
 
+		public readonly ActionMap actions;
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
 		// TileMap, FGTileMap, ObjectMap
 		
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
+
+			// Create Action List
+			this.actions = new ActionMap();
 
 			// Create Atlas List
 			this.atlas = new Atlas[3];

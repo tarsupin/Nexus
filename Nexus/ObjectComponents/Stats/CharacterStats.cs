@@ -21,12 +21,12 @@ namespace Nexus.ObjectComponents {
 		public FInt RunAcceleration;
 		public FInt RunDeceleration;
 		public byte RunMaxSpeed;
-		public FInt SlowSpeedMult;			// The multiplier for when you're not running (running is considered x1).
+		public FInt SlowSpeedMult;          // The multiplier for when you're not running (running is considered x1).
 
-		// Jumping
+		// Jumping & Air Movement
+		public FInt AirAcceleration;
+		public FInt AirDeceleration;
 		public byte JumpMaxTimes;
-		public FInt JumpAcceleration;
-		public FInt JumpDeceleration;
 		public byte JumpDuration;
 		public byte JumpStrength;
 
@@ -62,10 +62,11 @@ namespace Nexus.ObjectComponents {
 			RunAcceleration = FInt.FromParts(0, 300);
 			RunDeceleration = 0 - FInt.FromParts(0, 200);
 			RunMaxSpeed = 7;
+			SlowSpeedMult = FInt.FromParts(0, 650);
 
 			JumpMaxTimes = 1;
-			JumpAcceleration = FInt.FromParts(0, 450);
-			JumpDeceleration = 0 - FInt.FromParts(0, 200);
+			AirAcceleration = FInt.FromParts(0, 450);
+			AirDeceleration = 0 - FInt.FromParts(0, 200);
 			JumpDuration = 10;
 			JumpStrength = 11;
 

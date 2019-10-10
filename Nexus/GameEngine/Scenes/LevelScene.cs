@@ -130,7 +130,12 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
 
 			// Camera Movement
-			this.camera.MoveWithInput(this.localServer.MyPlayer.input);
+			Character MyCharacter = this.localServer.MyCharacter;
+			if(MyCharacter is Character) {
+				this.camera.Follow(MyCharacter.pos.X.IntValue + 80, MyCharacter.pos.Y.IntValue, 50, 50);
+			}
+
+			//this.camera.MoveWithInput(this.localServer.MyPlayer.input);
 
 			// Run Collisions
 			this.collideSequence.RunCollisionSequence();

@@ -1,6 +1,5 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -26,7 +25,7 @@ namespace Nexus.ObjectComponents {
 			// If you've spent more jumps than you have available, cannot jump again.
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
 
-			status.actionClassId = (byte) CharacterActionId.Jump;
+			status.action = character.ActionMap.Jump;
 			status.actionEnds = character.scene.timer.frame + stats.JumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);
@@ -35,15 +34,14 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void RunAction( Character character ) {
-			CharacterStatus status = character.status;
-			uint frame = character.scene.timer.frame;
 
 			// End the action after the designated number of frames has elapsed:
-			if(frame > status.actionEnds) {
+			if(this.HasTimeElapsed(character)) {
 				this.EndAction(character);
 				return;
 			}
 
+			CharacterStatus status = character.status;
 			PlayerInput input = character.input;
 
 			// Deactivate "JUMP" marker if the character has released the jump button.
@@ -62,7 +60,7 @@ namespace Nexus.ObjectComponents {
 			physics.velocity.Y = 0 - jumpStrength;
 
 			// If the jump button has been released and the minimum duration has ended, end the jump:
-			if(!status.actionBool1 && frame > character.status.actionEnds - status.actionNum2) {
+			if(!status.actionBool1 && character.scene.timer.frame > character.status.actionEnds - status.actionNum2) {
 				this.EndAction(character);
 				return;
 			}

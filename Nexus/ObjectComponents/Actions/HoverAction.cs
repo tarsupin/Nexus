@@ -18,11 +18,9 @@ namespace Nexus.ObjectComponents {
 			CharacterStatus status = character.status;
 
 			// Don't start hovering if there is already a hover action in place.
-			if(status.actionClassId == (byte) CharacterActionId.Hover && character.scene.timer.frame > character.status.actionEnds) {
-				return;
-			}
+			if(status.action is HoverAction && !this.HasTimeElapsed(character)) { return; }
 
-			status.actionClassId = (byte) CharacterActionId.Hover;
+			status.action = character.ActionMap.Hover;
 			status.actionEnds = character.scene.timer.frame + this.duration;
 			status.actionBool1 = horizontalOnly;
 
@@ -32,7 +30,7 @@ namespace Nexus.ObjectComponents {
 		public override void RunAction( Character character ) {
 
 			// End the action after the designated number of frames has elapsed:
-			if(character.scene.timer.frame > character.status.actionEnds) {
+			if(this.HasTimeElapsed(character)) {
 				this.EndAction(character);
 				return;
 			}

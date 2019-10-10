@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -15,13 +16,15 @@ namespace Nexus.ObjectComponents {
 			// Make sure the power can be activated
 			if(!this.CanActivate()) { return; }
 
-			if(this.character.action is FlightAction) {
-				this.character.action.EndAction(this.character);
+			CharacterStatus status = this.character.status;
+
+			if(status.action is FlightAction) {
+				status.action.EndAction(this.character);
 
 				// TODO SOUND: Create an "End Flight" sound, to identify that the flight has been toggled off.
 
 			} else {
-				this.character.action = new FlightAction(this.character);
+				character.ActionMap.Flight.StartAction(character);
 
 				// TODO SOUND: Create a "Flight Takeoff" sound, to identify the flight has been toggled on.
 			}

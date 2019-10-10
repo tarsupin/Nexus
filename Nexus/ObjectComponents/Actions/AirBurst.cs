@@ -17,7 +17,7 @@ namespace Nexus.ObjectComponents {
 		public void StartAction( Character character, sbyte directionHor, sbyte directionVert, bool endMomentum = false, byte extraDuration = 0 ) {
 			CharacterStatus status = character.status;
 
-			status.actionClassId = (byte) CharacterActionId.AirBurst;
+			status.action = character.ActionMap.AirBurst;
 			status.actionNum1 = directionHor;
 			status.actionNum2 = directionVert;
 			status.actionEnds = character.scene.timer.frame + this.duration + extraDuration;

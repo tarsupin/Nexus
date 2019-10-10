@@ -15,8 +15,8 @@ namespace Nexus.ObjectComponents {
 			stats.CanWallJump = true;
 			stats.CanWallSlide = true;
 
-			stats.JumpAcceleration = FInt.FromParts(0, 750);            // 0.45
-			stats.JumpDeceleration = 0 - FInt.FromParts(0, 200);     // -0.2
+			stats.AirAcceleration = FInt.FromParts(0, 750);            // 0.45
+			stats.AirDeceleration = 0 - FInt.FromParts(0, 200);     // -0.2
 
 			stats.RunMaxSpeed = 8;
 			stats.RunAcceleration = FInt.FromParts(0, 400);         // 0.3

@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 
 		}
 
-		public void RunTick() {
+		public virtual void RunTick() {
 			//if(this.action is Action) { this.action.RunTick(); } else if(this.behavior is Behavior) { this.behavior.RunTick(); }
 
 			//if(this.RunTickCustom) { this.RunTickCustom(); } else { this.physics.RunTick() }; }

@@ -9,7 +9,7 @@ namespace Nexus.ObjectComponents {
 		private Character character;
 
 		// Action Properties
-		public byte actionClassId;		// ID to reference the action class being used.
+		public ActionCharacter action;	// Reference to the action class being used.
 		public uint actionEnds;         // The frame when the action ends.
 		public sbyte actionNum1;		// Generic Action Property
 		public sbyte actionNum2;		// Generic Action Property

@@ -123,6 +123,9 @@
     <Compile Include="ObjectComponents\Hats\BambooHat.cs" />
     <Compile Include="ObjectComponents\Hats\Hat.cs" />
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\SlamMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\SlowFallMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\Mobility\LevitateMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\HoverMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\FlightMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\BurstMobility.cs" />

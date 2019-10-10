@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using Nexus.Objects;
 using System.Collections.Generic;
 
 /*
@@ -43,6 +44,10 @@ namespace Nexus.GameEngine {
 		// Returns the "Self" Player Instance
 		public Player MyPlayer {
 			get { return this.players[this.MyPlayerId]; }
+		}
+
+		public Character MyCharacter {
+			get { return this.players[this.MyPlayerId].character; }
 		}
 
 		public void StartLocalGame() {

@@ -8,6 +8,10 @@ namespace Nexus.ObjectComponents {
 		public ActionCharacter() : base() {
 
 		}
+		
+		public bool HasTimeElapsed( Character character ) {
+			return character.scene.timer.frame > character.status.actionEnds;
+		}
 
 		public virtual void SetDuration( Character character ) {
 			
@@ -20,7 +24,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public virtual void EndAction( Character character ) {
-			character.status.actionClassId = (byte) CharacterActionId.None;
+			character.status.action = null;
 		}
 
 	}
