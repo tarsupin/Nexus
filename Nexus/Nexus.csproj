@@ -106,6 +106,8 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
+    <Compile Include="ObjectComponents\Animation\AnimGlobal.cs" />
+    <Compile Include="ObjectComponents\Animation\Animate.cs" />
     <Compile Include="ObjectComponents\Actions\SlideAction.cs" />
     <Compile Include="ObjectComponents\Actions\JumpAction.cs" />
     <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
@@ -319,7 +321,6 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ObjectComponents\Animation\" />
     <Folder Include="ObjectComponents\Attachments\" />
     <Folder Include="ObjectComponents\Behavior\" />
     <Folder Include="ObjectComponents\Powers\Projectiles\" />

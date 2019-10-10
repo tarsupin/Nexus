@@ -2,7 +2,6 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using System;
 
 // NOTES:
 // Must be able to have multiple characters in the level.
@@ -26,9 +25,6 @@ namespace Nexus.Objects {
 		public Hat hat;
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
-
-		// Miscellaneous
-		public bool faceRight;		// TRUE if the character is facing right.
 
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.Character];

@@ -26,6 +26,9 @@ namespace Nexus.GameEngine {
 		public Physics physics;
 		public Collision collision;
 
+		// Miscellaneous
+		public bool faceRight;      // TRUE if the actor is facing right.
+
 		public DynamicGameObject(LevelScene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {
 
 		}

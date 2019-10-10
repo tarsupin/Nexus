@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
 
-	// Action Map
 	public class ActionMap {
 		public readonly AirBurst AirBurst = new AirBurst();
 		public readonly FlightAction Flight = new FlightAction();
@@ -14,7 +13,11 @@ namespace Nexus.Gameplay {
 		public readonly JumpAction Jump = new JumpAction();
 		public readonly SlideAction Slide = new SlideAction();
 	}
-	
+
+	public class AnimationMap {
+		public AnimGlobal AnimationGlobal = new AnimGlobal();
+	}
+
 	public class GameMapper {
 
 		public readonly ActionMap actions;
