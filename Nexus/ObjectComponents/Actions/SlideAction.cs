@@ -25,7 +25,7 @@ namespace Nexus.ObjectComponents {
 
 		public static bool IsAbleToSlide( Character character, bool slideRight ) {
 			CharacterStatus status = character.status;
-			byte velX = (byte) character.physics.velocity.X.IntValue;
+			sbyte velX = (sbyte) character.physics.velocity.X.IntValue;
 
 			// Make sure the character's slide timer has cooled down.
 			if(status.nextSlide > character.scene.timer.frame) { return false; }
@@ -54,7 +54,8 @@ namespace Nexus.ObjectComponents {
 			if(slideRight) { if(physics.touch.toRight) { this.EndAction(character); return; } }
 			else if(physics.touch.toLeft) { this.EndAction(character); return; }
 
-			physics.velocity.X = character.stats.SlideStrength;
+			// Perform Slide
+			physics.velocity.X = slideRight ? character.stats.SlideStrength : 0 - character.stats.SlideStrength;
 
 			PlayerInput input = character.input;
 

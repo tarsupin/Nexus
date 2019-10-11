@@ -180,7 +180,7 @@ namespace Nexus.Objects {
 
 			// Resting Friction (No Intentional Movement)
 			else {
-				this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.FromParts(0, 250));
+				this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.Create(2));
 			}
 
 			// As long as we're not currently sliding:
@@ -350,7 +350,7 @@ namespace Nexus.Objects {
 				if(this.physics.velocity.X > 0) { this.physics.velocity.X = (FInt) 0; }
 			} else {
 				this.physics.velocity.X += delta;
-				if(this.physics.velocity.X < 0) { this.physics.velocity.X = (FInt)0; }
+				if(this.physics.velocity.X < 0) { this.physics.velocity.X = (FInt) 0; }
 			}
 		}
 
