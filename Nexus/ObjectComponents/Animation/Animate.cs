@@ -11,6 +11,13 @@ namespace Nexus.ObjectComponents {
 		public byte AnimSpeed { get; private set; }		// The number of frames that each animation takes place.
 		public uint NextFrame { get; private set; }     // The frame # that the texture will next update.
 
+		public Animate() {
+			this.AnimNum = 0;
+			this.AnimSpeed = 15;
+			this.AnimId = 1;
+			this.NextFrame = 0;
+		}
+
 		// Returns TRUE if we're on an animation update cycle.
 		public bool IsAnimationTick(TimerGlobal timer) {
 

@@ -26,6 +26,9 @@ namespace Nexus.GameEngine {
 
 		public LevelFlags flags = new LevelFlags();
 
+		// Level Cleanup
+		private List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed.
+
 		public LevelScene( Systems systems ) : base( systems ) {
 
 			// TODO CLEANUP: Debugging stopwatch should be removed.
@@ -48,6 +51,9 @@ namespace Nexus.GameEngine {
 				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),
 				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
 			};
+
+			// Cleanup
+			this.markedForRemoval = new List<DynamicGameObject>();
 
 			// Game Class Objects
 			this.classObjects = new Dictionary<byte, ClassGameObject>();
@@ -128,6 +134,9 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.TrailingItem]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
+
+			// Object Cleanup
+			this.DestroyObjectsMarkedForRemoval();
 
 			// Camera Movement
 			Character MyCharacter = this.localServer.MyCharacter;
@@ -235,6 +244,25 @@ namespace Nexus.GameEngine {
 			this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
 		}
 
+		public void DestroyObject( DynamicGameObject gameObject ) {
+			this.markedForRemoval.Add(gameObject);
+		}
+
+		// We use this method to destroy objects outside of the loops they're called in. This is to allow enumerators to continue working.
+		private void DestroyObjectsMarkedForRemoval() {
+
+			// Only continue if there are items marked for removal:
+			if(this.markedForRemoval.Count == 0) { return; }
+
+			// Loop through the list of objects to destroy
+			foreach(DynamicGameObject obj in this.markedForRemoval) {
+				this.objects[(byte)obj.Meta.LoadOrder].Remove(obj.id);
+			}
+
+			// Clear the list of any objects being marked for removal.
+			this.markedForRemoval.Clear();
+		}
+
 		public void RunCharacterDeath( Character character ) {
 			// TODO UI - Reset coin counter (if character was self)
 			// this.coinIcon.text.setText("0"); // Reset Coin Counter
@@ -272,5 +300,6 @@ namespace Nexus.GameEngine {
 			//// if(this.healthIcons) { this.healthIcons.updateIcons( status.health, status.armor ); }
 			//// if(this.powerAttIcon) { this.powerAttIcon.setText(""); }
 		}
+
 	}
 }

@@ -10,7 +10,7 @@ namespace Nexus.ObjectComponents {
 		protected DynamicGameObject objRef;
 
 		// Physics Valuesa
-		protected FVector lastPos;
+		public FVector lastPos;
 		public FVector velocity;
 		public FVector extraMovement;
 		public FInt gravity;
@@ -75,11 +75,11 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StopX() {
-			this.velocity.X = (FInt)0;
+			this.velocity.X = (FInt) 0;
 		}
 
 		public void StopY() {
-			this.velocity.Y = (FInt)0;
+			this.velocity.Y = (FInt) 0;
 		}
 	}
 }

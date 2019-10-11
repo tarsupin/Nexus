@@ -26,6 +26,9 @@ namespace Nexus.Objects {
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
+		// Other Components
+		public readonly Animate animate;
+
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.Character];
 			this.SpriteName = "Moosh/Brown/Left2";
@@ -39,6 +42,9 @@ namespace Nexus.Objects {
 			this.stats = new CharacterStats(this);
 			this.status = new CharacterStatus(this);
 			this.wounds = new CharacterWounds(this, scene.timer);
+
+			// Images and Animations
+			this.animate = new Animate();
 		}
 
 		public void AssignPlayer( Player player ) {
@@ -136,7 +142,6 @@ namespace Nexus.Objects {
 		private void OnFloorUpdate() {
 
 			// Character Movement & Handling
-			FInt velX = this.physics.velocity.X;
 			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt) 1 : this.stats.SlowSpeedMult);
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
 				// TODO LOW PRIORITY: add * status.friction
@@ -146,7 +151,7 @@ namespace Nexus.Objects {
 				this.faceRight = true;
 
 				// Move Right up to maximum speed. (Must use FInt Math, not Math.Min)
-				if(maxSpeed > velX) {
+				if(maxSpeed > this.physics.velocity.X) {
 					this.physics.velocity.X += this.stats.RunAcceleration * speedMult;
 					if(this.physics.velocity.X > maxSpeed) { this.physics.velocity.X = maxSpeed; }
 				}
@@ -159,10 +164,10 @@ namespace Nexus.Objects {
 
 			// Movement Left
 			else if(this.input.isDown(IKey.Left)) {
-				this.faceRight = true;
+				this.faceRight = false;
 
 				// Move Left up to maximum speed. (Must use FInt Math, not Math.Min)
-				if(velX > maxSpeed.Inverse) {
+				if(this.physics.velocity.X > maxSpeed.Inverse) {
 					this.physics.velocity.X -= this.stats.RunAcceleration * speedMult;
 					if(this.physics.velocity.X < maxSpeed.Inverse) { this.physics.velocity.X = maxSpeed.Inverse; }
 				}
@@ -217,6 +222,48 @@ namespace Nexus.Objects {
 					status.jumpsUsed = 0;
 				}
 			}
+
+			// Animations & Drawing
+			int velX = this.physics.velocity.X.IntValue;
+			bool heldItem = false;
+			string suitType = "WhiteNinja/";		// this.suit.type + "/"
+
+			// If Moving Right
+			if(velX > 0) {
+
+				// If Facing Left
+				if(!this.faceRight) {
+					this.SetCharSprite(suitType + "TurnLeft");
+					//if(heldItem) { xShift = 74; }
+				}
+
+				// If Facing Right
+				else {
+					// if(heldItem) { this.SpriteName = suitType + "RunHold"; } else {
+					this.SetCharSprite(suitType + (velX > 5 ? "Run" : "Walk"));
+				}
+			}
+
+			// If Moving Left
+			else if(velX < 0) {
+
+				// If Facing Right
+				if(this.faceRight) {
+					this.SetCharSprite(suitType + "Turn");
+					//if(heldItem) { xShift = -14; }
+				}
+
+				// If Facing Left
+				else {
+					if(heldItem) { this.SpriteName = suitType + "RunHoldLeft"; }
+					else { this.SetCharSprite(suitType + (velX > 5 ? "RunLeft" : "WalkLeft")); }
+				}
+			}
+
+			// If Not Moving
+			else {
+				this.SetCharSprite(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
+			}
 		}
 
 		private void InAirUpdate() {
@@ -224,7 +271,6 @@ namespace Nexus.Objects {
 			// NOTE: Character momentum is allowed to exceed run speed, but not by character's own force.
 
 			// Character Movement & Handling
-			FInt velX = this.physics.velocity.X;
 			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt)1 : this.stats.SlowSpeedMult);
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
 
@@ -233,7 +279,7 @@ namespace Nexus.Objects {
 				this.faceRight = true;
 
 				// Move Right up to maximum speed. (Must use FInt Math, not Math.Min)
-				if(maxSpeed > velX) {
+				if(maxSpeed > this.physics.velocity.X) {
 					this.physics.velocity.X += this.stats.AirAcceleration * speedMult;
 					if(this.physics.velocity.X > maxSpeed) { this.physics.velocity.X = maxSpeed; }
 				}
@@ -246,10 +292,10 @@ namespace Nexus.Objects {
 
 			// Movement Left
 			else if(this.input.isDown(IKey.Left)) {
-				this.faceRight = true;
+				this.faceRight = false;
 
 				// Move Left up to maximum speed.(Must use FInt Math, not Math.Min)
-				if(maxSpeed.Inverse < velX) {
+				if(maxSpeed.Inverse < this.physics.velocity.X) {
 					this.physics.velocity.X -= this.stats.AirAcceleration * speedMult;
 					if(this.physics.velocity.X < maxSpeed.Inverse) { this.physics.velocity.X = maxSpeed.Inverse; }
 				}
@@ -269,6 +315,31 @@ namespace Nexus.Objects {
 			// TODO HIGH PRIORITY: AIR JUMP
 			// TODO HIGH PRIORITY: AIR JUMP
 			// TODO HIGH PRIORITY: AIR JUMP
+
+
+			// Animations & Drawing
+			bool heldItem = false;
+			string suitType = "WhiteNinja/";        // this.suit.type + "/"
+
+			// If Holding Item
+			if(heldItem) {
+				this.SetCharSprite(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
+			}
+
+			// Falling
+			else if(this.physics.velocity.Y.IntValue > 3) {
+				this.SetCharSprite(suitType + "Fall" + (this.faceRight ? "" : "Left"));
+			}
+
+			// Jumping (Moving Up)
+			else {
+				this.SetCharSprite(suitType + "Jump" + (this.faceRight ? "" : "Left"));
+			}
+		}
+
+		private void SetCharSprite(string spriteName) {
+			this.SpriteName = spriteName;
+			this.animate.DisableAnimation();
 		}
 
 		private void DecelerateChar( FInt decelStat, FInt speedMult, FInt deceleration ) {

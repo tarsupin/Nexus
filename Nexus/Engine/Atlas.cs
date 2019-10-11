@@ -47,7 +47,7 @@ namespace Nexus.Engine {
 
 			spriteBatch.Draw(
 				texture: this.Texture,
-				position: new Vector2(posX, posY),
+				position: new Vector2(posX + sprite.XOffset, posY + sprite.YOffset),
 				sourceRectangle: sprite.TextureRect,
 				color: null
 			);
@@ -122,11 +122,7 @@ namespace Nexus.Engine {
 
 				var textureFrame = spriteObj.Value["frame"];
 				var sourceInfo = spriteObj.Value["spriteSourceSize"];
-
-				int x = textureFrame["x"];
-				int y = textureFrame["y"];
-				int w = textureFrame["w"];
-				int h = textureFrame["h"];
+				var size = spriteObj.Value["sourceSize"];
 
 				Rectangle textureRect = new Rectangle(
 					(int) textureFrame["x"],
@@ -135,7 +131,7 @@ namespace Nexus.Engine {
 					(int) textureFrame["h"]
 				);
 
-				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short) sourceInfo["w"], (short) sourceInfo["h"]);
+				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)size["w"], (short)size["h"]);
 				spriteList.Add(spriteObj.Name, sprite);
 			}
 		}

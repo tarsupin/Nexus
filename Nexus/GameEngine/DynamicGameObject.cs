@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 
 		// Destroys the instance of this object.
 		public void Destroy() {
-
+			this.scene.DestroyObject(this);
 		}
 
 		public void RenderKnockoutRotation(int camX, int camY, TimerGlobal time) {

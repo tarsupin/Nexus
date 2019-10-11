@@ -30,19 +30,19 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void AlignUp( DynamicGameObject obj, int posY ) {
-			obj.physics.MoveToPosY((FInt) posY);
+			obj.pos.Y = (FInt) posY;
 		}
 
 		public static void AlignDown( DynamicGameObject obj, int posY ) {
-			obj.physics.MoveToPosY((FInt)(posY + (byte) TilemapEnum.TileHeight));
+			obj.pos.Y = (FInt)(posY + (byte)TilemapEnum.TileHeight);
 		}
 
 		public static void AlignLeft( DynamicGameObject obj, int posX ) {
-			obj.physics.MoveToPosX((FInt) posX);
+			obj.pos.X = (FInt) posX;
 		}
 
 		public static void AlignRight( DynamicGameObject obj, int posX) {
-			obj.physics.MoveToPosX((FInt)(posX + (byte) TilemapEnum.TileHeight));
+			obj.pos.X = (FInt)(posX + (byte)TilemapEnum.TileWidth);
 		}
 	}
 }
