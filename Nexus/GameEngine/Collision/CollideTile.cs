@@ -54,9 +54,6 @@ namespace Nexus.GameEngine {
 				if(dir == DirCardinal.Down) {
 					CollideTileAffect.CollideDown(obj, gridY * (byte)TilemapEnum.TileHeight - obj.bounds.Bottom);
 				} else if(dir == DirCardinal.Right) {
-					if(obj is Character) {
-						System.Console.WriteLine("TEST");
-					}
 					CollideTileAffect.CollideRight(obj, gridX * (byte)TilemapEnum.TileWidth - obj.bounds.Right);
 				} else if(dir == DirCardinal.Left) {
 					CollideTileAffect.CollideLeft(obj, gridX * (byte)TilemapEnum.TileWidth - obj.bounds.Left);
@@ -82,24 +79,27 @@ namespace Nexus.GameEngine {
 
 							// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-							CollideTileAffect.AlignUp(obj, gridY * (byte)TilemapEnum.TileHeight);
+							CollideTileAffect.CollideDown(obj, gridY * (byte)TilemapEnum.TileHeight - obj.bounds.Bottom);
 
 							// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+							return true;
 						}
 
-						return true;
+						return false;
 					}
 
 					// The Platform Faces Downward. Collide if the Direction is Upward.
 					if(dir == DirCardinal.Up) {
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-						CollideTileAffect.AlignDown(obj, gridY * (byte)TilemapEnum.TileHeight);
+						CollideTileAffect.CollideUp(obj, gridY * (byte)TilemapEnum.TileHeight - obj.bounds.Top);
 
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+
+						return true;
 					}
 
-					return true;
+					return false;
 				}
 
 				// The Platform is Horizontal.
@@ -111,24 +111,26 @@ namespace Nexus.GameEngine {
 					if(dir == DirCardinal.Right) {
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-						CollideTileAffect.AlignLeft(obj, gridX * (byte)TilemapEnum.TileWidth);
+						CollideTileAffect.CollideRight(obj, gridX * (byte)TilemapEnum.TileWidth - obj.bounds.Right);
 
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+						return true;
 					}
 
-					return true;
+					return false;
 				}
 
 				// The Platform Faces Right. Collide if the Direction is Left.
 				if(dir == DirCardinal.Left) {
 					// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-					CollideTileAffect.AlignRight(obj, gridX * (byte)TilemapEnum.TileWidth);
+					CollideTileAffect.CollideLeft(obj, gridX * (byte)TilemapEnum.TileWidth - obj.bounds.Left);
 
 					// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+					return true;
 				}
 
-				return true;
+				return false;
 			}
 
 			// Colliding with a Slope:
@@ -180,7 +182,7 @@ namespace Nexus.GameEngine {
 					// If moving DOWN-RIGHT.
 					if(velX > 0) {
 
-						// Compare against TOP-RIGHT (vs. left) and BOTTOM-LEFT (vs. up)
+						// Compare against BOTTOM-LEFT (vs. up) and TOP-RIGHT (vs. left)
 						bool down = CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, DirCardinal.Down);
 						bool right = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, DirCardinal.Right);
 
@@ -194,7 +196,7 @@ namespace Nexus.GameEngine {
 					// If moving DOWN-LEFT:
 					else if(velX < 0) {
 
-						// Compare against TOP-LEFT (vs. right) and BOTTOM-RIGHT (vs.up)
+						// Compare against BOTTOM-RIGHT (vs.up) and TOP-LEFT (vs. right)
 						bool down = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, DirCardinal.Down);
 						bool left = CollideTile.RunGridTest(obj, tilemap, gridX, gridY, DirCardinal.Left);
 
@@ -224,7 +226,7 @@ namespace Nexus.GameEngine {
 					// If moving UP-RIGHT:
 					if(velX > 0) {
 
-						// Compare against BOTTOM-RIGHT (vs. left) and TOP-LEFT (vs. down)
+						// Compare against TOP-LEFT (vs. down) and BOTTOM-RIGHT (vs. left) 
 						bool up = CollideTile.RunGridTest(obj, tilemap, gridX, gridY, DirCardinal.Up);
 						bool right = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, DirCardinal.Right);
 
@@ -238,7 +240,7 @@ namespace Nexus.GameEngine {
 					// If moving UP-LEFT:
 					else if(velX < 0) {
 
-						// Compare against BOTTOM-LEFT (vs. right) and TOP-RIGHT (vs. down)
+						// Compare against TOP-RIGHT (vs. down) and BOTTOM-LEFT (vs. right)
 						bool up = CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, DirCardinal.Up);
 						bool left = CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, DirCardinal.Left);
 

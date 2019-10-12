@@ -1,4 +1,6 @@
 ﻿using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
 
 // The Animate Class is attached as a component to the DynamicGameObject (e.g. character.animate).
 
@@ -6,53 +8,72 @@ namespace Nexus.ObjectComponents {
 
 	public class Animate {
 
-		public byte AnimNum { get; private set; }		// The number of animation IDs in a loop.
-		public byte AnimId { get; private set; }		// The animation ID of the texture (e.g. "1", "2", etc.), which cycles through the animation.
-		public byte AnimSpeed { get; private set; }		// The number of frames that each animation takes place.
-		public uint NextFrame { get; private set; }     // The frame # that the texture will next update.
+		public DynamicGameObject actor;
 
-		public Animate() {
-			this.AnimNum = 0;
+		public string name;
+		public string BaseName { get; private set; }		// The base of the animation name (e.g. "Moosh/")
+		public string[] AnimCycles { get; private set; }	// The animation names to cycle through (e.g. "WalkLeft1", "WalkLeft2", etc).
+		public byte CycleId { get; private set; }			// The animation ID of the texture (e.g. "1", "2", etc.), which cycles through the animation.
+		public byte AnimSpeed { get; private set; }			// The number of frames that each animation takes place.
+		public uint NextFrame { get; private set; }			// The frame # that the texture will next update.
+
+		public Animate( DynamicGameObject actor, string baseName = "" ) {
+			this.actor = actor;
+			this.BaseName = baseName;
+			this.AnimCycles = new string[0];
 			this.AnimSpeed = 15;
-			this.AnimId = 1;
+			this.CycleId = 0;
 			this.NextFrame = 0;
+		}
+
+		// The Animation Tick, which should be run during the object's RunTick cycle.
+		public void RunAnimationTick(TimerGlobal timer) {
+
+			// Only run if this frame will update the animation.
+			if(!this.IsAnimationTick(timer)) { return; }
+
+			// Update the Animation ID (and cycle it once it reaches the animation number limit).
+			this.CycleId += 1;
+			if(this.CycleId >= this.AnimCycles.Length) { this.CycleId = 0; }
+
+			// Update the next frame that the animation will tick.
+			this.NextFrame = timer.frame + this.AnimSpeed;
+
+			// Update the actor's sprite name according to the next animation cycle.
+			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);
 		}
 
 		// Returns TRUE if we're on an animation update cycle.
 		public bool IsAnimationTick(TimerGlobal timer) {
 
 			// If the animation is limited to 1 frame or less, it has no animations; therefore, no animation tick.
-			if(this.AnimNum <= 1) { return false; }
+			if(this.AnimCycles.Length <= 1) { return false; }
 
 			// Check if the Animation Tick has met the next frame required.
 			return this.NextFrame <= timer.frame;
 		}
 
-		// Sets (and returns) the Next Animation ID. Run on any frame when it's an Animation Tick.
-		public byte NextAnimationId(TimerGlobal timer) {
+		// Sets a designated animation.
+		// SetAnimation( "Moosh/Brown/Walk", AnimCycleMap.Cycle3, 15 );
+		public void SetAnimation( string baseName, string[] animCycles, byte animSpeed, byte cycleId = 0 ) {
 
-			// Update the Animation ID (and cycle it once it reaches the animation number limit).
-			this.AnimId += 1;
-			if(this.AnimId > this.AnimNum) { this.AnimId = 1; }
+			// Don't update the animation if you're using the same animation.
+			if(this.AnimCycles == animCycles) { return; }
 
-			// Finally, update the next frame to run this effect in.
-			this.NextFrame = timer.frame + AnimSpeed;
+			if(baseName != null) { this.BaseName = baseName; }
 
-			return this.AnimId;
-		}
-
-		// Sets (and returns) a designated Animation ID.
-		public byte SetAnimation( TimerGlobal timer, byte animNum, byte animSpeed, byte animId = 1 ) {
-			this.AnimNum = animNum;
+			this.AnimCycles = animCycles;
 			this.AnimSpeed = animSpeed;
-			this.AnimId = animId;
-			this.NextFrame = timer.frame + animSpeed;
-			return this.AnimId;
+			this.CycleId = cycleId;
+			this.NextFrame = this.actor.scene.timer.frame + animSpeed;
+
+			// Update the actor's sprite name according to the next animation cycle.
+			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);
 		}
 
 		// Disables Animation
 		public void DisableAnimation() {
-			this.AnimNum = 0;
+			if(this.AnimCycles.Length > 0) { this.AnimCycles = AnimCycleMap.NoAnimation; }
 		}
 	}
 }

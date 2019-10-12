@@ -47,6 +47,10 @@ namespace Nexus.GameEngine {
 		public ushort GridX2 { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Right) / (byte) TilemapEnum.TileWidth)); } }
 		public ushort GridY2 { get { return (ushort) Math.Floor((double) ((this.pos.Y.IntValue + this.bounds.Bottom) / (byte) TilemapEnum.TileHeight)); } }
 
+		public virtual void SetSpriteName( string spriteName ) {
+			this.SpriteName = spriteName;
+		}
+
 		public virtual void SetSubType(byte subType) {
 			//this.Texture = "BaseTexture/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
 		}

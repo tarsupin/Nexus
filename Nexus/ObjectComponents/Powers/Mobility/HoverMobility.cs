@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -16,7 +17,7 @@ namespace Nexus.ObjectComponents {
 			if(!this.CanActivate()) { return; }
 
 			// Start the Hover Action
-			character.ActionMap.Hover.StartAction(character, true);
+			ActionMap.Hover.StartAction(character, true);
 
 			// TODO SOUND: Trigger a "Start Hover" sound, to identify that the hover has begun.
 		}

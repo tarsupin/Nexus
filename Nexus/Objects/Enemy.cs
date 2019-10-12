@@ -1,15 +1,21 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
 	public class Enemy : DynamicGameObject {
 
+		// Enemy Stats
 		public DamageStrength ProjectileResist { get; protected set; }
 
-		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+		// Enemy Components
+		public readonly EnemyStatus status;
+		public ActionEnemy action;
 
+		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+			this.status = new EnemyStatus();
 		}
 
 		public new void RunTick() {

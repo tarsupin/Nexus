@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -11,8 +12,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character ) {
-			CharacterStatus status = character.status;
-			status.action = character.ActionMap.Flight;
+			character.status.action = ActionMap.Flight;
 			character.physics.SetGravity((FInt) 0);
 		}
 

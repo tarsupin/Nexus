@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.PlatformFixed, subTypeId, true, false, false);
+			scene.tilemap.AddPlatformTile(gridX, gridY, (byte) ClassGameObjectId.PlatformFixed, subTypeId, true, true, false, false);
 		}
 
 		public PlatformFixed(LevelScene scene) : base(scene, ClassGameObjectId.PlatformFixed, AtlasGroup.Tiles) {

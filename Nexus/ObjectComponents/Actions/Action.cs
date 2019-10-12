@@ -1,10 +1,13 @@
 ﻿using Nexus.GameEngine;
 
+// To start an action, use the "StartAction()" methods through the ActionMap.
+// Example: ActionMap.Slide.StartAction(this, this.faceRight);
+
 namespace Nexus.ObjectComponents {
 
 	public class Action {
 
-		public byte duration;
+		protected byte duration;
 		protected bool endsOnLanding;			// TRUE if the action will end when the actor lands.
 
 		public Action() {
@@ -21,6 +24,5 @@ namespace Nexus.ObjectComponents {
 		public virtual void EndAction( DynamicGameObject actor ) {
 			
 		}
-
 	}
 }

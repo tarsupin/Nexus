@@ -22,9 +22,10 @@ namespace Nexus.GameEngine {
 		//action: ActionTrait;			// Current Action
 		//behavior: BehaviorTrait;
 
-		// Physics Components
+		// Components
 		public Physics physics;
 		public Collision collision;
+		public Animate animate;
 
 		// Miscellaneous
 		public bool faceRight;      // TRUE if the actor is facing right.
@@ -34,10 +35,26 @@ namespace Nexus.GameEngine {
 		}
 
 		public virtual void RunTick() {
+
+			// Activity
+			// TODO HIGH PRIORITY: End Tick if the activity isn't present.
+			// if(this.activity == (byte) Activity.Inactive) { return; }
+
+			// Actions and Behaviors
 			//if(this.action is Action) { this.action.RunTick(); } else if(this.behavior is Behavior) { this.behavior.RunTick(); }
 
-			//if(this.RunTickCustom) { this.RunTickCustom(); } else { this.physics.RunTick() }; }
+			// Standard Physics
 			this.physics.RunTick();
+			
+			// Animations, if applicable.
+			if(this.animate is Animate) {
+				this.animate.RunAnimationTick(this.scene.timer);
+			}
+		}
+
+		public void SetSpriteName(string spriteName, bool isAnimation = false) {
+			this.SpriteName = spriteName;
+			if(!isAnimation && this.animate is Animate) { this.animate.DisableAnimation(); }
 		}
 
 		// Destroys the instance of this object.

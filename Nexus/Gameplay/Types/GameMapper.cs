@@ -6,29 +6,43 @@ using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
 
-	public class ActionMap {
-		public readonly AirBurst AirBurst = new AirBurst();
-		public readonly FlightAction Flight = new FlightAction();
-		public readonly HoverAction Hover = new HoverAction();
-		public readonly JumpAction Jump = new JumpAction();
-		public readonly SlideAction Slide = new SlideAction();
+	public static class ActionMap {
+
+		// Character Actions
+		public static readonly AirBurst AirBurst = new AirBurst();
+		public static readonly FlightAction Flight = new FlightAction();
+		public static readonly HoverAction Hover = new HoverAction();
+		public static readonly JumpAction Jump = new JumpAction();
+		public static readonly SlideAction Slide = new SlideAction();
+
+		// Enemy Actions
+		public static readonly HopUpAction HopUp = new HopUpAction();
 	}
 
 	public class AnimationMap {
 		public AnimGlobal AnimationGlobal = new AnimGlobal();
 	}
 
+	public static class AnimCycleMap {
+		public static readonly string[] NoAnimation = new string[0] {};
+		public static readonly string[] Cycle2 = new string[2] { "1", "2" };
+		public static readonly string[] Cycle3 = new string[3] { "1", "2", "3" };
+		public static readonly string[] Cycle4 = new string[4] { "1", "2", "3", "4" };
+
+		// Character-Specific Animations
+		public static readonly string[] CharacterRunLeft = new string[2] { "RunLeft", "StandRunLeft" };
+		public static readonly string[] CharacterRunRight = new string[2] { "Run", "StandRun" };
+		public static readonly string[] CharacterWalkLeft = new string[2] { "WalkLeft", "StandLeft" };
+		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
+	}
+
 	public class GameMapper {
 
-		public readonly ActionMap actions;
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
 		// TileMap, FGTileMap, ObjectMap
 		
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
-
-			// Create Action List
-			this.actions = new ActionMap();
 
 			// Create Atlas List
 			this.atlas = new Atlas[3];

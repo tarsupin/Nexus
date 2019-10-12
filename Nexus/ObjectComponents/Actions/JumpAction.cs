@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -25,7 +26,7 @@ namespace Nexus.ObjectComponents {
 			// If you've spent more jumps than you have available, cannot jump again.
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
 
-			status.action = character.ActionMap.Jump;
+			status.action = ActionMap.Jump;
 			status.actionEnds = character.scene.timer.frame + stats.JumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);

@@ -26,9 +26,6 @@ namespace Nexus.Objects {
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
-		// Other Components
-		public readonly Animate animate;
-
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = scene.mapper.MetaList[MetaGroup.Character];
 			this.SpriteName = "Moosh/Brown/Left2";
@@ -40,19 +37,17 @@ namespace Nexus.Objects {
 
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);
-			this.status = new CharacterStatus(this);
+			this.status = new CharacterStatus();
 			this.wounds = new CharacterWounds(this, scene.timer);
 
 			// Images and Animations
-			this.animate = new Animate();
+			this.animate = new Animate(this, "Moosh/Brown/");
 		}
 
 		public void AssignPlayer( Player player ) {
 			this.player = player;
 			this.input = player.input;
 		}
-
-		public ActionMap ActionMap { get { return this.scene.mapper.actions; }	}
 
 		public void ResetCharacter() {
 
@@ -201,18 +196,18 @@ namespace Nexus.Objects {
 						//// Slide, if able:
 						//else
 						if(SlideAction.IsAbleToSlide(this, this.faceRight)) {
-							this.ActionMap.Slide.StartAction(this, this.faceRight);
+							ActionMap.Slide.StartAction(this, this.faceRight);
 						}
 
 						// Otherwise, JUMP:
 						else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
-							this.ActionMap.Jump.StartAction(this);
+							ActionMap.Jump.StartAction(this);
 						}
 					}
 
 					// JUMP
 					else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
-						this.ActionMap.Jump.StartAction(this);
+						ActionMap.Jump.StartAction(this);
 					}
 				}
 
@@ -233,14 +228,15 @@ namespace Nexus.Objects {
 
 				// If Facing Left
 				if(!this.faceRight) {
-					this.SetCharSprite(suitType + "TurnLeft");
+					this.SetSpriteName(suitType + "TurnLeft");
 					//if(heldItem) { xShift = 74; }
 				}
 
 				// If Facing Right
 				else {
-					// if(heldItem) { this.SpriteName = suitType + "RunHold"; } else {
-					this.SetCharSprite(suitType + (velX > 5 ? "Run" : "Walk"));
+					if(heldItem) { this.SpriteName = suitType + "RunHold"; }
+					else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); }
+					else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
 				}
 			}
 
@@ -249,20 +245,21 @@ namespace Nexus.Objects {
 
 				// If Facing Right
 				if(this.faceRight) {
-					this.SetCharSprite(suitType + "Turn");
+					this.SetSpriteName(suitType + "Turn");
 					//if(heldItem) { xShift = -14; }
 				}
 
 				// If Facing Left
 				else {
 					if(heldItem) { this.SpriteName = suitType + "RunHoldLeft"; }
-					else { this.SetCharSprite(suitType + (velX > 5 ? "RunLeft" : "WalkLeft")); }
+					else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); }
+					else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
 				}
 			}
 
 			// If Not Moving
 			else {
-				this.SetCharSprite(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
+				this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
 			}
 		}
 
@@ -323,23 +320,18 @@ namespace Nexus.Objects {
 
 			// If Holding Item
 			if(heldItem) {
-				this.SetCharSprite(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
+				this.SetSpriteName(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
 			}
 
 			// Falling
 			else if(this.physics.velocity.Y.IntValue > 3) {
-				this.SetCharSprite(suitType + "Fall" + (this.faceRight ? "" : "Left"));
+				this.SetSpriteName(suitType + "Fall" + (this.faceRight ? "" : "Left"));
 			}
 
 			// Jumping (Moving Up)
 			else {
-				this.SetCharSprite(suitType + "Jump" + (this.faceRight ? "" : "Left"));
+				this.SetSpriteName(suitType + "Jump" + (this.faceRight ? "" : "Left"));
 			}
-		}
-
-		private void SetCharSprite(string spriteName) {
-			this.SpriteName = spriteName;
-			this.animate.DisableAnimation();
 		}
 
 		private void DecelerateChar( FInt decelStat, FInt speedMult, FInt deceleration ) {

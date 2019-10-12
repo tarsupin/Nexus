@@ -13,7 +13,9 @@ namespace Nexus.Objects {
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.LedgeGrass, subTypeId, true, false, false);
+			// TODO HIGH PRIORITY: Ledge won't actually face up in every case. Must assign based on subtype.
+			// TODO HIGH PRIORITY: NOTE: Some of these will just be DECOR tiles.
+			scene.tilemap.AddPlatformTile(gridX, gridY, (byte) ClassGameObjectId.LedgeGrass, subTypeId, true, true, false, false);
 		}
 
 		public LedgeGrass(LevelScene scene) : base(scene, ClassGameObjectId.LedgeGrass) {

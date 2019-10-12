@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -16,7 +17,7 @@ namespace Nexus.ObjectComponents {
 			if(!this.CanActivate()) { return; }
 
 			// Start the Levitation Action (same as Hover, but isn't restricted to horizontal movement)
-			character.ActionMap.Hover.StartAction(character);
+			ActionMap.Hover.StartAction(character);
 
 			// TODO SOUND: Trigger a "Start Hover" sound, to identify that the levitation has begun. (same as hover, flight, etc)
 		}

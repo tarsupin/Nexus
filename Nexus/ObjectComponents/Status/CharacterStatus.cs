@@ -1,11 +1,7 @@
-﻿using Nexus.Objects;
-
+﻿
 namespace Nexus.ObjectComponents {
 
 	public class CharacterStatus {
-
-		// References
-		private Character character;
 
 		// Action Properties
 		public ActionCharacter action;	// Reference to the action class being used.
@@ -19,8 +15,7 @@ namespace Nexus.ObjectComponents {
 		public byte jumpsUsed;          // The number of jumps currently used.
 		public uint nextSlide;			// The frame that the next slide is allowed (or after).
 
-		public CharacterStatus( Character character ) {
-			this.character = character;
+		public CharacterStatus() {
 			this.ResetCharacterStatus();
 		}
 

@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 				// TODO SOUND: Create an "End Flight" sound, to identify that the flight has been toggled off.
 
 			} else {
-				character.ActionMap.Flight.StartAction(character);
+				ActionMap.Flight.StartAction(character);
 
 				// TODO SOUND: Create a "Flight Takeoff" sound, to identify the flight has been toggled on.
 			}

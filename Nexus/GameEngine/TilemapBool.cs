@@ -67,7 +67,7 @@ namespace Nexus.GameEngine {
 		//	Bitwise.Set4Bits()
 		//}
 
-		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly, bool colTest, bool colEffect, bool slopeOrPlatform = false, bool horCol = false, bool vertDir = false, bool vert = false) {
+		private bool[] BuildTileData(bool isTile, bool collides, bool fullSolid, bool charOnly, bool colTest, bool colEffect, bool slopeOrPlatform = false, bool horFace = false, bool vertFace = false, bool isVert = false) {
 
 			bool[] tileData = new bool[10];
 
@@ -87,13 +87,13 @@ namespace Nexus.GameEngine {
 
 					// Platforms and Slopes have additional bool flags:
 					tileData[(byte)TMBTiles.SlopeOrPlatform] = slopeOrPlatform;
-					tileData[(byte)TMBTiles.HorizontalFacing] = horCol;
-					tileData[(byte)TMBTiles.VerticalFacing] = vertDir;
+					tileData[(byte)TMBTiles.HorizontalFacing] = horFace;
+					tileData[(byte)TMBTiles.VerticalFacing] = vertFace;
 
 					if(slopeOrPlatform == true) {
-						tileData[(byte)TMBTiles.SlopeAngle] = vert;
+						tileData[(byte)TMBTiles.SlopeAngle] = isVert;
 					} else {
-						tileData[(byte)TMBTiles.PlatformIsVert] = vert;
+						tileData[(byte)TMBTiles.PlatformIsVert] = isVert;
 					}
 				}
 			}
@@ -115,13 +115,27 @@ namespace Nexus.GameEngine {
 			this.ids[gridId] = new ushort[] { classId, subTypeId };
 		}
 
+		// Platform Tiles are also Class Tiles
+		public void AddPlatformTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool isVert, bool faceUpOrLeft, bool colTest = false, bool colEffect = false) {
+			this.boolData[gridY, gridX] = true;
+
+			// The Tile Type is guaranteed to be TRUE (since it's a texture tile).
+			bool[] tileData = this.BuildTileData(true, true, false, false, colTest, colEffect, false, faceUpOrLeft, faceUpOrLeft, isVert);
+
+			// Add Content to Dictionaries
+			uint gridId = this.GetGridID(gridX, gridY);
+
+			this.tiles[gridId] = tileData;
+			this.ids[gridId] = new ushort[] { classId, subTypeId };
+		}
+
 		// Slope Tiles are also Class Tiles
-		public void AddSlopeTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool slopeAngle, bool slopeHor, bool slopeVert ) {
+		public void AddSlopeTile(ushort gridX, ushort gridY, byte classId, byte subTypeId, bool slopeAngle, bool slopeHor, bool isVert ) {
 			this.boolData[gridY, gridX] = true;
 
 			// The Tile Type is guaranteed to be TRUE (since it's a class tile)
 			// Slopes are also guaranteed to: Collide, Not Be Fully Solid, Not Be Character Only, Not Have A Collision Test, Not Have Collision Effects, Be A Slope
-			bool[] tileData = this.BuildTileData(true, true, false, false, false, false, true, slopeAngle, slopeHor, slopeVert);
+			bool[] tileData = this.BuildTileData(true, true, false, false, false, false, true, slopeAngle, slopeHor, isVert);
 
 			// Add Content to Dictionaries
 			uint gridId = this.GetGridID(gridX, gridY);

@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -15,7 +16,7 @@ namespace Nexus.ObjectComponents {
 		public void StartAction( Character character, bool slideRight ) {
 			CharacterStatus status = character.status;
 
-			status.action = character.ActionMap.Slide;
+			status.action = ActionMap.Slide;
 			status.actionEnds = character.scene.timer.frame + character.stats.SlideDuration;
 			status.actionBool1 = slideRight;
 			status.nextSlide = status.actionEnds + character.stats.SlideWaitDuration;

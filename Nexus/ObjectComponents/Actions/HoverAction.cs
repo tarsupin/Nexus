@@ -20,7 +20,7 @@ namespace Nexus.ObjectComponents {
 			// Don't start hovering if there is already a hover action in place.
 			if(status.action is HoverAction && !this.HasTimeElapsed(character)) { return; }
 
-			status.action = character.ActionMap.Hover;
+			status.action = ActionMap.Hover;
 			status.actionEnds = character.scene.timer.frame + this.duration;
 			status.actionBool1 = horizontalOnly;
 

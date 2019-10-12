@@ -22,11 +22,11 @@ namespace Nexus.GameEngine {
 		// You can supply an existing ID to scan for IDs above a previous value.
 		// For example, if you retrieved ID 10 from this, you could search again with ID 10 as a minimum, and it will only return newer objects.
 		// uint enemyFoundId = DetectObjects.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectWithinArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
+		public static uint FindObjectWithinArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, GameObject> actor in objectList) {
+			foreach(KeyValuePair<uint, DynamicGameObject> actor in objectList) {
 				FVector actorPos = actor.Value.pos;
 
 				// If the Actor is within the bounds described.
@@ -42,11 +42,11 @@ namespace Nexus.GameEngine {
 		}
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
-		public static uint FindObjectsTouchingArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
+		public static uint FindObjectsTouchingArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, GameObject> actor in objectList) {
+			foreach(KeyValuePair<uint, DynamicGameObject> actor in objectList) {
 				FVector actorPos = actor.Value.pos;
 
 				// If the Actor is within the bounds described.
