@@ -7,16 +7,11 @@ using System.Collections.Generic;
 namespace Nexus.Gameplay {
 
 	public static class ActionMap {
-
-		// Character Actions
 		public static readonly AirBurst AirBurst = new AirBurst();
 		public static readonly FlightAction Flight = new FlightAction();
 		public static readonly HoverAction Hover = new HoverAction();
 		public static readonly JumpAction Jump = new JumpAction();
 		public static readonly SlideAction Slide = new SlideAction();
-
-		// Enemy Actions
-		public static readonly HopUpAction HopUp = new HopUpAction();
 	}
 
 	public class AnimationMap {
@@ -34,6 +29,14 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterRunRight = new string[2] { "Run", "StandRun" };
 		public static readonly string[] CharacterWalkLeft = new string[2] { "WalkLeft", "StandLeft" };
 		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
+	}
+
+	public static class ImpactMap {
+		public static readonly ImpactCharacter Character = new ImpactCharacter();
+		public static readonly ImpactChomper Chomper = new ImpactChomper();
+		public static readonly ImpactEnemyLand EnemyLand = new ImpactEnemyLand();
+		public static readonly ImpactShell Shell = new ImpactShell();
+		public static readonly ImpactSlammer Slammer = new ImpactSlammer();
 	}
 
 	public class GameMapper {

@@ -70,10 +70,16 @@
     <Compile Include="Engine\FilesLocal.cs" />
     <Compile Include="Engine\FPMath.cs" />
     <Compile Include="Engine\InputClient.cs" />
+    <Compile Include="GameEngine\Collision\CollideNarrow.cs" />
     <Compile Include="GameEngine\Collision\CollideTileAffect.cs" />
     <Compile Include="GameEngine\Collision\CollideTile.cs" />
     <Compile Include="GameEngine\Collision\CollideFunc.cs" />
     <Compile Include="GameEngine\Collision\CollideAffect.cs" />
+    <Compile Include="GameEngine\HitCompare\HitCompareEnemy.cs" />
+    <Compile Include="GameEngine\HitCompare\HitCompareItem.cs" />
+    <Compile Include="GameEngine\HitCompare\HitComparePlatform.cs" />
+    <Compile Include="GameEngine\HitCompare\HitCompareProjectile.cs" />
+    <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
@@ -106,10 +112,10 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
-    <Compile Include="ObjectComponents\Actions\EnemyActions\ActionEnemy.cs" />
     <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
-    <Compile Include="ObjectComponents\Actions\EnemyActions\HopUpAction.cs" />
-    <Compile Include="ObjectComponents\Behavior\PrepareHop.cs" />
+    <Compile Include="ObjectComponents\Behavior\HopBehavior.cs" />
+    <Compile Include="ObjectComponents\Behavior\ChargeBehavior.cs" />
+    <Compile Include="ObjectComponents\Behavior\DetectCharBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\Behavior.cs" />
     <Compile Include="ObjectComponents\Animation\AnimGlobal.cs" />
     <Compile Include="ObjectComponents\Animation\Animate.cs" />
@@ -118,7 +124,7 @@
     <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FlightAction.cs" />
     <Compile Include="ObjectComponents\Actions\AirBurst.cs" />
-    <Compile Include="ObjectComponents\Collision\Collision.cs" />
+    <Compile Include="ObjectComponents\Impacts\Impact.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHat.cs" />
     <Compile Include="ObjectComponents\Hats\TopHat.cs" />
     <Compile Include="ObjectComponents\Hats\SpikeyHat.cs" />
@@ -142,7 +148,6 @@
     <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
-    <Compile Include="ObjectComponents\Status\EnemyStatus.cs" />
     <Compile Include="ObjectComponents\Suits\WhiteWizard.cs" />
     <Compile Include="ObjectComponents\Suits\RedWizard.cs" />
     <Compile Include="ObjectComponents\Suits\GreenWizard.cs" />

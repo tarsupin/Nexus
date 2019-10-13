@@ -41,7 +41,7 @@ namespace Nexus
 			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because of monitor speed, tearing, etc. Read more:
 			// https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/
 			// https://www.geforce.com/hardware/technology/adaptive-vsync/technology
-			graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
+			//graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();

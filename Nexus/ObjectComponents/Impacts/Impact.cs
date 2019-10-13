@@ -3,55 +3,55 @@ using Nexus.Gameplay;
 
 namespace Nexus.ObjectComponents {
 
-	public class Collision {
+	public class Impact {
 
 		private readonly DynamicGameObject refObject;
 		private readonly Physics physics;
 		private readonly Touch touch;
 
-		public Collision( DynamicGameObject refObject ) {
+		public Impact( DynamicGameObject refObject ) {
 			this.refObject = refObject;
 			this.physics = refObject.physics;
 			this.touch = this.physics.touch;
 		}
 
-		// A Standard Collision just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
+		// A Standard Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
 		public void StandardCollision(DynamicGameObject obj, DynamicGameObject obj2, DirCardinal dir) {
 
 			if(dir == DirCardinal.Down) {
 				this.touch.TouchDown();
 				obj2.physics.touch.TouchUp();
-				this.CollideDown( obj2 );
-				obj2.collision.CollideUp( obj );
+				this.CollideDown(obj2);
+				obj2.collision.CollideUp(obj);
 				return;
 			}
 
 			if(dir == DirCardinal.Right) {
 				this.touch.TouchRight();
 				obj2.physics.touch.TouchLeft();
-				this.CollideRight( obj2 );
-				obj2.collision.CollideLeft( obj );
+				this.CollideRight(obj2);
+				obj2.collision.CollideLeft(obj);
 				return;
 			}
 
 			if(dir == DirCardinal.Left) {
 				this.touch.TouchLeft();
 				obj2.physics.touch.TouchRight();
-				this.CollideLeft( obj2 );
-				obj2.collision.CollideRight( obj );
+				this.CollideLeft(obj2);
+				obj2.collision.CollideRight(obj);
 				return;
 			}
 
 			if(dir == DirCardinal.Up) {
 				this.touch.TouchUp();
 				obj2.physics.touch.TouchDown();
-				this.CollideUp( obj2 );
-				obj2.collision.CollideDown( obj );
+				this.CollideUp(obj2);
+				obj2.collision.CollideDown(obj);
 				return;
 			}
 		}
 
-		public bool CollideUp(GameObject obj2) {
+		public virtual bool CollideUp( GameObject obj2 ) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -63,7 +63,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public bool CollideDown( GameObject obj2 ) {
+		public virtual bool CollideDown( GameObject obj2 ) {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -75,7 +75,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public bool CollideLeft( GameObject obj2 ) {
+		public virtual bool CollideLeft( GameObject obj2 ) {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -87,7 +87,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public bool CollideRight( GameObject obj2 ) {
+		public virtual bool CollideRight( GameObject obj2 ) {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.

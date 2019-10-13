@@ -91,12 +91,10 @@ namespace Nexus.GameEngine {
 
 					// Check if the RIGHT CURSOR object cannot collide (it's X position is too far right).
 					// If so, short-circuit this loop; there is no reason to test against additional objects.
-					if(rBound < obj2.pos.X.IntValue) {
-						break;
-					}
+					if(rBound < obj2.pos.X.IntValue) { break; }
 
 					// The RIGHT CURSOR can potentially collide. Send it to NARROW COLLISION for testing.
-
+					CollideNarrow.ProcessCollision(obj, obj2);
 					//System.Console.WriteLine("Objects can collide. " + obj.pos.X.IntValue + " vs. " + obj2.pos.X.IntValue);
 				}
 			}
