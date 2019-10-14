@@ -41,7 +41,8 @@ namespace Nexus.Gameplay {
 		Door,
 		Interactives,
 		Flag,
-		NPC
+		NPC,
+		Projectile,
 	}
 
 	public enum Arch : byte {
@@ -102,6 +103,7 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum SlotGroup : byte {
+		None,
 		Blocks,
 		Collectables,
 		ColorToggles,

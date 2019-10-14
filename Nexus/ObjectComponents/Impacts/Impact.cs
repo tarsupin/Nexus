@@ -16,39 +16,45 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// A Standard Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public void StandardCollision(DynamicGameObject obj, DynamicGameObject obj2, DirCardinal dir) {
+		public bool StandardCollision(DynamicGameObject obj2, DirCardinal dir = DirCardinal.Center) {
+
+			if(dir == DirCardinal.Center) {
+				System.Console.WriteLine("StandardCollision doesn't deal with 'dir'");
+			}
 
 			if(dir == DirCardinal.Down) {
 				this.touch.TouchDown();
 				obj2.physics.touch.TouchUp();
 				this.CollideDown(obj2);
-				obj2.collision.CollideUp(obj);
-				return;
+				obj2.impact.CollideUp(this.refObject);
+				return true;
 			}
 
 			if(dir == DirCardinal.Right) {
 				this.touch.TouchRight();
 				obj2.physics.touch.TouchLeft();
 				this.CollideRight(obj2);
-				obj2.collision.CollideLeft(obj);
-				return;
+				obj2.impact.CollideLeft(this.refObject);
+				return true;
 			}
 
 			if(dir == DirCardinal.Left) {
 				this.touch.TouchLeft();
 				obj2.physics.touch.TouchRight();
 				this.CollideLeft(obj2);
-				obj2.collision.CollideRight(obj);
-				return;
+				obj2.impact.CollideRight(this.refObject);
+				return true;
 			}
 
 			if(dir == DirCardinal.Up) {
 				this.touch.TouchUp();
 				obj2.physics.touch.TouchDown();
 				this.CollideUp(obj2);
-				obj2.collision.CollideDown(obj);
-				return;
+				obj2.impact.CollideDown(this.refObject);
+				return true;
 			}
+
+			return false;
 		}
 
 		public virtual bool CollideUp( GameObject obj2 ) {

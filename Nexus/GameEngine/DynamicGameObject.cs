@@ -24,7 +24,7 @@ namespace Nexus.GameEngine {
 
 		// Components
 		public Physics physics;
-		public Collision collision;
+		public Impact impact;
 		public Animate animate;
 
 		// Miscellaneous
@@ -58,8 +58,15 @@ namespace Nexus.GameEngine {
 		}
 
 		// Destroys the instance of this object.
-		public void Destroy() {
+		public virtual void Destroy() {
 			this.scene.DestroyObject(this);
+		}
+
+		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.
+		public void Disable() {
+			// TODO HIGH PRIORITY: How to disable? Better methods? Just return to pool somehow.
+			// TODO HIGH PRIORITY: How to disable? Better methods? Just return to pool somehow.
+			
 		}
 
 		public void RenderKnockoutRotation(int camX, int camY, TimerGlobal time) {

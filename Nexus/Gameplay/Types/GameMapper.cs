@@ -32,11 +32,11 @@ namespace Nexus.Gameplay {
 	}
 
 	public static class ImpactMap {
-		public static readonly ImpactCharacter Character = new ImpactCharacter();
-		public static readonly ImpactChomper Chomper = new ImpactChomper();
-		public static readonly ImpactEnemyLand EnemyLand = new ImpactEnemyLand();
-		public static readonly ImpactShell Shell = new ImpactShell();
-		public static readonly ImpactSlammer Slammer = new ImpactSlammer();
+		//public static readonly ImpactCharacter Character = new ImpactCharacter();
+		//public static readonly ImpactChomper Chomper = new ImpactChomper();
+		//public static readonly ImpactEnemyLand EnemyLand = new ImpactEnemyLand();
+		//public static readonly ImpactShell Shell = new ImpactShell();
+		//public static readonly ImpactSlammer Slammer = new ImpactSlammer();
 	}
 
 	public class GameMapper {
@@ -88,6 +88,7 @@ namespace Nexus.Gameplay {
 				// Chest, PeekMap
 			MetaList[MetaGroup.Flag] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
 			MetaList[MetaGroup.NPC] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.Main, LoadOrder.Tile); // LoadOrder.Interactives
+			MetaList[MetaGroup.Projectile] = new IMetaData(Arch.Projectile, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.None, LayerEnum.Main, LoadOrder.Projectile); // LoadOrder.Interactives
 		}
 
 		// List of Tile Types

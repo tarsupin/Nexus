@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Nexus.GameEngine {
 
 	public interface IHitCompare {
-		void RunImpact(DynamicGameObject obj, DynamicGameObject obj2);
+		bool RunImpact(DynamicGameObject obj, DynamicGameObject obj2);
 	}
 
 	public class CollideNarrow {
@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 			{ (byte) LoadOrder.Character, new HitCompareCharacter() },
 			{ (byte) LoadOrder.Enemy, new HitCompareEnemy() },
 			{ (byte) LoadOrder.Item, new HitCompareItem() },
-			{ (byte) LoadOrder.Platform, new HitComparePlatform() },
+			//{ (byte) LoadOrder.Platform, new HitComparePlatform() },
 			{ (byte) LoadOrder.Projectile, new HitCompareProjectile() },
 		};
 
