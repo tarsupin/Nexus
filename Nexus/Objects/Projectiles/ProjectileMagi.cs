@@ -48,8 +48,11 @@ namespace Nexus.Objects {
 			FInt radian = weight * FInt.PI * 2;
 
 			// Set Position of Projectile
-			this.pos.X = this.actor.pos.X + 8 + (radius * FInt.Cos(radian));
-			this.pos.Y = this.actor.pos.Y + 14 + (radius * FInt.Sin(radian));
+			FInt getX = this.actor.posX + 8 + (radius * FInt.Cos(radian));
+			FInt getY = this.actor.posY + 14 + (radius * FInt.Sin(radian));
+
+			this.posX = getX.IntValue;
+			this.posY = getY.IntValue;
 
 			// Update Energy
 			if(this.sustained > 0 && this.sustained < 1) {

@@ -59,12 +59,11 @@ namespace Nexus.ObjectComponents {
 			// Make sure the cooldown is complete.
 			if(this.actionEnd > this.timer.frame) { return; }
 
-			FVector pos = this.actor.pos;
 			Bounds bounds = this.actor.bounds;
 
 			// Determine view bounds based on direction actor is facing.
-			int scanX = pos.X.IntValue + (actor.faceRight ? bounds.Right : bounds.Left - this.viewDist);
-			int scanY = pos.Y.IntValue + bounds.Bottom - this.viewHeight;
+			int scanX = actor.posX + (actor.faceRight ? bounds.Right : bounds.Left - this.viewDist);
+			int scanY = actor.posY + bounds.Bottom - this.viewHeight;
 
 			uint objectId = CollideDetect.FindObjectsTouchingArea(
 				this.actor.scene.objects[(byte)LoadOrder.Character],

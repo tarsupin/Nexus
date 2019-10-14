@@ -20,6 +20,8 @@ namespace Nexus.ObjectComponents {
 			if(!this.isTouching) { return; }
 			this.isTouching = false;
 
+			if(this.toFloor) { this.toFloor = false; }
+
 			// TODO HIGH PRIOIRTY: Affected by Platforms
 			//if(this.touchObj != null) {
 			//	if(this.touchObj is Platform) {
@@ -57,6 +59,7 @@ namespace Nexus.ObjectComponents {
 
 		public void TouchDown() {
 			this.toBottom = true;
+			this.toFloor = true;
 			this.isTouching = true;
 		}
 

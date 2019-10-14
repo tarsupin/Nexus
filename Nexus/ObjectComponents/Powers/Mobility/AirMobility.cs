@@ -45,7 +45,7 @@ namespace Nexus.ObjectComponents {
 			// If the character is standing on ground, it interferes with actions; fix that.
 			if(this.character.physics.touch.toBottom) {
 				this.character.physics.touch.ResetTouch();
-				this.character.physics.MoveToPosY(this.character.pos.Y.IntValue - 1);
+				this.character.physics.MoveToPosY(this.character.posY - 1);
 			}
 
 			// Trigger the Air Burst Action

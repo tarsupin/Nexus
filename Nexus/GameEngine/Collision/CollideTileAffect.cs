@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -30,19 +31,19 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void AlignUp( DynamicGameObject obj, int posY ) {
-			obj.pos.Y = FInt.Create(posY);
+			obj.physics.MoveToPosY(posY);
 		}
 
 		public static void AlignDown( DynamicGameObject obj, int posY ) {
-			obj.pos.Y = FInt.Create(posY + (byte)TilemapEnum.TileHeight);
+			obj.physics.MoveToPosY(posY + (byte)TilemapEnum.TileHeight);
 		}
 
 		public static void AlignLeft( DynamicGameObject obj, int posX ) {
-			obj.pos.X = FInt.Create(posX);
+			obj.physics.MoveToPosX(posX);
 		}
 
 		public static void AlignRight( DynamicGameObject obj, int posX) {
-			obj.pos.X = FInt.Create(posX + (byte)TilemapEnum.TileWidth);
+			obj.physics.MoveToPosX(posX + (byte)TilemapEnum.TileWidth);
 		}
 	}
 }

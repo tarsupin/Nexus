@@ -9,7 +9,9 @@ namespace Nexus.ObjectComponents {
 		protected DynamicGameObject objRef;
 
 		// Physics Values
-		public FVector lastPos;
+		public FVector physPos;			// The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
+		public int lastPosX;
+		public int lastPosY;
 		public FVector velocity;
 		public FVector extraMovement;
 		public FInt gravity;
@@ -20,8 +22,10 @@ namespace Nexus.ObjectComponents {
 		public Physics( DynamicGameObject objRef ) {
 			this.objRef = objRef;
 
-			this.lastPos = new FVector();
-			this.lastPos = FVector.VectorAdd(this.lastPos, this.objRef.pos);
+			this.physPos = FVector.Create(this.objRef.posX, this.objRef.posY);
+
+			this.lastPosX = this.objRef.posX;
+			this.lastPosY = this.objRef.posY;
 
 			this.velocity = new FVector();
 			this.extraMovement = new FVector();
@@ -30,10 +34,9 @@ namespace Nexus.ObjectComponents {
 			this.touch = new Touch();
 		}
 
-		// Get Amount Moved (in old system, movement was updated every frame; no need for that)
-		public FVector AmountMoved {
-			get { return FVector.VectorSubtract(this.objRef.pos, this.lastPos); }
-		}
+		// Get Amount Moved
+		public int AmountMovedX { get { return this.objRef.posX - this.lastPosX; } }
+		public int AmountMovedY { get { return this.objRef.posY - this.lastPosY; } }
 
 		public void SetGravity( FInt gravity ) {
 			this.gravity = gravity;
@@ -48,29 +51,42 @@ namespace Nexus.ObjectComponents {
 		public void TrackPhysicsTick() {
 
 			// Update Positions
-			this.lastPos = this.objRef.pos;
-			this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.velocity);
-			
+			this.physPos = FVector.VectorAdd(this.physPos, this.velocity);
+
 			// Extra Movement (such as caused by Platforms or Conveyors)
 			if(hasExtraMovement) {
-				this.objRef.pos = FVector.VectorAdd(this.objRef.pos, this.extraMovement);
+				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
 				this.extraMovement = new FVector();
 			}
+
+			this.UpdatePosX();
+			this.UpdatePosY();
+		}
+
+		public void UpdatePosX() {
+			this.lastPosX = this.objRef.posX;
+			this.objRef.posX = this.physPos.X.IntValue;
+		}
+
+		public void UpdatePosY() {
+			this.lastPosY = this.objRef.posY;
+			this.objRef.posY = this.physPos.Y.IntValue;
 		}
 
 		public void MoveToPos( FVector pos ) {
-			this.lastPos = pos;
-			this.objRef.pos = pos;
+			this.physPos = pos;
+			this.UpdatePosX();
+			this.UpdatePosY();
 		}
 
 		public void MoveToPosX( int posX ) {
-			this.lastPos.X = this.objRef.pos.X;
-			this.objRef.pos.X = FInt.Create(posX);
+			this.physPos.X = FInt.Create(posX);
+			this.UpdatePosX();
 		}
 
 		public void MoveToPosY( int posY ) {
-			this.lastPos.Y = this.objRef.pos.Y;
-			this.objRef.pos.Y = FInt.Create(posY);
+			this.physPos.Y = FInt.Create(posY);
+			this.UpdatePosY();
 		}
 
 		public void StopX() {

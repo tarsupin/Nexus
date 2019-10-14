@@ -18,7 +18,8 @@ namespace Nexus.GameEngine {
 
 		// Data
 		public byte subType;
-		public FVector pos;
+		public int posX;
+		public int posY;
 		public Bounds bounds;
 
 		// Rendering
@@ -38,14 +39,15 @@ namespace Nexus.GameEngine {
 			this.id = scene.nextId;
 			this.scene = scene;
 			this.subType = subType;
-			this.pos = pos;
+			this.posX = pos.X.IntValue;
+			this.posY = pos.Y.IntValue;
 		}
 
-		public ushort GridX { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Left) / (byte) TilemapEnum.TileWidth)); } }
-		public ushort GridY { get { return (ushort) Math.Floor((double) ((this.pos.Y.IntValue + this.bounds.Top) / (byte) TilemapEnum.TileHeight)); } }
+		public ushort GridX { get { return (ushort) Math.Floor((double) ((this.posX + this.bounds.Left) / (byte) TilemapEnum.TileWidth)); } }
+		public ushort GridY { get { return (ushort) Math.Floor((double) ((this.posY + this.bounds.Top) / (byte) TilemapEnum.TileHeight)); } }
 
-		public ushort GridX2 { get { return (ushort) Math.Floor((double) ((this.pos.X.IntValue + this.bounds.Right) / (byte) TilemapEnum.TileWidth)); } }
-		public ushort GridY2 { get { return (ushort) Math.Floor((double) ((this.pos.Y.IntValue + this.bounds.Bottom) / (byte) TilemapEnum.TileHeight)); } }
+		public ushort GridX2 { get { return (ushort) Math.Floor((double) ((this.posX + this.bounds.Right) / (byte) TilemapEnum.TileWidth)); } }
+		public ushort GridY2 { get { return (ushort) Math.Floor((double) ((this.posY + this.bounds.Bottom) / (byte) TilemapEnum.TileHeight)); } }
 
 		public virtual void SetSpriteName( string spriteName ) {
 			this.SpriteName = spriteName;
@@ -56,7 +58,7 @@ namespace Nexus.GameEngine {
 		}
 		
 		public virtual void Draw( int camX, int camY ) {
-			this.Meta.Atlas.Draw(this.SpriteName, pos.X.IntValue - camX, pos.Y.IntValue - camY);
+			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
 		}
 
 		// Note: Apply -1 to RIGHT and BOTTOM. Otherwise inaccurate overlaps (e.g. pos 0 + bound 1 would cover 2 pixels).

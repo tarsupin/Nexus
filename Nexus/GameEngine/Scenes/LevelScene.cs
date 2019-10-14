@@ -141,13 +141,17 @@ namespace Nexus.GameEngine {
 			// Camera Movement
 			Character MyCharacter = this.localServer.MyCharacter;
 			if(MyCharacter is Character) {
-				this.camera.Follow(MyCharacter.pos.X.IntValue + 80, MyCharacter.pos.Y.IntValue, 50, 50);
+				this.camera.Follow(MyCharacter.posX + 80, MyCharacter.posY, 50, 50);
 			}
 
 			//this.camera.MoveWithInput(this.localServer.MyPlayer.input);
 
 			// Run Collisions
 			this.collideSequence.RunCollisionSequence();
+
+			// Run Important Sprite Changes and Animations (like Character)
+			// We do this here because collisions may have influenced how they change.
+			this.RunCharacterSpriteTick(this.objects[(byte)LoadOrder.Character]);
 		}
 
 		public void RunTickForObjectGroup(Dictionary<uint, DynamicGameObject> objectGroup) {
@@ -161,6 +165,17 @@ namespace Nexus.GameEngine {
 				// Run Tile Detection for the Object
 				// TODO: Eventually check 1x1 size, and replace with a tile detection that can account for larger sets if it's not 1x1 tile sized.
 				CollideTile.RunQuadrantDetection(obj.Value);
+			}
+		}
+
+		public void RunCharacterSpriteTick(Dictionary<uint, DynamicGameObject> objectGroup) {
+
+			// Loop through each object in the dictionary, run it's tick:
+			foreach(var obj in objectGroup) {
+				Character character = (Character) obj.Value;
+
+				// TODO HIGH PRIORITY: If activity is active, run tick, otherwise do not.
+				character.SpriteTick();
 			}
 		}
 
@@ -226,16 +241,16 @@ namespace Nexus.GameEngine {
 
 			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
-				FVector pos = obj.Value.pos;
+				DynamicGameObject oVal = obj.Value;
 
 				// Make sure the frame is visible:
-				if(pos.X.IntValue < camRight && pos.Y.IntValue < camBottom && pos.X.IntValue + 48 > camX && pos.Y.IntValue > camY) {
+				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
 
 					// Custom Rendering Rules
 					// TODO HIGH PRIOIRTY: if CUSTOM RENDER RULES, DO CUSTOM RENDER RULES
 
 					// Render Standard Objects
-					obj.Value.Draw( camX, camY );
+					oVal.Draw( camX, camY );
 				}
 			}
 		}

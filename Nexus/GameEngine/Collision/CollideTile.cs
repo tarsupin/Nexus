@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
 			var something = tilemap.height - 258;
-			if(obj.pos.Y.IntValue >= something) {
+			if(obj.posY >= something) {
 				obj.Destroy();
 				return false;
 			}
@@ -188,8 +188,8 @@ namespace Nexus.GameEngine {
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!down && !right) {
-							FInt xOverlap = obj.pos.X + obj.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, xOverlap > obj.physics.AmountMoved.X ? DirCardinal.Down : DirCardinal.Right);
+							int xOverlap = obj.posX + obj.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
+							CollideTile.RunGridTest(obj, tilemap, gridX2, gridY2, xOverlap > obj.physics.AmountMovedX ? DirCardinal.Down : DirCardinal.Right);
 						}
 					}
 
@@ -202,8 +202,8 @@ namespace Nexus.GameEngine {
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!down && !left) {
-							FInt xOverlap = obj.pos.X + obj.bounds.Left - (gridX2 * (byte) TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, xOverlap < obj.physics.AmountMoved.X ? DirCardinal.Down : DirCardinal.Left);
+							int xOverlap = obj.posX + obj.bounds.Left - (gridX2 * (byte) TilemapEnum.TileWidth);
+							CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, xOverlap < obj.physics.AmountMovedX ? DirCardinal.Down : DirCardinal.Left);
 						}
 					}
 
@@ -211,8 +211,8 @@ namespace Nexus.GameEngine {
 					else {
 
 						// Get Overlaps
-						FInt xOverlapLeft = obj.pos.X + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-						FInt xOverlapRight = obj.pos.X + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
+						int xOverlapLeft = obj.posX + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
+						int xOverlapRight = obj.posX + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
 						// Compare against BOTTOM HALF (vs. up). No corner test.
 						if(xOverlapLeft < 0) { CollideTile.RunGridTest(obj, tilemap, gridX, gridY2, DirCardinal.Down); }
@@ -232,8 +232,8 @@ namespace Nexus.GameEngine {
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!up && !right) {
-							FInt xOverlap = obj.pos.X + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, xOverlap > obj.physics.AmountMoved.X ? DirCardinal.Up : DirCardinal.Right);
+							int xOverlap = obj.posX + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
+							CollideTile.RunGridTest(obj, tilemap, gridX2, gridY, xOverlap > obj.physics.AmountMovedX ? DirCardinal.Up : DirCardinal.Right);
 						}
 					}
 
@@ -246,8 +246,8 @@ namespace Nexus.GameEngine {
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!up && !left) {
-							FInt xOverlap = obj.pos.X + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(obj, tilemap, gridX, gridY, xOverlap < obj.physics.AmountMoved.X ? DirCardinal.Up : DirCardinal.Left);
+							int xOverlap = obj.posX + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
+							CollideTile.RunGridTest(obj, tilemap, gridX, gridY, xOverlap < obj.physics.AmountMovedX ? DirCardinal.Up : DirCardinal.Left);
 						}
 					}
 
@@ -255,8 +255,8 @@ namespace Nexus.GameEngine {
 					else {
 
 						// Get Overlaps
-						FInt xOverlapLeft = obj.pos.X + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-						FInt xOverlapRight = obj.pos.X + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
+						int xOverlapLeft = obj.posX + obj.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
+						int xOverlapRight = obj.posX + obj.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
 						// Compare against TOP HALF (vs. down). No corner test.
 						if(xOverlapLeft < 0) { CollideTile.RunGridTest(obj, tilemap, gridX, gridY, DirCardinal.Up); }

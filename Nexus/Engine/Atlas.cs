@@ -133,7 +133,7 @@ namespace Nexus.Engine {
 				);
 
 				//SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)size["w"], (short)size["h"]);
-				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)(sourceInfo["x"] + sourceInfo["w"]), (short)(sourceInfo["y"] + sourceInfo["h"]));
+				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)(sourceInfo["w"]), (short)(sourceInfo["h"]));
 				spriteList.Add(spriteObj.Name, sprite);
 			}
 		}

@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 
 	class BroadComparePos : IComparer<DynamicGameObject> {
 		public int Compare(DynamicGameObject obj1, DynamicGameObject obj2) {
-			return obj1.pos.X.IntValue.CompareTo(obj2.pos.X.IntValue);
+			return obj1.posX.CompareTo(obj2.posX);
 		}
 	}
 	
@@ -80,7 +80,7 @@ namespace Nexus.GameEngine {
 				DynamicGameObject obj = objList[left];
 
 				// Determine the right-boundary of the LEFT CURSOR object.
-				int rBound = obj.pos.X.IntValue + obj.bounds.Right;
+				int rBound = obj.posX + obj.bounds.Right;
 
 				// Assign the RIGHT CURSOR as one to the right of LEFT CURSOR.
 				ushort right = (ushort)(left + 1);
@@ -92,7 +92,7 @@ namespace Nexus.GameEngine {
 
 					// Check if the RIGHT CURSOR object cannot collide (it's X position is too far right).
 					// If so, short-circuit this loop; there is no reason to test against additional objects.
-					if(rBound < obj2.pos.X.IntValue) { break; }
+					if(rBound < obj2.posX) { break; }
 
 					// The RIGHT CURSOR can potentially collide. Send it to NARROW COLLISION for testing.
 					CollideNarrow.ProcessCollision(obj, obj2);

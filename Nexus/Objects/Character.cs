@@ -93,7 +93,7 @@ namespace Nexus.Objects {
 		public override void RunTick() {
 
 			// Ground Movement & Actions
-			if(this.physics.touch.toBottom) { this.OnFloorUpdate(); }
+			if(this.physics.touch.toFloor) { this.OnFloorUpdate(); }
 			
 			// In Air Update
 			else { this.InAirUpdate(); }
@@ -154,7 +154,7 @@ namespace Nexus.Objects {
 
 				// If there's too much momentum, decelerate to normal speed:
 				else {
-					this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.FromParts(0, 250));
+					this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.Create(0.25));
 				}
 			}
 
@@ -170,7 +170,7 @@ namespace Nexus.Objects {
 
 				// If there's too much momentum, decelerate to normal speed:
 				else {
-					this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.FromParts(0, 250));
+					this.DecelerateChar(this.stats.RunDeceleration, 2 - speedMult, FInt.Create(0.25));
 				}
 			}
 
@@ -213,54 +213,10 @@ namespace Nexus.Objects {
 				}
 
 				// Reset Actions on Land
-				else {
+				else if(this.physics.touch.toBottom) {
 					if(status.action is ActionCharacter) { status.action.LandsOnGround(this);  }
 					status.jumpsUsed = 0;
 				}
-			}
-
-			// Animations & Drawing
-			int velX = this.physics.velocity.X.IntValue;
-			bool heldItem = false;
-			string suitType = "WhiteNinja/";		// this.suit.type + "/"
-
-			// If Moving Right
-			if(velX > 0) {
-
-				// If Facing Left
-				if(!this.faceRight) {
-					this.SetSpriteName(suitType + "TurnLeft");
-					//if(heldItem) { xShift = 74; }
-				}
-
-				// If Facing Right
-				else {
-					if(heldItem) { this.SpriteName = suitType + "RunHold"; }
-					else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); }
-					else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
-				}
-			}
-
-			// If Moving Left
-			else if(velX < 0) {
-
-				// If Facing Right
-				if(this.faceRight) {
-					this.SetSpriteName(suitType + "Turn");
-					//if(heldItem) { xShift = -14; }
-				}
-
-				// If Facing Left
-				else {
-					if(heldItem) { this.SpriteName = suitType + "RunHoldLeft"; }
-					else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); }
-					else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
-				}
-			}
-
-			// If Not Moving
-			else {
-				this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
 			}
 		}
 
@@ -309,29 +265,86 @@ namespace Nexus.Objects {
 				this.DecelerateChar(this.stats.AirDeceleration, 2 - speedMult, (FInt) 1);
 			}
 
-			// TODO HIGH PRIORITY: AIR JUMP
-			// TODO HIGH PRIORITY: AIR JUMP
-			// TODO HIGH PRIORITY: AIR JUMP
-			// TODO HIGH PRIORITY: AIR JUMP
+			// Attempted Air Jump
+			if(this.input.isPressed(IKey.AButton)) {
 
+				// Delayed Wall Jump
+				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
+				if(this.status.leaveWall >= this.scene.timer.frame) {
+					ActionMap.WallJump.StartAction(this, this.status.grabDir);
+
+					// Double Jump
+				} else if(this.stats.JumpMaxTimes > 1 && this.status.jumpsUsed < this.stats.JumpMaxTimes) {
+					ActionMap.Jump.StartAction(this);
+				}
+			}
+		}
+
+		// Update Animations and Sprite Changes for Characters.
+		// This is done after collisions, since collisions have critical impacts on how Characters are drawn.
+		public void SpriteTick() {
 
 			// Animations & Drawing
+			int velX = this.physics.velocity.X.IntValue;
 			bool heldItem = false;
 			string suitType = "WhiteNinja/";        // this.suit.type + "/"
 
-			// If Holding Item
-			if(heldItem) {
-				this.SetSpriteName(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
+			// Ground Movement & Actions
+			if(this.physics.touch.toFloor) {
+
+				// If Moving Right
+				if(velX > 0) {
+
+					// If Facing Left
+					if(!this.faceRight) {
+						this.SetSpriteName(suitType + "TurnLeft");
+						//if(heldItem) { xShift = 74; }
+					}
+
+					// If Facing Right
+					else {
+						if(heldItem) { this.SpriteName = suitType + "RunHold"; } else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); } else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
+					}
+				}
+
+				// If Moving Left
+				else if(velX < 0) {
+
+					// If Facing Right
+					if(this.faceRight) {
+						this.SetSpriteName(suitType + "Turn");
+						//if(heldItem) { xShift = -14; }
+					}
+
+					// If Facing Left
+					else {
+						if(heldItem) { this.SpriteName = suitType + "RunHoldLeft"; } else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); } else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
+					}
+				}
+
+				// If Not Moving
+				else {
+					this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
+				}
 			}
 
-			// Falling
-			else if(this.physics.velocity.Y.IntValue > 3) {
-				this.SetSpriteName(suitType + "Fall" + (this.faceRight ? "" : "Left"));
-			}
-
-			// Jumping (Moving Up)
+			// Air Movement & Updates
 			else {
-				this.SetSpriteName(suitType + "Jump" + (this.faceRight ? "" : "Left"));
+
+				// If Holding Item
+				if(heldItem) {
+					this.SetSpriteName(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
+				}
+
+				// Falling
+				else if(this.physics.velocity.Y.IntValue > 3) {
+					this.SetSpriteName(suitType + "Fall" + (this.faceRight ? "" : "Left"));
+				}
+
+				// Jumping (Moving Up)
+				else {
+					this.SetSpriteName(suitType + "Jump" + (this.faceRight ? "" : "Left"));
+				}
 			}
 		}
 
@@ -350,20 +363,20 @@ namespace Nexus.Objects {
 		private void RestrictWorldSides() {
 
 			// Left Bounds
-			if(this.pos.X < 0) {
+			if(this.posX < 0) {
 				this.physics.MoveToPosX(0);
 				this.physics.StopX();
 			}
 
 			// Right Bounds
-			else if(this.pos.X + this.bounds.Right >= this.scene.tilemap.width) {
+			else if(this.posX + this.bounds.Right >= this.scene.tilemap.width) {
 				this.physics.MoveToPosX(this.scene.tilemap.width - this.bounds.Right);
 				this.physics.StopX();
 			}
 		}
 
 		private void RestrictWorldTop() {
-			if(this.pos.Y < 0) {
+			if(this.posY < 0) {
 				this.physics.MoveToPosY(0);
 				this.physics.StopY();
 			}
@@ -372,7 +385,7 @@ namespace Nexus.Objects {
 		private void CheckFallOfWorld() {
 
 			// If the Character falls off the world edge, die.
-			if(this.pos.Y > this.scene.tilemap.height) {
+			if(this.posY > this.scene.tilemap.height) {
 				this.wounds.Death();
 			}
 		}

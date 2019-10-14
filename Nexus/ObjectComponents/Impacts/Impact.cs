@@ -34,7 +34,6 @@ namespace Nexus.ObjectComponents {
 				this.touch.TouchRight();
 				obj2.physics.touch.TouchLeft();
 				this.CollideRight(obj2);
-				this.physics.MoveToPosX(this.refObject.pos.X.IntValue - 2);
 				obj2.impact.CollideLeft(this.refObject);
 				return true;
 			}
@@ -62,7 +61,7 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue >= 0) { return false; }
+			if(this.physics.velocity.Y + this.physics.extraMovement.Y >= 0) { return false; }
 
 			CollideAffect.AlignDown(this.refObject, obj2);
 			this.physics.StopY();
@@ -74,7 +73,7 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue <= 0) { return false; }
+			if(this.physics.velocity.Y + this.physics.extraMovement.Y <= 0) { return false; }
 
 			CollideAffect.AlignUp(this.refObject, obj2);
 			this.physics.StopY();
@@ -86,7 +85,7 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue >= 0) { return false; }
+			if(this.physics.velocity.X + this.physics.extraMovement.X >= 0) { return false; }
 
 			CollideAffect.AlignRight(this.refObject, obj2);
 			this.physics.StopX();
@@ -98,7 +97,7 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue <= 0) { return false; }
+			if(this.physics.velocity.X + this.physics.extraMovement.X <= 0) { return false; }
 
 			CollideAffect.AlignLeft(this.refObject, obj2);
 			this.physics.StopX();

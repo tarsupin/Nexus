@@ -26,14 +26,14 @@ namespace Nexus.GameEngine {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, DynamicGameObject> actor in objectList) {
-				FVector actorPos = actor.Value.pos;
+			foreach(KeyValuePair<uint, DynamicGameObject> actorEntry in objectList) {
+				DynamicGameObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
-				if(actorPos.X.IntValue >= posX && actorPos.X.IntValue + actor.Value.bounds.Right <= right && actorPos.Y.IntValue >= posY && actorPos.Y.IntValue + actor.Value.bounds.Bottom <= bottom) {
+				if(actor.posX >= posX && actor.posX + actor.bounds.Right <= right && actor.posY >= posY && actor.posY + actor.bounds.Bottom <= bottom) {
 
 					// It is possible to skip over IDs, in case you're looking for multiple objects somewhere.
-					if(actor.Value.id > minId) { return actor.Value.id; }
+					if(actor.id > minId) { return actor.id; }
 				}
 			}
 
@@ -46,14 +46,14 @@ namespace Nexus.GameEngine {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, DynamicGameObject> actor in objectList) {
-				FVector actorPos = actor.Value.pos;
+			foreach(KeyValuePair<uint, DynamicGameObject> actorEntry in objectList) {
+				DynamicGameObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
-				if(actorPos.X.IntValue < right && actorPos.X.IntValue + actor.Value.bounds.Right >= posX && actorPos.Y.IntValue <= bottom && actorPos.Y.IntValue + actor.Value.bounds.Bottom >= posY) {
+				if(actor.posX < right && actor.posX + actor.bounds.Right >= posX && actor.posY <= bottom && actor.posY + actor.bounds.Bottom >= posY) {
 
 					// It is possible to skip over IDs, in case you're looking for multiple objects somewhere.
-					if(actor.Value.id > minId) { return actor.Value.id; }
+					if(actor.id > minId) { return actor.id; }
 				}
 			}
 
@@ -69,15 +69,15 @@ namespace Nexus.GameEngine {
 		public static bool IsOverlapping(DynamicGameObject obj, GameObject obj2) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
-			int y1 = obj.pos.Y.IntValue;
-			int y2 = obj2.pos.Y.IntValue;
+			int y1 = obj.posY;
+			int y2 = obj2.posY;
 
 			// Test for Y-Overlap.
 			// Note the use of ||, which is different from && for X-Overlap return.
 			if(y1 + obj.bounds.Top >= y2 + obj2.bounds.Bottom || y1 + obj.bounds.Bottom <= y2 + obj2.bounds.Top) { return false; }
 
-			int x1 = obj.pos.X.IntValue;
-			int x2 = obj2.pos.X.IntValue;
+			int x1 = obj.posX;
+			int x2 = obj2.posX;
 
 			return (x1 + obj.bounds.Left < x2 + obj2.bounds.Right && x1 + obj.bounds.Right > x2 + obj2.bounds.Left);
 		}
@@ -86,15 +86,15 @@ namespace Nexus.GameEngine {
 		public static bool IsOverlappingTotal(GameObject largeObject, GameObject smallObject) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
-			int y1 = largeObject.pos.Y.IntValue;
-			int y2 = smallObject.pos.Y.IntValue;
+			int y1 = largeObject.posY;
+			int y2 = smallObject.posY;
 
 			// Test for Y-Overlap.
 			// Note the use of ||, which is different from && for X-Overlap return.
 			if(y1 + largeObject.bounds.Bottom > y2 + smallObject.bounds.Bottom || y1 + largeObject.bounds.Top < y2 + smallObject.bounds.Top) { return false; }
 
-			int x1 = largeObject.pos.X.IntValue;
-			int x2 = smallObject.pos.X.IntValue;
+			int x1 = largeObject.posX;
+			int x2 = smallObject.posX;
 
 			return (x1 + largeObject.bounds.Right <= x2 + smallObject.bounds.Right && x1 + largeObject.bounds.Left > x2 + smallObject.bounds.Left);
 		}
@@ -105,11 +105,11 @@ namespace Nexus.GameEngine {
 
 			// Object 1 is to the left of Object 2
 			if(relativeX <= 0) {
-				return (obj.pos.X.IntValue + obj.bounds.Right) - (obj2.pos.X.IntValue + obj2.bounds.Left);
+				return (obj.posX + obj.bounds.Right) - (obj2.posX + obj2.bounds.Left);
 			}
 
 			// Object 1 is to the right of Object 2
-			return (obj.pos.X.IntValue + obj.bounds.Left) - (obj2.pos.X.IntValue + obj2.bounds.Right);
+			return (obj.posX + obj.bounds.Left) - (obj2.posX + obj2.bounds.Right);
 		}
 
 		// GetOverlapX retrieves the current Y overlap.
@@ -118,11 +118,11 @@ namespace Nexus.GameEngine {
 
 			// Object 1 is below Object 2
 			if(relativeY <= 0) {
-				return (obj.pos.Y.IntValue + obj.bounds.Bottom) - (obj2.pos.Y.IntValue + obj2.bounds.Top);
+				return (obj.posY + obj.bounds.Bottom) - (obj2.posY + obj2.bounds.Top);
 			}
 
 			// Object 1 is above Object 2
-			return (obj.pos.Y.IntValue + obj.bounds.Top) - (obj2.pos.Y.IntValue + obj2.bounds.Bottom);
+			return (obj.posY + obj.bounds.Top) - (obj2.posY + obj2.bounds.Bottom);
 		}
 
 		// GetMaxOverlapX provides the amount of total X-Overlap that should occur between two objects based on relative movement.
@@ -130,12 +130,12 @@ namespace Nexus.GameEngine {
 		// TODO LOW PRIORITY: Test how/why this causes false positive? Does it anymore? We changed a lot. Could be useful to remove this if possible.
 		// TODO LOW PRIORITY: Eliminate this test if possible. Adds overhead (though it might be necessary overhead).
 		public static int GetMaxOverlapX( Physics obj1Phys, Physics obj2Phys = null ) {
-			int obj2Move = obj2Phys != null ? obj2Phys.AmountMoved.X.IntValue : 0;
+			int obj2Move = obj2Phys != null ? obj2Phys.AmountMovedX : 0;
 
 			// If object #2 is stationary (didn't move):
-			if(obj2Move == 0) { return Math.Abs(obj1Phys.AmountMoved.X.IntValue); }
+			if(obj2Move == 0) { return Math.Abs(obj1Phys.AmountMovedX); }
 
-			int obj1Move = obj1Phys.AmountMoved.X.IntValue;
+			int obj1Move = obj1Phys.AmountMovedX;
 
 			// If the objects are moving in the same direction:
 			if(Math.Sign(obj2Move) == Math.Sign(obj1Move)) {
@@ -149,12 +149,12 @@ namespace Nexus.GameEngine {
 		// GetMaxOverlapY provides the amount of total Y-Overlap that should occur between two objects based on relative movement.
 		// Collisions that exceed this will cause false positives.
 		public static int GetMaxOverlapY( Physics obj1Phys, Physics obj2Phys = null ) {
-			int obj2Move = obj2Phys != null ? obj2Phys.AmountMoved.Y.IntValue : 0;
+			int obj2Move = obj2Phys != null ? obj2Phys.AmountMovedY : 0;
 
 			// If Object 2 did not move:
-			if(obj2Move == 0) { return Math.Abs(obj1Phys.AmountMoved.Y.IntValue); }
+			if(obj2Move == 0) { return Math.Abs(obj1Phys.AmountMovedY); }
 
-			int obj1Move = obj1Phys.AmountMoved.Y.IntValue;
+			int obj1Move = obj1Phys.AmountMovedY;
 
 			// If the objects are moving in the same direction:
 			if(Math.Sign(obj2Move) == Math.Sign(obj1Move)) {
@@ -170,15 +170,15 @@ namespace Nexus.GameEngine {
 		*************************/
 
 		private static int GetRelativeX(DynamicGameObject obj, GameObject obj2) {
-			return (obj.pos.X.IntValue + obj.bounds.MidX) - (obj2.pos.X.IntValue + obj.bounds.MidX);
+			return (obj.posX + obj.bounds.MidX) - (obj2.posX + obj.bounds.MidX);
 		}
 
 		private static int GetRelativeDX(Physics phys1, Physics phys2) {
-			return phys2.AmountMoved.X.IntValue - phys1.AmountMoved.X.IntValue;
+			return phys2.AmountMovedX - phys1.AmountMovedX;
 		}
 
 		private static int GetRelativeDY(Physics phys1, Physics phys2) {
-			return phys2.AmountMoved.Y.IntValue - phys1.AmountMoved.Y.IntValue;
+			return phys2.AmountMovedY - phys1.AmountMovedY;
 		}
 
 		/****************************
