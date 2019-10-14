@@ -16,6 +16,8 @@ namespace Nexus.GameEngine {
 		HasCollision = 1,               // [1] Bool (Collision)				T: Has Collision
 		CharOnly = 2,					// [2] Bool (Char Only)				T: Only Char Interacts
 		SpecialCollisionTest = 3,       // [3] Bool (CollisionTest)			T: Has special collision TEST rules. If collision occurs, run CollisionTest() first.
+
+		// TODO CLEANUP: I'm 95% sure I can remove 'SpecialCollisionEffect' - SpecialCollisionTest should handle it's purpose, and does so before affecting .touch
 		SpecialCollisionEffect = 4,     // [4] Bool (CollisionEffect)		T: Has special collision EFFECT rules. If collision occurs, run CollisionEffect().
 		FullCollision = 5,              // [5] Bool (Full/Side)				T: Full Collision (all sides & solidity), F: Ledge Upward
 
