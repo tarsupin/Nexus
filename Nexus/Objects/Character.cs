@@ -369,8 +369,8 @@ namespace Nexus.Objects {
 			}
 
 			// Right Bounds
-			else if(this.posX + this.bounds.Right >= this.scene.tilemap.width) {
-				this.physics.MoveToPosX(this.scene.tilemap.width - this.bounds.Right);
+			else if(this.posX + this.bounds.Right >= this.scene.tilemap.Width) {
+				this.physics.MoveToPosX(this.scene.tilemap.Width - this.bounds.Right);
 				this.physics.StopX();
 			}
 		}
@@ -385,7 +385,7 @@ namespace Nexus.Objects {
 		private void CheckFallOfWorld() {
 
 			// If the Character falls off the world edge, die.
-			if(this.posY > this.scene.tilemap.height) {
+			if(this.posY > this.scene.tilemap.Height) {
 				this.wounds.Death();
 			}
 		}

@@ -8,15 +8,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte)ClassGameObjectId.Wall)) {
+			if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.Wall)) {
 				new Wall(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.Wall, subTypeId, true, true, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.Wall, subTypeId);
 		}
 
-		public Wall(LevelScene scene) : base(scene, ClassGameObjectId.Wall) {
+		public Wall(LevelScene scene) : base(scene, TileGameObjectId.Wall) {
 			this.BuildTextures("Slab/Gray/");	// TODO: Change to Wall
 		}
 	}

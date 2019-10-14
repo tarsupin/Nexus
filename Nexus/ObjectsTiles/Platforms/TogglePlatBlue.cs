@@ -12,15 +12,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.TogglePlatBlue)) {
+			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.TogglePlatBlue)) {
 				new TogglePlatBlue(scene, subTypeId);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddPlatformTile(gridX, gridY, (byte) ClassGameObjectId.TogglePlatBlue, subTypeId, true, true, true, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.TogglePlatBlue, subTypeId);
 		}
 
-		public TogglePlatBlue(LevelScene scene, byte subTypeId) : base(scene, subTypeId, ClassGameObjectId.TogglePlatBlue) {
+		public TogglePlatBlue(LevelScene scene, byte subTypeId) : base(scene, subTypeId, TileGameObjectId.TogglePlatBlue) {
 			this.Texture = "/Blue/Plat";
 		}
 	}

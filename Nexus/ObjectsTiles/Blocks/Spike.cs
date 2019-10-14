@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Spike : ClassGameObject {
+	public class Spike : TileGameObject {
 
 		public string[] Texture;
 
@@ -16,15 +16,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte)ClassGameObjectId.Spike)) {
+			if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.Spike)) {
 				new Spike(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.Spike, subTypeId, true, true, false, false, true);
+			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.Spike, subTypeId);
 		}
 
-		public Spike(LevelScene scene) : base(scene, ClassGameObjectId.Spike, AtlasGroup.Tiles) {
+		public Spike(LevelScene scene) : base(scene, TileGameObjectId.Spike, AtlasGroup.Tiles) {
 			this.CreateTextures();
 		}
 

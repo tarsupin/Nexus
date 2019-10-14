@@ -34,15 +34,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte)ClassGameObjectId.PromptIcon)) {
+			if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.PromptIcon)) {
 				new PromptIcon(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptIcon, subTypeId, false, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.PromptIcon, subTypeId);
 		}
 
-		public PromptIcon(LevelScene scene) : base(scene, ClassGameObjectId.PromptIcon) {
+		public PromptIcon(LevelScene scene) : base(scene, TileGameObjectId.PromptIcon) {
 			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

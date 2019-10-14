@@ -4,22 +4,22 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class PlatformFixed : ClassGameObject {
+	public class PlatformFixed : TileGameObject {
 
 		protected string[] Texture;
 
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.PlatformFixed)) {
+			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.PlatformFixed)) {
 				new PlatformFixed(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddPlatformTile(gridX, gridY, (byte) ClassGameObjectId.PlatformFixed, subTypeId, true, true, false, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.PlatformFixed, subTypeId);
 		}
 
-		public PlatformFixed(LevelScene scene) : base(scene, ClassGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
+		public PlatformFixed(LevelScene scene) : base(scene, TileGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
 			this.BuildTexture("Platform/Fixed/");
 		}
 

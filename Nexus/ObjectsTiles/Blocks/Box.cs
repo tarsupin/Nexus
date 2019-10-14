@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Box : ClassGameObject {
+	public class Box : TileGameObject {
 
 		public string[] Texture;
 
@@ -16,15 +16,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.Box)) {
+			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.Box)) {
 				new Box(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.Box, subTypeId, true, true, false, false, true);
+			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Box, subTypeId);
 		}
 
-		public Box(LevelScene scene) : base(scene, ClassGameObjectId.Box, AtlasGroup.Tiles) {
+		public Box(LevelScene scene) : base(scene, TileGameObjectId.Box, AtlasGroup.Tiles) {
 			this.CreateTextures();
 		}
 

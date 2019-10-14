@@ -3,12 +3,14 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Ground : ClassGameObject {
+	public class Ground : TileGameObject {
 
 		protected string[] Texture;
 
-		public Ground(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
-
+		public Ground(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+			this.collides = true;
+			this.charOnly = false;
+			this.facing = DirCardinal.Center;
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

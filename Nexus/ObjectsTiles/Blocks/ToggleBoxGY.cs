@@ -12,15 +12,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.ToggleBoxGY)) {
+			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.ToggleBoxGY)) {
 				new ToggleBoxGY(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.ToggleBoxGY, subTypeId, true, true, false, false, true);
+			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.ToggleBoxGY, subTypeId);
 		}
 
-		public ToggleBoxGY(LevelScene scene) : base(scene, ClassGameObjectId.ToggleBoxGY) {
+		public ToggleBoxGY(LevelScene scene) : base(scene, TileGameObjectId.ToggleBoxGY) {
 			this.Texture = "/BoxGY";
 		}
 	}

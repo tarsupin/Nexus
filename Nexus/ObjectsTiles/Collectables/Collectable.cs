@@ -4,11 +4,11 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Collectable : ClassGameObject {
+	public class Collectable : TileGameObject {
 
 		protected string[] Texture;
 
-		public Collectable(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public Collectable(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

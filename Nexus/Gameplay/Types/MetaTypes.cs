@@ -95,7 +95,7 @@ namespace Nexus.Gameplay {
 		Platform,
 		//Collectable,
 		Enemy,
-		//ToggleBlockMobile,			// TODO: This should be in "Item" LoadOrder, and otherwise handled in a Class Game Object, like with Toggle Block.
+		//ToggleBlockMobile,			// TODO: This should be in "Item" LoadOrder, and otherwise handled in a Tile Game Object, like with Toggle Block.
 		Item,
 		TrailingItem,
 		Character,

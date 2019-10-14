@@ -4,12 +4,12 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class ToggleBlock : ClassGameObject {
+	public class ToggleBlock : TileGameObject {
 
 		public string Texture;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public ToggleBlock(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public ToggleBlock(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

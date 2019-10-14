@@ -35,15 +35,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) ClassGameObjectId.DecorPet)) {
+			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.DecorPet)) {
 				new DecorPet(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte) ClassGameObjectId.DecorPet, subTypeId, false, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.DecorPet, subTypeId);
 		}
 
-		public DecorPet(LevelScene scene) : base(scene, ClassGameObjectId.DecorPet) {
+		public DecorPet(LevelScene scene) : base(scene, TileGameObjectId.DecorPet) {
 			this.atlas = scene.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

@@ -13,15 +13,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte)ClassGameObjectId.PromptArrow)) {
+			if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.PromptArrow)) {
 				new PromptArrow(scene);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddClassTile(gridX, gridY, (byte)ClassGameObjectId.PromptArrow, subTypeId, false, false);
+			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.PromptArrow, subTypeId);
 		}
 
-		public PromptArrow(LevelScene scene) : base(scene, ClassGameObjectId.PromptArrow) {
+		public PromptArrow(LevelScene scene) : base(scene, TileGameObjectId.PromptArrow) {
 			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

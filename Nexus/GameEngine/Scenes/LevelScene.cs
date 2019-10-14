@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 		// Level Data
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<byte, ClassGameObject> classObjects;
+		public Dictionary<byte, TileGameObject> tileObjects;
 
 		public LevelFlags flags = new LevelFlags();
 
@@ -39,7 +39,7 @@ namespace Nexus.GameEngine {
 			this.collideSequence = new CollideSequence(this);
 
 			// Important Components
-			this.tilemap = new TilemapBool(400, 100);       // TODO: Get X,Y grid sizes from the level data.
+			this.tilemap = new TilemapBool(this, 400, 100);       // TODO: Get X,Y grid sizes from the level data.
 			this.camera = new Camera(this);
 
 			// Game Objects
@@ -56,14 +56,14 @@ namespace Nexus.GameEngine {
 			this.markedForRemoval = new List<DynamicGameObject>();
 
 			// Game Class Objects
-			this.classObjects = new Dictionary<byte, ClassGameObject>();
+			this.tileObjects = new Dictionary<byte, TileGameObject>();
 
 			// Generate Room 0
 			systems.handler.level.generate.GenerateRoom(this, "0");
 		}
 
-		public override int Width { get { return this.tilemap.width; } }
-		public override int Height { get { return this.tilemap.height; } }
+		public override int Width { get { return this.tilemap.Width; } }
+		public override int Height { get { return this.tilemap.Height; } }
 
 		public void SpawnRoom() {
 
@@ -71,11 +71,11 @@ namespace Nexus.GameEngine {
 
 		// Class Game Objects
 		public bool IsClassGameObjectRegistered( byte classId ) {
-			return classObjects.ContainsKey(classId);
+			return tileObjects.ContainsKey(classId);
 		}
 
-		public void RegisterClassGameObject(ClassGameObjectId classId, ClassGameObject cgo ) {
-			classObjects[(byte) classId] = cgo;
+		public void RegisterClassGameObject(TileGameObjectId classId, TileGameObject cgo ) {
+			tileObjects[(byte) classId] = cgo;
 		}
 
 		public override void RunTick() {
@@ -204,22 +204,15 @@ namespace Nexus.GameEngine {
 
 				for(ushort x = startX; x <= gridX; x++) {
 
-					// Skip if there is no tile present at this tile:
-					if(!this.tilemap.IsTilePresent(x, y)) { continue; }
-					
 					// Scan the Tiles Data at this grid square:
 					uint gridId = this.tilemap.GetGridID(x, y);
 
-					// If the tile is a Tile ID
-					bool[] tileData = this.tilemap.tiles[gridId];
+					TileGameObject tileObj = this.tilemap.GetTileAtGridID(gridId);
 
-					if(tileData[0] == true) {
-
-						// Check the .ids dictionary for the Tile Data (e.g. class object, class subType)
-						ushort[] idData = this.tilemap.ids[gridId];
-						
-						// Render the tile with its designated Class Object:
-						this.classObjects[(byte)idData[0]].Draw((byte)idData[1], x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
+					// Render the tile with its designated Class Object:
+					if(tileObj is TileGameObject) {
+						byte subType = this.tilemap.GetSubTypeAtGridID(gridId);
+						tileObj.Draw(subType, x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
 					};
 				};
 			}

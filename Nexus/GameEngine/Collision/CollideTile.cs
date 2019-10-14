@@ -13,43 +13,33 @@ namespace Nexus.GameEngine {
 
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
-			var something = tilemap.height - 258;
+			var something = tilemap.Height - 258;
 			if(actor.posY >= something) {
 				actor.Destroy();
 				return false;
 			}
 
 			// Verify that a tile exists at the given location:
-			if(!tilemap.IsTilePresent(gridX, gridY)) { return false; }
-
 			uint gridId = tilemap.GetGridID(gridX, gridY);
 
-			bool[] tileData = tilemap.tiles[gridId];
+			TileGameObject tileObj = tilemap.GetTileAtGridID(gridId);
+
+			if(tileObj == null) { return false; }
 
 			// Make sure the tile has a collision, otherwise there's no point in testing any further:
-			if(!tileData[(byte)TMBTiles.HasCollision]) { return false; }
+			if(!tileObj.collides) { return false; }
 
-			// Determine behavior of the Tile, so collision can act accordingly.
-
-			// Character Only
-			if(tileData[(byte)TMBTiles.CharOnly] && actor is Character == false) {
-				return false;
-			}
-
-			// Is Tile
-			if(tileData[(byte)TMBTiles.IsTile]) {
-
-			}
+			// Some tiles are Character-Only. Make sure the tile can collide with this actor:
+			if(tileObj.charOnly && actor is Character == false) { return false; }
 
 			// If we're dealing with a full block collision, we already know it's a confirmed hit.
-			if(tileData[(byte)TMBTiles.FullCollision]) {
+			if(tileObj.facing == DirCardinal.Center) {
 
 				// TODO: CONFIRMED HIT HERE. PROCESS IT.
 				// tileData[(byte) TMBTiles.SpecialCollisionTest]  // NOTE: It already considers the collision to "hit"
 				// tileData[(byte) TMBTiles.SpecialCollisionEffect]
 
 				// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
 
 				// Run Collision & Alignment based on the direction moved:
 				if(dir == DirCardinal.Down) {
@@ -67,29 +57,24 @@ namespace Nexus.GameEngine {
 			}
 
 			// Colliding with a Platform:
-			if(!tileData[(byte)TMBTiles.SlopeOrPlatform]) {
+			else if(tileObj is PlatformFixed) {
 
-				// The Platform is Vertical:
-				if(tileData[(byte)TMBTiles.PlatformIsVert]) {
+				// The Platform Faces Up. Collide if the Actor is moving is Down.
+				if(tileObj.facing == DirCardinal.Up) {
+					if(dir == DirCardinal.Down) {
+						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-					// The Platform Faces Upward:
-					if(tileData[(byte)TMBTiles.VerticalFacing]) {
+						CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
 
-						// Collide if the Direction is Downward.
-						if(dir == DirCardinal.Down) {
-
-							// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-							CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
-
-							// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-							return true;
-						}
-
-						return false;
+						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+						return true;
 					}
 
-					// The Platform Faces Downward. Collide if the Direction is Upward.
+					return false;
+				}
+
+				// The Platform Faces Down. Collide if the Actor is moving is Up.
+				else if(tileObj.facing == DirCardinal.Down) {
 					if(dir == DirCardinal.Up) {
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
@@ -99,16 +84,10 @@ namespace Nexus.GameEngine {
 
 						return true;
 					}
-
-					return false;
 				}
 
-				// The Platform is Horizontal.
-
-				// The Platform Faces Left
-				if(tileData[(byte)TMBTiles.HorizontalFacing]) {
-
-					// Collide if the Direction is Right.
+				// The Platform Faces Left. Collide if the Actor is moving Right.
+				else if(tileObj.facing == DirCardinal.Left) {
 					if(dir == DirCardinal.Right) {
 						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
@@ -121,19 +100,19 @@ namespace Nexus.GameEngine {
 					return false;
 				}
 
-				// The Platform Faces Right. Collide if the Direction is Left.
-				if(dir == DirCardinal.Left) {
-					// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
+				// The Platform Faces Right. Collide if the Actor is moving is Left.
+				else if(tileObj.facing == DirCardinal.Right) {
+					if(dir == DirCardinal.Left) {
+						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
 
-					CollideTileAffect.CollideLeft(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
+						CollideTileAffect.CollideLeft(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
 
-					// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-					return true;
+						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
+						return false;
+					}
 				}
-
-				return false;
 			}
-
+			
 			// Colliding with a Slope:
 			// TODO: SLOPE COLLISION
 			return false;

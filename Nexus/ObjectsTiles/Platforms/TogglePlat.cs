@@ -5,12 +5,12 @@ namespace Nexus.Objects {
 
 	// TogglePlat class has special collisions, since it can cause side-collisions or underneath-collisions.
 
-	public class TogglePlat : ClassGameObject {
+	public class TogglePlat : TileGameObject {
 
 		public string Texture;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public TogglePlat(LevelScene scene, byte subTypeId, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public TogglePlat(LevelScene scene, byte subTypeId, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 			// Platform Faces Left
 			if(subTypeId == (byte) FixedPlatSubType.FaceLeft) {

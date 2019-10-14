@@ -3,11 +3,11 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Ledge : ClassGameObject {
+	public class Ledge : TileGameObject {
 
 		protected string[] Texture;
 
-		public Ledge(LevelScene scene, ClassGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public Ledge(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 
 		}
 

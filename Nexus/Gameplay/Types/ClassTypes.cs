@@ -1,9 +1,12 @@
 ﻿
 namespace Nexus.Gameplay {
 
-	// Class Game Objects must have ONE state; it can have multiple properties, but all must be immutable.
-	public enum ClassGameObjectId {
-		
+	// Tile Game Objects must have ONE state; it can have multiple properties, but all must be immutable.
+	public enum TileGameObjectId {
+
+		// Need "None" at position 0 to identify tile grid IDs that are set to invalid.
+		None,
+
 		// Ground, Immutable
 		GroundGrass,
 		GroundDirt,

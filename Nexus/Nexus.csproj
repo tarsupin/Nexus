@@ -95,7 +95,7 @@
     <Compile Include="GameEngine\Collision\CollideBroad.cs" />
     <Compile Include="GameEngine\Collision\CollideSequence.cs" />
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
-    <Compile Include="GameEngine\ClassGameObject.cs" />
+    <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Level\LevelGenerate.cs" />
     <Compile Include="Gameplay\Types\ActionTypes.cs" />
