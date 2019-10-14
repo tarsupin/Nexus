@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -18,8 +19,10 @@ namespace Nexus.GameEngine {
 			//let char = item.scene.character;
 			//if(char.item && (char.item.id === item.id || char.item.id === obj2.id)) { return false; }
 
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(it, obj);
+
 			// Standard Collision
-			return item.impact.StandardCollision(obj);
+			return item.impact.StandardCollision(obj, dir);
 		}
 
 		public bool ItemHitsProjectile(Item item, Projectile projectile) {

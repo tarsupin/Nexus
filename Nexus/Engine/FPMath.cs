@@ -388,8 +388,8 @@ namespace Nexus.Engine {
 
 		public static FVector Create(int X, int Y) {
 			FVector fp;
-			fp.X = FInt.FromParts(X, 0);
-			fp.Y = FInt.FromParts(Y, 0);
+			fp.X = FInt.Create(X);
+			fp.Y = FInt.Create(Y);
 			return fp;
 		}
 

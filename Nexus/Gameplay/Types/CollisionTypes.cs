@@ -6,9 +6,9 @@ namespace Nexus.Gameplay {
 
 	public class Bounds {
 		public byte Left { get; set; }
-		public byte Right { get; set; }
+		public byte Right { get; set; }     // Right == Left + Width
 		public byte Top { get; set; }
-		public byte Bottom { get; set; }
+		public byte Bottom { get; set; }    // Bottom == Top + Height
 
 		public byte MidX => (byte)Math.Floor((double)(this.Right - this.Left) / 2);
 		public byte MidY => (byte)Math.Floor((double)(this.Bottom - this.Top) / 2);

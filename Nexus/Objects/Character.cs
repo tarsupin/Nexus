@@ -34,6 +34,7 @@ namespace Nexus.Objects {
 			this.AssignBounds(8, 12, 28, 44);
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.FromParts(0, 700));
+			this.impact = new Impact(this);
 
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);
@@ -350,20 +351,20 @@ namespace Nexus.Objects {
 
 			// Left Bounds
 			if(this.pos.X < 0) {
-				this.physics.MoveToPosX((FInt)0);
+				this.physics.MoveToPosX(0);
 				this.physics.StopX();
 			}
 
 			// Right Bounds
 			else if(this.pos.X + this.bounds.Right >= this.scene.tilemap.width) {
-				this.physics.MoveToPosX((FInt) this.scene.tilemap.width - this.bounds.Right);
+				this.physics.MoveToPosX(this.scene.tilemap.width - this.bounds.Right);
 				this.physics.StopX();
 			}
 		}
 
 		private void RestrictWorldTop() {
 			if(this.pos.Y < 0) {
-				this.physics.MoveToPosY((FInt) 0);
+				this.physics.MoveToPosY(0);
 				this.physics.StopY();
 			}
 		}

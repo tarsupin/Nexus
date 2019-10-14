@@ -8,9 +8,9 @@ namespace Nexus.Engine {
 
 	public class AtlasBounds {
 		public byte Left { get; set; }
-		public byte Right { get; set; }
+		public byte Right { get; set; }     // Right == Left + Width
 		public byte Top { get; set; }
-		public byte Bottom { get; set; }
+		public byte Bottom { get; set; }    // Bottom == Top + Height
 	}
 
 	public class Atlas {
@@ -38,7 +38,8 @@ namespace Nexus.Engine {
 				Left = spriteFrame.XOffset,
 				Right = (byte) (spriteFrame.XOffset + spriteFrame.Width),
 				Top = spriteFrame.YOffset,
-				Bottom = (byte) (spriteFrame.YOffset + spriteFrame.Height)		,	};
+				Bottom = (byte) (spriteFrame.YOffset + spriteFrame.Height),
+			};
 		}
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
@@ -131,7 +132,8 @@ namespace Nexus.Engine {
 					(int) textureFrame["h"]
 				);
 
-				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)size["w"], (short)size["h"]);
+				//SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)size["w"], (short)size["h"]);
+				SpriteFrame sprite = new SpriteFrame(textureRect, (byte) sourceInfo["x"], (byte) sourceInfo["y"], (short)(sourceInfo["x"] + sourceInfo["w"]), (short)(sourceInfo["y"] + sourceInfo["h"]));
 				spriteList.Add(spriteObj.Name, sprite);
 			}
 		}

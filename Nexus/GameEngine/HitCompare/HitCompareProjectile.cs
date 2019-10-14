@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -19,8 +20,19 @@ namespace Nexus.GameEngine {
 				proj.Destroy();
 			}
 
+			// Some projectiles can break objects (like boxes).
+			else if(proj.CollisionType == ProjectileCollisionType.BreakObjects) {
+				if(obj is Block) { this.ProjectileBreakBlock(proj, (Block) obj); }
+			}
+
+			// Some projectiles have special behaviors.
+			else if(proj.CollisionType == ProjectileCollisionType.Special) {
+				proj.Destroy();
+			}
+
 			// Some projectiles bounce.
-			else if(proj.CollisionType == ProjectileCollisionType.BounceOnFloor) {
+			 if(proj.CollisionType == ProjectileCollisionType.BounceOnFloor) {
+				DirCardinal dir = CollideDetect.GetDirectionOfCollision(proj, obj);
 
 				// TODO: Could we just use standard collision here?
 				//if(dir === DirCardinal.Down) {
@@ -29,16 +41,6 @@ namespace Nexus.GameEngine {
 				//	return false;
 				//}
 
-				proj.Destroy();
-			}
-
-			// Some projectiles can break objects (like boxes).
-			else if(proj.CollisionType == ProjectileCollisionType.BreakObjects) {
-				if(obj is Block) { this.ProjectileBreakBlock(proj, (Block) obj); }
-			}
-
-			// Some projectiles have special behaviors.
-			else if(proj.CollisionType == ProjectileCollisionType.Special) {
 				proj.Destroy();
 			}
 

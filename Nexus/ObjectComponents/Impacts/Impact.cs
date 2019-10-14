@@ -19,7 +19,7 @@ namespace Nexus.ObjectComponents {
 		public bool StandardCollision(DynamicGameObject obj2, DirCardinal dir = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Center) {
-				System.Console.WriteLine("StandardCollision doesn't deal with 'dir'");
+				return false;
 			}
 
 			if(dir == DirCardinal.Down) {
@@ -34,6 +34,7 @@ namespace Nexus.ObjectComponents {
 				this.touch.TouchRight();
 				obj2.physics.touch.TouchLeft();
 				this.CollideRight(obj2);
+				this.physics.MoveToPosX(this.refObject.pos.X.IntValue - 2);
 				obj2.impact.CollideLeft(this.refObject);
 				return true;
 			}
@@ -61,9 +62,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue <= 0) { return false; }
+			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue >= 0) { return false; }
 
-			CollideAffect.AlignVertical(this.refObject, obj2, -1);
+			CollideAffect.AlignDown(this.refObject, obj2);
 			this.physics.StopY();
 
 			return true;
@@ -73,9 +74,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue >= 0) { return false; }
+			if(this.physics.velocity.Y.IntValue + this.physics.extraMovement.Y.IntValue <= 0) { return false; }
 
-			CollideAffect.AlignVertical(this.refObject, obj2, 1);
+			CollideAffect.AlignUp(this.refObject, obj2);
 			this.physics.StopY();
 
 			return true;
@@ -85,9 +86,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue <= 0) { return false; }
+			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue >= 0) { return false; }
 
-			CollideAffect.AlignHorizontal(this.refObject, obj2, -1);
+			CollideAffect.AlignRight(this.refObject, obj2);
 			this.physics.StopX();
 
 			return true;
@@ -97,9 +98,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue >= 0) { return false; }
+			if(this.physics.velocity.X.IntValue + this.physics.extraMovement.X.IntValue <= 0) { return false; }
 
-			CollideAffect.AlignHorizontal(this.refObject, obj2, 1);
+			CollideAffect.AlignLeft(this.refObject, obj2);
 			this.physics.StopX();
 
 			return true;

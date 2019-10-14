@@ -79,7 +79,7 @@ namespace Nexus.GameEngine {
 			int x1 = obj.pos.X.IntValue;
 			int x2 = obj2.pos.X.IntValue;
 
-			return (x1 + obj.bounds.Left < x2 + obj2.bounds.Right && x1 + obj.bounds.Right > x2 + obj2.bounds.Right);
+			return (x1 + obj.bounds.Left < x2 + obj2.bounds.Right && x1 + obj.bounds.Right > x2 + obj2.bounds.Left);
 		}
 
 		// This tests if the first object completely overlaps the smaller object.
@@ -103,25 +103,25 @@ namespace Nexus.GameEngine {
 		// If moving left and overlap by 7 pixels, would give -7. If moving right and overlap by 7 pixels, gives 7.
 		public static int GetOverlapX(DynamicGameObject obj, GameObject obj2, sbyte relativeX) {
 
-			// Object 1 is to the right of Object 2
+			// Object 1 is to the left of Object 2
 			if(relativeX <= 0) {
 				return (obj.pos.X.IntValue + obj.bounds.Right) - (obj2.pos.X.IntValue + obj2.bounds.Left);
 			}
 
-			// Object 1 is to the left of Object 2
+			// Object 1 is to the right of Object 2
 			return (obj.pos.X.IntValue + obj.bounds.Left) - (obj2.pos.X.IntValue + obj2.bounds.Right);
 		}
 
 		// GetOverlapX retrieves the current Y overlap.
 		// If moving up and overlap by 7 pixels, would give -7. If moving down and overlap by 7 pixels, gives 7.
-		public static int GetOverlapY(DynamicGameObject obj, GameObject obj2, sbyte relativeX) {
+		public static int GetOverlapY(DynamicGameObject obj, GameObject obj2, sbyte relativeY) {
 
-			// Object 1 is above Object 2
-			if(relativeX <= 0) {
+			// Object 1 is below Object 2
+			if(relativeY <= 0) {
 				return (obj.pos.Y.IntValue + obj.bounds.Bottom) - (obj2.pos.Y.IntValue + obj2.bounds.Top);
 			}
 
-			// Object 1 is below Object 2
+			// Object 1 is above Object 2
 			return (obj.pos.Y.IntValue + obj.bounds.Top) - (obj2.pos.Y.IntValue + obj2.bounds.Bottom);
 		}
 
@@ -132,7 +132,7 @@ namespace Nexus.GameEngine {
 		public static int GetMaxOverlapX( Physics obj1Phys, Physics obj2Phys = null ) {
 			int obj2Move = obj2Phys != null ? obj2Phys.AmountMoved.X.IntValue : 0;
 
-			// If Object 2 did not move:
+			// If object #2 is stationary (didn't move):
 			if(obj2Move == 0) { return Math.Abs(obj1Phys.AmountMoved.X.IntValue); }
 
 			int obj1Move = obj1Phys.AmountMoved.X.IntValue;
@@ -174,11 +174,11 @@ namespace Nexus.GameEngine {
 		}
 
 		private static int GetRelativeDX(Physics phys1, Physics phys2) {
-			return phys1.AmountMoved.X.IntValue - phys2.AmountMoved.X.IntValue;
+			return phys2.AmountMoved.X.IntValue - phys1.AmountMoved.X.IntValue;
 		}
 
 		private static int GetRelativeDY(Physics phys1, Physics phys2) {
-			return phys1.AmountMoved.Y.IntValue - phys2.AmountMoved.Y.IntValue;
+			return phys2.AmountMoved.Y.IntValue - phys1.AmountMoved.Y.IntValue;
 		}
 
 		/****************************
@@ -199,6 +199,8 @@ namespace Nexus.GameEngine {
 			int relativeY = CollideDetect.GetRelativeDY(obj.physics, obj2.physics);
 			int overlapY = CollideDetect.GetOverlapY(obj, obj2, (sbyte) relativeY);
 			//int diffY = maxOverlapY - overlapY;
+
+			if(Math.Abs(overlapY) <= maxOverlapY) { return relativeY > 0 ? DirCardinal.Up : DirCardinal.Down; }
 
 			// Same as above, but for X coordinates.
 			int maxOverlapX = CollideDetect.GetMaxOverlapX(obj.physics, obj2.physics);
@@ -223,13 +225,7 @@ namespace Nexus.GameEngine {
 			//	if(overlapY <= maxOverlapY * 1.001) { return relativeY > 0 ? DirCardinal.Up : DirCardinal.Down; }
 			//}
 
-			// TODO HIGH PRIORITY: Originally this had Math.Abs() around it, since it was using floats. Not relevant now.
-			// if(Math.Abs(overlapY) <= maxOverlapY * 1.001) { return relativeY > 0 ? DirCardinal.Up : DirCardinal.Down; }
-			if(overlapY <= maxOverlapY) { return relativeY > 0 ? DirCardinal.Up : DirCardinal.Down; }
-
-			// TODO HIGH PRIORITY: Originally this had Math.Abs() around it, since it was using floats. Not relevant now.
-			//if(Math.Abs(overlapX) <= maxOverlapX * 1.001) { return relativeX > 0 ? DirCardinal.Left : DirCardinal.Right; }
-			if(overlapX <= maxOverlapX) { return relativeX > 0 ? DirCardinal.Left : DirCardinal.Right; }
+			if(Math.Abs(overlapX) <= maxOverlapX) { return relativeX > 0 ? DirCardinal.Left : DirCardinal.Right; }
 
 			// If we've made it this far, the object is overlapping, but already passed the edge.
 			// We return false to avoid unusual behavior, such as 'popping' up on a platform when you're slightly beneath it.

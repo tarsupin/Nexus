@@ -1,4 +1,5 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
 using System.Collections.Generic;
 
 /*
@@ -95,7 +96,6 @@ namespace Nexus.GameEngine {
 
 					// The RIGHT CURSOR can potentially collide. Send it to NARROW COLLISION for testing.
 					CollideNarrow.ProcessCollision(obj, obj2);
-					//System.Console.WriteLine("Objects can collide. " + obj.pos.X.IntValue + " vs. " + obj2.pos.X.IntValue);
 				}
 			}
 		}

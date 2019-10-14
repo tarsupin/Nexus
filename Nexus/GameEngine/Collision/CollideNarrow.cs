@@ -28,10 +28,10 @@ namespace Nexus.GameEngine {
 			if(!CollideDetect.IsOverlapping(obj, obj2)) { return; }
 
 			// Order the objects by archetype, and run them through the collision map.
-			if(obj.Meta.Archetype > obj2.Meta.Archetype) {
-				CollideNarrow.RefineCollision(obj2, obj);
-			} else {
+			if(obj.Meta.Archetype < obj2.Meta.Archetype) {
 				CollideNarrow.RefineCollision(obj, obj2);
+			} else {
+				CollideNarrow.RefineCollision(obj2, obj);
 			}
 		}
 

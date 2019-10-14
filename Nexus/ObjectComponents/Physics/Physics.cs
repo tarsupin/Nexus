@@ -1,6 +1,5 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -9,7 +8,7 @@ namespace Nexus.ObjectComponents {
 		// Object Reference
 		protected DynamicGameObject objRef;
 
-		// Physics Valuesa
+		// Physics Values
 		public FVector lastPos;
 		public FVector velocity;
 		public FVector extraMovement;
@@ -64,22 +63,22 @@ namespace Nexus.ObjectComponents {
 			this.objRef.pos = pos;
 		}
 
-		public void MoveToPosX( FInt posX ) {
-			this.lastPos.X = (FInt) this.objRef.pos.X.IntValue;
-			this.objRef.pos.X = posX;
+		public void MoveToPosX( int posX ) {
+			this.lastPos.X = this.objRef.pos.X;
+			this.objRef.pos.X = FInt.Create(posX);
 		}
 
-		public void MoveToPosY( FInt posY ) {
-			this.lastPos.Y = (FInt) this.objRef.pos.Y.IntValue;
-			this.objRef.pos.Y = posY;
+		public void MoveToPosY( int posY ) {
+			this.lastPos.Y = this.objRef.pos.Y;
+			this.objRef.pos.Y = FInt.Create(posY);
 		}
 
 		public void StopX() {
-			this.velocity.X = (FInt) 0;
+			this.velocity.X = FInt.Create(0);
 		}
 
 		public void StopY() {
-			this.velocity.Y = (FInt) 0;
+			this.velocity.Y = FInt.Create(0);
 		}
 	}
 }

@@ -3,14 +3,20 @@ namespace Nexus.GameEngine {
 
 	public class CollideAffect {
 
-		// To Align Left, use hor -1. To Align Right, use hor 1.
-		public static void AlignHorizontal( DynamicGameObject obj, GameObject obj2, sbyte hor ) {
-			obj.physics.MoveToPosX(obj.pos.X - CollideDetect.GetOverlapX(obj, obj2, hor ));
+		public static void AlignLeft( DynamicGameObject obj, GameObject obj2 ) {
+			obj.physics.MoveToPosX(obj2.pos.X.IntValue + obj2.bounds.Left - obj.bounds.Right);
 		}
 
-		// To Align Up, use vert -1. To Align Right, use vert 1.
-		public static void AlignVertical( DynamicGameObject obj, GameObject obj2, sbyte vert ) {
-			obj.physics.MoveToPosY(obj.pos.Y - CollideDetect.GetOverlapY(obj, obj2, vert ));
+		public static void AlignRight( DynamicGameObject obj, GameObject obj2 ) {
+			obj.physics.MoveToPosX(obj2.pos.X.IntValue + obj2.bounds.Right - obj.bounds.Left);
+		}
+		
+		public static void AlignUp( DynamicGameObject obj, GameObject obj2 ) {
+			obj.physics.MoveToPosY(obj2.pos.Y.IntValue + obj2.bounds.Top - obj.bounds.Bottom);
+		}
+
+		public static void AlignDown( DynamicGameObject obj, GameObject obj2 ) {
+			obj.physics.MoveToPosY(obj2.pos.Y.IntValue + obj2.bounds.Bottom - obj.bounds.Top);
 		}
 	}
 }
