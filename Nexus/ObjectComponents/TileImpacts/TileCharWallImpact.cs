@@ -3,19 +3,31 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public static class TileCharWallImpact {
+	public static class TileCharBasicImpact {
 
 		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool RunImpact(Character character, bool moveRight, DirCardinal facing = DirCardinal.Center) {
+		public static bool RunImpact(Character character, DirCardinal dir, DirCardinal facing = DirCardinal.Center) {
 
-			if(moveRight) {
+			if(dir == DirCardinal.Right) {
 				if(facing == DirCardinal.Center || facing == DirCardinal.Left) {
 					ActionMap.WallGrab.StartAction(character, DirCardinal.Right);
 				}
 
-			} else {
+			}
+			
+			else if(dir == DirCardinal.Left) {
 				if(facing == DirCardinal.Center || facing == DirCardinal.Right) {
 					ActionMap.WallGrab.StartAction(character, DirCardinal.Left);
+				}
+			}
+			
+			else if(dir == DirCardinal.Up) {
+
+				// End any action that ends upward:
+				ActionCharacter action = character.status.action;
+
+				if(action is JumpAction || action is WallJumpAction) {
+					character.status.action.EndAction(character);
 				}
 			}
 

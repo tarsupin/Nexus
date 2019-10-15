@@ -44,7 +44,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public virtual bool RunCollision( DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
-			return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+			return true;
 		}
 	}
 }

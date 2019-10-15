@@ -16,16 +16,15 @@ namespace Nexus.Objects {
 		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.Toggled) {
-				bool collided = TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-				
-				// Characters Can Wall Jump
+				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
 				if(actor is Character) {
-					if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
-						TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
-					}
+
+					// Standard Character Tile Collisions
+					TileCharBasicImpact.RunImpact((Character)actor, dir);
 				}
 
-				return collided;
+				return true;
 			}
 
 			return false;

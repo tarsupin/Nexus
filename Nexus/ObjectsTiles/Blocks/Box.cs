@@ -28,21 +28,43 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		// TODO HIGH PRIORITY: See DetectObject.DamageAbove() for process of damaging above the box when broken.
-		// TODO HIGH PRIORITY: See DetectObject.DamageAbove() for process of damaging above the box when broken.
-		// TODO HIGH PRIORITY: Also need a damaging effect (special collision), which will remove the tile.
-
 		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			bool collided = TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
-			// Characters Can Wall Jump
 			if(actor is Character) {
-				if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
-					TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
-				}
+
+				// Standard Character Tile Collisions
+				TileCharBasicImpact.RunImpact((Character)actor, dir);
 			}
 
-			return collided;
+			// Destroy Box
+			if(dir == DirCardinal.Up) {
+				this.BreakApart(gridX, gridY);
+			}
+
+			return true;
+		}
+
+		private void BreakApart(ushort gridX, ushort gridY) {
+
+			// Damage Creatures Above (if applicable)
+			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( this.scene.objects[(byte)LoadOrder.Enemy], (uint) gridX * (byte) TilemapEnum.TileWidth + 16, (uint) gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4 );
+
+			if(enemyFoundId > 0) {
+				Enemy enemy = (Enemy) this.scene.objects[(byte)LoadOrder.Enemy][enemyFoundId];
+				enemy.Die(DeathResult.Knockout);
+			}
+
+			// Destroy Box Tile
+			this.scene.tilemap.RemoveTileByGrid(gridX, gridY);
+
+			// Display Particle Effect
+			// TODO PARTICLES: Display particle effect for box being destroyed.
+			//let particleSys = game.particles;
+			//PEventExplode.activate(particleSys, AtlasGroup.Other, "Particles/WoodFrag", this.pos.x + this.img.width / 2, this.pos.y + this.img.height / 2);
+
+			// TODO SOUND: Box Breaking Sound
+			// game.audio.soundList.brickBreak.play();
 		}
 
 		private void CreateTextures() {

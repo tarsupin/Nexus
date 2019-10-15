@@ -41,11 +41,10 @@ namespace Nexus.Objects {
 			if(this.Toggled) {
 				bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
 
-				// Characters Can Wall Jump
-				if(actor is Character) {
-					if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
-						TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
-					}
+				if(collided && actor is Character) {
+
+					// Standard Character Tile Collisions
+					TileCharBasicImpact.RunImpact((Character)actor, dir);
 				}
 
 				return collided;

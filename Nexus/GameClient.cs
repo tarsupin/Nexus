@@ -65,7 +65,7 @@ namespace Nexus
 			(this.systems.scene).camera.CenterAtPosition(1200, 0);
 
 			// TODO CLEANUP: Remove Character from being inserted like this:
-			Character character = new Character((LevelScene) this.systems.scene, 0, FVector.Create(800, 300), null);
+			Character character = new Character((LevelScene) this.systems.scene, 0, FVector.Create(950, 600), null);
 			((LevelScene)(this.systems.scene)).AddToObjects(character);
 
 			this.systems.localServer.MyPlayer.AssignCharacter(character);

@@ -21,7 +21,7 @@ namespace Nexus.GameEngine {
 		// Retrieve the object ID of a GameObject that is within the area designated.
 		// You can supply an existing ID to scan for IDs above a previous value.
 		// For example, if you retrieved ID 10 from this, you could search again with ID 10 as a minimum, and it will only return newer objects.
-		// uint enemyFoundId = DetectObjects.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
+		// uint enemyFoundId = CollideDetect.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
 		public static uint FindObjectWithinArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
@@ -42,6 +42,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
+		// uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
 		public static uint FindObjectsTouchingArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
