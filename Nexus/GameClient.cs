@@ -57,6 +57,9 @@ namespace Nexus
 			this.systems.AddGraphics(this, this.spriteBatch);
 			this.systems.screen.ResizeWindowToBestFit();
 
+			// Add Audio to System
+			this.systems.AddAudio(this);
+
 			// TODO: use this.Content to load your game content here
 
 			// TODO: Change playtesting level to correct setup.

@@ -98,6 +98,7 @@
     <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Level\LevelGenerate.cs" />
+    <Compile Include="Gameplay\Maps\SoundAssets.cs" />
     <Compile Include="Gameplay\Types\ActionTypes.cs" />
     <Compile Include="Gameplay\Types\GameTypes.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
@@ -242,7 +243,7 @@
     <Compile Include="Gameplay\GameHandler.cs" />
     <Compile Include="Gameplay\World\WorldState.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />
-    <Compile Include="Gameplay\Types\GameMapper.cs" />
+    <Compile Include="Gameplay\Maps\GameMapper.cs" />
     <Compile Include="GameEngine\DynamicGameObject.cs" />
     <Compile Include="GameEngine\StaticGameObject.cs" />
     <Compile Include="GameEngine\GameObject.cs" />

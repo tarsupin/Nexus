@@ -20,7 +20,10 @@ namespace Nexus.Engine {
 		public readonly FilesLocal filesLocal;
 		public readonly ScreenSys screen;
 		public readonly LocalServer localServer;
+
+		// Game-Related Assets
 		public GameMapper mapper { get; protected set; }
+		public SoundAssets sounds { get; protected set; }
 
 		// Settings & States
 		public readonly Settings settings;
@@ -45,6 +48,10 @@ namespace Nexus.Engine {
 
 		public void AddGraphics(GameClient game, SpriteBatch spriteBatch) {
 			this.mapper = new GameMapper(game, spriteBatch);
+		}
+
+		public void AddAudio(GameClient game) {
+			this.sounds = new SoundAssets(game);
 		}
 	}
 }
