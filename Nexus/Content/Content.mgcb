@@ -13,3 +13,375 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Sounds/cast-laser.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/cast-laser.wav
+
+#begin Sounds/character/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/character/jump.wav
+
+#begin Sounds/character/woohoo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/character/woohoo.wav
+
+#begin Sounds/character/wound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/character/wound.wav
+
+#begin Sounds/clicks/click1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/clicks/click1.wav
+
+#begin Sounds/clicks/click2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/clicks/click2.wav
+
+#begin Sounds/clicks/click3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/clicks/click3.wav
+
+#begin Sounds/clicks/pop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/clicks/pop.wav
+
+#begin Sounds/collisions/brickBreak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/brickBreak.wav
+
+#begin Sounds/collisions/bulletJump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/bulletJump.wav
+
+#begin Sounds/collisions/crack.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/crack.wav
+
+#begin Sounds/collisions/shellBoop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/shellBoop.wav
+
+#begin Sounds/collisions/shellThud.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/shellThud.wav
+
+#begin Sounds/collisions/toggle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/collisions/toggle.wav
+
+#begin Sounds/enemies/deathInsect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/enemies/deathInsect.wav
+
+#begin Sounds/enemies/splat1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/enemies/splat1.wav
+
+#begin Sounds/enemies/splat2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/enemies/splat2.wav
+
+#begin Sounds/enemies/splatLong1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/enemies/splatLong1.wav
+
+#begin Sounds/enemies/splatLong2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/enemies/splatLong2.wav
+
+#begin Sounds/impacts/impact-brick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/impact-brick.wav
+
+#begin Sounds/impacts/impact-stone.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/impact-stone.wav
+
+#begin Sounds/impacts/impact-wood.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/impact-wood.wav
+
+#begin Sounds/impacts/thud-bonk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-bonk.wav
+
+#begin Sounds/impacts/thud-hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-hit.wav
+
+#begin Sounds/impacts/thud-tap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-tap.wav
+
+#begin Sounds/impacts/thud-thump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-thump.wav
+
+#begin Sounds/impacts/thud-whomp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-whomp.wav
+
+#begin Sounds/impacts/thud-whop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/impacts/thud-whop.wav
+
+#begin Sounds/items/cannonFire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/cannonFire.wav
+
+#begin Sounds/items/coin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/coin.wav
+
+#begin Sounds/items/coinLoud.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/coinLoud.ogg
+
+#begin Sounds/items/collectable.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/collectable.wav
+
+#begin Sounds/items/collectBweep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/collectBweep.wav
+
+#begin Sounds/items/collectDisable.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/collectDisable.wav
+
+#begin Sounds/items/collectKey.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/collectKey.wav
+
+#begin Sounds/items/collectSubtle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/collectSubtle.wav
+
+#begin Sounds/items/disableCollectable.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/disableCollectable.wav
+
+#begin Sounds/items/door.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/door.wav
+
+#begin Sounds/items/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/explosion.wav
+
+#begin Sounds/items/flag.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/flag.wav
+
+#begin Sounds/items/food.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/food.wav
+
+#begin Sounds/items/potion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/potion.wav
+
+#begin Sounds/items/spring.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/spring.wav
+
+#begin Sounds/items/unlock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/items/unlock.wav
+
+#begin Sounds/powers/air.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/air.wav
+
+#begin Sounds/powers/axe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/axe.wav
+
+#begin Sounds/powers/bolt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/bolt.wav
+
+#begin Sounds/powers/dagger.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/dagger.wav
+
+#begin Sounds/powers/flame.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/flame.wav
+
+#begin Sounds/powers/shield.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/shield.wav
+
+#begin Sounds/powers/slide.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/slide.wav
+
+#begin Sounds/powers/stone.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/stone.wav
+
+#begin Sounds/powers/sword.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/sword.wav
+
+#begin Sounds/powers/teleport.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/teleport.wav
+
+#begin Sounds/powers/water.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/powers/water.wav
+
+#begin Sounds/timer/timer1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/timer/timer1.wav
+
+#begin Sounds/timer/timer2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/timer/timer2.wav
+
+#begin Sounds/warp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/warp.wav
+
+#begin Sounds/woosh/woosh-deep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/woosh/woosh-deep.wav
+
+#begin Sounds/woosh/woosh-laser.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/woosh/woosh-laser.wav
+
+#begin Sounds/woosh/woosh-long.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/woosh/woosh-long.wav
+
+#begin Sounds/woosh/woosh-subtle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/woosh/woosh-subtle.wav
+

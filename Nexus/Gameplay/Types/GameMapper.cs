@@ -8,6 +8,8 @@ using System.Collections.Generic;
 namespace Nexus.Gameplay {
 
 	public static class ActionMap {
+
+		// Character Actions
 		public static readonly AirBurst AirBurst = new AirBurst();
 		public static readonly FlightAction Flight = new FlightAction();
 		public static readonly WallGrabAction WallGrab = new WallGrabAction();
@@ -15,6 +17,9 @@ namespace Nexus.Gameplay {
 		public static readonly JumpAction Jump = new JumpAction();
 		public static readonly SlideAction Slide = new SlideAction();
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
+
+		// Enemy Actions
+		public static readonly DeathEnemyAction DeathEnemy = new DeathEnemyAction();
 	}
 
 	public class AnimationMap {

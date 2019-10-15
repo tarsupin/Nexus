@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -9,13 +10,24 @@ namespace Nexus.Objects {
 		// Enemy Stats
 		public DamageStrength ProjectileResist { get; protected set; }
 
-		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+		// Enemy Status
+		public Behavior behavior;
+		public EnemyStatus status;
 
+		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+			this.status = new EnemyStatus();
 		}
 
-		public new void RunTick() {
+		public override void RunTick() {
+
+			// Actions and Behaviors
+			if(this.status.action is ActionEnemy) {
+				this.status.action.RunAction(this);
+			} else if(this.behavior is Behavior) {
+				this.behavior.RunTick();
+			}
+
 			base.RunTick();
-			// if this.animation, then this.animation.runTick();
 		}
 
 		public bool CanResistDamage( DamageStrength damage ) {
@@ -41,9 +53,8 @@ namespace Nexus.Objects {
 		}
 
 		public bool Die( DeathResult deathType ) {
-			// TODO: this.action = new DeathAction( this, DeathActionType.Standard );
-				// TODO inside of DeathAction: if(this.animation) { this.animation.null; }
-				// TODO inside: this.physics.setGravity(0.5) if it's a Knockout
+			ActionMap.DeathEnemy.StartAction(this, deathType);
+			if(this.animate is Animate) { this.animate = null; }
 			return true;
 		}
 

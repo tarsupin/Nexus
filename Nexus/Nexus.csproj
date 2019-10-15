@@ -111,6 +111,8 @@
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="Gameplay\Types\StatusTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\ActionEnemy.cs" />
+    <Compile Include="ObjectComponents\Actions\DeathEnemyAction.cs" />
     <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
+    <Compile Include="ObjectComponents\Status\EnemyStatus.cs" />
     <Compile Include="ObjectComponents\Suits\WhiteWizard.cs" />
     <Compile Include="ObjectComponents\Suits\RedWizard.cs" />
     <Compile Include="ObjectComponents\Suits\GreenWizard.cs" />

@@ -15,8 +15,6 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = false;
 		}
 
-		public virtual void RunAction( DynamicGameObject actor ) {}
-
 		public virtual void LandsOnGround( DynamicGameObject actor ) {
 			if(this.endsOnLanding) { this.EndAction( actor ); }
 		}
