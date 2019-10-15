@@ -20,6 +20,11 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
+		public override void Collect(uint gridId) {
+			// TODO SOUND: Collect Coins
+			base.Collect(gridId);
+		}
+
 		private void CreateTextures() {
 			this.Texture = new string[2];
 			this.Texture[0] = "Treasure/Coin";

@@ -1,5 +1,6 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -30,6 +31,19 @@ namespace Nexus.Objects {
 		// TODO HIGH PRIORITY: See DetectObject.DamageAbove() for process of damaging above the box when broken.
 		// TODO HIGH PRIORITY: See DetectObject.DamageAbove() for process of damaging above the box when broken.
 		// TODO HIGH PRIORITY: Also need a damaging effect (special collision), which will remove the tile.
+
+		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			bool collided = TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
+			// Characters Can Wall Jump
+			if(actor is Character) {
+				if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+					TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
+				}
+			}
+
+			return collided;
+		}
 
 		private void CreateTextures() {
 			this.Texture = new string[2];

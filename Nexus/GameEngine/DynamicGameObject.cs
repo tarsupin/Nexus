@@ -26,6 +26,8 @@ namespace Nexus.GameEngine {
 		public Physics physics;
 		public Impact impact;
 		public Animate animate;
+		public Action action;
+		public Behavior behavior;
 
 		// Miscellaneous
 		public bool faceRight;      // TRUE if the actor is facing right.
@@ -41,7 +43,11 @@ namespace Nexus.GameEngine {
 			// if(this.activity == (byte) Activity.Inactive) { return; }
 
 			// Actions and Behaviors
-			//if(this.action is Action) { this.action.RunTick(); } else if(this.behavior is Behavior) { this.behavior.RunTick(); }
+			//if(this.action is Action) {
+			//	this.action.RunAction(this);
+			//} else if(this.behavior is Behavior) {
+			//	this.behavior.RunTick();
+			//}
 
 			// Standard Physics
 			this.physics.RunTick();

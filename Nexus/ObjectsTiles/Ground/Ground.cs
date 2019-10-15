@@ -1,5 +1,6 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -9,6 +10,19 @@ namespace Nexus.Objects {
 
 		public Ground(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 			this.collides = true;
+		}
+
+		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			bool collided = base.RunCollision(actor, gridX, gridY, dir);
+
+			// Characters Can Wall Jump
+			if(actor is Character) {
+				if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+					TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
+				}
+			}
+
+			return collided;
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

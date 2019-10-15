@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 
 			// Physics
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.FromParts(0, 500));
+			this.physics.SetGravity(FInt.Create(0.5));
 		}
 	}
 }

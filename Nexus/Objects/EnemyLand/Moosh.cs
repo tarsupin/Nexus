@@ -18,12 +18,12 @@ namespace Nexus.Objects {
 			this.AssignSubType(subType);
 
 			// Movement
-			this.speed = FInt.FromParts(1, 400);
+			this.speed = FInt.Create(1.4);
 
 			// Physics, Collisions, etc.
 			this.AssignBoundsByAtlas(4, 4, -4);
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.FromParts(0, 700));
+			this.physics.SetGravity(FInt.Create(0.7));
 			this.physics.velocity.X = (FInt)(0-this.speed);
 			this.impact = new Impact(this);
 

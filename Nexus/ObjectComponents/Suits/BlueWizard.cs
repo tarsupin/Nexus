@@ -19,7 +19,7 @@ namespace Nexus.ObjectComponents {
 			stats.CanFastCast = true;
 			stats.JumpDuration = 25;
 			stats.JumpStrength = 9;
-			stats.BaseGravity = FInt.FromParts(0, 400);
+			stats.BaseGravity = FInt.Create(0.4);
 
 			this.character.physics.SetGravity(stats.BaseGravity);
 		}

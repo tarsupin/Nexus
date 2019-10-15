@@ -59,14 +59,14 @@ namespace Nexus.ObjectComponents {
 			SafeVsDamageAbove = false;
 			InflictDamageAbove = false;
 
-			RunAcceleration = FInt.FromParts(0, 300);
-			RunDeceleration = 0 - FInt.FromParts(0, 200);
+			RunAcceleration = FInt.Create(0.3);
+			RunDeceleration = 0 - FInt.Create(0.2);
 			RunMaxSpeed = 7;
-			SlowSpeedMult = FInt.FromParts(0, 650);
+			SlowSpeedMult = FInt.Create(0.65);
 
 			JumpMaxTimes = 1;
-			AirAcceleration = FInt.FromParts(0, 450);
-			AirDeceleration = 0 - FInt.FromParts(0, 200);
+			AirAcceleration = FInt.Create(0.45);
+			AirDeceleration = 0 - FInt.Create(0.2);
 			JumpDuration = 10;
 			JumpStrength = 11;
 
@@ -78,7 +78,7 @@ namespace Nexus.ObjectComponents {
 			SlideDuration = 12;
 			SlideStrength = FInt.Create(12);
 
-			BaseGravity = 0 - FInt.FromParts(0, 700);
+			BaseGravity = 0 - FInt.Create(0.7);
 
 			// Reset Wound Settings
 			if(this.character.wounds is CharacterWounds) {

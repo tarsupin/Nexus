@@ -28,10 +28,10 @@ namespace Nexus.Objects {
 
 			// Behaviors
 			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
-				this.physics.SetGravity(FInt.FromParts(0, 350));
+				this.physics.SetGravity(FInt.Create(0.35));
 				this.CollisionType = ProjectileCollisionType.BounceOnFloor;
 			} else {
-				this.physics.SetGravity(FInt.FromParts(0, 400));
+				this.physics.SetGravity(FInt.Create(0.4));
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			}
 

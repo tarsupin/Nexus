@@ -10,12 +10,12 @@ namespace Nexus.Engine {
 		
 		// Ease a value back and forth between two values.
 		public static FInt EaseBothDir( FInt val1, FInt val2, FInt weight )  {
-			return val1 + FInt.Abs(FInt.Sin((weight + FInt.FromParts(0, 750)) * FInt.PI * 2) / 2 + FInt.FromParts(0, 500)) * (val2 - val1);
+			return val1 + FInt.Abs(FInt.Sin((weight + FInt.Create(0.75)) * FInt.PI * 2) / 2 + FInt.Create(0.5)) * (val2 - val1);
 		}
 
 		// Quadratic Bezier Interpolation with Smooth Ease
 		public static FInt QuadBezierEaseBothDir( FInt p0, FInt p1, FInt p2, FInt weight )  {
-			weight = FInt.Sin(weight * FInt.PI * 2) / 2 + FInt.FromParts(0, 500);
+			weight = FInt.Sin(weight * FInt.PI * 2) / 2 + FInt.Create(0.5);
 			FInt k = 1 - weight;
 			return (k* k * p0) + (2 * (1 - weight) * weight * p1) + (weight* weight * p2);
 		}

@@ -33,7 +33,7 @@ namespace Nexus.Objects {
 			// Physics, Collisions, etc.
 			this.AssignBounds(8, 12, 28, 44);
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.FromParts(0, 700));
+			this.physics.SetGravity(FInt.Create(0.7));
 			this.impact = new Impact(this);
 
 			// Default Stats & Statuses
@@ -43,6 +43,10 @@ namespace Nexus.Objects {
 
 			// Images and Animations
 			this.animate = new Animate(this, "Moosh/Brown/");
+
+			// TODO CLEANUP: Remove
+			this.stats.CanWallSlide = true;
+			this.stats.CanWallJump = true;
 		}
 
 		public void AssignPlayer( Player player ) {
@@ -240,7 +244,7 @@ namespace Nexus.Objects {
 
 				// If there's too much momentum, decelerate to normal speed:
 				else {
-					this.DecelerateChar(this.stats.AirDeceleration, 2 - speedMult, FInt.FromParts(0, 65));	// Roughly 1/16
+					this.DecelerateChar(this.stats.AirDeceleration, 2 - speedMult, FInt.Create(0.065));	// Roughly 1/16
 				}
 			}
 
@@ -256,7 +260,7 @@ namespace Nexus.Objects {
 
 				// If there's too much momentum, decelerate to normal speed:
 				else {
-					this.DecelerateChar(this.stats.AirDeceleration, 2 - speedMult, FInt.FromParts(0, 65)); // Roughly 1/16
+					this.DecelerateChar(this.stats.AirDeceleration, 2 - speedMult, FInt.Create(0.065)); // Roughly 1/16
 				}
 			}
 

@@ -25,33 +25,33 @@ namespace Nexus.ObjectComponents {
 			// Horizontal Levitation Movement/Speed
 			if(input.isDown(IKey.Right)) {
 				character.faceRight = true;
-				physics.velocity.X += (hoverSpeed * FInt.FromParts(0, 50)); // HoverSpeed * 0.05
+				physics.velocity.X += (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
 
 			} else if(input.isDown(IKey.Left)) {
 				character.faceRight = false;
-				physics.velocity.X -= (hoverSpeed * FInt.FromParts(0, 50)); // HoverSpeed * 0.05
+				physics.velocity.X -= (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
 			}
 
 			// Horizontal Deceleration
 			else {
-				physics.velocity.X = this.FlightDeceleration(physics.velocity.X, hoverSpeed * FInt.FromParts(0, 30));
+				physics.velocity.X = this.FlightDeceleration(physics.velocity.X, hoverSpeed * FInt.Create(0.3));
 			}
 
 			// Vertical Levitation
 			if(input.isDown(IKey.Up)) {
-				physics.velocity.Y += (hoverSpeed * FInt.FromParts(0, 50)); // HoverSpeed * 0.05
+				physics.velocity.Y += (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
 				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed); }
 
 			} else if(input.isDown(IKey.Down)) {
-				physics.velocity.Y -= (hoverSpeed * FInt.FromParts(0, 50)); // HoverSpeed * 0.05
+				physics.velocity.Y -= (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
 				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed); }
 			}
 
 			// Vertical Deceleration
 			else {
-				physics.velocity.Y = this.FlightDeceleration(physics.velocity.Y, hoverSpeed * FInt.FromParts(0, 30));
+				physics.velocity.Y = this.FlightDeceleration(physics.velocity.Y, hoverSpeed * FInt.Create(0.3));
 			}
 		}
 

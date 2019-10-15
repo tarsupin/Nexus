@@ -1,5 +1,6 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -9,6 +10,10 @@ namespace Nexus.Objects {
 
 		public Ledge(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
 			this.collides = true;
+		}
+
+		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			return TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

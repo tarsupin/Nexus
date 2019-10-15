@@ -29,7 +29,9 @@ namespace Nexus.ObjectComponents {
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
 
 			// Apply X-Axis Jump Strength
-			character.physics.physPos.X += ((stats.WallJumpXStrength + extraStrength) * (dir == DirCardinal.Right ? -1 : 1)); ;
+			//character.physics.physPos.X += dir == DirCardinal.Right ? -2 : 2;
+			character.physics.velocity.X += ((stats.WallJumpXStrength + extraStrength) * (dir == DirCardinal.Right ? -1 : 1));
+			character.physics.velocity.Y -= stats.WallJumpYStrength;
 
 			// TODO SOUND: Wall Jump Sound
 		}

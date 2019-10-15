@@ -11,7 +11,12 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = true;
 		}
 
+		// ActionMap.WallGrab.StartAction( character, dir );
 		public void StartAction( Character character, DirCardinal dir ) {
+
+			// TODO: If the Character is holding an item, there is no opportunity for wall jumping:
+			//if(character.heldItem) { return false; }
+
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
@@ -48,7 +53,7 @@ namespace Nexus.ObjectComponents {
 			if(grab) {
 				physics.StopY();
 			} else {
-				physics.velocity.Y = FInt.Create(1.5);
+				physics.velocity.Y = FInt.Create(0.4);
 			}
 
 			// If character jumped off the wall:
@@ -79,6 +84,11 @@ namespace Nexus.ObjectComponents {
 
 			// Standard Physics
 			physics.RunTick();
+		}
+
+		public override void EndAction(Character character) {
+			base.EndAction(character);
+			character.status.leaveWall = character.scene.timer.frame + 4;
 		}
 	}
 }

@@ -15,12 +15,12 @@ namespace Nexus.ObjectComponents {
 			stats.CanWallJump = true;
 			stats.CanWallSlide = true;
 
-			stats.AirAcceleration = FInt.FromParts(0, 750);            // 0.45
-			stats.AirDeceleration = 0 - FInt.FromParts(0, 200);     // -0.2
+			stats.AirAcceleration = FInt.Create(0.75);            // 0.45
+			stats.AirDeceleration = 0 - FInt.Create(0.2);     // -0.2
 
 			stats.RunMaxSpeed = 8;
-			stats.RunAcceleration = FInt.FromParts(0, 400);         // 0.3
-			stats.RunDeceleration = 0 - FInt.FromParts(0, 150);      // -0.2
+			stats.RunAcceleration = FInt.Create(0.4);         // 0.3
+			stats.RunDeceleration = 0 - FInt.Create(0.15);      // -0.2
 
 			stats.SlideWaitDuration = 30;
 			stats.SlideDuration = 15;

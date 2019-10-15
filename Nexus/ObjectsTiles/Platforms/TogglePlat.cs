@@ -37,9 +37,20 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+
 			if(this.Toggled) {
-				return TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
+				bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
+
+				// Characters Can Wall Jump
+				if(actor is Character) {
+					if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+						TileCharWallImpact.RunImpact((Character)actor, dir == DirCardinal.Right);
+					}
+				}
+
+				return collided;
 			}
+
 			return false;
 		}
 

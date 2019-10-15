@@ -62,8 +62,14 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void RemoveTile( ushort gridX, ushort gridY ) {
-			this.ids.Remove(this.GetGridID(gridX, gridY));
+		public void RemoveTileByGrid( ushort gridX, ushort gridY ) {
+			uint gridId = this.GetGridID(gridX, gridY);
+			this.RemoveTile(gridId);
+		}
+
+		public void RemoveTile( uint gridId ) {
+			this.ids.Remove(gridId);
+			this.subTypes.Remove(gridId);
 		}
 
 		public uint GetGridID( ushort gridX, ushort gridY ) {

@@ -33,6 +33,11 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
+		public override void Collect( uint gridId ) {
+			// TODO SOUND: Collect Hat
+			base.Collect(gridId);
+		}
+
 		private void CreateTextures() {
 			this.Texture = new string[10];
 			

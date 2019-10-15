@@ -1,5 +1,6 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -25,6 +26,19 @@ namespace Nexus.Objects {
 
 		public Spike(LevelScene scene) : base(scene, TileGameObjectId.Spike) {
 			this.CreateTextures();
+		}
+
+		// TODO HIGH PRIORITY: Spikes can take differnt forms of damage. Either make different Spike Tiles (maybe easiest), or send sub-types (requires new system in place)
+		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			bool collided = TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
+			// Characters Receive Spike Damage
+			if(actor is Character) {
+				Character character = (Character) actor;
+				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			}
+
+			return collided;
 		}
 
 		private void CreateTextures() {

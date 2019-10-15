@@ -21,6 +21,7 @@ namespace Nexus.Gameplay {
 
 		// Ledges
 		LedgeGrass,
+		LedgeGrassDecor,
 		PlatformFixed,
 
 		// Decor, Immutable

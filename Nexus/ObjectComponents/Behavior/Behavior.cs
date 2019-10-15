@@ -12,5 +12,7 @@ namespace Nexus.ObjectComponents {
 		public Behavior( DynamicGameObject actor ) {
 			this.actor = actor;
 		}
+
+		public virtual void RunTick() {}
 	}
 }

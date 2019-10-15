@@ -160,6 +160,7 @@
     <Compile Include="ObjectComponents\Suits\BlackNinja.cs" />
     <Compile Include="ObjectComponents\Suits\Suit.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileFacingImpact.cs" />
+    <Compile Include="ObjectComponents\TileImpacts\TileCharWallImpact.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileSolidImpact.cs" />
     <Compile Include="ObjectComponents\Wounds\CharacterWounds.cs" />
     <Compile Include="ObjectComponents\Status\CharacterStatus.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
     <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
+    <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
     <Compile Include="Objects\Platforms\Platform.cs" />
