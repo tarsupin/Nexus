@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Lock : TileGameObject {
+	public class Lock : BlockTile {
 
 		public string Texture;
 
@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Lock, subTypeId);
 		}
 
-		public Lock(LevelScene scene) : base(scene, TileGameObjectId.Lock, AtlasGroup.Tiles) {
+		public Lock(LevelScene scene) : base(scene, TileGameObjectId.Lock) {
 			this.Texture = "Lock/Lock";
 		}
 

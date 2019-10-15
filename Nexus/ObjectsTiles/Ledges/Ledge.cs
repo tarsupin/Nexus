@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 		protected string[] Texture;
 
 		public Ledge(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
-
+			this.collides = true;
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

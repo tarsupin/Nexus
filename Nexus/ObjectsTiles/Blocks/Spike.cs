@@ -1,10 +1,9 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Spike : TileGameObject {
+	public class Spike : BlockTile {
 
 		public string[] Texture;
 
@@ -24,7 +23,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.Spike, subTypeId);
 		}
 
-		public Spike(LevelScene scene) : base(scene, TileGameObjectId.Spike, AtlasGroup.Tiles) {
+		public Spike(LevelScene scene) : base(scene, TileGameObjectId.Spike) {
 			this.CreateTextures();
 		}
 

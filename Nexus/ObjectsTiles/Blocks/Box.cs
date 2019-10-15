@@ -1,10 +1,9 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Box : TileGameObject {
+	public class Box : BlockTile {
 
 		public string[] Texture;
 
@@ -24,7 +23,7 @@ namespace Nexus.Objects {
 			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Box, subTypeId);
 		}
 
-		public Box(LevelScene scene) : base(scene, TileGameObjectId.Box, AtlasGroup.Tiles) {
+		public Box(LevelScene scene) : base(scene, TileGameObjectId.Box) {
 			this.CreateTextures();
 		}
 

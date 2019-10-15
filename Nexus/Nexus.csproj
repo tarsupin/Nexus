@@ -159,6 +159,7 @@
     <Compile Include="ObjectComponents\Suits\BlueNinja.cs" />
     <Compile Include="ObjectComponents\Suits\BlackNinja.cs" />
     <Compile Include="ObjectComponents\Suits\Suit.cs" />
+    <Compile Include="ObjectComponents\TileImpacts\TileImpact.cs" />
     <Compile Include="ObjectComponents\Wounds\CharacterWounds.cs" />
     <Compile Include="ObjectComponents\Status\CharacterStatus.cs" />
     <Compile Include="ObjectComponents\Stats\CharacterStats.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
+    <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
     <Compile Include="Objects\Platforms\Platform.cs" />
@@ -213,8 +215,8 @@
     <Compile Include="ObjectsTiles\Decor\DecorVeg.cs" />
     <Compile Include="ObjectsTiles\Decor\Decor.cs" />
     <Compile Include="ObjectsTiles\Platforms\PlatformFixed.cs" />
-    <Compile Include="ObjectsTiles\Platforms\Ledge.cs" />
-    <Compile Include="ObjectsTiles\Platforms\LedgeGrass.cs" />
+    <Compile Include="ObjectsTiles\Ledges\Ledge.cs" />
+    <Compile Include="ObjectsTiles\Ledges\LedgeGrass.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundStone.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundSlime.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundSnow.cs" />

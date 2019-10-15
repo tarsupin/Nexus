@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -10,7 +9,7 @@ namespace Nexus.Objects {
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
 		public ToggleBlock(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
-
+			this.collides = true;
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -20,6 +19,7 @@ namespace Nexus.Objects {
 		}
 
 		public PlatformFixed(LevelScene scene) : base(scene, TileGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
+			this.collides = true;
 			this.BuildTexture("Platform/Fixed/");
 		}
 

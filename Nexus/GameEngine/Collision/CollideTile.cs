@@ -24,98 +24,11 @@ namespace Nexus.GameEngine {
 
 			TileGameObject tileObj = tilemap.GetTileAtGridID(gridId);
 
-			if(tileObj == null) { return false; }
+			// Make sure the tile exists and collides, otherwise there's no point in testing any further:
+			if(tileObj == null || !tileObj.collides) { return false; }
 
-			// Make sure the tile has a collision, otherwise there's no point in testing any further:
-			if(!tileObj.collides) { return false; }
-
-			// Some tiles are Character-Only. Make sure the tile can collide with this actor:
-			if(tileObj.charOnly && actor is Character == false) { return false; }
-
-			// If we're dealing with a full block collision, we already know it's a confirmed hit.
-			if(tileObj.facing == DirCardinal.Center) {
-
-				// TODO: CONFIRMED HIT HERE. PROCESS IT.
-				// tileData[(byte) TMBTiles.SpecialCollisionTest]  // NOTE: It already considers the collision to "hit"
-				// tileData[(byte) TMBTiles.SpecialCollisionEffect]
-
-				// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-				// Run Collision & Alignment based on the direction moved:
-				if(dir == DirCardinal.Down) {
-					CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
-				} else if(dir == DirCardinal.Right) {
-					CollideTileAffect.CollideRight(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Right);
-				} else if(dir == DirCardinal.Left) {
-					CollideTileAffect.CollideLeft(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
-				} else if(dir == DirCardinal.Up) {
-					CollideTileAffect.CollideUp(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Top);
-				}
-
-				// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-				return true;
-			}
-
-			// Colliding with a Platform:
-			else if(tileObj is PlatformFixed) {
-
-				// The Platform Faces Up. Collide if the Actor is moving is Down.
-				if(tileObj.facing == DirCardinal.Up) {
-					if(dir == DirCardinal.Down) {
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-						CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
-
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-						return true;
-					}
-
-					return false;
-				}
-
-				// The Platform Faces Down. Collide if the Actor is moving is Up.
-				else if(tileObj.facing == DirCardinal.Down) {
-					if(dir == DirCardinal.Up) {
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-						CollideTileAffect.CollideUp(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Top);
-
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-
-						return true;
-					}
-				}
-
-				// The Platform Faces Left. Collide if the Actor is moving Right.
-				else if(tileObj.facing == DirCardinal.Left) {
-					if(dir == DirCardinal.Right) {
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-						CollideTileAffect.CollideRight(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Right);
-
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-						return true;
-					}
-
-					return false;
-				}
-
-				// The Platform Faces Right. Collide if the Actor is moving is Left.
-				else if(tileObj.facing == DirCardinal.Right) {
-					if(dir == DirCardinal.Left) {
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionTest if applicable. // NOTE: It already considers the collision to "hit"
-
-						CollideTileAffect.CollideLeft(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
-
-						// TODO: NEED TO DO TMBTiles.SpecialCollisionEffect if applicable.
-						return false;
-					}
-				}
-			}
-			
-			// Colliding with a Slope:
-			// TODO: SLOPE COLLISION
-			return false;
+			// Run Tile Collision
+			return tileObj.RunCollision(actor, dir);
 		}
 
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.
