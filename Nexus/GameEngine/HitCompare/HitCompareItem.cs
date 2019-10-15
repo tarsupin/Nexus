@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(it, obj);
 
 			// Standard Collision
-			return item.impact.StandardCollision(obj, dir);
+			return item.impact.StandardImpact(obj, dir);
 		}
 
 		public bool ItemHitsProjectile(Item item, Projectile projectile) {

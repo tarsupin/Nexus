@@ -1,11 +1,13 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
 	public class PlatformFixed : TileGameObject {
 
 		protected string[] Texture;
+		protected DirCardinal facing;
 
 		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
 
@@ -20,7 +22,12 @@ namespace Nexus.Objects {
 
 		public PlatformFixed(LevelScene scene) : base(scene, TileGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
 			this.collides = true;
+			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");
+		}
+
+		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			return TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

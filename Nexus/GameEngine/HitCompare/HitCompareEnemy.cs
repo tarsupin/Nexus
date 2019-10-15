@@ -19,7 +19,7 @@ namespace Nexus.GameEngine {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(en, obj);
 
 			// Standard Collision
-			return en.impact.StandardCollision(obj, dir);
+			return en.impact.StandardImpact(obj, dir);
 		}
 
 		public bool EnemyHitsItem(Enemy enemy, Item item) {
@@ -33,14 +33,14 @@ namespace Nexus.GameEngine {
 			// TODO: GRABBING, HOLDING, PICK UP ITEMS, ETC.
 
 			// If we've made it this far, run standard collision with item:
-			return enemy.impact.StandardCollision(item);
+			return enemy.impact.StandardImpact(item);
 		}
 
 		public bool EnemyHitsEnemy(Enemy enemy, Enemy enemy2) {
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, enemy2);
 
-			return enemy.impact.StandardCollision(enemy2, dir);
+			return enemy.impact.StandardImpact(enemy2, dir);
 		}
 
 		public bool EnemyHitsPlatform(Enemy enemy, Platform platform) {
@@ -50,7 +50,7 @@ namespace Nexus.GameEngine {
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
-			return enemy.impact.StandardCollision(platform, dir);
+			return enemy.impact.StandardImpact(platform, dir);
 		}
 
 		public bool EnemyHitsBlock(Enemy enemy, Block block) {
@@ -60,12 +60,12 @@ namespace Nexus.GameEngine {
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
-			return enemy.impact.StandardCollision(block, dir);
+			return enemy.impact.StandardImpact(block, dir);
 		}
 
 		public bool EnemyHitsProjectile(Enemy enemy, Projectile projectile) {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, projectile);
-			return enemy.impact.StandardCollision(projectile, dir);
+			return enemy.impact.StandardImpact(projectile, dir);
 		}
 	}
 }

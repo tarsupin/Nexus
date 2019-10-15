@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(ch, obj);
 
 			// Standard Collision
-			return ch.impact.StandardCollision(obj, dir);
+			return ch.impact.StandardImpact(obj, dir);
 		}
 
 		public bool CharHitsItem( Character character, Item item ) {
@@ -36,7 +36,7 @@ namespace Nexus.GameEngine {
 			// TODO: GRABBING, HOLDING, PICK UP ITEMS, ETC.
 
 			// If we've made it this far, run standard collision with item:
-			return character.impact.StandardCollision(item, dir);
+			return character.impact.StandardImpact(item, dir);
 		}
 
 		public bool CharHitsEnemy( Character character, Enemy enemy ) {
@@ -46,7 +46,7 @@ namespace Nexus.GameEngine {
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
-			return character.impact.StandardCollision(enemy, dir);
+			return character.impact.StandardImpact(enemy, dir);
 		}
 		
 		public bool CharHitsPlatform( Character character, Platform platform ) {
@@ -56,7 +56,7 @@ namespace Nexus.GameEngine {
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
-			return character.impact.StandardCollision(platform, dir);
+			return character.impact.StandardImpact(platform, dir);
 		}
 
 		public bool CharHitsBlock( Character character, Block block ) {
@@ -66,12 +66,12 @@ namespace Nexus.GameEngine {
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
-			return character.impact.StandardCollision(block, dir);
+			return character.impact.StandardImpact(block, dir);
 		}
 
 		public bool CharHitsProjectile( Character character, Projectile projectile ) {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
-			return character.impact.StandardCollision(projectile, dir);
+			return character.impact.StandardImpact(projectile, dir);
 		}
 	}
 }

@@ -34,14 +34,6 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
 	}
 
-	public static class ImpactMap {
-		//public static readonly ImpactCharacter Character = new ImpactCharacter();
-		//public static readonly ImpactChomper Chomper = new ImpactChomper();
-		//public static readonly ImpactEnemyLand EnemyLand = new ImpactEnemyLand();
-		//public static readonly ImpactShell Shell = new ImpactShell();
-		//public static readonly ImpactSlammer Slammer = new ImpactSlammer();
-	}
-
 	public class GameMapper {
 
 		public readonly Atlas[] atlas;
