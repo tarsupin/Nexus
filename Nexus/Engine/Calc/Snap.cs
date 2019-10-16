@@ -2,7 +2,7 @@
 
 namespace Nexus.Engine {
 
-	public class Snap {
+	public static class Snap {
 
 		// Snap: Returns the canvas' value to the nearest interval; e.g. 552 -> 550
 		public static int ToCeil(ushort interval, int value ) { return interval * (int) Math.Ceiling( (double) (value / interval) ); }

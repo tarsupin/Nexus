@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 
@@ -102,6 +103,12 @@ namespace Nexus
 			this.spriteBatch.Begin();
 
 			this.systems.scene.Draw();
+
+			// TODO CLEANUP: DELETE PARTICLE SPIRAL STEP THING
+			FVector particlePos = ParticlePathGenerator.SpiralStep(FInt.Create(0), FInt.Create(80), FInt.Create(1.5), FInt.Create(0.01), (int) this.systems.scene.timer.frame);
+
+			this.systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Grass/FU", particlePos.X.IntValue + 500, particlePos.Y.IntValue + 400);
+
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);

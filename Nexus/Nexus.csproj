@@ -61,10 +61,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config\DebugNexus.cs" />
+    <Compile Include="Engine\Calc\Radians.cs" />
+    <Compile Include="Engine\Calc\Spectrum.cs" />
     <Compile Include="Engine\Calc\Interpolation.cs" />
     <Compile Include="Engine\Calc\FPInterpolation.cs" />
     <Compile Include="Engine\Calc\Snap.cs" />
-    <Compile Include="Engine\Calc.cs" />
+    <Compile Include="Engine\Calc\Degrees.cs" />
+    <Compile Include="Engine\Calc\TrigCalc.cs" />
     <Compile Include="Engine\Bitwise.cs" />
     <Compile Include="Engine\DataConvert.cs" />
     <Compile Include="Engine\FilesLocal.cs" />
@@ -79,6 +82,10 @@
     <Compile Include="GameEngine\HitCompare\HitCompareItem.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareProjectile.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
+    <Compile Include="GameEngine\Particles\ParticlePathGenerator.cs" />
+    <Compile Include="GameEngine\Particles\ParticlePath.cs" />
+    <Compile Include="GameEngine\Particles\ParticleManager.cs" />
+    <Compile Include="GameEngine\Particles\Particle.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />

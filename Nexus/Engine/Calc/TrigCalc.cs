@@ -2,7 +2,7 @@
 
 namespace Nexus.Engine {
 
-	public class Calc {
+	public static class TrigCalc {
 
 		/*************************
 		****** Trigonometry ******

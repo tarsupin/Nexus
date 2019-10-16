@@ -112,10 +112,11 @@ namespace Nexus.Gameplay {
 			this.unlock = Content.Load<SoundEffect>("Sounds/items/unlock");
 
 			// Clicks
-			this.click1 = Content.Load<SoundEffect>("Sounds/click1");
-			this.click2 = Content.Load<SoundEffect>("Sounds/click2");
-			this.click3 = Content.Load<SoundEffect>("Sounds/click3");
-		
+			this.click1 = Content.Load<SoundEffect>("Sounds/clicks/click1");
+			this.click2 = Content.Load<SoundEffect>("Sounds/clicks/click2");
+			this.click3 = Content.Load<SoundEffect>("Sounds/clicks/click3");
+			this.pop = Content.Load<SoundEffect>("Sounds/clicks/pop");
+
 			// Impacts
 			this.wood = Content.Load<SoundEffect>("Sounds/impacts/impact-wood");
 			this.brick = Content.Load<SoundEffect>("Sounds/impacts/impact-brick");
@@ -164,9 +165,8 @@ namespace Nexus.Gameplay {
 			this.toggle = Content.Load<SoundEffect>("Sounds/collisions/toggle");
 			
 			// Misc
-			this.timer1 = Content.Load<SoundEffect>("Sounds/misc/timer1");
-			this.timer2 = Content.Load<SoundEffect>("Sounds/misc/timer2");
-			this.pop = Content.Load<SoundEffect>("Sounds/clicks/pop");
+			this.timer1 = Content.Load<SoundEffect>("Sounds/timer/timer1");
+			this.timer2 = Content.Load<SoundEffect>("Sounds/timer/timer2");
 			this.warp = Content.Load<SoundEffect>("Sounds/warp");
 		}
 	}

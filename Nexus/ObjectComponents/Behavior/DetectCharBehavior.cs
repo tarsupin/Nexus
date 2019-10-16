@@ -111,7 +111,7 @@ namespace Nexus.ObjectComponents {
 			this.actionEnd = this.timer.frame + this.cooldownDuration;
 		}
 
-		public void RunTick() {
+		public override void RunTick() {
 			switch(this.behaveStatus) {
 				case BehaveStatus.Watching:		this.WatchForCharacter();	break;
 				case BehaveStatus.Stalling:		this.RunStall();			break;

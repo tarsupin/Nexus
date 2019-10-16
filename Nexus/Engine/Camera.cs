@@ -75,7 +75,7 @@ namespace Nexus.Engine {
 			if(this.posX == 0 && this.posY == 0) {
 
 				// Calculate the distance between the two positions.
-				int dist = Calc.GetDistance( this.posX, this.posY, posX, posY );
+				int dist = TrigCalc.GetDistance( this.posX, this.posY, posX, posY );
 
 				// If the positions are less than 1800 pixels apart, do a follow movement rather than jump.
 				if(dist < 1800) {

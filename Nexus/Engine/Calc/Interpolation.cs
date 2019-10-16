@@ -3,7 +3,7 @@ using System;
 
 namespace Nexus.Engine {
 
-	public class Interpolation {
+	public static class Interpolation {
 
 		// Get value between two numbers using weight factor (0 to 1);
 		public static float Number( float val1, float val2, float weight )  {

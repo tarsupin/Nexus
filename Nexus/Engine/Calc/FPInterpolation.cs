@@ -1,12 +1,24 @@
 ﻿
 namespace Nexus.Engine {
 
-	public class FPInterpolation {
+	public static class FPInterpolation {
 
 		// Get value between two numbers using weight factor (0 to 1);
 		public static FInt Number( FInt val1, FInt val2, FInt weight )  {
 			return (1 - weight) * val1 + weight * val2;
 		}
+
+		
+		//// Calculate a smooth interpolation percent between the `min` and `max`
+		//static getSmoothStepPercent( value: number, min: number, max: number ): number {
+		//	value = (value - min) / (max - min);
+		//	return value * value * (3 - 2 * value);
+		//}
+	
+		//static getSmootherStepPercent( value: number, min: number, max: number ): number {
+		//	value = Math.max(0, Math.min(1, (value - min) / (max - min)));
+		//	return value * value * value * (value * (value * 6 - 15) + 10);
+		//}
 		
 		// Ease a value back and forth between two values.
 		public static FInt EaseBothDir( FInt val1, FInt val2, FInt weight )  {
