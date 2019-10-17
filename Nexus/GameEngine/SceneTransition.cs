@@ -14,13 +14,13 @@ namespace Nexus.GameEngine {
 	public class SceneTransition {
 
 		// Go to World Scene
-		public static void ToWorld( Systems systems, string worldId, bool runMenu = false, bool runEditor = false ) {
+		public static void ToWorld( string worldId, bool runMenu = false, bool runEditor = false ) {
 
 		}
 
 		// Go to Level Scene (In World)
-		public static bool ToLevel( Systems systems, string worldId, string levelId, bool runMenu = false, bool runEditor = false ) {
-			GameHandler handler = systems.handler;
+		public static bool ToLevel( string worldId, string levelId, bool runMenu = false, bool runEditor = false ) {
+			GameHandler handler = Systems.handler;
 
 			// Verify that we're loading a level that's different from our current one:
 			if(levelId == handler.level.levelId) { return false; }
@@ -32,10 +32,10 @@ namespace Nexus.GameEngine {
 			handler.levelState.FullLevelReset();
 
 			// End Old Level Scene
-			systems.scene.EndScene();
+			Systems.scene.EndScene();
 
 			// Create New Level Scene
-			systems.scene = new LevelScene(systems);
+			Systems.scene = new LevelScene();
 
 			return true;
 		}

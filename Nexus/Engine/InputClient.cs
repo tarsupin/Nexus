@@ -58,7 +58,6 @@ namespace Nexus.Engine {
 	}
 
 	public class InputClient {
-		private readonly Systems systems;
 
 		// Bind Keys (and Reverse Lookup)
 		private Dictionary<Keys, IKey> keyMap;
@@ -77,8 +76,7 @@ namespace Nexus.Engine {
 		private KeyboardState curKeyState, prevKeyState;
 		private GamePadState curPadState, prevPadState;
 
-		public InputClient( Systems systems ) {
-			this.systems = systems;
+		public InputClient() {
 
 			this.pressedNum = 0;
 			this.pressedIKeys = new IKey[8];
@@ -118,7 +116,7 @@ namespace Nexus.Engine {
 				Array.Copy(this.pressedIKeys, 0, kPressed, 0, this.pressedNum);
 				Array.Copy(this.releasedIKeys, 0, kReleased, 0, this.releasedNum);
 
-				this.systems.localServer.CreateInputPacket( kPressed, kReleased );
+				Systems.localServer.CreateInputPacket( kPressed, kReleased );
 			}
 
 			// Save Previous Input States

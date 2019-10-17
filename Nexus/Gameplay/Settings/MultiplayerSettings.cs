@@ -8,15 +8,13 @@ namespace Nexus.Gameplay {
 	}
 
 	public class MultiplayerSettings : MultiplayerJson {
-		readonly Systems systems;
 
-		public MultiplayerSettings(Systems systems) {
-			this.systems = systems;
+		public MultiplayerSettings() {
 
 			// Load Multiplayer Settings from Local File
-			if(systems.filesLocal.FileExists("Settings/Multiplayer.json")) {
+			if(Systems.filesLocal.FileExists("Settings/Multiplayer.json")) {
 
-				string fileContents = systems.filesLocal.ReadFile("Settings/Multiplayer.json");
+				string fileContents = Systems.filesLocal.ReadFile("Settings/Multiplayer.json");
 
 				MultiplayerJson mpSettings = JsonConvert.DeserializeObject<MultiplayerJson>(fileContents);
 
@@ -42,7 +40,7 @@ namespace Nexus.Gameplay {
 			string json = JsonConvert.SerializeObject(mpSettings);
 
 			// Save JSON to Settings
-			this.systems.filesLocal.WriteFile("Settings/Multiplayer.json", json);
+			Systems.filesLocal.WriteFile("Settings/Multiplayer.json", json);
 		}
 	}
 }

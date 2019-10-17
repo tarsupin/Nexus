@@ -8,15 +8,13 @@ namespace Nexus.Gameplay {
 	}
 
 	public class KeySettings : KeyJson {
-		readonly Systems systems;
 
-		public KeySettings(Systems systems) {
-			this.systems = systems;
+		public KeySettings() {
 
 			// Load Keys Settings from Local File
-			if(systems.filesLocal.FileExists("Settings/Keys.json")) {
+			if(Systems.filesLocal.FileExists("Settings/Keys.json")) {
 
-				string fileContents = systems.filesLocal.ReadFile("Settings/Keys.json");
+				string fileContents = Systems.filesLocal.ReadFile("Settings/Keys.json");
 
 				KeyJson keySettings = JsonConvert.DeserializeObject<KeyJson>(fileContents);
 
@@ -42,7 +40,7 @@ namespace Nexus.Gameplay {
 			string json = JsonConvert.SerializeObject(keySettings);
 
 			// Save JSON to Settings
-			this.systems.filesLocal.WriteFile("Settings/Keys.json", json);
+			Systems.filesLocal.WriteFile("Settings/Keys.json", json);
 		}
 	}
 }

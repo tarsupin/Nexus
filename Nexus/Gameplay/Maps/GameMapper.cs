@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
-using Nexus.GameEngine;
 using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;

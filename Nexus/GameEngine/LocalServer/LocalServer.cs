@@ -23,9 +23,6 @@ namespace Nexus.GameEngine {
 
 	public class LocalServer {
 
-		// Systems
-		private readonly Systems systems;
-
 		// LocalServer Data
 		public bool online = false;
 		// server address, port, etc.
@@ -35,8 +32,7 @@ namespace Nexus.GameEngine {
 
 		public byte MyPlayerId { get; private set; }
 
-		public LocalServer( Systems systems ) {
-			this.systems = systems;
+		public LocalServer() {
 			this.players = new Dictionary<byte, Player>();
 			this.StartLocalGame();
 		}

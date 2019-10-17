@@ -65,7 +65,7 @@ namespace Nexus.ObjectComponents {
 			this.AnimCycles = animCycles;
 			this.AnimSpeed = animSpeed;
 			this.CycleId = cycleId;
-			this.NextFrame = this.actor.scene.timer.frame + animSpeed;
+			this.NextFrame = Systems.timer.frame + animSpeed;
 
 			// Update the actor's sprite name according to the next animation cycle.
 			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);

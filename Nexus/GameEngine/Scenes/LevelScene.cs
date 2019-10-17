@@ -29,13 +29,13 @@ namespace Nexus.GameEngine {
 		// Level Cleanup
 		private List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed.
 
-		public LevelScene( Systems systems ) : base( systems ) {
+		public LevelScene() : base() {
 
 			// TODO CLEANUP: Debugging stopwatch should be removed.
 			this.stopwatch = new Stopwatch();
 
 			// References
-			this.localServer = systems.localServer;
+			this.localServer = Systems.localServer;
 			this.collideSequence = new CollideSequence(this);
 
 			// Important Components
@@ -59,7 +59,7 @@ namespace Nexus.GameEngine {
 			this.tileObjects = new Dictionary<byte, TileGameObject>();
 
 			// Generate Room 0
-			systems.handler.level.generate.GenerateRoom(this, "0");
+			Systems.handler.level.generate.GenerateRoom(this, "0");
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }
@@ -125,7 +125,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update Timer
-			this.timer.RunTick();
+			Systems.timer.RunTick();
 
 			// Update All Objects
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);
@@ -180,7 +180,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
-			//this.stopwatch.Start();
+			this.stopwatch.Start();
 
 			ushort startX = this.camera.GridX;
 			ushort startY = this.camera.GridY;
@@ -226,8 +226,8 @@ namespace Nexus.GameEngine {
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
 
 			// Debugging
-			//this.stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			this.stopwatch.Stop();
+			System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 
 		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {

@@ -9,15 +9,13 @@ namespace Nexus.Gameplay {
 	}
 
 	public class GraphicSettings : GraphicsJson {
-		readonly Systems systems;
 
-		public GraphicSettings(Systems systems) {
-			this.systems = systems;
+		public GraphicSettings() {
 
 			// Load Graphics Settings from Local File
-			if(systems.filesLocal.FileExists("Settings/Graphics.json")) {
+			if(Systems.filesLocal.FileExists("Settings/Graphics.json")) {
 
-				string fileContents = systems.filesLocal.ReadFile("Settings/Graphics.json");
+				string fileContents = Systems.filesLocal.ReadFile("Settings/Graphics.json");
 
 				GraphicsJson graphicsSettings = JsonConvert.DeserializeObject<GraphicsJson>(fileContents);
 
@@ -46,7 +44,7 @@ namespace Nexus.Gameplay {
 			string json = JsonConvert.SerializeObject(graphicsSettings);
 
 			// Save JSON to Settings
-			this.systems.filesLocal.WriteFile("Settings/Graphics.json", json);
+			Systems.filesLocal.WriteFile("Settings/Graphics.json", json);
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace Nexus.Engine {
 
 		public Camera( Scene scene ) {
 			this.scene = scene;
-			this.time = scene.timer;
+			this.time = Systems.timer;
 			this.posX = 0;
 			this.posY = 0;
 			this.speedMult = 0.08f; // 0.08f;
@@ -52,8 +52,8 @@ namespace Nexus.Engine {
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
-			this.bounds.Right = right != 0 ? right : this.scene.Width - this.scene.screen.windowWidth;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - this.scene.screen.windowHeight;
+			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Systems.screen.windowHeight;
 		}
 
 		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {

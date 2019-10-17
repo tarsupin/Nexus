@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 		public static readonly FInt MaxFallVelocity = FInt.Create(5);
 
 		public Platform(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
-			this.Meta = scene.mapper.MetaList[MetaGroup.Platform];
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
 			this.AssignBoundsByAtlas();
 			this.physics.SetGravity(FInt.Create(0));
 		}

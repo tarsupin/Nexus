@@ -1,6 +1,5 @@
 ﻿
 using Nexus.Engine;
-using Nexus.Gameplay;
 using System;
 
 namespace Nexus.GameEngine {
@@ -9,20 +8,9 @@ namespace Nexus.GameEngine {
 
 		public uint idCounter;           // Tracks the last ID that was generated in the scene.
 
-		public readonly Systems systems;
-		public readonly TimerGlobal timer;
-		public readonly ScreenSys screen;
-		public readonly GameMapper mapper;
 		public Camera camera { get; protected set; }
 
-		public Scene( Systems systems ) {
-
-			// Systems
-			this.systems = systems;
-			this.timer = systems.timer;
-			this.screen = systems.screen;
-			this.mapper = systems.mapper;
-		}
+		public Scene() {}
 
 		public virtual int Width { get { return 0; } } // Placeholder for Camera
 		public virtual int Height { get { return 0; } } // Placeholder for Camera

@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -43,7 +44,7 @@ namespace Nexus.Objects {
 		}
 
 		public PromptIcon(LevelScene scene) : base(scene, TileGameObjectId.PromptIcon) {
-			this.atlas = scene.mapper.atlas[(byte)AtlasGroup.Tiles];
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}
 

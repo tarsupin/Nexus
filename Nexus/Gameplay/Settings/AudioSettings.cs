@@ -11,15 +11,13 @@ namespace Nexus.Gameplay {
 	}
 
 	public class AudioSettings : AudioJson {
-		readonly Systems systems;
 
-		public AudioSettings(Systems systems) {
-			this.systems = systems;
+		public AudioSettings() {
 
 			// Load Audio Settings from Local File
-			if(systems.filesLocal.FileExists("Settings/Audio.json")) {
+			if(Systems.filesLocal.FileExists("Settings/Audio.json")) {
 
-				string fileContents = systems.filesLocal.ReadFile("Settings/Audio.json");
+				string fileContents = Systems.filesLocal.ReadFile("Settings/Audio.json");
 
 				AudioJson audioSettings = JsonConvert.DeserializeObject<AudioJson>(fileContents);
 
@@ -54,7 +52,7 @@ namespace Nexus.Gameplay {
 			string json = JsonConvert.SerializeObject(audioSettings);
 
 			// Save JSON to Settings
-			this.systems.filesLocal.WriteFile("Settings/Audio.json", json);
+			Systems.filesLocal.WriteFile("Settings/Audio.json", json);
 		}
 	}
 }

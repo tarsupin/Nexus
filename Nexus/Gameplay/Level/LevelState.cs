@@ -36,7 +36,7 @@ namespace Nexus.Gameplay {
 
 		public LevelState(GameHandler handler) {
 			this.handler = handler;
-			this.timer = this.handler.systems.timer;
+			this.timer = Systems.timer;
 
 			// Build Flags
 			this.checkpoint = new FlagJson {

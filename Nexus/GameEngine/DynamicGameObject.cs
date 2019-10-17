@@ -53,7 +53,7 @@ namespace Nexus.GameEngine {
 			
 			// Animations, if applicable.
 			if(this.animate is Animate) {
-				this.animate.RunAnimationTick(this.scene.timer);
+				this.animate.RunAnimationTick(Systems.timer);
 			}
 		}
 

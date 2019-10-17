@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.GameEngine {
@@ -25,7 +26,7 @@ namespace Nexus.GameEngine {
 		public bool EnemyHitsItem(Enemy enemy, Item item) {
 
 			// If the entity is intangible, don't collide with the item.
-			if(item.intangible > item.scene.timer.frame) { return false; }
+			if(item.intangible > Systems.timer.frame) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, item);
 

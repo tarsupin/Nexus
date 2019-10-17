@@ -10,12 +10,10 @@ namespace Nexus.Gameplay {
 	public class LevelGenerate {
 
 		// References
-		private readonly Systems systems;
 		private readonly LevelContent level;
 		private LevelScene scene;
 
-		public LevelGenerate(LevelContent level, GameHandler gameHandler) {
-			this.systems = gameHandler.systems;
+		public LevelGenerate(LevelContent level) {
 			this.level = level;
 		}
 
@@ -82,7 +80,7 @@ namespace Nexus.Gameplay {
 		}
 
 		private void AddTileToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false) {
-			GameMapper mapper = this.systems.mapper;
+			GameMapper mapper = Systems.mapper;
 
 			// Identify Tile Class Type, If Applicable
 			Type classType;
@@ -101,7 +99,7 @@ namespace Nexus.Gameplay {
 			// TODO: Might need to adjust how "Spawn" flags work here.
 			if(type == 100) { return; }      // "Character" flag should be ignored.
 
-			GameMapper mapper = this.systems.mapper;
+			GameMapper mapper = Systems.mapper;
 
 			// Identify Object Class Type
 			Type classType;

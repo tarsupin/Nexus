@@ -39,7 +39,7 @@ namespace Nexus.ObjectComponents {
 			// TODO HIGH PRIORITY: When we have items, uncomment:
 			//if(this.character.item != null) { return false; }
 
-			TimerGlobal timer = this.character.scene.timer;
+			TimerGlobal timer = Systems.timer;
 
 			// Delay if last activation was too recent.
 			if(timer.frame < this.lastActivation) { return false; }

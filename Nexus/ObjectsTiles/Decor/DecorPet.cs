@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -44,7 +45,7 @@ namespace Nexus.Objects {
 		}
 
 		public DecorPet(LevelScene scene) : base(scene, TileGameObjectId.DecorPet) {
-			this.atlas = scene.mapper.atlas[(byte) AtlasGroup.Tiles];
+			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.BuildTextures();
 		}
 

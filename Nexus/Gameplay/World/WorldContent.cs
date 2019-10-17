@@ -6,18 +6,14 @@ namespace Nexus.Gameplay {
 
 	public class WorldContent {
 
-		// References
-		private readonly Systems systems;
-
 		// World Data
 		public string worldId;          // World ID (e.g. "QCALQOD16")
 		public WorldFormat data;		// World Data
 
 		public WorldContent(GameHandler gameHandler) {
-			this.systems = gameHandler.systems;
 
 			// Make sure the Worlds directory exists.
-			this.systems.filesLocal.MakeDirectory("Worlds");
+			Systems.filesLocal.MakeDirectory("Worlds");
 		}
 
 		public void LoadWorld(string worldId) {
@@ -28,9 +24,9 @@ namespace Nexus.Gameplay {
 			string localPath = WorldContent.GetLocalWorldPath(this.worldId);
 
 			// Make sure the world exists:
-			if(!this.systems.filesLocal.FileExists(localPath)) { return; }
+			if(!Systems.filesLocal.FileExists(localPath)) { return; }
 
-			string json = systems.filesLocal.ReadFile(localPath);
+			string json = Systems.filesLocal.ReadFile(localPath);
 
 			// If there is no JSON content, end the attempt to load world:
 			if(json == "") { return; }
@@ -57,7 +53,7 @@ namespace Nexus.Gameplay {
 
 			// Save State
 			string json = JsonConvert.SerializeObject(this.data);
-			this.systems.filesLocal.WriteFile(WorldContent.GetLocalWorldPath(this.worldId), json);
+			Systems.filesLocal.WriteFile(WorldContent.GetLocalWorldPath(this.worldId), json);
 		}
 	}
 }

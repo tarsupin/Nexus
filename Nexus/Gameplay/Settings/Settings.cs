@@ -1,5 +1,4 @@
 ﻿using Nexus.Engine;
-using Nexus.GameEngine;
 
 namespace Nexus.Gameplay {
 	public class Settings {
@@ -9,15 +8,15 @@ namespace Nexus.Gameplay {
 		public readonly KeySettings input;
 		public readonly MultiplayerSettings multiplayer;
 
-		public Settings(Systems systems) {
+		public Settings() {
 
 			// Make sure the Settings directory exists.
-			systems.filesLocal.MakeDirectory("Settings");
+			Systems.filesLocal.MakeDirectory("Settings");
 
-			this.audio = new AudioSettings(systems);
-			this.graphics = new GraphicSettings(systems);
-			this.input = new KeySettings(systems);
-			this.multiplayer = new MultiplayerSettings(systems);
+			this.audio = new AudioSettings();
+			this.graphics = new GraphicSettings();
+			this.input = new KeySettings();
+			this.multiplayer = new MultiplayerSettings();
 		}
 	}
 }

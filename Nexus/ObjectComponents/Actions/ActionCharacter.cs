@@ -1,11 +1,12 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Engine;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
 	public class ActionCharacter : Action {
 
 		public bool HasTimeElapsed( Character character ) {
-			return character.scene.timer.frame > character.status.actionEnds;
+			return Systems.timer.frame > character.status.actionEnds;
 		}
 
 		public virtual void RunAction( Character character ) {}

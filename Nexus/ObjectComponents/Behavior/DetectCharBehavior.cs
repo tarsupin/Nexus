@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 			this.dirRight = false;
 
 			// Timer
-			this.timer = actor.scene.timer;
+			this.timer = Systems.timer;
 			this.actionEnd = 0;
 
 			this.behaveStatus = BehaveStatus.Watching;

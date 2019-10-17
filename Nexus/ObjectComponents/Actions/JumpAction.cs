@@ -27,14 +27,14 @@ namespace Nexus.ObjectComponents {
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
 
 			status.action = ActionMap.Jump;
-			status.actionEnds = character.scene.timer.frame + stats.JumpDuration + extraDuration;
+			status.actionEnds = Systems.timer.frame + stats.JumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);
 			status.actionBool1 = true; // TRUE if the Jump Key is down
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
 
 			// Jump Sound
-			character.scene.systems.sounds.jump.Play();
+			Systems.sounds.jump.Play();
 		}
 
 		public override void RunAction( Character character ) {
@@ -64,7 +64,7 @@ namespace Nexus.ObjectComponents {
 			physics.velocity.Y = 0 - jumpStrength;
 			
 			// If the jump button has been released and the minimum duration has ended, end the jump:
-			if(!status.actionBool1 && character.scene.timer.frame > character.status.actionEnds - status.actionNum2) {
+			if(!status.actionBool1 && Systems.timer.frame > character.status.actionEnds - status.actionNum2) {
 				this.EndAction(character);
 				return;
 			}

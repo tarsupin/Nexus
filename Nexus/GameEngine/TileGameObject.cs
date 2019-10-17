@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 
 		public TileGameObject(LevelScene scene, TileGameObjectId classId, AtlasGroup atlasGroup) {
 			this.scene = scene;
-			this.atlas = scene.mapper.atlas[(byte) atlasGroup];
+			this.atlas = Systems.mapper.atlas[(byte) atlasGroup];
 			scene.RegisterClassGameObject(classId, this);
 		}
 

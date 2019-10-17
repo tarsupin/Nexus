@@ -116,7 +116,7 @@ namespace Nexus.ObjectComponents {
 
 		// The Character has died. Run all death functions.
 		public bool Death() {
-			LevelState levelState = this.character.scene.systems.handler.levelState;
+			LevelState levelState = Systems.handler.levelState;
 
 			// Check if there is a Retry Flag available. If so, use that.
 			if(levelState.retryFlag.active) {

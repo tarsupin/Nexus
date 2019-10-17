@@ -5,9 +5,6 @@ namespace Nexus.Gameplay {
 
 	public class GameHandler {
 
-		// Systems
-		public readonly Systems systems;
-
 		// ID of Game State & Save
 		public readonly string saveId;
 
@@ -22,15 +19,14 @@ namespace Nexus.Gameplay {
 		public readonly PlaylistState playlistState;
 		public readonly WorldState worldState;
 
-		public GameHandler(Systems systems, string saveId) {
-			this.systems = systems;
+		public GameHandler(string saveId) {
 			this.saveId = saveId;
 
 			// Make sure the Saves directory exists.
-			systems.filesLocal.MakeDirectory("Saves/" + saveId);
+			Systems.filesLocal.MakeDirectory("Saves/" + saveId);
 
 			// Content
-			this.level = new LevelContent(this);
+			this.level = new LevelContent();
 			this.world = new WorldContent(this);
 
 			// State
@@ -49,15 +45,15 @@ namespace Nexus.Gameplay {
 		}
 
 		public void GameStateWrite(string stateName, string json) {
-			this.systems.filesLocal.WriteFile("Saves/" + this.saveId + "/" + stateName + ".json", json);
+			Systems.filesLocal.WriteFile("Saves/" + this.saveId + "/" + stateName + ".json", json);
 		}
 
 		public string GameStateRead(string stateName) {
 			string statePath = "Saves/" + this.saveId + "/" + stateName + ".json";
 
 			// Load Save Content from Local File
-			if(this.systems.filesLocal.FileExists(statePath)) {
-				return systems.filesLocal.ReadFile(statePath);
+			if(Systems.filesLocal.FileExists(statePath)) {
+				return Systems.filesLocal.ReadFile(statePath);
 			}
 
 			return "";

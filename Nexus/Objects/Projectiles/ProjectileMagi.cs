@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 
 			// Magi-Rotation
 			int cycleDuration = this.radius * 2;
-			FInt weight = FInt.Create(((this.scene.timer.frame - this.elapsedOffset.IntValue) % cycleDuration) / cycleDuration);
+			FInt weight = FInt.Create(((Systems.timer.frame - this.elapsedOffset.IntValue) % cycleDuration) / cycleDuration);
 			FInt radian = weight * FInt.PI * 2;
 
 			// Set Position of Projectile

@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 		public PowerMobility mobilityPower;
 
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
-			this.Meta = scene.mapper.MetaList[MetaGroup.Character];
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
 			this.SpriteName = "Moosh/Brown/Left2";
 
 			// Physics, Collisions, etc.
@@ -39,7 +39,7 @@ namespace Nexus.Objects {
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);
 			this.status = new CharacterStatus();
-			this.wounds = new CharacterWounds(this, scene.timer);
+			this.wounds = new CharacterWounds(this, Systems.timer);
 
 			// Images and Animations
 			this.animate = new Animate(this, "Moosh/Brown/");
@@ -274,7 +274,7 @@ namespace Nexus.Objects {
 
 				// Delayed Wall Jump
 				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
-				if(this.status.leaveWall >= this.scene.timer.frame) {
+				if(this.status.leaveWall >= Systems.timer.frame) {
 					ActionMap.WallJump.StartAction(this, this.status.grabDir);
 
 					// Double Jump
