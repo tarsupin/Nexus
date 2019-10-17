@@ -61,6 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config\DebugNexus.cs" />
+    <Compile Include="Engine\Calc\CalcRandom.cs" />
     <Compile Include="Engine\Particles\ParticleStandard.cs" />
     <Compile Include="Engine\UI\UIData.cs" />
     <Compile Include="Engine\UI\UIComponent.cs" />
@@ -89,7 +90,8 @@
     <Compile Include="GameEngine\HitCompare\HitCompareProjectile.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
     <Compile Include="Engine\Particles\Emitter.cs" />
-    <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
+    <Compile Include="Engine\Particles\EmitterSimple.cs" />
+    <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
     <Compile Include="GameEngine\Particles\ParticleGen.cs" />
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="Engine\Particles\ParticleManager.cs" />

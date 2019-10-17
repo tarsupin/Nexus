@@ -15,7 +15,7 @@ namespace Nexus
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
-		public SimpleEmitter TESTEMITTER;		// TODO CLEANUP: DELETE
+		public EmitterSimple TESTEMITTER;		// TODO CLEANUP: DELETE
 
 		public GameClient() {
 			graphics = new GraphicsDeviceManager(this);
@@ -82,9 +82,11 @@ namespace Nexus
 			//ParticleGen.GenGravityBurst(1.50f, -8.5f);
 			//ParticleGen.GenGravityBurst(1.75f, -8.0f);
 
-			this.TESTEMITTER = SimpleEmitter.NewEmitter(Systems.mapper.atlas[(byte) AtlasGroup.Objects], "Items/Key", new Vector2(500, 300), new Vector2(2, 0), 0.5f, 300);
-			this.TESTEMITTER.AddParticle(new Vector2(400, 400), new Vector2(1, -24), 0, 0.05f);
-			this.TESTEMITTER.AddParticle(new Vector2(400, 500), new Vector2(2, -22), 0, 0.05f);
+			//this.TESTEMITTER = EmitterSimple.NewEmitter(Systems.mapper.atlas[(byte) AtlasGroup.Objects], "Items/Key", new Vector2(500, 300), new Vector2(2, 0), 0.5f, 300);
+			//this.TESTEMITTER.AddParticle(new Vector2(400, 400), new Vector2(1, -24), 0, 0.05f);
+			//this.TESTEMITTER.AddParticle(new Vector2(400, 500), new Vector2(2, -22), 0, 0.05f);
+
+			this.TESTEMITTER = ExplodeEmitter.BoxExplosion("Items/Key", 500, 400);
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -97,9 +99,6 @@ namespace Nexus
 
 			Systems.input.PreProcess();
 			Systems.scene.RunTick();
-
-			// TODO CLEANUP: REMOVE
-			this.TESTEMITTER.RunEmitterTick();
 
 			base.Update(gameTime);
 

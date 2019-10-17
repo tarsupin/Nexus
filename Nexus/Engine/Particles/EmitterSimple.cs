@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Nexus.Engine;
 using System.Collections.Generic;
 
-namespace Nexus.GameEngine {
+namespace Nexus.Engine {
 
-	public class SimpleEmitter : IEmitter {
+	public class EmitterSimple : IEmitter {
 
 		// Implement Emitter Pool
-		public static ObjectPool<SimpleEmitter> emitterPool = new ObjectPool<SimpleEmitter>(() => new SimpleEmitter());
+		public static ObjectPool<EmitterSimple> emitterPool = new ObjectPool<EmitterSimple>(() => new EmitterSimple());
 
 		// Particles attached to the emitter.
 		public List<ParticleStandard> particles;
@@ -25,11 +24,11 @@ namespace Nexus.GameEngine {
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 
-		public static SimpleEmitter NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
+		public static EmitterSimple NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
 			// Retrieve an emitter from the pool.
 
-			SimpleEmitter emitter = SimpleEmitter.emitterPool.GetObject();
+			EmitterSimple emitter = EmitterSimple.emitterPool.GetObject();
 
 			emitter.atlas = atlas;
 			emitter.spriteName = spriteName;
@@ -56,12 +55,14 @@ namespace Nexus.GameEngine {
 
 			// Loop through particles and return them to their pool.
 			foreach(ParticleStandard particle in this.particles) {
-				this.particles.Remove(particle);
 				particle.ReturnParticleToPool();
 			}
 
+			// Clear all instances of the particle references.
+			this.particles.Clear();
+
 			// Return the Emitter to it's pool.
-			SimpleEmitter.emitterPool.ReturnObject(this);
+			EmitterSimple.emitterPool.ReturnObject(this);
 		}
 
 		public void RunEmitterTick() {
@@ -87,6 +88,7 @@ namespace Nexus.GameEngine {
 			uint frame = Systems.timer.frame;
 			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
+			System.Console.WriteLine("alpha " + alpha);
 			// Loop Through Particles, Draw:
 			foreach(ParticleStandard particle in this.particles) {
 				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X, (int) particle.pos.Y, Color.White * alpha, particle.rotation);

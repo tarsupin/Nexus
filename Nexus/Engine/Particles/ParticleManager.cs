@@ -9,8 +9,8 @@ namespace Nexus.Engine {
 
 		// Helper for Fading Particles
 		public static float AlphaByFadeTime(uint currentFrame, uint fadeStart, uint fadeEnd, float alphaStart = 1, float alphaEnd = 0) {
-			uint duration = fadeEnd - fadeStart;
-			uint dist = currentFrame - fadeStart;
+			float duration = fadeEnd - fadeStart;
+			float dist = currentFrame - fadeStart;
 			float weight = dist / duration;
 			return Interpolation.Number(alphaStart, alphaEnd, weight);
 		}

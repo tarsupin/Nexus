@@ -146,6 +146,9 @@ namespace Nexus.GameEngine {
 
 			//this.camera.MoveWithInput(this.localServer.MyPlayer.input);
 
+			// TODO CLEANUP: REMOVE
+			Systems.game.TESTEMITTER.RunEmitterTick();
+
 			// Run Collisions
 			this.collideSequence.RunCollisionSequence();
 

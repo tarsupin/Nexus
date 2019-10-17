@@ -75,7 +75,6 @@ namespace Nexus.Engine {
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
 		public void DrawAdvanced(string spriteName, int posX, int posY, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {
 			SpriteFrame sprite = this.spriteList[spriteName];
-			//Vector2 origin = sprite.Origin;
 
 			//if(sprite.IsRotated) {
 			//	rotation -= ClockwiseNinetyDegreeRotation;
@@ -96,7 +95,7 @@ namespace Nexus.Engine {
 				sourceRectangle: sprite.TextureRect,
 				color: color,
 				rotation: rotation,
-				//origin: new Vector2(origin.X, origin.Y),
+				origin: sprite.Origin,
 				scale: new Vector2(scale, scale),
 				effects: spriteEffects,
 				layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
@@ -145,7 +144,7 @@ namespace Nexus.Engine {
 		public byte YOffset { get; private set; }
 		public short Width { get; private set; }
 		public short Height { get; private set; }
-		//	public Vector2 Origin { get; private set; }		// Don't have any origins set yet.
+		public Vector2 Origin { get; private set; }     // Don't have any origins set yet.
 
 		public SpriteFrame( Rectangle textureRect, byte xOffset, byte yOffset, short width, short height ) {
 			this.TextureRect = textureRect;
@@ -153,6 +152,7 @@ namespace Nexus.Engine {
 			this.YOffset = yOffset;
 			this.Width = width;
 			this.Height = height;
+			this.Origin = new Vector2(this.Width / 2, this.Height / 2);
 		}
 	}
 
