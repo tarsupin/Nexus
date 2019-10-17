@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -9,7 +10,7 @@ namespace Nexus.GameEngine {
 		public static ObjectPool<SimpleEmitter> emitterPool = new ObjectPool<SimpleEmitter>(() => new SimpleEmitter());
 
 		// Particles attached to the emitter.
-		public ParticleStandard[] particles;
+		public List<ParticleStandard> particles;
 
 		public Atlas atlas;         // Reference to the atlas used (for texturing particles).
 		public string spriteName;	// Name of the sprite to draw all particles with.
@@ -24,9 +25,10 @@ namespace Nexus.GameEngine {
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 
-		public static SimpleEmitter NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeBegin = 0, float alphaStart = 1, float alphaEnd = 0 ) {
+		public static SimpleEmitter NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
 			// Retrieve an emitter from the pool.
+
 			SimpleEmitter emitter = SimpleEmitter.emitterPool.GetObject();
 
 			emitter.atlas = atlas;
@@ -35,9 +37,11 @@ namespace Nexus.GameEngine {
 			emitter.pos = pos;
 			emitter.vel = vel;
 			emitter.frameEnd = frameEnd;
-			emitter.fadeStart = fadeBegin == 0 ? frameEnd : fadeBegin;
+			emitter.fadeStart = fadeStart == 0 ? frameEnd + 1 : fadeStart;
 			emitter.alphaStart = alphaStart;
 			emitter.alphaEnd = alphaEnd;
+
+			emitter.particles = new List<ParticleStandard>();
 
 			return emitter;
 		}
@@ -45,26 +49,28 @@ namespace Nexus.GameEngine {
 		public void AddParticle( Vector2 pos, Vector2 vel, float rotation = 0, float rotationSpeed = 0 ) {
 			ParticleStandard particle = ParticleManager.standardParticles.GetObject();
 			particle.SetParticle(pos, vel, rotation, rotationSpeed);
+			this.particles.Add(particle);
 		}
 
 		public void ReturnEmitter() {
 
 			// Loop through particles and return them to their pool.
 			foreach(ParticleStandard particle in this.particles) {
+				this.particles.Remove(particle);
 				particle.ReturnParticleToPool();
 			}
+
+			// Return the Emitter to it's pool.
+			SimpleEmitter.emitterPool.ReturnObject(this);
 		}
 
 		public void RunEmitterTick() {
-			
+
 			// End the Emitter once it's duration has ended.
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
-			// TODO HIGH PRIORITY: EMITTER TIME DURATION END
+			if(this.frameEnd < Systems.timer.frame) {
+				this.ReturnEmitter();
+				return;
+			}
 
 			this.pos += vel;
 
@@ -76,7 +82,15 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
-			this.atlas.Draw(this.spriteName, 500, 300);
+
+			// Determine Alpha of Particle (can be affected by fading)
+			uint frame = Systems.timer.frame;
+			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
+
+			// Loop Through Particles, Draw:
+			foreach(ParticleStandard particle in this.particles) {
+				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X, (int) particle.pos.Y, Color.White * alpha, particle.rotation);
+			}
 		}
 	}
 }

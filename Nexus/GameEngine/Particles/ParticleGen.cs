@@ -66,11 +66,12 @@ namespace Nexus.GameEngine {
 		}
 
 		// fadeStart refers to the weight point when it will begins to transition alpha to more faded.
-		public static float AlphaByFade(float alphaStart, float alphaEnd, float fadeStart, float weight) {
+		public static float AlphaByFadeWeight(float alphaStart, float alphaEnd, float fadeStart, float weight) {
 			if(fadeStart >= weight) { return alphaStart; }
 			float stepMult = 1 / fadeStart;
 			float actualWeight = (weight - fadeStart) * stepMult;
 			return Interpolation.Number(alphaStart, alphaEnd, actualWeight);
 		}
+
 	}
 }

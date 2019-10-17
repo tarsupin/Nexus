@@ -83,6 +83,8 @@ namespace Nexus
 			//ParticleGen.GenGravityBurst(1.75f, -8.0f);
 
 			this.TESTEMITTER = SimpleEmitter.NewEmitter(Systems.mapper.atlas[(byte) AtlasGroup.Objects], "Items/Key", new Vector2(500, 300), new Vector2(2, 0), 0.5f, 300);
+			this.TESTEMITTER.AddParticle(new Vector2(400, 400), new Vector2(1, -24), 0, 0.05f);
+			this.TESTEMITTER.AddParticle(new Vector2(400, 500), new Vector2(2, -22), 0, 0.05f);
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -95,6 +97,9 @@ namespace Nexus
 
 			Systems.input.PreProcess();
 			Systems.scene.RunTick();
+
+			// TODO CLEANUP: REMOVE
+			this.TESTEMITTER.RunEmitterTick();
 
 			base.Update(gameTime);
 

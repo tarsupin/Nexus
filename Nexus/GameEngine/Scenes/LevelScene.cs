@@ -180,7 +180,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
-			this.stopwatch.Start();
+			//this.stopwatch.Start();
 
 			ushort startX = this.camera.GridX;
 			ushort startY = this.camera.GridY;
@@ -226,8 +226,8 @@ namespace Nexus.GameEngine {
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
 
 			// Debugging
-			this.stopwatch.Stop();
-			System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			//this.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 
 		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
