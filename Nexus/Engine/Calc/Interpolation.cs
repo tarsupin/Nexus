@@ -16,6 +16,8 @@ namespace Nexus.Engine {
 		}
 
 		// Quadratic Bezier Interpolation with Smooth Ease
+		// p0, p1, p2 are Start Point, Control Point, End Point
+		// weight is a float between 0 and 1
 		public static float QuadBezierEaseBothDir( float p0, float p1, float p2, float weight )  {
 			weight = (float) Math.Sin((weight * Math.PI * 2) / 2 + 0.5);
 			float k = 1 - weight;
@@ -24,10 +26,10 @@ namespace Nexus.Engine {
 		
 		// Quadratic Bezier Interpolation
 		// https://en.wikipedia.org/wiki/Bezier_curve
-		// p0, p1, p2 are Start Point, Control Point, End Point
-		public static float QuadBezier( float p0, float p1, float p2, float weight) {
+		// weight is a float between 0 and 1
+		public static float QuadBezier( float startPoint, float midPoint, float endPoint, float weight) {
 			float k = 1 - weight;
-			return (k * k * p0) + (2 * (1 - weight) * weight * p1) + (weight * weight * p2);
+			return (k * k * startPoint) + (2 * (1 - weight) * weight * midPoint) + (weight * weight * endPoint);
 		}
 
 		// Get the speed needed to cover a distance over the time provided.

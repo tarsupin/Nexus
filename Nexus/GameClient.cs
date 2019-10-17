@@ -15,6 +15,8 @@ namespace Nexus
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
+		public SimpleEmitter TESTEMITTER;		// TODO CLEANUP: DELETE
+
 		// Nexus Classes
 		public Systems systems;
 
@@ -76,6 +78,16 @@ namespace Nexus
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(this.systems.handler.level.data.id);
+
+			// TODO CLEANUP: Remove this gravity gen
+			//ParticleGen.GenGravityBurst(0.50f, -11.0f);
+			//ParticleGen.GenGravityBurst(0.75f, -10.0f);
+			//ParticleGen.GenGravityBurst(1.00f, -9.5f);
+			//ParticleGen.GenGravityBurst(1.25f, -9.0f);
+			//ParticleGen.GenGravityBurst(1.50f, -8.5f);
+			//ParticleGen.GenGravityBurst(1.75f, -8.0f);
+
+			this.TESTEMITTER = SimpleEmitter.NewEmitter(this.systems.mapper.atlas[(byte) AtlasGroup.Objects], "Items/Key", new Vector2(500, 300), new Vector2(2, 0), 0.5f, 300);
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -100,15 +112,22 @@ namespace Nexus
 		protected override void Draw(GameTime gameTime) {
 
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-			this.spriteBatch.Begin();
+			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 			this.systems.scene.Draw();
 
 			// TODO CLEANUP: DELETE PARTICLE SPIRAL STEP THING
-			FVector particlePos = ParticlePathGenerator.SpiralStep(FInt.Create(0), FInt.Create(80), FInt.Create(1.5), FInt.Create(0.01), (int) this.systems.scene.timer.frame);
+			//Vector2 particlePos = ParticleGen.SpiralStep(0f, 40f, 1.5f, 0.05f, (int) this.systems.scene.timer.frame);
+			//float alpha = ParticleGen.AlphaByFade(1f, 0f, 0.5f, this.systems.scene.timer.frame / 180f);
+			
+			////this.systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Grass/FU", (int) Math.Round(particlePos.X + 500), (int) Math.Round(particlePos.Y + 400));
 
-			this.systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Grass/FU", particlePos.X.IntValue + 500, particlePos.Y.IntValue + 400);
+			//this.systems.mapper.atlas[(byte)AtlasGroup.Tiles].DrawAdvanced(
+			//	"Grass/FU", (int) Math.Round(particlePos.X + 500), (int) Math.Round(particlePos.Y + 400),
+			//	Color.White * alpha
+			//);
 
+			this.TESTEMITTER.Draw();
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);

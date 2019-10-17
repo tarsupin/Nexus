@@ -394,12 +394,12 @@ namespace Nexus.Engine {
 		}
 
 		// Original design created with FInts (presumably so it could include floats on creation)
-		//public static FVector CreateWithPrecision(FInt X, FInt Y) {
-		//	FVector fp;
-		//	fp.X = X;
-		//	fp.Y = Y;
-		//	return fp;
-		//}
+		public static FVector Create(FInt X, FInt Y) {
+			FVector fp;
+			fp.X = X;
+			fp.Y = Y;
+			return fp;
+		}
 
 		// Vector Operations
 		public static FVector VectorAdd(FVector F1, FVector F2) {

@@ -5,53 +5,53 @@ namespace Nexus.Engine {
 	public static class Radians {
 		
 		// Convert between degrees and percent
-		public static FInt ConvertToDegrees( FInt radian ) { return radian * 180 / FInt.PI; }
-		public static FInt ConvertToPercent( FInt radian ) { return Spectrum.GetPercentFromValue( Radians.Wrap(radian), (0 - FInt.PI), FInt.PI) ; }
+		public static float ConvertToDegrees( float radian ) { return radian * 180 / (float) Math.PI; }
+		public static float ConvertToPercent( float radian ) { return Spectrum.GetPercentFromValue( Radians.Wrap(radian), (0 - (float) Math.PI), (float) Math.PI) ; }
 
 		// Shift degrees to valid ranges.
-		public static FInt Wrap( FInt radian ) { return Spectrum.Wrap(radian, FInt.PI, FInt.PI); }
+		public static float Wrap( float radian ) { return Spectrum.Wrap(radian, (float) Math.PI, (float) Math.PI); }
 	
 		// Normalize radians to valid range: 0 to 2pi
-		public static FInt Normalize( FInt radian ) {
-			radian %= (2 * FInt.PI);
-			return radian >= 0 ? radian : radian + (2 * FInt.PI);
+		public static float Normalize( float radian ) {
+			radian %= (2 * (float) Math.PI);
+			return radian >= 0 ? radian : radian + (2 * (float) Math.PI);
 		}
 
 		// Reverse / Invert Radians
-		public static FInt Reverse( FInt radian ) { return Radians.Normalize(radian + FInt.PI); }
+		public static float Reverse( float radian ) { return Radians.Normalize(radian + (float) Math.PI); }
 	
 		// Find the radians between two coordinates
-		public static FInt GetRadiansBetweenCoords( int x1, int y1, int x2, int y2 ) { return FInt.Atan2(FInt.Create(y2 - y1), FInt.Create(x2 - x1)); }
+		public static float GetRadiansBetweenCoords( int x1, int y1, int x2, int y2 ) { return (float) Math.Atan2(y2 - y1, x2 - x1); }
 
 		// Get the X, Y from a rotation
-		public static FInt GetXFromRotation( FInt radian, FInt distance ) { return distance * FInt.Cos(radian); }
-		public static FInt GetYFromRotation( FInt radian, FInt distance ) { return distance * FInt.Sin(radian); }
+		public static float GetXFromRotation( float radian, float distance ) { return distance * (float) Math.Cos(radian); }
+		public static float GetYFromRotation( float radian, float distance ) { return distance * (float) Math.Sin(radian); }
 
 		// Get the X, Y offset from a rotation and coordinate offset.
-		public static FInt GetXOffsetFromRotation( FInt radian, int xOffset, int yOffset ) {
-			return xOffset * FInt.Cos(radian) + yOffset * FInt.Sin(radian);
+		public static float GetXOffsetFromRotation( float radian, int xOffset, int yOffset ) {
+			return xOffset * (float) Math.Cos(radian) + yOffset * (float) Math.Sin(radian);
 		}
 
-		public static FInt GetYOffsetFromRotation( FInt radian, int xOffset, int yOffset ) {
-			return -yOffset * FInt.Cos(radian) + xOffset * FInt.Sin(radian);
+		public static float GetYOffsetFromRotation( float radian, int xOffset, int yOffset ) {
+			return -yOffset * (float) Math.Cos(radian) + xOffset * (float) Math.Sin(radian);
 		}
 
 		// Rotate a Radian
-		public static FInt Rotate( FInt radian, FInt rotate ) { return (radian + rotate) % (FInt.PI * 2); }
+		public static float Rotate( float radian, float rotate ) { return (radian + rotate) % ((float) Math.PI * 2); }
 
 		// Rotates radian to targetRadian, taking the shortest distance. Lerp argument is amount to rotate by.
 		// Note: lerp of 0.05 may be a good starting point.
-		public static FInt RotateTo( FInt radian, FInt targetRadian, FInt lerp ) {
+		public static float RotateTo( float radian, float targetRadian, float lerp ) {
 
 			// Return Target Radian if the value has been reached.
-			if(FInt.Abs(targetRadian - radian) <= lerp || FInt.Abs(targetRadian - radian) >= (FInt.PI * 2 - lerp)) {
+			if(Math.Abs(targetRadian - radian) <= lerp || Math.Abs(targetRadian - radian) >= ((float) Math.PI * 2 - lerp)) {
 				return targetRadian;
 			}
 
 			// Clamp / Wrap Target Radian as needed.
-			if(FInt.Abs(targetRadian - radian) > FInt.PI) {
-				if(targetRadian < radian) { targetRadian += FInt.PI * 2; }
-				else { targetRadian -= FInt.PI * 2; }
+			if(Math.Abs(targetRadian - radian) > (float) Math.PI) {
+				if(targetRadian < radian) { targetRadian += (float) Math.PI * 2; }
+				else { targetRadian -= (float) Math.PI * 2; }
 			}
 
 			// Return Radian Rotation
