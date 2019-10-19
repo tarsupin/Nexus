@@ -19,6 +19,9 @@ namespace Nexus.GameEngine {
 		protected readonly CollideSequence collideSequence;
 		public Stopwatch stopwatch;
 
+		// Components
+		private ParallaxHandler parallax;
+
 		// Level Data
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
@@ -41,6 +44,9 @@ namespace Nexus.GameEngine {
 			// Important Components
 			this.tilemap = new TilemapBool(this, 400, 100);       // TODO: Get X,Y grid sizes from the level data.
 			this.camera = new Camera(this);
+
+			// Parallax
+			this.parallax = ParallaxOcean.CreateOceanParallax(this);
 
 			// Game Objects
 			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
@@ -127,6 +133,9 @@ namespace Nexus.GameEngine {
 			// Update Timer
 			Systems.timer.RunTick();
 
+			// Update Parallax
+			this.parallax.RunParallaxTick();
+
 			// Update All Objects
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Enemy]);
@@ -199,7 +208,7 @@ namespace Nexus.GameEngine {
 			int camBottom = camY + this.camera.height;
 
 			// Run Parallax Handler
-			//if(this.parallax) { this.parallax.render(); }		// TODO HIGH PRIORITY: PARALLAX
+			this.parallax.Draw();
 
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {

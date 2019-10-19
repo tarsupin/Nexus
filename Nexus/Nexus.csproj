@@ -61,6 +61,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config\DebugNexus.cs" />
+    <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
+    <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
+    <Compile Include="Engine\ParallaxHandler.cs" />
     <Compile Include="Engine\Calc\CalcRandom.cs" />
     <Compile Include="Engine\Particles\ParticleStandard.cs" />
     <Compile Include="Engine\UI\UIData.cs" />

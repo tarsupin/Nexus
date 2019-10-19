@@ -6,8 +6,8 @@ namespace Nexus.Engine {
 	public class ScreenSys {
 
 		public GraphicsDeviceManager graphics;
-		public ushort width;
-		public ushort height;
+		public ushort screenWidth;
+		public ushort screenHeight;
 		public ushort windowWidth;
 		public ushort windowHeight;
 
@@ -19,12 +19,12 @@ namespace Nexus.Engine {
 		public void UpdateSizes() {
 
 			// Screen Size
-			this.width = (ushort)this.graphics.GraphicsDevice.DisplayMode.Width;
-			this.height = (ushort)this.graphics.GraphicsDevice.DisplayMode.Height;
+			this.screenWidth = (ushort) this.graphics.GraphicsDevice.DisplayMode.Width;
+			this.screenHeight = (ushort) this.graphics.GraphicsDevice.DisplayMode.Height;
 
 			// Window Size
-			this.windowWidth = (ushort)this.graphics.GraphicsDevice.Viewport.Width;
-			this.windowHeight = (ushort)this.graphics.GraphicsDevice.Viewport.Height;
+			this.windowWidth = (ushort) this.graphics.GraphicsDevice.Viewport.Width;
+			this.windowHeight = (ushort) this.graphics.GraphicsDevice.Viewport.Height;
 		}
 
 		public void ResizeWindowTo( ushort width, ushort height ) {
@@ -43,11 +43,11 @@ namespace Nexus.Engine {
 			// 1920x1080, 1600x900, 1536x864, 1366x768, 1024x768
 
 			// Max Window Size should be 1440x900. After that, just fill the space as best as possible.
-			this.ResizeWindowTo((ushort) (this.width >= 1440 ? 1440 : this.width), (ushort) (this.height >= 900 ? 900 : this.height));
+			this.ResizeWindowTo((ushort) (this.screenWidth >= 1440 ? 1440 : this.screenWidth), (ushort) (this.screenHeight >= 900 ? 900 : this.screenHeight));
 		}
 		
 		public void ResizeWindowToLargestFit() {
-			this.ResizeWindowTo(this.width, this.height);
+			this.ResizeWindowTo(this.screenWidth, this.screenHeight);
 		}
 
 		public void ToggleFullScreen() {
