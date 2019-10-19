@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 		}
 
 		// TODO HIGH PRIORITY: Spikes can take differnt forms of damage. Either make different Spike Tiles (maybe easiest), or send sub-types (requires new system in place)
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Characters Receive Spike Damage

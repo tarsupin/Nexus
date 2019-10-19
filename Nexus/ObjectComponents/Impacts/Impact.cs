@@ -3,104 +3,94 @@ using Nexus.Gameplay;
 
 namespace Nexus.ObjectComponents {
 
-	public class Impact {
-
-		private readonly DynamicGameObject refObject;
-		private readonly Physics physics;
-		private readonly Touch touch;
-
-		public Impact( DynamicGameObject refObject ) {
-			this.refObject = refObject;
-			this.physics = refObject.physics;
-			this.touch = this.physics.touch;
-		}
+	public static class Impact {
 
 		// A Standard Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public bool StandardImpact(DynamicGameObject obj2, DirCardinal dir = DirCardinal.Center) {
+		public static bool StandardImpact( DynamicGameObject actor, DynamicGameObject obj, DirCardinal dir = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Center) {
 				return false;
 			}
 
 			if(dir == DirCardinal.Down) {
-				this.touch.TouchDown();
-				obj2.physics.touch.TouchUp();
-				this.CollideDown(obj2);
-				obj2.impact.CollideUp(this.refObject);
+				actor.physics.touch.TouchDown();
+				obj.physics.touch.TouchUp();
+				Impact.CollideDown(actor, obj);
+				Impact.CollideUp(obj, actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Right) {
-				this.touch.TouchRight();
-				obj2.physics.touch.TouchLeft();
-				this.CollideRight(obj2);
-				obj2.impact.CollideLeft(this.refObject);
+				actor.physics.touch.TouchRight();
+				obj.physics.touch.TouchLeft();
+				Impact.CollideRight(actor, obj);
+				Impact.CollideLeft(obj, actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Left) {
-				this.touch.TouchLeft();
-				obj2.physics.touch.TouchRight();
-				this.CollideLeft(obj2);
-				obj2.impact.CollideRight(this.refObject);
+				actor.physics.touch.TouchLeft();
+				obj.physics.touch.TouchRight();
+				Impact.CollideLeft(actor, obj);
+				Impact.CollideRight(obj, actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Up) {
-				this.touch.TouchUp();
-				obj2.physics.touch.TouchDown();
-				this.CollideUp(obj2);
-				obj2.impact.CollideDown(this.refObject);
+				actor.physics.touch.TouchUp();
+				obj.physics.touch.TouchDown();
+				Impact.CollideUp(actor, obj);
+				Impact.CollideDown(obj, actor);
 				return true;
 			}
 
 			return false;
 		}
 
-		public virtual bool CollideUp( GameObject obj2 ) {
+		public static bool CollideUp( DynamicGameObject actor, GameObject obj ) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y + this.physics.extraMovement.Y >= 0) { return false; }
+			if(actor.physics.velocity.Y + actor.physics.extraMovement.Y >= 0) { return false; }
 
-			CollideAffect.AlignDown(this.refObject, obj2);
-			this.physics.StopY();
+			CollideAffect.AlignDown(actor, obj);
+			actor.physics.StopY();
 
 			return true;
 		}
 
-		public virtual bool CollideDown( GameObject obj2 ) {
+		public static bool CollideDown( DynamicGameObject actor, GameObject obj ) {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.Y + this.physics.extraMovement.Y <= 0) { return false; }
+			if(actor.physics.velocity.Y + actor.physics.extraMovement.Y <= 0) { return false; }
 
-			CollideAffect.AlignUp(this.refObject, obj2);
-			this.physics.StopY();
+			CollideAffect.AlignUp(actor, obj);
+			actor.physics.StopY();
 
 			return true;
 		}
 
-		public virtual bool CollideLeft( GameObject obj2 ) {
+		public static bool CollideLeft( DynamicGameObject actor, GameObject obj ) {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X + this.physics.extraMovement.X >= 0) { return false; }
+			if(actor.physics.velocity.X + actor.physics.extraMovement.X >= 0) { return false; }
 
-			CollideAffect.AlignRight(this.refObject, obj2);
-			this.physics.StopX();
+			CollideAffect.AlignRight(actor, obj);
+			actor.physics.StopX();
 
 			return true;
 		}
 
-		public virtual bool CollideRight( GameObject obj2 ) {
+		public static bool CollideRight( DynamicGameObject actor, GameObject obj ) {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(this.physics.velocity.X + this.physics.extraMovement.X <= 0) { return false; }
+			if(actor.physics.velocity.X + actor.physics.extraMovement.X <= 0) { return false; }
 
-			CollideAffect.AlignLeft(this.refObject, obj2);
-			this.physics.StopX();
+			CollideAffect.AlignLeft(actor, obj);
+			actor.physics.StopX();
 
 			return true;
 		}

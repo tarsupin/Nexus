@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
 namespace Nexus.GameEngine {
@@ -45,7 +46,6 @@ namespace Nexus.GameEngine {
 
 		// Components
 		public Physics physics;
-		public Impact impact;
 		public Animate animate;
 
 		// State Changes (also see SetState() and OnStateChange() methods)
@@ -101,6 +101,15 @@ namespace Nexus.GameEngine {
 		public void SetSpriteName(string spriteName, bool isAnimation = false) {
 			this.SpriteName = spriteName;
 			if(!isAnimation && this.animate is Animate) { this.animate.DisableAnimation(); }
+		}
+
+		// Run Standard Impact
+		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
+		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
+		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
+		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
+		public virtual bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			return true;
 		}
 
 		// Destroys the instance of this object.

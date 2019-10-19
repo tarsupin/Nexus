@@ -23,18 +23,9 @@ namespace Nexus.Objects {
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.7));
 			this.physics.velocity.X = (FInt)(0 - this.speed);
-			this.impact = new Impact(this);
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(4, 4, -4);
-		}
-
-		public void RunTick() {
-			if(this.subType != (byte) MooshSubType.White) {
-				if(this.physics.touch.toFloor) {
-
-				}
-			}
 		}
 
 		public override void OnStateChange() {

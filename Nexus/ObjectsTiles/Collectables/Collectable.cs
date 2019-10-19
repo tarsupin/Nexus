@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -12,7 +11,7 @@ namespace Nexus.Objects {
 			this.collides = true;
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			// Characters receive Collectable:
 			if(actor is Character) {

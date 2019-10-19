@@ -25,7 +25,6 @@ namespace Nexus.Objects {
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.35));
 			this.physics.velocity.X = (FInt)(0-this.speed);
-			this.impact = new Impact(this);
 
 
 			// TODO: Basically everything in "Shroom"

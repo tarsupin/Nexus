@@ -28,7 +28,7 @@ namespace Nexus.GameEngine {
 			if(tileObj == null || !tileObj.collides) { return false; }
 
 			// Run Tile Collision
-			return tileObj.RunCollision(actor, gridX, gridY, dir);
+			return tileObj.RunImpact(actor, gridX, gridY, dir);
 		}
 
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.

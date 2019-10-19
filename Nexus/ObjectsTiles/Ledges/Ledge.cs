@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 			this.collides = true;
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			return TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 		}
 

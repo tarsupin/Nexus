@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			this.BuildTexture("Platform/Fixed/");
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
 
 			if(collided && actor is Character) {

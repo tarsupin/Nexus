@@ -12,8 +12,8 @@ namespace Nexus.Objects {
 			this.collides = true;
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			bool collided = base.RunCollision(actor, gridX, gridY, dir);
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			bool collided = base.RunImpact(actor, gridX, gridY, dir);
 
 			if(actor is Character) {
 

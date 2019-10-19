@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			this.collides = true;
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.Toggled) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);

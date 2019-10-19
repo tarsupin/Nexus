@@ -43,7 +43,7 @@ namespace Nexus.GameEngine {
 			//this.atlas.Draw(texture, posX, posY);
 		}
 
-		public virtual bool RunCollision( DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
+		public virtual bool RunImpact( DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			return true;
 		}

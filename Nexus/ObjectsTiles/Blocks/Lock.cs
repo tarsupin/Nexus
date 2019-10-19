@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.Texture = "Lock/Lock";
 		}
 
-		public override bool RunCollision(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			if(actor is Character) {
