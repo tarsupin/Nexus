@@ -217,8 +217,13 @@ namespace Nexus.Objects {
 
 				// Reset Actions on Land
 				else if(this.physics.touch.toBottom) {
-					if(status.action is ActionCharacter) { status.action.LandsOnGround(this);  }
-					status.jumpsUsed = 0;
+
+					// Only apply landing if the minimum jump time has not passed.
+					if(status.action is JumpAction == false || JumpAction.MinimumTimePassed(status)) {
+						if(status.action is ActionCharacter) { status.action.LandsOnGround(this); }
+						status.jumpsUsed = 0;
+					}
+
 				}
 			}
 		}
@@ -397,7 +402,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public void BounceUp( DynamicGameObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
+		public override void BounceUp( GameObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
 			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
 		}
 	}

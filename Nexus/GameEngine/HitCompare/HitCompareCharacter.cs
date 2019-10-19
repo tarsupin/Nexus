@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 			Character ch = (Character) character;
 
 			// Specific Impact Types
-			if(obj is Enemy) { return this.CharHitsEnemy(ch, (Enemy) obj); }
+			if(obj is Enemy) { return ((Enemy)obj).RunCharacterImpact(ch); }
 			if(obj is Item) { return this.CharHitsItem(ch, (Item) obj); }
 			if(obj is Block) { return this.CharHitsBlock(ch, (Block) obj); }
 			if(obj is Platform) { return this.CharHitsPlatform(ch, (Platform) obj); }
@@ -41,15 +41,10 @@ namespace Nexus.GameEngine {
 			return Impact.StandardImpact(character, item, dir);
 		}
 
-		public bool CharHitsEnemy( Character character, Enemy enemy ) {
-
-			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, enemy);
-
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: CONVEYORS, WALL JUMPS, ETC
-
-			return Impact.StandardImpact(character, enemy, dir);
-		}
+		//public bool CharHitsEnemy( Character character, Enemy enemy ) {
+		//	DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, enemy);
+		//	return Impact.StandardImpact(character, enemy, dir);
+		//}
 		
 		public bool CharHitsPlatform( Character character, Platform platform ) {
 

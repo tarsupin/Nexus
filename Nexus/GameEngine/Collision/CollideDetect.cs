@@ -170,8 +170,8 @@ namespace Nexus.GameEngine {
 		*** Relative Positions ***
 		*************************/
 
-		private static int GetRelativeX(DynamicGameObject obj, GameObject obj2) {
-			return (obj.posX + obj.bounds.MidX) - (obj2.posX + obj.bounds.MidX);
+		public static short GetRelativeX(DynamicGameObject obj, GameObject obj2) {
+			return (short) ((obj.posX + obj.bounds.MidX) - (obj2.posX + obj.bounds.MidX));
 		}
 
 		private static int GetRelativeDX(Physics phys1, Physics phys2) {

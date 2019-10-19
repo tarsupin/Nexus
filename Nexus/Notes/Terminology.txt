@@ -90,6 +90,13 @@ Layering / Render Order:
 
 Collision Terminology:
 	
+	Collisions are not nearly as complicated as they seem:
+		1. When an actor collides with a tile (or instance tile), the RunImpact() method is run on the tile.
+			- That method handles the impact behavior.
+		2. When an actor collides with a Game Object, the HitCompare classes are run.
+			- The HitCompare classes then refine and path to the object's RunImpact()
+			- The HitCompare class may also handle minor details.
+
 	TilemapEnum:
 		SectorLargeX: 1440 pixel wide columns across the level (Room 0 would be 0 to 1440).
 		SectorLargeY: 1400 pixel tall rows across the level.
@@ -129,19 +136,12 @@ Collision Terminology:
 		- Detects if two objects are overlapping.
 		- Detects direction that objects overlap or intersect.
 	
-	ColReact{TYPE}
+	HitCollide{TYPE}
 		- Handles the effects and reactions of collisions between objects.
 	
 	Touch{TYPE}
 		- Component for a Game Object.
 		- Assigns parameters for the object, such as solidity, etc.
-	
-	CollideMap
-		- Directs to ColReact{Type} classes.
-
-Collision Optimization:
-	Use ArrayPool optimizations.
-	Test against all other objects in sector, but eliminate first steps each cycle to avoid repeat test.
 	
 
 Players:

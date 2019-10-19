@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using System;
 
 namespace Nexus.GameEngine {
 
@@ -108,7 +109,7 @@ namespace Nexus.GameEngine {
 		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
 		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
 		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
-		public virtual bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public virtual bool RunImpact(DynamicGameObject actor, DirCardinal dir) {
 			return true;
 		}
 
@@ -131,16 +132,22 @@ namespace Nexus.GameEngine {
 			//this.pixi.draw( this.img );
 		}
 
-		public void BounceUp(GameObject actor, byte strengthMod = 4, byte maxX = 4, byte relativeMult = 3) {
+		// TODO: Does this get used? Character.BounceUp() does.
+		public virtual void BounceUp(GameObject obj, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 3) {
+
+			// Some dynamic archetypes shouldn't bounce.
+			if(this.Meta.Archetype == Arch.Platform) { return; }
+
+			this.physics.velocity.Y = FInt.Create(-strengthMod);
+			short xDiff = CollideDetect.GetRelativeX(this, obj);
+
+			if(xDiff < 0) {
+				this.physics.velocity.X = FInt.Create(Math.Min(maxX, Math.Abs(xDiff / relativeMult)));
+			}
 			
-			//// Some dynamic archetypes shouldn't bounce.
-			//if(this.archetype === Arch.Platform) { return; }
-		
-			//this.physics.velocity.y = -strengthMod;
-			//const xDiff = actor.collision.getRelativeX(this);
-		
-			//if(xDiff< 0) { this.physics.velocity.x = Math.min(maxX, Math.abs(xDiff / relativeMult)); }
-			//else { this.physics.velocity.x = -Math.min(maxX, xDiff / relativeMult); }
+			else {
+				this.physics.velocity.X = FInt.Create(-Math.Min(maxX, xDiff / relativeMult));
+			}
 		}
 	}
 }

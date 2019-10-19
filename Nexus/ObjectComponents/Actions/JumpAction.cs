@@ -37,6 +37,10 @@ namespace Nexus.ObjectComponents {
 			Systems.sounds.jump.Play();
 		}
 
+		public static bool MinimumTimePassed( CharacterStatus status ) {
+			return Systems.timer.frame > status.actionEnds - status.actionNum2;
+		}
+
 		public override void RunAction( Character character ) {
 
 			// End the action after the designated number of frames has elapsed:
@@ -64,7 +68,7 @@ namespace Nexus.ObjectComponents {
 			physics.velocity.Y = 0 - jumpStrength;
 			
 			// If the jump button has been released and the minimum duration has ended, end the jump:
-			if(!status.actionBool1 && Systems.timer.frame > character.status.actionEnds - status.actionNum2) {
+			if(!status.actionBool1 && JumpAction.MinimumTimePassed(status)) {
 				this.EndAction(character);
 				return;
 			}

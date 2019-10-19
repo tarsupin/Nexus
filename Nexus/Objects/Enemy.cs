@@ -30,6 +30,18 @@ namespace Nexus.Objects {
 			base.RunTick();
 		}
 
+		public virtual bool RunCharacterImpact( Character character ) {
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, this);
+
+			if(dir == DirCardinal.Down) {
+				this.GetJumpedOn(character);
+			} else {
+				this.WoundCharacter(character);
+			}
+
+			return Impact.StandardImpact(character, this, dir);
+		}
+
 		public bool CanResistDamage( DamageStrength damage ) {
 			return this.ProjectileResist >= damage;
 		}
@@ -40,14 +52,14 @@ namespace Nexus.Objects {
 			// character.ReceiveWound();
 		}
 
-		public bool GetJumpedOn( Character character, byte bounceStrength = 0 ) {
+		public virtual bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
 			if(this.status.action is DeathEnemyAction) { return false; }
 			character.BounceUp( this, bounceStrength );
 			return this.ReceiveWound();
 		}
 
 		public bool ReceiveWound() {
-			// TODO: Play Sound (splat1)
+			Systems.sounds.splat1.Play();
 			return this.Die(DeathResult.Knockout);
 		}
 

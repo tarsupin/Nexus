@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using Nexus.Objects;
 
 /*
  * Tile Game Object:
@@ -45,6 +46,18 @@ namespace Nexus.GameEngine {
 
 		public virtual bool RunImpact( DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
+			if(actor is EnemyLand) {
+
+				// Enemy should turn if colliding with a side.
+				if(dir == DirCardinal.Left) {
+					HitCompareEnemy.LandEnemyHitsSide((EnemyLand) actor, false);
+
+				} else if(dir == DirCardinal.Right) {
+					HitCompareEnemy.LandEnemyHitsSide((EnemyLand) actor, true);
+				}
+			}
+
 			return true;
 		}
 	}
