@@ -5,8 +5,8 @@ namespace Nexus.Engine {
 		private bool paused;
 
 		public uint frame;				// The current frame.
-		public uint tick;               // The current tick. 20 ticks per second, 1 per 3 frames. Can use for global timing events.
-		public byte beat;				// The current beat (tick % 20). Cycles through 20 beats per second.
+		public uint triFrame;			// 20 per second, 1 per 3 frames, increments forever. Can use for global timing events.
+		public byte beat;				// The current beat (tick % 20). Cycles through 20 beats per second, loops back to 0.
 
 		public TimerGlobal() {
 			this.ResetTimer();
@@ -19,14 +19,14 @@ namespace Nexus.Engine {
 
 		public void ResetTimer() {
 			this.frame = 0;
-			this.tick = 0;
+			this.triFrame = 0;
 			this.beat = 0;
 		}
 
 		public void RunTick() {
 			this.frame += 1;
-			this.tick = (uint) Math.Floor((double)(this.frame / 4));
-			this.beat = (byte)(this.tick % 20);
+			this.triFrame = (uint) Math.Floor((double)(this.frame / 3));
+			this.beat = (byte)(this.triFrame % 20);
 		}
 
 		public void Pause() {

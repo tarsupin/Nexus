@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) WeaponChakramSubType.Chakram) {
-				this.SpriteName = "Weapon/Chakram";
+				this.SetSpriteName("Weapon/Chakram");
 			}
 		}
 	}

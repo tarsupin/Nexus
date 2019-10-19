@@ -29,6 +29,7 @@ namespace Nexus.Gameplay {
 		public static readonly string[] NoAnimation = new string[0] {};
 		public static readonly string[] Cycle2 = new string[2] { "1", "2" };
 		public static readonly string[] Cycle3 = new string[3] { "1", "2", "3" };
+		public static readonly string[] Cycle3Reverse = new string[4] { "1", "2", "3", "2" };
 		public static readonly string[] Cycle4 = new string[4] { "1", "2", "3", "4" };
 
 		// Character-Specific Animations

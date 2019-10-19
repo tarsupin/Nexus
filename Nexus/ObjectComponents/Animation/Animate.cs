@@ -55,6 +55,7 @@ namespace Nexus.ObjectComponents {
 
 		// Sets a designated animation.
 		// SetAnimation( "Moosh/Brown/Walk", AnimCycleMap.Cycle3, 15 );
+		// cycleId is the number you want to start at (e.g. if you want to start at the second walk cycle instead of the first).
 		public void SetAnimation( string baseName, string[] animCycles, byte animSpeed, byte cycleId = 0 ) {
 
 			// Don't update the animation if you're using the same animation.

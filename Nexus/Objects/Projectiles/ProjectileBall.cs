@@ -37,15 +37,15 @@ namespace Nexus.Objects {
 
 			// Sprite Image
 			if(subType == (byte) ProjectileBallSubType.Fire) {
-				this.SpriteName = "Projectiles/Fire";
+				this.SetSpriteName("Projectiles/Fire");
 			} else if(subType == (byte) ProjectileBallSubType.Electric) {
-				this.SpriteName = "Projectiles/Electric";
+				this.SetSpriteName("Projectiles/Electric");
 			} else if(subType == (byte) ProjectileBallSubType.Frost) {
-				this.SpriteName = "Projectiles/Frost";
+				this.SetSpriteName("Projectiles/Frost");
 			} else if(subType == (byte) ProjectileBallSubType.Slime) {
-				this.SpriteName = "Projectiles/Slime";
+				this.SetSpriteName("Projectiles/Slime");
 			} else if(subType == (byte) ProjectileBallSubType.Water) {
-				this.SpriteName = "Projectiles/Water";
+				this.SetSpriteName("Projectiles/Water");
 			}
 		}
 	}

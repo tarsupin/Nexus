@@ -5,17 +5,13 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public enum BehaveStatus {
-		Watching = 0,	// Enemy is performing standard movement and watching for characters.
-		Stalling = 1,	// Enemy has spotted a character, and is charging up (frozen, stalling).
-		Active = 2,		// Enemy is actively performing the behavior action.
-	}
+	// ActorState.MovementStandard		// Enemy is performing standard movement and watching for characters.
+	// ActorState.ReactionStall			// Enemy has spotted a character, and is charging up (frozen, stalling).
+	// ActorState.ReactionCharacter		// Enemy is actively performing the behavior action. 
 
 	public class DetectCharBehavior : Behavior {
 
 		protected TimerGlobal timer;
-
-		protected BehaveStatus behaveStatus;	// The current status of the enemy's behavior.
 
 		protected readonly byte viewDist;		// The distance (X-axis) that the enemy can "see" in the direction it faces.
 		protected readonly byte viewHeight;		// The height for the enemy's view.
@@ -40,7 +36,6 @@ namespace Nexus.ObjectComponents {
 			this.timer = Systems.timer;
 			this.actionEnd = 0;
 
-			this.behaveStatus = BehaveStatus.Watching;
 			this.SetBehavePassives();
 		}
 
@@ -62,7 +57,7 @@ namespace Nexus.ObjectComponents {
 			Bounds bounds = this.actor.bounds;
 
 			// Determine view bounds based on direction actor is facing.
-			int scanX = actor.posX + (actor.faceRight ? bounds.Right : bounds.Left - this.viewDist);
+			int scanX = actor.posX + (actor.FaceRight ? bounds.Right : bounds.Left - this.viewDist);
 			int scanY = actor.posY + bounds.Bottom - this.viewHeight;
 
 			uint objectId = CollideDetect.FindObjectsTouchingArea(
@@ -80,12 +75,14 @@ namespace Nexus.ObjectComponents {
 		}
 
 		protected virtual void BeginStall() {
-			this.behaveStatus = BehaveStatus.Stalling;
+			this.actor.SetState(ActorState.ReactionStall);
 			this.actionEnd = this.timer.frame + this.stallDuration;
-			this.dirRight = this.actor.faceRight;
+			this.dirRight = this.actor.FaceRight;
 		}
 
 		protected virtual void RunStall() {
+
+			this.actor.physics.StopX();
 
 			// Wait until the stall is complete:
 			if(this.actionEnd > this.timer.frame) { return; }
@@ -95,7 +92,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		protected virtual void StartAction() {
-			this.behaveStatus = BehaveStatus.Active;
+			this.actor.SetState(ActorState.ReactionCharacter);
 			this.actionEnd = this.timer.frame + this.actionDuration;
 		}
 		
@@ -106,17 +103,15 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		protected virtual void EndAction() {
-			this.behaveStatus = BehaveStatus.Watching;
+		protected virtual void EndAction( ActorState state = ActorState.BehaviorStandard ) {
+			this.actor.SetState(state);
 			this.actionEnd = this.timer.frame + this.cooldownDuration;
 		}
 
 		public override void RunTick() {
-			switch(this.behaveStatus) {
-				case BehaveStatus.Watching:		this.WatchForCharacter();	break;
-				case BehaveStatus.Stalling:		this.RunStall();			break;
-				case BehaveStatus.Active:		this.RunAction();			break;
-			}
+			if(this.actor.State == ActorState.ReactionStall) { this.RunStall(); }
+			else if(this.actor.State == ActorState.ReactionCharacter) { this.RunAction(); }
+			else { this.WatchForCharacter(); }
 		}
 	}
 }

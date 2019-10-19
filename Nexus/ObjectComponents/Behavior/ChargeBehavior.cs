@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -29,17 +30,25 @@ namespace Nexus.ObjectComponents {
 
 			Touch touch = this.actor.physics.touch;
 
-			// End charge if no longer touching ground, or if action has expired.
-			if(!touch.toBottom || this.actionEnd > this.timer.frame) {
-				this.EndAction();
+			// End charge when touching ground and action has expired.
+			if(touch.toBottom && this.actionEnd < this.timer.frame) {
+				this.EndAction(ActorState.MoveLand);
 				return;
 			}
 
-			// Prevent further speed activation if running into something:
+			// End action and prevent further speed activation if running into something:
 			if(this.dirRight) {
-				if(touch.toRight) { this.actionSpeed = 0; }
+				if(touch.toRight) {
+					this.actor.physics.StopX();
+					this.EndAction(ActorState.RestStunned);
+					return;
+				}
 			} else {
-				if(touch.toLeft) { this.actionSpeed = 0; }
+				if(touch.toLeft) {
+					this.actor.physics.StopX();
+					this.EndAction(ActorState.RestStunned);
+					return;
+				}
 			}
 
 			// Charge

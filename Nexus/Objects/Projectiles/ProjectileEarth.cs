@@ -64,7 +64,7 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) ProjectileEarthSubType.Earth) {
-				this.SpriteName = "Projectiles/Earth1";
+				this.SetSpriteName("Projectiles/Earth1");
 			}
 		}
 	}

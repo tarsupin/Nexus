@@ -3,6 +3,8 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
+	// To start an action, use the "StartAction()" methods through the ActionMap.
+	// Example: ActionMap.Slide.StartAction(this, this.faceRight);
 	public class ActionCharacter : Action {
 
 		public bool HasTimeElapsed( Character character ) {

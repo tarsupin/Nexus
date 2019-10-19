@@ -35,17 +35,16 @@ namespace Nexus.Objects {
 
 		private void AssignSubType( byte subType ) {
 			if(subType == (byte) ShroomSubType.Black) {
-				this.SpriteName = "Shroom/Black/Left2";
+				this.SetSpriteName("Shroom/Black/Left2");
 			} else if(subType == (byte) ShroomSubType.Red) {
-				this.SpriteName = "Shroom/Red/Left2";
+				this.SetSpriteName("Shroom/Red/Left2");
 			} else if(subType == (byte) ShroomSubType.Purple) {
 				//this.behavior = new PrepareCharge(this, 1, 9, 30, 15);
-				this.SpriteName = "Shroom/Purple/Left2";
+				this.SetSpriteName("Shroom/Purple/Left2");
 			}
 		}
 
-		// TODO: Change BYTE to Character
-		public void GetJumpedOn( byte character ) {
+		public void GetJumpedOn( Character character ) {
 			base.GetJumpedOn(character, 6);
 		}
 	}

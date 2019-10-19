@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 		private void AssignSubType(byte subType) {
 
 			if(subType == (byte) ProjectileBoltSubType.Bolt) {
-				this.SpriteName = "Projectiles/Bolt";
+				this.SetSpriteName("Projectiles/Bolt");
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 
 			} else if(subType == (byte) ProjectileBoltSubType.BoltGreen) {
@@ -53,11 +53,11 @@ namespace Nexus.Objects {
 				// NOTE: See how this.physics.update is different than others? Maybe use a behavior? Or an action? Or something else? RunTick?
 				// this.physics.update = BoltGreenSwimMovement;
 				// this.render = this.renderRotation;		// still how I want to do this? maybe? or override Draw()?
-				this.SpriteName = "Projectiles/BoltGreen";
+				this.SetSpriteName("Projectiles/BoltGreen");
 				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 
 			} else if(subType == (byte) ProjectileBoltSubType.BoltGold) {
-				this.SpriteName = "Projectiles/BoltGold";
+				this.SetSpriteName("Projectiles/BoltGold");
 				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			}
 		}

@@ -134,6 +134,7 @@
     <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
+    <Compile Include="ObjectComponents\Behavior\HopConstantBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\HopBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\ChargeBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\DetectCharBehavior.cs" />

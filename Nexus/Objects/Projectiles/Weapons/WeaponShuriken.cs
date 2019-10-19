@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) WeaponShurikenSubType.Shuriken) {
-				this.SpriteName = "Weapon/Shuriken";
+				this.SetSpriteName("Weapon/Shuriken");
 			}
 		}
 	}

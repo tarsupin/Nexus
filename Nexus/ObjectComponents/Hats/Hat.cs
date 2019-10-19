@@ -42,7 +42,7 @@ namespace Nexus.ObjectComponents {
 		public Hat( Character character, HatRank hatRank = HatRank.BaseHat ) {
 			this.character = character;
 			this.hatRank = hatRank;
-			this.faceRight = this.character.faceRight;
+			this.faceRight = this.character.FaceRight;
 			this.yOffset = -10;
 
 			// Rendering

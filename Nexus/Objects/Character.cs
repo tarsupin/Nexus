@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 
 		public Character(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
-			this.SpriteName = "Moosh/Brown/Left2";
+			this.SetSpriteName("Moosh/Brown/Left2");
 
 			// Physics, Collisions, etc.
 			this.AssignBounds(8, 12, 28, 44);
@@ -148,7 +148,7 @@ namespace Nexus.Objects {
 
 			// Movement Right
 			if(this.input.isDown(IKey.Right)) {
-				this.faceRight = true;
+				this.FaceRight = true;
 
 				// Move Right up to maximum speed. (Must use FInt Math, not Math.Min)
 				if(maxSpeed > this.physics.velocity.X) {
@@ -164,7 +164,7 @@ namespace Nexus.Objects {
 
 			// Movement Left
 			else if(this.input.isDown(IKey.Left)) {
-				this.faceRight = false;
+				this.FaceRight = false;
 
 				// Move Left up to maximum speed. (Must use FInt Math, not Math.Min)
 				if(this.physics.velocity.X > maxSpeed.Inverse) {
@@ -200,8 +200,8 @@ namespace Nexus.Objects {
 
 						//// Slide, if able:
 						//else
-						if(SlideAction.IsAbleToSlide(this, this.faceRight)) {
-							ActionMap.Slide.StartAction(this, this.faceRight);
+						if(SlideAction.IsAbleToSlide(this, this.FaceRight)) {
+							ActionMap.Slide.StartAction(this, this.FaceRight);
 						}
 
 						// Otherwise, JUMP:
@@ -234,7 +234,7 @@ namespace Nexus.Objects {
 
 			// Movement Right
 			if(this.input.isDown(IKey.Right)) {
-				this.faceRight = true;
+				this.FaceRight = true;
 
 				// Move Right up to maximum speed. (Must use FInt Math, not Math.Min)
 				if(maxSpeed > this.physics.velocity.X) {
@@ -250,7 +250,7 @@ namespace Nexus.Objects {
 
 			// Movement Left
 			else if(this.input.isDown(IKey.Left)) {
-				this.faceRight = false;
+				this.FaceRight = false;
 
 				// Move Left up to maximum speed.(Must use FInt Math, not Math.Min)
 				if(maxSpeed.Inverse < this.physics.velocity.X) {
@@ -300,14 +300,16 @@ namespace Nexus.Objects {
 				if(velX > 0) {
 
 					// If Facing Left
-					if(!this.faceRight) {
+					if(!this.FaceRight) {
 						this.SetSpriteName(suitType + "TurnLeft");
 						//if(heldItem) { xShift = 74; }
 					}
 
 					// If Facing Right
 					else {
-						if(heldItem) { this.SpriteName = suitType + "RunHold"; } else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); } else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
+						if(heldItem) { this.SetSpriteName(suitType + "RunHold"); }
+						else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); }
+						else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
 					}
 				}
 
@@ -315,20 +317,22 @@ namespace Nexus.Objects {
 				else if(velX < 0) {
 
 					// If Facing Right
-					if(this.faceRight) {
+					if(this.FaceRight) {
 						this.SetSpriteName(suitType + "Turn");
 						//if(heldItem) { xShift = -14; }
 					}
 
 					// If Facing Left
 					else {
-						if(heldItem) { this.SpriteName = suitType + "RunHoldLeft"; } else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); } else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
+						if(heldItem) { this.SetSpriteName(suitType + "RunHoldLeft"); }
+						else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); }
+						else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
 					}
 				}
 
 				// If Not Moving
 				else {
-					this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.faceRight ? "" : "Left"));
+					this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.FaceRight ? "" : "Left"));
 				}
 			}
 
@@ -337,17 +341,17 @@ namespace Nexus.Objects {
 
 				// If Holding Item
 				if(heldItem) {
-					this.SetSpriteName(suitType + "RunHold" + (this.faceRight ? "" : "Left"));
+					this.SetSpriteName(suitType + "RunHold" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Falling
 				else if(this.physics.velocity.Y.IntValue > 3) {
-					this.SetSpriteName(suitType + "Fall" + (this.faceRight ? "" : "Left"));
+					this.SetSpriteName(suitType + "Fall" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Jumping (Moving Up)
 				else {
-					this.SetSpriteName(suitType + "Jump" + (this.faceRight ? "" : "Left"));
+					this.SetSpriteName(suitType + "Jump" + (this.FaceRight ? "" : "Left"));
 				}
 			}
 		}
@@ -392,6 +396,10 @@ namespace Nexus.Objects {
 			if(this.posY > this.scene.tilemap.Height) {
 				this.wounds.Death();
 			}
+		}
+
+		public void BounceUp( DynamicGameObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
+			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
 		}
 	}
 }

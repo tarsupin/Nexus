@@ -12,17 +12,15 @@ namespace Nexus.Objects {
 		}
 
 		public void WalkLeft() {
-			//if(!this.physics.touching.floor) { return; }
-			//this.status.faceRight = false;
-			//this.physics.velocity.x = -this.speed;
-			//if(this.animation) { this.animation.setAnimation("MoveLeft"); }
+			if(!this.physics.touch.toFloor) { return; }
+			this.SetDirection(false);
+			this.physics.velocity.X = this.speed.Inverse;
 		}
 
 		public void WalkRight() {
-			//if(!this.physics.touching.floor) { return; }
-			//this.status.faceRight = true;
-			//this.physics.velocity.x = this.speed;
-			//if(this.animation) { this.animation.setAnimation("MoveRight"); }
+			if(!this.physics.touch.toFloor) { return; }
+			this.SetDirection(true);
+			this.physics.velocity.X = this.speed;
 		}
 	}
 }

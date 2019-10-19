@@ -40,10 +40,9 @@ namespace Nexus.Objects {
 			// character.ReceiveWound();
 		}
 
-		// TODO: GetJumpedOn( Character char, byte bounceStrength )
-		public bool GetJumpedOn( byte character, byte bounceStrength = 0 ) {
-			// TODO: if action is DeathAction, return
-			// TODO: character.bounceUp( this, bounceStrength );
+		public bool GetJumpedOn( Character character, byte bounceStrength = 0 ) {
+			if(this.status.action is DeathEnemyAction) { return false; }
+			character.BounceUp( this, bounceStrength );
 			return this.ReceiveWound();
 		}
 

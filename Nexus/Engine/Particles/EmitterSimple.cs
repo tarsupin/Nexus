@@ -88,7 +88,6 @@ namespace Nexus.Engine {
 			uint frame = Systems.timer.frame;
 			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
-			System.Console.WriteLine("alpha " + alpha);
 			// Loop Through Particles, Draw:
 			foreach(ParticleStandard particle in this.particles) {
 				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X, (int) particle.pos.Y, Color.White * alpha, particle.rotation);

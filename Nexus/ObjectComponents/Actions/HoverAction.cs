@@ -43,12 +43,12 @@ namespace Nexus.ObjectComponents {
 
 			// Horizontal Levitation Movement/Speed
 			if(input.isDown(IKey.Right)) {
-				character.faceRight = true;
+				character.SetDirection(true);
 				physics.velocity.X += (hoverSpeed * FInt.Create(0.15)); // HoverSpeed * 0.15
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
 
 			} else if(input.isDown(IKey.Left)) {
-				character.faceRight = false;
+				character.SetDirection(false);
 				physics.velocity.X -= (hoverSpeed * FInt.Create(0.15)); // HoverSpeed * 0.15
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
 			}

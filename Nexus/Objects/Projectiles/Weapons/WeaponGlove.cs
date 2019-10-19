@@ -30,9 +30,9 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) WeaponGloveSubType.Red) {
-				this.SpriteName = "Weapon/BoxingRed";
+				this.SetSpriteName("Weapon/BoxingRed");
 			} else if(subType == (byte) WeaponGloveSubType.White) {
-				this.SpriteName = "Weapon/BoxingWhite";
+				this.SetSpriteName("Weapon/BoxingWhite");
 			}
 		}
 	}

@@ -80,9 +80,9 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) ProjectileMagiSubType.Magi) {
-				this.SpriteName = "Projectiles/Magi";
+				this.SetSpriteName("Projectiles/Magi");
 			} else if(subType == (byte) ProjectileMagiSubType.Magi2) {
-				this.SpriteName = "Projectiles/Magi2";
+				this.SetSpriteName("Projectiles/Magi2");
 			}
 		}
 	}
