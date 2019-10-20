@@ -29,16 +29,12 @@ namespace Nexus.Objects {
 		private void AssignSubType( byte subType ) {
 			if(subType == (byte) BoomSubType.Boom) {
 				this.animate = new Animate(this, "Boom/");
-				this.SetState(ActorState.MoveStandard);
+				this.OnDirectionChange();
 			}
 		}
 
-		public override void OnStateChange() {
-			if(this.subType == (byte) BoomSubType.Boom) {
-				if(this.State == ActorState.MoveStandard) {
-					this.animate.SetAnimation("Boom/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
-				}
-			}
+		public override void OnDirectionChange() {
+			this.animate.SetAnimation("Boom/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
 		}
 
 		public override bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {

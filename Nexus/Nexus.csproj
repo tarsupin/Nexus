@@ -199,6 +199,7 @@
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\EnemyLand\Bug.cs" />
     <Compile Include="Objects\EnemyLand\Boom.cs" />
     <Compile Include="Objects\EnemyLand\Bones.cs" />
     <Compile Include="Objects\Platforms\Platform.cs" />
