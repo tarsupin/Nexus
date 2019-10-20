@@ -199,6 +199,10 @@
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\EnemyLand\Turtle.cs" />
+    <Compile Include="Objects\EnemyLand\Snek.cs" />
+    <Compile Include="Objects\EnemyLand\Snail.cs" />
+    <Compile Include="Objects\EnemyLand\Poke.cs" />
     <Compile Include="Objects\EnemyLand\Octo.cs" />
     <Compile Include="Objects\EnemyLand\Liz.cs" />
     <Compile Include="Objects\EnemyLand\Lich.cs" />
