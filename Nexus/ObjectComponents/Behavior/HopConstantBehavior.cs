@@ -6,16 +6,21 @@ namespace Nexus.ObjectComponents {
 
 	public class HopConstantBehavior : Behavior {
 
-		protected new EnemyLand actor;		// Reference to the enemy.
+		protected new EnemyLand actor;      // Reference to the enemy.
 
-		public HopConstantBehavior( EnemyLand actor ) : base(actor) {
+		private readonly byte hopStrength;
+		private readonly byte xSpeed;
+
+		public HopConstantBehavior( EnemyLand actor, byte hopStrength, byte xSpeed = 0 ) : base(actor) {
 			this.actor = actor;
+			this.hopStrength = hopStrength;
+			this.xSpeed = xSpeed;
 		}
 
 		protected void StartHop() {
 
-			this.actor.physics.velocity.X = FInt.Create(this.actor.FaceRight ? 2 : -2);
-			this.actor.physics.velocity.Y = FInt.Create(-8);
+			this.actor.physics.velocity.X = FInt.Create(this.actor.FaceRight ? this.xSpeed : -this.xSpeed);
+			this.actor.physics.velocity.Y = FInt.Create(-this.hopStrength);
 
 			this.actor.SetState(ActorState.MoveStandard);
 		}

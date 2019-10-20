@@ -68,7 +68,7 @@ namespace Nexus.Objects {
 
 			} else if(subType == (byte) MooshSubType.White) {
 				this.speed = FInt.Create(0);
-				this.behavior = new HopConstantBehavior(this);
+				this.behavior = new HopConstantBehavior(this, 8, 2);
 				this.SetState(ActorState.RestStall);
 
 			} else if(subType == (byte) MooshSubType.Purple) {
