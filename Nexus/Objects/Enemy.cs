@@ -46,10 +46,9 @@ namespace Nexus.Objects {
 			return this.ProjectileResist >= damage;
 		}
 
-		// TODO: Set to "Character" class, not DynamicGameObject
-		public void WoundCharacter( DynamicGameObject character ) {
-			// if action is Deathaction, return
-			// character.ReceiveWound();
+		public virtual void WoundCharacter( Character character, DamageStrength damage = DamageStrength.Standard ) {
+			if(this.status.action is DeathEnemyAction) { return; }
+			character.wounds.ReceiveWoundDamage(damage);
 		}
 
 		public virtual bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
@@ -58,12 +57,12 @@ namespace Nexus.Objects {
 			return this.ReceiveWound();
 		}
 
-		public bool ReceiveWound() {
+		public virtual bool ReceiveWound() {
 			Systems.sounds.splat1.Play();
 			return this.Die(DeathResult.Knockout);
 		}
 
-		public bool Die( DeathResult deathType ) {
+		public virtual bool Die( DeathResult deathType ) {
 			ActionMap.DeathEnemy.StartAction(this, deathType);
 			if(this.animate is Animate) { this.animate = null; }
 			return true;

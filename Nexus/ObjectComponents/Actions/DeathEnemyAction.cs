@@ -49,6 +49,11 @@ namespace Nexus.ObjectComponents {
 				physics.velocity.X = FInt.Create(0);
 				physics.velocity.Y = FInt.Create(0);
 			}
+
+			// Special Effect
+			else if(deathResult == DeathResult.Special) {
+				// Effect is determined by Die() method.
+			}
 		}
 
 		public override void RunAction( Enemy enemy ) {

@@ -27,7 +27,6 @@ namespace Nexus.Engine {
 		public static EmitterSimple NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
 			// Retrieve an emitter from the pool.
-
 			EmitterSimple emitter = EmitterSimple.emitterPool.GetObject();
 
 			emitter.atlas = atlas;

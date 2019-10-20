@@ -17,6 +17,7 @@ namespace Nexus.GameEngine {
 
 		}
 
+		// Applied 0.499f to gravity to avoid rounding strangeness.
 		public static void GenGravityBurst( float velX, float velY, float maxVelY = 7, float gravity = 0.499f, int numberSteps = 140 ) {
 
 			string xStr = "short[] x = new short[" + numberSteps + "] {";
