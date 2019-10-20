@@ -33,6 +33,14 @@ namespace Nexus.Objects {
 			}
 		}
 
+		public override void OnStateChange() {
+			if(this.subType == (byte)BonesSubType.Bones) {
+				if(this.State == ActorState.MoveStandard) {
+					this.animate.SetAnimation("Bones/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
+				}
+			}
+		}
+
 		public override bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
 			this.ReceiveWound();
 			return true;
