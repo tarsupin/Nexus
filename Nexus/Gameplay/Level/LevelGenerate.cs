@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Newtonsoft.Json.Linq;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using System;
 using System.Collections;
@@ -47,7 +48,11 @@ namespace Nexus.Gameplay {
 
 					if(gridX > levelWidth) { levelWidth = gridX; }
 
-					this.AddTileToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground);
+					if(xData.Value.Count == 2) {
+						this.AddTileToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground);
+					} else if(xData.Value.Count > 2) {
+						this.AddTileToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground, (JObject) xData.Value[2]);
+					}
 				}
 			}
 		}
@@ -73,13 +78,13 @@ namespace Nexus.Gameplay {
 					if(xData.Value.Count == 2) {
 						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), xData.Value[2]);
+						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), (JObject) xData.Value[2]);
 					}
 				}
 			}
 		}
 
-		private void AddTileToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false) {
+		private void AddTileToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
 			GameMapper mapper = Systems.mapper;
 
 			// Identify Tile Class Type, If Applicable
@@ -90,10 +95,15 @@ namespace Nexus.Gameplay {
 			// If there is a "TileGenerate" method, run its special generation rules:
 			if(classType.GetMethod("TileGenerate") != null) {
 				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (Scene)this.scene, (ushort)gridX, (ushort)gridY, (byte)subType });
+
+				// TODO: GET THE TILE BY GRIDX GRIDY
+				//if(tile != null && paramList != null) {
+				//	tile.UpdateParams(paramList);
+				//}
 			}
 		}
 
-		private void AddObjectToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, dynamic paramList = null) {
+		private void AddObjectToScene(ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {
 
 			// Skip Certain Flags
 			// TODO: Might need to adjust how "Spawn" flags work here.
@@ -114,11 +124,11 @@ namespace Nexus.Gameplay {
 
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
 			if(classType.GetMethod("Generate") != null) {
-				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (LevelScene)this.scene, (byte)subType, (FVector)pos, (object[])paramList });
+				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { (LevelScene)this.scene, (byte)subType, (FVector)pos, (JObject) paramList });
 
 			// Create Object
 			} else {
-				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { this.scene, (byte) subType, (FVector) pos, (object[]) paramList });
+				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { this.scene, (byte) subType, (FVector) pos, (JObject) paramList });
 
 				// Add the Object to the Scene
 				if(gameObj is DynamicGameObject) {

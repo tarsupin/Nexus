@@ -22,7 +22,6 @@ namespace Nexus.Objects {
 
 		public ToggleBlockGreen(LevelScene scene) : base(scene, TileGameObjectId.ToggleBlockGreen) {
 			this.Texture = "/Green/Block";
-
 		}
 	}
 }

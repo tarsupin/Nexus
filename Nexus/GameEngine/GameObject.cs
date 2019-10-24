@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -35,12 +35,21 @@ namespace Nexus.GameEngine {
 		// Object Physics
 		// TODO: Collision, Physics, Sector (Tile Position; this exists in static, not needed here? might be.)
 
-		public GameObject(LevelScene scene, byte subType, FVector pos, object[] paramList = null) {
+		public GameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) {
 			this.id = scene.nextId;
 			this.scene = scene;
 			this.subType = subType;
 			this.posX = pos.X.IntValue;
 			this.posY = pos.Y.IntValue;
+
+			// Dealing with JObject paramList:
+			// System.Console.WriteLine(paramList);
+			// System.Console.WriteLine(paramList.GetType().ToString());
+
+			// if(paramList["attGrav"] != null) {
+			//	int a = (int) paramList.GetValue("attGrav");
+			//	System.Console.WriteLine("GRAV: " + a.ToString());
+			// }
 		}
 
 		public ushort GridX { get { return (ushort) Math.Floor((double) ((this.posX + this.bounds.Left) / (byte) TilemapEnum.TileWidth)); } }

@@ -15,7 +15,9 @@ namespace Nexus.Engine {
 
 	public class Atlas {
 
-		// private const float Clockwise90DegRot = (float)(Math.PI / 2.0f);
+		private const float Rot90Deg = 1.5707963267949f;
+		private const float Rot180Deg = 3.14159265358979f;
+		private const float Rot270Deg = 4.71238898038469f;
 
 		// References
 		private readonly SpriteBatch spriteBatch;
@@ -52,30 +54,12 @@ namespace Nexus.Engine {
 				sourceRectangle: sprite.TextureRect,
 				color: null
 			);
-
-			//spriteBatch.Draw(
-			//	texture: this.Texture,
-			//	position: new Vector2(position.X.IntValue, position.Y.IntValue),
-			//	sourceRectangle: sprite.TextureRect,
-			//	color: null,
-			//	rotation: 0,
-			//	origin: new Vector2(origin.X.IntValue, origin.Y.IntValue),
-			//	scale: new Vector2(1, 1),
-			//	effects: SpriteEffects.None,
-			//	layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
-			//);
 		}
-
-		/*
-		 *	public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects effects, float layerDepth);
-			public void Draw(Texture2D texture, Vector2 position, Rectangle? textureRect, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effects, float layerDepth);
-			public void Draw(Texture2D texture, Vector2 position, Rectangle? textureRect, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
-		*/
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
 		public void DrawAdvanced(string spriteName, int posX, int posY, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {
 			SpriteFrame sprite = this.spriteList[spriteName];
-
+			
 			//if(sprite.IsRotated) {
 			//	rotation -= ClockwiseNinetyDegreeRotation;
 			//	switch(spriteEffects) {
@@ -97,9 +81,33 @@ namespace Nexus.Engine {
 				rotation: rotation,
 				origin: sprite.Origin,
 				scale: new Vector2(scale, scale),
-				effects: spriteEffects,
-				layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
+				effects: spriteEffects
+				//layerDepth: 0.0f            // 0.0f is bottom layer, 1.0f is top layer
 			);
+		}
+
+		public void DrawRotation(string spriteName, int posX, int posY, float rotation, Vector2 origin ) {
+			SpriteFrame sprite = this.spriteList[spriteName];
+
+			spriteBatch.Draw(
+				texture: this.Texture,
+				position: new Vector2(posX, posY),
+				sourceRectangle: sprite.TextureRect,
+				rotation: rotation,
+				origin: origin
+			);
+		}
+
+		public void DrawFaceLeft(string spriteName, int posX, int posY) {
+			this.DrawRotation(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
+		}
+
+		public void DrawFaceRight(string spriteName, int posX, int posY) {
+			this.DrawRotation(spriteName, posX, posY, Rot90Deg, new Vector2(0, 48));
+		}
+		
+		public void DrawFaceDown(string spriteName, int posX, int posY) {
+			this.DrawRotation(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
 		}
 
 		private void LoadAtlasData(GameClient game, string imageResource) {

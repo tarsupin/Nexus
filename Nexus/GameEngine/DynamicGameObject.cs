@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Newtonsoft.Json.Linq;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
@@ -34,7 +35,7 @@ namespace Nexus.GameEngine {
 
 	public class DynamicGameObject : GameObject {
 
-		public Activity activity;
+		public Activity Activity { get; protected set; }
 
 		// TODO: ActionTrait, BehaviorTrait
 		// TODO: Status (can have multiple status types); some don't need
@@ -53,7 +54,7 @@ namespace Nexus.GameEngine {
 		public ActorState State { get; protected set; }    // Tracks the actor's current state.
 		public bool FaceRight { get; protected set; }      // TRUE if the actor is facing right.
 
-		public DynamicGameObject(LevelScene scene, byte subType, FVector pos, object[] paramList = null) : base(scene, subType, pos, paramList) {}
+		public DynamicGameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) : base(scene, subType, pos, paramList) {}
 
 		public virtual void RunTick() {
 
@@ -77,6 +78,13 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		// Run this method to change an actor's facing direction.
+		public void SetActivity( Activity activity ) {
+			if(this.Activity != Activity.ForceActive) {
+				this.Activity = activity;
+			}
+		}
+		
 		// Run this method to change an actor's facing direction.
 		public void SetDirection( bool faceRight ) {
 			if(this.FaceRight != faceRight) {

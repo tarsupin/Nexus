@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Newtonsoft.Json.Linq;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -14,7 +15,7 @@ namespace Nexus.Objects {
 		public Behavior behavior;
 		public EnemyStatus status;
 
-		public Enemy(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+		public Enemy(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
 			this.status = new EnemyStatus();
 		}
 
@@ -69,7 +70,7 @@ namespace Nexus.Objects {
 		}
 
 		// Land Enemies typically die to TNT
-		public bool DamageByTNT() {
+		public virtual bool DamageByTNT() {
 			return this.Die(DeathResult.Knockout);
 		}
 

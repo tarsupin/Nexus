@@ -65,6 +65,11 @@ namespace Nexus.Gameplay {
 		CollectableSuit,
 		CollectableHat,
 		CollectablePower,
+
+		// Tile Enemies
+		Plant,
+		Chomper,
+		ChomperFire,
 	}
 
 }

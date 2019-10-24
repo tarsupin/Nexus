@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Newtonsoft.Json.Linq;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
@@ -38,6 +39,17 @@ namespace Nexus.GameEngine {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte) atlasGroup];
 			scene.RegisterClassGameObject(classId, this);
+		}
+
+		public virtual void UpdateParams( JObject paramList ) {
+			// System.Console.WriteLine(paramList);
+			// System.Console.WriteLine(paramList.GetType().ToString());
+
+			// JToken token = paramList["attGrav"];
+			// if(token != null) {
+			//	int a = (int) paramList.GetValue("attGrav");
+			//	System.Console.WriteLine("GRAV: " + a.ToString());
+			// }
 		}
 
 		public virtual void Draw( byte subType, int posX, int posY ) {

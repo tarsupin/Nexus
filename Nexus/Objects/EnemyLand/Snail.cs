@@ -2,6 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using Newtonsoft.Json.Linq;
 
 namespace Nexus.Objects {
 
@@ -11,7 +12,7 @@ namespace Nexus.Objects {
 
 	public class Snail : EnemyLand {
 
-		public Snail(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+		public Snail(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
 
 			// Movement

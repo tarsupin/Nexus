@@ -2,6 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using Newtonsoft.Json.Linq;
 
 // Items are considered objects that Characters can pick up.
 // DROP is a guaranteed action.
@@ -12,7 +13,7 @@ namespace Nexus.Objects {
 
 		public static readonly FInt MaxFallVelocity = FInt.Create(5);
 
-		public Platform(LevelScene scene, byte subType, FVector pos, object[] paramList) : base(scene, subType, pos, paramList) {
+		public Platform(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
 			this.AssignBoundsByAtlas();
 			this.physics.SetGravity(FInt.Create(0));

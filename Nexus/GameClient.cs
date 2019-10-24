@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 
@@ -34,7 +33,7 @@ namespace Nexus
 			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because of monitor speed, tearing, etc. Read more:
 			// https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/
 			// https://www.geforce.com/hardware/technology/adaptive-vsync/technology
-			//graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
+			graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();
@@ -73,18 +72,6 @@ namespace Nexus
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(Systems.handler.level.data.id);
-
-			// TODO CLEANUP: Remove this gravity gen
-			//ParticleGen.GenGravityBurst(0.50f, -11.0f);
-			//ParticleGen.GenGravityBurst(0.75f, -10.0f);
-			//ParticleGen.GenGravityBurst(1.00f, -9.5f);
-			//ParticleGen.GenGravityBurst(1.25f, -9.0f);
-			//ParticleGen.GenGravityBurst(1.50f, -8.5f);
-			//ParticleGen.GenGravityBurst(1.75f, -8.0f);
-
-			//this.TESTEMITTER = EmitterSimple.NewEmitter(Systems.mapper.atlas[(byte) AtlasGroup.Objects], "Items/Key", new Vector2(500, 300), new Vector2(2, 0), 0.5f, 300);
-			//this.TESTEMITTER.AddParticle(new Vector2(400, 400), new Vector2(1, -24), 0, 0.05f);
-			//this.TESTEMITTER.AddParticle(new Vector2(400, 500), new Vector2(2, -22), 0, 0.05f);
 
 			this.TESTEMITTER = ExplodeEmitter.BoxExplosion("Items/Key", 500, 400);
 		}

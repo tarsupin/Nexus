@@ -115,8 +115,6 @@ namespace Nexus.Gameplay {
 			
 			// Reserved (30 - 39)
 
-			// Anything below this section has an ObjectID, Update(), and Passive Collision.
-
 			// Fixed, Touch-Effect (40 - 49)
 			{ 40, Type.GetType("Nexus.Objects.Brick") },
 			{ 41, Type.GetType("Nexus.Objects.Box") },
@@ -145,27 +143,35 @@ namespace Nexus.Gameplay {
 			// Generators (60 - 64)
 			{ 60, Type.GetType("Nexus.Objects.Cannon") },
 			{ 61, Type.GetType("Nexus.Objects.Placer") },
-			
+
 			// Reserved (65 - 69)
+			
+			// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
+			
+			// Tile-Based Creatures (70 - 79)
+			{ 70, Type.GetType("Nexus.Objects.Plant") },
+			{ 71, Type.GetType("Nexus.Objects.Chomper") },
+			{ 72, Type.GetType("Nexus.Objects.ChomperFire") },
 
 			// Anything below can only be interacted with by a character:
 			// These will have Passive Collision by Character Only.
 
-			// Character Interactives (70 - 79)
-			{ 70, Type.GetType("Nexus.Objects.Flag") },
-			{ 71, Type.GetType("Nexus.Objects.Chest") },
-			{ 72, Type.GetType("Nexus.Objects.NPC") },
-			{ 73, Type.GetType("Nexus.Objects.PeekMap") },
+			// Character Interactives (150 - 159)
+			{ 150, Type.GetType("Nexus.Objects.Flag") },
+			{ 151, Type.GetType("Nexus.Objects.Chest") },
+			{ 152, Type.GetType("Nexus.Objects.NPC") },
+			{ 153, Type.GetType("Nexus.Objects.PeekMap") },
 
-			{ 75, Type.GetType("Nexus.Objects.Door") },
-			{ 76, Type.GetType("Nexus.Objects.DoorLock") },
+			{ 155, Type.GetType("Nexus.Objects.Door") },
+			{ 156, Type.GetType("Nexus.Objects.DoorLock") },
 			
-			// Collectables (80 - 89)
-			{ 80, Type.GetType("Nexus.Objects.CollectableCoin") },
-			{ 81, Type.GetType("Nexus.Objects.CollectableGoodie") },
-			{ 82, Type.GetType("Nexus.Objects.CollectableSuit") },
-			{ 83, Type.GetType("Nexus.Objects.CollectableHat") },
-			{ 84, Type.GetType("Nexus.Objects.CollectablePower") },
+			// Collectables (160 - 169)
+			{ 160, Type.GetType("Nexus.Objects.CollectableCoin") },
+			{ 161, Type.GetType("Nexus.Objects.CollectableGoodie") },
+			{ 162, Type.GetType("Nexus.Objects.CollectableSuit") },
+			{ 163, Type.GetType("Nexus.Objects.CollectableHat") },
+			{ 164, Type.GetType("Nexus.Objects.CollectablePower") },
+			
 		};
 		
 		// List of Foreground Tile Types
