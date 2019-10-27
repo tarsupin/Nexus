@@ -138,6 +138,7 @@
     <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Level\LevelGenerate.cs" />
+    <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
     <Compile Include="Gameplay\Types\ActionTypes.cs" />
     <Compile Include="Gameplay\Types\GameTypes.cs" />
@@ -403,6 +404,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Fonts\BaseText.spritefont">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\Counter.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

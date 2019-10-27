@@ -25,10 +25,11 @@ namespace Nexus.Engine {
 		public static readonly FilesLocal filesLocal = new FilesLocal();
 		public static readonly LocalServer localServer = new LocalServer();
 
-		// Graphics & Audio
+		// Graphics, Audio, and Assets
 		public static ScreenSys screen;
 		public static GameMapper mapper;
 		public static SoundAssets sounds;
+		public static FontAssets fonts;
 
 		// Settings & States
 		public static readonly Settings settings = new Settings();
@@ -47,6 +48,10 @@ namespace Nexus.Engine {
 
 		public static void AddAudio( GameClient game ) {
 			Systems.sounds = new SoundAssets(game);
+		}
+
+		public static void AddFonts( GameClient game ) {
+			Systems.fonts = new FontAssets(game);
 		}
 	}
 }

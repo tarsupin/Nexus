@@ -51,6 +51,7 @@ namespace Nexus
 			// Load Systems
 			Systems.AddGame(this);
 			Systems.AddGraphics(this, this.graphics, this.spriteBatch);
+			Systems.AddFonts(this);
 			Systems.screen.ResizeWindowToBestFit();
 			Systems.AddAudio(this);
 
@@ -58,9 +59,6 @@ namespace Nexus
 			Window.AllowUserResizing = true;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
-
-			// Load Fonts
-			this.font = Content.Load<SpriteFont>("BaseText");
 
 			// TODO: use this.Content to load your game content here
 
@@ -107,19 +105,9 @@ namespace Nexus
 
 			Systems.scene.Draw();
 
-			// TODO CLEANUP: DELETE PARTICLE SPIRAL STEP THING
-			//Vector2 particlePos = ParticleGen.SpiralStep(0f, 40f, 1.5f, 0.05f, (int) Systems.scene.timer.frame);
-			//float alpha = ParticleGen.AlphaByFade(1f, 0f, 0.5f, Systems.scene.timer.frame / 180f);
-			
-			////Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Grass/FU", (int) Math.Round(particlePos.X + 500), (int) Math.Round(particlePos.Y + 400));
-
-			//Systems.mapper.atlas[(byte)AtlasGroup.Tiles].DrawAdvanced(
-			//	"Grass/FU", (int) Math.Round(particlePos.X + 500), (int) Math.Round(particlePos.Y + 400),
-			//	Color.White * alpha
-			//);
-
 			this.TESTEMITTER.Draw();
-			this.spriteBatch.DrawString(this.font, "Score", new Vector2(100, 100), Color.Black);
+			Systems.fonts.baseText.Draw("Score this yo.", 100, 100, Color.White);
+			Systems.fonts.counter.Draw("174", 100, 300, Color.White);
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);
