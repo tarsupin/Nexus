@@ -49,10 +49,10 @@ namespace Nexus.ObjectComponents {
 		protected void WatchForCharacter() {
 
 			// Only run the watch behavior every 13 frames (prime number to reduce overlap).
-			if(this.timer.frame % this.testFrequency != 0) { return; }
+			if(this.timer.Frame % this.testFrequency != 0) { return; }
 
 			// Make sure the cooldown is complete.
-			if(this.actionEnd > this.timer.frame) { return; }
+			if(this.actionEnd > this.timer.Frame) { return; }
 
 			Bounds bounds = this.actor.bounds;
 
@@ -76,7 +76,7 @@ namespace Nexus.ObjectComponents {
 
 		protected virtual void BeginStall() {
 			this.actor.SetState(ActorState.Wait);
-			this.actionEnd = this.timer.frame + this.stallDuration;
+			this.actionEnd = this.timer.Frame + this.stallDuration;
 			this.dirRight = this.actor.FaceRight;
 		}
 
@@ -85,7 +85,7 @@ namespace Nexus.ObjectComponents {
 			this.actor.physics.StopX();
 
 			// Wait until the stall is complete:
-			if(this.actionEnd > this.timer.frame) { return; }
+			if(this.actionEnd > this.timer.Frame) { return; }
 
 			// Activate Charge
 			this.StartAction();
@@ -93,11 +93,11 @@ namespace Nexus.ObjectComponents {
 
 		protected virtual void StartAction() {
 			this.actor.SetState(ActorState.Special);
-			this.actionEnd = this.timer.frame + this.actionDuration;
+			this.actionEnd = this.timer.Frame + this.actionDuration;
 		}
 		
 		protected virtual void RunAction() {
-			if(this.actionEnd > this.timer.frame) {
+			if(this.actionEnd > this.timer.Frame) {
 				this.EndAction();
 				return;
 			}
@@ -105,7 +105,7 @@ namespace Nexus.ObjectComponents {
 
 		protected virtual void EndAction( ActorState state = ActorState.Move ) {
 			this.actor.SetState(state);
-			this.actionEnd = this.timer.frame + this.cooldownDuration;
+			this.actionEnd = this.timer.Frame + this.cooldownDuration;
 		}
 
 		public override void RunTick() {

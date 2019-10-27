@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 			Physics physics = enemy.physics;
 
 			status.action = ActionMap.DeathEnemy;
-			status.actionEnds = Systems.timer.frame + 80;
+			status.actionEnds = Systems.timer.Frame + 80;
 
 			// Knockout
 			if(deathResult == DeathResult.Knockout) {
@@ -42,7 +42,7 @@ namespace Nexus.ObjectComponents {
 
 			// Standard Squish
 			else if(deathResult == DeathResult.Squish) {
-				status.actionEnds = Systems.timer.frame + 25;
+				status.actionEnds = Systems.timer.Frame + 25;
 
 				// Lock the enemy in position. Since it's .activity is now set to NoCollide, it won't change its position.
 				physics.SetGravity(FInt.Create(0));

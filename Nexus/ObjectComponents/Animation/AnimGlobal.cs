@@ -11,12 +11,12 @@ namespace Nexus.ObjectComponents {
 
 		// Returns TRUE if we're on an update cycle.
 		public bool IsAnimationTick( TimerGlobal timer) {
-			return timer.frame % 15 == 0;
+			return timer.Frame % 15 == 0;
 		}
 
 		// Cycle Global Animation Tick. Cycles between two texture IDs:
 		public byte GetAnimationId( TimerGlobal timer ) {
-			return timer.frame % 30 == 0 ? (byte) 2 : (byte) 1;
+			return timer.Frame % 30 == 0 ? (byte) 2 : (byte) 1;
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace Nexus.ObjectComponents {
 			status.jumpsUsed = 1;
 
 			status.action = ActionMap.WallJump;
-			status.actionEnds = Systems.timer.frame + stats.WallJumpDuration + extraDuration;
+			status.actionEnds = Systems.timer.Frame + stats.WallJumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.WallJumpDuration + extraDuration - minimumDuration);     // Minimum Duration
 			status.actionBool1 = true; // TRUE if the Jump Key is down
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
@@ -63,7 +63,7 @@ namespace Nexus.ObjectComponents {
 			physics.velocity.Y = 0 - jumpStrength;
 			
 			// If the jump button has been released and the minimum duration has ended, end the jump:
-			if(!status.actionBool1 && Systems.timer.frame > character.status.actionEnds - status.actionNum1) {
+			if(!status.actionBool1 && Systems.timer.Frame > character.status.actionEnds - status.actionNum1) {
 				this.EndAction(character);
 				return;
 			}

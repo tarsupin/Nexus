@@ -46,7 +46,7 @@ namespace Nexus.GameEngine {
 		public bool EnemyHitsItem(Enemy enemy, Item item, DirCardinal dir) {
 
 			// If the item is intangible, don't collide with the item.
-			if(item.intangible > Systems.timer.frame) { return false; }
+			if(item.intangible > Systems.timer.Frame) { return false; }
 
 			// TODO: LOTS OF STUFF HERE.
 			// TODO: GRABBING, HOLDING, PICK UP ITEMS, ETC.

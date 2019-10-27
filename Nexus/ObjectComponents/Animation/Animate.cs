@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 			if(this.CycleId >= this.AnimCycles.Length) { this.CycleId = 0; }
 
 			// Update the next frame that the animation will tick.
-			this.NextFrame = timer.frame + this.AnimSpeed;
+			this.NextFrame = timer.Frame + this.AnimSpeed;
 
 			// Update the actor's sprite name according to the next animation cycle.
 			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);
@@ -50,7 +50,7 @@ namespace Nexus.ObjectComponents {
 			if(this.AnimCycles.Length <= 1) { return false; }
 
 			// Check if the Animation Tick has met the next frame required.
-			return this.NextFrame <= timer.frame;
+			return this.NextFrame <= timer.Frame;
 		}
 
 		// Sets a designated animation.
@@ -66,7 +66,7 @@ namespace Nexus.ObjectComponents {
 			this.AnimCycles = animCycles;
 			this.AnimSpeed = animSpeed;
 			this.CycleId = cycleId;
-			this.NextFrame = Systems.timer.frame + animSpeed;
+			this.NextFrame = Systems.timer.Frame + animSpeed;
 
 			// Update the actor's sprite name according to the next animation cycle.
 			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);

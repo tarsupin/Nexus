@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 		public override void RunTick() {
 
 			// If the death sequence is active, test for when it ends.
-			if(this.DeathSequence > 0 && Systems.timer.frame > this.DeathSequence) {
+			if(this.DeathSequence > 0 && Systems.timer.Frame > this.DeathSequence) {
 				this.DeathSequence = 0;
 				this.Disable();
 				return;
@@ -52,7 +52,7 @@ namespace Nexus.Objects {
 			if(objArch == Arch.Ground || objArch == Arch.Block || objArch == Arch.ToggleBlock) {
 
 				// The projectile collided; bounce against the ground. Set it's death sequence values:
-				this.DeathSequence = Systems.timer.frame + 10;
+				this.DeathSequence = Systems.timer.Frame + 10;
 				this.physics.velocity.Y = FInt.Create(-4);
 
 				// TODO SOUND:

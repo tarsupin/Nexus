@@ -20,7 +20,7 @@ namespace Nexus.ObjectComponents {
 			status.action = ActionMap.AirBurst;
 			status.actionNum1 = directionHor;
 			status.actionNum2 = directionVert;
-			status.actionEnds = Systems.timer.frame + this.duration + extraDuration;
+			status.actionEnds = Systems.timer.Frame + this.duration + extraDuration;
 
 			// Horizontal Movements have a longer duration, since we're trying to ignore gravity for that duration.
 			if(directionVert == 0) {
@@ -46,7 +46,7 @@ namespace Nexus.ObjectComponents {
 		public override void RunAction( Character character ) {
 
 			// End the action after the designated number of frames has elapsed:
-			if(Systems.timer.frame > character.status.actionEnds) {
+			if(Systems.timer.Frame > character.status.actionEnds) {
 				this.EndAction( character );
 				return;
 			}

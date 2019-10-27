@@ -135,21 +135,21 @@ namespace Nexus.Engine {
 
 		// Camera Shake
 		public void BeginCameraShake( byte framesDuration, byte strength ) {
-			this.shakeStart = this.time.frame;
+			this.shakeStart = this.time.Frame;
 			this.shakeEnd = this.shakeStart + framesDuration;
 			this.shakeStrength = strength;
 		}
 
 		public bool IsShaking() {
-			return this.shakeEnd > this.time.frame;
+			return this.shakeEnd > this.time.Frame;
 		}
 
 		public int GetCameraShakeOffsetX() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (this.time.frame % 15) / 15);
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (this.time.Frame % 15) / 15);
 		}
 
 		public int GetCameraShakeOffsetY() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (this.time.frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (this.time.Frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
 		}
 	}
 }

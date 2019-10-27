@@ -67,7 +67,7 @@ namespace Nexus.Engine {
 		public void RunEmitterTick() {
 
 			// End the Emitter once it's duration has ended.
-			if(this.frameEnd < Systems.timer.frame) {
+			if(this.frameEnd < Systems.timer.Frame) {
 				this.ReturnEmitter();
 				return;
 			}
@@ -84,7 +84,7 @@ namespace Nexus.Engine {
 		public void Draw() {
 
 			// Determine Alpha of Particle (can be affected by fading)
-			uint frame = Systems.timer.frame;
+			uint frame = Systems.timer.Frame;
 			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
 			// Loop Through Particles, Draw:

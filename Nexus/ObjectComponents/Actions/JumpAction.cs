@@ -27,7 +27,7 @@ namespace Nexus.ObjectComponents {
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
 
 			status.action = ActionMap.Jump;
-			status.actionEnds = Systems.timer.frame + stats.JumpDuration + extraDuration;
+			status.actionEnds = Systems.timer.Frame + stats.JumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);
 			status.actionBool1 = true; // TRUE if the Jump Key is down
@@ -38,7 +38,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public static bool MinimumTimePassed( CharacterStatus status ) {
-			return Systems.timer.frame > status.actionEnds - status.actionNum2;
+			return Systems.timer.Frame > status.actionEnds - status.actionNum2;
 		}
 
 		public override void RunAction( Character character ) {

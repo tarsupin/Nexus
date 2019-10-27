@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 		public override void RunTick() {
 
 			// Identify Position based on Global Timing
-			float weight = (Systems.timer.frame + this.offset) % this.duration;
+			float weight = (Systems.timer.Frame + this.offset) % this.duration;
 			weight /= this.duration;
 
 			// Assign Next Velocity

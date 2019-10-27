@@ -17,6 +17,7 @@ namespace Nexus.GameEngine {
 		// References
 		protected readonly LocalServer localServer;
 		protected readonly CollideSequence collideSequence;
+		protected readonly LevelUI levelUI;
 		public Stopwatch stopwatch;
 
 		// Components
@@ -34,7 +35,7 @@ namespace Nexus.GameEngine {
 
 		public LevelScene() : base() {
 
-			// TODO CLEANUP: Debugging stopwatch should be removed.
+			// TODO CLEANUP: Debugging stopwatch should be removed. Or converted to static access, like Systems.timer.stopwatch.
 			this.stopwatch = new Stopwatch();
 
 			// References
@@ -66,6 +67,9 @@ namespace Nexus.GameEngine {
 
 			// Generate Room 0
 			Systems.handler.level.generate.GenerateRoom(this, "0");
+
+			// Create UI
+			this.levelUI = new LevelUI(this);
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }
@@ -240,6 +244,9 @@ namespace Nexus.GameEngine {
 			// Debugging
 			//this.stopwatch.Stop();
 			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+
+			// Draw Level UI
+			this.levelUI.Draw();
 		}
 
 		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {

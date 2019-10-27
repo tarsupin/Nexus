@@ -279,7 +279,7 @@ namespace Nexus.Objects {
 
 				// Delayed Wall Jump
 				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
-				if(this.status.leaveWall >= Systems.timer.frame) {
+				if(this.status.leaveWall >= Systems.timer.Frame) {
 					ActionMap.WallJump.StartAction(this, this.status.grabDir);
 
 					// Double Jump

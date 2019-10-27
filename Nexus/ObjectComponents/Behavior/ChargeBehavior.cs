@@ -31,7 +31,7 @@ namespace Nexus.ObjectComponents {
 			Touch touch = this.actor.physics.touch;
 
 			// End charge when touching ground and action has expired.
-			if(touch.toBottom && this.actionEnd < this.timer.frame) {
+			if(touch.toBottom && this.actionEnd < this.timer.Frame) {
 				this.EndAction(ActorState.MotionEnd);
 				return;
 			}

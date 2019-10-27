@@ -21,7 +21,7 @@ namespace Nexus.ObjectComponents {
 			if(status.action is HoverAction && !this.HasTimeElapsed(character)) { return; }
 
 			status.action = ActionMap.Hover;
-			status.actionEnds = Systems.timer.frame + this.duration;
+			status.actionEnds = Systems.timer.Frame + this.duration;
 			status.actionBool1 = horizontalOnly;
 
 			character.physics.SetGravity((FInt) 0);

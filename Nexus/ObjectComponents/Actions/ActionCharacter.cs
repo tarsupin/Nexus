@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 	public class ActionCharacter : Action {
 
 		public bool HasTimeElapsed( Character character ) {
-			return Systems.timer.frame > character.status.actionEnds;
+			return Systems.timer.Frame > character.status.actionEnds;
 		}
 
 		public virtual void RunAction( Character character ) {}

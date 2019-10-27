@@ -42,7 +42,7 @@ namespace Nexus.ObjectComponents {
 			TimerGlobal timer = Systems.timer;
 
 			// Delay if last activation was too recent.
-			if(timer.frame < this.lastActivation) { return false; }
+			if(timer.Frame < this.lastActivation) { return false; }
 
 			// If this character is a fast caster, run special activation behaviors:
 			byte fastCastMult = this.character.stats.CanFastCast ? (byte) 2 : (byte) 1;
@@ -51,13 +51,13 @@ namespace Nexus.ObjectComponents {
 			foreach( uint i in this.lastUseTracker ) {
 
 				// If we found an available activation slot:
-				if(timer.frame > this.lastUseTracker[i]) {
+				if(timer.Frame > this.lastUseTracker[i]) {
 
 					// Consume this activation for now:
-					this.lastUseTracker[i] = (uint)(timer.frame + this.cooldown / fastCastMult);
+					this.lastUseTracker[i] = (uint)(timer.Frame + this.cooldown / fastCastMult);
 
 					// Set most recent activation:
-					this.lastActivation = (uint)(timer.frame + this.delayBetweenUses / fastCastMult);
+					this.lastActivation = (uint)(timer.Frame + this.delayBetweenUses / fastCastMult);
 
 					return true;
 				}

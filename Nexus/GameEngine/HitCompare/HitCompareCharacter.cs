@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 		public bool CharHitsItem( Character character, Item item ) {
 
 			// If the entity is intangible, don't collide with the Character.
-			if(item.intangible > Systems.timer.frame) { return false; }
+			if(item.intangible > Systems.timer.Frame) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, item);
 

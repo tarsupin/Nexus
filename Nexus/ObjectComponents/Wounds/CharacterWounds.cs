@@ -8,8 +8,8 @@ namespace Nexus.ObjectComponents {
 	public class CharacterWounds {
 
 		// References
-		private Character character;
-		private TimerGlobal timer;
+		private readonly Character character;
+		private readonly TimerGlobal timer;
 
 		// Wound Settings
 		public byte InvincibleDuration;     // The # of ticks after getting damaged the character is invicible.
@@ -19,9 +19,9 @@ namespace Nexus.ObjectComponents {
 		public byte ArmorAfterDeath;        // The number of armor restored after a death.
 
 		// Wound Values
-		protected uint Invincible;             // If >= time.frame, the character is invincible to standard damage.
-		protected byte Armor;                  // Each health soaks one damage, only after equipment is lost.
-		protected byte Health;                 // Each armor soaks one damage, prior to equipment loss (thus preventing Suit and Hat loss).
+		protected uint Invincible;					// If >= time.frame, the character is invincible to standard damage.
+		public byte Armor { get; protected set; }	// Each health soaks one damage, only after equipment is lost.
+		public byte Health { get; protected set; }	// Each armor soaks one damage, prior to equipment loss (thus preventing Suit and Hat loss).
 
 		public CharacterWounds(Character character, TimerGlobal timer) {
 			this.character = character;
@@ -30,7 +30,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public bool IsInvincible {
-			get { return this.Invincible >= this.timer.frame; }
+			get { return this.Invincible >= this.timer.Frame; }
 		}
 
 		public void ResetWoundSettings() {
@@ -40,13 +40,13 @@ namespace Nexus.ObjectComponents {
 			HealthAfterDeath = 0;
 			ArmorAfterDeath = 0;
 
-			// TODO LOW PRIORITY: Update Character Wounds with: Suit, Hat, Cheats, Game Mode, Character Archetype, etc...
+			// TODO LOW PRIORITY: Add wound settings from: Suit, Hat, Cheats, Game Mode, Character Archetype, etc...
 
 			this.WoundsDeathReset();
 		}
 
 		public void WoundsDeathReset() {
-			this.Invincible = this.timer.frame + this.InvincibleDuration;
+			this.Invincible = this.timer.Frame + this.InvincibleDuration;
 			this.Armor = ArmorAfterDeath;
 			this.Health = HealthAfterDeath;
 		}
@@ -63,7 +63,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void SetInvincible( uint duration ) {
-			this.Invincible = this.timer.frame + duration;
+			this.Invincible = this.timer.Frame + duration;
 		}
 
 		public bool ReceiveWoundDamage( DamageStrength damageStrength ) {
@@ -74,38 +74,33 @@ namespace Nexus.ObjectComponents {
 			// If the Character is Invincible, no damage taken.
 			if(this.IsInvincible) { return false; }
 
-			// TODO SOUND: this.scene.soundList.wound.play();
+			// Wound Sound
+			Systems.sounds.wound.Play();
 
 			// Damage will be soaked by Armor, if available. Occurs before damaging equipment (e.g. Suit, Hat, etc.)
 			if(this.Armor > 0) {
 				this.Armor--;
-				// TODO UI: Update ARMOR UI
-				// this.scene.healthIcons.updateIcons( this.status.health, this.status.armor );
 				this.SetInvincible(this.InvincibleDuration);
 				return true;
 			}
 
 			// Damage will be soaked by destroying Hat, if one is available.
-			// TODO HIGH PRIORITY: Character Hat, Protective
-			//if(this.character.Hat && this.Hat.IsProtective) {
-			//	this.SetInvincible(this.InvincibleDuration);
-			//  this.character.Hat.DestroyHat();
-			//	return true;
-			//}
+			if(this.character.hat is Hat && this.character.hat.IsPowerHat) {
+				this.SetInvincible(this.InvincibleDuration);
+				this.character.hat.DestroyHat();
+				return true;
+			}
 
 			// Damage will be soaked by destroying Suit, if one is available.
-			// TODO HIGH PRIORITY: Character Suit, Protective
-			//if(this.character.Suit && this.Suit.IsProtective) {
-			//	this.SetInvincible(this.InvincibleDuration);
-			//	this.character.Suit.DestroySuit();
-			//	return true;
-			//}
+			if(this.character.suit is Suit && this.character.suit.IsPowerSuit) {
+				this.SetInvincible(this.InvincibleDuration);
+				this.character.suit.DestroySuit();
+				return true;
+			}
 
 			// Damage will be soaked by Health, if available. Last attempt to soak damage.
 			if(this.Health > 0) {
 				this.Health--;
-				// TODO UI
-				// this.scene.healthIcons.updateIcons( this.status.health, this.status.armor );
 				this.SetInvincible(this.InvincibleDuration);
 				return true;
 			}
@@ -131,11 +126,11 @@ namespace Nexus.ObjectComponents {
 
 			if(this.Invincible > 0) { this.Invincible = 0; }
 
-			// TODO HIGH PRIORITY: Add Character Actions
-			//if(this.action is Action) { this.action = null; }
+			// Nullify Action, if applicable.
+			if(this.character.status.action is Action) { this.character.status.action = null; }
 
-			// TODO SOUND: Play Death Sound
-			// this.scene.soundList.crack.play();
+			// Play Death Sound
+			Systems.sounds.crack.Play();
 
 			// Run Level Death
 			levelState.Die();

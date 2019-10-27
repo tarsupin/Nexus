@@ -118,6 +118,7 @@
     <Compile Include="Engine\Particles\ParticleManager.cs" />
     <Compile Include="Engine\Particles\ParticleSimple.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
+    <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
@@ -399,6 +400,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Atlas\World.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\BaseText.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

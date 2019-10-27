@@ -17,7 +17,7 @@ namespace Nexus.ObjectComponents {
 			CharacterStatus status = character.status;
 
 			status.action = ActionMap.Slide;
-			status.actionEnds = Systems.timer.frame + character.stats.SlideDuration;
+			status.actionEnds = Systems.timer.Frame + character.stats.SlideDuration;
 			status.actionBool1 = slideRight;
 			status.nextSlide = status.actionEnds + character.stats.SlideWaitDuration;
 
@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 			sbyte velX = (sbyte) character.physics.velocity.X.IntValue;
 
 			// Make sure the character's slide timer has cooled down.
-			if(status.nextSlide > Systems.timer.frame) { return false; }
+			if(status.nextSlide > Systems.timer.Frame) { return false; }
 
 			// Make sure you're facing the same direction you have momentum in.
 			if(slideRight && velX < 0) { return false; }

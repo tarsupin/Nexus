@@ -14,7 +14,9 @@ namespace Nexus
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 
-		public EmitterSimple TESTEMITTER;		// TODO CLEANUP: DELETE
+		public EmitterSimple TESTEMITTER;       // TODO CLEANUP: DELETE
+
+		public SpriteFont font; // TODO CLEANUP: REMOVE
 
 		public GameClient() {
 			graphics = new GraphicsDeviceManager(this);
@@ -56,6 +58,9 @@ namespace Nexus
 			Window.AllowUserResizing = true;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
+
+			// Load Fonts
+			this.font = Content.Load<SpriteFont>("BaseText");
 
 			// TODO: use this.Content to load your game content here
 
@@ -114,6 +119,7 @@ namespace Nexus
 			//);
 
 			this.TESTEMITTER.Draw();
+			this.spriteBatch.DrawString(this.font, "Score", new Vector2(100, 100), Color.Black);
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);

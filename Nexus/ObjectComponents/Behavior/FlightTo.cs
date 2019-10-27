@@ -35,7 +35,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void BeginMovement() {
-			this.startFrame = Systems.timer.frame;
+			this.startFrame = Systems.timer.Frame;
 
 			if(this.countdown > 0) {
 				this.endFrame = (uint) (this.startFrame + (this.countdown * 60));
@@ -57,13 +57,13 @@ namespace Nexus.ObjectComponents {
 			else if(this.startFrame > 0) {
 
 				// Begin Movement
-				if(this.startFrame == Systems.timer.frame) {
+				if(this.startFrame == Systems.timer.Frame) {
 					this.physics.velocity.X = this.speedX;
 					this.physics.velocity.Y = this.speedY;
 				}
 
 				// If the countdown has ended, begin the falling process.
-				if(this.endFrame > 0 && this.endFrame > Systems.timer.frame) {
+				if(this.endFrame > 0 && this.endFrame > Systems.timer.Frame) {
 					this.isFalling = true;
 				}
 			}
