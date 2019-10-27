@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	class CollectableSuit : Collectable {
 
-		public enum SuitSubType {
+		public enum SuitSubType : byte {
 			RandomSuit = 0,
 			RandomNinja = 1,
 			RandomWizard = 2,

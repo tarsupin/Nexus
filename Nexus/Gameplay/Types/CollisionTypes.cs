@@ -59,16 +59,6 @@ namespace Nexus.Gameplay {
 		None = 0,
 	}
 
-	public interface ITouching {
-		bool Any { get; set; }
-		GameObject Platform { get; set; }
-		bool Floor { get; set; }
-		bool Left { get; set; }
-		bool Right { get; set; }
-		bool Top { get; set; }
-		bool Down { get; set; }
-	}
-
 	public interface IItemGripCardinal {
 		Vector2 Left { get; set; }
 		Vector2 Right { get; set; }

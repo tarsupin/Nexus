@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	class CollectableHat : Collectable {
 
-		public enum HatSubType {
+		public enum HatSubType : byte {
 			RandomHat = 0,
 			AngelHat = 1,
 			BambooHat = 2,

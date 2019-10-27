@@ -238,7 +238,7 @@ namespace Nexus.Gameplay {
 			{ 46, Type.GetType("Nexus.Objects.ElementalEarth") },
 			{ 47, Type.GetType("Nexus.Objects.ElementalFire") },
 
-			{ 50, Type.GetType("Nexus.Objects.Buzz") },
+			{ 48, Type.GetType("Nexus.Objects.Buzz") },
 
 			{ 60, Type.GetType("Nexus.Objects.Saw") },
 			{ 61, Type.GetType("Nexus.Objects.Slammer") },

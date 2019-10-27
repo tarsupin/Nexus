@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	class CollectablePower : Collectable {
 
-		public enum PowerSubType {
+		public enum PowerSubType : byte {
 
 			// Collectable Powers - Mobility
 			RandBook = 0,

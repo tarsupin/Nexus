@@ -32,7 +32,7 @@ namespace Nexus.ObjectComponents {
 
 			// End charge when touching ground and action has expired.
 			if(touch.toBottom && this.actionEnd < this.timer.frame) {
-				this.EndAction(ActorState.MoveLand);
+				this.EndAction(ActorState.MotionEnd);
 				return;
 			}
 
@@ -40,13 +40,13 @@ namespace Nexus.ObjectComponents {
 			if(this.dirRight) {
 				if(touch.toRight) {
 					this.actor.physics.StopX();
-					this.EndAction(ActorState.RestStunned);
+					this.EndAction(ActorState.Wait);
 					return;
 				}
 			} else {
 				if(touch.toLeft) {
 					this.actor.physics.StopX();
-					this.EndAction(ActorState.RestStunned);
+					this.EndAction(ActorState.Wait);
 					return;
 				}
 			}

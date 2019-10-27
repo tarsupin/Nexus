@@ -1,6 +1,4 @@
-﻿
-using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.Engine;
 
 namespace Nexus.Gameplay {
 
@@ -20,7 +18,7 @@ namespace Nexus.Gameplay {
 		}
 	}
 
-	public enum MetaGroup {
+	public enum MetaGroup : byte {
 		Ground,
 		Ledge,
 		Decor,

@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class Physics {
 
 		// Object Reference
-		protected DynamicGameObject objRef;
+		protected DynamicGameObject actor;
 
 		// Physics Values
 		public FVector physPos;			// The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
@@ -19,13 +19,13 @@ namespace Nexus.ObjectComponents {
 
 		protected bool hasExtraMovement;
 
-		public Physics( DynamicGameObject objRef ) {
-			this.objRef = objRef;
+		public Physics( DynamicGameObject actor ) {
+			this.actor = actor;
 
-			this.physPos = FVector.Create(this.objRef.posX, this.objRef.posY);
+			this.physPos = FVector.Create(this.actor.posX, this.actor.posY);
 
-			this.lastPosX = this.objRef.posX;
-			this.lastPosY = this.objRef.posY;
+			this.lastPosX = this.actor.posX;
+			this.lastPosY = this.actor.posY;
 
 			this.velocity = new FVector();
 			this.extraMovement = new FVector();
@@ -35,8 +35,8 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// Get Amount Moved
-		public int AmountMovedX { get { return this.objRef.posX - this.lastPosX; } }
-		public int AmountMovedY { get { return this.objRef.posY - this.lastPosY; } }
+		public int AmountMovedX { get { return this.actor.posX - this.lastPosX; } }
+		public int AmountMovedY { get { return this.actor.posY - this.lastPosY; } }
 
 		public void SetGravity( FInt gravity ) {
 			this.gravity = gravity;
@@ -64,13 +64,13 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void UpdatePosX() {
-			this.lastPosX = this.objRef.posX;
-			this.objRef.posX = this.physPos.X.IntValue;
+			this.lastPosX = this.actor.posX;
+			this.actor.posX = this.physPos.X.IntValue;
 		}
 
 		public void UpdatePosY() {
-			this.lastPosY = this.objRef.posY;
-			this.objRef.posY = this.physPos.Y.IntValue;
+			this.lastPosY = this.actor.posY;
+			this.actor.posY = this.physPos.Y.IntValue;
 		}
 
 		public void MoveToPos( FVector pos ) {

@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 
 		public void StartAction(Enemy enemy, DeathResult deathResult) {
 
-			enemy.activity = Activity.NoCollide; // Enemy still requires updates (for rotations, etc), but cannot collide.
+			enemy.SetActivity(Activity.NoCollide); // Enemy still requires updates (for rotations, etc), but cannot collide.
 
 			EnemyStatus status = enemy.status;
 			Physics physics = enemy.physics;

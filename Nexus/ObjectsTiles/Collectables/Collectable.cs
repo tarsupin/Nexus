@@ -3,6 +3,13 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
+	public enum CollectableRule : byte {
+		OneUseOnly = 0,					// The consumable can only be collected once, by one player.
+		OnePerPlayer = 1,				// The consumable can be collected once by every player.
+		Permanent = 2,					// The consumable is permanent; doesn't get consumed on use.
+		RegeneratesAfterUse = 3,		// The consumable disappears, but regenerates after a designed number of frames.
+	}
+
 	public class Collectable : TileGameObject {
 
 		protected string[] Texture;

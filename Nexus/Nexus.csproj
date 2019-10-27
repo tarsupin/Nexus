@@ -61,6 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config\DebugNexus.cs" />
+    <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
     <Compile Include="Engine\ParallaxHandler.cs" />
@@ -94,11 +95,29 @@
     <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
     <Compile Include="Engine\Particles\Emitter.cs" />
     <Compile Include="Engine\Particles\EmitterSimple.cs" />
+    <Compile Include="GameEngine\Params\ParamsClusterScreen.cs" />
+    <Compile Include="GameEngine\Params\ParamsClusterChar.cs" />
+    <Compile Include="GameEngine\Params\ParamsCluster.cs" />
+    <Compile Include="GameEngine\Params\ParamsTrack.cs" />
+    <Compile Include="GameEngine\Params\ParamsShell.cs" />
+    <Compile Include="GameEngine\Params\ParamsDoor.cs" />
+    <Compile Include="GameEngine\Params\ParamsPlacer.cs" />
+    <Compile Include="GameEngine\Params\ParamsMoveFlight.cs" />
+    <Compile Include="GameEngine\Params\ParamsMoveChase.cs" />
+    <Compile Include="GameEngine\Params\ParamsMoveBounce.cs" />
+    <Compile Include="GameEngine\Params\ParamsFireBurst.cs" />
+    <Compile Include="GameEngine\Params\ParamsEmblem.cs" />
+    <Compile Include="GameEngine\Params\ParamsContains.cs" />
+    <Compile Include="GameEngine\Params\ParamsCollectable.cs" />
+    <Compile Include="GameEngine\Params\ParamsBeats.cs" />
+    <Compile Include="GameEngine\Params\ParamsAttackEarth.cs" />
+    <Compile Include="GameEngine\Params\ParamsAttackBolt.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
     <Compile Include="GameEngine\Particles\ParticleGen.cs" />
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="Engine\Particles\ParticleManager.cs" />
     <Compile Include="Engine\Particles\ParticleSimple.cs" />
+    <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
@@ -131,12 +150,17 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
-    <Compile Include="Gameplay\Types\StatusTypes.cs" />
     <Compile Include="ObjectComponents\Actions\ActionEnemy.cs" />
     <Compile Include="ObjectComponents\Actions\DeathEnemyAction.cs" />
     <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightTo.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightQuadratic.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightCircle.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightChase.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightCharacter.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightAxis.cs" />
     <Compile Include="ObjectComponents\Behavior\HopConstantBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\HopBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\ChargeBehavior.cs" />
@@ -161,7 +185,7 @@
     <Compile Include="ObjectComponents\Hats\BambooHat.cs" />
     <Compile Include="ObjectComponents\Hats\Hat.cs" />
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
-    <Compile Include="ObjectComponents\Physics\PhysicsFlight.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightBehavior.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\SlamMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\SlowFallMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LevitateMobility.cs" />
@@ -203,6 +227,7 @@
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
+    <Compile Include="Objects\EnemyFlight\Buzz.cs" />
     <Compile Include="Objects\EnemyFlight\EnemyFlight.cs" />
     <Compile Include="Objects\EnemyLand\Bones.cs" />
     <Compile Include="Objects\EnemyLand\Turtle.cs" />

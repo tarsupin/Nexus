@@ -75,7 +75,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		protected virtual void BeginStall() {
-			this.actor.SetState(ActorState.ReactionStall);
+			this.actor.SetState(ActorState.Wait);
 			this.actionEnd = this.timer.frame + this.stallDuration;
 			this.dirRight = this.actor.FaceRight;
 		}
@@ -92,7 +92,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		protected virtual void StartAction() {
-			this.actor.SetState(ActorState.ReactionCharacter);
+			this.actor.SetState(ActorState.Special);
 			this.actionEnd = this.timer.frame + this.actionDuration;
 		}
 		
@@ -103,14 +103,14 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		protected virtual void EndAction( ActorState state = ActorState.BehaviorStandard ) {
+		protected virtual void EndAction( ActorState state = ActorState.Move ) {
 			this.actor.SetState(state);
 			this.actionEnd = this.timer.frame + this.cooldownDuration;
 		}
 
 		public override void RunTick() {
-			if(this.actor.State == ActorState.ReactionStall) { this.RunStall(); }
-			else if(this.actor.State == ActorState.ReactionCharacter) { this.RunAction(); }
+			if(this.actor.State == ActorState.Wait) { this.RunStall(); }
+			else if(this.actor.State == ActorState.Special) { this.RunAction(); }
 			else { this.WatchForCharacter(); }
 		}
 	}

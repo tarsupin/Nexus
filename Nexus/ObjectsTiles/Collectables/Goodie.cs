@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	class Goodie : Collectable {
 
-		public enum GoodieSubType {
+		public enum GoodieSubType : byte {
 			Apple = 0,
 			Pear = 1,
 			Heart = 2,
@@ -55,30 +55,30 @@ namespace Nexus.Objects {
 		private void CreateTextures() {
 			this.Texture = new string[20];
 			
-			this.Texture[(byte)GoodieSubType.Apple] = "Goodie/Apple";
-			this.Texture[(byte)GoodieSubType.Pear] = "Goodie/Pear";
-			this.Texture[(byte)GoodieSubType.Heart] = "Goodie/Heart";
-			this.Texture[(byte)GoodieSubType.Shield] = "Goodie/Shield";
-			this.Texture[(byte)GoodieSubType.ShieldPlus] = "Goodie/ShieldPlus";
+			this.Texture[(byte) GoodieSubType.Apple] = "Goodie/Apple";
+			this.Texture[(byte) GoodieSubType.Pear] = "Goodie/Pear";
+			this.Texture[(byte) GoodieSubType.Heart] = "Goodie/Heart";
+			this.Texture[(byte) GoodieSubType.Shield] = "Goodie/Shield";
+			this.Texture[(byte) GoodieSubType.ShieldPlus] = "Goodie/ShieldPlus";
 
-			this.Texture[(byte)GoodieSubType.Guard] = "Goodie/Guard";
-			this.Texture[(byte)GoodieSubType.GuardPlus] = "Goodie/GuardPlus";
+			this.Texture[(byte) GoodieSubType.Guard] = "Goodie/Guard";
+			this.Texture[(byte) GoodieSubType.GuardPlus] = "Goodie/GuardPlus";
 
-			this.Texture[(byte)GoodieSubType.Shiny] = "Goodie/Shiny";
-			this.Texture[(byte)GoodieSubType.Stars] = "Goodie/Stars";
-			this.Texture[(byte)GoodieSubType.GodMode] = "Goodie/GodMode";
+			this.Texture[(byte) GoodieSubType.Shiny] = "Goodie/Shiny";
+			this.Texture[(byte) GoodieSubType.Stars] = "Goodie/Stars";
+			this.Texture[(byte) GoodieSubType.GodMode] = "Goodie/GodMode";
 
-			this.Texture[(byte)GoodieSubType.Plus5] = "Goodie/Plus5";
-			this.Texture[(byte)GoodieSubType.Plus10] = "Goodie/Plus10";
-			this.Texture[(byte)GoodieSubType.Plus20] = "Goodie/Plus20";
-			this.Texture[(byte)GoodieSubType.Set5] = "Goodie/Set5";
-			this.Texture[(byte)GoodieSubType.Set10] = "Goodie/Set10";
-			this.Texture[(byte)GoodieSubType.Set20] = "Goodie/Set20";
+			this.Texture[(byte) GoodieSubType.Plus5] = "Goodie/Plus5";
+			this.Texture[(byte) GoodieSubType.Plus10] = "Goodie/Plus10";
+			this.Texture[(byte) GoodieSubType.Plus20] = "Goodie/Plus20";
+			this.Texture[(byte) GoodieSubType.Set5] = "Goodie/Set5";
+			this.Texture[(byte) GoodieSubType.Set10] = "Goodie/Set10";
+			this.Texture[(byte) GoodieSubType.Set20] = "Goodie/Set20";
 
-			this.Texture[(byte)GoodieSubType.Disrupt] = "Goodie/Disrupt";
-			this.Texture[(byte)GoodieSubType.Explosive] = "Goodie/Explosive";
-			this.Texture[(byte)GoodieSubType.Key] = "Goodie/Key";
-			this.Texture[(byte)GoodieSubType.Blood] = "Goodie/Blood";
+			this.Texture[(byte) GoodieSubType.Disrupt] = "Goodie/Disrupt";
+			this.Texture[(byte) GoodieSubType.Explosive] = "Goodie/Explosive";
+			this.Texture[(byte) GoodieSubType.Key] = "Goodie/Key";
+			this.Texture[(byte) GoodieSubType.Blood] = "Goodie/Blood";
 		}
 	}
 }

@@ -14,23 +14,20 @@ namespace Nexus.GameEngine {
 	}
 
 	public enum ActorState : byte {
-		RestStandard,				// No special state for the actor. Just resting / inactive.
-		RestSpecial,				// Special resting.
-		RestStall,					// Waiting or stalling.
-		RestStunned,				// Stunned (collided with wall, etc).
-		MoveStandard,				// Standard movement for the actor.
-		MoveSustain,				// Sustained movement, such as after a jump.
-		MoveAir,					// Moving through the air.
-		MoveLand,					// Landing, such as after a jump.
-		MoveSpecial,				// Special movement.
-		BehaviorStandard,			// Performing its standard behavior.
-		BehaviorSpecial,			// Performing a variant of its behavior.
-		ActionStandard,				// Performing a standard action.
-		ActionSpecial,				// Performing a variant or special action.
-		ReactionCharacter,			// Reacting to a Character.
-		ReactionEnvironment,		// Reacting to the environment.
-		ReactionStall,				// Stall that occurs after a reaction (e.g. brief pause, charging up).
-		ReactingSpecial,			// Special Reaction.
+		Undefined,					// No current state.
+		Move,                       // Standard movement for the actor.
+		Wait,                       // Waiting motion; often occurs after a reaction (e.g. brief pause while charging up).
+		MotionStart,                // An active motion caused by a creature's decision to act (e.g. jumping), even if that decision is based on a cycle (such as hopping).
+		Motion,						// Indicates sustained movement, such as jumping.
+		MotionEnd,                  // Signals ending a motion, such as landing after a jump.
+		SpecialStart,				// The start of a special movement or action.
+		Special,					// Special movement, decision, or action.
+		SpecialEnd,					// The end of a special action.
+		SpecialWait,				// A wait or stall that is associated with the special action.
+		OtherStart,					// The start of a secondary special action.
+		Other,						// Secondary movement, decision, or action.
+		OtherEnd,					// The end of a secondary action.
+		OtherWait,					// A wait or stall that is associated with the secondary action.
 	}
 
 	public class DynamicGameObject : GameObject {
