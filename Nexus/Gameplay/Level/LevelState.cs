@@ -1,6 +1,8 @@
 ﻿
 using Newtonsoft.Json;
 using Nexus.Engine;
+using Nexus.Objects;
+using System;
 
 namespace Nexus.Gameplay {
 
@@ -18,9 +20,10 @@ namespace Nexus.Gameplay {
 		public byte roomId;             // Room ID (0 to 9)
 
 		// Tracking
-		public ushort coins;			// # of coins currently gathered.
+		public ushort coins;            // # of coins currently gathered.
 
 		// Timer
+		public uint frameStarted;		// The frame when the timer started.
 		public int timeShift;           // The number of frames added or removed from the timer (for when timer collectables are acquired).
 
 		// Locations
@@ -72,14 +75,18 @@ namespace Nexus.Gameplay {
 			this.LevelReset();
 		}
 
-		// TODO HIGH PRIORITY: Time Reset (see LevelState.ts)
+		// Time Reset
 		public void TimerReset() {
 			this.timer.ResetTimer();
+			this.frameStarted = this.timer.Frame;
 			this.timeShift = 0;
 		}
 
-		// TODO HIGH PRIORITY: Frames Remaining (see LevelState.ts)
-		// TODO HIGH PRIORITY: Time Remaining (track by 60 frames) (see LevelState.ts)
+		// Time Elapsed and Remaining
+		public uint FramesElapsed { get { return this.timer.Frame - this.frameStarted; } }
+		public ushort TimeElapsed { get { return (ushort) Math.Ceiling((double) this.FramesElapsed / 60); } }
+		public uint FramesRemaining { get { return (300 * 60) + this.frameStarted - this.timer.Frame; } }
+		public ushort TimeRemaining { get { return (ushort) Math.Ceiling((double) this.FramesRemaining / 60); } }
 
 		// Performs a Full Level Reset (to the beginning)
 		public void FullLevelReset() {
@@ -95,7 +102,7 @@ namespace Nexus.Gameplay {
 		// Resets Level to Last Flag
 		public void LevelReset() {
 			this.TimerReset();
-			this.SetCoins();
+			this.SetCoins(null);
 			this.ResetFlags();
 		}
 
@@ -104,8 +111,9 @@ namespace Nexus.Gameplay {
 			this.retryFlag.active = false;
 		}
 
-		public void SetCoins(ushort coins = 0) { this.coins = coins; }
-		public void AddCoins(ushort coins = 0) { this.coins += coins; }
+		// Coins must identify the Character, since some levels will distribute coins directly to characters.
+		public virtual void SetCoins( Character character, ushort coins = 0) { this.coins = coins; }
+		public virtual void AddCoins( Character character, ushort coins = 0) { this.coins += coins; }
 
 		// TODO HIGH PRIORITY: Set Checkpoint by "Flag" object
 		public void SetCheckpoint() {
@@ -159,7 +167,7 @@ namespace Nexus.Gameplay {
 			LevelJson level = JsonConvert.DeserializeObject<LevelJson>(json);
 
 			this.SetLevel(level.levelId, level.roomId);
-			this.SetCoins(level.coins);
+			this.SetCoins(null, level.coins);
 			this.SetCheckpoint(); // set to level.checkpoint
 			this.SetRetry(); // set to level.retryFlag
 			this.timeShift = level.timeShift;

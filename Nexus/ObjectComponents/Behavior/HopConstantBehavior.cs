@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 
 			// If we're on the two beats, the hop can be triggered and sustained (6 frame duration).
 			// Note that any enemies with Activity.Inactive will not hop, but will resyncronize.
-			if(Systems.timer.beat <= 1) {
+			if(Systems.timer.tick20Modulus <= 1) {
 
 				// Only start hop if touching the ground.
 				if(this.actor.physics.touch.toBottom) { this.StartHop(); }

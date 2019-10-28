@@ -106,8 +106,6 @@ namespace Nexus
 			Systems.scene.Draw();
 
 			this.TESTEMITTER.Draw();
-			Systems.fonts.baseText.Draw("Score this yo.", 100, 100, Color.White);
-			Systems.fonts.counter.Draw("174", 100, 300, Color.White);
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);

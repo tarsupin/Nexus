@@ -1,7 +1,13 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
+
+	public enum CoinsSubType : byte {
+		Coin = 0,
+		Gem = 1,
+	}
 
 	class Coins : Collectable {
 
@@ -20,9 +26,18 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override void Collect(uint gridId) {
-			// TODO SOUND: Collect Coins
-			base.Collect(gridId);
+		public override void Collect( Character character, uint gridId ) {
+			Systems.sounds.coin.Play();
+
+			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+
+			if(subType == (byte)CoinsSubType.Coin) {
+				Systems.handler.levelState.AddCoins(character, 1);
+			} else if(subType == (byte)CoinsSubType.Gem) {
+				Systems.handler.levelState.AddCoins(character, 10);
+			}
+
+			base.Collect(character, gridId);
 		}
 
 		private void CreateTextures() {

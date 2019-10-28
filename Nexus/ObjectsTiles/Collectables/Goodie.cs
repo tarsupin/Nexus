@@ -47,9 +47,12 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override void Collect(uint gridId) {
+		public override void Collect(Character character, uint gridId) {
 			// TODO SOUND: Collect Goodie
-			base.Collect(gridId);
+			// TODO: MANY THINGS HERE
+			// TODO: MANY THINGS HERE
+			// TODO: MANY THINGS HERE
+			base.Collect(character, gridId);
 		}
 
 		private void CreateTextures() {

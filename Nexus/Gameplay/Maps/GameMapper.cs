@@ -166,8 +166,8 @@ namespace Nexus.Gameplay {
 			{ 156, Type.GetType("Nexus.Objects.DoorLock") },
 			
 			// Collectables (160 - 169)
-			{ 160, Type.GetType("Nexus.Objects.CollectableCoin") },
-			{ 161, Type.GetType("Nexus.Objects.CollectableGoodie") },
+			{ 160, Type.GetType("Nexus.Objects.Coins") },
+			{ 161, Type.GetType("Nexus.Objects.Goodie") },
 			{ 162, Type.GetType("Nexus.Objects.CollectableSuit") },
 			{ 163, Type.GetType("Nexus.Objects.CollectableHat") },
 			{ 164, Type.GetType("Nexus.Objects.CollectablePower") },

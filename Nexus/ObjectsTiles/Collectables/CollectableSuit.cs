@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -37,9 +38,9 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override void Collect(uint gridId) {
-			// TODO SOUND: Collect Suit
-			base.Collect(gridId);
+		public override void Collect(Character character, uint gridId) {
+			Systems.sounds.collectBweep.Play();
+			base.Collect(character, gridId);
 		}
 
 		private void CreateTextures() {

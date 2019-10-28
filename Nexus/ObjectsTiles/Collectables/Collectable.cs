@@ -23,13 +23,13 @@ namespace Nexus.Objects {
 			// Characters receive Collectable:
 			if(actor is Character) {
 				uint gridId = this.scene.tilemap.GetGridID(gridX, gridY);
-				this.Collect( gridId );
+				this.Collect( (Character) actor, gridId );
 			}
 
 			return false;
 		}
 
-		public virtual void Collect( uint gridId ) {
+		public virtual void Collect( Character character, uint gridId ) {
 			this.scene.tilemap.RemoveTile(gridId);
 		}
 
