@@ -4,7 +4,7 @@ namespace Nexus.ObjectComponents {
 
 	public class PowerMobility : Power {
 
-		public PowerMobility( Character character, string pool ) : base( character, pool ) {
+		public PowerMobility( Character character ) : base( character ) {
 
 		}
 

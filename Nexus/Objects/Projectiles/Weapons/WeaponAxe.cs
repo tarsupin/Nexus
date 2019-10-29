@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 	public class WeaponAxe : Projectile {
 
-		public WeaponAxe(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Axe") {
+		public WeaponAxe(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.Damage = DamageStrength.Lethal;
 			this.physics.SetGravity(FInt.Create(0.45));

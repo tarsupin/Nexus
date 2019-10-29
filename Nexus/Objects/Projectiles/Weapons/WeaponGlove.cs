@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 
 	public class WeaponGlove : Projectile {
 
-		public WeaponGlove(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Glove") {
+		public WeaponGlove(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.BreakObjects;

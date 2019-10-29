@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 	public class WeaponGrenade : Projectile {
 
-		public WeaponGrenade(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Grenade") {
+		public WeaponGrenade(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.Damage = DamageStrength.None;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;

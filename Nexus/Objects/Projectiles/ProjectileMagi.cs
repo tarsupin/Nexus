@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		private FInt elapsedOffset;         // The elapsed offset / weight that this ball rotates with, comparative to others in the set.
 		private FInt sustained;             // If set above 0, this ball doesn't get destroyed on contact (e.g. White Wizard). It recharges from 0 to 1 (also transparency).
 
-		public ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0), "MagiBall") {
+		public ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.AssignSubType(subType);
 			this.Reset(actor);
 

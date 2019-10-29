@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	// This power activates Slow Fall; just reduces the speed at which you fall.
 	public class SlowFallMobility : PowerMobility {
 
-		public SlowFallMobility( Character character, string pool ) : base( character, pool ) {
+		public SlowFallMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/SlowFall";
 		}
 

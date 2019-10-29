@@ -9,7 +9,7 @@ namespace Nexus.Objects {
 
 	public class ProjectileBullet : Projectile {
 
-		public ProjectileBullet(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Bullet") {
+		public ProjectileBullet(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.SafelyJumpOnTop = true;

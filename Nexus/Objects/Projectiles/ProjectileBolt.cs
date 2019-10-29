@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 
 	public class ProjectileBolt : Projectile {
 
-		public ProjectileBolt(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Bolt") {
+		public ProjectileBolt(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 
 			// TODO RENDER: Need to draw render rotation for projectile:

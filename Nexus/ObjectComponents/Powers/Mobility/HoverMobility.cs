@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	// This power activates Hovering.
 	public class HoverMobility : PowerMobility {
 
-		public HoverMobility( Character character, string pool ) : base( character, pool ) {
+		public HoverMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Hover";
 			this.SetActivationSettings(105, 1, 105);
 		}

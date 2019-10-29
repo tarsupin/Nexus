@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 	public class WeaponHammer : Projectile {
 
-		public WeaponHammer(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Hammer") {
+		public WeaponHammer(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;

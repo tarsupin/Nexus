@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	// This power activates Levitation (like Hover, but with vertical movement).
 	public class LevitateMobility : PowerMobility {
 
-		public LevitateMobility( Character character, string pool ) : base( character, pool ) {
+		public LevitateMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Levitate";
 			this.SetActivationSettings(105, 1, 105);
 		}

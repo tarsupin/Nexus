@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	// This power bursts the character into a particular direction, often stacking with existing momentum.
 	public class BurstMobility : PowerMobility {
 
-		public BurstMobility( Character character, string pool ) : base( character, pool ) {
+		public BurstMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Burst";
 			this.SetActivationSettings(90, 2, 30);
 		}

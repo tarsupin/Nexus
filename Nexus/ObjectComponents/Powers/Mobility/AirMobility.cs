@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 	// This power bursts the character in a particular direction, based on their direction pad.
 	public class AirMobility : PowerMobility {
 
-		public AirMobility( Character character, string pool ) : base( character, pool ) {
+		public AirMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Air";
 			this.SetActivationSettings(90, 1, 90);
 		}

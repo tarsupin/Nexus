@@ -5,7 +5,7 @@ namespace Nexus.ObjectComponents {
 	// TODO: Add this power's behavior. Currently does nothing.
 	public class AthleteMobility : PowerMobility {
 
-		public AthleteMobility( Character character, string pool ) : base( character, pool ) {
+		public AthleteMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Athlete";
 			this.SetActivationSettings(15, 1, 15);
 		}

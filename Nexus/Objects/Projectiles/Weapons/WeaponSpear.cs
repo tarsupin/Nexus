@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 	public class WeaponSpear : Projectile {
 
-		public WeaponSpear(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Spear") {
+		public WeaponSpear(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;

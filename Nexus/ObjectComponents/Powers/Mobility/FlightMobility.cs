@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	// This power toggles on the character's ability to fly.
 	public class FlightMobility : PowerMobility {
 
-		public FlightMobility( Character character, string pool ) : base( character, pool ) {
+		public FlightMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Flight";
 			this.SetActivationSettings(15, 1, 15);
 		}

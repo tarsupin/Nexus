@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 
 		private uint DeathSequence;			// The frame # that the death sequence ends (or 0 if not in death sequence).
 
-		public ProjectileEarth(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Earth") {
+		public ProjectileEarth(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
 			this.CollisionType = ProjectileCollisionType.Special;
 			this.SafelyJumpOnTop = true;
