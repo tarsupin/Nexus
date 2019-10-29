@@ -46,9 +46,8 @@ namespace Nexus.ObjectComponents {
 			byte fastCastMult = this.character.stats.CanFastCast ? (byte) 2 : (byte) 1;
 
 			// Loop through available power uses:
-			foreach( uint i in this.lastUseTracker ) {
+			for( byte i = 0; i < this.lastUseTracker.Length; i++ ) {
 
-				// If we found an available activation slot:
 				if(timer.Frame > this.lastUseTracker[i]) {
 
 					// Consume this activation for now:

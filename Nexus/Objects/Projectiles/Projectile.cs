@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 		public uint Intangible;			// The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
 
 		public Projectile(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Projectile];
 			this.physics = new Physics(this);
 			this.physics.velocity = velocity;
 			this.SafelyJumpOnTop = false;

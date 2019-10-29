@@ -14,6 +14,7 @@ namespace Nexus.Objects {
 
 		public WeaponAxe(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
 			this.Damage = DamageStrength.Lethal;
 			this.physics.SetGravity(FInt.Create(0.45));
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;

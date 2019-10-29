@@ -51,7 +51,7 @@ namespace Nexus.Objects {
 			
 			// Power Collectable - Bolts
 			RandBolt = 50,
-			Bolt = 51,
+			BoltBlue = 51,
 			BoltGold = 52,
 			BoltGreen = 53,
 			BoltNecro = 54,
@@ -85,27 +85,31 @@ namespace Nexus.Objects {
 
 			// Random Throwing Weapon
 			if(subType == (byte) PowerSubType.RandThrown) {
-				
+
 			}
+
+			//case (byte)PowerSubType.RandPot: this.Something(); break; // mobility
+			//case (byte)PowerSubType.RandBook: this.Something(); break; //projectiles
+			//case (byte)PowerSubType.RandWeapon: this.Something(); break;
+			//case (byte)PowerSubType.RandThrown: this.Something(); break;
+			//case (byte)PowerSubType.RandBolt: this.Something(); break;
 
 			switch(subType) {
 
 				// Collectable Powers - Mobility
-				case (byte)PowerSubType.RandBook: this.Something(); break;
-				case (byte)PowerSubType.SlowFall: this.Something(); break;
-				case (byte)PowerSubType.Hover: this.Something(); break;
-				case (byte)PowerSubType.Levitate: this.Something(); break;
-				case (byte)PowerSubType.Flight: this.Something(); break;
-				case (byte)PowerSubType.Athlete: this.Something(); break;
-				case (byte)PowerSubType.Leap: this.Something(); break;
-				case (byte)PowerSubType.Slam: this.Something(); break;
-				case (byte)PowerSubType.Burst: this.Something(); break;
-				case (byte)PowerSubType.Air: this.Something(); break;
-				case (byte)PowerSubType.Phase: this.Something(); break;
-				case (byte)PowerSubType.Teleport: this.Something(); break;
+				case (byte)PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); break;
+				case (byte)PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); break;
+				case (byte)PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); break;
+				case (byte)PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); break;
+				case (byte)PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); break;
+				case (byte)PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); break;
+				case (byte)PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); break;
+				case (byte)PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); break;
+				case (byte)PowerSubType.Air: character.mobilityPower = new AirMobility(character); break;
+				case (byte)PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); break;
+				case (byte)PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
 				
 				// Collectable Powers - Weapon
-				case (byte)PowerSubType.RandWeapon: this.Something(); break;
 				case (byte)PowerSubType.BoxingRed: this.Something(); break;
 				case (byte)PowerSubType.BoxingWhite: this.Something(); break;
 				case (byte)PowerSubType.Dagger: this.Something(); break;
@@ -114,29 +118,25 @@ namespace Nexus.Objects {
 				case (byte)PowerSubType.Sword: this.Something(); break;
 				
 				// Collectable Powers - Potion
-				case (byte)PowerSubType.RandPot: this.Something(); break;
-				case (byte)PowerSubType.Electric: this.Something(); break;
-				case (byte)PowerSubType.Fire: this.Something(); break;
-				case (byte)PowerSubType.Frost: this.Something(); break;
-				case (byte)PowerSubType.Rock: this.Something(); break;
-				case (byte)PowerSubType.Water: this.Something(); break;
-				case (byte)PowerSubType.Slime: this.Something(); break;
-				case (byte)PowerSubType.Ball: this.Something(); break;
+				case (byte)PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;
+				case (byte)PowerSubType.Fire: character.attackPower = new FireBall(character); break;
+				case (byte)PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
+				case (byte)PowerSubType.Rock: character.attackPower = new RockBall(character); break;
+				case (byte)PowerSubType.Water: character.attackPower = new WaterBall(character); break;
+				case (byte)PowerSubType.Slime: character.attackPower = new SlimeBall(character); break;
 				
 				// Collectable Powers - Thrown
-				case (byte)PowerSubType.RandThrown: this.Something(); break;
 				case (byte)PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
 				case (byte)PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
 				case (byte)PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
 				
 				// Power Collectable - Bolts
-				case (byte)PowerSubType.RandBolt: this.Something(); break;
-				case (byte)PowerSubType.Bolt: this.Something(); break;
-				case (byte)PowerSubType.BoltGold: this.Something(); break;
-				case (byte)PowerSubType.BoltGreen: this.Something(); break;
-				case (byte)PowerSubType.BoltNecro: this.Something(); break;
-				case (byte)PowerSubType.Necro1: this.Something(); break;
-				case (byte)PowerSubType.Necro2: this.Something(); break;
+				case (byte)PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;
+				case (byte)PowerSubType.BoltGold: character.attackPower = new Bolt(character, ProjectileBoltSubType.Gold); break;
+				case (byte)PowerSubType.BoltGreen: character.attackPower = new Bolt(character, ProjectileBoltSubType.Green); break;
+				//case (byte)PowerSubType.BoltNecro: this.Something(); break;
+				//case (byte)PowerSubType.Necro1: this.Something(); break;
+				//case (byte)PowerSubType.Necro2: this.Something(); break;
 				
 				// Collectable Powers - Stack
 				case (byte)PowerSubType.Chakram: this.Something(); break;
@@ -187,7 +187,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte)PowerSubType.Rock] = "Power/Rock";
 			this.Texture[(byte)PowerSubType.Water] = "Power/Water";
 			this.Texture[(byte)PowerSubType.Slime] = "Power/Slime";
-			this.Texture[(byte)PowerSubType.Ball] = "Power/Ball";
+			//this.Texture[(byte)PowerSubType.Ball] = "Power/Ball";
 
 			// Collectable Powers - Thrown
 			this.Texture[(byte)PowerSubType.RandThrown] = "Power/RandThrown";
@@ -197,12 +197,12 @@ namespace Nexus.Objects {
 
 			// Power Collectable - Bolts
 			this.Texture[(byte)PowerSubType.RandBolt] = "Power/RandBolt";
-			this.Texture[(byte)PowerSubType.Bolt] = "Power/Bolt";
+			this.Texture[(byte)PowerSubType.BoltBlue] = "Power/Bolt";
 			this.Texture[(byte)PowerSubType.BoltGold] = "Power/BoltGold";
 			this.Texture[(byte)PowerSubType.BoltGreen] = "Power/BoltGreen";
-			this.Texture[(byte)PowerSubType.BoltNecro] = "Power/BoltNecro";
-			this.Texture[(byte)PowerSubType.Necro1] = "Power/Necro1";
-			this.Texture[(byte)PowerSubType.Necro2] = "Power/Necro2";
+			//this.Texture[(byte)PowerSubType.BoltNecro] = "Power/BoltNecro";
+			//this.Texture[(byte)PowerSubType.Necro1] = "Power/Necro1";
+			//this.Texture[(byte)PowerSubType.Necro2] = "Power/Necro2";
 
 			// Collectable Powers - Stack
 			this.Texture[(byte)PowerSubType.Chakram] = "Power/Chakram";

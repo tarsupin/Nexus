@@ -19,6 +19,7 @@ namespace Nexus.Objects {
 
 		public ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
 			this.Reset(actor);
 
 			// TODO COLLIDES VS TILES AND STATIC??

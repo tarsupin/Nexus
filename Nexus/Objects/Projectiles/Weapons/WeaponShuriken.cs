@@ -12,6 +12,7 @@ namespace Nexus.Objects {
 
 		public WeaponShuriken(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			this.physics.SetGravity(FInt.Create(0.4));

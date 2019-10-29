@@ -10,8 +10,9 @@ namespace Nexus.Objects {
 		Electric,
 		Fire,
 		Frost,
+		Rock,
 		Slime,
-		Water
+		Water,
 	}
 
 	public class ProjectileBall : Projectile {
@@ -35,7 +36,7 @@ namespace Nexus.Objects {
 			}
 
 			projectile.AssignSubType(subType);
-			projectile.Damage = DamageStrength.Trivial;
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
 			scene.AddToScene(projectile, false);
@@ -54,23 +55,35 @@ namespace Nexus.Objects {
 
 			// Behaviors
 			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
+				this.Damage = DamageStrength.Trivial;
 				this.physics.SetGravity(FInt.Create(0.35));
 				this.CollisionType = ProjectileCollisionType.BounceOnFloor;
-			} else {
+			}
+
+			else if(subType == (byte) ProjectileBallSubType.Rock) {
+				this.Damage = DamageStrength.Lethal;
+				this.physics.SetGravity(FInt.Create(0.8));
+				this.CollisionType = ProjectileCollisionType.Special;
+			}
+
+			else {
+				this.Damage = DamageStrength.Trivial;
 				this.physics.SetGravity(FInt.Create(0.4));
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			}
 
 			// Sprite Image
-			if(subType == (byte) ProjectileBallSubType.Fire) {
+			if(subType == (byte)ProjectileBallSubType.Fire) {
 				this.SetSpriteName("Projectiles/Fire");
-			} else if(subType == (byte) ProjectileBallSubType.Electric) {
+			} else if(subType == (byte)ProjectileBallSubType.Electric) {
 				this.SetSpriteName("Projectiles/Electric");
-			} else if(subType == (byte) ProjectileBallSubType.Frost) {
+			} else if(subType == (byte)ProjectileBallSubType.Frost) {
 				this.SetSpriteName("Projectiles/Frost");
-			} else if(subType == (byte) ProjectileBallSubType.Slime) {
+			} else if(subType == (byte)ProjectileBallSubType.Rock) {
+				this.SetSpriteName("Projectiles/Earth1");
+			} else if(subType == (byte)ProjectileBallSubType.Slime) {
 				this.SetSpriteName("Projectiles/Slime");
-			} else if(subType == (byte) ProjectileBallSubType.Water) {
+			} else if(subType == (byte)ProjectileBallSubType.Water) {
 				this.SetSpriteName("Projectiles/Water");
 			}
 		}

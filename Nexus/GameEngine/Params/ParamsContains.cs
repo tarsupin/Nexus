@@ -128,7 +128,7 @@ namespace Nexus.GameEngine {
 
 					// Power Collectable - Bolts
 					case "RandBolt": mechanics.SubType = (byte) PowerSubType.RandBolt; break;
-					case "Bolt": mechanics.SubType = (byte) PowerSubType.Bolt; break;
+					case "Bolt": mechanics.SubType = (byte) PowerSubType.BoltBlue; break;
 					case "BoltGold": mechanics.SubType = (byte) PowerSubType.BoltGold; break;
 					case "BoltGreen": mechanics.SubType = (byte) PowerSubType.BoltGreen; break;
 					case "BoltNecro": mechanics.SubType = (byte) PowerSubType.BoltNecro; break;

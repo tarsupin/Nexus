@@ -1,4 +1,5 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
 using System.Collections.Generic;
 
 // The purpose of the Narrow Collisions is:
@@ -36,15 +37,15 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void RefineCollision( DynamicGameObject obj, DynamicGameObject obj2 ) {
-			
+
 			// Run Mapped Collisions
 			if(CollideNarrow.NarrowMap.ContainsKey((byte) obj.Meta.LoadOrder)) {
 				CollideNarrow.NarrowMap[(byte)obj.Meta.LoadOrder].RunImpact(obj, obj2);
 			}
 
 			// Run Reverse-Map Collisions
-			else if(CollideNarrow.NarrowMap.ContainsKey((byte) obj.Meta.LoadOrder)) {
-				CollideNarrow.NarrowMap[(byte)obj.Meta.LoadOrder].RunImpact(obj2, obj);
+			else if(CollideNarrow.NarrowMap.ContainsKey((byte) obj2.Meta.LoadOrder)) {
+				CollideNarrow.NarrowMap[(byte)obj2.Meta.LoadOrder].RunImpact(obj2, obj);
 			}
 		}
 	}

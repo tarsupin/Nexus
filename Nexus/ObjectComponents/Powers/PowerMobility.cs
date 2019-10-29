@@ -8,11 +8,6 @@ namespace Nexus.ObjectComponents {
 
 		}
 
-		public void UpdateIcon() {
-			// TODO UI: Update Mobility Icon, if applicable.
-			//scene.powerMobIcon.setFrame(this.IconTexture);
-		}
-
 		public virtual void EndPower() {
 			//this.character.attackMobility = null;
 			// TODO UI: Mobility Icon

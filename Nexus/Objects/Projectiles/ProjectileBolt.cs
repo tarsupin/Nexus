@@ -13,6 +13,7 @@ namespace Nexus.Objects {
 
 		public ProjectileBolt(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// TODO RENDER: Need to draw render rotation for projectile:
 			// this.physics.update = ballMovement;		// Probably override RunTick()
