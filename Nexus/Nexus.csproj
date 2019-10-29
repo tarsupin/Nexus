@@ -189,6 +189,7 @@
     <Compile Include="ObjectComponents\Hats\Hat.cs" />
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightBehavior.cs" />
+    <Compile Include="ObjectComponents\Powers\Bolts\Bolt.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\WaterBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\SlimeBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\FrostBall.cs" />
@@ -438,7 +439,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectComponents\Attachments\" />
-    <Folder Include="ObjectComponents\Powers\Bolts\" />
     <Folder Include="ObjectComponents\Powers\Projectiles\" />
     <Folder Include="ObjectComponents\Powers\Thrown\" />
     <Folder Include="ObjectComponents\Powers\Weapons\" />
