@@ -16,12 +16,38 @@ namespace Nexus.Objects {
 
 	public class ProjectileBall : Projectile {
 
-		public ProjectileBall(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity, "Ball") {
-			this.AssignSubType(subType);
-			this.Damage = DamageStrength.Trivial;
+		private ProjectileBall(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			
-			// TODO RENDER: Need to draw render rotation for projectile:
-			// this.render = this.renderBallRotation;		// still how I want to do this? maybe? or override Draw()?
+		}
+
+		public static ProjectileBall Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+			ProjectileBall projectile;
+
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.ProjectileBall.Count > 0) {
+				projectile = ObjectPool.ProjectileBall.Pop();
+				projectile.ResetProjectile(subType, pos, velocity);
+			}
+			
+			// Create a New Projectile Ball
+			else {
+				projectile = new ProjectileBall(scene, subType, pos, velocity);
+			}
+
+			projectile.AssignSubType(subType);
+			projectile.Damage = DamageStrength.Trivial;
+
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile);
+
+			return projectile;
+		}
+
+		// Return the ProjectileBall to the Pool
+		public override void Disable() {
+			this.scene.RemoveFromScene(this);
+			// TODO LOW PRIORITY: Is there any possible chance this could cause a ball to return to pool on same frame it's marked for delete?
+			ObjectPool.ProjectileBall.Push(this);
 		}
 
 		private void AssignSubType(byte subType) {

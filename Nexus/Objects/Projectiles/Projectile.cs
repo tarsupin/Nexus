@@ -16,7 +16,6 @@ namespace Nexus.Objects {
 	public class Projectile : DynamicGameObject {
 
 		// Projectile Traits
-		public readonly string pool;
 		public DamageStrength Damage { get; protected set; }
 		public ProjectileCollisionType CollisionType { get; protected set; }
 		public bool SafelyJumpOnTop { get; protected set; }
@@ -27,13 +26,19 @@ namespace Nexus.Objects {
 		// Projectile Status
 		public uint Intangible;			// The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
 
-		public Projectile(LevelScene scene, byte subType, FVector pos, FVector velocity, string pool) : base(scene, subType, pos) {
+		public Projectile(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
 			this.physics = new Physics(this);
 			this.physics.velocity = velocity;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
-			this.pool = pool;
+		}
+
+		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
+			this.subType = subType;
+			this.posX = pos.X.IntValue;
+			this.posY = pos.Y.IntValue;
+			this.physics.velocity = velocity;
 		}
 
 		public void SetVelocity( FVector velocity ) {

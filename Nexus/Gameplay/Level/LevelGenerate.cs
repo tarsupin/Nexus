@@ -132,7 +132,7 @@ namespace Nexus.Gameplay {
 
 				// Add the Object to the Scene
 				if(gameObj is DynamicGameObject) {
-					this.scene.AddToObjects((DynamicGameObject) gameObj);
+					this.scene.AddToScene((DynamicGameObject) gameObj);
 				}
 			}
 		}

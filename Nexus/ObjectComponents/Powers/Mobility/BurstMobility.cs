@@ -12,10 +12,10 @@ namespace Nexus.ObjectComponents {
 			this.SetActivationSettings(90, 2, 30);
 		}
 
-		public override void Activate() {
+		public override bool Activate() {
 
 			// Make sure the power can be activated
-			if(!this.CanActivate()) { return; }
+			if(!this.CanActivate()) { return false; }
 
 			// Prepare Direction
 			sbyte directionHor = 0;
@@ -67,6 +67,8 @@ namespace Nexus.ObjectComponents {
 			// Display the "Air" particle event and play the "Air" sound.
 			// TODO UI: Display air particle. PEventAir.activate( char, char.scene.game.particles, dirHor, dirVert );
 			// TODO SOUND: Play sound for air. char.scene.soundList.air.play(0.5);
+
+			return true;
 		}
 	}
 }

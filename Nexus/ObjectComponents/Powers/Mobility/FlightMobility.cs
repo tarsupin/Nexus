@@ -11,10 +11,10 @@ namespace Nexus.ObjectComponents {
 			this.SetActivationSettings(15, 1, 15);
 		}
 
-		public override void Activate() {
+		public override bool Activate() {
 
 			// Make sure the power can be activated
-			if(!this.CanActivate()) { return; }
+			if(!this.CanActivate()) { return false; }
 
 			CharacterStatus status = this.character.status;
 
@@ -28,6 +28,8 @@ namespace Nexus.ObjectComponents {
 
 				// TODO SOUND: Create a "Flight Takeoff" sound, to identify the flight has been toggled on.
 			}
+
+			return true;
 		}
 	}
 }

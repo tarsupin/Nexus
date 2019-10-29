@@ -10,12 +10,14 @@ namespace Nexus.ObjectComponents {
 			this.SetActivationSettings(15, 1, 15);
 		}
 
-		public override void Activate() {
+		public override bool Activate() {
 
 			// Make sure the power can be activated
-			if(!this.CanActivate()) { return; }
+			if(!this.CanActivate()) { return false; }
 
 			System.Console.WriteLine("Activated AthleteMobility Power");
+
+			return true;
 		}
 	}
 }

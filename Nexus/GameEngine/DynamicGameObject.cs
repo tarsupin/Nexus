@@ -120,14 +120,12 @@ namespace Nexus.GameEngine {
 
 		// Destroys the instance of this object.
 		public virtual void Destroy() {
-			this.scene.DestroyObject(this);
+			this.scene.RemoveFromScene(this);
 		}
 
 		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.
-		public void Disable() {
-			// TODO HIGH PRIORITY: How to disable? Better methods? Just return to pool somehow.
-			// TODO HIGH PRIORITY: How to disable? Better methods? Just return to pool somehow.
-			
+		public virtual void Disable() {
+
 		}
 
 		public void RenderKnockoutRotation(int camX, int camY, TimerGlobal time) {

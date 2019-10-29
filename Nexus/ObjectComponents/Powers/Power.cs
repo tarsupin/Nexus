@@ -8,7 +8,6 @@ namespace Nexus.ObjectComponents {
 		// References
 		protected readonly Character character;
 
-		public readonly string pool;						// The pool that the projectile will get sent to for reuse.
 		public string IconTexture { get; protected set; }	// The texture path for the Power Icon (e.g. "Power/" + this.pool)
 
 		protected byte cooldown;
@@ -17,12 +16,11 @@ namespace Nexus.ObjectComponents {
 		protected uint lastActivation;
 		protected uint[] lastUseTracker;
 
-		public Power( Character character, string pool ) {
+		public Power( Character character ) {
 			this.character = character;
-			this.pool = pool;
 		}
 
-		public virtual void Activate() {}
+		public virtual bool Activate() { return false;  }
 		public virtual void UpdateAbilities() {}
 
 		public void SetActivationSettings( byte cooldown, byte numberOfUses = 2, byte delayBetweenUses = 15 ) {

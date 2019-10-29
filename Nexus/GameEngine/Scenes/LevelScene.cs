@@ -267,11 +267,11 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void AddToObjects( DynamicGameObject gameObject ) {
+		public void AddToScene( DynamicGameObject gameObject ) {
 			this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
 		}
 
-		public void DestroyObject( DynamicGameObject gameObject ) {
+		public void RemoveFromScene( DynamicGameObject gameObject ) {
 			this.markedForRemoval.Add(gameObject);
 		}
 

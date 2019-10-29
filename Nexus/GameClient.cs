@@ -69,7 +69,7 @@ namespace Nexus
 
 			// TODO CLEANUP: Remove Character from being inserted like this:
 			Character character = new Character((LevelScene) Systems.scene, 0, FVector.Create(950, 600), null);
-			((LevelScene)(Systems.scene)).AddToObjects(character);
+			((LevelScene)(Systems.scene)).AddToScene(character);
 
 			Systems.localServer.MyPlayer.AssignCharacter(character);
 

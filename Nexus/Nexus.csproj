@@ -118,6 +118,7 @@
     <Compile Include="Engine\Particles\ParticleManager.cs" />
     <Compile Include="Engine\Particles\ParticleSimple.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
+    <Compile Include="GameEngine\ObjectPool.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
@@ -188,6 +189,11 @@
     <Compile Include="ObjectComponents\Hats\Hat.cs" />
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightBehavior.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\WaterBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\SlimeBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\FrostBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\FireBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\ElectricBall.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\SlamMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\SlowFallMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LevitateMobility.cs" />
@@ -197,6 +203,7 @@
     <Compile Include="ObjectComponents\Powers\Mobility\AthleteMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\AirMobility.cs" />
     <Compile Include="ObjectComponents\Actions\Action.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerArc.cs" />
     <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
@@ -431,6 +438,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectComponents\Attachments\" />
+    <Folder Include="ObjectComponents\Powers\Bolts\" />
     <Folder Include="ObjectComponents\Powers\Projectiles\" />
     <Folder Include="ObjectComponents\Powers\Thrown\" />
     <Folder Include="ObjectComponents\Powers\Weapons\" />
