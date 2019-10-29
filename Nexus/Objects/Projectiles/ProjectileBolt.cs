@@ -4,9 +4,9 @@ using Nexus.GameEngine;
 namespace Nexus.Objects {
 
 	public enum ProjectileBoltSubType : byte {
-		Bolt,
-		BoltGreen,
-		BoltGold,
+		Blue,
+		Green,
+		Gold,
 	}
 
 	public class ProjectileBolt : Projectile {
@@ -43,11 +43,11 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 
-			if(subType == (byte) ProjectileBoltSubType.Bolt) {
+			if(subType == (byte) ProjectileBoltSubType.Blue) {
 				this.SetSpriteName("Projectiles/Bolt");
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 
-			} else if(subType == (byte) ProjectileBoltSubType.BoltGreen) {
+			} else if(subType == (byte) ProjectileBoltSubType.Green) {
 
 				// TODO RENDER: Need to draw render rotation for projectile:
 				// NOTE: See how this.physics.update is different than others? Maybe use a behavior? Or an action? Or something else? RunTick?
@@ -56,7 +56,7 @@ namespace Nexus.Objects {
 				this.SetSpriteName("Projectiles/BoltGreen");
 				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 
-			} else if(subType == (byte) ProjectileBoltSubType.BoltGold) {
+			} else if(subType == (byte) ProjectileBoltSubType.Gold) {
 				this.SetSpriteName("Projectiles/BoltGold");
 				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			}

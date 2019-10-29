@@ -38,7 +38,7 @@ namespace Nexus.Objects {
 			projectile.Damage = DamageStrength.Trivial;
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile);
+			scene.AddToScene(projectile, false);
 
 			return projectile;
 		}

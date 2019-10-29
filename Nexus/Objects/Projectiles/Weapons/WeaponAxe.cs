@@ -5,7 +5,9 @@ using Nexus.Gameplay;
 namespace Nexus.Objects {
 
 	public enum WeaponAxeSubType : byte {
-		Axe
+		Axe,
+		Axe2,
+		Axe3
 	}
 
 	public class WeaponAxe : Projectile {
@@ -25,6 +27,14 @@ namespace Nexus.Objects {
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) WeaponAxeSubType.Axe) {
 				this.SetSpriteName("Weapon/Axe");
+			}
+
+			else if(subType == (byte) WeaponAxeSubType.Axe2) {
+				this.SetSpriteName("Weapon/Axe2");
+			}
+
+			else if(subType == (byte) WeaponAxeSubType.Axe3) {
+				this.SetSpriteName("Weapon/Axe3");
 			}
 		}
 	}

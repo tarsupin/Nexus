@@ -30,8 +30,9 @@ namespace Nexus.GameEngine {
 
 		public LevelFlags flags = new LevelFlags();
 
-		// Level Cleanup
-		private List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed.
+		// Object Coordination and Cleanup
+		private List<DynamicGameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
+		private List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed after the frame's loops have ended.
 
 		public LevelScene() : base() {
 
@@ -59,7 +60,8 @@ namespace Nexus.GameEngine {
 				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
 			};
 
-			// Cleanup
+			// Object Coordination and Cleanup
+			this.markedForAddition = new List<DynamicGameObject>();
 			this.markedForRemoval = new List<DynamicGameObject>();
 
 			// Game Class Objects
@@ -148,7 +150,8 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
 
-			// Object Cleanup
+			// Object Coordination & Cleanup
+			this.AddObjectsMarkedForAddition();
 			this.DestroyObjectsMarkedForRemoval();
 
 			// Camera Movement
@@ -267,12 +270,31 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void AddToScene( DynamicGameObject gameObject ) {
-			this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
+		public void AddToScene( DynamicGameObject gameObject, bool immediately ) {
+			if(immediately) {
+				this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
+			} else {
+				this.markedForAddition.Add(gameObject);
+			}
 		}
 
 		public void RemoveFromScene( DynamicGameObject gameObject ) {
 			this.markedForRemoval.Add(gameObject);
+		}
+
+		// We use this method to add objects outside of the loops they're created in. This is to allow enumerators to continue working.
+		private void AddObjectsMarkedForAddition() {
+
+			// Only continue if there are items marked for removal:
+			if(this.markedForAddition.Count == 0) { return; }
+
+			// Loop through the list of objects to destroy
+			foreach(DynamicGameObject obj in this.markedForAddition) {
+				this.objects[(byte)obj.Meta.LoadOrder][obj.id] = obj;
+			}
+
+			// Clear the list of any objects being marked for removal.
+			this.markedForAddition.Clear();
 		}
 
 		// We use this method to destroy objects outside of the loops they're called in. This is to allow enumerators to continue working.

@@ -2,6 +2,7 @@
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -124,9 +125,9 @@ namespace Nexus.Objects {
 				
 				// Collectable Powers - Thrown
 				case (byte)PowerSubType.RandThrown: this.Something(); break;
-				case (byte)PowerSubType.Axe: this.Something(); break;
-				case (byte)PowerSubType.Hammer: this.Something(); break;
-				case (byte)PowerSubType.Shuriken: this.Something(); break;
+				case (byte)PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
+				case (byte)PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
+				case (byte)PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
 				
 				// Power Collectable - Bolts
 				case (byte)PowerSubType.RandBolt: this.Something(); break;
