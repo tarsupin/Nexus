@@ -10,22 +10,33 @@ namespace Nexus.Objects {
 
 	public class WeaponShuriken : Projectile {
 
-		public WeaponShuriken(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
-			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
+		private WeaponShuriken(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			this.physics.SetGravity(FInt.Create(0.4));
+		}
 
-			// TODO HIGH PRIORITY: Weapon Shuriken (( see full code; has more ))
-			// TODO HIGH PRIORITY: Weapon Shuriken (( see full code; has more ))
+		public static WeaponShuriken Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+			WeaponShuriken projectile;
 
-			// this.elapsedStart = 0;
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.WeaponShuriken.Count > 0) {
+				projectile = ObjectPool.WeaponShuriken.Pop();
+				projectile.ResetProjectile(subType, pos, velocity);
+			}
 
-			// TODO PHYSICS:
-			// TODO RENDER: Need to draw render rotation for projectile:
-			//this.physics.update = shurikenMovement;
-			//this.render = this.renderBallRotation;
+			// Create a New Projectile Ball
+			else {
+				projectile = new WeaponShuriken(scene, subType, pos, velocity);
+			}
+
+			projectile.AssignSubType(subType);
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile, false);
+
+			return projectile;
 		}
 
 		private void AssignSubType(byte subType) {

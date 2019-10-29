@@ -4,7 +4,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class RockBall : PowerArc {
+	public class RockBall : PowerBall {
 
 		public RockBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Rock;

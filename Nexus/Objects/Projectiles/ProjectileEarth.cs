@@ -12,19 +12,35 @@ namespace Nexus.Objects {
 
 		private uint DeathSequence;			// The frame # that the death sequence ends (or 0 if not in death sequence).
 
-		public ProjectileEarth(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
-			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
+		private ProjectileEarth(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.CollisionType = ProjectileCollisionType.Special;
 			this.SafelyJumpOnTop = true;
 			this.Damage = DamageStrength.Lethal;
-			this.DeathSequence = 0;
-			this.physics.SetGravity(FInt.Create(0.8));
+		}
 
-			// TODO PHYSICS
-			// TODO RENDERING:
-			//this.physics.update = ballMovement;
-			//this.render = this.renderBallRotation;
+		public static ProjectileEarth Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+			ProjectileEarth projectile;
+
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.ProjectileEarth.Count > 0) {
+				projectile = ObjectPool.ProjectileEarth.Pop();
+				projectile.ResetProjectile(subType, pos, velocity);
+			}
+
+			// Create a New Projectile Ball
+			else {
+				projectile = new ProjectileEarth(scene, subType, pos, velocity);
+			}
+
+			projectile.AssignSubType(subType);
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.DeathSequence = 0;
+			projectile.physics.SetGravity(FInt.Create(0.8));
+
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile, false);
+
+			return projectile;
 		}
 
 		public override void RunTick() {
@@ -56,8 +72,7 @@ namespace Nexus.Objects {
 				this.DeathSequence = Systems.timer.Frame + 10;
 				this.physics.velocity.Y = FInt.Create(-4);
 
-				// TODO SOUND:
-				// this.scene.soundList.shellThud.play(0.4); // Quiet Thud
+				Systems.sounds.shellThud.Play();
 
 				this.Damage = DamageStrength.Trivial;
 			}

@@ -1,7 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using System;
 
 namespace Nexus.Objects {
 
@@ -17,11 +16,8 @@ namespace Nexus.Objects {
 		private FInt elapsedOffset;         // The elapsed offset / weight that this ball rotates with, comparative to others in the set.
 		private FInt sustained;             // If set above 0, this ball doesn't get destroyed on contact (e.g. White Wizard). It recharges from 0 to 1 (also transparency).
 
-		public ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
-			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
-			this.Reset(actor);
-
+		private ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
+			
 			// TODO COLLIDES VS TILES AND STATIC??
 			// this.collision.ignores.static = true;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
@@ -31,7 +27,30 @@ namespace Nexus.Objects {
 			this.SetOffset(numberOfBalls, ballNumber);
 		}
 
-		public void Reset( DynamicGameObject actor, byte radius = 75, bool isSustained = false ) {
+		public static ProjectileMagi Create(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) {
+			ProjectileMagi projectile;
+
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.ProjectileMagi.Count > 0) {
+				projectile = ObjectPool.ProjectileMagi.Pop();
+			}
+
+			// Create a New Projectile Ball
+			else {
+				projectile = new ProjectileMagi(scene, subType, actor, numberOfBalls, ballNumber);
+			}
+
+			projectile.AssignSubType(subType);
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.ResetMagiBall(subType, actor, numberOfBalls, ballNumber);
+
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile, false);
+
+			return projectile;
+		}
+
+		public void ResetMagiBall( byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber, byte radius = 75, bool isSustained = false ) {
 			this.actor = actor;
 			this.sustained = isSustained ? FInt.Create(1) : FInt.Create(0);
 			this.radius = radius;

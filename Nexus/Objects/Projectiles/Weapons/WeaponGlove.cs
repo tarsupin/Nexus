@@ -11,19 +11,34 @@ namespace Nexus.Objects {
 
 	public class WeaponGlove : Projectile {
 
-		public WeaponGlove(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
-			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
+		private WeaponGlove(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.BreakObjects;
+		}
+
+		public static WeaponGlove Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+			WeaponGlove projectile;
+
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.WeaponGlove.Count > 0) {
+				projectile = ObjectPool.WeaponGlove.Pop();
+				projectile.ResetProjectile(subType, pos, velocity);
+			}
+
+			// Create a New Projectile Ball
+			else {
+				projectile = new WeaponGlove(scene, subType, pos, velocity);
+			}
+
+			projectile.AssignSubType(subType);
 
 			// Reduce Bounds (otherwise it appears to hit too much, too quickly)
-			this.AssignBoundsByAtlas(5, 5, -5, -5);
+			projectile.AssignBoundsByAtlas(5, 5, -5, -5);
 
-			// TODO PHYSICS:
-			// TODO RENDER: Need to draw render rotation for projectile:
-			//this.physics.update = moveThrustHor;
-			//this.render = this.renderRotation;
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile, false);
+
+			return projectile;
 		}
 
 		// Prevent collision destruction of Weapon; it can go through multiple objects.

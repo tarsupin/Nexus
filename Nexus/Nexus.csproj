@@ -193,6 +193,8 @@
     <Compile Include="ObjectComponents\Powers\Mobility\TeleportMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\PhaseMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LeapMobility.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerThrust.cs" />
+    <Compile Include="ObjectComponents\Powers\Thrust\Sword.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Shuriken.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Hammer.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Axe.cs" />
@@ -212,7 +214,7 @@
     <Compile Include="ObjectComponents\Powers\Mobility\AirMobility.cs" />
     <Compile Include="ObjectComponents\Actions\Action.cs" />
     <Compile Include="ObjectComponents\Powers\PowerThrown.cs" />
-    <Compile Include="ObjectComponents\Powers\PowerArc.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerBall.cs" />
     <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
@@ -447,7 +449,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectComponents\Attachments\" />
-    <Folder Include="ObjectComponents\Powers\Slashing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

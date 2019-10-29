@@ -3,7 +3,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class ElectricBall : PowerArc {
+	public class ElectricBall : PowerBall {
 
 		public ElectricBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Electric;

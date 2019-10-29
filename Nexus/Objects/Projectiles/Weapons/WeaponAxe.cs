@@ -12,17 +12,33 @@ namespace Nexus.Objects {
 
 	public class WeaponAxe : Projectile {
 
-		public WeaponAxe(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
-			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
+		private WeaponAxe(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
 			this.Damage = DamageStrength.Lethal;
 			this.physics.SetGravity(FInt.Create(0.45));
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+		}
 
-			// TODO PHYSICS:
-			// this.physics.update = ballMovement;
-			// TODO RENDER: Need to draw render rotation for projectile:
-			// this.render = this.renderBallRotation;		// still how I want to do this? maybe? or override Draw()?
+		public static WeaponAxe Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+			WeaponAxe projectile;
+
+			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			if(ObjectPool.WeaponAxe.Count > 0) {
+				projectile = ObjectPool.WeaponAxe.Pop();
+				projectile.ResetProjectile(subType, pos, velocity);
+			}
+
+			// Create a New Projectile Ball
+			else {
+				projectile = new WeaponAxe(scene, subType, pos, velocity);
+			}
+
+			projectile.AssignSubType(subType);
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+
+			// Add the Projectile to Scene
+			scene.AddToScene(projectile, false);
+
+			return projectile;
 		}
 
 		private void AssignSubType(byte subType) {

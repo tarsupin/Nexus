@@ -4,7 +4,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class PowerThrown : PowerAttack {
+	public class PowerBall : PowerAttack {
 
 		protected FInt multMomentum;        // Multiplier of character's momentum to add. 0 or null is unused.
 		protected FInt xVel;                // X-Velocity baseline (gets reversed when facing left).
@@ -12,8 +12,8 @@ namespace Nexus.ObjectComponents {
 		protected FInt yVelUp;              // Y-Velocity strength if UP key is held. 0 is unused.
 		protected FInt yVelDown;            // Y-Velocity strength if DOWN key is held. 0 is unused.
 
-		public PowerThrown( Character character ) : base( character ) {
-			this.sound = Systems.sounds.axe;
+		public PowerBall( Character character ) : base( character ) {
+			this.sound = Systems.sounds.flame;
 		}
 
 		public override bool Activate() {

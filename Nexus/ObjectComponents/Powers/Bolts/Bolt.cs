@@ -5,6 +5,12 @@ namespace Nexus.ObjectComponents {
 
 	public class Bolt : PowerAttack {
 
+		protected FInt multMomentum;        // Multiplier of character's momentum to add. 0 or null is unused.
+		protected FInt xVel;                // X-Velocity baseline (gets reversed when facing left).
+		protected FInt yVel;                // Y-Velocity strength baseline.
+		protected FInt yVelUp;              // Y-Velocity strength if UP key is held. 0 is unused.
+		protected FInt yVelDown;            // Y-Velocity strength if DOWN key is held. 0 is unused.
+
 		public Bolt( Character character, ProjectileBoltSubType subType ) : base( character ) {
 			this.ApplySubType(subType);
 			this.sound = Systems.sounds.bolt;
