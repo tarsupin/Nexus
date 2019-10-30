@@ -112,6 +112,7 @@ namespace Nexus.Gameplay {
 			// Ledges (20 - 29)
 			{ 20, Type.GetType("Nexus.Objects.LedgeGrass") },
 			{ 25, Type.GetType("Nexus.Objects.PlatformFixed") },
+			{ 26, Type.GetType("Nexus.Objects.PlatformItem") },
 			
 			// Reserved (30 - 39)
 
@@ -175,7 +176,7 @@ namespace Nexus.Gameplay {
 		};
 		
 		// List of Foreground Tile Types
-		// This includes decorations, prompts, or tiles that appear in the front; never collide.
+		// This includes decorations, prompts, or tiles that appear in the front.
 		public Dictionary<byte, Type> FGTileMap = new Dictionary<byte, Type>() {
 			
 			// Decor, Terrain (1 - 19)
@@ -191,6 +192,11 @@ namespace Nexus.Gameplay {
 			// Prompts (30 - 39)
 			{ 30, Type.GetType("Nexus.Objects.PromptArrow") },
 			{ 31, Type.GetType("Nexus.Objects.PromptSign") },
+
+			// Background Interactives (These Collide)
+			{ 40, Type.GetType("Nexus.Objects.BGDisable") },
+			{ 41, Type.GetType("Nexus.Objects.BGTap") },
+			{ 42, Type.GetType("Nexus.Objects.BGWind") },
 		};
 
 		// List of Game Object Types
@@ -261,6 +267,11 @@ namespace Nexus.Gameplay {
 			{ 90, Type.GetType("Nexus.Objects.SpringStandard") },
 			{ 91, Type.GetType("Nexus.Objects.ButtonStandard") },
 			{ 92, Type.GetType("Nexus.Objects.ButtonTimed") },
+
+			{ 95, Type.GetType("Nexus.Objects.MobileBlockBlue") },
+			{ 96, Type.GetType("Nexus.Objects.MobileBlockRed") },
+			{ 97, Type.GetType("Nexus.Objects.MobileBlockGreen") },
+			{ 98, Type.GetType("Nexus.Objects.MobileBlockYellow") },
 
 			// Special Flags and Placements (100+)
 			{ 100, Type.GetType("Nexus.Objects.Character") },
