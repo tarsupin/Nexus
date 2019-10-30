@@ -58,19 +58,18 @@ namespace Nexus.Objects {
 
 			// TODO HIGH PRIORITY: Character Archetype
 			// Character Archetype
-			
 
 			// Status Reset
 			this.status.ResetCharacterStatus();
 
 			// TODO HIGH PRIORITY: Add item, suit, hat, attachments
-			
+
 			// Item Handling
 			//if(this.item is Item) { this.item.DropItem(); }		// Multiplayer must drop. Single player will reset level.
-			
+
 			// Equipment
-			//this.Suit.ResetSuit();
-			//if(this.Hat is Hat) { this.Hat.ResetHat(); };
+			if(this.suit is Suit) { this.suit.DestroySuit(false); }
+			if(this.hat is Hat) { this.hat.DestroyHat(false); };
 
 			this.stats.ResetCharacterStats();
 
@@ -371,6 +370,26 @@ namespace Nexus.Objects {
 				this.physics.velocity.X += delta;
 				if(this.physics.velocity.X < 0) { this.physics.velocity.X = (FInt) 0; }
 			}
+		}
+
+		public override void Draw(int camX, int camY) {
+
+			// Handle Invincibility Coloration, if applicable:
+			// TODO: Invincibility Coloration
+
+			// Draw Character's Body
+			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
+
+			// Draw Character's Head
+			// TODO HIGH PRIORITY: Draw head
+
+			// Draw Hat, if applicable.
+			if(this.hat is Hat) {
+				this.hat.Draw(camX, camY);
+			}
+
+			// Render Attachments, if applicable.
+			// TODO HIGH PRIORITY: Render Attachments, such as Y prompt
 		}
 
 		private void RestrictWorldSides() {

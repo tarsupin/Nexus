@@ -16,6 +16,10 @@ namespace Nexus.ObjectComponents {
 		protected SuitRank suitRank;
 
 		public Suit( Character character, SuitRank suitRank = SuitRank.BaseSuit, string defaultCosmeticHat = "" ) {
+
+			// Destroy existing Suit, if applicable.
+			if(character.suit is Suit) { this.DestroySuit(false); }
+
 			this.character = character;
 			this.suitRank = suitRank;
 			this.DefaultCosmeticHat = defaultCosmeticHat;
@@ -25,7 +29,7 @@ namespace Nexus.ObjectComponents {
 
 			// If the Character has no hat, but it's a base hat or cosmetic hat, reassign the default hat (if applicable)
 			else if(this.character.hat is Hat && this.character.hat.IsCosmeticHat) {
-				this.character.hat.DestroyHat();
+				this.character.hat.DestroyHat(false);
 				this.AssignSuitDefaultHat();
 			}
 
@@ -44,14 +48,16 @@ namespace Nexus.ObjectComponents {
 
 		// Some Suits come with default hats.
 		public virtual void AssignSuitDefaultHat() {
-			this.character.hat = new CosmeticHat(this.character, this.DefaultCosmeticHat);
+			if(this.DefaultCosmeticHat != "") {
+				this.character.hat = new CosmeticHat(this.character, this.DefaultCosmeticHat);
+			}
 		}
 
 		// Some Suits may require cleanup.
-		public void DestroySuit() {
+		public virtual void DestroySuit( bool resetStats ) {
 			// TODO HIGH PRIORITY: Determine the character's base suit type based on player class? Or scene, or something...
 			this.character.suit = null;
-			this.character.stats.ResetCharacterStats();
+			if(resetStats) { this.character.stats.ResetCharacterStats(); }
 		}
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using System;
 
 namespace Nexus.Objects {
 
@@ -35,6 +37,26 @@ namespace Nexus.Objects {
 		}
 
 		public override void Collect( Character character, uint gridId ) {
+			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+
+			// Random Hat
+			if(subType == (byte)HatSubType.RandomHat) {
+				Random rand = new Random((int) Systems.timer.Frame);
+				subType = (byte) rand.Next(1, 9);
+			}
+
+			switch(subType) {
+				case (byte)HatSubType.AngelHat: character.hat = new AngelHat(character); break;
+				case (byte)HatSubType.BambooHat: character.hat = new BambooHat(character); break;
+				case (byte)HatSubType.CowboyHat: character.hat = new CowboyHat(character); break;
+				case (byte)HatSubType.FeatheredHat: character.hat = new FeatheredHat(character); break;
+				case (byte)HatSubType.FedoraHat: character.hat = new FedoraHat(character); break;
+				case (byte)HatSubType.HardHat: character.hat = new HardHat(character); break;
+				case (byte)HatSubType.RangerHat: character.hat = new RangerHat(character); break;
+				case (byte)HatSubType.SpikeyHat: character.hat = new SpikeyHat(character); break;
+				case (byte)HatSubType.TopHat: character.hat = new TopHat(character); break;
+			}
+
 			Systems.sounds.collectBweep.Play();
 			base.Collect(character, gridId);
 		}

@@ -87,14 +87,14 @@ namespace Nexus.ObjectComponents {
 			// Damage will be soaked by destroying Hat, if one is available.
 			if(this.character.hat is Hat && this.character.hat.IsPowerHat) {
 				this.SetInvincible(this.InvincibleDuration);
-				this.character.hat.DestroyHat();
+				this.character.hat.DestroyHat(true);
 				return true;
 			}
 
 			// Damage will be soaked by destroying Suit, if one is available.
 			if(this.character.suit is Suit && this.character.suit.IsPowerSuit) {
 				this.SetInvincible(this.InvincibleDuration);
-				this.character.suit.DestroySuit();
+				this.character.suit.DestroySuit(true);
 				return true;
 			}
 

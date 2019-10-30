@@ -1,6 +1,8 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using System;
 
 namespace Nexus.Objects {
 
@@ -39,6 +41,40 @@ namespace Nexus.Objects {
 		}
 
 		public override void Collect(Character character, uint gridId) {
+			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+
+			// Random Suit
+			if(subType == (byte)SuitSubType.RandomSuit) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(3, 11);
+			}
+
+			else if(subType == (byte)SuitSubType.RandomNinja) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(3, 7);
+			}
+
+			else if(subType == (byte)SuitSubType.RandomWizard) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(8, 11);
+			}
+
+			switch(subType) {
+
+				// Ninjas
+				case (byte)SuitSubType.BlackNinja: character.suit = new BlackNinja(character); break;
+				case (byte)SuitSubType.BlueNinja: character.suit = new BlueNinja(character); break;
+				case (byte)SuitSubType.GreenNinja: character.suit = new GreenNinja(character); break;
+				case (byte)SuitSubType.RedNinja: character.suit = new RedNinja(character); break;
+				case (byte)SuitSubType.WhiteNinja: character.suit = new WhiteNinja(character); break;
+
+				// Wizards
+				case (byte)SuitSubType.BlueWizard: character.suit = new BlueWizard(character); break;
+				case (byte)SuitSubType.GreenWizard: character.suit = new GreenWizard(character); break;
+				case (byte)SuitSubType.RedWizard: character.suit = new RedWizard(character); break;
+				case (byte)SuitSubType.WhiteWizard: character.suit = new WhiteWizard(character); break;
+			}
+
 			Systems.sounds.collectBweep.Play();
 			base.Collect(character, gridId);
 		}

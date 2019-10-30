@@ -1,4 +1,6 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
+using Nexus.Objects;
 
 /*
 	Powered Hats:
@@ -36,13 +38,17 @@ namespace Nexus.ObjectComponents {
 		protected readonly Character character;
 
 		protected HatRank hatRank;
-		protected bool faceRight;       // True when the hat is facing right.
-		protected sbyte yOffset;		// The Y-Offset for placing the hat on the character's head.
+		protected sbyte yOffset;        // The Y-Offset for placing the hat on the character's head.
+
+		protected string SpriteName;	// Name of the sprite to draw.
 
 		public Hat( Character character, HatRank hatRank = HatRank.BaseHat ) {
+
+			// Destroy any existing hat, if applicable:
+			if(character.hat is Hat) { character.hat.DestroyHat(false); }
+
 			this.character = character;
 			this.hatRank = hatRank;
-			this.faceRight = this.character.FaceRight;
 			this.yOffset = -10;
 
 			// Rendering
@@ -55,11 +61,15 @@ namespace Nexus.ObjectComponents {
 		public bool IsCosmeticHat { get { return this.hatRank == HatRank.CosmeticHat; } }
 		public bool IsPowerHat { get { return this.hatRank == HatRank.PowerHat; } }
 
+		public void Draw(int camX, int camY) {
+			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (this.character.FaceRight ? "" : "Left"), this.character.posX - camX, this.character.posY + this.yOffset - camY);
+		}
+
 		// Hats with powers may update the stats of the character that wears them.
 		public virtual void UpdateCharacterStats() {}
 
 		// Some Hats may require cleanup.
-		public void DestroyHat() {
+		public virtual void DestroyHat( bool resetStats ) {
 			this.character.hat = null;
 
 			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
@@ -67,7 +77,7 @@ namespace Nexus.ObjectComponents {
 				this.character.hat = new CosmeticHat(this.character, this.character.suit.DefaultCosmeticHat);
 			}
 
-			this.character.stats.ResetCharacterStats();
+			if(resetStats) { this.character.stats.ResetCharacterStats(); }
 		}
 	}
 }

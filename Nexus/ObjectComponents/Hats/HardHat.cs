@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class HardHat : Hat {
 
 		public HardHat( Character character ) : base(character, HatRank.PowerHat) {
-
+			this.SpriteName = "Hat/HardHat";
 		}
 
 		public override void UpdateCharacterStats() {

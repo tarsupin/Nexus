@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class CosmeticHat : Hat {
 
 		public CosmeticHat( Character character, string hatTexture ) : base(character, HatRank.PowerHat) {
-
+			this.SpriteName = hatTexture;
 		}
 	}
 }

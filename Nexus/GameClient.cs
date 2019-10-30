@@ -64,11 +64,11 @@ namespace Nexus
 
 			// TODO: Change playtesting level to correct setup.
 			// Load a default level.
-			SceneTransition.ToLevel("", "QCALQOD16");
+			SceneTransition.ToLevel("", "QCALQOD13");
 			(Systems.scene).camera.CenterAtPosition(1200, 0);
 
 			// TODO CLEANUP: Remove Character from being inserted like this:
-			Character character = new Character((LevelScene) Systems.scene, 0, FVector.Create(950, 600), null);
+			Character character = new Character((LevelScene) Systems.scene, 0, FVector.Create(850, 600), null);
 			((LevelScene)(Systems.scene)).AddToScene(character, true);
 
 			Systems.localServer.MyPlayer.AssignCharacter(character);
