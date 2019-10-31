@@ -23,6 +23,13 @@ namespace Nexus.Gameplay {
 		FBR,
 	}
 
+	public enum PlatformSubTypes : byte {
+		S,
+		H1,
+		H2,
+		H3,
+	}
+
 	public enum FacingSubType : byte {
 		FaceUp = 0,
 		FaceLeft = 1,

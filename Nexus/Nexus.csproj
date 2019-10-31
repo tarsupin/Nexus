@@ -249,6 +249,10 @@
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
     <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
+    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformDown.cs" />
+    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformRight.cs" />
+    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformLeft.cs" />
+    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformUp.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
     <Compile Include="Objects\EnemyFlight\Buzz.cs" />
