@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.TogglePlatYellow, subTypeId);
 		}
 
-		public TogglePlatYellow(RoomScene room, byte subTypeId) : base(room, subTypeId, TileGameObjectId.TogglePlatYellow) {
+		public TogglePlatYellow(RoomScene room, byte subTypeId) : base(room, TileGameObjectId.TogglePlatYellow) {
 			this.Texture = "/Yellow/Plat";
 		}
 	}

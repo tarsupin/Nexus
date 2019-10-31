@@ -9,37 +9,19 @@ namespace Nexus.Objects {
 	public class TogglePlat : TileGameObject {
 
 		public string Texture;
-		protected DirCardinal facing;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public TogglePlat(RoomScene room, byte subTypeId, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		public TogglePlat(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
-
-			// Platform Faces Left
-			if(subTypeId == (byte) FacingSubType.FaceLeft) {
-				this.facing = DirCardinal.Left;
-			}
-
-			// Platform Faces Right
-			else if(subTypeId == (byte) FacingSubType.FaceRight) {
-				this.facing = DirCardinal.Right;
-			}
-
-			// Platform Faces Down
-			else if(subTypeId == (byte) FacingSubType.FaceDown) {
-				this.facing = DirCardinal.Down;
-			}
-
-			// Platform Faces Up
-			else {
-				this.facing = DirCardinal.Up;
-			}
 		}
 
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.Toggled) {
-				bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
+				
+				// TODO HIGH PRIORITY: Need to send subtype to RunImpact();
+				// TODO HIGH PRIORITY: Change DirCardinal.Up to the direction this tile is facing (based on the subtype)
+				bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
 				if(collided && actor is Character) {
 
@@ -55,8 +37,21 @@ namespace Nexus.Objects {
 
 		public override void Draw(byte subType, int posX, int posY) {
 
-			// If Global Toggle is ON for Blue/Red, draw accordingly:
-			this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			if(subType == (byte) FacingSubType.FaceUp) {
+				this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			}
+			
+			else if(subType == (byte) FacingSubType.FaceDown) {
+				this.atlas.DrawFaceDown((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			}
+			
+			else if(subType == (byte) FacingSubType.FaceLeft) {
+				this.atlas.DrawFaceLeft((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			}
+			
+			else if(subType == (byte) FacingSubType.FaceRight) {
+				this.atlas.DrawFaceRight((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			}
 		}
 	}
 }
