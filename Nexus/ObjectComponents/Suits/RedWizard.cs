@@ -4,7 +4,7 @@ namespace Nexus.ObjectComponents {
 
 	public class RedWizard : Suit {
 
-		public RedWizard( Character character ) : base(character, SuitRank.PowerSuit) {
+		public RedWizard( Character character ) : base(character, SuitRank.PowerSuit, "RedWizard") {
 
 		}
 

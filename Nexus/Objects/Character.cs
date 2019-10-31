@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 
 		public Character(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
-			this.SetSpriteName("Moosh/Brown/Left2");
+			this.SetSpriteName("BasicChar/Stand");
 
 			// Physics, Collisions, etc.
 			this.AssignBounds(8, 12, 28, 44);
@@ -42,11 +42,10 @@ namespace Nexus.Objects {
 			this.wounds = new CharacterWounds(this, Systems.timer);
 
 			// Images and Animations
-			this.animate = new Animate(this, "Moosh/Brown/");
+			this.animate = new Animate(this, "BasicChar/");
 
-			// TODO CLEANUP: Remove
-			this.stats.CanWallSlide = true;
-			this.stats.CanWallJump = true;
+			// Reset Character, Set Default Values
+			this.ResetCharacter();
 		}
 
 		public void AssignPlayer( Player player ) {
@@ -62,7 +61,7 @@ namespace Nexus.Objects {
 			// Status Reset
 			this.status.ResetCharacterStatus();
 
-			// TODO HIGH PRIORITY: Add item, suit, hat, attachments
+			// TODO HIGH PRIORITY: Add item, attachments
 
 			// Item Handling
 			//if(this.item is Item) { this.item.DropItem(); }		// Multiplayer must drop. Single player will reset level.
@@ -71,6 +70,9 @@ namespace Nexus.Objects {
 			if(this.suit is Suit) { this.suit.DestroySuit(false); }
 			if(this.hat is Hat) { this.hat.DestroyHat(false); };
 
+			// Default Suit
+			this.suit = new BasicRedSuit(this);
+
 			this.stats.ResetCharacterStats();
 
 			// Attachments
@@ -78,6 +80,10 @@ namespace Nexus.Objects {
 
 			// Reset Physics to ensure it doesn't maintain knowledge from previous state.
 			this.physics.touch.ResetTouch();
+
+			// TODO CLEANUP: Remove
+			this.stats.CanWallSlide = true;
+			this.stats.CanWallJump = true;
 		}
 
 		// Disable Suit, Hat, Powers
@@ -295,7 +301,6 @@ namespace Nexus.Objects {
 			// Animations & Drawing
 			int velX = this.physics.velocity.X.IntValue;
 			bool heldItem = false;
-			string suitType = "WhiteNinja/";        // this.suit.type + "/"
 
 			// Ground Movement & Actions
 			if(this.physics.touch.toFloor) {
@@ -305,15 +310,15 @@ namespace Nexus.Objects {
 
 					// If Facing Left
 					if(!this.FaceRight) {
-						this.SetSpriteName(suitType + "TurnLeft");
+						this.SetSpriteName(this.suit.texture + "/TurnLeft");
 						//if(heldItem) { xShift = 74; }
 					}
 
 					// If Facing Right
 					else {
-						if(heldItem) { this.SetSpriteName(suitType + "RunHold"); }
-						else if(velX > 5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunRight, 8, 1); }
-						else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkRight, 11); }
+						if(heldItem) { this.SetSpriteName(this.suit.texture + "/RunHold"); }
+						else if(velX > 5) { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterRunRight, 8, 1); }
+						else { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterWalkRight, 11); }
 					}
 				}
 
@@ -322,21 +327,21 @@ namespace Nexus.Objects {
 
 					// If Facing Right
 					if(this.FaceRight) {
-						this.SetSpriteName(suitType + "Turn");
+						this.SetSpriteName(this.suit.texture + "/Turn");
 						//if(heldItem) { xShift = -14; }
 					}
 
 					// If Facing Left
 					else {
-						if(heldItem) { this.SetSpriteName(suitType + "RunHoldLeft"); }
-						else if(velX < -5) { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterRunLeft, 8, 1); }
-						else { this.animate.SetAnimation(suitType, AnimCycleMap.CharacterWalkLeft, 11); }
+						if(heldItem) { this.SetSpriteName(this.suit.texture + "/RunHoldLeft"); }
+						else if(velX < -5) { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterRunLeft, 8, 1); }
+						else { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterWalkLeft, 11); }
 					}
 				}
 
 				// If Not Moving
 				else {
-					this.SetSpriteName(suitType + "Stand" + (heldItem ? "Hold" : "") + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName(this.suit.texture + "/Stand" + (heldItem ? "Hold" : "") + (this.FaceRight ? "" : "Left"));
 				}
 			}
 
@@ -345,17 +350,17 @@ namespace Nexus.Objects {
 
 				// If Holding Item
 				if(heldItem) {
-					this.SetSpriteName(suitType + "RunHold" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName(this.suit.texture + "/RunHold" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Falling
 				else if(this.physics.velocity.Y.IntValue > 3) {
-					this.SetSpriteName(suitType + "Fall" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName(this.suit.texture + "/Fall" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Jumping (Moving Up)
 				else {
-					this.SetSpriteName(suitType + "Jump" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName(this.suit.texture + "/Jump" + (this.FaceRight ? "" : "Left"));
 				}
 			}
 		}

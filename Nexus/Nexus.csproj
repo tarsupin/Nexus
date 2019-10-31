@@ -221,6 +221,7 @@
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
     <Compile Include="ObjectComponents\Status\EnemyStatus.cs" />
+    <Compile Include="ObjectComponents\Suits\BasicRedSuit.cs" />
     <Compile Include="ObjectComponents\Suits\WhiteWizard.cs" />
     <Compile Include="ObjectComponents\Suits\RedWizard.cs" />
     <Compile Include="ObjectComponents\Suits\GreenWizard.cs" />

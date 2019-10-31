@@ -10,18 +10,18 @@ namespace Nexus.ObjectComponents {
 
 	public class Suit {
 
-		// References
 		protected readonly Character character;
-
 		protected SuitRank suitRank;
+		public readonly string texture;
 
-		public Suit( Character character, SuitRank suitRank = SuitRank.BaseSuit, string defaultCosmeticHat = "" ) {
+		public Suit( Character character, SuitRank suitRank, string texture, string defaultCosmeticHat = "" ) {
 
 			// Destroy existing Suit, if applicable.
 			if(character.suit is Suit) { this.DestroySuit(false); }
 
 			this.character = character;
 			this.suitRank = suitRank;
+			this.texture = texture;
 			this.DefaultCosmeticHat = defaultCosmeticHat;
 
 			// Assign Default Hat for this Suit
