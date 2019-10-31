@@ -23,10 +23,10 @@ namespace Nexus.Gameplay {
 		FBR,
 	}
 
-	public enum FixedPlatSubType {
-		Standard,
-		FaceLeft,
-		FaceRight,
-		UpsideDown,
+	public enum FacingSubType : byte {
+		FaceUp = 0,
+		FaceLeft = 1,
+		FaceRight = 2,
+		FaceDown = 3,
 	}
 }

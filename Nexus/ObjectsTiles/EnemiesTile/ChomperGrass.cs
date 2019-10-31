@@ -1,26 +1,23 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class Chomper : TileGameObject {
+	public class ChomperGrass : Chomper {
 
-		protected Chomper(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
-			this.collides = true;
-		}
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-		// TODO HIGH PRIORITY: Chomper Impacts (projectiles, character, etc.)
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-
-			// Characters Receive Chomper Damage
-			if(actor is Character) {
-				Character character = (Character) actor;
-				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.ChomperGrass)) {
+				new ChomperGrass(room);
 			}
 
-			return true;
+			// Add to Tilemap
+			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.ChomperGrass, subTypeId);
+		}
+
+		private ChomperGrass(RoomScene room) : base(room, TileGameObjectId.ChomperGrass) {
+
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

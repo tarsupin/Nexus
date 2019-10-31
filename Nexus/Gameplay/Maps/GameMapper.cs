@@ -151,8 +151,9 @@ namespace Nexus.Gameplay {
 			
 			// Tile-Based Creatures (70 - 79)
 			{ 70, Type.GetType("Nexus.Objects.Plant") },
-			{ 71, Type.GetType("Nexus.Objects.Chomper") },
-			{ 72, Type.GetType("Nexus.Objects.ChomperFire") },
+			{ 71, Type.GetType("Nexus.Objects.ChomperGrass") },
+			{ 72, Type.GetType("Nexus.Objects.ChomperMetal") },
+			{ 73, Type.GetType("Nexus.Objects.ChomperFire") },
 
 			// Anything below can only be interacted with by a character:
 			// These will have Passive Collision by Character Only.

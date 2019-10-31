@@ -16,17 +16,17 @@ namespace Nexus.Objects {
 			this.collides = true;
 
 			// Platform Faces Left
-			if(subTypeId == (byte) FixedPlatSubType.FaceLeft) {
+			if(subTypeId == (byte) FacingSubType.FaceLeft) {
 				this.facing = DirCardinal.Left;
 			}
 
 			// Platform Faces Right
-			else if(subTypeId == (byte) FixedPlatSubType.FaceRight) {
+			else if(subTypeId == (byte) FacingSubType.FaceRight) {
 				this.facing = DirCardinal.Right;
 			}
 
 			// Platform Faces Down
-			else if(subTypeId == (byte) FixedPlatSubType.UpsideDown) {
+			else if(subTypeId == (byte) FacingSubType.FaceDown) {
 				this.facing = DirCardinal.Down;
 			}
 

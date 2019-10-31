@@ -1,17 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class ChomperFire : TileGameObject {
-
-		public string[] Texture;
-
-		public enum  ChomperSubType {
-			Fire,
-		}
+	public class ChomperFire : Chomper {
 
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
@@ -24,9 +17,8 @@ namespace Nexus.Objects {
 			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.ChomperFire, subTypeId);
 		}
 
-		public ChomperFire(RoomScene room) : base(room, TileGameObjectId.ChomperFire, AtlasGroup.Tiles) {
-			this.collides = true;
-			this.CreateTextures();
+		private ChomperFire(RoomScene room) : base(room, TileGameObjectId.ChomperFire) {
+
 		}
 
 		public override void UpdateParams(JObject paramList) {
@@ -37,26 +29,23 @@ namespace Nexus.Objects {
 			// }
 		}
 
-		// TODO HIGH PRIORITY: ChomperFire Impacts (projectiles, character, etc.)
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+		public override void Draw(byte subType, int posX, int posY) {
 
-			// Characters Receive ChomperFire Damage
-			if(actor is Character) {
-				Character character = (Character) actor;
-				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			if(subType == (byte) FacingSubType.FaceUp) {
+				this.atlas.Draw("Chomper/Fire/Chomp1", posX, posY);
+			}
+			
+			else if(subType == (byte) FacingSubType.FaceDown) {
+				this.atlas.DrawFaceDown("Chomper/Fire/Chomp1", posX, posY);
 			}
 
-			return true;
-		}
-
-		private void CreateTextures() {
-			this.Texture = new string[1];
-			this.Texture[(byte) ChomperSubType.Fire] = "Chomper/Fire/Chomp1";
-		}
-
-		public override void Draw(byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture[subType], posX, posY);
+			else if(subType == (byte) FacingSubType.FaceLeft) {
+				this.atlas.DrawFaceLeft("Chomper/Fire/Chomp1", posX, posY);
+			}
+			
+			else if(subType == (byte) FacingSubType.FaceRight) {
+				this.atlas.DrawFaceRight("Chomper/Fire/Chomp1", posX, posY);
+			}
 		}
 	}
 }

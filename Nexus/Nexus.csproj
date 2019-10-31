@@ -241,9 +241,11 @@
     <Compile Include="ObjectComponents\Physics\Physics.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="ObjectsTiles\EnemiesTile\Chomper.cs" />
+    <Compile Include="ObjectsTiles\EnemiesTile\ChomperGrass.cs" />
+    <Compile Include="ObjectsTiles\EnemiesTile\ChomperMetal.cs" />
     <Compile Include="ObjectsTiles\EnemiesTile\ChomperFire.cs" />
     <Compile Include="ObjectsTiles\EnemiesTile\Plant.cs" />
-    <Compile Include="ObjectsTiles\EnemiesTile\Chomper.cs" />
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
     <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />

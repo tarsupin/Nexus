@@ -69,6 +69,8 @@ namespace Nexus.Gameplay {
 		// Tile Enemies
 		Plant,
 		Chomper,
+		ChomperGrass,
+		ChomperMetal,
 		ChomperFire,
 	}
 
