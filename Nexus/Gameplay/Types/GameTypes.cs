@@ -11,8 +11,8 @@ namespace Nexus.Gameplay {
 		TileHeight = 48,
 
 		// Tilemap Limits
-		MaxTilesWide = 600,
-		MaxTilesHigh = 600,
+		MaxTilesWide = 800,
+		MaxTilesHigh = 800,
 		MaxTileMult = 40000,			// The maximum size of (Tiles Wide x Tiles High)
 
 		// Sectors

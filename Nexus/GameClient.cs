@@ -16,8 +16,6 @@ namespace Nexus
 
 		public EmitterSimple TESTEMITTER;       // TODO CLEANUP: DELETE
 
-		public SpriteFont font; // TODO CLEANUP: REMOVE
-
 		public GameClient() {
 			graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

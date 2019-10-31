@@ -43,13 +43,6 @@ namespace Nexus.GameEngine {
 			this.localServer = Systems.localServer;
 			this.collideSequence = new CollideSequence(this);
 
-			// Important Components
-			this.tilemap = new TilemapBool(this, 400, 100);       // TODO: Get X,Y grid sizes from the level data.
-			this.camera = new Camera(this);
-
-			// Parallax
-			this.parallax = ParallaxOcean.CreateOceanParallax(this);
-
 			// Game Objects
 			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
 				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),
@@ -69,6 +62,14 @@ namespace Nexus.GameEngine {
 
 			// Generate Room 0
 			Systems.handler.level.generate.GenerateRoom(this, "0");
+
+			this.tilemap = new TilemapBool(this, 600, 100);
+
+			// Important Components
+			this.camera = new Camera(this);
+
+			// Parallax
+			this.parallax = ParallaxOcean.CreateOceanParallax(this);
 
 			// Create UI
 			this.levelUI = new LevelUI(this);

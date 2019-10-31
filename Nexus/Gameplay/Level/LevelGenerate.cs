@@ -31,22 +31,13 @@ namespace Nexus.Gameplay {
 
 		private void GenerateTileLayer(Dictionary<string, Dictionary<string, ArrayList>> layer, bool useForeground = false) {
 
-			// TODO HIGH PRIORITY: This should be done by level, since we'll need to know it to create tilemap sizing.
-			// Prepare Minimum Width and Height for Level
-			ushort levelWidth = 24;
-			ushort levelHeight = 16;
-
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
 
-				if(gridY > levelHeight) { levelHeight = gridY; }
-
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					ushort gridX = ushort.Parse(xData.Key);
-
-					if(gridX > levelWidth) { levelWidth = gridX; }
 
 					if(xData.Value.Count == 2) {
 						this.AddTileToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground);
@@ -59,21 +50,13 @@ namespace Nexus.Gameplay {
 		
 		private void GenerateObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layer) {
 
-			// Prepare Minimum Width and Height for Level
-			ushort levelWidth = 24;
-			ushort levelHeight = 16;
-
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
 
-				if(gridY > levelHeight) { levelHeight = gridY; }
-
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					ushort gridX = ushort.Parse(xData.Key);
-
-					if(gridX > levelWidth) { levelWidth = gridX; }
 
 					if(xData.Value.Count == 2) {
 						this.AddObjectToScene(gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
@@ -141,5 +124,40 @@ namespace Nexus.Gameplay {
 		//public void GenerateCharacter( FVector pos ) {
 
 		//}
+
+		public static void DetermineRoomSize(RoomFormat room, out ushort levelHeight, out ushort levelWidth) {
+
+			// The Room may store its size in the data:
+			if(room.width != 0 && room.height != 0) {
+				levelHeight = room.height;
+				levelWidth = room.width;
+				return;
+			}
+
+			// Prepare Minimum Width and Height for Level
+			levelWidth = 24;
+			levelHeight = 16;
+
+			// Scan the full level to determine it's size:
+			LevelGenerate.DetermineLayerSize(room.main, ref levelHeight, ref levelWidth);
+			LevelGenerate.DetermineLayerSize(room.obj, ref levelHeight, ref levelWidth);
+			LevelGenerate.DetermineLayerSize(room.fg, ref levelHeight, ref levelWidth);
+		}
+
+		public static void DetermineLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort levelHeight, ref ushort levelWidth) {
+
+			// Loop through YData within the Layer Provided:
+			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
+				ushort gridY = ushort.Parse(yData.Key);
+
+				if(gridY > levelHeight) { levelHeight = gridY; }
+
+				// Loop through XData
+				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
+					ushort gridX = ushort.Parse(xData.Key);
+					if(gridX > levelWidth) { levelWidth = gridX; }
+				}
+			}
+		}
 	}
 }
