@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 		private FInt elapsedOffset;         // The elapsed offset / weight that this ball rotates with, comparative to others in the set.
 		private FInt sustained;             // If set above 0, this ball doesn't get destroyed on contact (e.g. White Wizard). It recharges from 0 to 1 (also transparency).
 
-		private ProjectileMagi(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(scene, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
+		private ProjectileMagi(RoomScene room, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) : base(room, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			
 			// TODO COLLIDES VS TILES AND STATIC??
 			// this.collision.ignores.static = true;
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 			this.SetOffset(numberOfBalls, ballNumber);
 		}
 
-		public static ProjectileMagi Create(LevelScene scene, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) {
+		public static ProjectileMagi Create(RoomScene room, byte subType, DynamicGameObject actor, byte numberOfBalls, byte ballNumber) {
 			ProjectileMagi projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -37,7 +37,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new ProjectileMagi(scene, subType, actor, numberOfBalls, ballNumber);
+				projectile = new ProjectileMagi(room, subType, actor, numberOfBalls, ballNumber);
 			}
 
 			projectile.AssignSubType(subType);
@@ -45,7 +45,7 @@ namespace Nexus.Objects {
 			projectile.ResetMagiBall(subType, actor, numberOfBalls, ballNumber);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

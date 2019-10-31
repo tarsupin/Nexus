@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 		// -- move all into a TouchEffect class that contains this; (Sticky, Ungrippable, Damage, Friction)
 		// -- that would also allow it to be utilized in dynamic blocks
 
-		public StaticGameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) : base(scene, subType, pos, paramList) {
+		public StaticGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {
 
 		}
 	}

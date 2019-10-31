@@ -1,6 +1,4 @@
-﻿
-using Nexus.Engine;
-using System;
+﻿using System;
 
 namespace Nexus.GameEngine {
 
@@ -8,13 +6,12 @@ namespace Nexus.GameEngine {
 
 		public uint idCounter;           // Tracks the last ID that was generated in the scene.
 
-		public Camera camera { get; protected set; }
-
 		public Scene() {}
 
 		public virtual int Width { get { return 0; } } // Placeholder for Camera
 		public virtual int Height { get { return 0; } } // Placeholder for Camera
 
+		// TODO: These don't appear to be used. Remove them, or find a use.
 		public virtual void StartScene() { }
 		public virtual void ResetScene() { }
 		public virtual void EndScene() { }

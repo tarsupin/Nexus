@@ -65,23 +65,23 @@ namespace Nexus.Objects {
 			GrenadePack = 63,
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectablePower)) {
-				new CollectablePower(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectablePower)) {
+				new CollectablePower(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectablePower, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectablePower, subTypeId);
 		}
 
-		public CollectablePower(LevelScene scene) : base(scene, TileGameObjectId.CollectablePower) {
+		public CollectablePower(RoomScene room) : base(room, TileGameObjectId.CollectablePower) {
 			this.CreateTextures();
 		}
 
 		public override void Collect( Character character, uint gridId ) {
-			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
 
 			// Random Throwing Weapon
 			if(subType == (byte) PowerSubType.RandThrown) {

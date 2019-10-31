@@ -7,8 +7,7 @@ namespace Nexus.Engine {
 	public class Camera {
 
 		// Systems
-		private readonly Scene scene;
-		private readonly TimerGlobal time;
+		private Scene scene;
 
 		// Camera Traits
 		public int posX;
@@ -27,23 +26,26 @@ namespace Nexus.Engine {
 		private byte shakeStrength;
 
 		public Camera( Scene scene ) {
-			this.scene = scene;
-			this.time = Systems.timer;
-			this.posX = 0;
-			this.posY = 0;
-			this.speedMult = 0.08f; // 0.08f;
-			this.controlSpeed = 8;
-			this.SetSize(1440, 816);		// TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
-			this.bounds = new BoundsCamera();
-			this.BindToScene();
+			this.UpdateScene(scene);
 		}
 
 		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (byte)TilemapEnum.TileWidth); } }
 		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (byte)TilemapEnum.TileHeight); } }
 
+		public void UpdateScene( Scene scene ) {
+			this.scene = scene;
+			this.posX = 0;
+			this.posY = 0;
+			this.speedMult = 0.08f; // 0.08f;
+			this.controlSpeed = 8;
+			this.SetSize(1440, 816);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
+			this.bounds = new BoundsCamera();
+			this.BindToScene();
+		}
+
 		public void SetSize( ushort width, ushort height ) {
-			this.midX = (int) Math.Floor((double)(width / 2));
-			this.midY = (int) Math.Floor((double)(height / 2));
+			this.midX = (int) Math.Floor((double)(width * 0.5));
+			this.midY = (int) Math.Floor((double)(height * 0.5));
 			this.width = width;
 			this.height = height;
 		}
@@ -135,21 +137,21 @@ namespace Nexus.Engine {
 
 		// Camera Shake
 		public void BeginCameraShake( byte framesDuration, byte strength ) {
-			this.shakeStart = this.time.Frame;
+			this.shakeStart = Systems.timer.Frame;
 			this.shakeEnd = this.shakeStart + framesDuration;
 			this.shakeStrength = strength;
 		}
 
 		public bool IsShaking() {
-			return this.shakeEnd > this.time.Frame;
+			return this.shakeEnd > Systems.timer.Frame;
 		}
 
 		public int GetCameraShakeOffsetX() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (this.time.Frame % 15) / 15);
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (Systems.timer.Frame % 15) / 15);
 		}
 
 		public int GetCameraShakeOffsetY() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (this.time.Frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (Systems.timer.Frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
 		}
 	}
 }

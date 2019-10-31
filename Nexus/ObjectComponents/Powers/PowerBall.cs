@@ -56,7 +56,7 @@ namespace Nexus.ObjectComponents {
 
 			this.sound.Play();
 
-			return ProjectileBall.Create(this.character.scene, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			return ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 		}
 	}
 }

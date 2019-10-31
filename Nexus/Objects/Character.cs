@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
-		public Character(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Character(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
 			this.SetSpriteName("Moosh/Brown/Left2");
 
@@ -401,8 +401,8 @@ namespace Nexus.Objects {
 			}
 
 			// Right Bounds
-			else if(this.posX + this.bounds.Right >= this.scene.tilemap.Width) {
-				this.physics.MoveToPosX(this.scene.tilemap.Width - this.bounds.Right);
+			else if(this.posX + this.bounds.Right >= this.room.tilemap.Width) {
+				this.physics.MoveToPosX(this.room.tilemap.Width - this.bounds.Right);
 				this.physics.StopX();
 			}
 		}
@@ -417,7 +417,7 @@ namespace Nexus.Objects {
 		private void CheckFallOfWorld() {
 
 			// If the Character falls off the world edge, die.
-			if(this.posY > this.scene.tilemap.Height) {
+			if(this.posY > this.room.tilemap.Height) {
 				this.wounds.Death();
 			}
 		}

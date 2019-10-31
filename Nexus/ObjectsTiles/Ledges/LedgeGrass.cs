@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class LedgeGrass : Ledge {
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Add the Top Layers of Grass Ledges as "LedgeGrass" tiles.
 			// Only some SubTypes apply.
@@ -19,25 +19,25 @@ namespace Nexus.Objects {
 				case (byte) GroundSubTypes.H3:
 				case (byte) GroundSubTypes.V1:
 
-					// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-					if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrass)) {
-						new LedgeGrass(scene);
+					// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+					if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrass)) {
+						new LedgeGrass(room);
 					}
 
-					scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrass, subTypeId);
+					room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrass, subTypeId);
 					return;
 			}
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrassDecor)) {
-				new LedgeGrassDecor(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrassDecor)) {
+				new LedgeGrassDecor(room);
 			}
 
 			// Add to Ledge Grass Decor (no collisions, no facing).
-			scene.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrassDecor, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrassDecor, subTypeId);
 		}
 
-		public LedgeGrass(LevelScene scene) : base(scene, TileGameObjectId.LedgeGrass) {
+		public LedgeGrass(RoomScene room) : base(room, TileGameObjectId.LedgeGrass) {
 			this.BuildTextures("GrassLedge/");
 		}
 	}

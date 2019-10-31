@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class EnemyFlight : Enemy {
 
-		public EnemyFlight(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public EnemyFlight(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 
 		}
 	}

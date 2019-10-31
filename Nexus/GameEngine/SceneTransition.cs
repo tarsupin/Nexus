@@ -23,10 +23,10 @@ namespace Nexus.GameEngine {
 			GameHandler handler = Systems.handler;
 
 			// Verify that we're loading a level that's different from our current one:
-			if(levelId == handler.level.levelId) { return false; }
+			if(levelId == handler.levelContent.levelId) { return false; }
 			
 			// Get Level Path & Retrieve Level Data
-			if(!handler.level.LoadLevel(levelId)) { return false; }
+			if(!handler.levelContent.LoadLevel(levelId)) { return false; }
 
 			// Update the Level State
 			handler.levelState.FullLevelReset();

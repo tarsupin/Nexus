@@ -134,7 +134,7 @@ namespace Nexus.ObjectComponents {
 
 			// Run Level Death
 			levelState.Die();
-			this.character.scene.RunCharacterDeath( this.character );
+			this.character.room.scene.RunCharacterDeath( this.character );
 
 			return true;
 		}

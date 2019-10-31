@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 
 	public class Octo : EnemyLand {
 
-		public Octo(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Octo(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
 
 			// Movement

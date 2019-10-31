@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 
 		public string[] Texture;
 
-		public Decor(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public Decor(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = false; // Since 'collides' is false, it never runs RunCollision() in base class.
 		}
 

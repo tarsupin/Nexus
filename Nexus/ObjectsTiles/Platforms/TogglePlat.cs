@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 		protected DirCardinal facing;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public TogglePlat(LevelScene scene, byte subTypeId, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public TogglePlat(RoomScene room, byte subTypeId, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 
 			// Platform Faces Left

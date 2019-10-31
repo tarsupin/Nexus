@@ -21,23 +21,23 @@ namespace Nexus.Objects {
 			TopHat = 9,
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectableHat)) {
-				new CollectableHat(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectableHat)) {
+				new CollectableHat(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectableHat, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectableHat, subTypeId);
 		}
 
-		public CollectableHat(LevelScene scene) : base(scene, TileGameObjectId.CollectableHat) {
+		public CollectableHat(RoomScene room) : base(room, TileGameObjectId.CollectableHat) {
 			this.CreateTextures();
 		}
 
 		public override void Collect( Character character, uint gridId ) {
-			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
 
 			// Random Hat
 			if(subType == (byte)HatSubType.RandomHat) {

@@ -10,13 +10,13 @@ namespace Nexus.Objects {
 
 	public class WeaponGrenade : Projectile {
 
-		private WeaponGrenade(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private WeaponGrenade(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.None;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			this.physics.SetGravity(FInt.Create(0.4));
 		}
 
-		public static WeaponGrenade Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static WeaponGrenade Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			WeaponGrenade projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -27,14 +27,14 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponGrenade(scene, subType, pos, velocity);
+				projectile = new WeaponGrenade(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

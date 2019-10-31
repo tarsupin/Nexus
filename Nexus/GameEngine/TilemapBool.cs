@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class TilemapBool {
 
-		LevelScene scene;
+		RoomScene room;
 
 		// Tile Data: Dictionaries of data that matches to the gridID (gridY*xCount + gridX)
 		public Dictionary<uint, TileGameObject> ids;
@@ -18,8 +18,8 @@ namespace Nexus.GameEngine {
 		public ushort XCount { get; protected set; }
 		public ushort YCount { get; protected set; }
 
-		public TilemapBool( LevelScene scene, ushort xCount, ushort yCount ) {
-			this.scene = scene;
+		public TilemapBool( RoomScene room, ushort xCount, ushort yCount ) {
+			this.room = room;
 
 			// Sizing
 			this.XCount = xCount;
@@ -57,7 +57,7 @@ namespace Nexus.GameEngine {
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void AddTile(ushort gridX, ushort gridY, byte classId, byte subTypeId ) {
 			uint gridId = this.GetGridID(gridX, gridY);
-			this.ids[gridId] = this.scene.tileObjects[classId];
+			this.ids[gridId] = this.room.tileObjects[classId];
 			this.subTypes[gridId] = subTypeId;
 		}
 

@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected FInt speed;
 
-		public EnemyLand(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public EnemyLand(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 
 		}
 

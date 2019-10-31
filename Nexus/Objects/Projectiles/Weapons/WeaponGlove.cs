@@ -11,12 +11,12 @@ namespace Nexus.Objects {
 
 	public class WeaponGlove : Projectile {
 
-		private WeaponGlove(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private WeaponGlove(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.BreakObjects;
 		}
 
-		public static WeaponGlove Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static WeaponGlove Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			WeaponGlove projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponGlove(scene, subType, pos, velocity);
+				projectile = new WeaponGlove(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 			projectile.AssignBoundsByAtlas(5, 5, -5, -5);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

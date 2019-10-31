@@ -13,18 +13,18 @@ namespace Nexus.Objects {
 			Gray = 1,
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.Box)) {
-				new Box(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.Box)) {
+				new Box(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Box, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Box, subTypeId);
 		}
 
-		public Box(LevelScene scene) : base(scene, TileGameObjectId.Box) {
+		public Box(RoomScene room) : base(room, TileGameObjectId.Box) {
 			this.CreateTextures();
 		}
 
@@ -48,15 +48,15 @@ namespace Nexus.Objects {
 		private void BreakApart(ushort gridX, ushort gridY) {
 
 			// Damage Creatures Above (if applicable)
-			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( this.scene.objects[(byte)LoadOrder.Enemy], (uint) gridX * (byte) TilemapEnum.TileWidth + 16, (uint) gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4 );
+			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( this.room.objects[(byte)LoadOrder.Enemy], (uint) gridX * (byte) TilemapEnum.TileWidth + 16, (uint) gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4 );
 
 			if(enemyFoundId > 0) {
-				Enemy enemy = (Enemy) this.scene.objects[(byte)LoadOrder.Enemy][enemyFoundId];
+				Enemy enemy = (Enemy) this.room.objects[(byte)LoadOrder.Enemy][enemyFoundId];
 				enemy.Die(DeathResult.Knockout);
 			}
 
 			// Destroy Box Tile
-			this.scene.tilemap.RemoveTileByGrid(gridX, gridY);
+			this.room.tilemap.RemoveTileByGrid(gridX, gridY);
 
 			// Display Particle Effect
 			// TODO PARTICLES: Display particle effect for box being destroyed.

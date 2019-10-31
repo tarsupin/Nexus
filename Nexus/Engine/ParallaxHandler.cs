@@ -26,7 +26,7 @@ namespace Nexus.Engine {
 
 	public class ParallaxHandler {
 
-		private readonly LevelScene scene;
+		private readonly RoomScene room;
 		private readonly Atlas atlas;
 		public List<ParallaxLoopers> loopObjects;
 
@@ -35,8 +35,8 @@ namespace Nexus.Engine {
 		public ushort horizon;					// Reference point for Y-axis; where the horizon starts.
 		public ushort groundLine;				// Reference point for Y-axis; where the ground "starts" for drawing purposes.
 
-		public ParallaxHandler( LevelScene scene, Atlas atlas, ushort groundLine, ushort horizon, ushort skyLine ) {
-			this.scene = scene;
+		public ParallaxHandler( RoomScene room, Atlas atlas, ushort groundLine, ushort horizon, ushort skyLine ) {
+			this.room = room;
 			this.atlas = atlas;
 			this.groundLine = groundLine;
 			this.horizon = horizon;
@@ -89,7 +89,7 @@ namespace Nexus.Engine {
 		}
 
 		public void RunParallaxTick() {
-			Camera camera = this.scene.camera;
+			Camera camera = Systems.camera;
 			ushort camWidth = camera.width;
 			int camX = camera.posX;
 			int camY = camera.posY;
@@ -112,7 +112,7 @@ namespace Nexus.Engine {
 		}
 
 		public void Draw() {
-			Camera camera = this.scene.camera;
+			Camera camera = Systems.camera;
 			int camX = camera.posX;
 			int camY = camera.posY;
 			ushort windowWidth = Systems.screen.windowWidth;

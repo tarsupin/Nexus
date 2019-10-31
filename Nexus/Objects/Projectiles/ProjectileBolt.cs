@@ -11,11 +11,11 @@ namespace Nexus.Objects {
 
 	public class ProjectileBolt : Projectile {
 
-		private ProjectileBolt(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private ProjectileBolt(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 
 		}
 
-		public static ProjectileBolt Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static ProjectileBolt Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileBolt projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -26,14 +26,14 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new ProjectileBolt(scene, subType, pos, velocity);
+				projectile = new ProjectileBolt(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

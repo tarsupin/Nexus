@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		// Metadata
 		public readonly uint id;
 		public IMetaData Meta { get; protected set; }
-		public readonly LevelScene scene;
+		public readonly RoomScene room;
 		public readonly float texLayer;         // 0.0f is bottom layer, 1.0f is top layer
 
 		// Data
@@ -35,9 +35,9 @@ namespace Nexus.GameEngine {
 		// Object Physics
 		// TODO: Collision, Physics, Sector (Tile Position; this exists in static, not needed here? might be.)
 
-		public GameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) {
-			this.id = scene.nextId;
-			this.scene = scene;
+		public GameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) {
+			this.id = room.nextId;
+			this.room = room;
 			this.subType = subType;
 			this.posX = pos.X.IntValue;
 			this.posY = pos.Y.IntValue;

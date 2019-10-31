@@ -33,18 +33,18 @@ namespace Nexus.Objects {
 			SquirrelRight = 23,
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.DecorPet)) {
-				new DecorPet(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.DecorPet)) {
+				new DecorPet(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.DecorPet, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.DecorPet, subTypeId);
 		}
 
-		public DecorPet(LevelScene scene) : base(scene, TileGameObjectId.DecorPet) {
+		public DecorPet(RoomScene room) : base(room, TileGameObjectId.DecorPet) {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

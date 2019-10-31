@@ -13,18 +13,18 @@ namespace Nexus.Objects {
 			Fire,
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.ChomperFire)) {
-				new ChomperFire(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.ChomperFire)) {
+				new ChomperFire(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.ChomperFire, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.ChomperFire, subTypeId);
 		}
 
-		public ChomperFire(LevelScene scene) : base(scene, TileGameObjectId.ChomperFire, AtlasGroup.Tiles) {
+		public ChomperFire(RoomScene room) : base(room, TileGameObjectId.ChomperFire, AtlasGroup.Tiles) {
 			this.collides = true;
 			this.CreateTextures();
 		}

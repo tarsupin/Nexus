@@ -28,17 +28,17 @@ namespace Nexus.GameEngine {
 
 	public class TileGameObject {
 
-		public LevelScene scene;
+		public RoomScene room;
 		public Atlas atlas;
 
 		// Collision Behaviors
 		public bool collides;           // TRUE if this tile allows collisions.
 		//public bool subTypeCollision;	// TRUE if subtypes are relevant for collisions.
 
-		public TileGameObject(LevelScene scene, TileGameObjectId classId, AtlasGroup atlasGroup) {
-			this.scene = scene;
+		public TileGameObject(RoomScene room, TileGameObjectId classId, AtlasGroup atlasGroup) {
+			this.room = room;
 			this.atlas = Systems.mapper.atlas[(byte) atlasGroup];
-			scene.RegisterClassGameObject(classId, this);
+			room.RegisterClassGameObject(classId, this);
 		}
 
 		public virtual void UpdateParams( JObject paramList ) {

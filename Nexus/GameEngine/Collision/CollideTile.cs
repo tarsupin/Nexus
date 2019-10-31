@@ -50,21 +50,21 @@ namespace Nexus.GameEngine {
 				if(horOnly) { return; }
 
 				FInt velX = actor.physics.velocity.Y;
-				if(velX >= 0) { CollideTile.RunGridTest(actor, actor.scene.tilemap, gridX, gridY2, DirCardinal.Down); }
-				else if(velX < 0) { CollideTile.RunGridTest(actor, actor.scene.tilemap, gridX, gridY, DirCardinal.Up); }
+				if(velX >= 0) { CollideTile.RunGridTest(actor, actor.room.tilemap, gridX, gridY2, DirCardinal.Down); }
+				else if(velX < 0) { CollideTile.RunGridTest(actor, actor.room.tilemap, gridX, gridY, DirCardinal.Up); }
 			}
 
 			// If the object is only interacting between two tiles (left and right).
 			else if(horOnly) {
 				FInt velX = actor.physics.velocity.X;
-				if(velX >= 0) { CollideTile.RunGridTest(actor, actor.scene.tilemap, gridX2, gridY, DirCardinal.Right); }
-				else if(velX < 0) { CollideTile.RunGridTest(actor, actor.scene.tilemap, gridX, gridY, DirCardinal.Left); }
+				if(velX >= 0) { CollideTile.RunGridTest(actor, actor.room.tilemap, gridX2, gridY, DirCardinal.Right); }
+				else if(velX < 0) { CollideTile.RunGridTest(actor, actor.room.tilemap, gridX, gridY, DirCardinal.Left); }
 			}
 
 			// If the object is interacting with all four tiles (Top-Left to Bottom-Right).
 			else {
 
-				TilemapBool tilemap = actor.scene.tilemap;
+				TilemapBool tilemap = actor.room.tilemap;
 
 				FInt velX = actor.physics.velocity.X;
 				FInt velY = actor.physics.velocity.Y;

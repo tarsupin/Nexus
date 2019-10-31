@@ -11,25 +11,25 @@ namespace Nexus.Objects {
 
 	class Coins : Collectable {
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectableCoin)) {
-				new Coins(scene);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectableCoin)) {
+				new Coins(room);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectableCoin, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectableCoin, subTypeId);
 		}
 
-		public Coins(LevelScene scene) : base(scene, TileGameObjectId.CollectableCoin) {
+		public Coins(RoomScene room) : base(room, TileGameObjectId.CollectableCoin) {
 			this.CreateTextures();
 		}
 
 		public override void Collect( Character character, uint gridId ) {
 			Systems.sounds.coin.Play();
 
-			byte subType = this.scene.tilemap.GetSubTypeAtGridID(gridId);
+			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
 
 			if(subType == (byte)CoinsSubType.Coin) {
 				Systems.handler.levelState.AddCoins(character, 1);

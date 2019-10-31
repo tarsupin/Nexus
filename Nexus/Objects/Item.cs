@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 		public byte releasedMomentum;       // The amount of momentum (X-Axis) the item has when thrown (used to determine how it lands).
 		public uint intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
 
-		public Item(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Item(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 
 			// Physics
 			this.physics = new Physics(this);

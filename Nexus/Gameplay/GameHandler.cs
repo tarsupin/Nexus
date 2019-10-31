@@ -9,7 +9,7 @@ namespace Nexus.Gameplay {
 		public readonly string saveId;
 
 		// Game Content Classes
-		public readonly LevelContent level;
+		public readonly LevelContent levelContent;
 		public readonly WorldContent world;
 
 		// Game State Classes
@@ -26,7 +26,7 @@ namespace Nexus.Gameplay {
 			Systems.filesLocal.MakeDirectory("Saves/" + saveId);
 
 			// Content
-			this.level = new LevelContent();
+			this.levelContent = new LevelContent();
 			this.world = new WorldContent(this);
 
 			// State

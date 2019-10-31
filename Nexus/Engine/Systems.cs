@@ -30,6 +30,7 @@ namespace Nexus.Engine {
 		public static GameMapper mapper;
 		public static SoundAssets sounds;
 		public static FontAssets fonts;
+		public static Camera camera;
 
 		// Settings & States
 		public static readonly Settings settings = new Settings();
@@ -44,6 +45,7 @@ namespace Nexus.Engine {
 			Systems.spriteBatch = spriteBatch;
 			Systems.screen = new ScreenSys(game);
 			Systems.mapper = new GameMapper(game, spriteBatch);
+			Systems.camera = new Camera(Systems.scene);
 		}
 
 		public static void AddAudio( GameClient game ) {

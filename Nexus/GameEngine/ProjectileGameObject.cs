@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 
 	public class ProjectileGameObject : GameObject {
 
-		public ProjectileGameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) : base(scene, subType, pos, paramList) {
+		public ProjectileGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {
 
 		}
 
@@ -17,7 +17,7 @@ namespace Nexus.GameEngine {
 		public void ReturnToPool() {
 			//this.pos.x = -5000;
 			//this.pos.y = -5000;
-			//delete this.scene.activeObjects[this.loadOrder][this.id];
+			//delete this.room.activeObjects[this.loadOrder][this.id];
 		}
 
 		public void RenderBallRotation( int camX, int camY, TimerGlobal time ) {

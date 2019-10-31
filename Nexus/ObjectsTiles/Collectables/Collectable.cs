@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Collectable(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public Collectable(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 
@@ -22,7 +22,7 @@ namespace Nexus.Objects {
 			
 			// Characters receive Collectable:
 			if(actor is Character) {
-				uint gridId = this.scene.tilemap.GetGridID(gridX, gridY);
+				uint gridId = this.room.tilemap.GetGridID(gridX, gridY);
 				this.Collect( (Character) actor, gridId );
 			}
 
@@ -30,7 +30,7 @@ namespace Nexus.Objects {
 		}
 
 		public virtual void Collect( Character character, uint gridId ) {
-			this.scene.tilemap.RemoveTile(gridId);
+			this.room.tilemap.RemoveTile(gridId);
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

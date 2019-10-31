@@ -12,13 +12,13 @@ namespace Nexus.Objects {
 
 		private uint DeathSequence;			// The frame # that the death sequence ends (or 0 if not in death sequence).
 
-		private ProjectileEarth(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private ProjectileEarth(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.CollisionType = ProjectileCollisionType.Special;
 			this.SafelyJumpOnTop = true;
 			this.Damage = DamageStrength.Lethal;
 		}
 
-		public static ProjectileEarth Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static ProjectileEarth Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileEarth projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new ProjectileEarth(scene, subType, pos, velocity);
+				projectile = new ProjectileEarth(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
@@ -38,7 +38,7 @@ namespace Nexus.Objects {
 			projectile.physics.SetGravity(FInt.Create(0.8));
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

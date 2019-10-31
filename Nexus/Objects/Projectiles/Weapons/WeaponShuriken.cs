@@ -10,13 +10,13 @@ namespace Nexus.Objects {
 
 	public class WeaponShuriken : Projectile {
 
-		private WeaponShuriken(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private WeaponShuriken(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			this.physics.SetGravity(FInt.Create(0.4));
 		}
 
-		public static WeaponShuriken Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static WeaponShuriken Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			WeaponShuriken projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -27,14 +27,14 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponShuriken(scene, subType, pos, velocity);
+				projectile = new WeaponShuriken(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

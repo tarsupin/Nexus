@@ -51,7 +51,7 @@ namespace Nexus.GameEngine {
 		public ActorState State { get; protected set; }    // Tracks the actor's current state.
 		public bool FaceRight { get; protected set; }      // TRUE if the actor is facing right.
 
-		public DynamicGameObject(LevelScene scene, byte subType, FVector pos, JObject paramList = null) : base(scene, subType, pos, paramList) {}
+		public DynamicGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {}
 
 		public virtual void RunTick() {
 
@@ -120,7 +120,7 @@ namespace Nexus.GameEngine {
 
 		// Destroys the instance of this object.
 		public virtual void Destroy() {
-			this.scene.RemoveFromScene(this);
+			this.room.RemoveFromScene(this);
 		}
 
 		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.

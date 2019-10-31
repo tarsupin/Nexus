@@ -28,9 +28,9 @@ namespace Nexus.ObjectComponents {
 
 			Systems.sounds.flame.Play();
 
-			ProjectileBall.Create(this.character.scene, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 
-			return ProjectileBall.Create(this.character.scene, this.subType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.2), velY * FInt.Create(1.1)));
+			return ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.2), velY * FInt.Create(1.1)));
 		}
 	}
 }

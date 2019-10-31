@@ -6,21 +6,21 @@ namespace Nexus.Objects {
 	public class TogglePlatBlue : TogglePlat {
 
 		protected new bool Toggled {
-			get { return this.scene.flags.toggleBR; }
+			get { return this.room.flags.toggleBR; }
 		}
 
-		public static void TileGenerate(LevelScene scene, ushort gridX, ushort gridY, byte subTypeId) {
+		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the scene. If it hasn't, create it.
-			if(!scene.IsClassGameObjectRegistered((byte) TileGameObjectId.TogglePlatBlue)) {
-				new TogglePlatBlue(scene, subTypeId);
+			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
+			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.TogglePlatBlue)) {
+				new TogglePlatBlue(room, subTypeId);
 			}
 
 			// Add to Tilemap
-			scene.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.TogglePlatBlue, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.TogglePlatBlue, subTypeId);
 		}
 
-		public TogglePlatBlue(LevelScene scene, byte subTypeId) : base(scene, subTypeId, TileGameObjectId.TogglePlatBlue) {
+		public TogglePlatBlue(RoomScene room, byte subTypeId) : base(room, subTypeId, TileGameObjectId.TogglePlatBlue) {
 			this.Texture = "/Blue/Plat";
 		}
 	}

@@ -5,15 +5,11 @@ namespace Nexus.Gameplay {
 
 	public class LevelContent {
 
-		// References
-		public readonly LevelGenerate generate;	
-
 		// Level Data
 		public string levelId;          // Level ID (e.g. "QCALQOD16")
 		public LevelFormat data;		// Level Data
 
 		public LevelContent() {
-			this.generate = new LevelGenerate(this);
 
 			// Make sure the Levels directory exists.
 			Systems.filesLocal.MakeDirectory("Levels");

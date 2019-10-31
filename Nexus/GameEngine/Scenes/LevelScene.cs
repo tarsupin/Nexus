@@ -2,102 +2,47 @@
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
-	public class LevelFlags {
-		public bool toggleBR = true;
-		public bool toggleGY = true;
-	}
-
 	public class LevelScene : Scene {
 
 		// References
-		protected readonly LocalServer localServer;
-		protected readonly CollideSequence collideSequence;
-		protected readonly LevelUI levelUI;
+		public readonly LevelUI levelUI;
 		public Stopwatch stopwatch;
-
-		// Components
-		private ParallaxHandler parallax;
-
-		// Level Data
-		public TilemapBool tilemap;
-		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<byte, TileGameObject> tileObjects;
-
-		public LevelFlags flags = new LevelFlags();
-
-		// Object Coordination and Cleanup
-		private List<DynamicGameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
-		private List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed after the frame's loops have ended.
+		public Dictionary<byte, RoomScene> rooms;
 
 		public LevelScene() : base() {
 
 			// TODO CLEANUP: Debugging stopwatch should be removed. Or converted to static access, like Systems.timer.stopwatch.
 			this.stopwatch = new Stopwatch();
 
-			// References
-			this.localServer = Systems.localServer;
-			this.collideSequence = new CollideSequence(this);
-
-			// Game Objects
-			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
-			};
-
-			// Object Coordination and Cleanup
-			this.markedForAddition = new List<DynamicGameObject>();
-			this.markedForRemoval = new List<DynamicGameObject>();
-
-			// Game Class Objects
-			this.tileObjects = new Dictionary<byte, TileGameObject>();
-
-			// Generate Room 0
-			Systems.handler.level.generate.GenerateRoom(this, "0");
-
-			this.tilemap = new TilemapBool(this, 600, 100);
-
-			// Important Components
-			this.camera = new Camera(this);
-
-			// Parallax
-			this.parallax = ParallaxOcean.CreateOceanParallax(this);
-
 			// Create UI
 			this.levelUI = new LevelUI(this);
-		}
 
-		public override int Width { get { return this.tilemap.Width; } }
-		public override int Height { get { return this.tilemap.Height; } }
+			// Generate Each Room
+			this.rooms = new Dictionary<byte, RoomScene>();
 
-		public void SpawnRoom() {
+			foreach(var roomKey in Systems.handler.levelContent.data.room.Keys) {
+				byte parsedKey = Byte.Parse(roomKey);
+				this.rooms[parsedKey] = new RoomScene(this, roomKey);
+			}
 
-		}
-
-		// Class Game Objects
-		public bool IsClassGameObjectRegistered( byte classId ) {
-			return tileObjects.ContainsKey(classId);
-		}
-
-		public void RegisterClassGameObject(TileGameObjectId classId, TileGameObject cgo ) {
-			tileObjects[(byte) classId] = cgo;
+			// Important Components
+			Systems.camera.UpdateScene(this.rooms[0]);
 		}
 
 		public override void RunTick() {
 
-			// TODO HIGH PRIORITY: Change this to the actual frame for this tick.
-			byte frame = 0;
+			// TODO: LEVEL RUN TICK
+			// TODO: LEVEL RUN TICK
+			// TODO: LEVEL RUN TICK
 
 			// Loop through every player and update inputs for this frame tick:
-			foreach(var player in this.localServer.players) {
+			foreach(var player in Systems.localServer.players) {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
@@ -122,15 +67,15 @@ namespace Nexus.GameEngine {
 						break;
 
 					case DebugTickSpeed.WhenYPressed:
-						if(!this.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
+						if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
 						break;
 
 					case DebugTickSpeed.WhileYHeld:
-						if(!this.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+						if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
 						break;
 
 					case DebugTickSpeed.WhileYHeldSlow:
-						if(!this.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+						if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
 						DebugConfig.trackTicks++;
 						if(DebugConfig.trackTicks % 4 != 0) { return; }
 						break;
@@ -140,177 +85,22 @@ namespace Nexus.GameEngine {
 			// Update Timer
 			Systems.timer.RunTick();
 
-			// Update Parallax
-			this.parallax.RunParallaxTick();
+			// TODO: RUN EACH ROOM IN LEVEL
+			// TODO: RUN EACH ROOM IN LEVEL
+			// TODO: RUN EACH ROOM IN LEVEL
 
-			// Update All Objects
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Enemy]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Item]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.TrailingItem]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
+			// My Character
+			Character MyCharacter = Systems.localServer.MyCharacter;
 
-			// Object Coordination & Cleanup
-			this.AddObjectsMarkedForAddition();
-			this.DestroyObjectsMarkedForRemoval();
-
-			// Camera Movement
-			Character MyCharacter = this.localServer.MyCharacter;
 			if(MyCharacter is Character) {
-				this.camera.Follow(MyCharacter.posX + 80, MyCharacter.posY, 50, 50);
-			}
-
-			//this.camera.MoveWithInput(this.localServer.MyPlayer.input);
-
-			// TODO CLEANUP: REMOVE
-			Systems.game.TESTEMITTER.RunEmitterTick();
-
-			// Run Collisions
-			this.collideSequence.RunCollisionSequence();
-
-			// Run Important Sprite Changes and Animations (like Character)
-			// We do this here because collisions may have influenced how they change.
-			this.RunCharacterSpriteTick(this.objects[(byte)LoadOrder.Character]);
-		}
-
-		public void RunTickForObjectGroup(Dictionary<uint, DynamicGameObject> objectGroup) {
-
-			// Loop through each object in the dictionary, run it's tick:
-			foreach(var obj in objectGroup) {
-
-				// TODO HIGH PRIORITY: If activity is active, run tick, otherwise do not.
-				obj.Value.RunTick();
-
-				// Run Tile Detection for the Object
-				// TODO: Eventually check 1x1 size, and replace with a tile detection that can account for larger sets if it's not 1x1 tile sized.
-				CollideTile.RunQuadrantDetection(obj.Value);
-			}
-		}
-
-		public void RunCharacterSpriteTick(Dictionary<uint, DynamicGameObject> objectGroup) {
-
-			// Loop through each object in the dictionary, run it's tick:
-			foreach(var obj in objectGroup) {
-				Character character = (Character) obj.Value;
-
-				// TODO HIGH PRIORITY: If activity is active, run tick, otherwise do not.
-				character.SpriteTick();
+				// TODO: RENDER MY CHARACTER'S ROOM
+				// TODO: RENDER MY CHARACTER'S ROOM
+				// TODO: RENDER MY CHARACTER'S ROOM
 			}
 		}
 
 		public override void Draw() {
-			//this.stopwatch.Start();
 
-			ushort startX = this.camera.GridX;
-			ushort startY = this.camera.GridY;
-
-			ushort gridX = (ushort) (startX + 29 + 1);
-			ushort gridY = (ushort) (startY + 16 + 1);
-
-			// Camera Position
-			bool isShaking = camera.IsShaking();
-			int camX = this.camera.posX + (isShaking ? this.camera.GetCameraShakeOffsetX() : 0);
-			int camY = this.camera.posY + (isShaking ? this.camera.GetCameraShakeOffsetY() : 0); ;
-			int camRight = camX + this.camera.width;
-			int camBottom = camY + this.camera.height;
-
-			// Run Parallax Handler
-			this.parallax.Draw();
-
-			// Loop through the tilemap data:
-			for(ushort y = startY; y <= gridY; y++) {
-				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
-
-				for(ushort x = startX; x <= gridX; x++) {
-
-					// Scan the Tiles Data at this grid square:
-					uint gridId = this.tilemap.GetGridID(x, y);
-
-					TileGameObject tileObj = this.tilemap.GetTileAtGridID(gridId);
-
-					// Render the tile with its designated Class Object:
-					if(tileObj is TileGameObject) {
-						byte subType = this.tilemap.GetSubTypeAtGridID(gridId);
-						tileObj.Draw(subType, x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
-					};
-				};
-			}
-
-			// Draw object data:
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Platform], camX, camY, camRight, camBottom );
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Enemy], camX, camY, camRight, camBottom );
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Item], camX, camY, camRight, camBottom );
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.TrailingItem], camX, camY, camRight, camBottom );
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Character], camX, camY, camRight, camBottom );
-			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
-
-			// Debugging
-			//this.stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
-
-			// Draw Level UI
-			this.levelUI.Draw();
-		}
-
-		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
-
-			// Loop through each object in the dictionary:
-			foreach( var obj in objectGroup ) {
-				DynamicGameObject oVal = obj.Value;
-
-				// Make sure the frame is visible:
-				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
-
-					// Custom Rendering Rules
-					// TODO HIGH PRIOIRTY: if CUSTOM RENDER RULES, DO CUSTOM RENDER RULES
-
-					// Render Standard Objects
-					oVal.Draw( camX, camY );
-				}
-			}
-		}
-
-		public void AddToScene( DynamicGameObject gameObject, bool immediately ) {
-			if(immediately) {
-				this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
-			} else {
-				this.markedForAddition.Add(gameObject);
-			}
-		}
-
-		public void RemoveFromScene( DynamicGameObject gameObject ) {
-			this.markedForRemoval.Add(gameObject);
-		}
-
-		// We use this method to add objects outside of the loops they're created in. This is to allow enumerators to continue working.
-		private void AddObjectsMarkedForAddition() {
-
-			// Only continue if there are items marked for removal:
-			if(this.markedForAddition.Count == 0) { return; }
-
-			// Loop through the list of objects to destroy
-			foreach(DynamicGameObject obj in this.markedForAddition) {
-				this.objects[(byte)obj.Meta.LoadOrder][obj.id] = obj;
-			}
-
-			// Clear the list of any objects being marked for removal.
-			this.markedForAddition.Clear();
-		}
-
-		// We use this method to destroy objects outside of the loops they're called in. This is to allow enumerators to continue working.
-		private void DestroyObjectsMarkedForRemoval() {
-
-			// Only continue if there are items marked for removal:
-			if(this.markedForRemoval.Count == 0) { return; }
-
-			// Loop through the list of objects to destroy
-			foreach(DynamicGameObject obj in this.markedForRemoval) {
-				this.objects[(byte)obj.Meta.LoadOrder].Remove(obj.id);
-			}
-
-			// Clear the list of any objects being marked for removal.
-			this.markedForRemoval.Clear();
 		}
 
 		public void RunCharacterDeath( Character character ) {
@@ -319,35 +109,9 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RestartLevel() {
-			// Also had params: posX: number = null, posY: number = null, roomId: number = null
-
-			// Toggle Resets
-			// TODO HIGH PRIORITY:
-			// this.toggleRedBlue = true;
-			// this.toggleGreenYellow = true;
-			// this.toggleConveyor = true;
-
-			// Regenerate Room
-			// this.SpawnRoom(posX, posY, roomId);
-
-
-			// OLD CODE
-			//// Timer Reset
-			//this.time.unpause(); // Make sure timer is unpaused.
-			//this.time.reset();
-
-			//// Reset Character Status
-			//// The character may preserve suits or abilities that track timestamps. Need to reset these.
-			//this.character.status.reset();
-			//this.character.stats.reset();
-			//this.character.action = new StallAction(this.character, 250);
-
-			//// UI Resets
-			//let status = this.character.status;
-			//// TODO UI
-			//// if(this.healthIcons) { this.healthIcons.updateIcons( status.health, status.armor ); }
-			//// if(this.powerAttIcon) { this.powerAttIcon.setText(""); }
+			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
+			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
+			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
 		}
-
 	}
 }

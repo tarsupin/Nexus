@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Ground(LevelScene scene, TileGameObjectId classId) : base(scene, classId, AtlasGroup.Tiles) {
+		public Ground(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

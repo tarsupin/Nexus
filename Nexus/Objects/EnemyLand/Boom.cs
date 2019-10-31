@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 
 	public class Boom : EnemyLand {
 
-		public Boom(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Boom(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
 
 			// Movement

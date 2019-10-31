@@ -17,11 +17,11 @@ namespace Nexus.Objects {
 
 	public class ProjectileBall : Projectile {
 
-		private ProjectileBall(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private ProjectileBall(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			
 		}
 
-		public static ProjectileBall Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static ProjectileBall Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileBall projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -32,21 +32,21 @@ namespace Nexus.Objects {
 			
 			// Create a New Projectile Ball
 			else {
-				projectile = new ProjectileBall(scene, subType, pos, velocity);
+				projectile = new ProjectileBall(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}
 
 		// Return the ProjectileBall to the Pool
 		public override void Disable() {
-			this.scene.RemoveFromScene(this);
+			this.room.RemoveFromScene(this);
 			// TODO LOW PRIORITY: Is there any possible chance this could cause a ball to return to pool on same frame it's marked for delete?
 			ObjectPool.ProjectileBall.Push(this);
 		}

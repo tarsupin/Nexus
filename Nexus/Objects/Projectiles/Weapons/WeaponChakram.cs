@@ -10,12 +10,12 @@ namespace Nexus.Objects {
 
 	public class WeaponChakram : Projectile {
 
-		private WeaponChakram(LevelScene scene, byte subType, FVector pos, FVector velocity) : base(scene, subType, pos, velocity) {
+		private WeaponChakram(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 		}
 
-		public static WeaponChakram Create(LevelScene scene, byte subType, FVector pos, FVector velocity) {
+		public static WeaponChakram Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			WeaponChakram projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
@@ -26,14 +26,14 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponChakram(scene, subType, pos, velocity);
+				projectile = new WeaponChakram(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
-			scene.AddToScene(projectile, false);
+			room.AddToScene(projectile, false);
 
 			return projectile;
 		}

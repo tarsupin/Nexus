@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 
 	public class Turtle : EnemyLand {
 
-		public Turtle(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Turtle(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
 
 			// Movement

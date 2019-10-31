@@ -61,7 +61,7 @@ namespace Nexus.ObjectComponents {
 			int scanY = actor.posY + bounds.Bottom - this.viewHeight;
 
 			uint objectId = CollideDetect.FindObjectsTouchingArea(
-				this.actor.scene.objects[(byte)LoadOrder.Character],
+				this.actor.room.objects[(byte)LoadOrder.Character],
 				(uint)scanX,
 				(uint)scanY,
 				this.viewDist,

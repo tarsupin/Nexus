@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 		public Behavior behavior;
 		public EnemyStatus status;
 
-		public Enemy(LevelScene scene, byte subType, FVector pos, JObject paramList) : base(scene, subType, pos, paramList) {
+		public Enemy(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
 			this.status = new EnemyStatus();
 		}
 
