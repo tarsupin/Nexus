@@ -23,6 +23,7 @@ namespace Nexus.Objects {
 
 		// Equipment & Powers
 		public Suit suit;
+		public Head head;
 		public Hat hat;
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
@@ -70,8 +71,9 @@ namespace Nexus.Objects {
 			if(this.suit is Suit) { this.suit.DestroySuit(false); }
 			if(this.hat is Hat) { this.hat.DestroyHat(false); };
 
-			// Default Suit
+			// Default Suit, Default Head
 			this.suit = new BasicRedSuit(this);
+			this.head = new RyuHead(this);
 
 			this.stats.ResetCharacterStats();
 
@@ -386,7 +388,7 @@ namespace Nexus.Objects {
 			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
 
 			// Draw Character's Head
-			// TODO HIGH PRIORITY: Draw head
+			this.head.Draw(camX, camY);
 
 			// Draw Hat, if applicable.
 			if(this.hat is Hat) {
