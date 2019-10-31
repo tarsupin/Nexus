@@ -120,37 +120,37 @@ namespace Nexus.Gameplay {
 
 		//}
 
-		public static void DetermineRoomSize(RoomFormat roomData, out ushort levelHeight, out ushort levelWidth) {
+		public static void DetermineRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {
 
 			// The Room may store its size in the data:
 			if(roomData.Width != 0 && roomData.Height != 0) {
-				levelHeight = roomData.Height;
-				levelWidth = roomData.Width;
+				xCount = roomData.Width;
+				yCount = roomData.Height;
 				return;
 			}
 
 			// Prepare Minimum Width and Height for Level
-			levelWidth = 24;
-			levelHeight = 16;
+			xCount = 24;
+			yCount = 16;
 
 			// Scan the full level to determine it's size:
-			RoomGenerate.DetermineLayerSize(roomData.main, ref levelHeight, ref levelWidth);
-			RoomGenerate.DetermineLayerSize(roomData.obj, ref levelHeight, ref levelWidth);
-			RoomGenerate.DetermineLayerSize(roomData.fg, ref levelHeight, ref levelWidth);
+			if(roomData.main != null) { RoomGenerate.DetermineLayerSize(roomData.main, ref xCount, ref yCount); }
+			if(roomData.obj != null) { RoomGenerate.DetermineLayerSize(roomData.obj, ref xCount, ref yCount); }
+			if(roomData.fg != null) { RoomGenerate.DetermineLayerSize(roomData.fg, ref xCount, ref yCount); }
 		}
 
-		public static void DetermineLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort levelHeight, ref ushort levelWidth) {
+		private static void DetermineLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort xCount, ref ushort yCount) {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
 
-				if(gridY > levelHeight) { levelHeight = gridY; }
+				if(gridY > yCount) { yCount = gridY; }
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					ushort gridX = ushort.Parse(xData.Key);
-					if(gridX > levelWidth) { levelWidth = gridX; }
+					if(gridX > xCount) { xCount = gridX; }
 				}
 			}
 		}

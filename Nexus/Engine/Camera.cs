@@ -29,8 +29,8 @@ namespace Nexus.Engine {
 			this.UpdateScene(scene);
 		}
 
-		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (byte)TilemapEnum.TileWidth); } }
-		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (byte)TilemapEnum.TileHeight); } }
+		public int GridX { get { return (int)Math.Floor((double)this.posX / (byte)TilemapEnum.TileWidth); } }
+		public int GridY { get { return (int)Math.Floor((double)this.posY / (byte)TilemapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene ) {
 			this.scene = scene;
@@ -55,7 +55,7 @@ namespace Nexus.Engine {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
 			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Systems.screen.windowHeight;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight);
 		}
 
 		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {

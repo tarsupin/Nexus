@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
-			var something = tilemap.Height - 258;
+			var something = tilemap.Height;
 			if(actor.posY >= something) {
 				actor.Destroy();
 				return false;

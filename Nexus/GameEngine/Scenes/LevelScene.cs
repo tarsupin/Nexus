@@ -31,6 +31,12 @@ namespace Nexus.GameEngine {
 				this.rooms[parsedKey] = new RoomScene(this, roomKey);
 			}
 
+			// TODO HIGH PRIORITY: All characters need to be assigned to the level? Or are they somewhere else?
+			// TODO HIGH PRIORITY: Assign All Characters according to the match rules:
+			foreach(var character in this.rooms[0].objects[(byte)LoadOrder.Character]) {
+				Systems.localServer.MyPlayer.AssignCharacter((Character) character.Value);
+			}
+
 			// Important Components
 			Systems.camera.UpdateScene(this.rooms[0]);
 		}
@@ -88,6 +94,7 @@ namespace Nexus.GameEngine {
 			// TODO: RUN EACH ROOM IN LEVEL
 			// TODO: RUN EACH ROOM IN LEVEL
 			// TODO: RUN EACH ROOM IN LEVEL
+			this.rooms[0].RunTick();
 
 			// My Character
 			Character MyCharacter = Systems.localServer.MyCharacter;
@@ -101,6 +108,8 @@ namespace Nexus.GameEngine {
 
 		public override void Draw() {
 
+			// TODO HIGH PRIORITY: UPDATE THIS. RENDER THE CORRECT ROOM
+			this.rooms[0].Draw();
 		}
 
 		public void RunCharacterDeath( Character character ) {

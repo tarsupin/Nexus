@@ -2,6 +2,7 @@
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -54,7 +55,11 @@ namespace Nexus.GameEngine {
 			// Game Class Objects
 			this.tileObjects = new Dictionary<byte, TileGameObject>();
 
-			this.tilemap = new TilemapBool(this, 600, 100);
+			// Build Tilemap with Correct Dimensions
+			ushort xCount, yCount;
+			RoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.room[roomID], out xCount, out yCount);
+
+			this.tilemap = new TilemapBool(this, xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
@@ -141,11 +146,11 @@ namespace Nexus.GameEngine {
 
 			Camera cam = Systems.camera;
 
-			ushort startX = cam.GridX;
-			ushort startY = cam.GridY;
+			int startX = Math.Max(0, cam.GridX);
+			int startY = Math.Max(0, cam.GridY);
 
-			ushort gridX = (ushort) (startX + 29 + 1);
-			ushort gridY = (ushort) (startY + 16 + 1);
+			ushort gridX = (ushort) (startX + 29);
+			ushort gridY = (ushort) (startY + 16);
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -158,13 +163,13 @@ namespace Nexus.GameEngine {
 			this.parallax.Draw();
 
 			// Loop through the tilemap data:
-			for(ushort y = startY; y <= gridY; y++) {
+			for(int y = startY; y <= gridY; y++) {
 				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
 
-				for(ushort x = startX; x <= gridX; x++) {
+				for(int x = startX; x <= gridX; x++) {
 
 					// Scan the Tiles Data at this grid square:
-					uint gridId = this.tilemap.GetGridID(x, y);
+					uint gridId = this.tilemap.GetGridID((ushort) x, (ushort) y);
 
 					TileGameObject tileObj = this.tilemap.GetTileAtGridID(gridId);
 
