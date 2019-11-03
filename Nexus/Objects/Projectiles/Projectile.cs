@@ -24,7 +24,10 @@ namespace Nexus.Objects {
 		public Power power;				// Reference to the power used for this projectile.
 
 		// Projectile Status
-		public uint Intangible;			// The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
+		public uint Intangible;         // The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
+
+		// Rendering
+		public float rotation;
 
 		public Projectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Projectile];

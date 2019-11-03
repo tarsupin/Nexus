@@ -25,15 +25,12 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			if(actor is Character) {
-
-				// Standard Character Tile Collisions
-				TileCharBasicImpact.RunImpact((Character)actor, dir);
+				// TODO: Special Lock Behavior, Unlock it if Character has a key.
 			}
 
-			return true;
+			return base.RunImpact(actor, gridX, gridY, dir);
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

@@ -29,20 +29,13 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-
-			if(actor is Character) {
-
-				// Standard Character Tile Collisions
-				TileCharBasicImpact.RunImpact((Character)actor, dir);
-			}
-
+			
 			// Destroy Box
 			if(dir == DirCardinal.Up) {
 				this.BreakApart(gridX, gridY);
 			}
 
-			return true;
+			return base.RunImpact(actor, gridX, gridY, dir);
 		}
 
 		private void BreakApart(ushort gridX, ushort gridY) {

@@ -43,7 +43,7 @@ namespace Nexus.ObjectComponents {
 				return true;
 			}
 
-			return true;
+			return false;
 		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -28,17 +27,14 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		// TODO HIGH PRIORITY: Spikes can take different forms of damage. Either make different Spike Tiles (maybe easiest), or send sub-types (requires new system in place)
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Characters Receive Spike Damage
 			if(actor is Character) {
-				Character character = (Character) actor;
-				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+				(actor as Character).wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			}
 
-			return true;
+			return base.RunImpact(actor, gridX, gridY, dir);
 		}
 
 		private void CreateTextures() {

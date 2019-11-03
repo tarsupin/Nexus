@@ -30,7 +30,7 @@ namespace Nexus.ObjectComponents {
 
 			// Determine Starting Position of Projectile relative to Character
 			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -10);
-			int posY = character.posY + character.bounds.Top + 5;
+			int posY = character.posY + character.bounds.Top;
 
 			FInt velX = character.FaceRight ? this.xVel : this.xVel.Inverse;
 			FInt velY = this.yVel;

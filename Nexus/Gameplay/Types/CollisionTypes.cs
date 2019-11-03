@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Nexus.GameEngine;
 
 namespace Nexus.Gameplay {
 
@@ -10,8 +9,8 @@ namespace Nexus.Gameplay {
 		public byte Top { get; set; }
 		public byte Bottom { get; set; }    // Bottom == Top + Height
 
-		public byte MidX => (byte)Math.Floor((double)(this.Right - this.Left) / 2);
-		public byte MidY => (byte)Math.Floor((double)(this.Bottom - this.Top) / 2);
+		public byte MidX => (byte)(Math.Floor((double)(this.Right - this.Left) * 0.5) + this.Left);
+		public byte MidY => (byte)(Math.Floor((double)(this.Bottom - this.Top) * 0.5) + this.Top);
 
 		public Bounds( byte Top, byte Left, byte Right, byte Bottom ) {
 			this.Top = Top;

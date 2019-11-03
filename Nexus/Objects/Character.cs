@@ -81,10 +81,6 @@ namespace Nexus.Objects {
 
 			// Reset Physics to ensure it doesn't maintain knowledge from previous state.
 			this.physics.touch.ResetTouch();
-
-			// TODO CLEANUP: Remove
-			this.stats.CanWallSlide = true;
-			this.stats.CanWallJump = true;
 		}
 
 		// Disable Suit, Hat, Powers

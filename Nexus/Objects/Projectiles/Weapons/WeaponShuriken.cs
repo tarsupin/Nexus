@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -16,7 +17,6 @@ namespace Nexus.Objects {
 		private WeaponShuriken(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
-			this.physics.SetGravity(FInt.Create(0)); // Switches to 0.4 after MotionStart finished.
 		}
 
 		public static WeaponShuriken Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
@@ -35,11 +35,13 @@ namespace Nexus.Objects {
 			}
 
 			projectile.AssignSubType(subType);
-			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.AssignBoundsByAtlas(4, 4, -4, -4);
 
 			// Assign the beginning of the shuriken attack:
+			projectile.physics.SetGravity(FInt.Create(0)); // Switches to 0.4 after MotionStart finished.
 			projectile.SetState(ActorState.MotionStart);
-			projectile.endFrame = Systems.timer.Frame + 6;
+			projectile.endFrame = Systems.timer.Frame + 8;
+			projectile.rotation = 2;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
@@ -47,11 +49,16 @@ namespace Nexus.Objects {
 			return projectile;
 		}
 
+		public override void Draw(int camX, int camY) {
+			this.Meta.Atlas.DrawRotation(this.SpriteName, this.posX + 16 - camX, this.posY + 16 - camY, this.rotation, new Vector2(16, 16));
+		}
+
 		public override void Destroy(DirCardinal dir = DirCardinal.Center, GameObject obj = null) {
 			if(this.State == ActorState.Death) { return; }
 
 			this.SetState(ActorState.Death);
-			this.endFrame = Systems.timer.Frame + 9;
+			this.physics.SetGravity(FInt.Create(0.7));
+			this.endFrame = Systems.timer.Frame + 12;
 
 			Physics physics = this.physics;
 
@@ -62,7 +69,7 @@ namespace Nexus.Objects {
 
 			else if(dir == DirCardinal.Down || dir == DirCardinal.Up) {
 				physics.velocity.X = physics.velocity.X * FInt.Create(0.25);
-				physics.velocity.Y = dir == DirCardinal.Down ? FInt.Create(-1) : FInt.Create(1);
+				physics.velocity.Y = dir == DirCardinal.Down ? FInt.Create(-4) : FInt.Create(1);
 			}
 
 			else {
@@ -80,9 +87,11 @@ namespace Nexus.Objects {
 			// TODO HIGH PRIORITY: End Tick if the activity isn't present.
 			// if(this.activity == (byte) Activity.Inactive) { return; }
 
+			this.rotation += 0.14f;
+
 			// Standard Motion for Shuriken
 			if(this.State == ActorState.MotionStart) {
-				if(this.endFrame <= Systems.timer.Frame) {
+				if(this.endFrame == Systems.timer.Frame) {
 					this.SetState(ActorState.Motion);
 					this.physics.SetGravity(FInt.Create(0.4));
 				}
@@ -90,7 +99,8 @@ namespace Nexus.Objects {
 			
 			// Death Motion for Shuriken
 			else if(this.State == ActorState.Death) {
-				if(this.endFrame <= Systems.timer.Frame) {
+				this.rotation -= 0.08f;
+				if(this.endFrame == Systems.timer.Frame) {
 					this.Disable();
 				}
 			}

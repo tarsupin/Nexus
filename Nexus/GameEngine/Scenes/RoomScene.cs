@@ -149,7 +149,7 @@ namespace Nexus.GameEngine {
 			int startX = Math.Max(0, cam.GridX);
 			int startY = Math.Max(0, cam.GridY);
 
-			ushort gridX = (ushort) (startX + 29);
+			ushort gridX = (ushort) (startX + 29 + 1); // The +1 is because we need the edge to render at all times.
 			ushort gridY = (ushort) (startY + 16);
 
 			// Camera Position
