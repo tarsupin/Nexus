@@ -4,29 +4,29 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public enum WeaponSwordSubType : byte {
-		Sword
+	public enum WeaponDaggerSubType : byte {
+		Dagger
 	}
 
-	public class WeaponSword : Projectile {
+	public class DaggerProjectile : Projectile {
 
-		private WeaponSword(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private DaggerProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 		}
 
-		public static WeaponSword Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponSword projectile;
+		public static DaggerProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			DaggerProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.WeaponSword.Count > 0) {
-				projectile = ObjectPool.WeaponSword.Pop();
+			if(ObjectPool.WeaponDagger.Count > 0) {
+				projectile = ObjectPool.WeaponDagger.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponSword(room, subType, pos, velocity);
+				projectile = new DaggerProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
@@ -42,8 +42,8 @@ namespace Nexus.Objects {
 		public override void Destroy( ) {}
 
 		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponSwordSubType.Sword) {
-				this.SetSpriteName("Weapon/Sword");
+			if(subType == (byte) WeaponDaggerSubType.Dagger) {
+				this.SetSpriteName("Weapon/Dagger");
 			}
 		}
 	}

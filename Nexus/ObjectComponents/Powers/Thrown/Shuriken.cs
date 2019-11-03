@@ -58,7 +58,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public WeaponShuriken LaunchShuriken(int posX, int posY, FInt velX, FInt velY) {
+		public ShurikenProjectile LaunchShuriken(int posX, int posY, FInt velX, FInt velY) {
 
 			// Apply Character's Momentum (if applicable)
 			if(this.multMomentum > 0) {
@@ -68,7 +68,7 @@ namespace Nexus.ObjectComponents {
 
 			this.sound.Play();
 
-			return WeaponShuriken.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			return ShurikenProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 		}
 	}
 }

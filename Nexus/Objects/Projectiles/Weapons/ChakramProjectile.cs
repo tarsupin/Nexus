@@ -8,15 +8,15 @@ namespace Nexus.Objects {
 		Chakram
 	}
 
-	public class WeaponChakram : Projectile {
+	public class ChakramProjectile : Projectile {
 
-		private WeaponChakram(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private ChakramProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 		}
 
-		public static WeaponChakram Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponChakram projectile;
+		public static ChakramProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			ChakramProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponChakram.Count > 0) {
@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponChakram(room, subType, pos, velocity);
+				projectile = new ChakramProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

@@ -8,15 +8,15 @@ namespace Nexus.Objects {
 		Spear
 	}
 
-	public class WeaponSpear : Projectile {
+	public class SpearProjectile : Projectile {
 
-		private WeaponSpear(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private SpearProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 		}
 
-		public static WeaponSpear Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponSpear projectile;
+		public static SpearProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			SpearProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponSpear.Count > 0) {
@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponSpear(room, subType, pos, velocity);
+				projectile = new SpearProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

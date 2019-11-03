@@ -9,15 +9,15 @@ namespace Nexus.Objects {
 		White
 	}
 
-	public class WeaponGlove : Projectile {
+	public class GloveProjectile : Projectile {
 
-		private WeaponGlove(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private GloveProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.BreakObjects;
 		}
 
-		public static WeaponGlove Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponGlove projectile;
+		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			GloveProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponGlove.Count > 0) {
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponGlove(room, subType, pos, velocity);
+				projectile = new GloveProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

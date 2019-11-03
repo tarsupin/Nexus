@@ -10,16 +10,16 @@ namespace Nexus.Objects {
 		Axe3
 	}
 
-	public class WeaponAxe : Projectile {
+	public class AxeProjectile : Projectile {
 
-		private WeaponAxe(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private AxeProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Lethal;
 			this.physics.SetGravity(FInt.Create(0.45));
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 		}
 
-		public static WeaponAxe Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponAxe projectile;
+		public static AxeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			AxeProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponAxe.Count > 0) {
@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponAxe(room, subType, pos, velocity);
+				projectile = new AxeProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

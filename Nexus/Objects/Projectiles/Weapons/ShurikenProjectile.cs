@@ -10,17 +10,17 @@ namespace Nexus.Objects {
 		Shuriken
 	}
 
-	public class WeaponShuriken : Projectile {
+	public class ShurikenProjectile : Projectile {
 
 		private uint endFrame;			// The frame that a movement style ends on.
 
-		private WeaponShuriken(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private ShurikenProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 		}
 
-		public static WeaponShuriken Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponShuriken projectile;
+		public static ShurikenProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			ShurikenProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponShuriken.Count > 0) {
@@ -31,7 +31,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponShuriken(room, subType, pos, velocity);
+				projectile = new ShurikenProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

@@ -8,16 +8,16 @@ namespace Nexus.Objects {
 		Hammer
 	}
 
-	public class WeaponHammer : Projectile {
+	public class HammerProjectile : Projectile {
 
-		private WeaponHammer(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private HammerProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.physics.SetGravity(FInt.Create(0.45));
 		}
 
-		public static WeaponHammer Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponHammer projectile;
+		public static HammerProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			HammerProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponHammer.Count > 0) {
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponHammer(room, subType, pos, velocity);
+				projectile = new HammerProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);

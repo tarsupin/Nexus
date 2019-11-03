@@ -8,16 +8,16 @@ namespace Nexus.Objects {
 		Grenade
 	}
 
-	public class WeaponGrenade : Projectile {
+	public class GrenadeProjectile : Projectile {
 
-		private WeaponGrenade(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+		private GrenadeProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			this.Damage = DamageStrength.None;
 			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			this.physics.SetGravity(FInt.Create(0.4));
 		}
 
-		public static WeaponGrenade Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			WeaponGrenade projectile;
+		public static GrenadeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			GrenadeProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
 			if(ObjectPool.WeaponGrenade.Count > 0) {
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile Ball
 			else {
-				projectile = new WeaponGrenade(room, subType, pos, velocity);
+				projectile = new GrenadeProjectile(room, subType, pos, velocity);
 			}
 
 			projectile.AssignSubType(subType);
