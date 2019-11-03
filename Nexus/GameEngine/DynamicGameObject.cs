@@ -28,6 +28,7 @@ namespace Nexus.GameEngine {
 		Other,						// Secondary movement, decision, or action.
 		OtherEnd,					// The end of a secondary action.
 		OtherWait,					// A wait or stall that is associated with the secondary action.
+		Death,						// In the death state; the process of dying.
 	}
 
 	public class DynamicGameObject : GameObject {
@@ -125,7 +126,7 @@ namespace Nexus.GameEngine {
 
 		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.
 		public virtual void Disable() {
-
+			this.room.RemoveFromScene(this);		// This is identical to Destroy(), but probably works since pool is connected elsewhere.
 		}
 
 		public void RenderKnockoutRotation(int camX, int camY, TimerGlobal time) {
@@ -136,6 +137,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// TODO: Does this get used? Character.BounceUp() does.
+		// As of 11/3/2019, I don't think so.
 		public virtual void BounceUp(GameObject obj, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 3) {
 
 			// Some dynamic archetypes shouldn't bounce.

@@ -48,5 +48,8 @@ namespace Nexus.Objects {
 		public virtual void Destroy( DirCardinal dir = DirCardinal.Center, GameObject obj = null ) {
 			this.Disable();
 		}
+
+		// If set, this activates when the projectile bounces on the ground. Can set physics.velocity.Y here to a designated amount.
+		public virtual void BounceOnGround() {}
 	}
 }

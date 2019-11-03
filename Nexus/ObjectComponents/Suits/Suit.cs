@@ -15,11 +15,11 @@ namespace Nexus.ObjectComponents {
 		public readonly string texture;
 
 		public Suit( Character character, SuitRank suitRank, string texture, string defaultCosmeticHat = "" ) {
+			this.character = character;
 
 			// Destroy existing Suit, if applicable.
 			if(character.suit is Suit) { this.DestroySuit(false); }
 
-			this.character = character;
 			this.suitRank = suitRank;
 			this.texture = texture;
 			this.DefaultCosmeticHat = defaultCosmeticHat;

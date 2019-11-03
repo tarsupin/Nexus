@@ -53,9 +53,22 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Launch Projectile
-			this.Launch(posX, posY, velX, velY);
+			this.LaunchShuriken(posX, posY, velX, velY);
 
 			return true;
+		}
+
+		public WeaponShuriken LaunchShuriken(int posX, int posY, FInt velX, FInt velY) {
+
+			// Apply Character's Momentum (if applicable)
+			if(this.multMomentum > 0) {
+				velX += character.physics.velocity.X * this.multMomentum;
+				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
+			}
+
+			this.sound.Play();
+
+			return WeaponShuriken.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 		}
 	}
 }

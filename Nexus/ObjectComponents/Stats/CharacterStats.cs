@@ -85,23 +85,19 @@ namespace Nexus.ObjectComponents {
 				this.character.wounds.ResetWoundSettings();
 			}
 
-			// TODO HIGH PRIORITY: Update Character Stats with Suit and Hat
-			//// Update Suit Abilities (if applicable)
-			//if(character.Suit is Suit) {
-			//	character.Suit.UpdateCharacterStats();
-			//}
+			// Update Suit Abilities (if applicable)
+			if(character.suit is Suit) {
+				character.suit.UpdateCharacterStats();
+			}
 
-			//// Update Hat Abilities (if applicable)
-			//if(character.Hat is Hat) {
-			//	character.Hat.UpdateCharacterStats();
-			//}
-
+			// Update Hat Abilities (if applicable)
+			if(character.hat is Hat) {
+				character.hat.UpdateCharacterStats();
+			}
 
 			// TODO: Do below
 			// Update Stats by Cheats
-
 			// Update Stats by Game Mode
-
 			// Update Stats by Character Archetype
 		}
 	}

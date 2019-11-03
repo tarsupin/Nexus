@@ -72,5 +72,9 @@ namespace Nexus.GameEngine {
 
 			return true;
 		}
+
+		public void Destroy( ushort gridX, ushort gridY ) {
+			this.room.tilemap.RemoveTileByGrid(gridX, gridY);
+		}
 	}
 }

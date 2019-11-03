@@ -46,17 +46,8 @@ namespace Nexus.ObjectComponents {
 			if(input.isDown(IKey.Up)) { velY = this.yVelUp; } else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
 		}
 
-		public virtual ProjectileBall Launch(int posX, int posY, FInt velX, FInt velY) {
-
-			// Apply Character's Momentum (if applicable)
-			if(this.multMomentum > 0) {
-				velX += character.physics.velocity.X * this.multMomentum;
-				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
-			}
-
-			this.sound.Play();
-
-			return ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+		public virtual Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
+			throw new System.Exception("Method must be overwritten. See WeaponShuriken.");
 		}
 	}
 }
