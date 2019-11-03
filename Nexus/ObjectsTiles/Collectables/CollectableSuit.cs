@@ -62,17 +62,17 @@ namespace Nexus.Objects {
 			switch(subType) {
 
 				// Ninjas
-				case (byte)SuitSubType.BlackNinja: character.suit = new BlackNinja(character); break;
-				case (byte)SuitSubType.BlueNinja: character.suit = new BlueNinja(character); break;
-				case (byte)SuitSubType.GreenNinja: character.suit = new GreenNinja(character); break;
-				case (byte)SuitSubType.RedNinja: character.suit = new RedNinja(character); break;
-				case (byte)SuitSubType.WhiteNinja: character.suit = new WhiteNinja(character); break;
+				case (byte)SuitSubType.BlackNinja: SuitMap.BlackNinja.ApplySuit(character, true); break;
+				case (byte)SuitSubType.BlueNinja: SuitMap.BlueNinja.ApplySuit(character, true); break;
+				case (byte)SuitSubType.GreenNinja: SuitMap.GreenNinja.ApplySuit(character, true); break;
+				case (byte)SuitSubType.RedNinja: SuitMap.RedNinja.ApplySuit(character, true); break;
+				case (byte)SuitSubType.WhiteNinja: SuitMap.WhiteNinja.ApplySuit(character, true); break;
 
 				// Wizards
-				case (byte)SuitSubType.BlueWizard: character.suit = new BlueWizard(character); break;
-				case (byte)SuitSubType.GreenWizard: character.suit = new GreenWizard(character); break;
-				case (byte)SuitSubType.RedWizard: character.suit = new RedWizard(character); break;
-				case (byte)SuitSubType.WhiteWizard: character.suit = new WhiteWizard(character); break;
+				case (byte)SuitSubType.BlueWizard: SuitMap.BlueWizard.ApplySuit(character, true); break;
+				case (byte)SuitSubType.GreenWizard: SuitMap.GreenWizard.ApplySuit(character, true); break;
+				case (byte)SuitSubType.RedWizard: SuitMap.RedWizard.ApplySuit(character, true); break;
+				case (byte)SuitSubType.WhiteWizard: SuitMap.WhiteWizard.ApplySuit(character, true); break;
 			}
 
 			Systems.sounds.collectBweep.Play();

@@ -178,10 +178,13 @@
     <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FlightAction.cs" />
     <Compile Include="ObjectComponents\Actions\AirBurst.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardWhiteHat.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardRedHat.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardGreenHat.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardBlueHat.cs" />
     <Compile Include="ObjectComponents\Heads\RyuHead.cs" />
     <Compile Include="ObjectComponents\Heads\Head.cs" />
     <Compile Include="ObjectComponents\Impacts\Impact.cs" />
-    <Compile Include="ObjectComponents\Hats\CosmeticHat.cs" />
     <Compile Include="ObjectComponents\Hats\TopHat.cs" />
     <Compile Include="ObjectComponents\Hats\SpikeyHat.cs" />
     <Compile Include="ObjectComponents\Hats\RangerHat.cs" />

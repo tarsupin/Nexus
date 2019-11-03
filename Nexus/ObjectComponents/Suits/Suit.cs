@@ -1,4 +1,5 @@
-﻿using Nexus.Objects;
+﻿
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
@@ -10,54 +11,39 @@ namespace Nexus.ObjectComponents {
 
 	public class Suit {
 
-		protected readonly Character character;
 		protected SuitRank suitRank;
 		public readonly string texture;
+		public readonly Hat DefaultCosmeticHat; // A default, Cosmetic Hat associated with the Suit (such as Wizard Hats for Wizards).
 
-		public Suit( Character character, SuitRank suitRank, string texture, string defaultCosmeticHat = "" ) {
-			this.character = character;
-
-			// Destroy existing Suit, if applicable.
-			if(character.suit is Suit) { this.DestroySuit(false); }
-
+		public Suit( SuitRank suitRank, string texture, Hat defaultCosmeticHat = null ) {
 			this.suitRank = suitRank;
 			this.texture = texture;
 			this.DefaultCosmeticHat = defaultCosmeticHat;
+		}
 
-			// Assign Default Hat for this Suit
-			if(this.character.hat == null) { this.AssignSuitDefaultHat(); }
+		public void ApplySuit( Character character, bool resetStats ) {
+			character.suit = this; // Apply Suit to Character
 
-			// If the Character has no hat, but it's a base hat or cosmetic hat, reassign the default hat (if applicable)
-			else if(this.character.hat is Hat && this.character.hat.IsCosmeticHat) {
-				this.character.hat.DestroyHat(false);
-				this.AssignSuitDefaultHat();
+			// Apply the Suit's Default Hat if the character has no hat OR a cosmetic hat.
+			if(character.hat == null || (character.hat is Hat && character.hat.IsCosmeticHat)) {
+				this.AssignSuitDefaultHat(character);
 			}
 
-			// Reset Character Stats (in case this suit alters any)
-			if(this.character.stats != null) { this.character.stats.ResetCharacterStats();  }
+			// Reset Character Stats
+			if(resetStats && character.stats != null) { character.stats.ResetCharacterStats(); }
 		}
 
 		public bool IsCosmeticSuit { get { return this.suitRank == SuitRank.CosmeticSuit; } }
 		public bool IsPowerSuit { get { return this.suitRank == SuitRank.PowerSuit; } }
 
-		// A default, Cosmetic Hat associated with the Suit (such as Wizard Hats for Wizards).
-		public string DefaultCosmeticHat { get; protected set; }
-
 		// Suits with powers may update the stats of the character that wears them.
-		public virtual void UpdateCharacterStats() {}
+		public virtual void UpdateCharacterStats(Character character) {}
 
 		// Some Suits come with default hats.
-		public virtual void AssignSuitDefaultHat() {
-			if(this.DefaultCosmeticHat != "") {
-				this.character.hat = new CosmeticHat(this.character, this.DefaultCosmeticHat);
+		public void AssignSuitDefaultHat(Character character) {
+			if(this.DefaultCosmeticHat != null) {
+				this.DefaultCosmeticHat.ApplyHat(character, false);
 			}
-		}
-
-		// Some Suits may require cleanup.
-		public virtual void DestroySuit( bool resetStats ) {
-			// TODO HIGH PRIORITY: Determine the character's base suit type based on player class? Or scene, or something...
-			this.character.suit = null;
-			if(resetStats) { this.character.stats.ResetCharacterStats(); }
 		}
 	}
 }

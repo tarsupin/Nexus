@@ -34,50 +34,38 @@ namespace Nexus.ObjectComponents {
 
 	public class Hat {
 
-		// References
-		protected readonly Character character;
-
 		protected HatRank hatRank;
 		protected sbyte yOffset;        // The Y-Offset for placing the hat on the character's head.
-
 		protected string SpriteName;	// Name of the sprite to draw.
 
-		public Hat( Character character, HatRank hatRank = HatRank.BaseHat ) {
-
-			// Destroy any existing hat, if applicable:
-			if(character.hat is Hat) { character.hat.DestroyHat(false); }
-
-			this.character = character;
+		public Hat( HatRank hatRank = HatRank.BaseHat ) {
 			this.hatRank = hatRank;
 			this.yOffset = -10;
+		}
 
-			// Rendering
-			// TODO HIGH PRIORITY: Render Hat. Create Draw() method, mimic game object.
+		public void ApplyHat(Character character, bool resetStats) {
+			character.hat = this; // Apply Hat to Character
 
-			// Update Character Abilities (in case this hat alters any)
-			if(this.character.stats is CharacterStats) { this.character.stats.ResetCharacterStats(); }
+			// Reset Character Stats
+			if(resetStats && character.stats != null) { character.stats.ResetCharacterStats(); }
+		}
+
+		public virtual void DestroyHat(Character character, bool resetStats) {
+
+			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
+			if(character.suit.DefaultCosmeticHat is Hat) {
+				character.suit.DefaultCosmeticHat.ApplyHat(character, false);
+			}
 		}
 
 		public bool IsCosmeticHat { get { return this.hatRank == HatRank.CosmeticHat; } }
 		public bool IsPowerHat { get { return this.hatRank == HatRank.PowerHat; } }
 
-		public void Draw(int camX, int camY) {
-			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (this.character.FaceRight ? "" : "Left"), this.character.posX - camX, this.character.posY + this.yOffset - camY);
+		public void Draw(Character character, int camX, int camY) {
+			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (character.FaceRight ? "" : "Left"), character.posX - camX, character.posY + this.yOffset - camY);
 		}
 
 		// Hats with powers may update the stats of the character that wears them.
-		public virtual void UpdateCharacterStats() {}
-
-		// Some Hats may require cleanup.
-		public virtual void DestroyHat( bool resetStats ) {
-			this.character.hat = null;
-
-			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
-			if(this.character.suit is Suit && this.character.suit.IsCosmeticSuit) {
-				this.character.hat = new CosmeticHat(this.character, this.character.suit.DefaultCosmeticHat);
-			}
-
-			if(resetStats) { this.character.stats.ResetCharacterStats(); }
-		}
+		public virtual void UpdateCharacterStats(Character character) {}
 	}
 }

@@ -1,20 +1,17 @@
 ﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
 	public class GreenWizard : Suit {
 
-		public GreenWizard( Character character ) : base(character, SuitRank.PowerSuit, "GreenWizard") {
+		public GreenWizard() : base(SuitRank.PowerSuit, "GreenWizard", HatMap.WizardGreenHat) {
 
 		}
 
-		public override void AssignSuitDefaultHat() {
-			this.character.hat = new CosmeticHat(this.character, "Hat/WizGreenHat");
-		}
-
-		public override void UpdateCharacterStats() {
-			CharacterStats stats = this.character.stats;
+		public override void UpdateCharacterStats(Character character) {
+			CharacterStats stats = character.stats;
 
 			stats.CanFastCast = true;
 
@@ -33,7 +30,7 @@ namespace Nexus.ObjectComponents {
 
 			stats.BaseGravity = FInt.Create(0.9); // 0.7 - Has more weight so that the wizard feels faster in general.
 
-			this.character.physics.SetGravity(stats.BaseGravity);
+			character.physics.SetGravity(stats.BaseGravity);
 		}
 	}
 }

@@ -68,12 +68,11 @@ namespace Nexus.Objects {
 			//if(this.item is Item) { this.item.DropItem(); }		// Multiplayer must drop. Single player will reset level.
 
 			// Equipment
-			if(this.suit is Suit) { this.suit.DestroySuit(false); }
-			if(this.hat is Hat) { this.hat.DestroyHat(false); };
+			if(this.hat is Hat) { this.hat.DestroyHat(this, false); };
 
 			// Default Suit, Default Head
-			this.suit = new BasicRedSuit(this);
-			this.head = new RyuHead(this);
+			SuitMap.BasicRedSuit.ApplySuit(this, false);
+			HeadMap.RyuHead.ApplyHead(this, false);
 
 			this.stats.ResetCharacterStats();
 
@@ -387,13 +386,9 @@ namespace Nexus.Objects {
 			// Draw Character's Body
 			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
 
-			// Draw Character's Head
-			this.head.Draw(camX, camY);
-
-			// Draw Hat, if applicable.
-			if(this.hat is Hat) {
-				this.hat.Draw(camX, camY);
-			}
+			// Draw Character's Head and Hat
+			this.head.Draw(this, camX, camY);
+			if(this.hat is Hat) { this.hat.Draw(this, camX, camY); }
 
 			// Render Attachments, if applicable.
 			// TODO HIGH PRIORITY: Render Attachments, such as Y prompt

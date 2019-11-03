@@ -46,15 +46,15 @@ namespace Nexus.Objects {
 			}
 
 			switch(subType) {
-				case (byte)HatSubType.AngelHat: character.hat = new AngelHat(character); break;
-				case (byte)HatSubType.BambooHat: character.hat = new BambooHat(character); break;
-				case (byte)HatSubType.CowboyHat: character.hat = new CowboyHat(character); break;
-				case (byte)HatSubType.FeatheredHat: character.hat = new FeatheredHat(character); break;
-				case (byte)HatSubType.FedoraHat: character.hat = new FedoraHat(character); break;
-				case (byte)HatSubType.HardHat: character.hat = new HardHat(character); break;
-				case (byte)HatSubType.RangerHat: character.hat = new RangerHat(character); break;
-				case (byte)HatSubType.SpikeyHat: character.hat = new SpikeyHat(character); break;
-				case (byte)HatSubType.TopHat: character.hat = new TopHat(character); break;
+				case (byte)HatSubType.AngelHat: HatMap.AngelHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.BambooHat: HatMap.BambooHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.CowboyHat: HatMap.CowboyHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.FeatheredHat: HatMap.FeatheredHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.FedoraHat: HatMap.FedoraHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.HardHat: HatMap.HardHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.RangerHat: HatMap.RangerHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.SpikeyHat: HatMap.SpikeyHat.ApplyHat(character, true); break;
+				case (byte)HatSubType.TopHat: HatMap.TopHat.ApplyHat(character, true); break;
 			}
 
 			Systems.sounds.collectBweep.Play();

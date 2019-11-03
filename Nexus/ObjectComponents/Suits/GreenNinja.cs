@@ -5,12 +5,12 @@ namespace Nexus.ObjectComponents {
 
 	public class GreenNinja : Suit {
 
-		public GreenNinja( Character character ) : base(character, SuitRank.PowerSuit, "GreenNinja") {
+		public GreenNinja() : base(SuitRank.PowerSuit, "GreenNinja") {
 
 		}
 
-		public override void UpdateCharacterStats() {
-			CharacterStats stats = this.character.stats;
+		public override void UpdateCharacterStats(Character character) {
+			CharacterStats stats = character.stats;
 
 			stats.CanWallJump = true;
 			stats.CanWallSlide = true;

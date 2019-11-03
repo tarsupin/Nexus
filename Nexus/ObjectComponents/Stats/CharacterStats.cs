@@ -87,12 +87,12 @@ namespace Nexus.ObjectComponents {
 
 			// Update Suit Abilities (if applicable)
 			if(character.suit is Suit) {
-				character.suit.UpdateCharacterStats();
+				character.suit.UpdateCharacterStats(character);
 			}
 
 			// Update Hat Abilities (if applicable)
 			if(character.hat is Hat) {
-				character.hat.UpdateCharacterStats();
+				character.hat.UpdateCharacterStats(character);
 			}
 
 			// TODO: Do below

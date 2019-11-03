@@ -5,12 +5,12 @@ namespace Nexus.ObjectComponents {
 	// Increases Jump Height and Duration
 	public class FeatheredHat : Hat {
 
-		public FeatheredHat( Character character ) : base(character, HatRank.PowerHat) {
+		public FeatheredHat() : base(HatRank.PowerHat) {
 			this.SpriteName = "Hat/FeatheredHat";
 		}
 
-		public override void UpdateCharacterStats() {
-			CharacterStats stats = this.character.stats;
+		public override void UpdateCharacterStats(Character character) {
+			CharacterStats stats = character.stats;
 			stats.JumpDuration += 2;
 			stats.JumpStrength += 1;
 			stats.WallJumpDuration += 2;

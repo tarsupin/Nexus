@@ -4,13 +4,13 @@ namespace Nexus.ObjectComponents {
 
 	public class BlackNinja : Suit {
 
-		public BlackNinja( Character character ) : base(character, SuitRank.PowerSuit, "BlackNinja") {
+		public BlackNinja() : base(SuitRank.PowerSuit, "BlackNinja") {
 
 		}
 
-		public override void UpdateCharacterStats() {
-			this.character.stats.CanWallJump = true;
-			this.character.stats.CanWallGrab = true;
+		public override void UpdateCharacterStats(Character character) {
+			character.stats.CanWallJump = true;
+			character.stats.CanWallGrab = true;
 		}
 	}
 }

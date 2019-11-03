@@ -1,19 +1,16 @@
-﻿using Nexus.Objects;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
 	public class WhiteWizard : Suit {
 
-		public WhiteWizard( Character character ) : base(character, SuitRank.PowerSuit, "WhiteWizard") {
+		public WhiteWizard() : base(SuitRank.PowerSuit, "WhiteWizard", HatMap.WizardWhiteHat) {
 
 		}
 
-		public override void AssignSuitDefaultHat() {
-			this.character.hat = new CosmeticHat(this.character, "Hat/WizWhiteHat");
-		}
-
-		public override void UpdateCharacterStats() {
-			this.character.stats.CanFastCast = true;
+		public override void UpdateCharacterStats(Character character) {
+			character.stats.CanFastCast = true;
 			
 			// TODO SOUND: char.scene.soundList.shield.play(); // Play Shield Sound; actually, this should go into the shield class.
 			// TODO HIGH PRIORITY: Add Shield Attachment

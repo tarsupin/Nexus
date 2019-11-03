@@ -5,12 +5,12 @@ namespace Nexus.ObjectComponents {
 	// Grants Double Jump
 	public class AngelHat : Hat {
 
-		public AngelHat( Character character ) : base(character, HatRank.PowerHat) {
+		public AngelHat() : base(HatRank.PowerHat) {
 			this.SpriteName = "Hat/AngelHat";
 		}
 
-		public override void UpdateCharacterStats() {
-			this.character.stats.JumpMaxTimes += 1;
+		public override void UpdateCharacterStats(Character character) {
+			character.stats.JumpMaxTimes += 1;
 		}
 	}
 }

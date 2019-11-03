@@ -6,26 +6,35 @@ namespace Nexus.ObjectComponents {
 
 	public class Head {
 
-		protected readonly Character character;
-		protected readonly string SpriteName;	// Name of the sprite to draw.
+		protected readonly string SpriteName;   // Name of the sprite to draw.
+		public readonly Hat DefaultCosmeticHat; // A default, Cosmetic Hat associated with the Head (such as Wizard Hats for Wizards).
 
-		public Head( Character character, string headName ) {
-			this.character = character;
+		public Head( string headName, Hat defaultCosmeticHat = null) {
 			this.SpriteName = "Head/" + headName + "/";
+			this.DefaultCosmeticHat = defaultCosmeticHat;
 		}
 
-		// A default, Cosmetic Hat associated with the Head (such as PooBear's Hat for PooBear).
-		public string DefaultCosmeticHat { get; protected set; }
+		public void ApplyHead(Character character, bool resetStats) {
+			character.head = this; // Apply Head to Character
+
+			// Apply the Head's Default Hat if the character has no hat OR a cosmetic hat.
+			if(character.hat == null || (character.hat is Hat && character.hat.IsCosmeticHat)) {
+				this.AssignHeadDefaultHat(character);
+			}
+
+			// Reset Character Stats
+			if(resetStats && character.stats != null) { character.stats.ResetCharacterStats(); }
+		}
 
 		// Some Heads come with default hats.
-		public void AssignHeadDefaultHat() {
-			if(this.DefaultCosmeticHat != "") {
-				this.character.hat = new CosmeticHat(this.character, this.DefaultCosmeticHat);
+		public void AssignHeadDefaultHat(Character character) {
+			if(this.DefaultCosmeticHat != null) {
+				this.DefaultCosmeticHat.ApplyHat(character, false);
 			}
 		}
 
-		public void Draw(int camX, int camY) {
-			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (this.character.FaceRight ? "Right" : "Left"), this.character.posX - camX, this.character.posY - camY);
+		public void Draw(Character character, int camX, int camY) {
+			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (character.FaceRight ? "Right" : "Left"), character.posX - camX, character.posY - camY);
 		}
 	}
 }
