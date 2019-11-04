@@ -53,7 +53,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// If we're in debug mode and want to run every tick by control:
-			if(DebugConfig.TickSpeed != (byte) DebugTickSpeed.StandardSpeed) {
+			if(DebugConfig.Debug && DebugConfig.TickSpeed != (byte) DebugTickSpeed.StandardSpeed) {
 
 				switch(DebugConfig.TickSpeed) {
 
@@ -96,6 +96,10 @@ namespace Nexus.GameEngine {
 			// TODO: RUN EACH ROOM IN LEVEL
 			this.rooms[0].RunTick();
 
+		}
+
+		public override void Draw() {
+
 			// My Character
 			Character MyCharacter = Systems.localServer.MyCharacter;
 
@@ -104,9 +108,6 @@ namespace Nexus.GameEngine {
 				// TODO: RENDER MY CHARACTER'S ROOM
 				// TODO: RENDER MY CHARACTER'S ROOM
 			}
-		}
-
-		public override void Draw() {
 
 			// TODO HIGH PRIORITY: UPDATE THIS. RENDER THE CORRECT ROOM
 			this.rooms[0].Draw();

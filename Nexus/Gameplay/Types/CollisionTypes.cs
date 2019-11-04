@@ -12,6 +12,9 @@ namespace Nexus.Gameplay {
 		public byte MidX => (byte)(Math.Floor((double)(this.Right - this.Left) * 0.5) + this.Left);
 		public byte MidY => (byte)(Math.Floor((double)(this.Bottom - this.Top) * 0.5) + this.Top);
 
+		public byte Width { get { return (byte) (this.Right - this.Left); } }
+		public byte Height { get { return (byte) (this.Bottom - this.Top); } }
+
 		public Bounds( byte Top, byte Left, byte Right, byte Bottom ) {
 			this.Top = Top;
 			this.Left = Left;

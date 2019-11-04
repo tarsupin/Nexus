@@ -1,4 +1,6 @@
-﻿using Nexus.Config;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -194,12 +196,15 @@ namespace Nexus.GameEngine {
 			// Draw Particles
 			this.particles.Draw();
 
+			// Draw Frame Debugging Aid
+			if(DebugConfig.DrawDebugFrames) { this.DrawDebug(camX, camY, camRight, camBottom); }
+
 			// Debugging
 			//this.stopwatch.Stop();
 			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 
-		public void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
+		private void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
 
 			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
@@ -207,12 +212,32 @@ namespace Nexus.GameEngine {
 
 				// Make sure the frame is visible:
 				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
-
-					// Custom Rendering Rules
-					// TODO HIGH PRIOIRTY: if CUSTOM RENDER RULES, DO CUSTOM RENDER RULES
-
-					// Render Standard Objects
 					oVal.Draw( camX, camY );
+				}
+			}
+		}
+
+		private void DrawDebug(int camX, int camY, int camRight, int camBottom) {
+
+			// Loop through all load orders in the draw debug list:
+			foreach(LoadOrder order in DebugConfig.DrawDebugLoadOrders) {
+
+				// Loop through all game objects and draw frame boundary.
+				this.DrawDebugFrame(this.objects[(byte)order], camX, camY, camRight, camBottom);
+			}
+		}
+
+		private void DrawDebugFrame(Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom) {
+
+			// Loop through each object in the dictionary:
+			foreach(var obj in objectGroup) {
+				DynamicGameObject oVal = obj.Value;
+
+				// Make sure the object is visible, then draw a debug rectangle over it.
+				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
+					Texture2D rect = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+					rect.SetData(new[] { Color.DarkRed });
+					Systems.spriteBatch.Draw(rect, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
 				}
 			}
 		}
