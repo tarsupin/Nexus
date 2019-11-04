@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 			if(obj is Platform) { return this.EnemyHitsPlatform(en, (Platform) obj); }
 
 			// For projectiles, direction may be unnecessary.
-			if(obj is Projectile) { return this.EnemyHitsProjectile(en, (Projectile) obj); }
+			if(obj is Projectile) { return en.RunProjectileImpact(obj as Projectile); }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(en, obj);
 
@@ -75,11 +75,6 @@ namespace Nexus.GameEngine {
 			// TODO: CONVEYORS, WALL JUMPS, ETC
 
 			return Impact.StandardImpact(enemy, block, dir);
-		}
-
-		public bool EnemyHitsProjectile(Enemy enemy, Projectile projectile) {
-			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, projectile);
-			return Impact.StandardImpact(enemy, projectile, dir);
 		}
 	}
 }

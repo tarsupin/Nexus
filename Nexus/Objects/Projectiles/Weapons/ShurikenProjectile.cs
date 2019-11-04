@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 			}
 
 			projectile.AssignSubType(subType);
-			projectile.AssignBoundsByAtlas(4, 4, -4, -4);
+			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Assign the beginning of the shuriken attack:
 			projectile.physics.SetGravity(FInt.Create(0)); // Switches to 0.4 after MotionStart finished.

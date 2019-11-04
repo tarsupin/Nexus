@@ -13,7 +13,17 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			return TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
+			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
+
+			if(collided) {
+				if(actor is Character) {
+					TileCharBasicImpact.RunImpact((Character)actor, dir); // Standard Character Tile Collisions
+				} else if(actor is Projectile) {
+					TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+				}
+			}
+
+			return collided;
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

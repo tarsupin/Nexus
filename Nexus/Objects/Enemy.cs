@@ -43,6 +43,40 @@ namespace Nexus.Objects {
 			return Impact.StandardImpact(character, this, dir);
 		}
 
+		public virtual bool RunProjectileImpact(Projectile projectile) {
+
+			// TODO:
+			// Must be a projectile created by a character.
+			// if(!projectile.ignoreCharacter) { return false; }
+
+			// TODO:
+			// If the enemy ignores projectiles, they should pass through without being destroyed.
+			// if(enemy.collision.ignores.projectiles) { return false; }
+
+			// TODO: 
+			// Special behavior for Magi-Balls. Projectiles faded out don't function.
+			// if(projectile instanceof ProjectileMagi && projectile.sustained > 0) {
+			// if(projectile.sustained < 1) { return false; }
+			// }
+
+			// If the enemy is resistant to the projectile, destroy the projectile.
+			if(this.CanResistDamage(projectile.Damage)) {
+
+				// If the projectile typicallly passes through walls, allow it to pass through indestructable enemies.
+				return projectile.CollisionType != ProjectileCollisionType.IgnoreWalls;
+			}
+
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);
+
+			// Destroy the Projectile
+			projectile.Destroy(dir);
+
+			// Wound the Enemy
+			this.ReceiveWound();
+
+			return true;
+		}
+
 		public bool CanResistDamage( DamageStrength damage ) {
 			return this.ProjectileResist >= damage;
 		}
