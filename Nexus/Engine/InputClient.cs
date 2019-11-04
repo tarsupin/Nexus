@@ -101,6 +101,10 @@ namespace Nexus.Engine {
 			this.pressedNum = 0;
 			this.releasedNum = 0;
 
+			// Save Previous Input States
+			this.prevKeyState = curKeyState;
+			this.prevPadState = curPadState;
+
 			// Save Current Input States
 			this.curKeyState = Keyboard.GetState();
 			this.curPadState = GamePad.GetState(PlayerIndex.One);
@@ -118,10 +122,11 @@ namespace Nexus.Engine {
 
 				Systems.localServer.CreateInputPacket( kPressed, kReleased );
 			}
+		}
 
-			// Save Previous Input States
-			this.prevKeyState = curKeyState;
-			this.prevPadState = curPadState;
+		// Returns TRUE if a local key was pressed (useful for debugging)
+		public bool LocalKeyPressed(Keys key) {
+			return this.curKeyState.IsKeyDown(key) && !this.prevKeyState.IsKeyDown(key);
 		}
 
 		// Determine what IKeys were activated this frame.

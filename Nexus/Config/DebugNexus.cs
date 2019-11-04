@@ -19,38 +19,52 @@ namespace Nexus.Config {
 		public static bool Debug = true;
 
 		// Debug Settings
-		public static bool DrawDebugFrames;
-		public static LoadOrder[] DrawDebugLoadOrders;
-		public static DebugTickSpeed TickSpeed;
+		public static bool DrawDebugFrames = false;
+		public static LoadOrder[] DrawDebugLoadOrders = new LoadOrder[] {
+			//LoadOrder.Character,
+			LoadOrder.Projectile,
+			LoadOrder.Enemy,
+		};
+
+		public static DebugTickSpeed TickSpeed = DebugTickSpeed.StandardSpeed;
 
 		// Tracking Values
 		public static uint trackTicks = 0;
 
-		// Initialize Debug Configurations Here
-		public void InitializeDebugValues() {
+		public DebugConfig() {}
+		
+		public static void ToggleDebugFrames() {
 
-			// Show Debug Frames around game objects, to help identify when collisions should occur.
-			DrawDebugFrames = true;
+			// Ignore Toggling Debug Mode if there is no debugging options allowed.
+			if(!Debug) { return; }
 
-			// Determine which game objects will have debug frames on them.
-			DrawDebugLoadOrders = new LoadOrder[] {
-				//LoadOrder.Character,
-				LoadOrder.Projectile,
-				LoadOrder.Enemy,
-			};
-
-			// Choose the Tick Speed; the rate at which the game runs.
-			TickSpeed = DebugTickSpeed.StandardSpeed;
-			//TickSpeed = DebugTickSpeed.HalfSpeed;
-			//TickSpeed = DebugTickSpeed.QuarterSpeed;
-			//TickSpeed = DebugTickSpeed.WhenYPressed;
+			DrawDebugFrames = !DrawDebugFrames;
 		}
 
-		public DebugConfig() {
+		public static void ToggleTickSpeed( bool YControl ) {
 
-			if(Debug) {
-				this.InitializeDebugValues();
+			// Ignore Toggling Debug Mode if there is no debugging options allowed.
+			if(!Debug) { return; }
+
+			if(YControl) {
+				if(TickSpeed == DebugTickSpeed.WhenYPressed) { TickSpeed = DebugTickSpeed.WhileYHeldSlow; }
+				else if(TickSpeed == DebugTickSpeed.WhileYHeldSlow) { TickSpeed = DebugTickSpeed.WhileYHeld; }
+				else if(TickSpeed == DebugTickSpeed.WhileYHeld) { TickSpeed = DebugTickSpeed.StandardSpeed; }
+				else { TickSpeed = DebugTickSpeed.WhenYPressed; }
 			}
+
+			else {
+				if(TickSpeed == DebugTickSpeed.StandardSpeed) { TickSpeed = DebugTickSpeed.HalfSpeed; }
+				else if(TickSpeed == DebugTickSpeed.HalfSpeed) { TickSpeed = DebugTickSpeed.QuarterSpeed; }
+				else if(TickSpeed == DebugTickSpeed.QuarterSpeed) { TickSpeed = DebugTickSpeed.EighthSpeed; }
+				else if(TickSpeed == DebugTickSpeed.EighthSpeed) { TickSpeed = DebugTickSpeed.StandardSpeed; }
+				else { TickSpeed = DebugTickSpeed.StandardSpeed; }
+			}
+		}
+
+		public static void ResetDebugValues() {
+			DrawDebugFrames = false;
+			TickSpeed = DebugTickSpeed.StandardSpeed;
 		}
 	}
 }

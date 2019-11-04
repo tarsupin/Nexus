@@ -1,4 +1,5 @@
-﻿using Nexus.Config;
+﻿using Microsoft.Xna.Framework.Input;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -52,39 +53,44 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
-			// If we're in debug mode and want to run every tick by control:
-			if(DebugConfig.Debug && DebugConfig.TickSpeed != (byte) DebugTickSpeed.StandardSpeed) {
+			// If we're in debug mode:
+			if(DebugConfig.Debug) {
+				this.DebugToggles();
 
-				switch(DebugConfig.TickSpeed) {
+				// Tick Speed
+				if(DebugConfig.TickSpeed != (byte)DebugTickSpeed.StandardSpeed) {
 
-					case DebugTickSpeed.HalfSpeed:
-						DebugConfig.trackTicks++;
-						if(DebugConfig.trackTicks % 2 != 0) { return; }
-						break;
+					switch(DebugConfig.TickSpeed) {
 
-					case DebugTickSpeed.QuarterSpeed:
-						DebugConfig.trackTicks++;
-						if(DebugConfig.trackTicks % 4 != 0) { return; }
-						break;
+						case DebugTickSpeed.HalfSpeed:
+							DebugConfig.trackTicks++;
+							if(DebugConfig.trackTicks % 2 != 0) { return; }
+							break;
 
-					case DebugTickSpeed.EighthSpeed:
-						DebugConfig.trackTicks++;
-						if(DebugConfig.trackTicks % 8 != 0) { return; }
-						break;
+						case DebugTickSpeed.QuarterSpeed:
+							DebugConfig.trackTicks++;
+							if(DebugConfig.trackTicks % 4 != 0) { return; }
+							break;
 
-					case DebugTickSpeed.WhenYPressed:
-						if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
-						break;
+						case DebugTickSpeed.EighthSpeed:
+							DebugConfig.trackTicks++;
+							if(DebugConfig.trackTicks % 8 != 0) { return; }
+							break;
 
-					case DebugTickSpeed.WhileYHeld:
-						if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
-						break;
+						case DebugTickSpeed.WhenYPressed:
+							if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
+							break;
 
-					case DebugTickSpeed.WhileYHeldSlow:
-						if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
-						DebugConfig.trackTicks++;
-						if(DebugConfig.trackTicks % 4 != 0) { return; }
-						break;
+						case DebugTickSpeed.WhileYHeld:
+							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+							break;
+
+						case DebugTickSpeed.WhileYHeldSlow:
+							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+							DebugConfig.trackTicks++;
+							if(DebugConfig.trackTicks % 4 != 0) { return; }
+							break;
+					}
 				}
 			}
 
@@ -95,7 +101,17 @@ namespace Nexus.GameEngine {
 			// TODO: RUN EACH ROOM IN LEVEL
 			// TODO: RUN EACH ROOM IN LEVEL
 			this.rooms[0].RunTick();
+		}
 
+		public void DebugToggles() {
+
+			// Change Active Debug Mode (press F8)
+			InputClient input = Systems.input;
+
+			if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
+			else if(input.LocalKeyPressed(Keys.F6)) { DebugConfig.ToggleDebugFrames(); }
+			else if(input.LocalKeyPressed(Keys.F7)) { DebugConfig.ToggleTickSpeed(true); }
+			else if(input.LocalKeyPressed(Keys.F8)) { DebugConfig.ToggleTickSpeed(false); }
 		}
 
 		public override void Draw() {
