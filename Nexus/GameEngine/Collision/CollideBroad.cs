@@ -68,6 +68,10 @@ namespace Nexus.GameEngine {
 
 			// Loop through every object, add it to an array.
 			foreach( var obj in objects ) {
+
+				// Object must be capable of colliding, or don't add it to the array.
+				if(obj.Value.Activity <= Activity.NoCollide) { return; }
+
 				objList.Add(obj.Value);
 			}
 		}

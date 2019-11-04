@@ -35,14 +35,8 @@ namespace Nexus.GameEngine {
 
 		public Activity Activity { get; protected set; }
 
-		// TODO: ActionTrait, BehaviorTrait
-		// TODO: Status (can have multiple status types); some don't need
 		// TODO: -- last character touch direction; what relelvant for?
 		// TODO: TrackInstructions (rules for dealing with tracks; not everything needs this, but... ???)
-
-		//status?: any;
-		//action: ActionTrait;			// Current Action
-		//behavior: BehaviorTrait;
 
 		// Components
 		public Physics physics;
@@ -52,13 +46,11 @@ namespace Nexus.GameEngine {
 		public ActorState State { get; protected set; }    // Tracks the actor's current state.
 		public bool FaceRight { get; protected set; }      // TRUE if the actor is facing right.
 
-		public DynamicGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {}
+		public DynamicGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {
+			this.SetActivity(Activity.Active);
+		}
 
 		public virtual void RunTick() {
-
-			// Activity
-			// TODO HIGH PRIORITY: End Tick if the activity isn't present.
-			// if(this.activity == (byte) Activity.Inactive) { return; }
 
 			// Actions and Behaviors
 			//if(this.action is Action) {

@@ -34,6 +34,9 @@ namespace Nexus.GameEngine {
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.
 		public static void RunQuadrantDetection(DynamicGameObject actor) {
 
+			// Don't run collision if the actor is designated not to collide.
+			if(actor.Activity <= Activity.NoCollide) { return; }
+
 			// Determine Tiles Potentially Touched
 			ushort gridX = actor.GridX;
 			ushort gridY = actor.GridY;
