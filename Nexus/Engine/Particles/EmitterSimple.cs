@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.GameEngine;
 using System.Collections.Generic;
 
 namespace Nexus.Engine {
@@ -24,7 +25,7 @@ namespace Nexus.Engine {
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 
-		public static EmitterSimple NewEmitter( Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
+		public static EmitterSimple NewEmitter( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
 			// Retrieve an emitter from the pool.
 			EmitterSimple emitter = EmitterSimple.emitterPool.GetObject();
@@ -40,6 +41,9 @@ namespace Nexus.Engine {
 			emitter.alphaEnd = alphaEnd;
 
 			emitter.particles = new List<ParticleStandard>();
+
+			// Add the Emitter to the Particle Handler
+			room.particles.AddEmitter(emitter);
 
 			return emitter;
 		}
@@ -83,13 +87,22 @@ namespace Nexus.Engine {
 
 		public void Draw() {
 
+			Camera camera = Systems.camera;
+			int camX = camera.posX;
+			int camY = camera.posY;
+
+			// Only draw the emitter if it's on the camera.
+			if(this.pos.X < camX - 250 || this.pos.X > camX + camera.width + 250 || this.pos.Y < camY - 250 || this.pos.Y > camY + camera.height + 250) {
+				return;
+			}
+
 			// Determine Alpha of Particle (can be affected by fading)
 			uint frame = Systems.timer.Frame;
 			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
 			// Loop Through Particles, Draw:
 			foreach(ParticleStandard particle in this.particles) {
-				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X, (int) particle.pos.Y, Color.White * alpha, particle.rotation);
+				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X - camX, (int) particle.pos.Y - camY, Color.White * alpha, particle.rotation);
 			}
 		}
 	}

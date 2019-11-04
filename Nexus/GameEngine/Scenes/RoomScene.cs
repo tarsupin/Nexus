@@ -20,6 +20,7 @@ namespace Nexus.GameEngine {
 
 		// Components
 		private ParallaxHandler parallax;
+		public ParticleHandler particles;
 
 		// Level Data
 		public TilemapBool tilemap;
@@ -64,8 +65,9 @@ namespace Nexus.GameEngine {
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
 
-			// Parallax
+			// Additional Components
 			this.parallax = ParallaxOcean.CreateOceanParallax(this);
+			this.particles = new ParticleHandler(this);
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }
@@ -86,9 +88,6 @@ namespace Nexus.GameEngine {
 
 		public override void RunTick() {
 
-			// Update Parallax
-			this.parallax.RunParallaxTick();
-
 			// Update All Objects
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Platform]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Enemy]);
@@ -100,6 +99,10 @@ namespace Nexus.GameEngine {
 			// Object Coordination & Cleanup
 			this.AddObjectsMarkedForAddition();
 			this.DestroyObjectsMarkedForRemoval();
+
+			// Update Components
+			this.parallax.RunParallaxTick();
+			this.particles.RunParticleTick();
 
 			// Camera Movement
 			Character MyCharacter = Systems.localServer.MyCharacter;
@@ -187,6 +190,9 @@ namespace Nexus.GameEngine {
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.TrailingItem], camX, camY, camRight, camBottom );
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Character], camX, camY, camRight, camBottom );
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
+
+			// Draw Particles
+			this.particles.Draw();
 
 			// Debugging
 			//this.stopwatch.Stop();

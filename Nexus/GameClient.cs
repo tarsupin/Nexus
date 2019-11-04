@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Objects;
 using System;
 
 namespace Nexus
@@ -13,8 +12,6 @@ namespace Nexus
 		// XNA Graphics
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-
-		public EmitterSimple TESTEMITTER;       // TODO CLEANUP: DELETE
 
 		public GameClient() {
 			graphics = new GraphicsDeviceManager(this);
@@ -67,8 +64,6 @@ namespace Nexus
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(Systems.handler.level.data.id);
-
-			this.TESTEMITTER = ExplodeEmitter.BoxExplosion("Items/Key", 500, 400);
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -96,8 +91,6 @@ namespace Nexus
 			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 			Systems.scene.Draw();
-
-			this.TESTEMITTER.Draw();
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);

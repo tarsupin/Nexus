@@ -7,10 +7,10 @@ namespace Nexus.GameEngine {
 
 	public static class ExplodeEmitter {
 
-		public static EmitterSimple BoxExplosion( string spriteName, int posX, int posY, sbyte spread = 3, byte duration = 55 ) {
+		public static EmitterSimple BoxExplosion( RoomScene room, string spriteName, int posX, int posY, sbyte spread = 3, byte duration = 55 ) {
 			uint frame = Systems.timer.Frame;
 
-			EmitterSimple emitter = EmitterSimple.NewEmitter(Systems.mapper.atlas[(byte)AtlasGroup.Objects], spriteName, new Vector2(posX, posY), new Vector2(0, 0), 0.5f, frame + duration, frame + duration - 25);
+			EmitterSimple emitter = EmitterSimple.NewEmitter(room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], spriteName, new Vector2(posX, posY), new Vector2(0, 0), 0.5f, frame + duration, frame + duration - 25);
 
 			float radianUpLeft = -1.82f; // -5, -20
 			float radianUpRight = -1.32f; // 5, -20

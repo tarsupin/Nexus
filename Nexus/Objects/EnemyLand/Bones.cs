@@ -49,7 +49,7 @@ namespace Nexus.Objects {
 							//this.Die(DeathResult.Special);
 
 			// Particle Effect (bones exploding)
-			ExplodeEmitter.BoxExplosion("Particles/Bone", this.posX + 24, this.posY + 24);
+			ExplodeEmitter.BoxExplosion(this.room, "Particles/Bone", this.posX + 24, this.posY + 24);
 
 			return true;
 		}

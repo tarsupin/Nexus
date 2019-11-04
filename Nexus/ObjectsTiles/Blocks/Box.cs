@@ -1,6 +1,6 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -53,11 +53,13 @@ namespace Nexus.Objects {
 
 			// Display Particle Effect
 			// TODO PARTICLES: Display particle effect for box being destroyed.
+
+			ExplodeEmitter.BoxExplosion(this.room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
 			//let particleSys = game.particles;
 			//PEventExplode.activate(particleSys, AtlasGroup.Other, "Particles/WoodFrag", this.pos.x + this.img.width / 2, this.pos.y + this.img.height / 2);
 
-			// TODO SOUND: Box Breaking Sound
-			// game.audio.soundList.brickBreak.play();
+			// Box Breaking Sound
+			Systems.sounds.brickBreak.Play();
 		}
 
 		private void CreateTextures() {

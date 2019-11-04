@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Config\DebugNexus.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
+    <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
     <Compile Include="Engine\ParallaxHandler.cs" />
