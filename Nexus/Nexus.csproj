@@ -113,11 +113,10 @@
     <Compile Include="GameEngine\Params\ParamsBeats.cs" />
     <Compile Include="GameEngine\Params\ParamsAttackEarth.cs" />
     <Compile Include="GameEngine\Params\ParamsAttackBolt.cs" />
+    <Compile Include="GameEngine\ParticleEmitters\DeathEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
-    <Compile Include="GameEngine\Particles\ParticleGen.cs" />
+    <Compile Include="GameEngine\ParticleGenerator\ParticleGen.cs" />
     <Compile Include="Engine\ObjectPool.cs" />
-    <Compile Include="Engine\Particles\ParticleManager.cs" />
-    <Compile Include="Engine\Particles\ParticleSimple.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ObjectPool.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
@@ -156,9 +155,6 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
-    <Compile Include="ObjectComponents\Actions\ActionEnemy.cs" />
-    <Compile Include="ObjectComponents\Actions\DeathEnemyAction.cs" />
-    <Compile Include="ObjectComponents\Actions\ActionCharacter.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightTo.cs" />
@@ -226,7 +222,6 @@
     <Compile Include="ObjectComponents\Powers\PowerMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerAttack.cs" />
     <Compile Include="ObjectComponents\Powers\Power.cs" />
-    <Compile Include="ObjectComponents\Status\EnemyStatus.cs" />
     <Compile Include="ObjectComponents\Suits\BasicRedSuit.cs" />
     <Compile Include="ObjectComponents\Suits\WhiteWizard.cs" />
     <Compile Include="ObjectComponents\Suits\RedWizard.cs" />

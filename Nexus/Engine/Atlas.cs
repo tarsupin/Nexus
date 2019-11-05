@@ -75,7 +75,7 @@ namespace Nexus.Engine {
 
 			spriteBatch.Draw(
 				texture: this.Texture,
-				position: new Vector2(posX, posY),
+				position: new Vector2(posX + sprite.Origin.X, posY + sprite.Origin.Y),
 				sourceRectangle: sprite.TextureRect,
 				color: color,
 				rotation: rotation,

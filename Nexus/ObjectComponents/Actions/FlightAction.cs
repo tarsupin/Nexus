@@ -5,7 +5,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class FlightAction : ActionCharacter {
+	public class FlightAction : Action {
 
 		public FlightAction() : base() {
 			this.endsOnLanding = true;

@@ -2,6 +2,9 @@
 using Nexus.Engine;
 using System;
 
+// This Generator is a DEVELOPMENT TOOL to assist with creating particle arrays.
+// It does NOT have any active mechanics within the game itself.
+
 namespace Nexus.GameEngine {
 
 	public class ParticleGen {
@@ -10,10 +13,6 @@ namespace Nexus.GameEngine {
 		short[] y = new short[140] { -10, -20, -28, -37, -45, -52, -60, -66, -72, -78, -82, -87, -91, -94, -98, -100, -102, -104, -104, -105, -105, -104, -104, -102, -100, -98, -94, -91, -87, -82, -78, -72, -66, -60, -52, -46, -38, -32, -24, -18, -10, -4, 4, 10, 18, 24, 32, 38, 46, 52, 60, 66, 74, 80, 88, 94, 102, 108, 116, 122, 130, 136, 144, 150, 158, 164, 172, 178, 186, 192, 200, 206, 214, 220, 228, 234, 242, 248, 256, 262, 270, 276, 284, 290, 298, 304, 312, 318, 326, 332, 340, 346, 354, 360, 368, 374, 382, 388, 396, 402, 410, 416, 424, 430, 438, 444, 452, 458, 466, 472, 480, 486, 494, 500, 508, 514, 522, 528, 536, 542, 550, 556, 564, 570, 578, 584, 592, 598, 606, 612, 620, 626, 634, 640, 648, 654, 662, 668, 676, 682, };
 
 		public ParticleGen() {
-
-		}
-
-		public static void GenGravityBurstRandom() {
 
 		}
 

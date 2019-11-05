@@ -10,7 +10,7 @@ namespace Nexus.ObjectComponents {
 	// status.actionBool1 (jumpActive)			:: turns FALSE when the character has released the JUMP key (once off, cannot turn on).
 	// status.actionBool2 (runActive)			:: turns FALSE when the character has released the RUN key (once off, cannot turn on).
 
-	public class JumpAction : ActionCharacter {
+	public class JumpAction : Action {
 
 		public JumpAction() : base() {
 			this.endsOnLanding = true;

@@ -49,7 +49,7 @@ namespace Nexus.Engine {
 		}
 
 		public void AddParticle( Vector2 pos, Vector2 vel, float rotation = 0, float rotationSpeed = 0 ) {
-			ParticleStandard particle = ParticleManager.standardParticles.GetObject();
+			ParticleStandard particle = ParticleHandler.standardPool.GetObject();
 			particle.SetParticle(pos, vel, rotation, rotationSpeed);
 			this.particles.Add(particle);
 		}
@@ -98,11 +98,11 @@ namespace Nexus.Engine {
 
 			// Determine Alpha of Particle (can be affected by fading)
 			uint frame = Systems.timer.Frame;
-			float alpha = this.fadeStart < frame ? ParticleManager.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
+			float alpha = this.fadeStart < frame ? ParticleHandler.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
 			// Loop Through Particles, Draw:
 			foreach(ParticleStandard particle in this.particles) {
-				this.atlas.DrawAdvanced(this.spriteName, (int) particle.pos.X - camX, (int) particle.pos.Y - camY, Color.White * alpha, particle.rotation);
+				this.atlas.DrawAdvanced(this.spriteName, (int)particle.pos.X - camX, (int)particle.pos.Y - camY, Color.White * alpha, particle.rotation);
 			}
 		}
 	}

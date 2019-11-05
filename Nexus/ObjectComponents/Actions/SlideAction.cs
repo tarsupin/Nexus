@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 
 	// status.actionBool1 (slideRight)			:: Identifies the direction the slide started in (can only slide that direction).
 
-	public class SlideAction : ActionCharacter {
+	public class SlideAction : Action {
 
 		public SlideAction() : base() {
 			this.endsOnLanding = false;

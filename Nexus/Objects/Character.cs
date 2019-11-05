@@ -105,7 +105,7 @@ namespace Nexus.Objects {
 			else { this.InAirUpdate(); }
 
 			// Process Behaviors & Actions
-			if(this.status.action is ActionCharacter) {
+			if(this.status.action is Action) {
 				this.status.action.RunAction(this);
 			}
 
@@ -223,7 +223,7 @@ namespace Nexus.Objects {
 
 					// Only apply landing if the minimum jump time has not passed.
 					if(status.action is JumpAction == false || JumpAction.MinimumTimePassed(status)) {
-						if(status.action is ActionCharacter) { status.action.LandsOnGround(this); }
+						if(status.action is Action) { status.action.LandsOnGround(this); }
 						status.jumpsUsed = 0;
 					}
 

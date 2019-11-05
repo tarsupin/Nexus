@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.Objects;
 
 // To start an action, use the "StartAction()" methods through the ActionMap.
 // Example: ActionMap.Slide.StartAction(this, this.faceRight);
@@ -15,12 +16,18 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = false;
 		}
 
-		public virtual void LandsOnGround( DynamicGameObject actor ) {
-			if(this.endsOnLanding) { this.EndAction( actor ); }
+		public bool HasTimeElapsed(Character character) {
+			return Systems.timer.Frame > character.status.actionEnds;
 		}
 
-		public virtual void EndAction( DynamicGameObject actor ) {
-			
+		public virtual void RunAction(Character character) { }
+
+		public virtual void LandsOnGround(Character character) {
+			if(this.endsOnLanding) { this.EndAction(character); }
+		}
+
+		public virtual void EndAction(Character character) {
+			character.status.action = null;
 		}
 	}
 }

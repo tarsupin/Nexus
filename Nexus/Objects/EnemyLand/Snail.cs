@@ -39,7 +39,6 @@ namespace Nexus.Objects {
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 0) {
-			if(this.status.action is DeathEnemyAction) { return false; }
 			character.BounceUp(this, bounceStrength);
 			Systems.sounds.splat1.Play();
 			// TODO: Snail Disappears; create shell in it's place.

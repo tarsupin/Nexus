@@ -16,8 +16,12 @@ namespace Nexus.Engine {
 			this.rotationSpeed = rotationSpeed;
 		}
 
+		public static ParticleStandard GetParticleFromPool() {
+			return ParticleHandler.standardPool.GetObject();
+		}
+
 		public void ReturnParticleToPool() {
-			ParticleManager.standardParticles.ReturnObject(this);
+			ParticleHandler.standardPool.ReturnObject(this);
 		}
 
 		public void RunParticleTick() {

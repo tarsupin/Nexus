@@ -5,7 +5,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class WallGrabAction : ActionCharacter {
+	public class WallGrabAction : Action {
 
 		public WallGrabAction() : base() {
 			this.endsOnLanding = true;

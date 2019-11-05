@@ -16,9 +16,6 @@ namespace Nexus.Gameplay {
 		public static readonly JumpAction Jump = new JumpAction();
 		public static readonly SlideAction Slide = new SlideAction();
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
-
-		// Enemy Actions
-		public static readonly DeathEnemyAction DeathEnemy = new DeathEnemyAction();
 	}
 
 	public class AnimationMap {

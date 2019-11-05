@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 			else if(dir == DirCardinal.Up) {
 
 				// End any action that ends upward:
-				ActionCharacter action = character.status.action;
+				Action action = character.status.action;
 
 				if(action is JumpAction || action is WallJumpAction) {
 					character.status.action.EndAction(character);

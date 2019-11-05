@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 
 	// status.actionBool1 (horizontalOnly)		:: TRUE if only moving horizontally.
 
-	public class HoverAction : ActionCharacter {
+	public class HoverAction : Action {
 
 		public HoverAction() : base() {
 			this.endsOnLanding = true;

@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	// status.actionNum1 (directionHor)		:: the Horizontal Direction of the Air Burst (e.g. -1, 0, or 1)
 	// status.actionNum2 (directionVert)	:: the Vertical Direction of the Air Burst (e.g. -1, 0, or 1)
 
-	public class AirBurst : ActionCharacter {
+	public class AirBurst : Action {
 
 		public AirBurst() : base() {
 			this.duration = 7;

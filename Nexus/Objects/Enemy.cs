@@ -8,26 +8,15 @@ namespace Nexus.Objects {
 
 	public class Enemy : DynamicGameObject {
 
-		// Enemy Stats
 		public DamageStrength ProjectileResist { get; protected set; }
-
-		// Enemy Status
 		public Behavior behavior;
-		public EnemyStatus status;
 
 		public Enemy(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
-			this.status = new EnemyStatus();
+			
 		}
 
 		public override void RunTick() {
-
-			// Actions and Behaviors
-			if(this.status.action is ActionEnemy) {
-				this.status.action.RunAction(this);
-			} else if(this.behavior is Behavior) {
-				this.behavior.RunTick();
-			}
-
+			if(this.behavior is Behavior) { this.behavior.RunTick(); }
 			base.RunTick();
 		}
 
@@ -37,7 +26,7 @@ namespace Nexus.Objects {
 			if(dir == DirCardinal.Down) {
 				this.GetJumpedOn(character);
 			} else {
-				this.WoundCharacter(character);
+				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			}
 
 			return Impact.StandardImpact(character, this, dir);
@@ -81,13 +70,7 @@ namespace Nexus.Objects {
 			return this.ProjectileResist >= damage;
 		}
 
-		public virtual void WoundCharacter( Character character, DamageStrength damage = DamageStrength.Standard ) {
-			if(this.status.action is DeathEnemyAction) { return; }
-			character.wounds.ReceiveWoundDamage(damage);
-		}
-
 		public virtual bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
-			if(this.status.action is DeathEnemyAction) { return false; }
 			character.BounceUp( this, bounceStrength );
 			return this.ReceiveWound();
 		}
@@ -97,9 +80,29 @@ namespace Nexus.Objects {
 			return this.Die(DeathResult.Knockout);
 		}
 
-		public virtual bool Die( DeathResult deathType ) {
-			ActionMap.DeathEnemy.StartAction(this, deathType);
+		public virtual bool Die( DeathResult deathResult ) {
+
+			// Delete the Enemy
 			if(this.animate is Animate) { this.animate = null; }
+			this.Destroy();
+
+			// Replace with Particle
+
+			// Knockout
+			if(deathResult == DeathResult.Knockout) {
+				DeathEmitter.Knockout(this.room, this.SpriteName, this.posX, this.posY);
+			}
+
+			// Standard Squish
+			else if(deathResult == DeathResult.Squish) {
+				//status.actionEnds = Systems.timer.Frame + 25;
+
+				// Lock the enemy in position. Since it's .activity is now set to NoCollide, it won't change its position.
+				physics.SetGravity(FInt.Create(0));
+				physics.velocity.X = FInt.Create(0);
+				physics.velocity.Y = FInt.Create(0);
+			}
+
 			return true;
 		}
 
@@ -107,6 +110,5 @@ namespace Nexus.Objects {
 		public virtual bool DamageByTNT() {
 			return this.Die(DeathResult.Knockout);
 		}
-
 	}
 }

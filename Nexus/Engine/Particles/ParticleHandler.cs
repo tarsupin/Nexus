@@ -7,8 +7,12 @@ namespace Nexus.Engine {
 
 	public class ParticleHandler {
 
+		// Particle Pools
+		public static ObjectPool<ParticleStandard> standardPool = new ObjectPool<ParticleStandard>(() => new ParticleStandard());
+
+		// Handler Values
 		private readonly RoomScene room;
-		private List<EmitterSimple> emitterList;
+		private List<EmitterSimple> emitterList;			// Current Emitters
 
 		public ParticleHandler( RoomScene room ) {
 			this.room = room;
@@ -16,7 +20,7 @@ namespace Nexus.Engine {
 		}
 
 		public void AddEmitter(EmitterSimple emitter) {
-			emitterList.Add(emitter);
+			this.emitterList.Add(emitter);
 		}
 
 		public void RunParticleTick() {
@@ -26,6 +30,7 @@ namespace Nexus.Engine {
 				EmitterSimple emitter = this.emitterList[i];
 
 				// Remove the emitter when it's time has expired.
+				// NOTE: The Emitter removes itself from the pool on this frame in RunEmitterTick();
 				if(emitter.frameEnd < Systems.timer.Frame) {
 					this.emitterList.Remove(emitter);
 					i--;
@@ -41,6 +46,14 @@ namespace Nexus.Engine {
 			foreach(EmitterSimple emitter in this.emitterList) {
 				emitter.Draw(); // Emitter's draw method checks if it's within camera view.
 			}
+		}
+
+		// Helper for Fading Particles
+		public static float AlphaByFadeTime(uint currentFrame, uint fadeStart, uint fadeEnd, float alphaStart = 1, float alphaEnd = 0) {
+			float duration = fadeEnd - fadeStart;
+			float dist = currentFrame - fadeStart;
+			float weight = dist / duration;
+			return Interpolation.Number(alphaStart, alphaEnd, weight);
 		}
 	}
 }

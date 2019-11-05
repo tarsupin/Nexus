@@ -52,13 +52,6 @@ namespace Nexus.GameEngine {
 
 		public virtual void RunTick() {
 
-			// Actions and Behaviors
-			//if(this.action is Action) {
-			//	this.action.RunAction(this);
-			//} else if(this.behavior is Behavior) {
-			//	this.behavior.RunTick();
-			//}
-
 			// Standard Physics
 			this.physics.RunTick();
 			
