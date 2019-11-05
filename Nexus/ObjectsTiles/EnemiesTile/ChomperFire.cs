@@ -18,7 +18,8 @@ namespace Nexus.Objects {
 		}
 
 		private ChomperFire(RoomScene room) : base(room, TileGameObjectId.ChomperFire) {
-
+			this.SpriteName = "Chomper/Fire/Chomp";
+			this.KnockoutName = "Particles/Chomp/Fire";
 		}
 
 		public override void UpdateParams(JObject paramList) {

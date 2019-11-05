@@ -17,7 +17,8 @@ namespace Nexus.Objects {
 		}
 
 		private ChomperMetal(RoomScene room) : base(room, TileGameObjectId.ChomperMetal) {
-
+			this.SpriteName = "Chomper/Metal/Chomp";
+			this.KnockoutName = "Particles/Chomp/Metal";
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {

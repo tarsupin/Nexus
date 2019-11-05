@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
@@ -29,9 +30,20 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		// TODO HIGH PRIORITY: Plant Impacts (projectiles, etc.)
+		// Plant Impacts
 		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
+			// Plants die when hit by projectiles of sufficient damage.
+			 if(actor is Projectile) {
+				(actor as Projectile).Destroy(dir);
+				this.Destroy(gridX, gridY);
+
+				// TODO: Get gridID and determine subType. Otherwise, it always shows Plant here.
+				DeathEmitter.Knockout(this.room, "Particles/Chomp/Plant", gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+				Systems.sounds.splat1.Play();
+			}
+
 			return true;
 		}
 

@@ -2,7 +2,7 @@
 1. Save TexturePack Atlas. Publish.
 	- Will load into your directory (e.g. something like /ryu-assets/Atlas)
 
-2. Copy the .png and .txt atlas files to your repo, or into the /Content/Atlas folder in the Solution Explorer.
+2. Drag the .png and .txt atlas files into the /Content/Atlas folder in the Solution Explorer.
 	C:\Users\Brint\source\repos\Nexus\Nexus\Content\Atlas\MyAtlas.png
 	C:\Users\Brint\source\repos\Nexus\Nexus\Content\Atlas\MyAtlas.txt
 

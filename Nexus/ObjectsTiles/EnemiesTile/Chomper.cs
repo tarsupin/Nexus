@@ -7,6 +7,9 @@ namespace Nexus.Objects {
 
 	public class Chomper : TileGameObject {
 
+		protected string SpriteName;	// The base name for the texture.
+		protected string KnockoutName;	// The particle texture string to use when it's knocked out.
+
 		protected Chomper(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
@@ -27,6 +30,7 @@ namespace Nexus.Objects {
 
 				// TODO: Check that projectile deals enough damage.
 				this.Destroy(gridX, gridY);
+				DeathEmitter.Knockout(this.room, this.KnockoutName, gridX * (byte) TilemapEnum.TileWidth, gridY * (byte) TilemapEnum.TileHeight);
 				Systems.sounds.splat1.Play();
 
 				// Otherwise, a sound to indicate failure.
@@ -34,25 +38,6 @@ namespace Nexus.Objects {
 			}
 
 			return true;
-		}
-
-		public override void Draw(byte subType, int posX, int posY) {
-
-			if(subType == (byte) FacingSubType.FaceUp) {
-				this.atlas.Draw("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceDown) {
-				this.atlas.DrawFaceDown("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceLeft) {
-				this.atlas.DrawFaceLeft("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceRight) {
-				this.atlas.DrawFaceRight("Chomper/Grass/Chomp1", posX, posY);
-			}
 		}
 	}
 }

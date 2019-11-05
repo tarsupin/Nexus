@@ -17,7 +17,8 @@ namespace Nexus.Objects {
 		}
 
 		private ChomperGrass(RoomScene room) : base(room, TileGameObjectId.ChomperGrass) {
-
+			this.SpriteName = "Chomper/Grass/Chomp";
+			this.KnockoutName = "Particles/Chomp/Grass";
 		}
 
 		public override void Draw(byte subType, int posX, int posY) {
