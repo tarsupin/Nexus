@@ -76,6 +76,53 @@ namespace Nexus.Engine {
 		private KeyboardState curKeyState, prevKeyState;
 		private GamePadState curPadState, prevPadState;
 
+		// Key String Map (for special characters)
+		private Dictionary<string, string> keyStringLower = new Dictionary<string, string>() {
+			{ "D1", "1" },
+			{ "D2", "2" },
+			{ "D3", "3" },
+			{ "D4", "4" },
+			{ "D5", "5" },
+			{ "D6", "6" },
+			{ "D7", "7" },
+			{ "D8", "8" },
+			{ "D9", "9" },
+			{ "D0", "0" },
+			{ "OemMinus", "-" },
+			{ "OemPlus", "=" },
+			{ "OemTilde", "`" },
+			{ "OemOpenBrackets", "[" },
+			{ "OemCloseBrackets", "]" },
+			{ "OemSemicolon", ";" },
+			{ "OemQuotes", "'" },
+			{ "OemComma", "," },
+			{ "OemPeriod", "." },
+			{ "OemQuestion", "/" },
+		};
+
+		private Dictionary<string, string> keyStringUpper = new Dictionary<string, string>() {
+			{ "D1", "!" },
+			{ "D2", "@" },
+			{ "D3", "#" },
+			{ "D4", "$" },
+			{ "D5", "%" },
+			{ "D6", "^" },
+			{ "D7", "&" },
+			{ "D8", "*" },
+			{ "D9", "(" },
+			{ "D0", ")" },
+			{ "OemMinus", "_" },
+			{ "OemPlus", "+" },
+			{ "OemTilde", "~" },
+			{ "OemOpenBrackets", "{" },
+			{ "OemCloseBrackets", "}" },
+			{ "OemSemicolon", ":" },
+			{ "OemQuotes", "\"" },
+			{ "OemComma", "<" },
+			{ "OemPeriod", ">" },
+			{ "OemQuestion", "?" },
+		};
+
 		public InputClient() {
 
 			this.pressedNum = 0;
@@ -124,9 +171,14 @@ namespace Nexus.Engine {
 			}
 		}
 
-		// Returns TRUE if a local key was pressed (useful for debugging)
+		// Returns TRUE if a local key was pressed (needed for debugging and typing)
 		public bool LocalKeyPressed(Keys key) {
 			return this.curKeyState.IsKeyDown(key) && !this.prevKeyState.IsKeyDown(key);
+		}
+
+		// Returns TRUE if a local key is currently down (needed for debugging and typing)
+		public bool LocalKeyDown(Keys key) {
+			return this.curKeyState.IsKeyDown(key);
 		}
 
 		// Determine what IKeys were activated this frame.
@@ -148,6 +200,45 @@ namespace Nexus.Engine {
 			this.GetIKeyState(IKey.AxisLeftPress);
 			this.GetIKeyState(IKey.AxisRightPress);
 			this.GetIKeyState(IKey.Other);
+		}
+
+		public string GetCharactersPressed() {
+			string str = string.Empty;
+			Keys[] pressedKeys = this.curKeyState.GetPressedKeys();
+			
+			foreach(Keys key in pressedKeys) {
+				if(!this.prevKeyState.IsKeyUp(key)) { continue; }
+
+				if(key == Keys.Space) {
+					str += " ";
+					continue;
+				}
+
+				string keyString = key.ToString();
+
+				// Standard Characters
+				if(keyString.Length == 1) {
+					bool isUpperCase = (this.curKeyState.CapsLock && (!this.curKeyState.IsKeyDown(Keys.RightShift) && !this.curKeyState.IsKeyDown(Keys.LeftShift))) ||
+										(!this.curKeyState.CapsLock && (this.curKeyState.IsKeyDown(Keys.RightShift) || this.curKeyState.IsKeyDown(Keys.LeftShift)));
+					str += isUpperCase ? keyString.ToUpper() : keyString.ToLower();
+				}
+
+				else {
+					bool isUpperCase = this.curKeyState.IsKeyDown(Keys.RightShift) || this.curKeyState.IsKeyDown(Keys.LeftShift);
+
+					if(isUpperCase) {
+						if(keyStringUpper.ContainsKey(keyString)) {
+							str += keyStringUpper[keyString];
+						}
+					} else {
+						if(keyStringLower.ContainsKey(keyString)) {
+							str += keyStringLower[keyString];
+						}
+					}
+				}
+			}
+
+			return str;
 		}
 
 		private void GetIKeyState( IKey iKey ) {

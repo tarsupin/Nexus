@@ -118,9 +118,11 @@ namespace Nexus.Objects {
 				// TODO HIGH PRIORITY: Allow activating items:
 				//if(this.item is Item) {
 				//	if(this.input.isPressed(IKey.R1)) { this.item.ActivateWhileHeld(this);  }
-				//} else if(this.attackPower) {
-					this.attackPower.Activate();
 				//}
+
+				if(this.attackPower is Power) {
+					this.attackPower.Activate();
+				}
 			}
 
 			// Activate Mobility Powers

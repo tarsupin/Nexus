@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
-		public readonly ConsoleUI consoleUI;
+		public readonly Console console;
 		public Stopwatch stopwatch;
 		public Dictionary<byte, RoomScene> rooms;
 
@@ -24,7 +24,9 @@ namespace Nexus.GameEngine {
 
 			// Create UI
 			this.levelUI = new LevelUI(this);
-			this.consoleUI = new ConsoleUI(this);
+
+			// Debugging Console
+			this.console = new Console(this);
 
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, RoomScene>();
@@ -58,6 +60,9 @@ namespace Nexus.GameEngine {
 			// If we're in debug mode:
 			if(DebugConfig.Debug) {
 				this.DebugToggles();
+
+				// Debug Console
+				this.console.RunTick();
 
 				// Tick Speed
 				if(DebugConfig.TickSpeed != (byte)DebugTickSpeed.StandardSpeed) {
@@ -132,7 +137,7 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.levelUI.Draw();
-			this.consoleUI.Draw();
+			this.console.Draw();
 		}
 
 		public void RunCharacterDeath( Character character ) {
