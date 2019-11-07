@@ -1,5 +1,4 @@
 ﻿using Nexus.Gameplay;
-using Nexus.Objects;
 using System.Collections.Generic;
 
 // The purpose of the Narrow Collisions is:

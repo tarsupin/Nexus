@@ -7,10 +7,12 @@ namespace Nexus.Gameplay {
 
 		// Fonts
 		public readonly FontClass baseText;
+		public readonly FontClass console;
 		public readonly FontClass counter;
 
 		public FontAssets(GameClient game) {
 			this.baseText = new FontClass(game, "Fonts/BaseText");
+			this.console = new FontClass(game, "Fonts/ConsoleText");
 			this.counter = new FontClass(game, "Fonts/Counter");
 		}
 	}

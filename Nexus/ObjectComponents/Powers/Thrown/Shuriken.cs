@@ -41,14 +41,14 @@ namespace Nexus.ObjectComponents {
 			if(input.isDown(IKey.Up)) {
 				velX = this.character.FaceRight ? FInt.Create(0.5) : FInt.Create(-0.5);
 				velY = this.yVelUp;
-				posX = this.character.posX + 8;
+				posX = this.character.posX + 2;
 				posY = this.character.posY - 4;
 			}
 			
 			else if(input.isDown(IKey.Down)) {
 				velX = this.character.FaceRight ? FInt.Create(0.5) : FInt.Create(-0.5);
 				velY = this.yVelDown;
-				posX = this.character.posX + 8;
+				posX = this.character.posX + 2;
 				posY = this.character.posY + 26;
 			}
 

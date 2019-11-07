@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
+		public readonly ConsoleUI consoleUI;
 		public Stopwatch stopwatch;
 		public Dictionary<byte, RoomScene> rooms;
 
@@ -23,6 +24,7 @@ namespace Nexus.GameEngine {
 
 			// Create UI
 			this.levelUI = new LevelUI(this);
+			this.consoleUI = new ConsoleUI(this);
 
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, RoomScene>();
@@ -127,6 +129,10 @@ namespace Nexus.GameEngine {
 
 			// TODO HIGH PRIORITY: UPDATE THIS. RENDER THE CORRECT ROOM
 			this.rooms[0].Draw();
+
+			// Draw UI
+			this.levelUI.Draw();
+			this.consoleUI.Draw();
 		}
 
 		public void RunCharacterDeath( Character character ) {

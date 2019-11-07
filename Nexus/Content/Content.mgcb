@@ -20,6 +20,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/BaseText.spritefont
 
+#begin Fonts/ConsoleText.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/ConsoleText.spritefont
+
 #begin Fonts/Counter.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
