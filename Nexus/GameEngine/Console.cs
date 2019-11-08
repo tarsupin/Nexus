@@ -83,10 +83,14 @@ namespace Nexus.GameEngine {
 			else if(ins[0] == "hat") { Console.CheatCodeHat(ins); }
 			else if(ins[0] == "head") { Console.CheatCodeHead(ins); }
 
-			// Character
+			// Health, Wounds
 			else if(ins[0] == "heal") { Console.CheatCodeHeal(ins); }
 			else if(ins[0] == "armor") { Console.CheatCodeArmor(ins); }
 			else if(ins[0] == "invincible") { Console.CheatCodeInvincible(ins); }
+			else if(ins[0] == "wound") { Console.CheatCodeWound(ins); }
+			else if(ins[0] == "kill") { Console.CheatCodeKill(ins); }
+
+			// Stats
 			else if(ins[0] == "stat") { Console.CheatCodeStat(ins); }
 
 			// Run Movement
@@ -101,9 +105,7 @@ namespace Nexus.GameEngine {
 
 			Character character = Systems.localServer.MyCharacter;
 			bool boolVal = Console.GetBoolArg(ins[2]);
-
-			float floatVal;
-			if(!float.TryParse(ins[2], out floatVal)) { floatVal = 0; }
+			float floatVal = Console.GetFloatArg(ins[2]);
 
 			// Abilities
 			if(ins[1] == "walljump") { character.stats.CanWallJump = boolVal; character.stats.CanWallSlide = boolVal; }
@@ -143,22 +145,30 @@ namespace Nexus.GameEngine {
 			else if(ins[1] == "slidestrength") { character.stats.SlideStrength = FInt.Create(floatVal); }
 
 			// Wound Stats
-			else if(ins[1] == "maxhealth") { character.wounds.WoundMaximum = Byte.Parse(ins[2]); }
-			else if(ins[1] == "maxarmor") { character.wounds.WoundMaximum = Byte.Parse(ins[2]); }
+			else if(ins[1] == "maxhealth") { character.wounds.WoundMaximum = (byte) Console.GetIntArg(ins[2]); }
+			else if(ins[1] == "maxarmor") { character.wounds.WoundMaximum = (byte) Console.GetIntArg(ins[2]); }
+		}
+
+		private static void CheatCodeKill( string[] ins ) {
+			Systems.localServer.MyCharacter.wounds.ReceiveWoundDamage(DamageStrength.Forced);
+		}
+
+		private static void CheatCodeWound( string[] ins ) {
+			Systems.localServer.MyCharacter.wounds.ReceiveWoundDamage(DamageStrength.Standard);
 		}
 
 		private static void CheatCodeHeal( string[] ins ) {
-			byte health = ins.Length == 2 ? Byte.Parse(ins[1]) : (byte) 100;
+			byte health = ins.Length == 2 ? (byte) Console.GetIntArg(ins[1]) : (byte) 100;
 			Systems.localServer.MyCharacter.wounds.AddHealth(health);
 		}
 
 		private static void CheatCodeArmor( string[] ins ) {
-			byte armor = ins.Length == 2 ? Byte.Parse(ins[1]) : (byte) 100;
+			byte armor = ins.Length == 2 ? (byte) Console.GetIntArg(ins[1]) : (byte) 100;
 			Systems.localServer.MyCharacter.wounds.AddArmor(armor);
 		}
 
 		private static void CheatCodeInvincible( string[] ins ) {
-			int duration = ins.Length == 2 ? Byte.Parse(ins[1]) : 50000;
+			int duration = ins.Length == 2 ? (byte) Console.GetIntArg(ins[1]) : 50000;
 			Systems.localServer.MyCharacter.wounds.SetInvincible((uint) duration * 60);
 		}
 
@@ -178,11 +188,11 @@ namespace Nexus.GameEngine {
 
 			if(ins[1] == "coords") {
 				if(ins.Length < 4) { return; }
-				x = Int32.Parse(ins[2]) * (byte) TilemapEnum.TileWidth;
-				y = Int32.Parse(ins[3]) * (byte) TilemapEnum.TileHeight;
+				x = Console.GetIntArg(ins[2]) * (byte) TilemapEnum.TileWidth;
+				y = Console.GetIntArg(ins[3]) * (byte) TilemapEnum.TileHeight;
 			} else {
-				x = Int32.Parse(ins[1]) * (byte) TilemapEnum.TileWidth;
-				y = Int32.Parse(ins[2]) * (byte) TilemapEnum.TileHeight;
+				x = Console.GetIntArg(ins[1]) * (byte) TilemapEnum.TileWidth;
+				y = Console.GetIntArg(ins[2]) * (byte) TilemapEnum.TileHeight;
 			}
 
 			// Run Teleport
@@ -308,6 +318,18 @@ namespace Nexus.GameEngine {
 		private static bool GetBoolArg(string arg) {
 			if(arg == "true" || arg == "1" || arg == "on") { return true; }
 			return false;
+		}
+
+		private static int GetIntArg(string arg) {
+			int intVal;
+			if(!Int32.TryParse(arg, out intVal)) { intVal = 0; }
+			return intVal;
+		}
+
+		private static float GetFloatArg(string arg) {
+			float floatVal;
+			if(!float.TryParse(arg, out floatVal)) { floatVal = 0; }
+			return floatVal;
 		}
 
 		public void Draw() {
