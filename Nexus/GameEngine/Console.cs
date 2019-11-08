@@ -82,6 +82,7 @@ namespace Nexus.GameEngine {
 			else if(ins[0] == "suit") { Console.CheatCodeSuit(ins); }
 			else if(ins[0] == "hat") { Console.CheatCodeHat(ins); }
 			else if(ins[0] == "head") { Console.CheatCodeHead(ins); }
+			else if(ins[0] == "power") { Console.CheatCodePower(ins); }
 
 			// Health, Wounds
 			else if(ins[0] == "heal") { Console.CheatCodeHeal(ins); }
@@ -286,6 +287,85 @@ namespace Nexus.GameEngine {
 			{ "spikeyhat", HatSubType.SpikeyHat },
 			{ "top", HatSubType.TopHat },
 			{ "tophat", HatSubType.TopHat },
+		};
+		
+		private static void CheatCodePower( string[] ins ) {
+
+			// If "power" is the only instruction, give a random power to the character.
+			if(ins.Length <= 1) {
+				Power.AssignToCharacter(Systems.localServer.MyCharacter, (byte) PowerSubType.RandPot);
+				return;
+			}
+
+			// Get the Power Type by instruction:
+			if(powerCodes.ContainsKey(ins[1])) {
+				PowerSubType subType = powerCodes[ins[1]];
+				Power.AssignToCharacter(Systems.localServer.MyCharacter, (byte) subType);
+			}
+		}
+
+		private static readonly Dictionary<string, PowerSubType> powerCodes = new Dictionary<string, PowerSubType>() {
+
+			// Random Options
+			{ "any", PowerSubType.RandPot },
+			{ "rand", PowerSubType.RandPot },
+			{ "random", PowerSubType.RandPot },
+			{ "randompower", PowerSubType.RandPot },
+
+			// Collectable Powers - Mobility
+			{ "book", PowerSubType.RandBook },
+			{ "slowfall", PowerSubType.SlowFall },
+			{ "hover", PowerSubType.Hover },
+			{ "levitate", PowerSubType.Levitate },
+			{ "fly", PowerSubType.Flight },
+			{ "flight", PowerSubType.Flight },
+			{ "athlete", PowerSubType.Athlete },
+			{ "leap", PowerSubType.Leap },
+			{ "slam", PowerSubType.Slam },
+			{ "burst", PowerSubType.Burst },
+			{ "air", PowerSubType.Air },
+			{ "phase", PowerSubType.Phase },
+			{ "teleport", PowerSubType.Teleport },
+
+			// Collectable Powers - Weapon
+			{ "weapon", PowerSubType.RandWeapon },
+			{ "redglove", PowerSubType.BoxingRed },
+			{ "whiteglove", PowerSubType.BoxingWhite },
+			{ "dagger", PowerSubType.Dagger },
+			{ "daggergreen", PowerSubType.DaggerGreen },
+			{ "spear", PowerSubType.Spear },
+			{ "sword", PowerSubType.Sword },
+
+			// Collectable Powers - Book / Projectiles
+			{ "pot", PowerSubType.RandPot },
+			{ "potion", PowerSubType.RandPot },
+			{ "electric", PowerSubType.Electric },
+			{ "fire", PowerSubType.Fire },
+			{ "frost", PowerSubType.Frost },
+			{ "rock", PowerSubType.Rock },
+			{ "water", PowerSubType.Water },
+			{ "slime", PowerSubType.Slime },
+			//{ "necro1", PowerSubType.Necro1 },
+			//{ "necro2", PowerSubType.Necro2 },
+			
+			// Collectable Powers - Thrown
+			{ "thrown", PowerSubType.RandThrown },
+			{ "axe", PowerSubType.Axe },
+			{ "hammer", PowerSubType.Hammer },
+			{ "shuriken", PowerSubType.Shuriken },
+
+			// Power Collectable - Bolts
+			{ "bolt", PowerSubType.RandBolt },
+			{ "boltblue", PowerSubType.BoltBlue },
+			{ "boltgold", PowerSubType.BoltGold },
+			{ "boltgreen", PowerSubType.BoltGreen },
+			{ "boltnecro", PowerSubType.BoltNecro },
+
+			// Collectable Powers - Stack
+			{ "chakram", PowerSubType.Chakram },
+			{ "chakrampack", PowerSubType.ChakramPack },
+			{ "grenade", PowerSubType.Grenade },
+			{ "grenadepack", PowerSubType.GrenadePack },
 		};
 
 		private static void CheatCodeHead( string[] ins ) {

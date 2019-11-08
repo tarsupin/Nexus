@@ -1,5 +1,4 @@
-﻿using System;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -7,63 +6,6 @@ using Nexus.ObjectComponents;
 namespace Nexus.Objects {
 
 	class CollectablePower : Collectable {
-
-		public enum PowerSubType : byte {
-
-			// Collectable Powers - Mobility
-			RandBook = 0,
-			SlowFall = 1,
-			Hover = 2,
-			Levitate = 3,
-			Flight = 4,
-			Athlete = 5,
-			Leap = 6,
-			Slam = 7,
-			Burst = 8,
-			Air = 9,
-			Phase = 10,
-			Teleport = 11,
-			
-			// Collectable Powers - Weapon
-			RandWeapon = 20,
-			BoxingRed = 21,
-			BoxingWhite = 22,
-			Dagger = 23,
-			DaggerGreen = 24,
-			Spear = 25,
-			Sword = 26,
-			
-			// Collectable Powers - Potion
-			RandPot = 30,
-			Electric = 31,
-			Fire = 32,
-			Frost = 33,
-			Rock = 34,
-			Water = 35,
-			Slime = 36,
-			Ball = 37,
-			
-			// Collectable Powers - Thrown
-			RandThrown = 40,
-			Axe = 41,
-			Hammer = 42,
-			Shuriken = 43,
-			
-			// Power Collectable - Bolts
-			RandBolt = 50,
-			BoltBlue = 51,
-			BoltGold = 52,
-			BoltGreen = 53,
-			BoltNecro = 54,
-			Necro1 = 55,
-			Necro2 = 56,
-			
-			// Collectable Powers - Stack
-			Chakram = 60,
-			ChakramPack = 61,
-			Grenade = 62,
-			GrenadePack = 63,
-		}
 
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
@@ -81,76 +23,12 @@ namespace Nexus.Objects {
 		}
 
 		public override void Collect( Character character, uint gridId ) {
+
 			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
-
-			// Random Throwing Weapon
-			if(subType == (byte) PowerSubType.RandThrown) {
-
-			}
-
-			//case (byte) PowerSubType.RandPot: this.Something(); break; // mobility
-			//case (byte) PowerSubType.RandBook: this.Something(); break; //projectiles
-			//case (byte) PowerSubType.RandWeapon: this.Something(); break;
-			//case (byte) PowerSubType.RandThrown: this.Something(); break;
-			//case (byte) PowerSubType.RandBolt: this.Something(); break;
-
-			switch(subType) {
-
-				// Collectable Powers - Mobility
-				case (byte) PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); break;
-				case (byte) PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); break;
-				case (byte) PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); break;
-				case (byte) PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); break;
-				case (byte) PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); break;
-				case (byte) PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); break;
-				case (byte) PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); break;
-				case (byte) PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); break;
-				case (byte) PowerSubType.Air: character.mobilityPower = new AirMobility(character); break;
-				case (byte) PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); break;
-				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
-				
-				// Collectable Powers - Weapon
-				case (byte) PowerSubType.BoxingRed: this.Something(); break;
-				case (byte) PowerSubType.BoxingWhite: this.Something(); break;
-				case (byte) PowerSubType.Dagger: this.Something(); break;
-				case (byte) PowerSubType.DaggerGreen: this.Something(); break;
-				case (byte) PowerSubType.Spear: this.Something(); break;
-				case (byte) PowerSubType.Sword: this.Something(); break;
-				
-				// Collectable Powers - Potion
-				case (byte) PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Fire: character.attackPower = new FireBall(character); break;
-				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
-				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); break;
-				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); break;
-				case (byte) PowerSubType.Slime: character.attackPower = new SlimeBall(character); break;
-				
-				// Collectable Powers - Thrown
-				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
-				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
-				case (byte) PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
-				
-				// Power Collectable - Bolts
-				case (byte) PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;
-				case (byte) PowerSubType.BoltGold: character.attackPower = new Bolt(character, ProjectileBoltSubType.Gold); break;
-				case (byte) PowerSubType.BoltGreen: character.attackPower = new Bolt(character, ProjectileBoltSubType.Green); break;
-				//case (byte) PowerSubType.BoltNecro: this.Something(); break;
-				//case (byte) PowerSubType.Necro1: this.Something(); break;
-				//case (byte) PowerSubType.Necro2: this.Something(); break;
-				
-				// Collectable Powers - Stack
-				case (byte) PowerSubType.Chakram: this.Something(); break;
-				case (byte) PowerSubType.ChakramPack: this.Something(); break;
-				case (byte) PowerSubType.Grenade: this.Something(); break;
-				case (byte) PowerSubType.GrenadePack: this.Something(); break;
-			}
+			Power.AssignToCharacter(character, subType);
 
 			Systems.sounds.collectSubtle.Play();
 			base.Collect(character, gridId);
-		}
-
-		private void Something() {
-			throw new NotImplementedException();
 		}
 
 		private void CreateTextures() {
