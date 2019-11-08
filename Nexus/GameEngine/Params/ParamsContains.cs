@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using Nexus.ObjectComponents;
 using static Nexus.Objects.CollectableHat;
 using static Nexus.Objects.CollectablePower;
-using static Nexus.Objects.CollectableSuit;
 using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {

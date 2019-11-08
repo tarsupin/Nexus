@@ -3,7 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using Nexus.Objects;
 using System.Collections.Generic;
+using static Nexus.Objects.CollectableHat;
+using static Nexus.Objects.CollectableSuit;
 
 namespace Nexus.GameEngine {
 
@@ -49,12 +53,121 @@ namespace Nexus.GameEngine {
 					this.backspaceFrame = Systems.timer.Frame + 3;
 				}
 			}
-				
+			
 			// Enter
 			if(input.LocalKeyPressed(Keys.Enter)) {
-				// Confirm the Information
+
+				// Confirm the Instruction
+				this.ProcessInstruction(this.consoleText);
+
+				this.consoleText = string.Empty;
 			}
 		}
+
+		public void ProcessInstruction( string insText ) {
+
+			// Clean the instruction text.
+			insText = insText.Trim().ToLower();
+
+			// Get the instruction array.
+			string[] ins = insText.Split(' ');
+
+			// Must have at least one part for a valid instruction.
+			if(ins.Length < 1) { return; }
+
+			// Run Cheat Codes
+			if(ins[0] == "suit") { this.CheatCodeSuit(ins); }
+			else if(ins[0] == "hat") { this.CheatCodeHat(ins); }
+		}
+
+		private void CheatCodeSuit( string[] ins ) {
+
+			// If "suit" is the only instruction, give a random suit to the character.
+			if(ins.Length <= 1) {
+				Suit.AssignToCharacter(Systems.localServer.MyCharacter, (byte) SuitSubType.RandomSuit, true);
+				return;
+			}
+
+			// Get the Suit Type by instruction:
+			if(suitCodes.ContainsKey(ins[1])) {
+				SuitSubType suitType = suitCodes[ins[1]];
+				Suit.AssignToCharacter(Systems.localServer.MyCharacter, (byte) suitType, true);
+			}
+		}
+
+		private static readonly Dictionary<string, SuitSubType> suitCodes = new Dictionary<string, SuitSubType>() {
+
+			// Random Options
+			{ "any", SuitSubType.RandomSuit },
+			{ "rand", SuitSubType.RandomSuit },
+			{ "random", SuitSubType.RandomSuit },
+			{ "randomsuit", SuitSubType.RandomSuit },
+
+			// Ninja Suits
+			{ "ninja", SuitSubType.RandomNinja },
+			{ "blackninja", SuitSubType.BlackNinja },
+			{ "blueninja", SuitSubType.BlueNinja },
+			{ "greenninja", SuitSubType.GreenNinja },
+			{ "redninja", SuitSubType.RedNinja },
+			{ "whiteninja", SuitSubType.WhiteNinja },
+
+			// Wizard Suits
+			{ "wizard", SuitSubType.RandomWizard },
+			{ "bluewizard", SuitSubType.BlueWizard },
+			{ "greenwizard", SuitSubType.GreenWizard },
+			{ "redwizard", SuitSubType.RedWizard },
+			{ "whitewizard", SuitSubType.WhiteWizard },
+
+			// Basic Suits
+			{ "basic", SuitSubType.RandomBasic },
+			{ "red", SuitSubType.RedBasic },
+			{ "redbasic", SuitSubType.RedBasic },
+		};
+		
+		private void CheatCodeHat( string[] ins ) {
+
+			// If "hat" is the only instruction, give a random hat to the character.
+			if(ins.Length <= 1) {
+				CollectableHat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) HatSubType.RandomHat);
+				return;
+			}
+
+			// Get the Hat Type by instruction:
+			if(hatCodes.ContainsKey(ins[1])) {
+				HatSubType suitType = hatCodes[ins[1]];
+				CollectableHat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) suitType);
+			}
+		}
+
+		private static readonly Dictionary<string, HatSubType> hatCodes = new Dictionary<string, HatSubType>() {
+
+			// Random Options
+			{ "any", HatSubType.RandomHat },
+			{ "rand", HatSubType.RandomHat },
+			{ "random", HatSubType.RandomHat },
+			{ "randomhat", HatSubType.RandomHat },
+
+			// Power Hats
+			{ "angel", HatSubType.AngelHat },
+			{ "angelhat", HatSubType.AngelHat },
+			{ "bamboo", HatSubType.BambooHat },
+			{ "bamboohat", HatSubType.BambooHat },
+			{ "cowboy", HatSubType.CowboyHat },
+			{ "cowboyhat", HatSubType.CowboyHat },
+			{ "feather", HatSubType.FeatheredHat },
+			{ "feathered", HatSubType.FeatheredHat },
+			{ "featheredhat", HatSubType.FeatheredHat },
+			{ "fedora", HatSubType.FedoraHat },
+			{ "fedorahat", HatSubType.FedoraHat },
+			{ "hard", HatSubType.HardHat },
+			{ "hardhat", HatSubType.HardHat },
+			{ "ranger", HatSubType.RangerHat },
+			{ "rangerhat", HatSubType.RangerHat },
+			{ "spikey", HatSubType.SpikeyHat },
+			{ "spikeyhat", HatSubType.SpikeyHat },
+			{ "top", HatSubType.TopHat },
+			{ "tophat", HatSubType.TopHat },
+		};
 
 		public void Draw() {
 

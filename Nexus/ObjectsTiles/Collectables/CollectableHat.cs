@@ -37,12 +37,20 @@ namespace Nexus.Objects {
 		}
 
 		public override void Collect( Character character, uint gridId ) {
+
 			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
+			CollectableHat.AssignToCharacter(character, subType);
+
+			Systems.sounds.collectBweep.Play();
+			base.Collect(character, gridId);
+		}
+
+		public static void AssignToCharacter( Character character, byte subType ) {
 
 			// Random Hat
 			if(subType == (byte)HatSubType.RandomHat) {
-				Random rand = new Random((int) Systems.timer.Frame);
-				subType = (byte) rand.Next(1, 9);
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(1, 9);
 			}
 
 			switch(subType) {
@@ -56,9 +64,6 @@ namespace Nexus.Objects {
 				case (byte)HatSubType.SpikeyHat: HatMap.SpikeyHat.ApplyHat(character, true); break;
 				case (byte)HatSubType.TopHat: HatMap.TopHat.ApplyHat(character, true); break;
 			}
-
-			Systems.sounds.collectBweep.Play();
-			base.Collect(character, gridId);
 		}
 
 		private void CreateTextures() {

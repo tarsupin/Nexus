@@ -94,7 +94,7 @@ namespace Nexus.ObjectComponents {
 			// Damage will be soaked by destroying Suit, if one is available.
 			if(this.character.suit is Suit && this.character.suit.IsPowerSuit) {
 				this.SetInvincible(this.InvincibleDuration);
-				SuitMap.BasicRedSuit.ApplySuit(this.character, true);
+				Suit.AssignToCharacter(this.character, (byte) SuitSubType.RedBasic, true);
 				return true;
 			}
 

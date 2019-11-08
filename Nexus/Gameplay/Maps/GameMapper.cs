@@ -60,25 +60,6 @@ namespace Nexus.Gameplay {
 		public static readonly RyuHead RyuHead = new RyuHead();
 	}
 
-	public static class SuitMap {
-		
-		// Ninjas
-		public static readonly BlackNinja BlackNinja = new BlackNinja();
-		public static readonly BlueNinja BlueNinja = new BlueNinja();
-		public static readonly GreenNinja GreenNinja = new GreenNinja();
-		public static readonly RedNinja RedNinja = new RedNinja();
-		public static readonly WhiteNinja WhiteNinja = new WhiteNinja();
-
-		// Wizards
-		public static readonly BlueWizard BlueWizard = new BlueWizard();
-		public static readonly GreenWizard GreenWizard = new GreenWizard();
-		public static readonly RedWizard RedWizard = new RedWizard();
-		public static readonly WhiteWizard WhiteWizard = new WhiteWizard();
-
-		// Base Suits
-		public static readonly BasicRedSuit BasicRedSuit = new BasicRedSuit();
-	}
-
 	public class GameMapper {
 
 		public readonly Atlas[] atlas;
