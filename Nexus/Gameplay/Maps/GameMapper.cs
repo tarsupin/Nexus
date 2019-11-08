@@ -36,26 +36,6 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
 	}
 
-	public static class HatMap {
-
-		// Power Hats
-		public static readonly AngelHat AngelHat = new AngelHat();
-		public static readonly BambooHat BambooHat = new BambooHat();
-		public static readonly CowboyHat CowboyHat = new CowboyHat();
-		public static readonly FeatheredHat FeatheredHat = new FeatheredHat();
-		public static readonly FedoraHat FedoraHat = new FedoraHat();
-		public static readonly HardHat HardHat = new HardHat();
-		public static readonly RangerHat RangerHat = new RangerHat();
-		public static readonly SpikeyHat SpikeyHat = new SpikeyHat();
-		public static readonly TopHat TopHat = new TopHat();
-
-		// Cosmetic Hats
-		public static readonly WizardBlueHat WizardBlueHat = new WizardBlueHat();
-		public static readonly WizardGreenHat WizardGreenHat = new WizardGreenHat();
-		public static readonly WizardRedHat WizardRedHat = new WizardRedHat();
-		public static readonly WizardWhiteHat WizardWhiteHat = new WizardWhiteHat();
-	}
-
 	public static class HeadMap {
 		public static readonly RyuHead RyuHead = new RyuHead();
 	}

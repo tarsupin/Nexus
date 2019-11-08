@@ -128,14 +128,14 @@ namespace Nexus.GameEngine {
 
 			// If "hat" is the only instruction, give a random hat to the character.
 			if(ins.Length <= 1) {
-				CollectableHat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) HatSubType.RandomHat);
+				Hat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) HatSubType.RandomHat, true);
 				return;
 			}
 
 			// Get the Hat Type by instruction:
 			if(hatCodes.ContainsKey(ins[1])) {
 				HatSubType suitType = hatCodes[ins[1]];
-				CollectableHat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) suitType);
+				Hat.AssignToCharacter(Systems.localServer.MyCharacter, (byte) suitType, true);
 			}
 		}
 

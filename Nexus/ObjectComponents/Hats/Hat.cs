@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
+using System;
 
 /*
 	Powered Hats:
@@ -32,6 +33,47 @@ namespace Nexus.ObjectComponents {
 		PowerHat = 2,			// A Power Hat; grants some sort of advantage when equipped, can soak damage.
 	}
 
+	public enum HatSubType : byte {
+		RandomHat = 0,
+
+		// Power Hats
+		AngelHat = 1,
+		BambooHat = 2,
+		CowboyHat = 3,
+		FeatheredHat = 4,
+		FedoraHat = 5,
+		HardHat = 6,
+		RangerHat = 7,
+		SpikeyHat = 8,
+		TopHat = 9,
+
+		// Cosmetic Hats
+		WizardBlueHat = 51,
+		WizardGreenHat = 52,
+		WizardRedHat = 53,
+		WizardWhiteHat = 54,
+	}
+
+	public static class HatMap {
+
+		// Power Hats
+		public static readonly AngelHat AngelHat = new AngelHat();
+		public static readonly BambooHat BambooHat = new BambooHat();
+		public static readonly CowboyHat CowboyHat = new CowboyHat();
+		public static readonly FeatheredHat FeatheredHat = new FeatheredHat();
+		public static readonly FedoraHat FedoraHat = new FedoraHat();
+		public static readonly HardHat HardHat = new HardHat();
+		public static readonly RangerHat RangerHat = new RangerHat();
+		public static readonly SpikeyHat SpikeyHat = new SpikeyHat();
+		public static readonly TopHat TopHat = new TopHat();
+
+		// Cosmetic Hats
+		public static readonly WizardBlueHat WizardBlueHat = new WizardBlueHat();
+		public static readonly WizardGreenHat WizardGreenHat = new WizardGreenHat();
+		public static readonly WizardRedHat WizardRedHat = new WizardRedHat();
+		public static readonly WizardWhiteHat WizardWhiteHat = new WizardWhiteHat();
+	}
+
 	public class Hat {
 
 		protected HatRank hatRank;
@@ -41,6 +83,35 @@ namespace Nexus.ObjectComponents {
 		public Hat( HatRank hatRank = HatRank.BaseHat ) {
 			this.hatRank = hatRank;
 			this.yOffset = -10;
+		}
+
+		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+
+			// Random Hat
+			if(subType == (byte) HatSubType.RandomHat) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(1, 9);
+			}
+
+			switch(subType) {
+
+				// Power Hats
+				case (byte) HatSubType.AngelHat: HatMap.AngelHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.BambooHat: HatMap.BambooHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.CowboyHat: HatMap.CowboyHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.FeatheredHat: HatMap.FeatheredHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.FedoraHat: HatMap.FedoraHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.HardHat: HatMap.HardHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.RangerHat: HatMap.RangerHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.SpikeyHat: HatMap.SpikeyHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.TopHat: HatMap.TopHat.ApplyHat(character, resetStats); break;
+
+				// Cosmetic Hats
+				case (byte) HatSubType.WizardBlueHat: HatMap.WizardBlueHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.WizardGreenHat: HatMap.WizardGreenHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.WizardRedHat: HatMap.WizardRedHat.ApplyHat(character, resetStats); break;
+				case (byte) HatSubType.WizardWhiteHat: HatMap.WizardWhiteHat.ApplyHat(character, resetStats); break;
+			}
 		}
 
 		public void ApplyHat(Character character, bool resetStats) {
