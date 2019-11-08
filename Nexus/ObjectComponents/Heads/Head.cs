@@ -1,8 +1,21 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
+using System;
 
 namespace Nexus.ObjectComponents {
+
+	public enum HeadSubType : byte {
+		RandomHead = 0,
+		RandomStandard = 1,
+
+		// Standard Heads
+		RyuHead = 5,
+	}
+
+	public static class HeadMap {
+		public static readonly RyuHead RyuHead = new RyuHead();
+	}
 
 	public class Head {
 
@@ -12,6 +25,24 @@ namespace Nexus.ObjectComponents {
 		public Head( string headName, Hat defaultCosmeticHat = null) {
 			this.SpriteName = "Head/" + headName + "/";
 			this.DefaultCosmeticHat = defaultCosmeticHat;
+		}
+
+		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+
+			// Random Hat
+			if(subType == (byte) HeadSubType.RandomHead) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(5, 5);
+			} else if(subType == (byte) HeadSubType.RandomStandard) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(5, 5);
+			}
+
+			switch(subType) {
+
+				// Standard Heads
+				case (byte) HeadSubType.RyuHead: HeadMap.RyuHead.ApplyHead(character, resetStats); break;
+			}
 		}
 
 		public void ApplyHead(Character character, bool resetStats) {

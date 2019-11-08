@@ -88,61 +88,61 @@ namespace Nexus.Objects {
 
 			}
 
-			//case (byte)PowerSubType.RandPot: this.Something(); break; // mobility
-			//case (byte)PowerSubType.RandBook: this.Something(); break; //projectiles
-			//case (byte)PowerSubType.RandWeapon: this.Something(); break;
-			//case (byte)PowerSubType.RandThrown: this.Something(); break;
-			//case (byte)PowerSubType.RandBolt: this.Something(); break;
+			//case (byte) PowerSubType.RandPot: this.Something(); break; // mobility
+			//case (byte) PowerSubType.RandBook: this.Something(); break; //projectiles
+			//case (byte) PowerSubType.RandWeapon: this.Something(); break;
+			//case (byte) PowerSubType.RandThrown: this.Something(); break;
+			//case (byte) PowerSubType.RandBolt: this.Something(); break;
 
 			switch(subType) {
 
 				// Collectable Powers - Mobility
-				case (byte)PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); break;
-				case (byte)PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); break;
-				case (byte)PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); break;
-				case (byte)PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); break;
-				case (byte)PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); break;
-				case (byte)PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); break;
-				case (byte)PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); break;
-				case (byte)PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); break;
-				case (byte)PowerSubType.Air: character.mobilityPower = new AirMobility(character); break;
-				case (byte)PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); break;
-				case (byte)PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
+				case (byte) PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); break;
+				case (byte) PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); break;
+				case (byte) PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); break;
+				case (byte) PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); break;
+				case (byte) PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); break;
+				case (byte) PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); break;
+				case (byte) PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); break;
+				case (byte) PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); break;
+				case (byte) PowerSubType.Air: character.mobilityPower = new AirMobility(character); break;
+				case (byte) PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); break;
+				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
 				
 				// Collectable Powers - Weapon
-				case (byte)PowerSubType.BoxingRed: this.Something(); break;
-				case (byte)PowerSubType.BoxingWhite: this.Something(); break;
-				case (byte)PowerSubType.Dagger: this.Something(); break;
-				case (byte)PowerSubType.DaggerGreen: this.Something(); break;
-				case (byte)PowerSubType.Spear: this.Something(); break;
-				case (byte)PowerSubType.Sword: this.Something(); break;
+				case (byte) PowerSubType.BoxingRed: this.Something(); break;
+				case (byte) PowerSubType.BoxingWhite: this.Something(); break;
+				case (byte) PowerSubType.Dagger: this.Something(); break;
+				case (byte) PowerSubType.DaggerGreen: this.Something(); break;
+				case (byte) PowerSubType.Spear: this.Something(); break;
+				case (byte) PowerSubType.Sword: this.Something(); break;
 				
 				// Collectable Powers - Potion
-				case (byte)PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;
-				case (byte)PowerSubType.Fire: character.attackPower = new FireBall(character); break;
-				case (byte)PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
-				case (byte)PowerSubType.Rock: character.attackPower = new RockBall(character); break;
-				case (byte)PowerSubType.Water: character.attackPower = new WaterBall(character); break;
-				case (byte)PowerSubType.Slime: character.attackPower = new SlimeBall(character); break;
+				case (byte) PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;
+				case (byte) PowerSubType.Fire: character.attackPower = new FireBall(character); break;
+				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
+				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); break;
+				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); break;
+				case (byte) PowerSubType.Slime: character.attackPower = new SlimeBall(character); break;
 				
 				// Collectable Powers - Thrown
-				case (byte)PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
-				case (byte)PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
-				case (byte)PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
+				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
+				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
+				case (byte) PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
 				
 				// Power Collectable - Bolts
-				case (byte)PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;
-				case (byte)PowerSubType.BoltGold: character.attackPower = new Bolt(character, ProjectileBoltSubType.Gold); break;
-				case (byte)PowerSubType.BoltGreen: character.attackPower = new Bolt(character, ProjectileBoltSubType.Green); break;
-				//case (byte)PowerSubType.BoltNecro: this.Something(); break;
-				//case (byte)PowerSubType.Necro1: this.Something(); break;
-				//case (byte)PowerSubType.Necro2: this.Something(); break;
+				case (byte) PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;
+				case (byte) PowerSubType.BoltGold: character.attackPower = new Bolt(character, ProjectileBoltSubType.Gold); break;
+				case (byte) PowerSubType.BoltGreen: character.attackPower = new Bolt(character, ProjectileBoltSubType.Green); break;
+				//case (byte) PowerSubType.BoltNecro: this.Something(); break;
+				//case (byte) PowerSubType.Necro1: this.Something(); break;
+				//case (byte) PowerSubType.Necro2: this.Something(); break;
 				
 				// Collectable Powers - Stack
-				case (byte)PowerSubType.Chakram: this.Something(); break;
-				case (byte)PowerSubType.ChakramPack: this.Something(); break;
-				case (byte)PowerSubType.Grenade: this.Something(); break;
-				case (byte)PowerSubType.GrenadePack: this.Something(); break;
+				case (byte) PowerSubType.Chakram: this.Something(); break;
+				case (byte) PowerSubType.ChakramPack: this.Something(); break;
+				case (byte) PowerSubType.Grenade: this.Something(); break;
+				case (byte) PowerSubType.GrenadePack: this.Something(); break;
 			}
 
 			Systems.sounds.collectSubtle.Play();

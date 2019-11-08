@@ -60,7 +60,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Config\DebugNexus.cs" />
+    <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />

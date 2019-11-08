@@ -41,6 +41,8 @@ namespace Nexus.Config {
 			DrawDebugFrames = !DrawDebugFrames;
 		}
 
+		public static void SetTickSpeed( DebugTickSpeed tickSpeed ) { DebugConfig.TickSpeed = tickSpeed; }
+
 		public static void ToggleTickSpeed( bool YControl ) {
 
 			// Ignore Toggling Debug Mode if there is no debugging options allowed.

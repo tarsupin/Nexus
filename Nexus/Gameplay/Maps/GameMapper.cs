@@ -36,10 +36,6 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
 	}
 
-	public static class HeadMap {
-		public static readonly RyuHead RyuHead = new RyuHead();
-	}
-
 	public class GameMapper {
 
 		public readonly Atlas[] atlas;

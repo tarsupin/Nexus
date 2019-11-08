@@ -425,5 +425,10 @@ namespace Nexus.Objects {
 		public override void BounceUp( GameObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
 			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
 		}
+
+		public static void Teleport( Character character, int posX, int posY ) {
+			character.physics.MoveToPos(FVector.Create(posX, posY));
+			character.physics.MoveToPos(FVector.Create(posX, posY)); // Second one is to reset the 'lastPos' value, to avoid 'moving' this frame.
+		}
 	}
 }
