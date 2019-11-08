@@ -8,8 +8,6 @@ using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
-using static Nexus.Objects.CollectableHat;
-using static Nexus.Objects.CollectableSuit;
 
 namespace Nexus.GameEngine {
 
@@ -85,11 +83,83 @@ namespace Nexus.GameEngine {
 			else if(ins[0] == "hat") { Console.CheatCodeHat(ins); }
 			else if(ins[0] == "head") { Console.CheatCodeHead(ins); }
 
+			// Character
+			else if(ins[0] == "heal") { Console.CheatCodeHeal(ins); }
+			else if(ins[0] == "armor") { Console.CheatCodeArmor(ins); }
+			else if(ins[0] == "invincible") { Console.CheatCodeInvincible(ins); }
+			else if(ins[0] == "stat") { Console.CheatCodeStat(ins); }
+
 			// Run Movement
 			else if(ins[0] == "teleport") { Console.CheatCodeTeleport(ins); }
 
 			// Debug
 			else if(ins[0] == "speed") { Console.DebugSpeed(ins); }
+		}
+
+		private static void CheatCodeStat(string[] ins) {
+			if(ins.Length < 3) { return; }
+
+			Character character = Systems.localServer.MyCharacter;
+			bool boolVal = Console.GetBoolArg(ins[2]);
+
+			float floatVal;
+			if(!float.TryParse(ins[2], out floatVal)) { floatVal = 0; }
+
+			// Abilities
+			if(ins[1] == "walljump") { character.stats.CanWallJump = boolVal; character.stats.CanWallSlide = boolVal; }
+			else if(ins[1] == "wallgrab") { character.stats.CanWallGrab = boolVal; }
+			else if(ins[1] == "wallslide") { character.stats.CanWallSlide = boolVal; }
+			else if(ins[1] == "fastcast") { character.stats.CanFastCast = boolVal; }
+			else if(ins[1] == "shell" || ins[1] == "shellmastery") { character.stats.ShellMastery = boolVal; }
+			else if(ins[1] == "safeabove") { character.stats.SafeVsDamageAbove = boolVal; }
+			else if(ins[1] == "damageabove") { character.stats.InflictDamageAbove = boolVal; }
+
+			// Gravity
+			else if(ins[1] == "gravity") { character.stats.BaseGravity = FInt.Create(floatVal); }
+
+			// Ground Speed
+			else if(ins[1] == "accel") { character.stats.RunAcceleration = FInt.Create(floatVal); }
+			else if(ins[1] == "decel") { character.stats.RunDeceleration = FInt.Create(floatVal); }
+			else if(ins[1] == "speed") { character.stats.RunMaxSpeed = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "walkmult") { character.stats.SlowSpeedMult = FInt.Create(floatVal); }
+
+			// Air Speed
+			else if(ins[1] == "airaccel") { character.stats.AirAcceleration = FInt.Create(floatVal); }
+			else if(ins[1] == "airdecel") { character.stats.AirDeceleration = FInt.Create(floatVal); }
+
+			// Jumping
+			else if(ins[1] == "jumps" || ins[1] == "maxjumps") { character.stats.JumpMaxTimes = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "jumpduration") { character.stats.JumpDuration = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "jumpstrength") { character.stats.JumpStrength = (byte) Math.Round(floatVal); }
+
+			// Wall Jumping
+			else if(ins[1] == "walljumpduration") { character.stats.WallJumpDuration = (byte)Math.Round(floatVal); }
+			else if(ins[1] == "wallxstrength") { character.stats.WallJumpXStrength = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "wallystrength") { character.stats.WallJumpYStrength = (byte) Math.Round(floatVal); }
+
+			// Slide
+			else if(ins[1] == "slidedelay") { character.stats.SlideWaitDuration = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "slideduration") { character.stats.SlideDuration = (byte) Math.Round(floatVal); }
+			else if(ins[1] == "slidestrength") { character.stats.SlideStrength = FInt.Create(floatVal); }
+
+			// Wound Stats
+			else if(ins[1] == "maxhealth") { character.wounds.WoundMaximum = Byte.Parse(ins[2]); }
+			else if(ins[1] == "maxarmor") { character.wounds.WoundMaximum = Byte.Parse(ins[2]); }
+		}
+
+		private static void CheatCodeHeal( string[] ins ) {
+			byte health = ins.Length == 2 ? Byte.Parse(ins[1]) : (byte) 100;
+			Systems.localServer.MyCharacter.wounds.AddHealth(health);
+		}
+
+		private static void CheatCodeArmor( string[] ins ) {
+			byte armor = ins.Length == 2 ? Byte.Parse(ins[1]) : (byte) 100;
+			Systems.localServer.MyCharacter.wounds.AddArmor(armor);
+		}
+
+		private static void CheatCodeInvincible( string[] ins ) {
+			int duration = ins.Length == 2 ? Byte.Parse(ins[1]) : 50000;
+			Systems.localServer.MyCharacter.wounds.SetInvincible((uint) duration * 60);
 		}
 
 		private static void DebugSpeed( string[] ins ) {
@@ -234,6 +304,11 @@ namespace Nexus.GameEngine {
 			// Standard Heads
 			{ "ryu", HeadSubType.RyuHead },
 		};
+
+		private static bool GetBoolArg(string arg) {
+			if(arg == "true" || arg == "1" || arg == "on") { return true; }
+			return false;
+		}
 
 		public void Draw() {
 
