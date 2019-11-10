@@ -63,6 +63,7 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
+    <Compile Include="GameEngine\Console\ConsoleCharUpgrades.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
     <Compile Include="Engine\ParallaxHandler.cs" />
@@ -120,7 +121,7 @@
     <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ObjectPool.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
-    <Compile Include="GameEngine\Console.cs" />
+    <Compile Include="GameEngine\Console\Console.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />

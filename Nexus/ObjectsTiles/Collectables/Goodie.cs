@@ -74,12 +74,12 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.GodMode: this.GetInvincible(character, 99999999); break;
 
 				// Timer
-				case (byte)GoodieSubType.Plus5: this.GetTime(character, true, 5); break;
-				case (byte)GoodieSubType.Plus10: this.GetTime(character, true, 10); break;
-				case (byte)GoodieSubType.Plus20: this.GetTime(character, true, 20); break;
-				case (byte)GoodieSubType.Set5: this.GetTime(character, false, 5); break;
-				case (byte)GoodieSubType.Set10: this.GetTime(character, false, 10); break;
-				case (byte)GoodieSubType.Set20: this.GetTime(character, false, 20); break;
+				case (byte)GoodieSubType.Plus5: this.SetTime(character, true, 5); break;
+				case (byte)GoodieSubType.Plus10: this.SetTime(character, true, 10); break;
+				case (byte)GoodieSubType.Plus20: this.SetTime(character, true, 20); break;
+				case (byte)GoodieSubType.Set5: this.SetTime(character, false, 5); break;
+				case (byte)GoodieSubType.Set10: this.SetTime(character, false, 10); break;
+				case (byte)GoodieSubType.Set20: this.SetTime(character, false, 20); break;
 
 				// Disrupt
 				case (byte)GoodieSubType.Disrupt: this.RunDisrupt(character); break;
@@ -120,7 +120,7 @@ namespace Nexus.Objects {
 			Systems.sounds.collectSubtle.Play();
 		}
 
-		private void GetTime(Character character, bool isAdditive, byte timeVal) {
+		private void SetTime(Character character, bool isAdditive, byte timeVal) {
 			LevelState levelState = Systems.handler.levelState;
 
 			// If the Collectable ADDS to the timer, rather than SETS.
