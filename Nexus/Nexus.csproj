@@ -63,6 +63,7 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
+    <Compile Include="GameEngine\Console\ConsoleStats.cs" />
     <Compile Include="GameEngine\Console\ConsolePowers.cs" />
     <Compile Include="GameEngine\Console\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\ConsoleEquipment.cs" />

@@ -276,55 +276,10 @@ namespace Nexus.GameEngine {
 			{ "invincible", ConsoleWounds.CheatCodeInvincible },
 			{ "wound", ConsoleWounds.CheatCodeWound },
 			{ "kill", ConsoleWounds.CheatCodeKill },
+
+			// Character Stats
+			{ "stats", ConsoleStats.CheatCodeStats },
 		};
-
-		private static void CheatCodeStat() {
-			string currentIns = ConsoleTrack.NextArg();
-			if(currentIns == string.Empty) { return; }
-
-			Character character = Systems.localServer.MyCharacter;
-
-			// Abilities
-			if(currentIns == "walljump") { bool boolVal = ConsoleTrack.NextBool(); character.stats.CanWallJump = boolVal; character.stats.CanWallSlide = boolVal; }
-			else if(currentIns == "wallgrab") { character.stats.CanWallGrab = ConsoleTrack.NextBool(); }
-			else if(currentIns == "wallslide") { character.stats.CanWallSlide = ConsoleTrack.NextBool(); }
-			else if(currentIns == "fastcast") { character.stats.CanFastCast = ConsoleTrack.NextBool(); }
-			else if(currentIns == "shell" || currentIns == "shellmastery") { character.stats.ShellMastery = ConsoleTrack.NextBool(); }
-			else if(currentIns == "safeabove") { character.stats.SafeVsDamageAbove = ConsoleTrack.NextBool(); }
-			else if(currentIns == "damageabove") { character.stats.InflictDamageAbove = ConsoleTrack.NextBool(); }
-
-			// Gravity
-			else if(currentIns == "gravity") { character.stats.BaseGravity = FInt.Create(ConsoleTrack.NextFloat()); }
-
-			// Ground Speed
-			else if(currentIns == "accel") { character.stats.RunAcceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "decel") { character.stats.RunDeceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "speed") { character.stats.RunMaxSpeed = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "walkmult") { character.stats.SlowSpeedMult = FInt.Create(ConsoleTrack.NextFloat()); }
-
-			// Air Speed
-			else if(currentIns == "airaccel") { character.stats.AirAcceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "airdecel") { character.stats.AirDeceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-
-			// Jumping
-			else if(currentIns == "jumps" || currentIns == "maxjumps") { character.stats.JumpMaxTimes = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "jumpduration") { character.stats.JumpDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "jumpstrength") { character.stats.JumpStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-
-			// Wall Jumping
-			else if(currentIns == "walljumpduration") { character.stats.WallJumpDuration = (byte)Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "wallxstrength") { character.stats.WallJumpXStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "wallystrength") { character.stats.WallJumpYStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-
-			// Slide
-			else if(currentIns == "slidedelay") { character.stats.SlideWaitDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "slideduration") { character.stats.SlideDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-			else if(currentIns == "slidestrength") { character.stats.SlideStrength = FInt.Create(ConsoleTrack.NextFloat()); }
-
-			// Wound Stats
-			else if(currentIns == "maxhealth") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextInt(); }
-			else if(currentIns == "maxarmor") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextInt(); }
-		}
 
 		private static void DebugSpeed() {
 			string currentIns = ConsoleTrack.NextArg();
