@@ -19,7 +19,7 @@ namespace Nexus.Gameplay {
 
 	public class FontClass {
 		private readonly SpriteBatch spriteBatch;
-		private readonly SpriteFont font;
+		public readonly SpriteFont font;
 
 		public FontClass(GameClient game, string fileName) {
 			var Content = game.Content;

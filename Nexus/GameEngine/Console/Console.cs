@@ -7,65 +7,115 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Nexus.GameEngine {
 
 	public static class ConsoleTrack {
-		public static Player player = null;
-		public static Character character = null;
-		public static string instructionText = String.Empty;
-		public static List<string> instructionList = new List<string>() {};
-		public static byte instructionNum = 0;
-		public static string tabLookup = String.Empty;
-		public static List<string> possibleTabs = new List<string>() {};
+		public static Player player = null; // Tracks which player to apply the effect to, if applicable.
+		public static Character character = null; // Tracks which character to apply the effect to, if applicable.
+		public static string instructionText = String.Empty; // The original command, as written into the console.
+		public static List<string> instructionList = new List<string>() {}; // Stores the split() instructions.
+		public static byte instructionIndex = 0; // The index of the instructionList that is next in line.
+		public static string tabLookup = String.Empty; // The tab to highlight (whichever is most likely).
+		public static string helpText = String.Empty; // Helpful text that applies to the current instruction set you're in.
+		public static string possibleTabs = String.Empty; // A list of tab options to show.
+		public static bool activate = false; // TRUE on the RunTick() that 'enter' gets pressed.
 
 		public static void LoadInstructionText( string insText ) {
 
-			// Clean the instruction text.
-			ConsoleTrack.instructionText = insText.Trim().ToLower();
-
 			// Get the instruction array.
-			string[] insArray = ConsoleTrack.instructionText.Split(' ');
+			string[] insArray = insText.Split(' ');
 
 			ConsoleTrack.instructionList = new List<string>(insArray);
 
 			// Reset Console Track Information
-			ConsoleTrack.instructionNum = 0;
+			ConsoleTrack.instructionIndex = 0;
 			ConsoleTrack.tabLookup = String.Empty;
-			ConsoleTrack.possibleTabs.Clear();
+			ConsoleTrack.helpText = String.Empty;
+			ConsoleTrack.possibleTabs = String.Empty;
 			ConsoleTrack.player = null;
 			ConsoleTrack.character = null;
 		}
 
-		public static string NextString() {
-			byte num = ConsoleTrack.instructionNum;
-			ConsoleTrack.instructionNum++;
+		public static void PrepareTabLookup( Dictionary<string, Action> dict, string currentIns, string helpText = null ) {
+
+			// Make sure you're on the last instruction, otherwise no tab lookup applies.
+			if(!ConsoleTrack.OnLastInstruction()) { return; }
+
+			if(currentIns.Length > 0) {
+
+				// Scan for instructions that start with the arg provided:
+				string tab = dict.Where(pv => pv.Key.StartsWith(currentIns)).FirstOrDefault().Key;
+
+				// Update the tab lookup.
+				ConsoleTrack.tabLookup = tab != null ? tab.Replace(currentIns, "") : string.Empty;
+			}
+
+			else {
+				ConsoleTrack.tabLookup = string.Empty;
+			}
+
+			// Update possible tabs.
+			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
+
+			// Update help text.
+			if(helpText != null) { ConsoleTrack.helpText = helpText; }
+		}
+
+		public static void PrepareTabLookup( Dictionary<string, object> dict, string currentIns, string helpText = null ) {
+
+			// Make sure you're on the last instruction, otherwise no tab lookup applies.
+			if(!ConsoleTrack.OnLastInstruction()) { return; }
+
+			if(currentIns.Length > 0) {
+
+				// Scan for instructions that start with the arg provided:
+				string tab = dict.Where(pv => pv.Key.StartsWith(currentIns)).FirstOrDefault().Key;
+
+				// Update the tab lookup.
+				ConsoleTrack.tabLookup = tab != null ? Regex.Replace(tab, "^" + currentIns, "") : string.Empty;
+
+			} else {
+				ConsoleTrack.tabLookup = string.Empty;
+			}
+
+			// Update possible tabs.
+			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
+
+			// Update help text.
+			if(helpText != null) { ConsoleTrack.helpText = helpText; }
+		}
+
+		// Returns `true` if we're on the last instruction arg.
+		public static bool OnLastInstruction() {
+			return ConsoleTrack.instructionIndex >= ConsoleTrack.instructionList.Count;
+		}
+
+		// Updates the instruction index and returns true if there's another instruction arg available.
+		public static string NextArg() {
+			byte num = ConsoleTrack.instructionIndex;
+			ConsoleTrack.instructionIndex++;
 
 			if(ConsoleTrack.instructionList.Count > num) {
 				return ConsoleTrack.instructionList[num];
 			}
 
-			return String.Empty;
+			return string.Empty;
 		}
 
+		// Returns the next instruction arg as a bool.
 		public static bool NextBool() {
-			byte num = ConsoleTrack.instructionNum;
-			ConsoleTrack.instructionNum++;
-
-			if(ConsoleTrack.instructionList.Count > num) {
-				string arg = ConsoleTrack.instructionList[num];
-				if(arg == "true" || arg == "1" || arg == "on") { return true; }
-			}
-
-			return false;
+			string arg = ConsoleTrack.NextArg();
+			return (arg == "true" || arg == "1" || arg == "on");
 		}
 
+		// Returns the next instruction arg as an int.
 		public static int NextInt() {
-			byte num = ConsoleTrack.instructionNum;
-			ConsoleTrack.instructionNum++;
+			string arg = ConsoleTrack.NextArg();
 
-			if(ConsoleTrack.instructionList.Count > num) {
-				string arg = ConsoleTrack.instructionList[num];
+			if(arg != string.Empty) {
 				int intVal;
 				if(!Int32.TryParse(arg, out intVal)) { intVal = 0; }
 				return intVal;
@@ -74,18 +124,25 @@ namespace Nexus.GameEngine {
 			return 0;
 		}
 
+		// Returns the next instruction arg as a float.
 		public static float NextFloat() {
-			byte num = ConsoleTrack.instructionNum;
-			ConsoleTrack.instructionNum++;
+			string arg = ConsoleTrack.NextArg();
 
-			if(ConsoleTrack.instructionList.Count > num) {
-				string arg = ConsoleTrack.instructionList[num];
+			if(arg != string.Empty) {
 				float floatVal;
 				if(!float.TryParse(arg, out floatVal)) { floatVal = 0; }
 				return floatVal;
 			}
 
 			return 0;
+		}
+
+		// Reset the Console Track Activation
+		public static void ResetAfterActivation() {
+			ConsoleTrack.activate = false; // Not resetting this would cause the instructions to activate every cycle.
+			ConsoleTrack.instructionText = string.Empty;
+			ConsoleTrack.helpText = String.Empty;
+			ConsoleTrack.possibleTabs = String.Empty;
 		}
 	}
 
@@ -96,7 +153,6 @@ namespace Nexus.GameEngine {
 
 		// Console Text
 		public List<string> consoleLines;		// Tracks each line that's been written
-		public string consoleText;
 
 		private uint backspaceFrame = 0;
 
@@ -112,78 +168,118 @@ namespace Nexus.GameEngine {
 			string charsPressed = input.GetCharactersPressed();
 
 			if(charsPressed.Length > 0) {
-				this.consoleText += charsPressed;
+				ConsoleTrack.instructionText += charsPressed;
 			}
 
 			// Backspace
-			if(input.LocalKeyDown(Keys.Back) && this.consoleText.Length > 0) {
+			else if(input.LocalKeyDown(Keys.Back) && ConsoleTrack.instructionText.Length > 0) {
 
 				// After a hard delete (just pressed), wait 10 frames rather than 3.
 				if(input.LocalKeyPressed(Keys.Back)) {
-					this.consoleText = this.consoleText.Substring(0, this.consoleText.Length - 1);
+					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 					this.backspaceFrame = Systems.timer.Frame + 10;
 				}
 
 				else if(this.backspaceFrame < Systems.timer.Frame) {
-					this.consoleText = this.consoleText.Substring(0, this.consoleText.Length - 1);
+					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 
 					// Delete a character every 3 frames.
 					this.backspaceFrame = Systems.timer.Frame + 3;
 				}
 			}
+
+			// Tab
+			else if(input.LocalKeyDown(Keys.Tab)) {
+
+				// Appends the tab lookup to the current instruction text.
+				ConsoleTrack.instructionText += ConsoleTrack.tabLookup;
+			}
 			
 			// Enter
-			if(input.LocalKeyPressed(Keys.Enter)) {
+			else if(input.LocalKeyPressed(Keys.Enter)) {
+				ConsoleTrack.activate = true; // The instruction is meant to process completely.
+			}
 
-				// Confirm the Instruction
-				this.ProcessInstruction(this.consoleText);
+			// If there was no input provided, end here.
+			else { return; }
 
-				this.consoleText = string.Empty;
+			// Process the Instruction
+			this.ProcessInstruction(ConsoleTrack.instructionText);
+
+			// Cleanup
+			if(ConsoleTrack.activate) {
+				ConsoleTrack.ResetAfterActivation();
 			}
 		}
 
-		public void ProcessInstruction( string insText ) {
+		public void ProcessInstruction(string insText) {
+
+			// Clean the instruction text.
+			string cleanText = insText.Trim().ToLower();
+
+			// If there is no instruction text, no need to continue.
+			if(cleanText.Length == 0) {
+				ConsoleTrack.tabLookup = string.Empty;
+				return;
+			}
 
 			// Load Console Track Information
-			ConsoleTrack.LoadInstructionText(insText);
+			ConsoleTrack.LoadInstructionText(cleanText);
 
 			// Must have at least one part for a valid instruction.
 			if(ConsoleTrack.instructionList.Count < 1) { return; }
 
-			string currentIns = ConsoleTrack.NextString();
+			string currentIns = ConsoleTrack.NextArg();
 
 			// Assign Default Character and Player
 			ConsoleTrack.player = Systems.localServer.MyPlayer;
 			ConsoleTrack.character = Systems.localServer.MyCharacter;
 
-			// Help
-			if(currentIns == "help") { /* Explain the help topics */  }
+			// Update the tab lookup.
+			ConsoleTrack.PrepareTabLookup(consoleDict, currentIns, "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 
-			// Run Character Cheat Codes
-			else if(currentIns == "suit") { ConsoleCharUpgrades.CheatCodeSuit(); }
-			else if(currentIns == "hat") { ConsoleCharUpgrades.CheatCodeHat(); }
-			else if(currentIns == "head") { ConsoleCharUpgrades.CheatCodeHead(); }
-			else if(currentIns == "power") { ConsoleCharUpgrades.CheatCodePower(); }
+			// Invoke the Relevant Next Function
+			if(consoleDict.ContainsKey(currentIns)) {
+				consoleDict[currentIns].Invoke();
+			}
 
-			// Health, Wounds
-			else if(currentIns == "heal") { Console.CheatCodeHeal(); }
-			else if(currentIns == "armor") { Console.CheatCodeArmor(); }
-			else if(currentIns == "invincible") { Console.CheatCodeInvincible(); }
-			else if(currentIns == "wound") { Console.CheatCodeWound(); }
-			else if(currentIns == "kill") { Console.CheatCodeKill(); }
+			//// Help
+			//if(currentIns == "help") { /* Explain the help topics */  }
 
-			// Stats
-			else if(currentIns == "stat") { Console.CheatCodeStat(); }
+			//// Stats
+			//else if(currentIns == "stat") { Console.CheatCodeStat(); }
 
-			// Run Movement
-			else if(currentIns == "teleport") { Console.CheatCodeTeleport(); }
+			//// Run Movement
+			//else if(currentIns == "teleport") { Console.CheatCodeTeleport(); }
 
-			// Debug
-			else if(currentIns == "speed") { Console.DebugSpeed(); }
+			//// Debug
+			//else if(currentIns == "speed") { Console.DebugSpeed(); }
 		}
 
+		public static readonly Dictionary<string, Action> consoleDict = new Dictionary<string, Action>() {
+			
+			// Character Equipment
+			{ "suit", ConsoleEquipment.CheatCodeSuit },
+			{ "hat", ConsoleEquipment.CheatCodeHat },
+			{ "head", ConsoleEquipment.CheatCodeHead },
+
+			// Character Powers
+			{ "power", ConsolePowers.CheatCodePower },
+			{ "magic", ConsolePowers.CheatCodeMagic },
+			{ "ranged", ConsolePowers.CheatCodeRanged },
+			{ "weapon", ConsolePowers.CheatCodeWeapon },
+			{ "wand", ConsolePowers.CheatCodeWand },
+			
+			// Health, Wounds
+			{ "heal", ConsoleWounds.CheatCodeHeal },
+			{ "armor", ConsoleWounds.CheatCodeArmor },
+			{ "invincible", ConsoleWounds.CheatCodeInvincible },
+			{ "wound", ConsoleWounds.CheatCodeWound },
+			{ "kill", ConsoleWounds.CheatCodeKill },
+		};
+
 		private static void CheatCodeStat() {
-			string currentIns = ConsoleTrack.NextString();
+			string currentIns = ConsoleTrack.NextArg();
 			if(currentIns == string.Empty) { return; }
 
 			Character character = Systems.localServer.MyCharacter;
@@ -230,31 +326,8 @@ namespace Nexus.GameEngine {
 			else if(currentIns == "maxarmor") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextInt(); }
 		}
 
-		private static void CheatCodeKill() {
-			ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.Forced);
-		}
-
-		private static void CheatCodeWound() {
-			ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
-		}
-
-		private static void CheatCodeHeal() {
-			byte health = ConsoleTrack.instructionList.Count >= 2 ? (byte) ConsoleTrack.NextInt() : (byte) 100;
-			ConsoleTrack.character.wounds.AddHealth(health);
-		}
-
-		private static void CheatCodeArmor() {
-			byte armor = ConsoleTrack.instructionList.Count >= 2 ? (byte) ConsoleTrack.NextInt() : (byte) 100;
-			ConsoleTrack.character.wounds.AddArmor(armor);
-		}
-
-		private static void CheatCodeInvincible() {
-			int duration = ConsoleTrack.instructionList.Count >= 2 ? (byte) ConsoleTrack.NextInt() : 50000;
-			ConsoleTrack.character.wounds.SetInvincible((uint) duration * 60);
-		}
-
 		private static void DebugSpeed() {
-			string currentIns = ConsoleTrack.NextString();
+			string currentIns = ConsoleTrack.NextArg();
 			if(currentIns == string.Empty) { return; }
 
 			if(currentIns == "normal" || currentIns == "fast") { DebugConfig.SetTickSpeed(DebugTickSpeed.StandardSpeed); }
@@ -264,7 +337,7 @@ namespace Nexus.GameEngine {
 		}
 
 		private static void CheatCodeTeleport() {
-			string currentIns = ConsoleTrack.NextString();
+			string currentIns = ConsoleTrack.NextArg();
 			if(currentIns == string.Empty) { return; }
 
 			int x, y;
@@ -289,7 +362,28 @@ namespace Nexus.GameEngine {
 			rect.SetData(new[] { Color.Black });
 			Systems.spriteBatch.Draw(rect, new Rectangle(0, Systems.screen.windowHeight - 100, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.Black * 0.85f);
 
-			Systems.fonts.console.Draw("> " + consoleText + (Systems.timer.tick20Modulus < 10 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
+			// Draw Console Text
+			string consoleString = "> " + ConsoleTrack.instructionText;
+			Systems.fonts.console.Draw(consoleString + (Systems.timer.tick20Modulus < 10 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
+
+			// Draw Console Tab Highlight, if applicable
+			if(ConsoleTrack.tabLookup.Length > 0) {
+
+				// Determine length of current instruction line:
+				Vector2 fontLen = Systems.fonts.console.font.MeasureString(consoleString);
+
+				Systems.fonts.console.Draw(ConsoleTrack.tabLookup, 10 + (int) Math.Round(fontLen.X), Systems.screen.windowHeight - 90, Color.DarkSlateGray);
+			}
+
+			// Draw Console Help Text, if applicable.
+			if(ConsoleTrack.helpText.Length > 0) {
+				Systems.fonts.console.Draw(ConsoleTrack.helpText, 10, Systems.screen.windowHeight - 75, Color.Gray);
+			}
+
+			// Draw Console Possible Tab Options, if applicable.
+			if(ConsoleTrack.possibleTabs.Length > 0) {
+				Systems.fonts.console.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.windowHeight - 60, Color.DarkTurquoise);
+			}
 		}
 	}
 }

@@ -63,7 +63,9 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
-    <Compile Include="GameEngine\Console\ConsoleCharUpgrades.cs" />
+    <Compile Include="GameEngine\Console\ConsolePowers.cs" />
+    <Compile Include="GameEngine\Console\ConsoleWounds.cs" />
+    <Compile Include="GameEngine\Console\ConsoleEquipment.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
     <Compile Include="Engine\ParallaxHandler.cs" />
