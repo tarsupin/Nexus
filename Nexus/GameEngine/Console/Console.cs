@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -50,7 +49,7 @@ namespace Nexus.GameEngine {
 				string tab = dict.Where(pv => pv.Key.StartsWith(currentIns)).FirstOrDefault().Key;
 
 				// Update the tab lookup.
-				ConsoleTrack.tabLookup = tab != null ? tab.Replace(currentIns, "") : string.Empty;
+				ConsoleTrack.tabLookup = tab != null ? Regex.Replace(tab, "^" + currentIns, "") : string.Empty;
 			}
 
 			else {
@@ -146,23 +145,31 @@ namespace Nexus.GameEngine {
 		}
 	}
 
-	public class Console {
+	public static class Console {
 
-		private readonly LevelScene scene;
-		public Atlas atlas;
+		public static bool isEnabled = true;	// If console is not enabled, no commands can be triggered (even through macros).
+		public static bool isVisible = false;	// Whether or not console is currently visible.
 
-		// Console Text
-		public List<string> consoleLines;		// Tracks each line that's been written
+		public static List<string> consoleLines;		// Tracks each line that's been written
+		public static uint backspaceFrame = 0;
 
-		private uint backspaceFrame = 0;
+		public static void SetEnabled(bool enable) { Console.isEnabled = enable; if(!enable) { Console.isVisible = false; } }
+		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.isVisible = visible; } else { Console.isVisible = false; } }
 
-		public Console( LevelScene scene ) {
-			this.scene = scene;
-			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-		}
-
-		public void RunTick() {
+		public static void RunTick() {
 			InputClient input = Systems.input;
+
+			// Determine if the console is being set to visible, or hidden (with the tilde key)
+			if(input.LocalKeyPressed(Keys.OemTilde)) {
+				Console.SetVisible(!Console.isVisible);
+
+				if(Console.isVisible) {
+					ConsoleTrack.ResetAfterActivation();
+					ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+				}
+			}
+
+			if(!Console.isVisible) { return; }
 
 			// Get Characters Pressed (doesn't assist with order)
 			string charsPressed = input.GetCharactersPressed();
@@ -177,14 +184,14 @@ namespace Nexus.GameEngine {
 				// After a hard delete (just pressed), wait 10 frames rather than 3.
 				if(input.LocalKeyPressed(Keys.Back)) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
-					this.backspaceFrame = Systems.timer.Frame + 10;
+					Console.backspaceFrame = Systems.timer.Frame + 10;
 				}
 
-				else if(this.backspaceFrame < Systems.timer.Frame) {
+				else if(Console.backspaceFrame < Systems.timer.Frame) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 
 					// Delete a character every 3 frames.
-					this.backspaceFrame = Systems.timer.Frame + 3;
+					Console.backspaceFrame = Systems.timer.Frame + 3;
 				}
 			}
 
@@ -204,29 +211,32 @@ namespace Nexus.GameEngine {
 			else { return; }
 
 			// Process the Instruction
-			this.ProcessInstruction(ConsoleTrack.instructionText);
+			Console.ProcessInstruction(ConsoleTrack.instructionText);
 
 			// Cleanup
 			if(ConsoleTrack.activate) {
 				ConsoleTrack.ResetAfterActivation();
+				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 			}
 		}
 
-		public void SendCommand(string insText) {
+		public static void SendCommand(string insText) {
+			if(!Console.isEnabled) { return; }
 
 			ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
 			ConsoleTrack.instructionText = insText;
 
 			// Process the Instruction
-			this.ProcessInstruction(ConsoleTrack.instructionText);
+			Console.ProcessInstruction(ConsoleTrack.instructionText);
 
 			// Cleanup
 			if(ConsoleTrack.activate) {
 				ConsoleTrack.ResetAfterActivation();
+				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 			}
 		}
 
-		public void ProcessInstruction(string insText) {
+		public static void ProcessInstruction(string insText) {
 
 			// Clean the instruction text.
 			string cleanText = insText.Trim().ToLower();
@@ -244,13 +254,13 @@ namespace Nexus.GameEngine {
 				// If we're activating the instructions, run all of them.
 				if(ConsoleTrack.activate) {
 					foreach(string ins in multiInstructions) {
-						this.ProcessInstruction(ins);
+						Console.ProcessInstruction(ins);
 					}
 				}
 
 				// If we're not activating the instructions, only run the last pipe (since we only need to identify that one).
 				else {
-					this.ProcessInstruction(multiInstructions.Last());
+					Console.ProcessInstruction(multiInstructions.Last());
 				}
 
 				return;
@@ -327,7 +337,10 @@ namespace Nexus.GameEngine {
 			Character.Teleport(ConsoleTrack.character, x, y);
 		}
 
-		public void Draw() {
+		public static void Draw() {
+			if(!Console.isVisible) { return; }
+
+			FontClass consoleFont = Systems.fonts.console;
 
 			// Draw Console Background
 			Texture2D rect = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
@@ -336,25 +349,25 @@ namespace Nexus.GameEngine {
 
 			// Draw Console Text
 			string consoleString = "> " + ConsoleTrack.instructionText;
-			Systems.fonts.console.Draw(consoleString + (Systems.timer.tick20Modulus < 10 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
+			consoleFont.Draw(consoleString + (Systems.timer.tick20Modulus < 10 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
 
 			// Draw Console Tab Highlight, if applicable
 			if(ConsoleTrack.tabLookup.Length > 0) {
 
 				// Determine length of current instruction line:
-				Vector2 fontLen = Systems.fonts.console.font.MeasureString(consoleString);
+				Vector2 fontLen = consoleFont.font.MeasureString(consoleString);
 
-				Systems.fonts.console.Draw(ConsoleTrack.tabLookup, 10 + (int) Math.Round(fontLen.X), Systems.screen.windowHeight - 90, Color.DarkSlateGray);
+				consoleFont.Draw(ConsoleTrack.tabLookup, 10 + (int) Math.Round(fontLen.X), Systems.screen.windowHeight - 90, Color.DarkSlateGray);
 			}
 
 			// Draw Console Help Text, if applicable.
 			if(ConsoleTrack.helpText.Length > 0) {
-				Systems.fonts.console.Draw(ConsoleTrack.helpText, 10, Systems.screen.windowHeight - 75, Color.Gray);
+				consoleFont.Draw(ConsoleTrack.helpText, 10, Systems.screen.windowHeight - 75, Color.Gray);
 			}
 
 			// Draw Console Possible Tab Options, if applicable.
 			if(ConsoleTrack.possibleTabs.Length > 0) {
-				Systems.fonts.console.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.windowHeight - 60, Color.DarkTurquoise);
+				consoleFont.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.windowHeight - 60, Color.DarkTurquoise);
 			}
 		}
 	}

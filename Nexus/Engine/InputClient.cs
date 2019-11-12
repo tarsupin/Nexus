@@ -90,7 +90,7 @@ namespace Nexus.Engine {
 			{ "D0", "0" },
 			{ "OemMinus", "-" },
 			{ "OemPlus", "=" },
-			{ "OemTilde", "`" },
+			//{ "OemTilde", "`" },
 			{ "OemOpenBrackets", "[" },
 			{ "OemCloseBrackets", "]" },
 			{ "OemPipe", "\\" },
@@ -114,7 +114,7 @@ namespace Nexus.Engine {
 			{ "D0", ")" },
 			{ "OemMinus", "_" },
 			{ "OemPlus", "+" },
-			{ "OemTilde", "~" },
+			//{ "OemTilde", "~" },
 			{ "OemOpenBrackets", "{" },
 			{ "OemCloseBrackets", "}" },
 			{ "OemPipe", "|" },
@@ -144,7 +144,7 @@ namespace Nexus.Engine {
 			this.AssignDefaultButtonMap();
 		}
 
-		public void PreProcess() {
+		public void PreProcess(bool sendToServer = true) {
 
 			// Reset Array Cursors/Positions
 			this.pressedNum = 0;
@@ -157,6 +157,10 @@ namespace Nexus.Engine {
 			// Save Current Input States
 			this.curKeyState = Keyboard.GetState();
 			this.curPadState = GamePad.GetState(PlayerIndex.One);
+
+			// The param `sendToServer` indicates if we want to send the keys to the server.
+			// This applies, for example, if the console is open.
+			if(!sendToServer) { return; }
 
 			this.ProcessIKeys();
 

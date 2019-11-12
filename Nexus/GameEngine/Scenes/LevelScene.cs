@@ -13,7 +13,6 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
-		public readonly Console console;
 		public Stopwatch stopwatch;
 		public Dictionary<byte, RoomScene> rooms;
 
@@ -24,9 +23,6 @@ namespace Nexus.GameEngine {
 
 			// Create UI
 			this.levelUI = new LevelUI(this);
-
-			// Debugging Console
-			this.console = new Console(this);
 
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, RoomScene>();
@@ -57,12 +53,12 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
+			// Debug Console (only runs if visible)
+			Console.RunTick();
+
 			// If we're in debug mode:
 			if(DebugConfig.Debug) {
 				this.DebugToggles();
-
-				// Debug Console
-				this.console.RunTick();
 
 				// Tick Speed
 				if(DebugConfig.TickSpeed != (byte)DebugTickSpeed.StandardSpeed) {
@@ -115,14 +111,14 @@ namespace Nexus.GameEngine {
 			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
 
-			if(input.LocalKeyPressed(Keys.F1)) { this.console.SendCommand(Systems.settings.input.macroF1); }
-			else if(input.LocalKeyPressed(Keys.F2)) { this.console.SendCommand(Systems.settings.input.macroF2); }
-			else if(input.LocalKeyPressed(Keys.F3)) { this.console.SendCommand(Systems.settings.input.macroF3); }
-			else if(input.LocalKeyPressed(Keys.F4)) { this.console.SendCommand(Systems.settings.input.macroF4); }
-			else if(input.LocalKeyPressed(Keys.F5)) { this.console.SendCommand(Systems.settings.input.macroF5); }
-			else if(input.LocalKeyPressed(Keys.F6)) { this.console.SendCommand(Systems.settings.input.macroF6); }
-			else if(input.LocalKeyPressed(Keys.F7)) { this.console.SendCommand(Systems.settings.input.macroF7); }
-			else if(input.LocalKeyPressed(Keys.F8)) { this.console.SendCommand(Systems.settings.input.macroF8); }
+			if(input.LocalKeyPressed(Keys.F1)) { Console.SendCommand(Systems.settings.input.macroF1); }
+			else if(input.LocalKeyPressed(Keys.F2)) { Console.SendCommand(Systems.settings.input.macroF2); }
+			else if(input.LocalKeyPressed(Keys.F3)) { Console.SendCommand(Systems.settings.input.macroF3); }
+			else if(input.LocalKeyPressed(Keys.F4)) { Console.SendCommand(Systems.settings.input.macroF4); }
+			else if(input.LocalKeyPressed(Keys.F5)) { Console.SendCommand(Systems.settings.input.macroF5); }
+			else if(input.LocalKeyPressed(Keys.F6)) { Console.SendCommand(Systems.settings.input.macroF6); }
+			else if(input.LocalKeyPressed(Keys.F7)) { Console.SendCommand(Systems.settings.input.macroF7); }
+			else if(input.LocalKeyPressed(Keys.F8)) { Console.SendCommand(Systems.settings.input.macroF8); }
 
 			//else if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
 			//else if(input.LocalKeyPressed(Keys.F6)) { DebugConfig.ToggleDebugFrames(); }
@@ -146,7 +142,7 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.levelUI.Draw();
-			this.console.Draw();
+			Console.Draw();
 		}
 
 		public void RunCharacterDeath( Character character ) {
