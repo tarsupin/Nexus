@@ -115,7 +115,12 @@ namespace Nexus.GameEngine {
 			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
 
-			if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
+			if(input.LocalKeyPressed(Keys.F1)) { this.console.SendCommand(Systems.settings.input.macroF1); }
+			else if(input.LocalKeyPressed(Keys.F2)) { this.console.SendCommand(Systems.settings.input.macroF2); }
+			else if(input.LocalKeyPressed(Keys.F3)) { this.console.SendCommand(Systems.settings.input.macroF3); }
+			else if(input.LocalKeyPressed(Keys.F4)) { this.console.SendCommand(Systems.settings.input.macroF4); }
+
+			else if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
 			else if(input.LocalKeyPressed(Keys.F6)) { DebugConfig.ToggleDebugFrames(); }
 			else if(input.LocalKeyPressed(Keys.F7)) { DebugConfig.ToggleTickSpeed(true); }
 			else if(input.LocalKeyPressed(Keys.F8)) { DebugConfig.ToggleTickSpeed(false); }

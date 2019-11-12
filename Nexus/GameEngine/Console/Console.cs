@@ -197,11 +197,25 @@ namespace Nexus.GameEngine {
 			
 			// Enter
 			else if(input.LocalKeyPressed(Keys.Enter)) {
-				ConsoleTrack.activate = true; // The instruction is meant to process completely.
+				ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
 			}
 
 			// If there was no input provided, end here.
 			else { return; }
+
+			// Process the Instruction
+			this.ProcessInstruction(ConsoleTrack.instructionText);
+
+			// Cleanup
+			if(ConsoleTrack.activate) {
+				ConsoleTrack.ResetAfterActivation();
+			}
+		}
+
+		public void SendCommand(string insText) {
+
+			ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
+			ConsoleTrack.instructionText = insText;
 
 			// Process the Instruction
 			this.ProcessInstruction(ConsoleTrack.instructionText);
@@ -223,8 +237,8 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			// If there was a pipe, split into multiple instructions:
-			if(insText.Contains('|')) {
+			// If there was a pipe, split into multiple instructions UNLESS the instruction starts with "macro"
+			if(insText.Contains('|') && !cleanText.StartsWith("macro")) {
 				string[] multiInstructions = insText.Split('|');
 
 				// If we're activating the instructions, run all of them.
@@ -273,6 +287,7 @@ namespace Nexus.GameEngine {
 			
 			// Debug
 			{ "debug", ConsoleDebug.DebugBase },
+			{ "macro", ConsoleMacro.DebugMacro },
 
 			// Character Stats
 			{ "stats", ConsoleStats.CheatCodeStats },
