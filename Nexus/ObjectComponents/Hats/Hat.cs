@@ -82,7 +82,7 @@ namespace Nexus.ObjectComponents {
 
 		public Hat( HatRank hatRank = HatRank.BaseHat ) {
 			this.hatRank = hatRank;
-			this.yOffset = -10;
+			this.yOffset = -12;
 		}
 
 		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
