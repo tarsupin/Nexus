@@ -5,10 +5,29 @@ namespace Nexus.GameEngine {
 
 	public static class ConsolePowers {
 
+		public static void CheatCodePowers() {
+			string statIns = ConsoleTrack.NextArg();
+
+			ConsoleTrack.PrepareTabLookup(basePowerCodes, statIns, "Assign a power to the character.");
+
+			if(basePowerCodes.ContainsKey(statIns)) {
+				basePowerCodes[statIns].Invoke();
+				return;
+			}
+		}
+
+		public static readonly Dictionary<string, System.Action> basePowerCodes = new Dictionary<string, System.Action>() {
+			{ "mobility", ConsolePowers.CheatCodeMobility },
+			{ "weapon", ConsolePowers.CheatCodeWeapon },
+			{ "ranged", ConsolePowers.CheatCodeRanged },
+			{ "wand", ConsolePowers.CheatCodeWand },
+			{ "magic", ConsolePowers.CheatCodeMagic },
+		};
+
 		public static void CheatCodeWeapon() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(weaponCodes, currentIns, "Assign a weapon to the character. Can designate which weapon, if desired.");
+			ConsoleTrack.PrepareTabLookup(weaponCodes, currentIns, "Assign a weapon to the character; e.g. `power weapon spear`");
 
 			if(ConsoleTrack.activate) {
 
@@ -35,7 +54,7 @@ namespace Nexus.GameEngine {
 		public static void CheatCodeRanged() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(rangedWeaponCodes, currentIns, "Assign a ranged weapon to the character. Can designate which weapon, if desired.");
+			ConsoleTrack.PrepareTabLookup(rangedWeaponCodes, currentIns, "Assign a ranged weapon to the character; e.g. `power ranged axe`");
 
 			if(ConsoleTrack.activate) {
 
@@ -67,7 +86,7 @@ namespace Nexus.GameEngine {
 		public static void CheatCodeWand() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(wandWeaponCodes, currentIns, "Assign a wand to the character; e.g. `wand blue`");
+			ConsoleTrack.PrepareTabLookup(wandWeaponCodes, currentIns, "Assign a wand to the character; e.g. `power wand blue`");
 
 			if(ConsoleTrack.activate) {
 
@@ -92,7 +111,7 @@ namespace Nexus.GameEngine {
 		public static void CheatCodeMagic() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(magicCodes, currentIns, "Assign magic power to the character; e.g. `magic fire`");
+			ConsoleTrack.PrepareTabLookup(magicCodes, currentIns, "Assign magic power to the character; e.g. `power magic fire`");
 
 			if(ConsoleTrack.activate) {
 
@@ -118,15 +137,15 @@ namespace Nexus.GameEngine {
 			//{ "necro2", (byte) PowerSubType.Necro2 },
 		};
 
-		public static void CheatCodePower() {
+		public static void CheatCodeMobility() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(powerCodes, currentIns, "Assign magic power to the character; e.g. `magic fire`");
+			ConsoleTrack.PrepareTabLookup(mobilityCodes, currentIns, "Assign mobility power to the character; e.g. `power mobility levitate`");
 
 			if(ConsoleTrack.activate) {
 
-				if(powerCodes.ContainsKey(currentIns)) {
-					byte subType = byte.Parse(powerCodes[currentIns].ToString());
+				if(mobilityCodes.ContainsKey(currentIns)) {
+					byte subType = byte.Parse(mobilityCodes[currentIns].ToString());
 					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
 					return;
 				}
@@ -136,7 +155,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static readonly Dictionary<string, object> powerCodes = new Dictionary<string, object>() {
+		public static readonly Dictionary<string, object> mobilityCodes = new Dictionary<string, object>() {
 			{ "slowfall", (byte) PowerSubType.SlowFall },
 			{ "hover", (byte) PowerSubType.Hover },
 			{ "levitate", (byte) PowerSubType.Levitate },

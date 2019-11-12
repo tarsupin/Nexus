@@ -223,6 +223,25 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
+			// If there was a pipe, split into multiple instructions:
+			if(insText.Contains('|')) {
+				string[] multiInstructions = insText.Split('|');
+
+				// If we're activating the instructions, run all of them.
+				if(ConsoleTrack.activate) {
+					foreach(string ins in multiInstructions) {
+						this.ProcessInstruction(ins);
+					}
+				}
+
+				// If we're not activating the instructions, only run the last pipe (since we only need to identify that one).
+				else {
+					this.ProcessInstruction(multiInstructions.Last());
+				}
+
+				return;
+			}
+
 			// Load Console Track Information
 			ConsoleTrack.LoadInstructionText(cleanText);
 
@@ -246,29 +265,25 @@ namespace Nexus.GameEngine {
 			//// Help
 			//if(currentIns == "help") { /* Explain the help topics */  }
 
-			//// Stats
-			//else if(currentIns == "stat") { Console.CheatCodeStat(); }
-
 			//// Run Movement
 			//else if(currentIns == "teleport") { Console.CheatCodeTeleport(); }
-
-			//// Debug
-			//else if(currentIns == "speed") { Console.DebugSpeed(); }
 		}
 
 		public static readonly Dictionary<string, Action> consoleDict = new Dictionary<string, Action>() {
 			
+			// Debug
+			{ "debug", ConsoleDebug.DebugBase },
+
+			// Character Stats
+			{ "stats", ConsoleStats.CheatCodeStats },
+
 			// Character Equipment
 			{ "suit", ConsoleEquipment.CheatCodeSuit },
 			{ "hat", ConsoleEquipment.CheatCodeHat },
 			{ "head", ConsoleEquipment.CheatCodeHead },
 
 			// Character Powers
-			{ "power", ConsolePowers.CheatCodePower },
-			{ "magic", ConsolePowers.CheatCodeMagic },
-			{ "ranged", ConsolePowers.CheatCodeRanged },
-			{ "weapon", ConsolePowers.CheatCodeWeapon },
-			{ "wand", ConsolePowers.CheatCodeWand },
+			{ "power", ConsolePowers.CheatCodePowers },
 			
 			// Health, Wounds
 			{ "heal", ConsoleWounds.CheatCodeHeal },
@@ -276,20 +291,7 @@ namespace Nexus.GameEngine {
 			{ "invincible", ConsoleWounds.CheatCodeInvincible },
 			{ "wound", ConsoleWounds.CheatCodeWound },
 			{ "kill", ConsoleWounds.CheatCodeKill },
-
-			// Character Stats
-			{ "stats", ConsoleStats.CheatCodeStats },
 		};
-
-		private static void DebugSpeed() {
-			string currentIns = ConsoleTrack.NextArg();
-			if(currentIns == string.Empty) { return; }
-
-			if(currentIns == "normal" || currentIns == "fast") { DebugConfig.SetTickSpeed(DebugTickSpeed.StandardSpeed); }
-			if(currentIns == "slow") { DebugConfig.SetTickSpeed(DebugTickSpeed.HalfSpeed); }
-			if(currentIns == "slower") { DebugConfig.SetTickSpeed(DebugTickSpeed.QuarterSpeed); }
-			if(currentIns == "slowest") { DebugConfig.SetTickSpeed(DebugTickSpeed.EighthSpeed); }
-		}
 
 		private static void CheatCodeTeleport() {
 			string currentIns = ConsoleTrack.NextArg();
