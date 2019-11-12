@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 		public static void DebugMacro() {
 			string currentIns = ConsoleTrack.NextArg();
 
-			ConsoleTrack.PrepareTabLookup(macroCodes, currentIns, "Save a macro to one of the function keys: F1 - F4.");
+			ConsoleTrack.PrepareTabLookup(macroCodes, currentIns, "Save a macro to one of the function keys: F1 - F8.");
 
 			if(macroCodes.ContainsKey(currentIns)) {
 				ConsoleTrack.possibleTabs = "Example: macro f1 \"suit ninja red | hat cowboy\"";
@@ -35,6 +35,10 @@ namespace Nexus.GameEngine {
 				else if(currentIns == "f2") { Systems.settings.input.macroF2 = macroStr; }
 				else if(currentIns == "f3") { Systems.settings.input.macroF3 = macroStr; }
 				else if(currentIns == "f4") { Systems.settings.input.macroF4 = macroStr; }
+				else if(currentIns == "f5") { Systems.settings.input.macroF5 = macroStr; }
+				else if(currentIns == "f6") { Systems.settings.input.macroF6 = macroStr; }
+				else if(currentIns == "f7") { Systems.settings.input.macroF7 = macroStr; }
+				else if(currentIns == "f8") { Systems.settings.input.macroF8 = macroStr; }
 				else { return; }
 
 				// Save the macro into the new settings.
@@ -47,6 +51,10 @@ namespace Nexus.GameEngine {
 			{ "f2", "Assign a macro to the F2 key." },
 			{ "f3", "Assign a macro to the F3 key." },
 			{ "f4", "Assign a macro to the F4 key." },
+			{ "f5", "Assign a macro to the F5 key." },
+			{ "f6", "Assign a macro to the F6 key." },
+			{ "f7", "Assign a macro to the F7 key." },
+			{ "f8", "Assign a macro to the F8 key." },
 		};
 	}
 }
