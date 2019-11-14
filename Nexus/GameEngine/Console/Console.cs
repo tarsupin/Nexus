@@ -320,6 +320,9 @@ namespace Nexus.GameEngine {
 			{ "debug", ConsoleDebug.DebugBase },
 			{ "macro", ConsoleMacro.DebugMacro },
 
+			// Level
+			{ "level", ConsoleLevel.CheatCodeLevel },
+
 			// Character Stats
 			{ "stats", ConsoleStats.CheatCodeStats },
 
@@ -339,25 +342,6 @@ namespace Nexus.GameEngine {
 			{ "kill", ConsoleWounds.CheatCodeKill },
 		};
 
-		private static void CheatCodeTeleport() {
-			string currentIns = ConsoleTrack.NextArg();
-			if(currentIns == string.Empty) { return; }
-
-			int x, y;
-
-			if(currentIns == "coords") {
-				if(ConsoleTrack.instructionList.Count < 4) { return; }
-				x = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileWidth;
-				y = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileHeight;
-			} else {
-				x = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileWidth;
-				y = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileHeight;
-			}
-
-			// Run Teleport
-			Character.Teleport(ConsoleTrack.character, x, y);
-		}
-
 		public static void ScrollConsoleText(sbyte scrollAmount) {
 			Console.lineNum += scrollAmount;
 
@@ -374,6 +358,7 @@ namespace Nexus.GameEngine {
 			else if(Console.lineNum > 0) {
 				Console.lineNum = (sbyte) Math.Min((byte) 5, Console.lineNum);
 				ConsoleTrack.instructionText = Systems.settings.input.consoleDown[Console.lineNum - 1];
+				if(ConsoleTrack.instructionText == null) { ConsoleTrack.instructionText = ""; }
 				ConsoleTrack.PrepareTabLookup(consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + Console.lineNum);
 			}
 

@@ -51,8 +51,6 @@ namespace Nexus.Engine {
 		public static void Draw() {
 			if(!ChatConsole.isVisible) { return; }
 
-			FontClass consoleFont = Systems.fonts.console;
-
 			short bottomPos = (short) (Systems.screen.windowHeight - ChatConsole.fromBottom);
 
 			// Draw Console Background
