@@ -148,13 +148,14 @@ namespace Nexus.GameEngine {
 	public static class Console {
 
 		public static bool isEnabled = true;	// If console is not enabled, no commands can be triggered (even through macros).
-		public static bool isVisible = false;	// Whether or not console is currently visible.
+		public static bool isVisible = false;   // Whether or not console is currently visible.
 
-		public static List<string> consoleLines;		// Tracks each line that's been written
+		public static LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
+		public static sbyte lineNum = 0;
 		public static uint backspaceFrame = 0;
 
 		public static void SetEnabled(bool enable) { Console.isEnabled = enable; if(!enable) { Console.isVisible = false; } }
-		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.isVisible = visible; } else { Console.isVisible = false; } }
+		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.isVisible = visible; Console.lineNum = 0; } else { Console.isVisible = false; } }
 
 		public static void RunTick() {
 			InputClient input = Systems.input;
@@ -195,6 +196,16 @@ namespace Nexus.GameEngine {
 				}
 			}
 
+			// Press Up
+			else if(input.LocalKeyPressed(Keys.Up)) {
+				Console.ScrollConsoleText(-1);
+			}
+
+			// Press Down
+			else if(input.LocalKeyPressed(Keys.Down)) {
+				Console.ScrollConsoleText(1);
+			}
+
 			// Tab
 			else if(input.LocalKeyDown(Keys.Tab)) {
 
@@ -211,26 +222,36 @@ namespace Nexus.GameEngine {
 			else { return; }
 
 			// Process the Instruction
-			Console.ProcessInstruction(ConsoleTrack.instructionText);
-
-			// Cleanup
-			if(ConsoleTrack.activate) {
-				ConsoleTrack.ResetAfterActivation();
-				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
-			}
+			Console.SendCommand(ConsoleTrack.instructionText, false);
 		}
 
-		public static void SendCommand(string insText) {
+		public static void SendCommand(string insText, bool setActivate = true) {
 			if(!Console.isEnabled) { return; }
 
-			ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
+			if(setActivate) { ConsoleTrack.activate = true; } // The instruction is meant to run (rather than just reveal new text hints).
 			ConsoleTrack.instructionText = insText;
 
 			// Process the Instruction
 			Console.ProcessInstruction(ConsoleTrack.instructionText);
 
-			// Cleanup
 			if(ConsoleTrack.activate) {
+
+				// Track Written Lines
+				Console.consoleLines.AddFirst(ConsoleTrack.instructionText);
+
+				// If we're in the console save slots, save the instruction to the appropriate slot:
+				if(Console.lineNum > 0 && Console.lineNum <= 5) {
+					Systems.settings.input.consoleDown[Console.lineNum - 1] = ConsoleTrack.instructionText;
+					Systems.settings.input.SaveSettings();
+				}
+
+				// If there are over 20 lines, remove the last one.
+				if(Console.consoleLines.Count > 20) {
+					Console.consoleLines.RemoveLast();
+				}
+
+				// Cleanup
+				Console.lineNum = 0;
 				ConsoleTrack.ResetAfterActivation();
 				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 			}
@@ -337,6 +358,32 @@ namespace Nexus.GameEngine {
 			Character.Teleport(ConsoleTrack.character, x, y);
 		}
 
+		public static void ScrollConsoleText(sbyte scrollAmount) {
+			Console.lineNum += scrollAmount;
+
+			// If the scroll is less than 0, we're in the Console UP set:
+			if(Console.lineNum < 0) {
+				byte num = (byte) Math.Abs(Console.lineNum);
+
+				if(num > Console.consoleLines.Count) { num = (byte) Console.consoleLines.Count; }
+				ConsoleTrack.instructionText = num > 0 ? Console.consoleLines.ElementAt(num - 1) : "";
+				Console.lineNum = (sbyte) -num;
+			}
+
+			// If the scroll value is greater than 0, we're in the Console DOWN set:
+			else if(Console.lineNum > 0) {
+				Console.lineNum = (sbyte) Math.Min((byte) 5, Console.lineNum);
+				ConsoleTrack.instructionText = Systems.settings.input.consoleDown[Console.lineNum - 1];
+				ConsoleTrack.PrepareTabLookup(consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + Console.lineNum);
+			}
+
+			// If the scroll value is 0, we've returned to the default / entry point for the Console line:
+			else {
+				ConsoleTrack.instructionText = "";
+				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+			}
+		}
+
 		public static void Draw() {
 			if(!Console.isVisible) { return; }
 
@@ -369,6 +416,9 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.possibleTabs.Length > 0) {
 				consoleFont.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.windowHeight - 60, Color.DarkTurquoise);
 			}
+
+			// Draw Chat Console, if applicable.
+			ChatConsole.Draw();
 		}
 	}
 }

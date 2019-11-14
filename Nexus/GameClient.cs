@@ -62,6 +62,11 @@ namespace Nexus
 			SceneTransition.ToLevel("", "QCALQOD16");
 			Systems.camera.CenterAtPosition(1200, 0);
 
+			// TODO CLEANUP: REMOVE THIS
+			ChatConsole.SendMessage("debug", "This is just a debug message.", Color.DarkSeaGreen);
+			ChatConsole.SendMessage("debug", "Once upon a time there was a long message, and it was split into multiple lines across the console screen.", Color.DarkSalmon);
+			ChatConsole.SendMessage("debug", "Why do I write silly things?", Color.DarkTurquoise);
+
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(Systems.handler.level.data.id);
 		}
