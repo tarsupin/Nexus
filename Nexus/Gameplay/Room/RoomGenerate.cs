@@ -145,7 +145,9 @@ namespace Nexus.Gameplay {
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
 
-				if(gridY > yCount) { yCount = gridY; }
+				if(gridY > yCount) {
+					yCount = gridY;
+				}
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {

@@ -153,8 +153,11 @@ namespace Nexus.GameEngine {
 			int startX = Math.Max(0, cam.GridX);
 			int startY = Math.Max(0, cam.GridY);
 
-			ushort gridX = (ushort) (startX + 29 + 1); // The +1 is because we need the edge to render at all times.
-			ushort gridY = (ushort) (startY + 16);
+			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
+			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
+
+			if(gridX > this.tilemap.XCount) { gridX = this.tilemap.XCount; } // Must limit to room size (due to the +1)
+			if(gridY > this.tilemap.YCount) { gridY = this.tilemap.YCount; } // Must limit to room size (due to the +1)
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();

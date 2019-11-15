@@ -1,7 +1,5 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.Objects;
 
 // CollideTile handles collision detection between objects and tiles.
 

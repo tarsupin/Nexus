@@ -54,11 +54,11 @@ namespace Nexus.Engine {
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
-			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight);
+			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth + (byte) TilemapEnum.TileWidth; ;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight) + (byte) TilemapEnum.TileHeight;
 		}
 
-		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
+		private void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
 			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left, this.posX));
 			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top, this.posY));
 		}

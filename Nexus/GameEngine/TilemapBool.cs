@@ -24,8 +24,8 @@ namespace Nexus.GameEngine {
 			// Sizing
 			this.XCount = xCount;
 			this.YCount = yCount;
-			this.Width = xCount * (ushort) TilemapEnum.TileWidth;
-			this.Height = yCount * (ushort) TilemapEnum.TileWidth;
+			this.Width = xCount * (byte) TilemapEnum.TileWidth;
+			this.Height = yCount * (byte) TilemapEnum.TileHeight;
 
 			// Data
 			this.ids = new Dictionary<uint, TileGameObject>();
