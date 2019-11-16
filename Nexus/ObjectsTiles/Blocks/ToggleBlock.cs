@@ -9,7 +9,7 @@ namespace Nexus.Objects {
 		public string Texture;
 		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
 
-		public ToggleBlock(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		public ToggleBlock(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

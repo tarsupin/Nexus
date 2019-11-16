@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected string Texture;
 
-		protected PlatformRight(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		protected PlatformRight(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

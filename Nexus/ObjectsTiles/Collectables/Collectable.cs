@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Collectable(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		public Collectable(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

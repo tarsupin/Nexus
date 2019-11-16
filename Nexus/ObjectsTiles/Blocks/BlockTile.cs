@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class BlockTile : TileGameObject {
 
-		public BlockTile(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		public BlockTile(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

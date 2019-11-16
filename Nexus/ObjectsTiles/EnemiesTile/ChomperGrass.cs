@@ -8,15 +8,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.ChomperGrass)) {
+			if(!room.IsTileGameObjectRegistered((byte)TileEnum.ChomperGrass)) {
 				new ChomperGrass(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.ChomperGrass, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.ChomperGrass, subTypeId);
 		}
 
-		private ChomperGrass(RoomScene room) : base(room, TileGameObjectId.ChomperGrass) {
+		private ChomperGrass(RoomScene room) : base(room, TileEnum.ChomperGrass) {
 			this.SpriteName = "Chomper/Grass/Chomp";
 			this.KnockoutName = "Particles/Chomp/Grass";
 		}

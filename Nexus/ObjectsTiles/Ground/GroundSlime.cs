@@ -8,15 +8,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.GroundSlime)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.GroundSlime)) {
 				new GroundSlime(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.GroundSlime, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.GroundSlime, subTypeId);
 		}
 
-		public GroundSlime(RoomScene room) : base(room, TileGameObjectId.GroundSlime) {
+		public GroundSlime(RoomScene room) : base(room, TileEnum.GroundSlime) {
 			this.BuildTextures("Slime/");
 		}
 	}

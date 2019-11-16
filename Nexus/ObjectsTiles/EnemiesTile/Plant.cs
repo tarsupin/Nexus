@@ -17,15 +17,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.Plant)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.Plant)) {
 				new Plant(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.Plant, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.Plant, subTypeId);
 		}
 
-		public Plant(RoomScene room) : base(room, TileGameObjectId.Plant, AtlasGroup.Tiles) {
+		public Plant(RoomScene room) : base(room, TileEnum.Plant, AtlasGroup.Tiles) {
 			this.collides = true;
 			this.CreateTextures();
 		}

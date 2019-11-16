@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class DecorVeg : Decor {
 
-		public enum VegSubType {
+		public enum VegSubType : byte {
 			Grass1 = 0,
 			Grass2 = 1,
 			Plant1 = 2,
@@ -27,15 +27,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.DecorVeg)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.DecorVeg)) {
 				new DecorVeg(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.DecorVeg, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.DecorVeg, subTypeId);
 		}
 
-		public DecorVeg(RoomScene room) : base(room, TileGameObjectId.DecorVeg) {
+		public DecorVeg(RoomScene room) : base(room, TileEnum.DecorVeg) {
 			this.BuildTextures();
 		}
 

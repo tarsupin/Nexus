@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class PromptIcon : Decor {
 
-		public enum IconSubType {
+		public enum IconSubType : byte {
 			Aim = 0,
 			Burst = 1,
 			Cast = 2,
@@ -35,15 +35,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.PromptIcon)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.PromptIcon)) {
 				new PromptIcon(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.PromptIcon, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.PromptIcon, subTypeId);
 		}
 
-		public PromptIcon(RoomScene room) : base(room, TileGameObjectId.PromptIcon) {
+		public PromptIcon(RoomScene room) : base(room, TileEnum.PromptIcon) {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

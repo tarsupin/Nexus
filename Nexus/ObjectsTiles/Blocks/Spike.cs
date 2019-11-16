@@ -15,15 +15,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.Spike)) {
+			if(!room.IsTileGameObjectRegistered((byte)TileEnum.Spike)) {
 				new Spike(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.Spike, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.Spike, subTypeId);
 		}
 
-		public Spike(RoomScene room) : base(room, TileGameObjectId.Spike) {
+		public Spike(RoomScene room) : base(room, TileEnum.Spike) {
 			this.CreateTextures();
 		}
 

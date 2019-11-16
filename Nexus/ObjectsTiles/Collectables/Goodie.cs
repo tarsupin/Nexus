@@ -38,15 +38,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectableGoodie)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.Goodie)) {
 				new Goodie(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectableGoodie, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.Goodie, subTypeId);
 		}
 
-		public Goodie(RoomScene room) : base(room, TileGameObjectId.CollectableGoodie) {
+		public Goodie(RoomScene room) : base(room, TileEnum.Goodie) {
 			this.CreateTextures();
 		}
 

@@ -12,15 +12,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.PlatformFixed)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.PlatformFixed)) {
 				new PlatformFixed(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.PlatformFixed, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.PlatformFixed, subTypeId);
 		}
 
-		public PlatformFixed(RoomScene room) : base(room, TileGameObjectId.PlatformFixed, AtlasGroup.Tiles) {
+		public PlatformFixed(RoomScene room) : base(room, TileEnum.PlatformFixed, AtlasGroup.Tiles) {
 			this.collides = true;
 			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");

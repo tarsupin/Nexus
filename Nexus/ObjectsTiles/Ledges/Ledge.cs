@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Ledge(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		public Ledge(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

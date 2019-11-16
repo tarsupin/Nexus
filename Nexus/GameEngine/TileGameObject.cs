@@ -35,10 +35,10 @@ namespace Nexus.GameEngine {
 		public bool collides;           // TRUE if this tile allows collisions.
 		//public bool subTypeCollision;	// TRUE if subtypes are relevant for collisions.
 
-		public TileGameObject(RoomScene room, TileGameObjectId classId, AtlasGroup atlasGroup) {
+		public TileGameObject(RoomScene room, TileEnum classId, AtlasGroup atlasGroup) {
 			this.room = room;
 			this.atlas = Systems.mapper.atlas[(byte) atlasGroup];
-			room.RegisterClassGameObject(classId, this);
+			room.RegisterTileGameObject(classId, this);
 		}
 
 		public virtual void UpdateParams( JObject paramList ) {

@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class DecorItems : Decor {
 
-		public enum CrysSubType {
+		public enum CrysSubType : byte {
 			Pot = 0,
 			Tomb = 1,
 			Gem1 = 2,
@@ -17,15 +17,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.DecorItems)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.DecorItems)) {
 				new DecorItems(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.DecorItems, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.DecorItems, subTypeId);
 		}
 
-		public DecorItems(RoomScene room) : base(room, TileGameObjectId.DecorItems) {
+		public DecorItems(RoomScene room) : base(room, TileEnum.DecorItems) {
 			this.BuildTextures();
 		}
 

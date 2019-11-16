@@ -20,24 +20,24 @@ namespace Nexus.Objects {
 				case (byte) GroundSubTypes.V1:
 
 					// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-					if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrass)) {
+					if(!room.IsTileGameObjectRegistered((byte)TileEnum.LedgeGrass)) {
 						new LedgeGrass(room);
 					}
 
-					room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrass, subTypeId);
+					room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.LedgeGrass, subTypeId);
 					return;
 			}
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.LedgeGrassDecor)) {
+			if(!room.IsTileGameObjectRegistered((byte)TileEnum.LedgeGrassDecor)) {
 				new LedgeGrassDecor(room);
 			}
 
 			// Add to Ledge Grass Decor (no collisions, no facing).
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.LedgeGrassDecor, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.LedgeGrassDecor, subTypeId);
 		}
 
-		public LedgeGrass(RoomScene room) : base(room, TileGameObjectId.LedgeGrass) {
+		public LedgeGrass(RoomScene room) : base(room, TileEnum.LedgeGrass) {
 			this.BuildTextures("GrassLedge/");
 		}
 	}

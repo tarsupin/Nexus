@@ -2,7 +2,7 @@
 namespace Nexus.Gameplay {
 
 	// Character Action Classes; maps with ID
-	public enum CharacterActionId {
+	public enum CharacterActionId : byte {
 
 		None,
 
@@ -30,9 +30,5 @@ namespace Nexus.Gameplay {
 		
 		Charge,
 		HopUp,
-	}
-
-	// Enemy Action Classes; maps with ID
-	public enum EnemyActionId {
 	}
 }

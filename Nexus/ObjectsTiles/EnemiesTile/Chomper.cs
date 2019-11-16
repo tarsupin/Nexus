@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 		protected string SpriteName;	// The base name for the texture.
 		protected string KnockoutName;	// The particle texture string to use when it's knocked out.
 
-		protected Chomper(RoomScene room, TileGameObjectId classId) : base(room, classId, AtlasGroup.Tiles) {
+		protected Chomper(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
 			this.collides = true;
 		}
 

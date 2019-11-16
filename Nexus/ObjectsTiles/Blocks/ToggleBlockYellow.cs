@@ -12,15 +12,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.ToggleBlockYellow)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.ToggleBlockYellow)) {
 				new ToggleBlockYellow(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.ToggleBlockYellow, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.ToggleBlockYellow, subTypeId);
 		}
 
-		public ToggleBlockYellow(RoomScene room) : base(room, TileGameObjectId.ToggleBlockYellow) {
+		public ToggleBlockYellow(RoomScene room) : base(room, TileEnum.ToggleBlockYellow) {
 			this.Texture = "/Yellow/Block";
 		}
 	}

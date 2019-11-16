@@ -27,7 +27,7 @@ namespace Nexus.GameEngine {
 		// Level Data
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<byte, TileGameObject> tileObjects;
+		public Dictionary<byte, TileGameObject> tileObjects;						// Tracks the tiles in the room (1 class per type)
 
 		public RoomFlags flags = new RoomFlags();
 
@@ -79,14 +79,9 @@ namespace Nexus.GameEngine {
 
 		}
 
-		// Class Game Objects
-		public bool IsClassGameObjectRegistered( byte classId ) {
-			return tileObjects.ContainsKey(classId);
-		}
-
-		public void RegisterClassGameObject(TileGameObjectId classId, TileGameObject cgo ) {
-			tileObjects[(byte) classId] = cgo;
-		}
+		// Tile Game Objects
+		public bool IsTileGameObjectRegistered( byte classId ) { return tileObjects.ContainsKey(classId); }
+		public void RegisterTileGameObject( TileEnum classId, TileGameObject cgo ) { tileObjects[(byte) classId] = cgo; }
 
 		public override void RunTick() {
 

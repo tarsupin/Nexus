@@ -10,15 +10,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.CollectablePower)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.CollectablePower)) {
 				new CollectablePower(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.CollectablePower, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.CollectablePower, subTypeId);
 		}
 
-		public CollectablePower(RoomScene room) : base(room, TileGameObjectId.CollectablePower) {
+		public CollectablePower(RoomScene room) : base(room, TileEnum.CollectablePower) {
 			this.CreateTextures();
 		}
 

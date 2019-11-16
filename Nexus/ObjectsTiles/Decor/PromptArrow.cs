@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class PromptArrow : Decor {
 
-		public enum ArrowSubType {
+		public enum ArrowSubType : byte {
 			Arrow = 0,
 			Finger = 1,
 		}
@@ -14,15 +14,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte)TileGameObjectId.PromptArrow)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.PromptArrow)) {
 				new PromptArrow(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileGameObjectId.PromptArrow, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.PromptArrow, subTypeId);
 		}
 
-		public PromptArrow(RoomScene room) : base(room, TileGameObjectId.PromptArrow) {
+		public PromptArrow(RoomScene room) : base(room, TileEnum.PromptArrow) {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 		}

@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class LedgeGrassDecor : Decor {
 
-		public LedgeGrassDecor(RoomScene room) : base(room, TileGameObjectId.LedgeGrassDecor) {
+		public LedgeGrassDecor(RoomScene room) : base(room, TileEnum.LedgeGrassDecor) {
 			this.BuildTextures("GrassLedge/");
 		}
 

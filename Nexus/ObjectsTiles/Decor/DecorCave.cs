@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class DecorCave : Decor {
 
-		public enum CaveSubType {
+		public enum CaveSubType : byte {
 			Bulge1 = 0,
 			Bulge2 = 1,
 			Bulge3 = 2,
@@ -24,15 +24,15 @@ namespace Nexus.Objects {
 		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
 			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsClassGameObjectRegistered((byte) TileGameObjectId.DecorCave)) {
+			if(!room.IsTileGameObjectRegistered((byte) TileEnum.DecorCave)) {
 				new DecorCave(room);
 			}
 
 			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileGameObjectId.DecorCave, subTypeId);
+			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.DecorCave, subTypeId);
 		}
 
-		public DecorCave(RoomScene room) : base(room, TileGameObjectId.DecorCave) {
+		public DecorCave(RoomScene room) : base(room, TileEnum.DecorCave) {
 			this.BuildTextures();
 		}
 
