@@ -189,78 +189,78 @@ namespace Nexus.Gameplay {
 		public Dictionary<byte, Type> ObjectMap = new Dictionary<byte, Type>() {
 
 			// Platforms (1 - 4)
-			{ 1, Type.GetType("Nexus.Objects.PlatformDip") },
-			{ 2, Type.GetType("Nexus.Objects.PlatformDelay") },
-			{ 3, Type.GetType("Nexus.Objects.PlatformFall") },
-			{ 4, Type.GetType("Nexus.Objects.PlatformMove") },
+			{ (byte) ObjectEnum.PlatformDip, Type.GetType("Nexus.Objects.PlatformDip") },
+			{ (byte) ObjectEnum.PlatformDelay, Type.GetType("Nexus.Objects.PlatformDelay") },
+			{ (byte) ObjectEnum.PlatformFall, Type.GetType("Nexus.Objects.PlatformFall") },
+			{ (byte) ObjectEnum.PlatformMove, Type.GetType("Nexus.Objects.PlatformMove") },
 			
 			// Tracks (5 - 9)
-			{ 5, Type.GetType("Nexus.Objects.Cluster") },
-			{ 6, Type.GetType("Nexus.Objects.Track") },
+			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
+			{ (byte) ObjectEnum.Track, Type.GetType("Nexus.Objects.Track") },
 			
 			// Land & Fixed Enemies (10 - 39)
-			{ 10, Type.GetType("Nexus.Objects.Moosh") },
-			{ 11, Type.GetType("Nexus.Objects.Shroom") },
-			{ 12, Type.GetType("Nexus.Objects.Bug") },
-			{ 13, Type.GetType("Nexus.Objects.Goo") },
-			{ 14, Type.GetType("Nexus.Objects.Liz") },
-			{ 15, Type.GetType("Nexus.Objects.Snek") },
-			{ 16, Type.GetType("Nexus.Objects.Wurm") },
-			{ 17, Type.GetType("Nexus.Objects.Octo") },
-			{ 18, Type.GetType("Nexus.Objects.Bones") },
+			{ (byte) ObjectEnum.Moosh, Type.GetType("Nexus.Objects.Moosh") },
+			{ (byte) ObjectEnum.Shroom, Type.GetType("Nexus.Objects.Shroom") },
+			{ (byte) ObjectEnum.Bug, Type.GetType("Nexus.Objects.Bug") },
+			{ (byte) ObjectEnum.Goo, Type.GetType("Nexus.Objects.Goo") },
+			{ (byte) ObjectEnum.Liz, Type.GetType("Nexus.Objects.Liz") },
+			{ (byte) ObjectEnum.Snek, Type.GetType("Nexus.Objects.Snek") },
+			{ (byte) ObjectEnum.Wurm, Type.GetType("Nexus.Objects.Wurm") },
+			{ (byte) ObjectEnum.Octo, Type.GetType("Nexus.Objects.Octo") },
+			{ (byte) ObjectEnum.Bones, Type.GetType("Nexus.Objects.Bones") },
 
-			{ 20, Type.GetType("Nexus.Objects.Turtle") },
-			{ 21, Type.GetType("Nexus.Objects.Snail") },
-			{ 22, Type.GetType("Nexus.Objects.Boom") },
+			{ (byte) ObjectEnum.Turtle, Type.GetType("Nexus.Objects.Turtle") },
+			{ (byte) ObjectEnum.Snail, Type.GetType("Nexus.Objects.Snail") },
+			{ (byte) ObjectEnum.Boom, Type.GetType("Nexus.Objects.Boom") },
 
-			{ 25, Type.GetType("Nexus.Objects.Poke") },
-			{ 26, Type.GetType("Nexus.Objects.Lich") },
+			{ (byte) ObjectEnum.Poke, Type.GetType("Nexus.Objects.Poke") },
+			{ (byte) ObjectEnum.Lich, Type.GetType("Nexus.Objects.Lich") },
 
-			{ 30, Type.GetType("Nexus.Objects.Chomper") },
-			{ 31, Type.GetType("Nexus.Objects.ChomperFire") },
-			{ 32, Type.GetType("Nexus.Objects.Plant") },
+			{ (byte) ObjectEnum.Chomper, Type.GetType("Nexus.Objects.Chomper") },
+			{ (byte) ObjectEnum.ChomperFire, Type.GetType("Nexus.Objects.ChomperFire") },
+			{ (byte) ObjectEnum.Plant, Type.GetType("Nexus.Objects.Plant") },
 
 			// Flight Enemies (40 - 69)
-			{ 40, Type.GetType("Nexus.Objects.Ghost") },
-			{ 41, Type.GetType("Nexus.Objects.FlairElectric") },
-			{ 42, Type.GetType("Nexus.Objects.FlairFire") },
-			{ 43, Type.GetType("Nexus.Objects.FlairMagic") },
+			{ (byte) ObjectEnum.Ghost, Type.GetType("Nexus.Objects.Ghost") },
+			{ (byte) ObjectEnum.FlairElectric, Type.GetType("Nexus.Objects.FlairElectric") },
+			{ (byte) ObjectEnum.FlairFire, Type.GetType("Nexus.Objects.FlairFire") },
+			{ (byte) ObjectEnum.FlairMagic, Type.GetType("Nexus.Objects.FlairMagic") },
 
-			{ 45, Type.GetType("Nexus.Objects.ElementalAir") },
-			{ 46, Type.GetType("Nexus.Objects.ElementalEarth") },
-			{ 47, Type.GetType("Nexus.Objects.ElementalFire") },
+			{ (byte) ObjectEnum.ElementalAir, Type.GetType("Nexus.Objects.ElementalAir") },
+			{ (byte) ObjectEnum.ElementalEarth, Type.GetType("Nexus.Objects.ElementalEarth") },
+			{ (byte) ObjectEnum.ElementalFire, Type.GetType("Nexus.Objects.ElementalFire") },
 
-			{ 48, Type.GetType("Nexus.Objects.Buzz") },
+			{ (byte) ObjectEnum.Buzz, Type.GetType("Nexus.Objects.Buzz") },
 
-			{ 60, Type.GetType("Nexus.Objects.Saw") },
-			{ 61, Type.GetType("Nexus.Objects.Slammer") },
-			{ 62, Type.GetType("Nexus.Objects.ElementalEye") },
-			{ 63, Type.GetType("Nexus.Objects.WallBouncer") },
+			{ (byte) ObjectEnum.Saw, Type.GetType("Nexus.Objects.Saw") },
+			{ (byte) ObjectEnum.Slammer, Type.GetType("Nexus.Objects.Slammer") },
+			{ (byte) ObjectEnum.ElementalEye, Type.GetType("Nexus.Objects.ElementalEye") },
+			{ (byte) ObjectEnum.WallBouncer, Type.GetType("Nexus.Objects.WallBouncer") },
 
-			{ 65, Type.GetType("Nexus.Objects.Dire") },
+			{ (byte) ObjectEnum.Dire, Type.GetType("Nexus.Objects.Dire") },
 
 			// Items, Fixed (70 - 79)
-			{ 70, Type.GetType("Nexus.Objects.SpringFixed") },
-			{ 71, Type.GetType("Nexus.Objects.ButtonFixed") },
+			{ (byte) ObjectEnum.SpringFixed, Type.GetType("Nexus.Objects.SpringFixed") },
+			{ (byte) ObjectEnum.ButtonFixed, Type.GetType("Nexus.Objects.ButtonFixed") },
 
 			// Items, Mobile (80 - 99)
-			{ 80, Type.GetType("Nexus.Objects.Shell") },
-			{ 81, Type.GetType("Nexus.Objects.Boulder") },
-			{ 82, Type.GetType("Nexus.Objects.Bomb") },
+			{ (byte) ObjectEnum.Shell, Type.GetType("Nexus.Objects.Shell") },
+			{ (byte) ObjectEnum.Boulder, Type.GetType("Nexus.Objects.Boulder") },
+			{ (byte) ObjectEnum.Bomb, Type.GetType("Nexus.Objects.Bomb") },
 
-			{ 85, Type.GetType("Nexus.Objects.TNT") },
+			{ (byte) ObjectEnum.TNT, Type.GetType("Nexus.Objects.TNT") },
 
-			{ 90, Type.GetType("Nexus.Objects.SpringStandard") },
-			{ 91, Type.GetType("Nexus.Objects.ButtonStandard") },
-			{ 92, Type.GetType("Nexus.Objects.ButtonTimed") },
+			{ (byte) ObjectEnum.SpringStandard, Type.GetType("Nexus.Objects.SpringStandard") },
+			{ (byte) ObjectEnum.ButtonStandard, Type.GetType("Nexus.Objects.ButtonStandard") },
+			{ (byte) ObjectEnum.ButtonTimed, Type.GetType("Nexus.Objects.ButtonTimed") },
 
-			{ 95, Type.GetType("Nexus.Objects.MobileBlockBlue") },
-			{ 96, Type.GetType("Nexus.Objects.MobileBlockRed") },
-			{ 97, Type.GetType("Nexus.Objects.MobileBlockGreen") },
-			{ 98, Type.GetType("Nexus.Objects.MobileBlockYellow") },
+			{ (byte) ObjectEnum.MobileBlockBlue, Type.GetType("Nexus.Objects.MobileBlockBlue") },
+			{ (byte) ObjectEnum.MobileBlockRed, Type.GetType("Nexus.Objects.MobileBlockRed") },
+			{ (byte) ObjectEnum.MobileBlockGreen, Type.GetType("Nexus.Objects.MobileBlockGreen") },
+			{ (byte) ObjectEnum.MobileBlockYellow, Type.GetType("Nexus.Objects.MobileBlockYellow") },
 
 			// Special Flags and Placements (100+)
-			{ 100, Type.GetType("Nexus.Objects.Character") },
+			{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },
 		};
 	}
 }
