@@ -48,6 +48,8 @@ namespace Nexus.Objects {
 
 				if(this.State == ActorState.Move || this.State == ActorState.MotionEnd || this.State == ActorState.Wait) {
 					if(this.FaceRight) { this.WalkRight(); } else { this.WalkLeft(); }
+
+					// TODO FIX: This apparently broke (this.animate was set to null, and subtype was set to 0 (brown). shouldn't have occurred; can't recreate bug)
 					this.animate.SetAnimation("Moosh/" + (this.subType == (byte) MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 				}
 

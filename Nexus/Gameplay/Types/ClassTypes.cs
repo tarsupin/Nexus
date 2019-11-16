@@ -30,7 +30,7 @@ namespace Nexus.Gameplay {
 		PlatformFixed = 25,
 		PlatformItem = 26,
 
-		// Decorations, Prompts (30 - 39)
+		// Decor, Prompts (30 - 39)
 		DecorVeg = 30,
 		DecorDesert = 31,
 		DecorCave = 32,

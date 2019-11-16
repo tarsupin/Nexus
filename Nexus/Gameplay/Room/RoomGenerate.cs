@@ -64,7 +64,7 @@ namespace Nexus.Gameplay {
 
 			// Identify Tile Class Type, If Applicable
 			Type classType;
-			bool hasType = useForeground ? mapper.FGTileMap.TryGetValue(type, out classType) : mapper.TileMap.TryGetValue(type, out classType);
+			bool hasType = mapper.TileMap.TryGetValue(type, out classType);
 			if(!hasType || classType == null) { return; }
 
 			// If there is a "TileGenerate" method, run its special generation rules:

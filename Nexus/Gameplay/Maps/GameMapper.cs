@@ -94,109 +94,97 @@ namespace Nexus.Gameplay {
 		public Dictionary<byte, Type> TileMap = new Dictionary<byte, Type>() {
 			
 			// Ground, Immutable (0 - 9)
-			{ 1, Type.GetType("Nexus.Objects.GroundGrass") },
-			{ 2, Type.GetType("Nexus.Objects.GroundDirt") },
-			{ 3, Type.GetType("Nexus.Objects.GroundMud") },
-			{ 4, Type.GetType("Nexus.Objects.GroundStone") },
-			{ 5, Type.GetType("Nexus.Objects.GroundSnow") },
-			{ 6, Type.GetType("Nexus.Objects.GroundSlime") },
-			{ 7, Type.GetType("Nexus.Objects.GroundCloud") },
+			{ (byte) TileEnum.GroundGrass, Type.GetType("Nexus.Objects.GroundGrass") },
+			{ (byte) TileEnum.GroundDirt, Type.GetType("Nexus.Objects.GroundDirt") },
+			{ (byte) TileEnum.GroundMud, Type.GetType("Nexus.Objects.GroundMud") },
+			{ (byte) TileEnum.GroundStone, Type.GetType("Nexus.Objects.GroundStone") },
+			{ (byte) TileEnum.GroundSnow, Type.GetType("Nexus.Objects.GroundSnow") },
+			{ (byte) TileEnum.GroundSlime, Type.GetType("Nexus.Objects.GroundSlime") },
+			{ (byte) TileEnum.GroundCloud, Type.GetType("Nexus.Objects.GroundCloud") },
 			
 			// Ground-Esque, Immutable (10 - 19)
-			{ 10, Type.GetType("Nexus.Objects.Wall") },
-			{ 11, Type.GetType("Nexus.Objects.Log") },
+			{ (byte) TileEnum.Wall, Type.GetType("Nexus.Objects.Wall") },
+			{ (byte) TileEnum.Log, Type.GetType("Nexus.Objects.Log") },
 			
 			// Ledges (20 - 29)
-			{ 20, Type.GetType("Nexus.Objects.LedgeGrass") },
-			{ 25, Type.GetType("Nexus.Objects.PlatformFixed") },
-			{ 26, Type.GetType("Nexus.Objects.PlatformItem") },
+			{ (byte) TileEnum.LedgeGrass, Type.GetType("Nexus.Objects.LedgeGrass") },
+			{ (byte) TileEnum.PlatformFixed, Type.GetType("Nexus.Objects.PlatformFixed") },
+			{ (byte) TileEnum.PlatformItem, Type.GetType("Nexus.Objects.PlatformItem") },
 			
-			// Reserved (30 - 39)
+			// Decor, Prompts (30 - 39)
+			{ (byte) TileEnum.DecorVeg, Type.GetType("Nexus.Objects.DecorVeg") },
+			{ (byte) TileEnum.DecorDesert, Type.GetType("Nexus.Objects.DecorDesert") },
+			{ (byte) TileEnum.DecorCave, Type.GetType("Nexus.Objects.DecorCave") },
+			{ (byte) TileEnum.DecorWater, Type.GetType("Nexus.Objects.DecorWater") },
+			{ (byte) TileEnum.DecorPet, Type.GetType("Nexus.Objects.DecorPet") },
+			{ (byte) TileEnum.DecorItems, Type.GetType("Nexus.Objects.DecorItems") },
+			{ (byte) TileEnum.PromptArrow, Type.GetType("Nexus.Objects.PromptArrow") },
+			{ (byte) TileEnum.PromptIcon, Type.GetType("Nexus.Objects.PromptSign") },
+
+			// Background Interactives (These Collide)
+			{ (byte) TileEnum.BGDisable, Type.GetType("Nexus.Objects.BGDisable") },
+			{ (byte) TileEnum.BGTap, Type.GetType("Nexus.Objects.BGTap") },
+			{ (byte) TileEnum.BGWind, Type.GetType("Nexus.Objects.BGWind") },
 
 			// Fixed, Touch-Effect (40 - 49)
-			{ 40, Type.GetType("Nexus.Objects.Brick") },
-			{ 41, Type.GetType("Nexus.Objects.Box") },
-			{ 42, Type.GetType("Nexus.Objects.Lock") },
-			{ 43, Type.GetType("Nexus.Objects.Leaf") },
-			{ 44, Type.GetType("Nexus.Objects.ExclaimBlock") },
+			{ (byte) TileEnum.Brick, Type.GetType("Nexus.Objects.Brick") },
+			{ (byte) TileEnum.Box, Type.GetType("Nexus.Objects.Box") },
+			{ (byte) TileEnum.Lock, Type.GetType("Nexus.Objects.Lock") },
+			{ (byte) TileEnum.Leaf, Type.GetType("Nexus.Objects.Leaf") },
+			{ (byte) TileEnum.ExclaimBlock, Type.GetType("Nexus.Objects.ExclaimBlock") },
 			// ...
-			{ 46, Type.GetType("Nexus.Objects.Spike") },
-			{ 47, Type.GetType("Nexus.Objects.PuffBlock") },
-			{ 48, Type.GetType("Nexus.Objects.Conveyor") },
+			{ (byte) TileEnum.Spike, Type.GetType("Nexus.Objects.Spike") },
+			{ (byte) TileEnum.PuffBlock, Type.GetType("Nexus.Objects.PuffBlock") },
+			{ (byte) TileEnum.Conveyor, Type.GetType("Nexus.Objects.Conveyor") },
 
 			// Solid, Toggled (50 - 55)
-			{ 50, Type.GetType("Nexus.Objects.ToggleBoxBR") },
-			{ 51, Type.GetType("Nexus.Objects.ToggleBoxGY") },
-			{ 52, Type.GetType("Nexus.Objects.ToggleBlockBlue") },
-			{ 53, Type.GetType("Nexus.Objects.ToggleBlockRed") },
-			{ 54, Type.GetType("Nexus.Objects.ToggleBlockGreen") },
-			{ 55, Type.GetType("Nexus.Objects.ToggleBlockYellow") },
+			{ (byte) TileEnum.ToggleBoxBR, Type.GetType("Nexus.Objects.ToggleBoxBR") },
+			{ (byte) TileEnum.ToggleBoxGY, Type.GetType("Nexus.Objects.ToggleBoxGY") },
+			{ (byte) TileEnum.ToggleBlockBlue, Type.GetType("Nexus.Objects.ToggleBlockBlue") },
+			{ (byte) TileEnum.ToggleBlockRed, Type.GetType("Nexus.Objects.ToggleBlockRed") },
+			{ (byte) TileEnum.ToggleBlockGreen, Type.GetType("Nexus.Objects.ToggleBlockGreen") },
+			{ (byte) TileEnum.ToggleBlockYellow, Type.GetType("Nexus.Objects.ToggleBlockYellow") },
 			
 			// Solid, Toggled Platforms (56 - 59)
-			{ 56, Type.GetType("Nexus.Objects.TogglePlatBlue") },
-			{ 57, Type.GetType("Nexus.Objects.TogglePlatRed") },
-			{ 58, Type.GetType("Nexus.Objects.TogglePlatGreen") },
-			{ 59, Type.GetType("Nexus.Objects.TogglePlatYellow") },
+			{ (byte) TileEnum.TogglePlatBlue, Type.GetType("Nexus.Objects.TogglePlatBlue") },
+			{ (byte) TileEnum.TogglePlatRed, Type.GetType("Nexus.Objects.TogglePlatRed") },
+			{ (byte) TileEnum.TogglePlatGreen, Type.GetType("Nexus.Objects.TogglePlatGreen") },
+			{ (byte) TileEnum.TogglePlatYellow, Type.GetType("Nexus.Objects.TogglePlatYellow") },
 
 			// Generators (60 - 64)
-			{ 60, Type.GetType("Nexus.Objects.Cannon") },
-			{ 61, Type.GetType("Nexus.Objects.Placer") },
+			{ (byte) TileEnum.Cannon, Type.GetType("Nexus.Objects.Cannon") },
+			{ (byte) TileEnum.Placer, Type.GetType("Nexus.Objects.Placer") },
 
 			// Reserved (65 - 69)
 			
 			// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
 			
 			// Tile-Based Creatures (70 - 79)
-			{ 70, Type.GetType("Nexus.Objects.Plant") },
-			{ 71, Type.GetType("Nexus.Objects.ChomperGrass") },
-			{ 72, Type.GetType("Nexus.Objects.ChomperMetal") },
-			{ 73, Type.GetType("Nexus.Objects.ChomperFire") },
+			{ (byte) TileEnum.Plant, Type.GetType("Nexus.Objects.Plant") },
+			{ (byte) TileEnum.ChomperGrass, Type.GetType("Nexus.Objects.ChomperGrass") },
+			{ (byte) TileEnum.ChomperMetal, Type.GetType("Nexus.Objects.ChomperMetal") },
+			{ (byte) TileEnum.ChomperFire, Type.GetType("Nexus.Objects.ChomperFire") },
 
 			// Anything below can only be interacted with by a character:
 			// These will have Passive Collision by Character Only.
 
 			// Character Interactives (150 - 159)
-			{ 150, Type.GetType("Nexus.Objects.Flag") },
-			{ 151, Type.GetType("Nexus.Objects.Chest") },
-			{ 152, Type.GetType("Nexus.Objects.NPC") },
-			{ 153, Type.GetType("Nexus.Objects.PeekMap") },
+			{ (byte) TileEnum.Flag, Type.GetType("Nexus.Objects.Flag") },
+			{ (byte) TileEnum.Chest, Type.GetType("Nexus.Objects.Chest") },
+			{ (byte) TileEnum.NPC, Type.GetType("Nexus.Objects.NPC") },
+			{ (byte) TileEnum.PeekMap, Type.GetType("Nexus.Objects.PeekMap") },
 
-			{ 155, Type.GetType("Nexus.Objects.Door") },
-			{ 156, Type.GetType("Nexus.Objects.DoorLock") },
+			{ (byte) TileEnum.Door, Type.GetType("Nexus.Objects.Door") },
+			{ (byte) TileEnum.DoorLock, Type.GetType("Nexus.Objects.DoorLock") },
 			
 			// Collectables (160 - 169)
-			{ 160, Type.GetType("Nexus.Objects.Coins") },
-			{ 161, Type.GetType("Nexus.Objects.Goodie") },
-			{ 162, Type.GetType("Nexus.Objects.CollectableSuit") },
-			{ 163, Type.GetType("Nexus.Objects.CollectableHat") },
-			{ 164, Type.GetType("Nexus.Objects.CollectablePower") },
-			
+			{ (byte) TileEnum.Coins, Type.GetType("Nexus.Objects.Coins") },
+			{ (byte) TileEnum.Goodie, Type.GetType("Nexus.Objects.Goodie") },
+			{ (byte) TileEnum.CollectableSuit, Type.GetType("Nexus.Objects.CollectableSuit") },
+			{ (byte) TileEnum.CollectableHat, Type.GetType("Nexus.Objects.CollectableHat") },
+			{ (byte) TileEnum.CollectablePower, Type.GetType("Nexus.Objects.CollectablePower") },
 		};
 		
-		// List of Foreground Tile Types
-		// This includes decorations, prompts, or tiles that appear in the front.
-		public Dictionary<byte, Type> FGTileMap = new Dictionary<byte, Type>() {
-			
-			// Decor, Terrain (1 - 19)
-			{ 1, Type.GetType("Nexus.Objects.DecorVeg") },
-			{ 2, Type.GetType("Nexus.Objects.DecorDesert") },
-			{ 3, Type.GetType("Nexus.Objects.DecorCave") },
-			{ 4, Type.GetType("Nexus.Objects.DecorWater") },
-
-			// Decor, Misc (20 - 29)
-			{ 20, Type.GetType("Nexus.Objects.DecorPet") },
-			{ 21, Type.GetType("Nexus.Objects.DecorItems") },
-
-			// Prompts (30 - 39)
-			{ 30, Type.GetType("Nexus.Objects.PromptArrow") },
-			{ 31, Type.GetType("Nexus.Objects.PromptSign") },
-
-			// Background Interactives (These Collide)
-			{ 40, Type.GetType("Nexus.Objects.BGDisable") },
-			{ 41, Type.GetType("Nexus.Objects.BGTap") },
-			{ 42, Type.GetType("Nexus.Objects.BGWind") },
-		};
-
 		// List of Game Object Types
 		public Dictionary<byte, Type> ObjectMap = new Dictionary<byte, Type>() {
 
