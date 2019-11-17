@@ -55,7 +55,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddTile(ushort gridX, ushort gridY, byte classId, byte subTypeId ) {
+		public void AddTile( ushort gridX, ushort gridY, byte classId, byte subTypeId ) {
 			uint gridId = this.GetGridID(gridX, gridY);
 			this.ids[gridId] = this.room.tileObjects[classId];
 			this.subTypes[gridId] = subTypeId;

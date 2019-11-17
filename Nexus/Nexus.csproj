@@ -128,8 +128,12 @@
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ObjectPool.cs" />
+    <Compile Include="GameEngine\Scenes\EditorScene.cs" />
+    <Compile Include="GameEngine\Scenes\EditorRoomScene.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
+    <Compile Include="GameEngine\TilemapEditor.cs" />
+    <Compile Include="GameEngine\UIHandlers\EditorUI.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\TilemapBool.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
+    <Compile Include="Gameplay\Editor\EditorRoomGenerate.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
