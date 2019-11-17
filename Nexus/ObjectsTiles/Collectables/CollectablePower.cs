@@ -7,28 +7,18 @@ namespace Nexus.Objects {
 
 	class CollectablePower : Collectable {
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.CollectablePower)) {
-				new CollectablePower(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.CollectablePower, subTypeId);
-		}
-
-		public CollectablePower(RoomScene room) : base(room, TileEnum.CollectablePower) {
+		public CollectablePower() : base() {
 			this.CreateTextures();
+			this.tileId = (byte)TileEnum.CollectablePower;
 		}
 
-		public override void Collect( Character character, uint gridId ) {
+		public override void Collect( RoomScene room, Character character, uint gridId ) {
 
-			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
-			Power.AssignToCharacter(character, subType);
+			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
+			Power.AssignToCharacter(character, tileData[1]);
 
 			Systems.sounds.collectSubtle.Play();
-			base.Collect(character, gridId);
+			base.Collect(room, character, gridId);
 		}
 
 		private void CreateTextures() {

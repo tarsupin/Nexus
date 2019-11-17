@@ -8,12 +8,12 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Ground(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		public Ground() : base() {
 			this.collides = true;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			bool collided = base.RunImpact(actor, gridX, gridY, dir);
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			bool collided = base.RunImpact(room, actor, gridX, gridY, dir);
 
 			if(actor is Character) {
 				TileCharBasicImpact.RunImpact((Character)actor, dir); // Standard Character Tile Collisions
@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			return collided;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 

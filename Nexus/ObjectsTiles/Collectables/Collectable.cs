@@ -14,26 +14,26 @@ namespace Nexus.Objects {
 
 		protected string[] Texture;
 
-		public Collectable(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		public Collectable() : base() {
 			this.collides = true;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			// Characters receive Collectable:
 			if(actor is Character) {
-				uint gridId = this.room.tilemap.GetGridID(gridX, gridY);
-				this.Collect( (Character) actor, gridId );
+				uint gridId = room.tilemap.GetGridID(gridX, gridY);
+				this.Collect( room, (Character) actor, gridId );
 			}
 
 			return false;
 		}
 
-		public virtual void Collect( Character character, uint gridId ) {
-			this.room.tilemap.RemoveTile(gridId);
+		public virtual void Collect( RoomScene room, Character character, uint gridId ) {
+			room.tilemap.RemoveTile(gridId);
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}

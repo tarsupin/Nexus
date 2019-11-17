@@ -28,17 +28,15 @@ namespace Nexus.GameEngine {
 
 	public class TileGameObject {
 
-		public RoomScene room;
 		public Atlas atlas;
+		public byte tileId;
 
 		// Collision Behaviors
 		public bool collides;           // TRUE if this tile allows collisions.
 		//public bool subTypeCollision;	// TRUE if subtypes are relevant for collisions.
 
-		public TileGameObject(RoomScene room, TileEnum classId, AtlasGroup atlasGroup) {
-			this.room = room;
-			this.atlas = Systems.mapper.atlas[(byte) atlasGroup];
-			room.RegisterTileGameObject(classId, this);
+		public TileGameObject() {
+			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 		}
 
 		public virtual void UpdateParams( JObject paramList ) {
@@ -52,11 +50,11 @@ namespace Nexus.GameEngine {
 			// }
 		}
 
-		public virtual void Draw( byte subType, int posX, int posY ) {
+		public virtual void Draw( RoomScene room, byte subType, int posX, int posY ) {
 			//this.atlas.Draw(texture, posX, posY);
 		}
 
-		public virtual bool RunImpact( DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
+		public virtual bool RunImpact( RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			if(actor is EnemyLand) {
@@ -73,8 +71,8 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public void Destroy( ushort gridX, ushort gridY ) {
-			this.room.tilemap.RemoveTileByGrid(gridX, gridY);
+		public void Destroy( RoomScene room, ushort gridX, ushort gridY ) {
+			room.tilemap.RemoveTileByGrid(gridX, gridY);
 		}
 	}
 }

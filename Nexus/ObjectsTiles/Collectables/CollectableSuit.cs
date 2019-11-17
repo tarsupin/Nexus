@@ -7,28 +7,18 @@ namespace Nexus.Objects {
 
 	class CollectableSuit : Collectable {
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.CollectableSuit)) {
-				new CollectableSuit(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.CollectableSuit, subTypeId);
-		}
-
-		public CollectableSuit(RoomScene room) : base(room, TileEnum.CollectableSuit) {
+		public CollectableSuit() : base() {
 			this.CreateTextures();
+			this.tileId = (byte)TileEnum.CollectableSuit;
 		}
 
-		public override void Collect(Character character, uint gridId) {
+		public override void Collect(RoomScene room, Character character, uint gridId) {
 
-			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
-			Suit.AssignToCharacter(character, subType, true);
+			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
+			Suit.AssignToCharacter(character, tileData[1], true);
 
 			Systems.sounds.collectBweep.Play();
-			base.Collect(character, gridId);
+			base.Collect(room, character, gridId);
 		}
 
 		private void CreateTextures() {

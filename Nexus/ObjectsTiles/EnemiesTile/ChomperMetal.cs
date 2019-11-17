@@ -1,27 +1,17 @@
-﻿using Nexus.GameEngine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
+using Nexus.GameEngine;
 
 namespace Nexus.Objects {
 
 	public class ChomperMetal : Chomper {
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte)TileEnum.ChomperMetal)) {
-				new ChomperMetal(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.ChomperMetal, subTypeId);
-		}
-
-		private ChomperMetal(RoomScene room) : base(room, TileEnum.ChomperMetal) {
+		public ChomperMetal() : base() {
 			this.SpriteName = "Chomper/Metal/Chomp";
 			this.KnockoutName = "Particles/Chomp/Metal";
+			this.tileId = (byte)TileEnum.ChomperMetal;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 
 			if(subType == (byte) FacingSubType.FaceUp) {
 				this.atlas.Draw("Chomper/Metal/Chomp1", posX, posY);

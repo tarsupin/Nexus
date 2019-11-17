@@ -7,11 +7,11 @@ namespace Nexus.Objects {
 
 		public string[] Texture;
 
-		public Decor(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		public Decor() : base() {
 			this.collides = false; // Since 'collides' is false, it never runs RunCollision() in base class.
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}

@@ -8,11 +8,11 @@ namespace Nexus.Objects {
 
 		protected string Texture;
 
-		protected PlatformLeft(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		protected PlatformLeft() : base() {
 			this.collides = true;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Left);
 
 			if(collided && actor is Character) {
@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			return collided;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.DrawFaceLeft(this.Texture, posX, posY);
 		}
 	}

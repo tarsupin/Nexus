@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.ObjectComponents;
+using Nexus.Objects;
 using System;
 using System.Collections.Generic;
 
@@ -40,8 +42,8 @@ namespace Nexus.Gameplay {
 
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
-		// TileMap, FGTileMap, ObjectMap
-		
+		public Dictionary<byte, TileGameObject> TileMap;
+
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
 			// Create Atlas List
@@ -88,10 +90,107 @@ namespace Nexus.Gameplay {
 			MetaList[MetaGroup.Projectile] = new IMetaData(Arch.Projectile, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.None, LayerEnum.Main, LoadOrder.Projectile); // LoadOrder.Interactives
 		}
 
+		public void PostLoad() {
+
+			// Map of Tile Classes
+			this.TileMap = new Dictionary<byte, TileGameObject>() {
+				
+				// Ground, Immutable (0 - 9)
+				{ (byte) TileEnum.GroundGrass, new GroundGrass() },
+				//{ (byte) TileEnum.GroundDirt, new GroundDirt() },
+				{ (byte) TileEnum.GroundMud, new GroundMud() },
+				{ (byte) TileEnum.GroundStone, new GroundStone() },
+				{ (byte) TileEnum.GroundSnow, new GroundSnow() },
+				{ (byte) TileEnum.GroundSlime, new GroundSlime() },
+				//{ (byte) TileEnum.GroundCloud, new GroundCloud() },
+			
+				// Ground-Esque, Immutable (10 - 19)
+				{ (byte) TileEnum.Wall, new Wall() },
+				{ (byte) TileEnum.Log, new Log() },
+			
+				// Ledges (20 - 29)
+				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
+				{ (byte) TileEnum.PlatformFixed, new PlatformFixed() },
+				//{ (byte) TileEnum.PlatformItem, new PlatformItem() },
+			
+				// Decor, Prompts (30 - 39)
+				{ (byte) TileEnum.DecorVeg, new DecorVeg() },
+				//{ (byte) TileEnum.DecorDesert, new DecorDesert() },
+				{ (byte) TileEnum.DecorCave, new DecorCave() },
+				//{ (byte) TileEnum.DecorWater, new DecorWater() },
+				{ (byte) TileEnum.DecorPet, new DecorPet() },
+				{ (byte) TileEnum.DecorItems, new DecorItems() },
+				{ (byte) TileEnum.PromptArrow, new PromptArrow() },
+				//{ (byte) TileEnum.PromptIcon, new PromptSign() },
+
+				// Background Interactives (These Collide)
+				//{ (byte) TileEnum.BGDisable, new BGDisable() },
+				//{ (byte) TileEnum.BGTap, new BGTap() },
+				//{ (byte) TileEnum.BGWind, new BGWind() },
+
+				// Fixed, Touch-Effect (40 - 49)
+				//{ (byte) TileEnum.Brick, new Brick() },
+				{ (byte) TileEnum.Box, new Box() },
+				{ (byte) TileEnum.Lock, new Lock() },
+				//{ (byte) TileEnum.Leaf, new Leaf() },
+				//{ (byte) TileEnum.ExclaimBlock, new ExclaimBlock() },
+				// ...
+				{ (byte) TileEnum.Spike, new Spike() },
+				//{ (byte) TileEnum.PuffBlock, new PuffBlock() },
+				//{ (byte) TileEnum.Conveyor, new Conveyor() },
+
+				// Solid, Toggled (50 - 55)
+				{ (byte) TileEnum.ToggleBoxBR, new ToggleBoxBR() },
+				{ (byte) TileEnum.ToggleBoxGY, new ToggleBoxGY() },
+				{ (byte) TileEnum.ToggleBlockBlue, new ToggleBlockBlue() },
+				{ (byte) TileEnum.ToggleBlockRed, new ToggleBlockRed() },
+				{ (byte) TileEnum.ToggleBlockGreen, new ToggleBlockGreen() },
+				{ (byte) TileEnum.ToggleBlockYellow, new ToggleBlockYellow() },
+			
+				// Solid, Toggled Platforms (56 - 59)
+				//{ (byte) TileEnum.TogglePlatBlue, new TogglePlatBlue() },
+				//{ (byte) TileEnum.TogglePlatRed, new TogglePlatRed() },
+				//{ (byte) TileEnum.TogglePlatGreen, new TogglePlatGreen() },
+				//{ (byte) TileEnum.TogglePlatYellow, new TogglePlatYellow() },
+
+				// Generators (60 - 64)
+				//{ (byte) TileEnum.Cannon, new Cannon() },
+				//{ (byte) TileEnum.Placer, new Placer() },
+
+				// Reserved (65 - 69)
+			
+				// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
+			
+				// Tile-Based Creatures (70 - 79)
+				{ (byte) TileEnum.Plant, new Plant() },
+				{ (byte) TileEnum.ChomperGrass, new ChomperGrass() },
+				{ (byte) TileEnum.ChomperMetal, new ChomperMetal() },
+				{ (byte) TileEnum.ChomperFire, new ChomperFire() },
+
+				// Anything below can only be interacted with by a character:
+				// These will have Passive Collision by Character Only.
+
+				// Character Interactives (150 - 159)
+				//{ (byte) TileEnum.Flag, new Flag() },
+				//{ (byte) TileEnum.Chest, new Chest() },
+				//{ (byte) TileEnum.NPC, new NPC() },
+				//{ (byte) TileEnum.PeekMap, new PeekMap() },
+
+				//{ (byte) TileEnum.Door, new Door() },
+				//{ (byte) TileEnum.DoorLock, new DoorLock() },
+			
+				// Collectables (160 - 169)
+				{ (byte) TileEnum.Coins, new Coins() },
+				{ (byte) TileEnum.Goodie, new Goodie() },
+				{ (byte) TileEnum.CollectableSuit, new CollectableSuit() },
+				{ (byte) TileEnum.CollectableHat, new CollectableHat() },
+				{ (byte) TileEnum.CollectablePower, new CollectablePower() },
+			};
+		}
+
 		// List of Tile Types
-		// This includes any tile that isn't "foreground", including full-space tiles.
 		// Also includes fixed objects that can accept tile behavior for collision detection.
-		public Dictionary<byte, Type> TileMap = new Dictionary<byte, Type>() {
+		public Dictionary<byte, Type> TileTypeMap = new Dictionary<byte, Type>() {
 			
 			// Ground, Immutable (0 - 9)
 			{ (byte) TileEnum.GroundGrass, Type.GetType("Nexus.Objects.GroundGrass") },
@@ -186,7 +285,7 @@ namespace Nexus.Gameplay {
 		};
 		
 		// List of Game Object Types
-		public Dictionary<byte, Type> ObjectMap = new Dictionary<byte, Type>() {
+		public Dictionary<byte, Type> ObjectTypeMap = new Dictionary<byte, Type>() {
 
 			// Platforms (1 - 4)
 			{ (byte) ObjectEnum.PlatformDip, Type.GetType("Nexus.Objects.PlatformDip") },

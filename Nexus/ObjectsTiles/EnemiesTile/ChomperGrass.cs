@@ -1,27 +1,17 @@
-﻿using Nexus.GameEngine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
+using Nexus.GameEngine;
 
 namespace Nexus.Objects {
 
 	public class ChomperGrass : Chomper {
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte)TileEnum.ChomperGrass)) {
-				new ChomperGrass(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.ChomperGrass, subTypeId);
-		}
-
-		private ChomperGrass(RoomScene room) : base(room, TileEnum.ChomperGrass) {
+		public ChomperGrass() : base() {
 			this.SpriteName = "Chomper/Grass/Chomp";
 			this.KnockoutName = "Particles/Chomp/Grass";
+			this.tileId = (byte)TileEnum.ChomperGrass;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 
 			if(subType == (byte) FacingSubType.FaceUp) {
 				this.atlas.Draw("Chomper/Grass/Chomp1", posX, posY);

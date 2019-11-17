@@ -11,7 +11,7 @@ namespace Nexus.GameEngine {
 		public readonly EditorScene scene;
 
 		// Editor Data
-		public TilemapEditor tilemap;
+		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 		public Dictionary<byte, TileGameObject> tileObjects;						// Tracks the tiles in the room (1 class per type)
 
@@ -39,7 +39,7 @@ namespace Nexus.GameEngine {
 			ushort xCount, yCount;
 			EditorRoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.room[roomID], out xCount, out yCount);
 
-			this.tilemap = new TilemapEditor(xCount, yCount);
+			this.tilemap = new TilemapBool(xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
 			EditorRoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);

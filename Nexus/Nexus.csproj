@@ -132,7 +132,6 @@
     <Compile Include="GameEngine\Scenes\EditorRoomScene.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
-    <Compile Include="GameEngine\TilemapEditor.cs" />
     <Compile Include="GameEngine\UIHandlers\EditorUI.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />

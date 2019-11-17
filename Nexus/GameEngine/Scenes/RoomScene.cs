@@ -62,7 +62,7 @@ namespace Nexus.GameEngine {
 			ushort xCount, yCount;
 			RoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.room[roomID], out xCount, out yCount);
 
-			this.tilemap = new TilemapBool(this, xCount, yCount);
+			this.tilemap = new TilemapBool(xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
@@ -74,14 +74,6 @@ namespace Nexus.GameEngine {
 
 		public override int Width { get { return this.tilemap.Width; } }
 		public override int Height { get { return this.tilemap.Height; } }
-
-		public void SpawnRoom() {
-
-		}
-
-		// Tile Game Objects
-		public bool IsTileGameObjectRegistered( byte classId ) { return tileObjects.ContainsKey(classId); }
-		public void RegisterTileGameObject( TileEnum classId, TileGameObject cgo ) { tileObjects[(byte) classId] = cgo; }
 
 		public override void RunTick() {
 
@@ -125,7 +117,7 @@ namespace Nexus.GameEngine {
 
 				// Run Tile Detection for the Object
 				// TODO: Eventually check 1x1 size, and replace with a tile detection that can account for larger sets if it's not 1x1 tile sized.
-				CollideTile.RunQuadrantDetection(obj.Value);
+				CollideTile.RunQuadrantDetection(this, obj.Value);
 			}
 		}
 
@@ -164,6 +156,8 @@ namespace Nexus.GameEngine {
 			// Run Parallax Handler
 			this.parallax.Draw();
 
+			var tileMap = Systems.mapper.TileMap;
+
 			// Loop through the tilemap data:
 			for(int y = startY; y <= gridY; y++) {
 				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
@@ -173,12 +167,20 @@ namespace Nexus.GameEngine {
 					// Scan the Tiles Data at this grid square:
 					uint gridId = this.tilemap.GetGridID((ushort) x, (ushort) y);
 
-					TileGameObject tileObj = this.tilemap.GetTileAtGridID(gridId);
+					byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
+
+					if(tileData == null) {
+						// TODO HIGH PRIOIRTY: This block should never run; tileData should never be null.
+						// Remove any invalid options here.
+						// Delete this block once the TileMap has been completed.
+						continue;
+					}
+
+					TileGameObject tileObj = tileMap[tileData[0]];
 
 					// Render the tile with its designated Class Object:
 					if(tileObj is TileGameObject) {
-						byte subType = this.tilemap.GetSubTypeAtGridID(gridId);
-						tileObj.Draw(subType, x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
+						tileObj.Draw(this, tileData[1], x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
 					};
 				};
 			}

@@ -7,15 +7,20 @@ namespace Nexus.Objects {
 	public class ToggleBlock : TileGameObject {
 
 		public string Texture;
-		protected bool Toggled;		// Child class will use this to reference the global scene toggles.
+		protected bool toggleBR;	// TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)
 
-		public ToggleBlock(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		public ToggleBlock() : base() {
 			this.collides = true;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public bool Toggled(RoomScene room, bool toggleBR) {
+			if(toggleBR) { return room.flags.toggleBR; }
+			return room.flags.toggleGY;
+		}
 
-			if(this.Toggled) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+
+			if(this.Toggled(room, this.toggleBR)) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 				if(actor is Character) {
@@ -30,10 +35,10 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 
 			// If Global Toggle is ON for Blue/Red, draw accordingly:
-			this.atlas.Draw((this.Toggled ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			this.atlas.Draw((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
 		}
 	}
 }

@@ -7,33 +7,22 @@ namespace Nexus.Objects {
 
 	class CollectableHat : Collectable {
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.CollectableHat)) {
-				new CollectableHat(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.CollectableHat, subTypeId);
-		}
-
-		public CollectableHat(RoomScene room) : base(room, TileEnum.CollectableHat) {
+		public CollectableHat() : base() {
 			this.CreateTextures();
+			this.tileId = (byte)TileEnum.CollectableHat;
 		}
 
-		public override void Collect( Character character, uint gridId ) {
+		public override void Collect( RoomScene room, Character character, uint gridId ) {
 
-			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
-			Hat.AssignToCharacter(character, subType, true);
+			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
+			Hat.AssignToCharacter(character, tileData[1], true);
 
 			Systems.sounds.collectBweep.Play();
-			base.Collect(character, gridId);
+			base.Collect(room, character, gridId);
 		}
 
 		private void CreateTextures() {
 			this.Texture = new string[10];
-			
 			this.Texture[(byte)HatSubType.AngelHat] = "HatCollect/AngelHat";
 			this.Texture[(byte)HatSubType.BambooHat] = "HatCollect/BambooHat";
 			this.Texture[(byte)HatSubType.CowboyHat] = "HatCollect/CowboyHat";

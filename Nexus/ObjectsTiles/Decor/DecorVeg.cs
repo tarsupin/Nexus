@@ -24,19 +24,9 @@ namespace Nexus.Objects {
 			Tree2 = 15,
 		}
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.DecorVeg)) {
-				new DecorVeg(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.DecorVeg, subTypeId);
-		}
-
-		public DecorVeg(RoomScene room) : base(room, TileEnum.DecorVeg) {
+		public DecorVeg() : base() {
 			this.BuildTextures();
+			this.tileId = (byte)TileEnum.DecorVeg;
 		}
 
 		public void BuildTextures() {

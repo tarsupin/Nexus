@@ -9,24 +9,14 @@ namespace Nexus.Objects {
 		protected string[] Texture;
 		protected DirCardinal facing;
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.PlatformFixed)) {
-				new PlatformFixed(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.PlatformFixed, subTypeId);
-		}
-
-		public PlatformFixed(RoomScene room) : base(room, TileEnum.PlatformFixed, AtlasGroup.Tiles) {
+		public PlatformFixed() : base() {
 			this.collides = true;
 			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");
+			this.tileId = (byte)TileEnum.PlatformFixed;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, this.facing);
 
 			if(collided && actor is Character) {
@@ -38,7 +28,7 @@ namespace Nexus.Objects {
 			return collided;
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 

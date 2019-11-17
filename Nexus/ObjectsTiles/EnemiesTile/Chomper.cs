@@ -10,12 +10,12 @@ namespace Nexus.Objects {
 		protected string SpriteName;	// The base name for the texture.
 		protected string KnockoutName;	// The particle texture string to use when it's knocked out.
 
-		protected Chomper(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		protected Chomper() : base() {
 			this.collides = true;
 		}
 
 		// TODO HIGH PRIORITY: Chomper Impacts (projectiles, character, etc.)
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Characters Receive Chomper Damage
@@ -29,8 +29,8 @@ namespace Nexus.Objects {
 				(actor as Projectile).Destroy(dir);
 
 				// TODO: Check that projectile deals enough damage.
-				this.Destroy(gridX, gridY);
-				DeathEmitter.Knockout(this.room, this.KnockoutName, gridX * (byte) TilemapEnum.TileWidth, gridY * (byte) TilemapEnum.TileHeight);
+				this.Destroy(room, gridX, gridY);
+				DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte) TilemapEnum.TileWidth, gridY * (byte) TilemapEnum.TileHeight);
 				Systems.sounds.splat1.Play();
 
 				// Otherwise, a sound to indicate failure.

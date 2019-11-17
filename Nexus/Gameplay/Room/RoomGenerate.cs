@@ -64,18 +64,29 @@ namespace Nexus.Gameplay {
 
 			// Identify Tile Class Type, If Applicable
 			Type classType;
-			bool hasType = mapper.TileMap.TryGetValue(type, out classType);
+			bool hasType = mapper.TileTypeMap.TryGetValue(type, out classType);
 			if(!hasType || classType == null) { return; }
 
-			// If there is a "TileGenerate" method, run its special generation rules:
-			if(classType.GetMethod("TileGenerate") != null) {
-				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (ushort)gridX, (ushort)gridY, (byte)subType });
+			//// If there is a "TileGenerate" method, run its special generation rules:
+			//if(classType.GetMethod("TileGenerate") != null) {
+			//	classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (ushort)gridX, (ushort)gridY, (byte)subType });
 
-				// TODO: GET THE TILE BY GRIDX GRIDY
-				//if(tile != null && paramList != null) {
-				//	tile.UpdateParams(paramList);
-				//}
+			//	// TODO: GET THE TILE BY GRIDX GRIDY
+			//	//if(tile != null && paramList != null) {
+			//	//	tile.UpdateParams(paramList);
+			//	//}
+			//}
+
+			// Generate Tile
+			TileGameObject tile = (TileGameObject) Activator.CreateInstance(classType, new object[] {});
+
+			if(tile.tileId == 0) {
+				var a = 1;
+				return;
 			}
+
+			// Add Tile to Room
+			room.tilemap.AddTile(gridX, gridY, tile.tileId, subType);
 		}
 
 		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {
@@ -97,7 +108,7 @@ namespace Nexus.Gameplay {
 
 			// Identify Object Class Type
 			Type classType;
-			bool hasType = mapper.ObjectMap.TryGetValue(type, out classType);
+			bool hasType = mapper.ObjectTypeMap.TryGetValue(type, out classType);
 			if(!hasType || classType == null) { return; }
 
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.

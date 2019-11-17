@@ -6,11 +6,8 @@ namespace Nexus.GameEngine {
 
 	public class TilemapBool {
 
-		RoomScene room;
-
 		// Tile Data: Dictionaries of data that matches to the gridID (gridY*xCount + gridX)
-		public Dictionary<uint, TileGameObject> ids;
-		public Dictionary<uint, byte> subTypes;
+		public Dictionary<uint, byte[]> tiles;      // ID, SubType, Foreground ID, Foreground SubType
 
 		// Width and Height of the Tilemap:
 		public int Width { get; protected set; }
@@ -18,66 +15,51 @@ namespace Nexus.GameEngine {
 		public ushort XCount { get; protected set; }
 		public ushort YCount { get; protected set; }
 
-		public TilemapBool( RoomScene room, ushort xCount, ushort yCount ) {
-			this.room = room;
+		public TilemapBool(ushort xCount, ushort yCount) {
 
 			// Sizing
 			this.XCount = xCount;
 			this.YCount = yCount;
-			this.Width = xCount * (byte) TilemapEnum.TileWidth;
-			this.Height = yCount * (byte) TilemapEnum.TileHeight;
+			this.Width = xCount * (byte)TilemapEnum.TileWidth;
+			this.Height = yCount * (byte)TilemapEnum.TileHeight;
 
 			// Data
-			this.ids = new Dictionary<uint, TileGameObject>();
-			this.subTypes = new Dictionary<uint, byte>();
+			this.tiles = new Dictionary<uint, byte[]>();
 		}
 
-		public TileGameObject GetTileAtGridID(uint gridId) {
-			this.ids.TryGetValue(gridId, out TileGameObject val);
-			return val;
-		}
-		
-		public TileGameObject GetTileAtGrid(ushort gridX, ushort gridY) {
-			uint gridId = this.GetGridID(gridX, gridY);
-			this.ids.TryGetValue(gridId, out TileGameObject val);
+		public byte[] GetTileDataAtGridID(uint gridId) {
+			this.tiles.TryGetValue(gridId, out byte[] val);
 			return val;
 		}
 
-		public byte GetSubTypeAtGridID(uint gridId) {
-			this.subTypes.TryGetValue(gridId, out byte val);
-			return val;
-		}
-		
-		public byte GetSubTypeAtGrid(ushort gridX, ushort gridY) {
+		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
 			uint gridId = this.GetGridID(gridX, gridY);
-			this.subTypes.TryGetValue(gridId, out byte val);
+			this.tiles.TryGetValue(gridId, out byte[] val);
 			return val;
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddTile( ushort gridX, ushort gridY, byte classId, byte subTypeId ) {
+		public void AddTile(ushort gridX, ushort gridY, byte id, byte subType, byte fgId = 0, byte fgSubType = 0) {
 			uint gridId = this.GetGridID(gridX, gridY);
-			this.ids[gridId] = this.room.tileObjects[classId];
-			this.subTypes[gridId] = subTypeId;
+			this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void RemoveTileByGrid( ushort gridX, ushort gridY ) {
+		public void RemoveTileByGrid(ushort gridX, ushort gridY) {
 			uint gridId = this.GetGridID(gridX, gridY);
 			this.RemoveTile(gridId);
 		}
 
-		public void RemoveTile( uint gridId ) {
-			this.ids.Remove(gridId);
-			this.subTypes.Remove(gridId);
+		public void RemoveTile(uint gridId) {
+			this.tiles.Remove(gridId);
 		}
 
-		public uint GetGridID( ushort gridX, ushort gridY ) {
-			return (uint) gridY * this.XCount + gridX;
+		public uint GetGridID(ushort gridX, ushort gridY) {
+			return (uint)gridY * this.XCount + gridX;
 		}
 
 		// Grid Square Positions
-		public static ushort GridX(int posX) { return (ushort) Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)); }
-		public static ushort GridY(int posY) { return (ushort) Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)); }
+		public static ushort GridX(int posX) { return (ushort)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)); }
+		public static ushort GridY(int posY) { return (ushort)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)); }
 	}
 }

@@ -12,29 +12,19 @@ namespace Nexus.Objects {
 			Lethal = 1,
 		}
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte)TileEnum.Spike)) {
-				new Spike(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte)TileEnum.Spike, subTypeId);
-		}
-
-		public Spike(RoomScene room) : base(room, TileEnum.Spike) {
+		public Spike() : base() {
 			this.CreateTextures();
+			this.tileId = (byte)TileEnum.Spike;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Characters Receive Spike Damage
 			if(actor is Character) {
 				(actor as Character).wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			}
 
-			return base.RunImpact(actor, gridX, gridY, dir);
+			return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 
 		private void CreateTextures() {
@@ -43,7 +33,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte) SpikeSubType.Lethal] = "Spike/Lethal";
 		}
 
-		public override void Draw(byte subType, int posX, int posY) {
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}

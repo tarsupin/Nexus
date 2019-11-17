@@ -6,11 +6,11 @@ namespace Nexus.Objects {
 
 	public class BlockTile : TileGameObject {
 
-		public BlockTile(RoomScene room, TileEnum classId) : base(room, classId, AtlasGroup.Tiles) {
+		public BlockTile() : base() {
 			this.collides = true;
 		}
 
-		public override bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);

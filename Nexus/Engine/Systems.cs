@@ -45,6 +45,7 @@ namespace Nexus.Engine {
 			Systems.spriteBatch = spriteBatch;
 			Systems.screen = new ScreenSys(game);
 			Systems.mapper = new GameMapper(game, spriteBatch);
+			Systems.mapper.PostLoad();
 			Systems.camera = new Camera(Systems.scene);
 		}
 

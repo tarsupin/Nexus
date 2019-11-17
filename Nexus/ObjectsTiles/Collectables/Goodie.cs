@@ -34,26 +34,16 @@ namespace Nexus.Objects {
 			Key = 18,
 			Blood = 19,
 		}
-		
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
 
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.Goodie)) {
-				new Goodie(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.Goodie, subTypeId);
-		}
-
-		public Goodie(RoomScene room) : base(room, TileEnum.Goodie) {
+		public Goodie() : base() {
 			this.CreateTextures();
+			this.tileId = (byte)TileEnum.Goodie;
 		}
 
-		public override void Collect(Character character, uint gridId) {
-			byte subType = this.room.tilemap.GetSubTypeAtGridID(gridId);
+		public override void Collect(RoomScene room, Character character, uint gridId) {
+			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
 
-			switch(subType) {
+			switch(tileData[1]) {
 
 				// Health
 				case (byte)GoodieSubType.Apple: this.GetHealth(character, 1); break;
@@ -91,7 +81,7 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.Key: this.CollectKey(character); break;
 			}
 
-			base.Collect(character, gridId);
+			base.Collect(room, character, gridId);
 		}
 
 		private void GetHealth(Character character, byte health) {

@@ -11,20 +11,10 @@ namespace Nexus.Objects {
 			Finger = 1,
 		}
 
-		public static void TileGenerate(RoomScene room, ushort gridX, ushort gridY, byte subTypeId) {
-
-			// Check if the ClassGameObject has already been created in the room. If it hasn't, create it.
-			if(!room.IsTileGameObjectRegistered((byte) TileEnum.PromptArrow)) {
-				new PromptArrow(room);
-			}
-
-			// Add to Tilemap
-			room.tilemap.AddTile(gridX, gridY, (byte) TileEnum.PromptArrow, subTypeId);
-		}
-
-		public PromptArrow(RoomScene room) : base(room, TileEnum.PromptArrow) {
+		public PromptArrow() : base() {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
+			this.tileId = (byte)TileEnum.PromptArrow;
 		}
 
 		public void BuildTextures() {
