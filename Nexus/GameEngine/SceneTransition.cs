@@ -34,8 +34,13 @@ namespace Nexus.GameEngine {
 			// End Old Level Scene
 			Systems.scene.EndScene();
 
+			// TODO HIGH PRIORITY: Editable Levels should be 1 to 100 on localhost. Then, can send those to server, which changes to a special hash.
+
+			// Editor Scene
+			if(runEditor) { Systems.scene = new EditorScene(); }
+
 			// Create New Level Scene
-			Systems.scene = new LevelScene();
+			else { Systems.scene = new LevelScene(); }
 
 			return true;
 		}

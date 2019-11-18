@@ -102,17 +102,18 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.GroundStone, new GroundStone() },
 				{ (byte) TileEnum.GroundSnow, new GroundSnow() },
 				{ (byte) TileEnum.GroundSlime, new GroundSlime() },
-				//{ (byte) TileEnum.GroundCloud, new GroundCloud() },
-			
+				{ (byte) TileEnum.GroundCloud, new GroundCloud() },
+				
 				// Ground-Esque, Immutable (10 - 19)
 				{ (byte) TileEnum.Wall, new Wall() },
 				{ (byte) TileEnum.Log, new Log() },
-			
+				
 				// Ledges (20 - 29)
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
+				{ (byte) TileEnum.LedgeGrassDecor, new LedgeGrassDecor() },
 				{ (byte) TileEnum.PlatformFixed, new PlatformFixed() },
 				//{ (byte) TileEnum.PlatformItem, new PlatformItem() },
-			
+				
 				// Decor, Prompts (30 - 39)
 				{ (byte) TileEnum.DecorVeg, new DecorVeg() },
 				//{ (byte) TileEnum.DecorDesert, new DecorDesert() },
@@ -146,7 +147,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ToggleBlockRed, new ToggleBlockRed() },
 				{ (byte) TileEnum.ToggleBlockGreen, new ToggleBlockGreen() },
 				{ (byte) TileEnum.ToggleBlockYellow, new ToggleBlockYellow() },
-			
+				
 				// Solid, Toggled Platforms (56 - 59)
 				//{ (byte) TileEnum.TogglePlatBlue, new TogglePlatBlue() },
 				//{ (byte) TileEnum.TogglePlatRed, new TogglePlatRed() },
@@ -158,9 +159,9 @@ namespace Nexus.Gameplay {
 				//{ (byte) TileEnum.Placer, new Placer() },
 
 				// Reserved (65 - 69)
-			
+				
 				// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
-			
+				
 				// Tile-Based Creatures (70 - 79)
 				{ (byte) TileEnum.Plant, new Plant() },
 				{ (byte) TileEnum.ChomperGrass, new ChomperGrass() },
@@ -178,7 +179,7 @@ namespace Nexus.Gameplay {
 
 				//{ (byte) TileEnum.Door, new Door() },
 				//{ (byte) TileEnum.DoorLock, new DoorLock() },
-			
+				
 				// Collectables (160 - 169)
 				{ (byte) TileEnum.Coins, new Coins() },
 				{ (byte) TileEnum.Goodie, new Goodie() },
@@ -188,102 +189,6 @@ namespace Nexus.Gameplay {
 			};
 		}
 
-		// List of Tile Types
-		// Also includes fixed objects that can accept tile behavior for collision detection.
-		public Dictionary<byte, Type> TileTypeMap = new Dictionary<byte, Type>() {
-			
-			// Ground, Immutable (0 - 9)
-			{ (byte) TileEnum.GroundGrass, Type.GetType("Nexus.Objects.GroundGrass") },
-			{ (byte) TileEnum.GroundDirt, Type.GetType("Nexus.Objects.GroundDirt") },
-			{ (byte) TileEnum.GroundMud, Type.GetType("Nexus.Objects.GroundMud") },
-			{ (byte) TileEnum.GroundStone, Type.GetType("Nexus.Objects.GroundStone") },
-			{ (byte) TileEnum.GroundSnow, Type.GetType("Nexus.Objects.GroundSnow") },
-			{ (byte) TileEnum.GroundSlime, Type.GetType("Nexus.Objects.GroundSlime") },
-			{ (byte) TileEnum.GroundCloud, Type.GetType("Nexus.Objects.GroundCloud") },
-			
-			// Ground-Esque, Immutable (10 - 19)
-			{ (byte) TileEnum.Wall, Type.GetType("Nexus.Objects.Wall") },
-			{ (byte) TileEnum.Log, Type.GetType("Nexus.Objects.Log") },
-			
-			// Ledges (20 - 29)
-			{ (byte) TileEnum.LedgeGrass, Type.GetType("Nexus.Objects.LedgeGrass") },
-			{ (byte) TileEnum.PlatformFixed, Type.GetType("Nexus.Objects.PlatformFixed") },
-			{ (byte) TileEnum.PlatformItem, Type.GetType("Nexus.Objects.PlatformItem") },
-			
-			// Decor, Prompts (30 - 39)
-			{ (byte) TileEnum.DecorVeg, Type.GetType("Nexus.Objects.DecorVeg") },
-			{ (byte) TileEnum.DecorDesert, Type.GetType("Nexus.Objects.DecorDesert") },
-			{ (byte) TileEnum.DecorCave, Type.GetType("Nexus.Objects.DecorCave") },
-			{ (byte) TileEnum.DecorWater, Type.GetType("Nexus.Objects.DecorWater") },
-			{ (byte) TileEnum.DecorPet, Type.GetType("Nexus.Objects.DecorPet") },
-			{ (byte) TileEnum.DecorItems, Type.GetType("Nexus.Objects.DecorItems") },
-			{ (byte) TileEnum.PromptArrow, Type.GetType("Nexus.Objects.PromptArrow") },
-			{ (byte) TileEnum.PromptIcon, Type.GetType("Nexus.Objects.PromptSign") },
-
-			// Background Interactives (These Collide)
-			{ (byte) TileEnum.BGDisable, Type.GetType("Nexus.Objects.BGDisable") },
-			{ (byte) TileEnum.BGTap, Type.GetType("Nexus.Objects.BGTap") },
-			{ (byte) TileEnum.BGWind, Type.GetType("Nexus.Objects.BGWind") },
-
-			// Fixed, Touch-Effect (40 - 49)
-			{ (byte) TileEnum.Brick, Type.GetType("Nexus.Objects.Brick") },
-			{ (byte) TileEnum.Box, Type.GetType("Nexus.Objects.Box") },
-			{ (byte) TileEnum.Lock, Type.GetType("Nexus.Objects.Lock") },
-			{ (byte) TileEnum.Leaf, Type.GetType("Nexus.Objects.Leaf") },
-			{ (byte) TileEnum.ExclaimBlock, Type.GetType("Nexus.Objects.ExclaimBlock") },
-			// ...
-			{ (byte) TileEnum.Spike, Type.GetType("Nexus.Objects.Spike") },
-			{ (byte) TileEnum.PuffBlock, Type.GetType("Nexus.Objects.PuffBlock") },
-			{ (byte) TileEnum.Conveyor, Type.GetType("Nexus.Objects.Conveyor") },
-
-			// Solid, Toggled (50 - 55)
-			{ (byte) TileEnum.ToggleBoxBR, Type.GetType("Nexus.Objects.ToggleBoxBR") },
-			{ (byte) TileEnum.ToggleBoxGY, Type.GetType("Nexus.Objects.ToggleBoxGY") },
-			{ (byte) TileEnum.ToggleBlockBlue, Type.GetType("Nexus.Objects.ToggleBlockBlue") },
-			{ (byte) TileEnum.ToggleBlockRed, Type.GetType("Nexus.Objects.ToggleBlockRed") },
-			{ (byte) TileEnum.ToggleBlockGreen, Type.GetType("Nexus.Objects.ToggleBlockGreen") },
-			{ (byte) TileEnum.ToggleBlockYellow, Type.GetType("Nexus.Objects.ToggleBlockYellow") },
-			
-			// Solid, Toggled Platforms (56 - 59)
-			{ (byte) TileEnum.TogglePlatBlue, Type.GetType("Nexus.Objects.TogglePlatBlue") },
-			{ (byte) TileEnum.TogglePlatRed, Type.GetType("Nexus.Objects.TogglePlatRed") },
-			{ (byte) TileEnum.TogglePlatGreen, Type.GetType("Nexus.Objects.TogglePlatGreen") },
-			{ (byte) TileEnum.TogglePlatYellow, Type.GetType("Nexus.Objects.TogglePlatYellow") },
-
-			// Generators (60 - 64)
-			{ (byte) TileEnum.Cannon, Type.GetType("Nexus.Objects.Cannon") },
-			{ (byte) TileEnum.Placer, Type.GetType("Nexus.Objects.Placer") },
-
-			// Reserved (65 - 69)
-			
-			// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
-			
-			// Tile-Based Creatures (70 - 79)
-			{ (byte) TileEnum.Plant, Type.GetType("Nexus.Objects.Plant") },
-			{ (byte) TileEnum.ChomperGrass, Type.GetType("Nexus.Objects.ChomperGrass") },
-			{ (byte) TileEnum.ChomperMetal, Type.GetType("Nexus.Objects.ChomperMetal") },
-			{ (byte) TileEnum.ChomperFire, Type.GetType("Nexus.Objects.ChomperFire") },
-
-			// Anything below can only be interacted with by a character:
-			// These will have Passive Collision by Character Only.
-
-			// Character Interactives (150 - 159)
-			{ (byte) TileEnum.Flag, Type.GetType("Nexus.Objects.Flag") },
-			{ (byte) TileEnum.Chest, Type.GetType("Nexus.Objects.Chest") },
-			{ (byte) TileEnum.NPC, Type.GetType("Nexus.Objects.NPC") },
-			{ (byte) TileEnum.PeekMap, Type.GetType("Nexus.Objects.PeekMap") },
-
-			{ (byte) TileEnum.Door, Type.GetType("Nexus.Objects.Door") },
-			{ (byte) TileEnum.DoorLock, Type.GetType("Nexus.Objects.DoorLock") },
-			
-			// Collectables (160 - 169)
-			{ (byte) TileEnum.Coins, Type.GetType("Nexus.Objects.Coins") },
-			{ (byte) TileEnum.Goodie, Type.GetType("Nexus.Objects.Goodie") },
-			{ (byte) TileEnum.CollectableSuit, Type.GetType("Nexus.Objects.CollectableSuit") },
-			{ (byte) TileEnum.CollectableHat, Type.GetType("Nexus.Objects.CollectableHat") },
-			{ (byte) TileEnum.CollectablePower, Type.GetType("Nexus.Objects.CollectablePower") },
-		};
-		
 		// List of Game Object Types
 		public Dictionary<byte, Type> ObjectTypeMap = new Dictionary<byte, Type>() {
 

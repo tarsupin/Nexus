@@ -1,7 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
-using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -12,28 +11,11 @@ namespace Nexus.GameEngine {
 
 		// Editor Data
 		public TilemapBool tilemap;
-		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<byte, TileGameObject> tileObjects;						// Tracks the tiles in the room (1 class per type)
 
 		public EditorRoomScene(EditorScene scene, string roomID) : base() {
 
 			// References
 			this.scene = scene;
-
-			// TODO HIGH PRIORITY: Don't need game objects.
-
-			// Game Objects
-			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
-			};
-
-			// Game Class Objects
-			this.tileObjects = new Dictionary<byte, TileGameObject>();
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
@@ -73,6 +55,8 @@ namespace Nexus.GameEngine {
 			int camRight = camX + cam.width;
 			int camBottom = camY + cam.height;
 
+			var tileMap = Systems.mapper.TileMap;
+
 			// Loop through the tilemap data:
 			for(int y = startY; y <= gridY; y++) {
 				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
@@ -80,16 +64,22 @@ namespace Nexus.GameEngine {
 				for(int x = startX; x <= gridX; x++) {
 
 					// Scan the Tiles Data at this grid square:
-					uint gridId = this.tilemap.GetGridID((ushort) x, (ushort) y);
+					uint gridId = this.tilemap.GetGridID((ushort)x, (ushort)y);
 
 					byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
 
-					// Render the tile with its designated Class Object:
-					if(tileData is null == false) {
-						byte subType = tileData[1];
+					if(tileData == null) {
+						// TODO HIGH PRIOIRTY: This block should never run; tileData should never be null.
+						// Remove any invalid options here.
+						// Delete this block once the TileMap has been completed.
+						continue;
+					}
 
-						// TODO HIGH PRIORITY: Draw tile based on its tile ID.
-						//tileData.Draw(subType, x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
+					TileGameObject tileObj = tileMap[tileData[0]];
+
+					// Render the tile with its designated Class Object:
+					if(tileObj is TileGameObject) {
+						tileObj.Draw(null, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 					};
 				};
 			}

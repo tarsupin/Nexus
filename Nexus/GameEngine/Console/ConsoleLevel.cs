@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 using System.Collections.Generic;
 
@@ -18,6 +19,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, System.Action> levelCodes = new Dictionary<string, System.Action>() {
+			{ "editor", ConsoleLevel.EditorScene },
 			{ "teleport", ConsoleLevel.CheatCodeTeleport },
 			{ "teleport-coords", ConsoleLevel.CheatCodeTeleportCoords },
 			{ "load", ConsoleLevel.LevelChange },
@@ -57,5 +59,22 @@ namespace Nexus.GameEngine {
 				SceneTransition.ToLevel("", currentIns);
 			}
 		}
+
+		public static void EditorScene() {
+			string currentIns = ConsoleTrack.NextArg();
+
+			ConsoleTrack.possibleTabs = "Example: `level editor 10`";
+			ConsoleTrack.helpText = "Load the level editor for one of your levels.";
+
+			if(ConsoleTrack.activate) {
+
+				// Prepare the current level as the default option.
+				string levelId = currentIns == "" ? Systems.handler.levelContent.levelId : currentIns;
+
+				// Transition to an Editor Scene
+				SceneTransition.ToLevel("", currentIns, false, true);
+			}
+		}
+
 	}
 }

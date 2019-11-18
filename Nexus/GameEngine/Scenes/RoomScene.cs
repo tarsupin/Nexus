@@ -27,7 +27,6 @@ namespace Nexus.GameEngine {
 		// Level Data
 		public TilemapBool tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
-		public Dictionary<byte, TileGameObject> tileObjects;						// Tracks the tiles in the room (1 class per type)
 
 		public RoomFlags flags = new RoomFlags();
 
@@ -54,9 +53,6 @@ namespace Nexus.GameEngine {
 			// Object Coordination and Cleanup
 			this.markedForAddition = new List<DynamicGameObject>();
 			this.markedForRemoval = new List<DynamicGameObject>();
-
-			// Game Class Objects
-			this.tileObjects = new Dictionary<byte, TileGameObject>();
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
@@ -235,9 +231,7 @@ namespace Nexus.GameEngine {
 
 				// Make sure the object is visible, then draw a debug rectangle over it.
 				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
-					Texture2D rect = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
-					rect.SetData(new[] { Color.DarkRed });
-					Systems.spriteBatch.Draw(rect, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
+					Systems.spriteBatch.Draw(DebugConfig.highlightColor, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
 				}
 			}
 		}

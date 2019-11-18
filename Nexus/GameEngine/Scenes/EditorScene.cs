@@ -9,7 +9,9 @@ namespace Nexus.GameEngine {
 
 		public readonly EditorUI editorUI;
 		public Dictionary<byte, EditorRoomScene> rooms;
-		public byte currentRoom = 0;
+		public byte roomNum = 0;
+
+		public MouseState mouseState;
 
 		public EditorScene() : base() {
 
@@ -25,7 +27,17 @@ namespace Nexus.GameEngine {
 			}
 
 			// Important Components
-			Systems.camera.UpdateScene(this.rooms[this.currentRoom]);
+			Systems.camera.UpdateScene(this.rooms[this.roomNum]);
+			Systems.camera.SetInputMoveSpeed(15);
+
+			this.mouseState = Mouse.GetState();
+		}
+
+		public int MouseGridX { get { return (int) Math.Floor(this.mouseState.X * 0.020833); } }
+		public int MouseGridY { get { return (int) Math.Floor(this.mouseState.Y * 0.020833); } }
+
+		public void SetRoom( byte roomNum ) {
+			this.roomNum = roomNum;
 		}
 
 		public override void RunTick() {
@@ -35,16 +47,17 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
+			// Update the Mouse State
+			this.mouseState = Mouse.GetState();
+
 			// Debug Console (only runs if visible)
 			Console.RunTick();
 
 			// If we're in debug mode:
 			this.EditorInput();
 
-			// TODO: RUN EACH ROOM IN LEVEL
-			// TODO: RUN EACH ROOM IN LEVEL
-			// TODO: RUN EACH ROOM IN LEVEL
-			this.rooms[this.currentRoom].RunTick();
+			// Run this Room's Tick
+			this.rooms[this.roomNum].RunTick();
 		}
 
 		public void EditorInput() {
@@ -68,7 +81,7 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 
 			// Render the Current Rooom
-			this.rooms[this.currentRoom].Draw();
+			this.rooms[this.roomNum].Draw();
 
 			// Draw UI
 			this.editorUI.Draw();

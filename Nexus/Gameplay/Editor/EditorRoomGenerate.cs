@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
 using Nexus.GameEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Nexus.Gameplay {
 
@@ -16,7 +14,7 @@ namespace Nexus.Gameplay {
 			RoomFormat roomData = levelContent.data.room[roomId];
 
 			if(roomData.main != null) { EditorRoomGenerate.GenerateLayer(room, roomData.main); }
-			if(roomData.obj != null) { EditorRoomGenerate.GenerateLayer(room, roomData.obj); }
+			//if(roomData.obj != null) { EditorRoomGenerate.GenerateLayer(room, roomData.obj); }
 			if(roomData.fg != null) { EditorRoomGenerate.GenerateLayer(room, roomData.fg, true); }
 		}
 
@@ -40,17 +38,7 @@ namespace Nexus.Gameplay {
 		}
 		
 		private static void AddTileToScene(EditorRoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
-			GameMapper mapper = Systems.mapper;
-
-			// Identify Tile Class Type, If Applicable
-			Type classType;
-			bool hasType = mapper.TileTypeMap.TryGetValue(type, out classType);
-			if(!hasType || classType == null) { return; }
-
-			// If there is a "TileGenerate" method, run its special generation rules:
-			if(classType.GetMethod("TileGenerate") != null) {
-				classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (ushort)gridX, (ushort)gridY, (byte)subType });
-			}
+			room.tilemap.AddTile(gridX, gridY, type, subType);
 		}
 
 		public static void DetermineRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {

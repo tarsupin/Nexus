@@ -154,8 +154,20 @@ namespace Nexus.GameEngine {
 		public static sbyte lineNum = 0;
 		public static uint backspaceFrame = 0;
 
+		public static Texture2D rectColor;
+
 		public static void SetEnabled(bool enable) { Console.isEnabled = enable; if(!enable) { Console.isVisible = false; } }
-		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.isVisible = visible; Console.lineNum = 0; } else { Console.isVisible = false; } }
+		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.PrepareConsole(visible); } else { Console.isVisible = false; } }
+
+		public static void PrepareConsole(bool visible) {
+			Console.isVisible = visible;
+			Console.lineNum = 0;
+
+			if(Console.rectColor == null) {
+				Console.rectColor = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+				Console.rectColor.SetData(new[] { Color.Black });
+			}
+		}
 
 		public static void RunTick() {
 			InputClient input = Systems.input;
@@ -375,9 +387,7 @@ namespace Nexus.GameEngine {
 			FontClass consoleFont = Systems.fonts.console;
 
 			// Draw Console Background
-			Texture2D rect = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
-			rect.SetData(new[] { Color.Black });
-			Systems.spriteBatch.Draw(rect, new Rectangle(0, Systems.screen.windowHeight - 100, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.Black * 0.85f);
+			Systems.spriteBatch.Draw(Console.rectColor, new Rectangle(0, Systems.screen.windowHeight - 100, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.Black * 0.85f);
 
 			// Draw Console Text
 			string consoleString = "> " + ConsoleTrack.instructionText;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 
@@ -7,26 +8,31 @@ namespace Nexus.GameEngine {
 	public class EditorUI {
 
 		private readonly EditorScene scene;
-		public Atlas atlas;
-		private readonly ushort bottomRow;
-		private readonly LevelState levelState;
+
+		// TODO CLEANUP: Remove if unneeded.
+		//private readonly Atlas atlas;
+		//private readonly ushort bottomRow;
+
+		private readonly GridOverlay gridUI;
 
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
-			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
-			this.levelState = Systems.handler.levelState;
+			//this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
+			//this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
+
+			this.gridUI = new GridOverlay(null);
 		}
 
 		public void Draw() {
 
-			// Coins / Gems
-			this.atlas.Draw("Treasure/Gem", 10, 10);
-			Systems.fonts.counter.Draw(this.levelState.coins.ToString(), 65, 10, Color.White);
+			// Draw Grid UI
+			this.gridUI.Draw(-Systems.camera.posX % (byte)TilemapEnum.TileWidth, -Systems.camera.posY % (byte)TilemapEnum.TileHeight);
 
-			// Timer
-			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.windowWidth - 100, 10, Color.White);
+			// Coordinate Tracker
+			Systems.fonts.counter.Draw(this.scene.MouseGridX + ", " + this.scene.MouseGridY, 10, 10, Color.White);
 
+			// Room Counter (Which Room)
+			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 10, 10, Color.White);
 		}
 	}
 }

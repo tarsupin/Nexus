@@ -60,33 +60,7 @@ namespace Nexus.Gameplay {
 		}
 
 		private static void AddTileToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
-			GameMapper mapper = Systems.mapper;
-
-			// Identify Tile Class Type, If Applicable
-			Type classType;
-			bool hasType = mapper.TileTypeMap.TryGetValue(type, out classType);
-			if(!hasType || classType == null) { return; }
-
-			//// If there is a "TileGenerate" method, run its special generation rules:
-			//if(classType.GetMethod("TileGenerate") != null) {
-			//	classType.GetMethod("TileGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (ushort)gridX, (ushort)gridY, (byte)subType });
-
-			//	// TODO: GET THE TILE BY GRIDX GRIDY
-			//	//if(tile != null && paramList != null) {
-			//	//	tile.UpdateParams(paramList);
-			//	//}
-			//}
-
-			// Generate Tile
-			TileGameObject tile = (TileGameObject) Activator.CreateInstance(classType, new object[] {});
-
-			if(tile.tileId == 0) {
-				var a = 1;
-				return;
-			}
-
-			// Add Tile to Room
-			room.tilemap.AddTile(gridX, gridY, tile.tileId, subType);
+			room.tilemap.AddTile(gridX, gridY, type, subType);
 		}
 
 		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {

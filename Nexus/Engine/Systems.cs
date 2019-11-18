@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nexus.Config;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 

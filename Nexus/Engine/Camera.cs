@@ -50,6 +50,10 @@ namespace Nexus.Engine {
 			this.height = height;
 		}
 
+		public void SetInputMoveSpeed( byte controlSpeed ) {
+			this.controlSpeed = controlSpeed;
+		}
+
 		// Camera Bounds
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;

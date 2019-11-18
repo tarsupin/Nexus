@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Nexus.Engine;
 using Nexus.Gameplay;
 
 namespace Nexus.Config {
@@ -31,7 +34,13 @@ namespace Nexus.Config {
 		// Tracking Values
 		public static uint trackTicks = 0;
 
-		public DebugConfig() {}
+		// Colors
+		public static Texture2D highlightColor;
+
+		public DebugConfig() {
+			//DebugConfig.highlightColor = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			//DebugConfig.highlightColor.SetData(new[] { Color.DarkRed });
+		}
 		
 		public static void ToggleDebugFrames() {
 
