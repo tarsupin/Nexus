@@ -30,6 +30,7 @@ namespace Nexus.GameEngine {
 			Systems.camera.UpdateScene(this.rooms[this.roomNum]);
 			Systems.camera.SetInputMoveSpeed(15);
 
+			Systems.SetMouseVisible(true);
 			this.mouseState = Mouse.GetState();
 		}
 

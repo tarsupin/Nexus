@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nexus.Gameplay;
 using System.Collections.Generic;
 
 namespace Nexus.Engine {
@@ -55,9 +54,7 @@ namespace Nexus.Engine {
 
 			// Draw Console Background
 			if(ChatConsole.showBackground) {
-				Texture2D rect = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
-				rect.SetData(new[] { Color.Black });
-				Systems.spriteBatch.Draw(rect, new Rectangle(0, bottomPos - ChatConsole.height, ChatConsole.width, ChatConsole.height), Color.Black * 0.15f);
+				Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(0, bottomPos - ChatConsole.height, ChatConsole.width, ChatConsole.height), Color.Black * 0.15f);
 			}
 
 			// Draw Console Lines

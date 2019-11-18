@@ -33,6 +33,11 @@ namespace Nexus.Engine {
 		public static FontAssets fonts;
 		public static Camera camera;
 
+		// Graphic Colors
+		public static Texture2D tex2dBlack;
+		public static Texture2D tex2dWhite;
+		public static Texture2D tex2dDarkRed;
+
 		// Settings & States
 		public static readonly Settings settings = new Settings();
 		public static readonly GameHandler handler = new GameHandler("Current");
@@ -49,8 +54,15 @@ namespace Nexus.Engine {
 			Systems.mapper.PostLoad();
 			Systems.camera = new Camera(Systems.scene);
 
-			// Initialize Configurations
-			new DebugConfig();
+			// Add Textures
+			Systems.tex2dBlack = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			Systems.tex2dBlack.SetData(new[] { Color.Black });
+
+			Systems.tex2dWhite = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			Systems.tex2dWhite.SetData(new[] { Color.White });
+
+			Systems.tex2dDarkRed = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			Systems.tex2dDarkRed.SetData(new[] { Color.DarkRed });
 		}
 
 		public static void AddAudio( GameClient game ) {
@@ -59,6 +71,10 @@ namespace Nexus.Engine {
 
 		public static void AddFonts( GameClient game ) {
 			Systems.fonts = new FontAssets(game);
+		}
+
+		public static void SetMouseVisible(bool visible) {
+			Systems.game.IsMouseVisible = visible;
 		}
 	}
 }

@@ -231,7 +231,7 @@ namespace Nexus.GameEngine {
 
 				// Make sure the object is visible, then draw a debug rectangle over it.
 				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
-					Systems.spriteBatch.Draw(DebugConfig.highlightColor, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
+					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
 				}
 			}
 		}

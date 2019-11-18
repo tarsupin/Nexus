@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Nexus.Engine;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Nexus.Gameplay;
 
 namespace Nexus.Config {
@@ -16,7 +13,7 @@ namespace Nexus.Config {
 		WhenYPressed = 6,
 	}
 
-	public class DebugConfig {
+	public static class DebugConfig {
 
 		// Activate/Deactivate Debug to control other debugging values:
 		public static bool Debug = true;
@@ -34,14 +31,6 @@ namespace Nexus.Config {
 		// Tracking Values
 		public static uint trackTicks = 0;
 
-		// Colors
-		public static Texture2D highlightColor;
-
-		public DebugConfig() {
-			DebugConfig.highlightColor = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
-			DebugConfig.highlightColor.SetData(new[] { Color.DarkRed });
-		}
-		
 		public static void ToggleDebugFrames() {
 
 			// Ignore Toggling Debug Mode if there is no debugging options allowed.
