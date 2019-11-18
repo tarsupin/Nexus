@@ -1,25 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using System;
 
 namespace Nexus.GameEngine {
 
 	public class EditorUI {
 
 		private readonly EditorScene scene;
-
-		// TODO CLEANUP: Remove if unneeded.
-		//private readonly Atlas atlas;
-		//private readonly ushort bottomRow;
-
 		private readonly GridOverlay gridUI;
 
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
-			//this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			//this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
-
 			this.gridUI = new GridOverlay(null);
 		}
 

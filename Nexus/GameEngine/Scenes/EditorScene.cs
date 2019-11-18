@@ -33,6 +33,9 @@ namespace Nexus.GameEngine {
 
 			Systems.SetMouseVisible(true);
 			this.mouseState = Mouse.GetState();
+
+			// TODO CLEANUP: Remove
+			var a = new TileToolBlocks(this);
 		}
 
 		public int MouseX { get { return this.mouseState.X; } }

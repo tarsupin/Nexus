@@ -72,6 +72,7 @@
     <Compile Include="GameEngine\Console\ConsolePowers.cs" />
     <Compile Include="GameEngine\Console\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\ConsoleEquipment.cs" />
+    <Compile Include="GameEngine\Editor\TileTools\TileToolBlocks.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxClouds.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxOcean.cs" />
     <Compile Include="Engine\ParallaxHandler.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
     <Compile Include="GameEngine\UIComponents\GridOverlay.cs" />
+    <Compile Include="GameEngine\Editor\TileTools\TileTool.cs" />
     <Compile Include="GameEngine\UIHandlers\EditorUI.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
     <Compile Include="GameEngine\ProjectileGameObject.cs" />
@@ -481,6 +483,7 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GameEngine\Editor\FuncTools\" />
     <Folder Include="ObjectComponents\Attachments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
