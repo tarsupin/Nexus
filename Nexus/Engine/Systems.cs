@@ -48,6 +48,9 @@ namespace Nexus.Engine {
 			Systems.mapper = new GameMapper(game, spriteBatch);
 			Systems.mapper.PostLoad();
 			Systems.camera = new Camera(Systems.scene);
+
+			// Initialize Configurations
+			new DebugConfig();
 		}
 
 		public static void AddAudio( GameClient game ) {

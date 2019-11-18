@@ -21,9 +21,6 @@ namespace Nexus
 		/// Load any non-graphic content. Screen sizes, systems, etc.
 		protected override void Initialize() {
 
-			// Initialize Configurations
-			new DebugConfig();
-
 			//TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
 			//this.IsFixedTimeStep = false;
 

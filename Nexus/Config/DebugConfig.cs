@@ -38,8 +38,8 @@ namespace Nexus.Config {
 		public static Texture2D highlightColor;
 
 		public DebugConfig() {
-			//DebugConfig.highlightColor = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
-			//DebugConfig.highlightColor.SetData(new[] { Color.DarkRed });
+			DebugConfig.highlightColor = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			DebugConfig.highlightColor.SetData(new[] { Color.DarkRed });
 		}
 		
 		public static void ToggleDebugFrames() {

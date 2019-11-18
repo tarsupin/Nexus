@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 
@@ -32,7 +31,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw(this.scene.MouseGridX + ", " + this.scene.MouseGridY, 10, 10, Color.White);
 
 			// Room Counter (Which Room)
-			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 10, 10, Color.White);
+			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 180, 10, Color.White);
 		}
 	}
 }
