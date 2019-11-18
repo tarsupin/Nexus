@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 
 namespace Nexus.GameEngine {
 
@@ -24,8 +25,14 @@ namespace Nexus.GameEngine {
 
 		public void Draw() {
 
+			int offsetX = -Systems.camera.posX % (byte)TilemapEnum.TileWidth;
+			int offsetY = -Systems.camera.posY % (byte)TilemapEnum.TileHeight;
+
 			// Draw Grid UI
-			this.gridUI.Draw(-Systems.camera.posX % (byte)TilemapEnum.TileWidth, -Systems.camera.posY % (byte)TilemapEnum.TileHeight);
+			this.gridUI.Draw(offsetX, offsetY);
+
+			// Draw Highlighted Tile
+			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.scene.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, this.scene.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw(this.scene.MouseGridX + ", " + this.scene.MouseGridY, 10, 10, Color.White);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
+using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 
@@ -34,8 +35,10 @@ namespace Nexus.GameEngine {
 			this.mouseState = Mouse.GetState();
 		}
 
-		public int MouseGridX { get { return (int) Math.Floor(this.mouseState.X * 0.020833); } }
-		public int MouseGridY { get { return (int) Math.Floor(this.mouseState.Y * 0.020833); } }
+		public int MouseX { get { return this.mouseState.X; } }
+		public int MouseY { get { return this.mouseState.Y; } }
+		public int MouseGridX { get { return Snap.GridFloor((ushort) TilemapEnum.TileWidth, Systems.camera.posX + this.mouseState.X); } }
+		public int MouseGridY { get { return Snap.GridFloor((ushort) TilemapEnum.TileHeight, Systems.camera.posY + this.mouseState.Y); } }
 
 		public void SetRoom( byte roomNum ) {
 			this.roomNum = roomNum;
