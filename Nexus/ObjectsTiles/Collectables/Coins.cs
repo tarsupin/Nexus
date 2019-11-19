@@ -32,8 +32,8 @@ namespace Nexus.Objects {
 
 		private void CreateTextures() {
 			this.Texture = new string[2];
-			this.Texture[0] = "Treasure/Coin";
-			this.Texture[1] = "Treasure/Gem";
+			this.Texture[(byte)CoinsSubType.Coin] = "Treasure/Coin";
+			this.Texture[(byte)CoinsSubType.Gem] = "Treasure/Gem";
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Nexus.GameEngine {
 		public TileToolBlocks(EditorScene scene) : base(scene) {
 
 			// Grass
-			this.placeholders.Add(new EditorPlaceholder[16] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.GroundGrass,
 					subType = (byte) GroundSubTypes.S,
@@ -78,7 +78,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Stone
-			this.placeholders.Add(new EditorPlaceholder[16] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.GroundStone,
 					subType = (byte) GroundSubTypes.S,
@@ -146,7 +146,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Mud
-			this.placeholders.Add(new EditorPlaceholder[16] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.GroundMud,
 					subType = (byte) GroundSubTypes.S,
@@ -214,7 +214,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Snow
-			this.placeholders.Add(new EditorPlaceholder[16] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.GroundSnow,
 					subType = (byte) GroundSubTypes.S,
@@ -282,7 +282,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Grass Ledge
-			this.placeholders.Add(new EditorPlaceholder[16] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.S,
@@ -350,7 +350,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Cloud
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.GroundCloud,
 					subType = (byte) GroundSubTypes.S,
@@ -359,7 +359,7 @@ namespace Nexus.GameEngine {
 
 			// Leaf
 			// TODO LOW PRIORITY: Need secondary leaf option. There's "basic" and "reform". Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Leaf,
 					subType = 0,
@@ -368,7 +368,7 @@ namespace Nexus.GameEngine {
 
 			// Bricks
 			// TODO LOW PRIORITY: Need "bricks" here. Brown and Gray options. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.Brick,
 					subType = 0,
@@ -376,14 +376,14 @@ namespace Nexus.GameEngine {
 			});
 
 			// Boxes
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Box,
 					subType = (byte) BoxSubType.Brown,
 				},
 			});
 
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Box,
 					subType = (byte) BoxSubType.Gray,
@@ -391,7 +391,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Log
-			this.placeholders.Add(new EditorPlaceholder[4] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
 					subType = (byte) GroundSubTypes.S,
@@ -412,7 +412,7 @@ namespace Nexus.GameEngine {
 
 			// Slab (Gray)
 			// TODO LOW PRIORITY: Need correct versions. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
 					subType = (byte) GroundSubTypes.S,
@@ -421,7 +421,7 @@ namespace Nexus.GameEngine {
 
 			// Slab (Brown)
 			// TODO LOW PRIORITY: Need correct versions. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
 					subType = (byte) GroundSubTypes.S,
@@ -429,7 +429,7 @@ namespace Nexus.GameEngine {
 			});
 
 			// Spike
-			this.placeholders.Add(new EditorPlaceholder[2] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Spike,
 					subType = (byte) SpikeSubType.Basic,
@@ -442,7 +442,7 @@ namespace Nexus.GameEngine {
 
 			// Exclaim Block
 			// TODO LOW PRIORITY: Need correct versions. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.ExclaimBlock,
 					subType = (byte)GroundSubTypes.S,
@@ -451,7 +451,7 @@ namespace Nexus.GameEngine {
 
 			// Puff Block
 			// TODO LOW PRIORITY: Need correct FACING(?) versions. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[1] {
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PuffBlock,
 					subType = (byte)GroundSubTypes.S,
