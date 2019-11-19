@@ -72,6 +72,12 @@
     <Compile Include="GameEngine\Console\ConsolePowers.cs" />
     <Compile Include="GameEngine\Console\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\ConsoleEquipment.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolWand.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolMove.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolEyedrop.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolEraser.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolBlueprint.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncTool.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolPrompt.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolMovers.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolItems.cs" />
@@ -492,7 +498,6 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GameEngine\Editor\FuncTools\" />
     <Folder Include="ObjectComponents\Attachments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
