@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolPrompt : TileTool {
 
-		public TileToolPrompt(EditorScene scene) : base(scene) {
+		public TileToolPrompt() : base() {
 
 			// TODO LOW PRIORITY: Add this whole section (there's a section with facing options)
 

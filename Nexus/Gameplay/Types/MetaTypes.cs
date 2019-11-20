@@ -100,6 +100,7 @@ namespace Nexus.Gameplay {
 		Projectile,
 	}
 
+	// The Tile Slot Groups (for Editing Levels)
 	public enum SlotGroup : byte {
 		None,
 		Blocks,
@@ -112,5 +113,14 @@ namespace Nexus.Gameplay {
 		Items,
 		Movers,
 		Prompts,
+	}
+
+	// Function Tool Enum
+	public enum FuncToolEnum : byte {
+		None,
+		Eraser,
+		Eyedrop,
+		Move,
+		Wand
 	}
 }

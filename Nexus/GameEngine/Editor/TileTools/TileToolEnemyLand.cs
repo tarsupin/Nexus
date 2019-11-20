@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolEnemyLand : TileTool {
 
-		public TileToolEnemyLand(EditorScene scene) : base(scene) {
+		public TileToolEnemyLand() : base() {
 
 			// TODO LOW PRIORITY: Add this whole section
 			//this.placeholdersAdd(new EditorPlaceholder[] {

@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolCollectables : TileTool {
 
-		public TileToolCollectables(EditorScene scene) : base(scene) {
+		public TileToolCollectables() : base() {
 
 			// Suits (Ninja)
 			this.placeholders.Add(new EditorPlaceholder[] {

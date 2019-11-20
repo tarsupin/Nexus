@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolItems : TileTool {
 
-		public TileToolItems(EditorScene scene) : base(scene) {
+		public TileToolItems() : base() {
 
 			// TODO LOW PRIORITY: Add this whole section
 

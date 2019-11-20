@@ -4,11 +4,11 @@ namespace Nexus.GameEngine {
 
 	public class FuncToolEraser : FuncTool {
 
-		public FuncToolEraser( EditorScene scene ) : base(scene) {
+		public FuncToolEraser() : base() {
 
 		}
 
-		public override void RunTick() {
+		public override void RunTick(EditorScene scene) {
 
 			// Left Mouse Button (Delete Current Tile)
 			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {

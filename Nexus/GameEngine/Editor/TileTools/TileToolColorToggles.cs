@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolColorToggles : TileTool {
 
-		public TileToolColorToggles(EditorScene scene) : base(scene) {
+		public TileToolColorToggles() : base() {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

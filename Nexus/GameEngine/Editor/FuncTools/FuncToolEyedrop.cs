@@ -5,11 +5,11 @@ namespace Nexus.GameEngine {
 
 	public class FuncToolEyedrop : FuncTool {
 
-		public FuncToolEyedrop( EditorScene scene ) : base(scene) {
+		public FuncToolEyedrop() : base() {
 
 		}
 
-		public override void RunTick() {
+		public override void RunTick(EditorScene scene) {
 
 			// Left or Right Mouse Click
 			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed || EditorCursor.mouseState.RightButton == ButtonState.Pressed) {

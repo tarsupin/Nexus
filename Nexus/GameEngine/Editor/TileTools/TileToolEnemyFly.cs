@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolEnemyFly : TileTool {
 
-		public TileToolEnemyFly(EditorScene scene) : base(scene) {
+		public TileToolEnemyFly() : base() {
 
 			// TODO LOW PRIORITY: Add this whole section
 

@@ -32,9 +32,6 @@ namespace Nexus.GameEngine {
 
 			Systems.SetMouseVisible(true);
 			EditorCursor.UpdateMouseState();
-
-			// TODO CLEANUP: Remove
-			var a = new TileToolBlocks(this);
 		}
 
 		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }

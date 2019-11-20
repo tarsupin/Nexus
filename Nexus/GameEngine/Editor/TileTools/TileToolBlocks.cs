@@ -1,5 +1,4 @@
-﻿
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using static Nexus.Objects.Box;
 using static Nexus.Objects.Spike;
 
@@ -7,7 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class TileToolBlocks : TileTool {
 
-		public TileToolBlocks(EditorScene scene) : base(scene) {
+		public TileToolBlocks() : base() {
 
 			// Grass
 			this.placeholders.Add(new EditorPlaceholder[] {

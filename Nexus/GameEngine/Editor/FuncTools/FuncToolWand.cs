@@ -4,11 +4,11 @@ namespace Nexus.GameEngine {
 
 	public class FuncToolWand : FuncTool {
 
-		public FuncToolWand( EditorScene scene ) : base(scene) {
+		public FuncToolWand() : base() {
 
 		}
 
-		public override void RunTick() {
+		public override void RunTick(EditorScene scene) {
 
 			// Left Mouse Button (Delete Current Tile)
 			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
