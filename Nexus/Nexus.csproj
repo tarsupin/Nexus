@@ -144,6 +144,9 @@
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ObjectPool.cs" />
+    <Compile Include="GameEngine\Scenes\Helpers\EditorCursor.cs" />
+    <Compile Include="GameEngine\Scenes\Helpers\EditorCamera.cs" />
+    <Compile Include="GameEngine\Scenes\Helpers\DrawTracker.cs" />
     <Compile Include="GameEngine\Scenes\EditorScene.cs" />
     <Compile Include="GameEngine\Scenes\EditorRoomScene.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
@@ -284,6 +287,7 @@
     <Compile Include="ObjectsTiles\Blocks\Spike.cs" />
     <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundCloud.cs" />
+    <Compile Include="ObjectsTiles\Ground\GroundDirt.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
     <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformDown.cs" />
     <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformRight.cs" />
@@ -366,7 +370,7 @@
     <Compile Include="Gameplay\Settings\GraphicSettings.cs" />
     <Compile Include="Gameplay\States\PlaylistState.cs" />
     <Compile Include="Gameplay\States\EditorState.cs" />
-    <Compile Include="Gameplay\Level\LevelState.cs" />
+    <Compile Include="Gameplay\States\LevelState.cs" />
     <Compile Include="Gameplay\GameHandler.cs" />
     <Compile Include="Gameplay\World\WorldState.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />

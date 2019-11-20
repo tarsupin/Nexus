@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -28,7 +29,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Important Components
-			Systems.camera.UpdateScene(this.rooms[this.roomNum]);
+			Systems.camera.UpdateScene(this.CurrentRoom);
 			Systems.camera.SetInputMoveSpeed(15);
 
 			Systems.SetMouseVisible(true);
@@ -38,6 +39,7 @@ namespace Nexus.GameEngine {
 			var a = new TileToolBlocks(this);
 		}
 
+		public EditorRoomScene CurrentRoom { get { return this.CurrentRoom; } }
 		public int MouseX { get { return this.mouseState.X; } }
 		public int MouseY { get { return this.mouseState.Y; } }
 		public int MouseGridX { get { return Snap.GridFloor((ushort) TilemapEnum.TileWidth, Systems.camera.posX + this.mouseState.X); } }
@@ -57,6 +59,11 @@ namespace Nexus.GameEngine {
 			// Update the Mouse State
 			this.mouseState = Mouse.GetState();
 
+			// TODO CLEANUP: REMOVE
+			if(this.mouseState.LeftButton == ButtonState.Pressed) {
+				ChatConsole.SendMessage("admin", "placed at " + this.MouseGridX + ", " + this.MouseGridY, Color.DarkGreen);
+			}
+
 			// Debug Console (only runs if visible)
 			Console.RunTick();
 
@@ -64,7 +71,7 @@ namespace Nexus.GameEngine {
 			this.EditorInput();
 
 			// Run this Room's Tick
-			this.rooms[this.roomNum].RunTick();
+			this.CurrentRoom.RunTick();
 		}
 
 		public void EditorInput() {
@@ -88,11 +95,58 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 
 			// Render the Current Rooom
-			this.rooms[this.roomNum].Draw();
+			this.CurrentRoom.Draw();
 
 			// Draw UI
 			this.editorUI.Draw();
 			Console.Draw();
+		}
+
+		//// Swaps this room to the right (switches with next room)
+		//swapRoom(): void {
+		//	var curRoomId = this.game.level.state.roomId;
+
+		//	// Cannot swap this room if the room is unavailable.
+		//	if(curRoomId > 9) { return; }
+
+		//	// If there is no data for the room, create an empty object for it.
+		//	if(!this.level.levelData.rooms[curRoomId + 1]) {
+		//		this.level.levelData.rooms[curRoomId + 1] = {} as RoomData;
+		//	}
+
+		//	// Swap Rooms Accordingly
+		//	var tempRoom = this.level.levelData.rooms[curRoomId + 1];
+		//	this.level.levelData.rooms[curRoomId + 1] = this.level.levelData.rooms[curRoomId];
+		//	this.level.levelData.rooms[curRoomId] = tempRoom;
+
+		//	this.switchRoom( curRoomId + 1 );
+
+		//	// Update Camera Memory in Editor
+		//	this.editor.swapCameraMemoryRooms( curRoomId, curRoomId + 1 );
+		//}
+
+		public void SwitchRoom(byte newRoomId) {
+			this.roomNum = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
+
+			// If there is no data for the room, create an empty object for it.
+			if(Systems.handler.levelContent.data.room[this.roomNum.ToString()] == null) {
+				Systems.handler.levelContent.data.room.Add(this.roomNum.ToString(), new RoomFormat());
+			}
+
+			// TODO: Update the editor camera's position:
+			//// If there is no saved camera position, set one based on character's position for that room (if available), or default it.
+			//if(!this.editor.cameraMemory[this.roomNum]) {
+			//	if(this.level.currentRoom.charStart) {
+			//		let char = this.level.currentRoom.charStart;
+			//		this.editor.setCameraMemory(this.roomNum, char.x - 300, char.y - 600);
+			//	} else {
+			//		this.editor.setCameraMemory(this.roomNum, 0, 0);
+			//	}
+			//}
+
+			//// Move Camera to Saved Camera Position.
+			//this.camera.x = this.editor.cameraMemory[this.roomNum].x;
+			//this.camera.y = this.editor.cameraMemory[this.roomNum].y;
 		}
 	}
 }

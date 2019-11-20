@@ -38,7 +38,7 @@ namespace Nexus.Gameplay {
 		}
 		
 		private static void AddTileToScene(EditorRoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
-			room.tilemap.AddTile(gridX, gridY, type, subType);
+			room.tilemap.AddTileAtGrid(gridX, gridY, type, subType);
 		}
 
 		public static void DetermineRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {

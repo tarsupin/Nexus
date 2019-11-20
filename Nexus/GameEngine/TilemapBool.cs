@@ -39,9 +39,23 @@ namespace Nexus.GameEngine {
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddTile(ushort gridX, ushort gridY, byte id, byte subType, byte fgId = 0, byte fgSubType = 0) {
+		public void AddTileAtGrid(ushort gridX, ushort gridY, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
 			uint gridId = this.GetGridID(gridX, gridY);
-			this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
+			this.AddTile(gridId, id, subType, fgId, fgSubType);
+		}
+
+		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
+		public void AddTile(uint gridId, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
+
+			if(!this.tiles.ContainsKey(gridId)) {
+				this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
+
+			} else {
+				if(id > 0) { this.tiles[gridId][0] = id; }
+				if(subType > 0) { this.tiles[gridId][0] = subType; }
+				if(fgId > 0) { this.tiles[gridId][0] = fgId; }
+				if(fgSubType > 0) { this.tiles[gridId][0] = fgSubType; }
+			}
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.

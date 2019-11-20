@@ -73,9 +73,9 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum LayerEnum : byte {
-		Background = 0,
-		Main = 1,
-		Cosmetic = 2,
+		main = 0,
+		obj = 1,
+		fg = 2,
 	}
 
 	// LoadOrder is used to determine rendering layers.
