@@ -13,8 +13,6 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public byte roomNum = 0;
 
-		public MouseState mouseState;
-
 		public EditorScene() : base() {
 
 			// Create UI
@@ -33,17 +31,13 @@ namespace Nexus.GameEngine {
 			Systems.camera.SetInputMoveSpeed(15);
 
 			Systems.SetMouseVisible(true);
-			this.mouseState = Mouse.GetState();
+			EditorCursor.UpdateMouseState();
 
 			// TODO CLEANUP: Remove
 			var a = new TileToolBlocks(this);
 		}
 
-		public EditorRoomScene CurrentRoom { get { return this.CurrentRoom; } }
-		public int MouseX { get { return this.mouseState.X; } }
-		public int MouseY { get { return this.mouseState.Y; } }
-		public int MouseGridX { get { return Snap.GridFloor((ushort) TilemapEnum.TileWidth, Systems.camera.posX + this.mouseState.X); } }
-		public int MouseGridY { get { return Snap.GridFloor((ushort) TilemapEnum.TileHeight, Systems.camera.posY + this.mouseState.Y); } }
+		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }
 
 		public void SetRoom( byte roomNum ) {
 			this.roomNum = roomNum;
@@ -57,11 +51,11 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update the Mouse State
-			this.mouseState = Mouse.GetState();
+			EditorCursor.UpdateMouseState();
 
 			// TODO CLEANUP: REMOVE
-			if(this.mouseState.LeftButton == ButtonState.Pressed) {
-				ChatConsole.SendMessage("admin", "placed at " + this.MouseGridX + ", " + this.MouseGridY, Color.DarkGreen);
+			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
+				ChatConsole.SendMessage("admin", "placed at " + EditorCursor.MouseGridX + ", " + EditorCursor.MouseGridY, Color.DarkGreen);
 			}
 
 			// Debug Console (only runs if visible)

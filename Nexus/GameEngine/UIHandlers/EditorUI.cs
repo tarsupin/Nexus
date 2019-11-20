@@ -23,10 +23,10 @@ namespace Nexus.GameEngine {
 			this.gridUI.Draw(offsetX, offsetY);
 
 			// Draw Highlighted Tile
-			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.scene.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, this.scene.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
+			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(EditorCursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, EditorCursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
 
 			// Coordinate Tracker
-			Systems.fonts.counter.Draw(this.scene.MouseGridX + ", " + this.scene.MouseGridY, 10, 10, Color.White);
+			Systems.fonts.counter.Draw(EditorCursor.MouseGridX + ", " + EditorCursor.MouseGridY, 10, 10, Color.White);
 
 			// Room Counter (Which Room)
 			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 184, 10, Color.White);

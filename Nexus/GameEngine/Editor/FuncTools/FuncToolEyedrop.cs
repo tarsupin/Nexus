@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		public override void RunTick() {
 
 			// Left or Right Mouse Click
-			if(this.scene.mouseState.LeftButton == ButtonState.Pressed || this.scene.mouseState.RightButton == ButtonState.Pressed) {
+			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed || EditorCursor.mouseState.RightButton == ButtonState.Pressed) {
 
 				// TODO:
 				//this.scene.CloneTile();
