@@ -34,6 +34,19 @@ namespace Nexus.GameEngine {
 
 		public override void RunTick() {
 
+			// Update Tools
+			if(EditorCursor.tempTool is FuncTool) {
+				EditorCursor.tempTool.RunTick(this.scene);
+			}
+			
+			else if(EditorCursor.funcTool is FuncTool) {
+				EditorCursor.funcTool.RunTick(this.scene);
+			}
+
+			else {
+				this.TileToolDraw(EditorCursor.MouseGridX, EditorCursor.MouseGridY);
+			}
+
 			// Camera Movement
 			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
 		}
@@ -129,100 +142,75 @@ namespace Nexus.GameEngine {
 			this.tilemap.RemoveTileByGrid(gridX, gridY);
 		}
 
-		// TODO: Not sure if I need this. Overhaul if I do.
-		//public void ToolDraw( ushort gridX, ushort gridY ) {
+		public void TileToolDraw(ushort gridX, ushort gridY) {
+			
+			// Left Mouse Button (Overwrite Current Tile)
+			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
+				TileTool tool = EditorCursor.tileTool;
 
-		//	// Active tool must be a TileTool to draw.
-		//	if(!this.scene.tileTool) {
+				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
+				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
 
-		//		// If there is no active tool (tile or function), a right click will clone tiles.
-		//		if(!this.scene.funcTool && this.scene.mouseState.RightButton == ButtonState.Pressed) {
-		//			this.CloneTile(gridX, gridY);
-		//		}
+				// TODO HIGH PRIORITY: PLACE TILE
+				//this.PlaceTile(tool.tile.layerName, gridX, gridY, tool.tile.id, tool.tile.subType, tool.tile.paramList);
 
-		//		return;
-		//	}
+				// Auto-Tile if shift is being held (and tile can auto-tile).
+				bool autoTileRunning = false;
 
-		//	// Left Mouse Button (Overwrite Current Tile)
-		//	if(this.scene.mouseState.LeftButton == ButtonState.Pressed) {
-		//		var tool = this.scene.tileTool;
+				// TODO HIGH PRIORITY: AUTO-TILING AFTER PLACEMENTE
+				//if(Systems.input.LocalKeyDown(Keys.LeftShift)) {
 
-		//		// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
-		//		if(!this.drawTracker.attemptDraw( gridX, gridY )) {
-		//			return;
-		//		}
+				//	// Attempt to run AutoTile (and trace success)
+				//	autoTileRunning = this.autoTile.runAutoTile(tool.tile);
+				//}
 
-		//		// Auto-Tile if shift is being held (and tile can auto-tile).
-		//		bool autoTileRunning = false;
+				//// Place Tile
+				//if(!autoTileRunning) {
 
-		//		if(Systems.input.LocalKeyDown(Keys.LeftShift)) {
+				//	// Check if the auto-neighbor process is handling the placement:
+				//	bool autoNeighborRan = this.autoNeighbor.runAutoNeighbor(tool.tile, gridX, gridY);
 
-		//			// Attempt to run AutoTile (and trace success)
-		//			autoTileRunning = this.autoTile.runAutoTile( tool.tile );
-		//		}
+				//	if(!autoNeighborRan) {
 
-		//		// Place Tile
-		//		if(!autoTileRunning) {
+				//		// TODO UI
+				//		// If there are alterations to the main layer, test for special alteration rules.
+				//		// if(tool.tile.layerName === "mainLayer") {
+				//		// 	this.alterTile( "mainLayer", this.scene.MouseGridX, this.scene.MouseGridY, false, true );
+				//		// }
 
-		//			// Check if the auto-neighbor process is handling the placement:
-		//			bool autoNeighborRan = this.autoNeighbor.runAutoNeighbor( tool.tile, gridX, gridY );
+				//		this.PlaceTile(tool.tile.layerName, gridX, gridY, tool.tile.id, tool.tile.subType, tool.tile.paramList);
+				//	}
+				//}
 
-		//			if(!autoNeighborRan) {
+				return;
+			}
 
-		//				// TODO UI
-		//				// If there are alterations to the main layer, test for special alteration rules.
-		//				// if(tool.tile.layerName === "mainLayer") {
-		//				// 	this.alterTile( "mainLayer", this.scene.MouseGridX, this.scene.MouseGridY, false, true );
-		//				// }
+			// A right click will clone the current tile.
+			if(EditorCursor.mouseState.RightButton == ButtonState.Pressed) {
+				this.CloneTile(gridX, gridY);
+			}
+		}
 
-		//				this.PlaceTile( tool.tile.layerName, gridX, gridY, tool.tile.id, tool.tile.subType, tool.tile.paramList );
-		//			}
-		//		}
+		public void CloneTile(ushort gridX, ushort gridY) {
 
-		//		// Deal with Chain Updates (Neighbor Tiles Chained Together)
-		//		// Only some archetypes deal with Neighbor Tiles & Chains
-		//		if(tool.tile.objClass.meta.archetype !== Arch.Platform) { return; }
+			// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
+			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
-		//		let chainCursor = this.autoNeighbor.chainCursor;
-		//		chainCursor.loadExtendedChain( tool.tile, gridX, gridY );
+			// TODO CLEANUP: as a temporary measure, for now, assign the blocks tile:
+			EditorCursor.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
+			
+			// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 
-		//		switch( tool.tile.objClass ) {
+			//// If there is a valid Game Object to highlight, switch tool to draw it:
+			//if(tile && tile.objClass && Object.keys(tile.objClass).length > 0) {
 
-		//			case PlatSolid:
-		//				chainCursor.smoothChain( 50 );
-		//				break;
+			//	// Set the Slot Group
+			//	this.cursor.assignTool(this.tileToolMap[tile.objClass.meta.slotGroup as SlotGroupEnum]);
 
-		//			case PlatDip:
-		//			case PlatDelay:
-		//			case PlatFall:
-		//				chainCursor.smoothChain( 3 );
-		//				break;
-		//		}
-
-		//		return;
-		//	}
-
-		//	// Right Mouse Button (Clone Current Tile)
-		//	if(this.scene.mouseState.RightButton == ButtonState.Pressed) {
-		//		this.CloneTile(gridX, gridY);
-		//	}
-		//}
-
-		//cloneTile() {
-
-		//	// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
-		//	let tile: Tile = this.getTileFromGrid();
-
-		//	// If there is a valid Game Object to highlight, switch tool to draw it:
-		//	if(tile && tile.objClass && Object.keys(tile.objClass).length > 0) {
-
-		//		// Set the Slot Group
-		//		this.cursor.assignTool( this.tileToolMap[tile.objClass.meta.slotGroup as SlotGroupEnum] );
-
-		//		// Set the Specific Tile
-		//		this.scene.tileTool.setTileToolTile( tile );
-		//	}
-		//}
+			//	// Set the Specific Tile
+			//	this.scene.tileTool.setTileToolTile(tile);
+			//}
+		}
 
 		//alterTile( layer: RoomLayer, gridX: number, gridY: number, split: boolean = false, del: boolean = false ) {
 

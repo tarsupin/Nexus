@@ -14,8 +14,8 @@ namespace Nexus.GameEngine {
 
 		public static int MouseX { get { return EditorCursor.mouseState.X; } }
 		public static int MouseY { get { return EditorCursor.mouseState.Y; } }
-		public static int MouseGridX { get { return Snap.GridFloor((ushort)TilemapEnum.TileWidth, Systems.camera.posX + EditorCursor.mouseState.X); } }
-		public static int MouseGridY { get { return Snap.GridFloor((ushort)TilemapEnum.TileHeight, Systems.camera.posY + EditorCursor.mouseState.Y); } }
+		public static ushort MouseGridX { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileWidth, Systems.camera.posX + EditorCursor.mouseState.X); } }
+		public static ushort MouseGridY { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileHeight, Systems.camera.posY + EditorCursor.mouseState.Y); } }
 
 		public static void SetTileTool( TileTool tool ) {
 			EditorCursor.tileTool = tool;

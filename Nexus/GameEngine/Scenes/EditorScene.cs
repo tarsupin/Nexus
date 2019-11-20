@@ -66,9 +66,21 @@ namespace Nexus.GameEngine {
 		}
 
 		public void EditorInput() {
-
-			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
+
+			// Get the Local Keys Held Down
+			Keys[] localKeys = input.GetAllLocalKeysDown();
+			if(localKeys.Length == 0) { return; }
+
+			// Tile Tool Key Binds
+			if(TileTool.tileToolKey.ContainsKey(localKeys[0])) {
+				EditorCursor.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
+			}
+
+			// Func Tool Key Binds
+			else if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
+				EditorCursor.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
+			}
 
 			// Horizontal Camera Shift (0, 33, 66, 100)
 			if(input.LocalKeyPressed(Keys.F1)) { /* Convert to a percent camera swap for the level */ }
@@ -93,6 +105,7 @@ namespace Nexus.GameEngine {
 			Console.Draw();
 		}
 
+		// TODO: Rename to SwapRoomOrder
 		//// Swaps this room to the right (switches with next room)
 		//swapRoom(): void {
 		//	var curRoomId = this.game.level.state.roomId;

@@ -6,5 +6,6 @@ namespace Nexus.GameEngine {
 		public FuncToolMove() : base() {
 
 		}
+
 	}
 }

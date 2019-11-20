@@ -177,6 +177,11 @@ namespace Nexus.Engine {
 			}
 		}
 
+		// Retrieve the Local Keys Pressed as an array
+		public Keys[] GetAllLocalKeysDown() {
+			return this.curKeyState.GetPressedKeys();
+		}
+
 		// Returns TRUE if a local key was pressed (needed for debugging and typing)
 		public bool LocalKeyPressed(Keys key) {
 			return this.curKeyState.IsKeyDown(key) && !this.prevKeyState.IsKeyDown(key);

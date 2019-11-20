@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Microsoft.Xna.Framework.Input;
+using Nexus.Gameplay;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -25,6 +26,19 @@ namespace Nexus.GameEngine {
 			{ (byte) SlotGroup.Movers, new TileToolMovers() },
 			{ (byte) SlotGroup.Interactives, new TileToolInteractives() },
 			{ (byte) SlotGroup.Prompts, new TileToolPrompt() },
+		};
+
+		public static Dictionary<Keys, byte> tileToolKey = new Dictionary<Keys, byte>() {
+			{ Keys.D1, (byte) SlotGroup.Blocks },
+			{ Keys.D2, (byte) SlotGroup.Collectables },
+			{ Keys.D3, (byte) SlotGroup.ColorToggles },
+			{ Keys.D4, (byte) SlotGroup.EnemyLand },
+			{ Keys.D5, (byte) SlotGroup.Fixed },
+			{ Keys.D6, (byte) SlotGroup.EnemyFly },
+			{ Keys.D7, (byte) SlotGroup.Items },
+			{ Keys.D8, (byte) SlotGroup.Movers },
+			{ Keys.D9, (byte) SlotGroup.Interactives },
+			{ Keys.D0, (byte) SlotGroup.Prompts },
 		};
 
 		public TileTool() {
