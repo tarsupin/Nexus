@@ -151,6 +151,8 @@
     <Compile Include="GameEngine\Scenes\EditorRoomScene.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
+    <Compile Include="GameEngine\UIComponents\EditorScroller.cs" />
+    <Compile Include="GameEngine\UIComponents\UtilityBar.cs" />
     <Compile Include="GameEngine\UIComponents\GridOverlay.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileTool.cs" />
     <Compile Include="GameEngine\UIHandlers\EditorUI.cs" />
