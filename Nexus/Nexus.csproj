@@ -144,7 +144,8 @@
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
     <Compile Include="GameEngine\ObjectPool.cs" />
-    <Compile Include="GameEngine\Scenes\Helpers\EditorCursor.cs" />
+    <Compile Include="Engine\Cursor.cs" />
+    <Compile Include="GameEngine\Scenes\Helpers\EditorTools.cs" />
     <Compile Include="GameEngine\Scenes\Helpers\EditorCamera.cs" />
     <Compile Include="GameEngine\Scenes\Helpers\DrawTracker.cs" />
     <Compile Include="GameEngine\Scenes\EditorScene.cs" />

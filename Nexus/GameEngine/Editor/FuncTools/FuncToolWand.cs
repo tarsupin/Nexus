@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
@@ -11,14 +12,14 @@ namespace Nexus.GameEngine {
 		public override void RunTick(EditorScene scene) {
 
 			// Left Mouse Button (Delete Current Tile)
-			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
+			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
 				// TODO:
 				//this.CreateWandObject();
 			}
 
 			// Right Mouse Button (Clone Current Tile)
-			else if(EditorCursor.mouseState.RightButton == ButtonState.Pressed) {
+			else if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
 
 				// TODO:
 				//this.scene.CloneTile();

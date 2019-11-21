@@ -35,16 +35,16 @@ namespace Nexus.GameEngine {
 		public override void RunTick() {
 
 			// Update Tools
-			if(EditorCursor.tempTool is FuncTool) {
-				EditorCursor.tempTool.RunTick(this.scene);
+			if(EditorTools.tempTool is FuncTool) {
+				EditorTools.tempTool.RunTick(this.scene);
 			}
 			
-			else if(EditorCursor.funcTool is FuncTool) {
-				EditorCursor.funcTool.RunTick(this.scene);
+			else if(EditorTools.funcTool is FuncTool) {
+				EditorTools.funcTool.RunTick(this.scene);
 			}
 
 			else {
-				this.TileToolDraw(EditorCursor.MouseGridX, EditorCursor.MouseGridY);
+				this.TileToolDraw(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 
 			// Camera Movement
@@ -145,8 +145,8 @@ namespace Nexus.GameEngine {
 		public void TileToolDraw(ushort gridX, ushort gridY) {
 			
 			// Left Mouse Button (Overwrite Current Tile)
-			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
-				TileTool tool = EditorCursor.tileTool;
+			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+				TileTool tool = EditorTools.tileTool;
 
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
@@ -186,7 +186,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// A right click will clone the current tile.
-			if(EditorCursor.mouseState.RightButton == ButtonState.Pressed) {
+			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
 				this.CloneTile(gridX, gridY);
 			}
 		}
@@ -197,7 +197,7 @@ namespace Nexus.GameEngine {
 			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
 			// TODO CLEANUP: as a temporary measure, for now, assign the blocks tile:
-			EditorCursor.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
+			EditorTools.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
 			
 			// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 

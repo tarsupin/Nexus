@@ -14,6 +14,9 @@ namespace Nexus.Engine {
 
 	public class UIComponent {
 
+		// Static Settings
+		public static UIComponent hoverComp;	// The current UI Component being hovered on (the furthest descendent, when applicable).
+
 		// Identification
 		public uint id;
 

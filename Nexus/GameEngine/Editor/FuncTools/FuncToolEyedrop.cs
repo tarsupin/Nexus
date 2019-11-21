@@ -1,5 +1,5 @@
-﻿
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
+using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		public override void RunTick(EditorScene scene) {
 
 			// Left or Right Mouse Click
-			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed || EditorCursor.mouseState.RightButton == ButtonState.Pressed) {
+			if(Cursor.mouseState.LeftButton == ButtonState.Pressed || Cursor.mouseState.RightButton == ButtonState.Pressed) {
 
 				// TODO:
 				//this.scene.CloneTile();

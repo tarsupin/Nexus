@@ -17,9 +17,15 @@ namespace Nexus.GameEngine {
 			this.height = (byte) TilemapEnum.TileHeight;
 		}
 
+		public void RunTick() {
+			if(this.IsMouseOver()) {
+				UIComponent.hoverComp = this;
+			}
+		}
+
 		public bool IsMouseOver() {
-			int mouseX = EditorCursor.MouseX;
-			int mouseY = EditorCursor.MouseY;
+			int mouseX = Cursor.MouseX;
+			int mouseY = Cursor.MouseY;
 
 			if(mouseX < this.x || mouseY > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) { return false; }
 			return true;
@@ -51,8 +57,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Hovering Visual
-			if(this.IsMouseOver()) {
-				short mx = (short) Snap.GridFloor((byte) TilemapEnum.TileWidth, EditorCursor.MouseX - this.x);
+			if(UIComponent.hoverComp != null) {
+				short mx = (short) Snap.GridFloor(tileWidth, Cursor.MouseX - this.x);
 
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);
 			}

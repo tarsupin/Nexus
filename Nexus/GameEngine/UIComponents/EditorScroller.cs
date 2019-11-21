@@ -29,8 +29,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw TileTool Subtype Buttons
-			if(EditorCursor.tileTool is TileTool) {
-				List<EditorPlaceholder[]> placeholders = EditorCursor.tileTool.placeholders;
+			if(EditorTools.tileTool is TileTool) {
+				List<EditorPlaceholder[]> placeholders = EditorTools.tileTool.placeholders;
 
 				// Placeholder Loop
 				byte len = (byte) placeholders.Count;

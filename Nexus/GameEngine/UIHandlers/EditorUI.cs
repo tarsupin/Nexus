@@ -18,27 +18,29 @@ namespace Nexus.GameEngine {
 			this.scroller = new EditorScroller(null);
 		}
 
+		public void RunTick() {
+			UIComponent.hoverComp = null;
+			this.utilityBar.RunTick();
+		}
+
 		public void Draw() {
 
 			int offsetX = -Systems.camera.posX % (byte)TilemapEnum.TileWidth;
 			int offsetY = -Systems.camera.posY % (byte)TilemapEnum.TileHeight;
 
-			bool mouseOver = false;
-			
-			if(this.utilityBar.IsMouseOver()) { mouseOver = true; }
-
-			// Draw Highlighted Grid Square (if not overlapping a UI component)
-			if(!mouseOver) {
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(EditorCursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, EditorCursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
-			}
-
 			// Draw Editor UI Components
 			this.gridUI.Draw(offsetX, offsetY);
+
+			// Draw Highlighted Grid Square (if not overlapping a UI component)
+			if(UIComponent.hoverComp == null) {
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
+			}
+
 			this.utilityBar.Draw();
 			this.scroller.Draw();
 
 			// Coordinate Tracker
-			Systems.fonts.counter.Draw(EditorCursor.MouseGridX + ", " + EditorCursor.MouseGridY, (byte) TilemapEnum.TileWidth + 12, 5, Color.White);
+			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, (byte) TilemapEnum.TileWidth + 12, 5, Color.White);
 
 			// Room Counter (Which Room)
 			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 184, 5, Color.White);

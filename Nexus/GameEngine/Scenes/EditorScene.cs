@@ -31,7 +31,7 @@ namespace Nexus.GameEngine {
 			Systems.camera.SetInputMoveSpeed(15);
 
 			Systems.SetMouseVisible(true);
-			EditorCursor.UpdateMouseState();
+			Cursor.UpdateMouseState();
 		}
 
 		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }
@@ -48,12 +48,15 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update the Mouse State
-			EditorCursor.UpdateMouseState();
+			Cursor.UpdateMouseState();
 
 			// TODO CLEANUP: REMOVE
-			if(EditorCursor.mouseState.LeftButton == ButtonState.Pressed) {
-				ChatConsole.SendMessage("admin", "placed at " + EditorCursor.MouseGridX + ", " + EditorCursor.MouseGridY, Color.DarkGreen);
+			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+				ChatConsole.SendMessage("admin", "placed at " + Cursor.MouseGridX + ", " + Cursor.MouseGridY, Color.DarkGreen);
 			}
+
+			// Update UI Components
+			this.editorUI.RunTick();
 
 			// Debug Console (only runs if visible)
 			Console.RunTick();
@@ -74,12 +77,12 @@ namespace Nexus.GameEngine {
 
 			// Tile Tool Key Binds
 			if(TileTool.tileToolKey.ContainsKey(localKeys[0])) {
-				EditorCursor.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
+				EditorTools.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
 			}
 
 			// Func Tool Key Binds
 			else if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
-				EditorCursor.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
+				EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
 			}
 
 			// Horizontal Camera Shift (0, 33, 66, 100)
