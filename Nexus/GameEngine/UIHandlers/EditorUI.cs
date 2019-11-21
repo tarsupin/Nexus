@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
 			this.gridUI = new GridOverlay(null);
-			this.utilityBar = new UtilityBar(null);
+			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth * 2, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null);
 		}
 
@@ -23,13 +23,19 @@ namespace Nexus.GameEngine {
 			int offsetX = -Systems.camera.posX % (byte)TilemapEnum.TileWidth;
 			int offsetY = -Systems.camera.posY % (byte)TilemapEnum.TileHeight;
 
+			bool mouseOver = false;
+			
+			if(this.utilityBar.IsMouseOver()) { mouseOver = true; }
+
+			// Draw Highlighted Grid Square (if not overlapping a UI component)
+			if(!mouseOver) {
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(EditorCursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, EditorCursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
+			}
+
 			// Draw Editor UI Components
 			this.gridUI.Draw(offsetX, offsetY);
-			this.utilityBar.Draw((byte) TilemapEnum.TileWidth * 2, Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
+			this.utilityBar.Draw();
 			this.scroller.Draw();
-
-			// Draw Highlighted Tile
-			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(EditorCursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, EditorCursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw(EditorCursor.MouseGridX + ", " + EditorCursor.MouseGridY, (byte) TilemapEnum.TileWidth + 12, 5, Color.White);

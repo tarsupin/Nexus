@@ -167,12 +167,12 @@ namespace Nexus.Objects {
 			this.Texture[(byte) GoodieSubType.Stars] = "Goodie/Stars";
 			this.Texture[(byte) GoodieSubType.GodMode] = "Goodie/GodMode";
 
-			this.Texture[(byte) GoodieSubType.Plus5] = "Goodie/Plus5";
-			this.Texture[(byte) GoodieSubType.Plus10] = "Goodie/Plus10";
-			this.Texture[(byte) GoodieSubType.Plus20] = "Goodie/Plus20";
-			this.Texture[(byte) GoodieSubType.Set5] = "Goodie/Set5";
-			this.Texture[(byte) GoodieSubType.Set10] = "Goodie/Set10";
-			this.Texture[(byte) GoodieSubType.Set20] = "Goodie/Set20";
+			this.Texture[(byte) GoodieSubType.Plus5] = "Timer/Plus5";
+			this.Texture[(byte) GoodieSubType.Plus10] = "Timer/Plus10";
+			this.Texture[(byte) GoodieSubType.Plus20] = "Timer/Plus20";
+			this.Texture[(byte) GoodieSubType.Set5] = "Timer/Set5";
+			this.Texture[(byte) GoodieSubType.Set10] = "Timer/Set10";
+			this.Texture[(byte) GoodieSubType.Set20] = "Timer/Set20";
 
 			this.Texture[(byte) GoodieSubType.Disrupt] = "Goodie/Disrupt";
 			this.Texture[(byte) GoodieSubType.Explosive] = "Goodie/Explosive";

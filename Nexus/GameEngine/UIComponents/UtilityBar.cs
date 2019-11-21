@@ -10,21 +10,32 @@ namespace Nexus.GameEngine {
 			BarTiles = 26,
 		}
 
-		public UtilityBar( UIComponent parent ) : base(parent) {
-
+		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
+			this.x = posX;
+			this.y = posY;
+			this.width = ((byte) TilemapEnum.TileWidth + 2) * (byte) UtilityBarEnum.BarTiles;
+			this.height = (byte) TilemapEnum.TileHeight;
 		}
 
-		public void Draw(int posX, int posY) {
+		public bool IsMouseOver() {
+			int mouseX = EditorCursor.MouseX;
+			int mouseY = EditorCursor.MouseY;
+
+			if(mouseX < this.x || mouseY > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) { return false; }
+			return true;
+		}
+
+		public void Draw() {
 
 			byte tileWidth = (byte) TilemapEnum.TileWidth + 2;
 
 			// Draw Utility Bar Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY - 2, tileWidth * (byte)UtilityBarEnum.BarTiles, (byte)TilemapEnum.TileHeight + 2), Color.DarkSlateGray);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY, tileWidth * (byte) UtilityBarEnum.BarTiles - 2, (byte) TilemapEnum.TileHeight), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x, this.y - 2, this.width, this.height + 2), Color.DarkSlateGray);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + 2, this.y, this.width - 2, this.height), Color.White);
 
 			// Tile Outlines
 			for(byte i = 0; i <= (byte) UtilityBarEnum.BarTiles; i++) {
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + i * tileWidth, posY, 2, (byte)TilemapEnum.TileHeight), Color.DarkSlateGray);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + i * tileWidth, this.y, 2, this.height), Color.DarkSlateGray);
 			}
 
 			// Tile Icons
@@ -33,10 +44,17 @@ namespace Nexus.GameEngine {
 			for(byte i = 0; i < 10; i++) {
 
 				// Draw Tile
-				atlas.Draw(TileTool.tileToolMap[(byte)(i + 1)].DefaultIcon, posX + i * tileWidth + 2, posY);
+				atlas.Draw(TileTool.tileToolMap[(byte)(i + 1)].DefaultIcon, this.x + i * tileWidth + 2, this.y);
 
 				// Draw Keybind Text
-				Systems.fonts.baseText.Draw((i+1).ToString(), posX + i * tileWidth + 4, posY + (byte) TilemapEnum.TileHeight - 18, Color.DarkOrange);
+				Systems.fonts.baseText.Draw((i+1).ToString(), this.x + i * tileWidth + 4, this.y + this.height - 18, Color.DarkOrange);
+			}
+
+			// Hovering Visual
+			if(this.IsMouseOver()) {
+				short mx = (short) Snap.GridFloor((byte) TilemapEnum.TileWidth, EditorCursor.MouseX - this.x);
+
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);
 			}
 		}
 	}
