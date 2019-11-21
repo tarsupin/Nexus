@@ -18,17 +18,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			if(this.IsMouseOver()) {
-				UIComponent.hoverComp = this;
-			}
-		}
-
-		public bool IsMouseOver() {
-			int mouseX = Cursor.MouseX;
-			int mouseY = Cursor.MouseY;
-
-			if(mouseX < this.x || mouseY > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) { return false; }
-			return true;
+			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 		}
 
 		public void Draw() {
@@ -57,7 +47,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Hovering Visual
-			if(UIComponent.hoverComp != null) {
+			if(UIComponent.ComponentWithFocus is UtilityBar) {
 				short mx = (short) Snap.GridFloor(tileWidth, Cursor.MouseX - this.x);
 
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);

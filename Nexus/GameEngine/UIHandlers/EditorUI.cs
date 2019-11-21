@@ -19,8 +19,9 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			UIComponent.hoverComp = null;
+			UIComponent.ComponentWithFocus = null;
 			this.utilityBar.RunTick();
+			this.scroller.RunTick();
 		}
 
 		public void Draw() {
@@ -32,7 +33,7 @@ namespace Nexus.GameEngine {
 			this.gridUI.Draw(offsetX, offsetY);
 
 			// Draw Highlighted Grid Square (if not overlapping a UI component)
-			if(UIComponent.hoverComp == null) {
+			if(UIComponent.ComponentWithFocus == null) {
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
 			}
 

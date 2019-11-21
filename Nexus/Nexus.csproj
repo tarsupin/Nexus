@@ -93,7 +93,6 @@
     <Compile Include="Engine\ParallaxHandler.cs" />
     <Compile Include="Engine\Calc\CalcRandom.cs" />
     <Compile Include="Engine\Particles\ParticleStandard.cs" />
-    <Compile Include="Engine\UI\UIData.cs" />
     <Compile Include="Engine\UI\UIComponent.cs" />
     <Compile Include="Engine\FPCalc\FPSpectrum.cs" />
     <Compile Include="Engine\FPCalc\FPRadians.cs" />

@@ -3,19 +3,28 @@ using System.Collections.Generic;
 
 /*
  * Methods needed:
- * RenderChildren()
- * RenderSelf()
- * onClick/onActivate()
- * IsMouseOver() // only run from the base UI down, and only on click or hover or something.
- * GetComponentClicked()		// seeks down the children until it finds a component that returns true; or most true... or self.
+ *	RenderChildren()
+ *	RenderSelf()
+ *	onClick/onActivate()
  */
 
 namespace Nexus.Engine {
 
+	public enum UIChangeFlag : byte {
+		Position,
+		Size,
+		IsVisible,
+		IsSelected,
+	}
+
 	public class UIComponent {
 
 		// Static Settings
-		public static UIComponent hoverComp;	// The current UI Component being hovered on (the furthest descendent, when applicable).
+		private static uint _nextId = 0;
+		public static uint NextID { get { UIComponent._nextId++; return UIComponent._nextId; } }
+
+		public static UIComponent ComponentWithFocus;       // Component with current focus.
+		public static UIComponent ComponentSelected;        // Component that is currently "selected" (like a button)
 
 		// Identification
 		public uint id;
@@ -45,10 +54,10 @@ namespace Nexus.Engine {
 
 		// Interactive Properties
 		public bool visible;
-		public bool IsSelected { get { return UIData.ComponentSelected.id == this.id; } }
+		public bool IsSelected { get { return UIComponent.ComponentSelected.id == this.id; } }
 
 		public UIComponent( UIComponent parent ) {
-			this.id = UIData.NextID; // Attach an ID; useful to identify between components.
+			this.id = UIComponent.NextID; // Attach an ID; useful to identify between components.
 
 			// Verify that the parent is a valid UIComponent (not null).
 			if(parent is UIComponent) {
@@ -100,8 +109,29 @@ namespace Nexus.Engine {
 
 		public void SetSelected( bool selected ) {
 			if(this.IsSelected == selected) { return; }
-			UIData.ComponentSelected.id = this.id;
+			UIComponent.ComponentSelected.id = this.id;
 			this.TriggerChange( UIChangeFlag.IsSelected );
+		}
+
+		// Mouse Detection
+		public UIComponent GetHoverComponent() {
+			if(!this.IsMouseOver()) { return null; }
+
+			// Loop through children and get more refined answer, if applicable.
+			foreach(UIComponent child in this.Children) {
+				UIComponent childComp = child.GetHoverComponent();
+				if(childComp != null) { return childComp; }
+			}
+
+			return this;
+		}
+
+		public bool IsMouseOver() {
+			int mouseX = Cursor.MouseX;
+			int mouseY = Cursor.MouseY;
+
+			if(mouseX < this.x || mouseX > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) { return false; }
+			return true;
 		}
 
 		// Attach a Component to a Parent.

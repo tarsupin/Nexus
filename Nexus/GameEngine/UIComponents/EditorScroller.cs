@@ -12,7 +12,14 @@ namespace Nexus.GameEngine {
 		}
 
 		public EditorScroller( UIComponent parent ) : base(parent) {
+			this.x = 0;
+			this.y = 0;
+			this.width = (byte) TilemapEnum.TileWidth + 4;
+			this.height = (short) Systems.screen.windowHeight;
+		}
 
+		public void RunTick() {
+			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 		}
 
 		public void Draw() {
@@ -20,12 +27,12 @@ namespace Nexus.GameEngine {
 			byte tileHeight = (byte)TilemapEnum.TileHeight + 2;
 
 			// Draw Editor Scroller Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, (byte) TilemapEnum.TileWidth + 4, Systems.screen.screenHeight), Color.DarkSlateGray);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(2, 2, (byte) TilemapEnum.TileWidth, Systems.screen.screenHeight - 6), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, this.width, this.height), Color.DarkSlateGray);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(2, 2, (byte) TilemapEnum.TileWidth, this.height - 6), Color.White);
 
 			// Grid Outline
 			for(byte i = 1; i < (byte) EScrollerEnum.NumTiles; i++) {
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, i * tileHeight, (byte)TilemapEnum.TileWidth + 4, 2), Color.DarkSlateGray);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, i * tileHeight, this.width, 2), Color.DarkSlateGray);
 			}
 
 			// Draw TileTool Subtype Buttons
@@ -51,6 +58,13 @@ namespace Nexus.GameEngine {
 				//// Draw Highlight
 				//this.hover.position.set(0, EditorCursor.tileTool.index * (byte)TilemapEnum.TileHeight);
 				//this.pixi.draw(this.hover);
+			}
+
+			// Hovering Visual
+			if(UIComponent.ComponentWithFocus is EditorScroller) {
+				short my = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
+
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 			}
 		}
 	}
