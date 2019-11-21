@@ -1,5 +1,4 @@
-﻿using Nexus.GameEngine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 

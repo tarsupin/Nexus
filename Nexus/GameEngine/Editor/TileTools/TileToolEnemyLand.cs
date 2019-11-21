@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolEnemyLand() : base() {
 
+			this.DefaultIcon = "ToggleOn/Blue/Block";
+
 			// TODO LOW PRIORITY: Add this whole section
 			//this.placeholdersAdd(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

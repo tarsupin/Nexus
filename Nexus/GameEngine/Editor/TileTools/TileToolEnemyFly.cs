@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolEnemyFly() : base() {
 
+			this.DefaultIcon = "ToggleOn/Blue/Block";
+
 			// TODO LOW PRIORITY: Add this whole section
 
 			//this.placeholders.Add(new EditorPlaceholder[] {

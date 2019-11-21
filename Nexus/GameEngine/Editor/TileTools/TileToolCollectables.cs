@@ -9,6 +9,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolCollectables() : base() {
 
+			this.DefaultIcon = "Goodie/Apple";
+
 			// Suits (Ninja)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

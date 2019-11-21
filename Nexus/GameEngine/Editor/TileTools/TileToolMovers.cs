@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolMovers() : base() {
 
+			this.DefaultIcon = "Platform/Fixed/S";
+
 			// TODO LOW PRIORITY: Add this whole section
 
 			//this.placeholders.Add(new EditorPlaceholder[] {

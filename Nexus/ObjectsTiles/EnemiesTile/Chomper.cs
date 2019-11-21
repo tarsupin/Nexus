@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 
 	public class Chomper : TileGameObject {
 
-		protected string SpriteName;	// The base name for the texture.
+		public string SpriteName;       // The default name for the Sprite.
 		protected string KnockoutName;	// The particle texture string to use when it's knocked out.
 
 		protected Chomper() : base() {

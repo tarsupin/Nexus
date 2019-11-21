@@ -11,6 +11,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolPrompt() : base() {
 
+			this.DefaultIcon = "Decor/Grass2";
+
 			// TODO LOW PRIORITY: Add this whole section (there's a section with facing options)
 
 			this.placeholders.Add(new EditorPlaceholder[] {

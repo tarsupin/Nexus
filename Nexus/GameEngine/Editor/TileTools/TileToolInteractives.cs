@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolInteractives() : base() {
 
+			this.DefaultIcon = "Chomper/Grass/Chomp2";
+
 			// TODO LOW PRIORITY: Add this whole section
 
 			//this.placeholders.Add(new EditorPlaceholder[] {

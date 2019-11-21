@@ -8,6 +8,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolBlocks() : base() {
 
+			this.DefaultIcon = "Grass/S";
+
 			// Grass
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

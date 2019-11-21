@@ -12,6 +12,7 @@ namespace Nexus.GameEngine {
 	public class TileTool {
 
 		public List<EditorPlaceholder[]> placeholders;
+		public string DefaultIcon;
 		public int index = 0;
 		public int subIndex = 0;
 

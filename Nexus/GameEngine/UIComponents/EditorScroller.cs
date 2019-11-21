@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -25,6 +26,31 @@ namespace Nexus.GameEngine {
 			// Grid Outline
 			for(byte i = 1; i < (byte) EScrollerEnum.NumTiles; i++) {
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, i * tileHeight, (byte)TilemapEnum.TileWidth + 4, 2), Color.DarkSlateGray);
+			}
+
+			// Draw TileTool Subtype Buttons
+			if(EditorCursor.tileTool is TileTool) {
+				List<EditorPlaceholder[]> placeholders = EditorCursor.tileTool.placeholders;
+
+				// Placeholder Loop
+				byte len = (byte) placeholders.Count;
+
+				for(byte i = 0; i < len; i++) {
+					EditorPlaceholder[] pData = placeholders[i];
+
+					byte tileId = pData[0].tileId;
+					byte subType = pData[0].subType;
+
+					if(Systems.mapper.TileMap.ContainsKey(tileId)) {
+						TileGameObject tgo = Systems.mapper.TileMap[tileId];
+						tgo.Draw(null, subType, 2, 50 * i + 2);
+					}
+				}
+
+				// TODO: Draw the highlight for the tile tool scroller
+				//// Draw Highlight
+				//this.hover.position.set(0, EditorCursor.tileTool.index * (byte)TilemapEnum.TileHeight);
+				//this.pixi.draw(this.hover);
 			}
 		}
 	}

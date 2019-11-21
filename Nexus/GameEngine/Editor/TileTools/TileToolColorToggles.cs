@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolColorToggles() : base() {
 
+			this.DefaultIcon = "ToggleOn/Blue/Block";
+
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.ToggleBlockBlue,

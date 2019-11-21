@@ -22,9 +22,21 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY - 2, tileWidth * (byte)UtilityBarEnum.BarTiles, (byte)TilemapEnum.TileHeight + 2), Color.DarkSlateGray);
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY, tileWidth * (byte) UtilityBarEnum.BarTiles - 2, (byte) TilemapEnum.TileHeight), Color.White);
 
-			// Grid Outline
+			// Tile Outlines
 			for(byte i = 0; i <= (byte) UtilityBarEnum.BarTiles; i++) {
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + i * tileWidth, posY, 2, (byte)TilemapEnum.TileHeight), Color.DarkSlateGray);
+			}
+
+			// Tile Icons
+			Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+
+			for(byte i = 0; i < 10; i++) {
+
+				// Draw Tile
+				atlas.Draw(TileTool.tileToolMap[(byte)(i + 1)].DefaultIcon, posX + i * tileWidth + 2, posY);
+
+				// Draw Keybind Text
+				Systems.fonts.baseText.Draw((i+1).ToString(), posX + i * tileWidth + 4, posY + (byte) TilemapEnum.TileHeight - 18, Color.DarkOrange);
 			}
 		}
 	}
