@@ -152,6 +152,7 @@
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
     <Compile Include="GameEngine\UIComponents\EditorScroller.cs" />
+    <Compile Include="GameEngine\UIComponents\WheelMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UtilityBar.cs" />
     <Compile Include="GameEngine\UIComponents\GridOverlay.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileTool.cs" />
@@ -403,6 +404,7 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="websocket-sharp, Version=1.0.2.59611, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">

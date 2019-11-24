@@ -43,6 +43,7 @@ namespace Nexus.Gameplay {
 		Up = 8,
 		UpLeft = 7,
 		Right = 6,
+		Center = 5,
 		Left = 4,
 		DownRight = 3,
 		Down = 2,

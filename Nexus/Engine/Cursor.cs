@@ -12,6 +12,11 @@ namespace Nexus.Engine {
 		public static ushort MouseGridX { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
 		public static ushort MouseGridY { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
 
+		public static void SetPos( int posX, int posY ) {
+			Mouse.SetPosition(posX, posY);
+			Cursor.UpdateMouseState();
+		}
+
 		public static void UpdateMouseState() {
 			Cursor.mouseState = Mouse.GetState();
 		}

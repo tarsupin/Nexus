@@ -85,6 +85,9 @@ namespace Nexus.GameEngine {
 				EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
 			}
 
+			// Open Wheel Menu
+			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.wheel.OpenMenu(); }
+
 			// Horizontal Camera Shift (0, 33, 66, 100)
 			if(input.LocalKeyPressed(Keys.F1)) { /* Convert to a percent camera swap for the level */ }
 			else if(input.LocalKeyPressed(Keys.F2)) { /* Convert to a percent camera swap for the level */ }

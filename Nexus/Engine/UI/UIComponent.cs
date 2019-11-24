@@ -92,6 +92,7 @@ namespace Nexus.Engine {
 
 		// Loop through every child and run their OnParentResize() behavior.
 		private void TriggerChange( UIChangeFlag flag ) {
+			if(this.Children == null) { return; }
 			foreach(UIComponent child in this.Children) { child.OnParentChange( flag ); }
 			if(this.hasParent) { this.Parent.OnChildChange( flag ); }
 		}
