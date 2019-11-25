@@ -1,12 +1,12 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
+using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
 
 	public class TileToolInteractives : TileTool {
 
 		public TileToolInteractives() : base() {
-
-			this.DefaultIcon = "Chomper/Grass/Chomp2";
 
 			// TODO LOW PRIORITY: Add this whole section
 
@@ -160,6 +160,35 @@ namespace Nexus.GameEngine {
 			//		face: DirRotate.Left,
 			//	},
 			//});
+
+			// Coins
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Coin,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Gem,
+				},
+			});
+
+			// Goodies (Key)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Key,
+				},
+			});
+
+			// BGDisable
+			// TODO LOW PRIORITY: Need correct options. Not just subType = 0;
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Key,
+				},
+			});
 		}
 	}
 }

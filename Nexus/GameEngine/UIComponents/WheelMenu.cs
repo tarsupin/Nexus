@@ -61,7 +61,36 @@ namespace Nexus.GameEngine {
 			if(!this.visible) { return; }
 			else if(!Systems.input.LocalKeyDown(Keys.Tab)) { this.CloseMenu(); return; }
 
-			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
+			if(this.IsMouseOver()) {
+				UIComponent.ComponentWithFocus = this;
+
+				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+					EditorUI.wheelDirChosen = this.GetWheelDir(Cursor.MouseX, Cursor.MouseY);
+					this.CloseMenu(); return;
+				}
+			}
+		}
+
+		public DirRotate GetWheelDir( int posX, int posY ) {
+
+			// Left Section
+			if(posX < this.x + this.size) {
+				if(posY < this.y + this.size) { return DirRotate.UpLeft; }
+				if(posY > this.y + this.size * 2) { return DirRotate.DownLeft; }
+				return DirRotate.Left;
+			}
+
+			// Right Section
+			else if(posX > this.x + this.size * 2) {
+				if(posY < this.y + this.size) { return DirRotate.UpRight; }
+				if(posY > this.y + this.size * 2) { return DirRotate.DownRight; }
+				return DirRotate.Right;
+			}
+
+			// Center Section
+			if(posY < this.y + this.size) { return DirRotate.Up; }
+			if(posY > this.y + this.size * 2) { return DirRotate.Down; }
+			return DirRotate.Center;
 		}
 
 		public void OpenMenu() {

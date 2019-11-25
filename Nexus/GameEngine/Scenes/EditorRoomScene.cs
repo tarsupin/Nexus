@@ -197,7 +197,7 @@ namespace Nexus.GameEngine {
 			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
 			// TODO CLEANUP: as a temporary measure, for now, assign the blocks tile:
-			EditorTools.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
+			//EditorTools.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
 			
 			// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 

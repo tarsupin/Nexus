@@ -9,8 +9,6 @@ namespace Nexus.GameEngine {
 
 		public TileToolCollectables() : base() {
 
-			this.DefaultIcon = "Goodie/Apple";
-
 			// Suits (Ninja)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
@@ -291,18 +289,6 @@ namespace Nexus.GameEngine {
 				},
 			});
 			
-			// Coins
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Coins,
-					subType = (byte) CoinsSubType.Coin,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Coins,
-					subType = (byte) CoinsSubType.Gem,
-				},
-			});
-			
 			// Goodies (Health)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
@@ -384,23 +370,6 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Plus20,
-				},
-			});
-
-			// Goodies (Key)
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Key,
-				},
-			});
-
-			// BGDisable
-			// TODO LOW PRIORITY: Need correct options. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Key,
 				},
 			});
 		}

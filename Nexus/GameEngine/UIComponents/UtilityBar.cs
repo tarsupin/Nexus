@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -9,6 +10,18 @@ namespace Nexus.GameEngine {
 		private enum UtilityBarEnum : byte {
 			BarTiles = 26,
 		}
+
+		public static Dictionary<byte, TileTool> slots = new Dictionary<byte, TileTool>() {
+			{ (byte) DirRotate.UpLeft, new TileToolBlocks() },
+			{ (byte) DirRotate.Up, new TileToolPlatforms() },
+			{ (byte) DirRotate.UpRight, new TileToolInteractives() },
+			{ (byte) DirRotate.Left, new TileToolEnemies() },
+			{ (byte) DirRotate.Center, new TileToolGround() },
+			{ (byte) DirRotate.Right, new TileToolCollectables() },
+			{ (byte) DirRotate.DownLeft, new TileToolDecor() },
+			{ (byte) DirRotate.Down, new TileToolGadgets() },
+			{ (byte) DirRotate.DownRight, new TileToolScripting() },
+		};
 
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
 			this.x = posX;
@@ -21,8 +34,7 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 		}
 
-		public void Draw() {
-
+		public void Draw( DirRotate wheelDir ) {
 			byte tileWidth = (byte) TilemapEnum.TileWidth + 2;
 
 			// Draw Utility Bar Background
@@ -35,15 +47,23 @@ namespace Nexus.GameEngine {
 			}
 
 			// Tile Icons
-			Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+			if(UtilityBar.slots.ContainsKey((byte) wheelDir)) {
+				Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+				List<EditorPlaceholder[]> placeholders = UtilityBar.slots[(byte)wheelDir].placeholders;
+				Dictionary<byte, TileGameObject> tileMap = Systems.mapper.TileMap;
 
-			for(byte i = 0; i < 10; i++) {
+				for(byte i = 0; i < 10; i++) {
+					if(placeholders.Count <= i) { continue; }
+					EditorPlaceholder ph = placeholders[i][0];
+					byte tileId = ph.tileId;
+					if(!tileMap.ContainsKey(tileId)) { continue; }
 
-				// Draw Tile
-				atlas.Draw(TileTool.tileToolMap[(byte)(i + 1)].DefaultIcon, this.x + i * tileWidth + 2, this.y);
+					// Draw Tile (with correct subtype)
+					tileMap[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
 
-				// Draw Keybind Text
-				Systems.fonts.baseText.Draw((i+1).ToString(), this.x + i * tileWidth + 4, this.y + this.height - 18, Color.DarkOrange);
+					// Draw Keybind Text
+					Systems.fonts.baseText.Draw((i + 1).ToString(), this.x + i * tileWidth + 4, this.y + this.height - 18, Color.DarkOrange);
+				}
 			}
 
 			// Hovering Visual

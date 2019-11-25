@@ -75,10 +75,11 @@ namespace Nexus.GameEngine {
 			Keys[] localKeys = input.GetAllLocalKeysDown();
 			if(localKeys.Length == 0) { return; }
 
-			// Tile Tool Key Binds
-			if(TileTool.tileToolKey.ContainsKey(localKeys[0])) {
-				EditorTools.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
-			}
+			// TODO HIGH PRIORITY
+			//// Tile Tool Key Binds
+			//if(TileTool.tileToolKey.ContainsKey(localKeys[0])) {
+			//	EditorTools.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
+			//}
 
 			// Func Tool Key Binds
 			else if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {

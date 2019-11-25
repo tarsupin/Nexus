@@ -2,11 +2,73 @@
 
 namespace Nexus.GameEngine {
 
-	public class TileToolItems : TileTool {
+	public class TileToolGadgets : TileTool {
 
-		public TileToolItems() : base() {
+		public TileToolGadgets() : base() {
 
-			this.DefaultIcon = "Chomper/Grass/Chomp2";
+			//this.placeholders.Add(new EditorPlaceholder[] {
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Horizontal,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Vertical,
+			//		face: DirRotate.FlipVert,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Horizontal,
+			//		face: DirRotate.FlipHor,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Vertical,
+			//	},
+			//});
+
+			//this.placeholders.Add(new EditorPlaceholder[] {
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Diagonal,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Diagonal,
+			//		face: DirRotate.FlipVert,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Diagonal,
+			//		face: DirRotate.Half,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Cannon,
+			//		subType = (byte) Something.Diagonal,
+			//		face: DirRotate.FlipHor,
+			//	},
+			//});
+
+			//this.placeholders.Add(new EditorPlaceholder[] {
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Placer,
+			//		subType = (byte) Something.Horizontal,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Placer,
+			//		subType = (byte) Something.Vertical,
+			//		face: DirRotate.FlipVert,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Placer,
+			//		subType = (byte) Something.Horizontal,
+			//		face: DirRotate.FlipHor,
+			//	},
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.Placer,
+			//		subType = (byte) Something.Vertical,
+			//	},
+			//});
 
 			// TODO LOW PRIORITY: Add this whole section
 

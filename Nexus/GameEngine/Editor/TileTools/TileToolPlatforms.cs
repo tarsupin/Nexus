@@ -2,11 +2,9 @@
 
 namespace Nexus.GameEngine {
 
-	public class TileToolMovers : TileTool {
+	public class TileToolPlatforms : TileTool {
 
-		public TileToolMovers() : base() {
-
-			this.DefaultIcon = "Platform/Fixed/S";
+		public TileToolPlatforms() : base() {
 
 			// TODO LOW PRIORITY: Add this whole section
 
