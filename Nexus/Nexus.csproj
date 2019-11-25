@@ -78,13 +78,14 @@
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolEraser.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolBlueprint.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncTool.cs" />
+    <Compile Include="GameEngine\Editor\TileTools\TileToolUpgrades.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolGround.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolDecor.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolScripting.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolPlatforms.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolGadgets.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolInteractives.cs" />
-    <Compile Include="GameEngine\Editor\TileTools\TileToolEnemies.cs" />
+    <Compile Include="GameEngine\Editor\TileTools\TileToolEnemyFly.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolEnemyLand.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolColorToggles.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolCollectables.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
     <Compile Include="GameEngine\UIComponents\EditorScroller.cs" />
+    <Compile Include="GameEngine\UIComponents\ContextMenu.cs" />
     <Compile Include="GameEngine\UIComponents\WheelMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UtilityBar.cs" />
     <Compile Include="GameEngine\UIComponents\GridOverlay.cs" />

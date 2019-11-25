@@ -7,18 +7,6 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class WheelMenuOpt {
-		public Atlas atlas;
-		public string texture;
-		public string text;
-
-		public WheelMenuOpt( Atlas atlas, string texture, string text ) {
-			this.atlas = atlas;
-			this.texture = texture;
-			this.text = text;
-		}
-	}
-
 	public class WheelMenu : UIComponent {
 		private readonly byte size;
 		private static FontClass font;
@@ -29,7 +17,7 @@ namespace Nexus.GameEngine {
 			HalfSize = 50,
 		}
 
-		private Dictionary<byte, WheelMenuOpt> menuOptions;
+		private Dictionary<byte, ContextMenuOpt> menuOptions;
 
 		public WheelMenu( UIComponent parent, short posX, short posY ) : base(parent) {
 
@@ -43,7 +31,7 @@ namespace Nexus.GameEngine {
 			this.y = (short) (posY - (byte) WheelMenuEnum.Size - (byte) WheelMenuEnum.HalfSize);
 
 			// Prepare Menu Options
-			this.menuOptions = new Dictionary<byte, WheelMenuOpt>();
+			this.menuOptions = new Dictionary<byte, ContextMenuOpt>();
 
 			// Ensure Font has been set.
 			if(WheelMenu.font is FontClass == false) {
@@ -52,7 +40,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void SetMenuOption(byte position, Atlas atlas, string texture, string text) {
-			this.menuOptions[position] = new WheelMenuOpt(atlas, texture, text);
+			this.menuOptions[position] = new ContextMenuOpt(atlas, texture, text);
 		}
 
 		public void RunTick() {
@@ -65,7 +53,7 @@ namespace Nexus.GameEngine {
 				UIComponent.ComponentWithFocus = this;
 
 				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-					EditorUI.wheelDirChosen = this.GetWheelDir(Cursor.MouseX, Cursor.MouseY);
+					//EditorUI.menuOptChosen = this.GetWheelDir(Cursor.MouseX, Cursor.MouseY);
 					this.CloseMenu(); return;
 				}
 			}
@@ -144,7 +132,7 @@ namespace Nexus.GameEngine {
 
 		public void DrawMenuOption( byte position, short posX, short posY ) {
 			if(!this.menuOptions.ContainsKey(position)) { return; }
-			WheelMenuOpt option = this.menuOptions[position];
+			ContextMenuOpt option = this.menuOptions[position];
 			option.atlas.Draw(option.texture, posX + WheelMenu.iconOffset, posY + 20);
 			Vector2 textSize = WheelMenu.font.font.MeasureString(option.text);
 			WheelMenu.font.Draw(option.text, posX + (byte) WheelMenuEnum.HalfSize - (byte) Math.Floor(textSize.X * 0.5f), posY + 75, Color.Black);

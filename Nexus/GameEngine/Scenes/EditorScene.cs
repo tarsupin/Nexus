@@ -87,7 +87,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Open Wheel Menu
-			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.wheel.OpenMenu(); }
+			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.contextMenu.OpenMenu(); }
 
 			// Horizontal Camera Shift (0, 33, 66, 100)
 			if(input.LocalKeyPressed(Keys.F1)) { /* Convert to a percent camera swap for the level */ }

@@ -12,15 +12,17 @@ namespace Nexus.GameEngine {
 		}
 
 		public static Dictionary<byte, TileTool> slots = new Dictionary<byte, TileTool>() {
-			{ (byte) DirRotate.UpLeft, new TileToolBlocks() },
-			{ (byte) DirRotate.Up, new TileToolPlatforms() },
-			{ (byte) DirRotate.UpRight, new TileToolInteractives() },
-			{ (byte) DirRotate.Left, new TileToolEnemies() },
-			{ (byte) DirRotate.Center, new TileToolGround() },
-			{ (byte) DirRotate.Right, new TileToolCollectables() },
-			{ (byte) DirRotate.DownLeft, new TileToolDecor() },
-			{ (byte) DirRotate.Down, new TileToolGadgets() },
-			{ (byte) DirRotate.DownRight, new TileToolScripting() },
+			{ (byte) ContextMenuCat.Blocks, new TileToolBlocks() },
+			{ (byte) ContextMenuCat.Platforms, new TileToolPlatforms() },
+			{ (byte) ContextMenuCat.Interactives, new TileToolInteractives() },
+			{ (byte) ContextMenuCat.EnemiesLand, new TileToolEnemyLand() },
+			{ (byte) ContextMenuCat.EnemiesFly, new TileToolEnemyFly() },
+			{ (byte) ContextMenuCat.Ground, new TileToolGround() },
+			{ (byte) ContextMenuCat.Upgrades, new TileToolUpgrades() },
+			{ (byte) ContextMenuCat.Collectables, new TileToolCollectables() },
+			{ (byte) ContextMenuCat.Decor, new TileToolDecor() },
+			{ (byte) ContextMenuCat.Gadgets, new TileToolGadgets() },
+			{ (byte) ContextMenuCat.Scripting, new TileToolScripting() },
 		};
 
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
@@ -34,7 +36,7 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 		}
 
-		public void Draw( DirRotate wheelDir ) {
+		public void Draw( byte menuOpt ) {
 			byte tileWidth = (byte) TilemapEnum.TileWidth + 2;
 
 			// Draw Utility Bar Background
@@ -47,9 +49,9 @@ namespace Nexus.GameEngine {
 			}
 
 			// Tile Icons
-			if(UtilityBar.slots.ContainsKey((byte) wheelDir)) {
+			if(UtilityBar.slots.ContainsKey((byte) menuOpt)) {
 				Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-				List<EditorPlaceholder[]> placeholders = UtilityBar.slots[(byte)wheelDir].placeholders;
+				List<EditorPlaceholder[]> placeholders = UtilityBar.slots[(byte)menuOpt].placeholders;
 				Dictionary<byte, TileGameObject> tileMap = Systems.mapper.TileMap;
 
 				for(byte i = 0; i < 10; i++) {
