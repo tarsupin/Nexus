@@ -44,6 +44,7 @@ namespace Nexus.GameEngine {
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.EnemiesLand, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Chomper/Grass/Chomp2", "Enemies");
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.EnemiesFly, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Chomper/Grass/Chomp2", "Flying");
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.Ground, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Grass/S", "Ground");
+			this.contextMenu.SetMenuOption((byte) ContextMenuCat.Upgrades, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "SuitCollect/WhiteWizard", "Upgrades");
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.Collectables, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Goodie/Heart", "Collectables");
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.Decor, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Decor/Grass2", "Decor");
 			this.contextMenu.SetMenuOption((byte) ContextMenuCat.Gadgets, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Cannon/Diagonal", "Gadgets");

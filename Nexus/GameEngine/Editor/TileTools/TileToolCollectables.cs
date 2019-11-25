@@ -1,4 +1,5 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
 using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
@@ -21,6 +22,10 @@ namespace Nexus.GameEngine {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Heart,
 				},
+			});
+
+			// Goodies (Armor)
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Shield,
@@ -47,10 +52,6 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Disrupt,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Shiny,
 				},
 				new EditorPlaceholder() {
@@ -60,6 +61,14 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.GodMode,
+				},
+			});
+
+			// Goodies (Effect)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Explosive,
 				},
 			});
 
@@ -88,6 +97,35 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Plus20,
+				},
+			});
+
+			// Coins
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Coin,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Gem,
+				},
+			});
+
+			// Goodies (Key)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Key,
+				},
+			});
+
+			// BGDisable
+			// TODO LOW PRIORITY: Need correct options. Not just subType = 0;
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Key,
 				},
 			});
 		}
