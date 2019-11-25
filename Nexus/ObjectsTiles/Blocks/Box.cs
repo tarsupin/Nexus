@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		public string[] Texture;
 
-		public enum BoxSubType {
+		public enum BoxSubType : byte {
 			Brown = 0,
 			Gray = 1,
 		}

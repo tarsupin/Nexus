@@ -103,16 +103,17 @@ namespace Nexus.Gameplay {
 	// The Tile Slot Groups (for Editing Levels)
 	public enum SlotGroup : byte {
 		None,
+		Ground,
 		Blocks,
-		Collectables,
-		ColorToggles,
-		EnemyLand,
-		EnemyFly,
-		Fixed,
+		Platforms,
 		Interactives,
-		Items,
-		Movers,
-		Prompts,
+		EnemiesLand,
+		EnemiesFly,
+		Upgrades,
+		Collectables,
+		Decor,
+		Gadgets,
+		Scripting,
 	}
 
 	// Function Tool Enum

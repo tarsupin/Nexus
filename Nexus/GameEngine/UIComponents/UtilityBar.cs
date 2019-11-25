@@ -12,17 +12,17 @@ namespace Nexus.GameEngine {
 		}
 
 		public static Dictionary<byte, TileTool> slots = new Dictionary<byte, TileTool>() {
-			{ (byte) ContextMenuCat.Blocks, new TileToolBlocks() },
-			{ (byte) ContextMenuCat.Platforms, new TileToolPlatforms() },
-			{ (byte) ContextMenuCat.Interactives, new TileToolInteractives() },
-			{ (byte) ContextMenuCat.EnemiesLand, new TileToolEnemyLand() },
-			{ (byte) ContextMenuCat.EnemiesFly, new TileToolEnemyFly() },
-			{ (byte) ContextMenuCat.Ground, new TileToolGround() },
-			{ (byte) ContextMenuCat.Upgrades, new TileToolUpgrades() },
-			{ (byte) ContextMenuCat.Collectables, new TileToolCollectables() },
-			{ (byte) ContextMenuCat.Decor, new TileToolDecor() },
-			{ (byte) ContextMenuCat.Gadgets, new TileToolGadgets() },
-			{ (byte) ContextMenuCat.Scripting, new TileToolScripting() },
+			{ (byte) SlotGroup.Blocks, new TileToolBlocks() },
+			{ (byte) SlotGroup.Platforms, new TileToolPlatforms() },
+			{ (byte) SlotGroup.Interactives, new TileToolInteractives() },
+			{ (byte) SlotGroup.EnemiesLand, new TileToolEnemyLand() },
+			{ (byte) SlotGroup.EnemiesFly, new TileToolEnemyFly() },
+			{ (byte) SlotGroup.Ground, new TileToolGround() },
+			{ (byte) SlotGroup.Upgrades, new TileToolUpgrades() },
+			{ (byte) SlotGroup.Collectables, new TileToolCollectables() },
+			{ (byte) SlotGroup.Decor, new TileToolDecor() },
+			{ (byte) SlotGroup.Gadgets, new TileToolGadgets() },
+			{ (byte) SlotGroup.Scripting, new TileToolScripting() },
 		};
 
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
