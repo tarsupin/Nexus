@@ -122,18 +122,18 @@ namespace Nexus.Engine {
 		}
 
 		// Camera Input Control
-		public void MoveWithInput( PlayerInput input ) {
+		public void MoveWithInput( PlayerInput input, byte moveMult = 1 ) {
 
 			if(input.isDown(IKey.Left)) {
-				this.posX -= this.controlSpeed;
+				this.posX -= this.controlSpeed * moveMult;
 			} else if(input.isDown(IKey.Right)) {
-				this.posX += this.controlSpeed;
+				this.posX += this.controlSpeed * moveMult;
 			}
 
 			if(input.isDown(IKey.Up)) {
-				this.posY -= this.controlSpeed;
+				this.posY -= this.controlSpeed * moveMult;
 			} else if(input.isDown(IKey.Down)) {
-				this.posY += this.controlSpeed;
+				this.posY += this.controlSpeed * moveMult;
 			}
 
 			this.StayBounded();

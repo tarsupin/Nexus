@@ -47,8 +47,14 @@ namespace Nexus.GameEngine {
 				this.TileToolDraw(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 
+			// Faster Camera Movement (with arrow keys)
+			InputClient input = Systems.input;
+
+			// If holding shift down, increase camera movement speed by 3.
+			byte moveMult = (input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift)) ? (byte) 3 : (byte) 1;
+
 			// Camera Movement
-			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
+			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
 		}
 
 		public override void Draw() {

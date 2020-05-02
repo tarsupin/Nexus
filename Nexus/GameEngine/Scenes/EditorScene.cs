@@ -61,10 +61,8 @@ namespace Nexus.GameEngine {
 			// Debug Console (only runs if visible)
 			Console.RunTick();
 
-			// If we're in debug mode:
+			// Run Input for Full Editor and Current Room
 			this.EditorInput();
-
-			// Run this Room's Tick
 			this.CurrentRoom.RunTick();
 		}
 
@@ -88,18 +86,6 @@ namespace Nexus.GameEngine {
 
 			// Open Wheel Menu
 			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.contextMenu.OpenMenu(); }
-
-			// Horizontal Camera Shift (0, 33, 66, 100)
-			if(input.LocalKeyPressed(Keys.F1)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F2)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F3)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F4)) { /* Convert to a percent camera swap for the level */ }
-
-			// Vertical Camera Shift (0, 33, 66, 100)
-			else if(input.LocalKeyPressed(Keys.F5)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F6)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F7)) { /* Convert to a percent camera swap for the level */ }
-			else if(input.LocalKeyPressed(Keys.F8)) { /* Convert to a percent camera swap for the level */ }
 		}
 
 		public override void Draw() {

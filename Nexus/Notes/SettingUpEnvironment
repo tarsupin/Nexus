@@ -48,12 +48,12 @@ https://www.microsoft.com/en-NZ/download/details.aspx?id=30679
 
 8. Go to "Extensions > Manage Extensions"
 	- Github Extension for Visual Studio
-	- Highlight all occurrences of selected word++
+	- Word Highlight with Margin
 	- Select Next Occurrence
 
 9. Go to Tools -> Options -> Environment -> Keyboard
 	- Set SelectNextOccurrence.SelectNextOccurrence to Control + W
 	
-10. Go to Edit -> Selection Highlighter++
-	- Change Highlight Color
+10. Go to Tools -> Word Highlight Settings
+	- Change Highlight Color (dark gray background, light gray border)
 	
