@@ -54,7 +54,7 @@ namespace Nexus.Engine {
 
 			// Draw Console Background
 			if(ChatConsole.showBackground) {
-				Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(0, bottomPos - ChatConsole.height, ChatConsole.width, ChatConsole.height), Color.Black * 0.15f);
+				Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(0, bottomPos - ChatConsole.height, ChatConsole.width, ChatConsole.height), Color.Black * 0.65f);
 			}
 
 			// Draw Console Lines

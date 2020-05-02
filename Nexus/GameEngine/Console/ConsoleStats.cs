@@ -27,6 +27,9 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.activate) {
 				Character character = ConsoleTrack.character;
 
+				// Reset All Stats
+				if(statIns == "reset-all") { character.stats.ResetCharacterStats(); }
+
 				// Gravity
 				if(statIns == "gravity") { character.stats.BaseGravity = FInt.Create(ConsoleTrack.NextFloat()); }
 
@@ -43,26 +46,44 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, object> statCodes = new Dictionary<string, object>() {
-			
+
+			{ "reset-all", "Resets all character stats to their defaults." },
+
 			// Actions
 			{ "run", new Action[] { ConsoleStats.CheatStatRun } },
 			{ "jump", new Action[] { ConsoleStats.CheatStatJump } },
 			{ "slide", new Action[] { ConsoleStats.CheatStatSlide } },
 			{ "wall", new Action[] { ConsoleStats.CheatStatWall } },
 			
-			// Gravity
-			{ "gravity", "How strong does gravity apply to the character? Default value is 0.5" },
+			//// Gravity
+			//{ "gravity", new Action[] { ConsoleStats.CheatStatGravity } },
 
-			// Abilities
-			{ "fast-cast", "Is the character able to use weapons and powers faster than usual? Set to TRUE or FALSE." },
-			{ "shell-mastery", "Is the character given special protection against shell damage? Set to TRUE or FALSE." },
-			{ "safe-above", "Is the character protected from damage from above? Set to TRUE or FALSE." },
-			{ "damage-above", "Does the character cause extra damage to objects above? Set to TRUE or FALSE." },
+			//// Abilities
+			//{ "fast-cast", new Action[] { ConsoleStats.CheatStatFastCast } },
+			//{ "shell-mastery", new Action[] { ConsoleStats.CheatStatShellMastery } },
+			//{ "safe-above", new Action[] { ConsoleStats.CheatStatSafeAbove } },
+			//{ "damage-above", new Action[] { ConsoleStats.CheatStatDamageAbove } },
 
-			// Wound Stats
-			{ "maxhealth", "What is the maximum amount of health the character can possess? Default value is 3." },
-			{ "maxarmor", "What is the maximum amount of armor the character can possess? Default value is 3." },
+			//// Wound Stats
+			//{ "maxhealth", new Action[] { ConsoleStats.CheatStatMaxHealth } },
+			//{ "maxarmor", new Action[] { ConsoleStats.CheatStatMaxArmor } },
 		};
+
+		//public static readonly Dictionary<string, object> statCodes = new Dictionary<string, object>() {
+			
+		//	// Gravity
+		//	{ "gravity", "How strong does gravity apply to the character? Default value is 0.5" },
+
+		//	// Abilities
+		//	{ "fast-cast", "Is the character able to use weapons and powers faster than usual? Set to TRUE or FALSE." },
+		//	{ "shell-mastery", "Is the character given special protection against shell damage? Set to TRUE or FALSE." },
+		//	{ "safe-above", "Is the character protected from damage from above? Set to TRUE or FALSE." },
+		//	{ "damage-above", "Does the character cause extra damage to objects above? Set to TRUE or FALSE." },
+
+		//	// Wound Stats
+		//	{ "maxhealth", "What is the maximum amount of health the character can possess? Default value is 3." },
+		//	{ "maxarmor", "What is the maximum amount of armor the character can possess? Default value is 3." },
+		//};
 
 		public static void CheatStatWall() {
 			string currentIns = ConsoleTrack.NextArg();
@@ -104,20 +125,26 @@ namespace Nexus.GameEngine {
 
 			ConsoleTrack.PrepareTabLookup(runStatCodes, currentIns, "Assign ground and running-related stats for the character.");
 
+			Character character = ConsoleTrack.character;
+
 			// If the stat instruction is a full word, then we can indicate that it's time to provide additional help text:
 			if(runStatCodes.ContainsKey(currentIns)) {
 				ConsoleTrack.possibleTabs = "";
-				ConsoleTrack.helpText = runStatCodes[currentIns].ToString();
+				ConsoleTrack.helpText = runStatCodes[currentIns].ToString() + " Current: ";
+				
+				if(currentIns == "accel") { ConsoleTrack.helpText += String.Format("{0:G2}", character.stats.RunAcceleration.ToDouble()).ToString(); }
+				else if(currentIns == "decel") { ConsoleTrack.helpText += String.Format("{0:G2}", character.stats.RunDeceleration.ToDouble()).ToString(); }
+				else if(currentIns == "max-speed") { ConsoleTrack.helpText += character.stats.RunMaxSpeed.ToString(); }
+				else if(currentIns == "walk-mult") { ConsoleTrack.helpText += String.Format("{0:G2}", character.stats.SlowSpeedMult.ToDouble()).ToString(); }
 			}
 
 			if(ConsoleTrack.activate) {
-				Character character = ConsoleTrack.character;
-				
-				// Ground Speed
 				if(currentIns == "accel") { character.stats.RunAcceleration = FInt.Create(ConsoleTrack.NextFloat()); }
 				else if(currentIns == "decel") { character.stats.RunDeceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "speed") { character.stats.RunMaxSpeed = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "walkmult") { character.stats.SlowSpeedMult = FInt.Create(ConsoleTrack.NextFloat()); }
+				else if(currentIns == "max-speed") { character.stats.RunMaxSpeed = (byte) ConsoleTrack.NextInt(); }
+				else if(currentIns == "walk-mult") { character.stats.SlowSpeedMult = FInt.Create(ConsoleTrack.NextFloat()); }
+
+				// Regarldess of what changes, we need to re-run any effects that hats or other effects have.
 			}
 		}
 
@@ -125,7 +152,7 @@ namespace Nexus.GameEngine {
 			{ "accel", "How fast does the character accelerate? Default value is 0.3" },
 			{ "decel", "How fast does the character decelerate? Default value is 0.2" },
 			{ "max-speed", "What is the maximum speed the character can run? Default value is 7." },
-			{ "walk", "What is the walk multiplier, or the percent run speed that walk moves at? Default is 0.65" },
+			{ "walk-mult", "Walking speed multiplier, relative to run speed. Default is 0.65" },
 		};
 
 		public static void CheatStatJump() {

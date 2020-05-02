@@ -32,7 +32,7 @@ namespace Nexus.GameEngine {
 			int x = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileWidth;
 			int y = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileHeight;
 
-			if(ConsoleTrack.activate) {
+			if(ConsoleTrack.activate && x > 0 && y > 0) {
 				Character.Teleport(ConsoleTrack.character, x, y);
 			}
 		}
@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 			int x = ConsoleTrack.NextInt();
 			int y = ConsoleTrack.NextInt();
 
-			if(ConsoleTrack.activate) {
+			if(ConsoleTrack.activate && x > 0 && y > 0) {
 				Character.Teleport(ConsoleTrack.character, x, y);
 			}
 		}

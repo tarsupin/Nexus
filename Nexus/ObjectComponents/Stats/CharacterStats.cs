@@ -85,6 +85,12 @@ namespace Nexus.ObjectComponents {
 				this.character.wounds.ResetWoundSettings();
 			}
 
+			// Some character stats are affected by Equipment, Cheats, etc.
+			this.UpdateCharStatsFromExternalInfluences();
+		}
+
+		public void UpdateCharStatsFromExternalInfluences() {
+
 			// Update Suit Abilities (if applicable)
 			if(character.suit is Suit) {
 				character.suit.UpdateCharacterStats(character);

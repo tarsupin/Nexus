@@ -38,7 +38,10 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.character = null;
 		}
 
-		public static void PrepareTabLookup( Dictionary<string, Action> dict, string currentIns, string helpText = null ) {
+		public static void PrepareTabLookup( Dictionary<string, Action> dict, string currentIns, string helpText ) {
+
+			// Update help text.
+			ConsoleTrack.helpText = helpText;
 
 			// Make sure you're on the last instruction, otherwise no tab lookup applies.
 			if(!ConsoleTrack.OnLastInstruction()) { return; }
@@ -58,12 +61,12 @@ namespace Nexus.GameEngine {
 
 			// Update possible tabs.
 			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
-
-			// Update help text.
-			if(helpText != null) { ConsoleTrack.helpText = helpText; }
 		}
 
-		public static void PrepareTabLookup( Dictionary<string, object> dict, string currentIns, string helpText = null ) {
+		public static void PrepareTabLookup( Dictionary<string, object> dict, string currentIns, string helpText ) {
+
+			// Update help text.
+			ConsoleTrack.helpText = helpText;
 
 			// Make sure you're on the last instruction, otherwise no tab lookup applies.
 			if(!ConsoleTrack.OnLastInstruction()) { return; }
@@ -82,9 +85,16 @@ namespace Nexus.GameEngine {
 
 			// Update possible tabs.
 			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
+		}
+
+		public static void PrepareTabLookup(string helpText) {
 
 			// Update help text.
-			if(helpText != null) { ConsoleTrack.helpText = helpText; }
+			ConsoleTrack.helpText = helpText;
+
+			// Clear the Menu's Text
+			ConsoleTrack.tabLookup = string.Empty;
+			ConsoleTrack.possibleTabs = string.Empty;
 		}
 
 		// Returns `true` if we're on the last instruction arg.
@@ -92,7 +102,7 @@ namespace Nexus.GameEngine {
 			return ConsoleTrack.instructionIndex >= ConsoleTrack.instructionList.Count;
 		}
 
-		// Updates the instruction index and returns true if there's another instruction arg available.
+		// Updates the instruction index and returns next instruction instruction string (or "" if none).
 		public static string NextArg() {
 			byte num = ConsoleTrack.instructionIndex;
 			ConsoleTrack.instructionIndex++;
@@ -258,7 +268,8 @@ namespace Nexus.GameEngine {
 				// Cleanup
 				Console.lineNum = 0;
 				ConsoleTrack.ResetAfterActivation();
-				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+				ConsoleTrack.PrepareTabLookup("The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+				ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", consoleDict.Keys.ToArray());
 			}
 		}
 
