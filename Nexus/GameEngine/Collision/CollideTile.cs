@@ -31,7 +31,7 @@ namespace Nexus.GameEngine {
 				return false;
 			}
 
-			TileGameObject tileObj = Systems.mapper.TileMap[tileData[0]];
+			TileGameObject tileObj = Systems.mapper.TileDict[tileData[0]];
 
 			// Make sure the tile exists and collides, otherwise there's no point in testing any further:
 			if(tileObj == null || !tileObj.collides) { return false; }

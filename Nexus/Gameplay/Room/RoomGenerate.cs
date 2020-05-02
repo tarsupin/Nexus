@@ -82,7 +82,7 @@ namespace Nexus.Gameplay {
 
 			// Identify Object Class Type
 			Type classType;
-			bool hasType = mapper.ObjectTypeMap.TryGetValue(type, out classType);
+			bool hasType = mapper.ObjectTypeDict.TryGetValue(type, out classType);
 			if(!hasType || classType == null) { return; }
 
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.

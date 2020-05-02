@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 			if(UtilityBar.slots.ContainsKey((byte) menuOpt)) {
 				Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 				List<EditorPlaceholder[]> placeholders = UtilityBar.slots[(byte)menuOpt].placeholders;
-				Dictionary<byte, TileGameObject> tileMap = Systems.mapper.TileMap;
+				Dictionary<byte, TileGameObject> tileMap = Systems.mapper.TileDict;
 
 				for(byte i = 0; i < 10; i++) {
 					if(placeholders.Count <= i) { continue; }

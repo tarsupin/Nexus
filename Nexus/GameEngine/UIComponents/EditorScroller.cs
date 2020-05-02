@@ -48,8 +48,8 @@ namespace Nexus.GameEngine {
 					byte tileId = pData[0].tileId;
 					byte subType = pData[0].subType;
 
-					if(Systems.mapper.TileMap.ContainsKey(tileId)) {
-						TileGameObject tgo = Systems.mapper.TileMap[tileId];
+					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
+						TileGameObject tgo = Systems.mapper.TileDict[tileId];
 						tgo.Draw(null, subType, 2, 50 * i + 2);
 					}
 				}

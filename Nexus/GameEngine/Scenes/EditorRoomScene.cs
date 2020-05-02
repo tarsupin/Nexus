@@ -76,7 +76,7 @@ namespace Nexus.GameEngine {
 			int camRight = camX + cam.width;
 			int camBottom = camY + cam.height;
 
-			var tileMap = Systems.mapper.TileMap;
+			var tileDict = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
 			for(int y = startY; y <= gridY; y++) {
@@ -96,7 +96,7 @@ namespace Nexus.GameEngine {
 						continue;
 					}
 
-					TileGameObject tileObj = tileMap[tileData[0]];
+					TileGameObject tileObj = tileDict[tileData[0]];
 
 					// Render the tile with its designated Class Object:
 					if(tileObj is TileGameObject) {

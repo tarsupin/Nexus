@@ -152,7 +152,7 @@ namespace Nexus.GameEngine {
 			// Run Parallax Handler
 			this.parallax.Draw();
 
-			var tileMap = Systems.mapper.TileMap;
+			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
 			for(int y = startY; y <= gridY; y++) {
