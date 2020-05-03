@@ -1,0 +1,6 @@
+﻿
+
+// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
+
+// TileToolColorToggles.cs doesn't have a slot group.
+	this.slotGroup = (byte)SlotGroup.Scripting;

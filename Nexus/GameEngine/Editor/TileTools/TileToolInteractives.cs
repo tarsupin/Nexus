@@ -1,9 +1,13 @@
 ﻿
+using Nexus.Gameplay;
+
 namespace Nexus.GameEngine {
 
 	public class TileToolInteractives : TileTool {
 
 		public TileToolInteractives() : base() {
+
+			this.slotGroup = (byte)SlotGroup.Interactives;
 
 			// TODO LOW PRIORITY: Add this whole section
 

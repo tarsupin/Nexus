@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		private readonly EditorScroller scroller;
 		public readonly ContextMenu contextMenu;
 
-		public static byte menuOptChosen; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
+		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
@@ -56,7 +56,7 @@ namespace Nexus.GameEngine {
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.5f);
 			}
 
-			this.utilityBar.Draw(EditorUI.menuOptChosen);
+			this.utilityBar.Draw(EditorUI.currentSlotGroup);
 			this.scroller.Draw();
 			this.contextMenu.Draw();
 

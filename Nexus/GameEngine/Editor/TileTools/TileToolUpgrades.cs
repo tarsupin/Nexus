@@ -7,6 +7,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolUpgrades() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Upgrades;
+
 			// Suits (Ninja)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

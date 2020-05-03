@@ -1,9 +1,13 @@
 ﻿
+using Nexus.Gameplay;
+
 namespace Nexus.GameEngine {
 
 	public class TileToolEnemyFly : TileTool {
 
 		public TileToolEnemyFly() : base() {
+
+			this.slotGroup = (byte)SlotGroup.EnemiesFly;
 
 			// TODO LOW PRIORITY: Add this whole section
 

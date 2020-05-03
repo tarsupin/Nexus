@@ -12,6 +12,7 @@ namespace Nexus.GameEngine {
 	public class TileTool {
 
 		public List<EditorPlaceholder[]> placeholders;
+		public byte slotGroup = 0;		// Each tile tool has its own slot group metadata. Doesn't change.
 		public int index = 0;
 		public int subIndex = 0;
 
@@ -61,7 +62,7 @@ namespace Nexus.GameEngine {
 						if(tileData[0] == ph.tileId && tileData[1] == ph.subType) {
 							TileTool clonedTool = TileTool.tileToolMap[(byte)slotGroupNum];
 
-							// Set the default index and subindex of the tool.
+							// Set the default values for the tool.
 							clonedTool.index = i;
 							clonedTool.subIndex = s;
 

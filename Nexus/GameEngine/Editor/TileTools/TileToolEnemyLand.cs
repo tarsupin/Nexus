@@ -1,9 +1,13 @@
 ﻿
+using Nexus.Gameplay;
+
 namespace Nexus.GameEngine {
 
 	public class TileToolEnemyLand : TileTool {
 
 		public TileToolEnemyLand() : base() {
+
+			this.slotGroup = (byte)SlotGroup.EnemiesLand;
 
 			// TODO LOW PRIORITY: Add this whole section
 

@@ -11,6 +11,8 @@ namespace Nexus.GameEngine {
 			EditorTools.tileTool = tool;
 			EditorTools.funcTool = null;
 			EditorTools.tempTool = null;
+
+			EditorUI.currentSlotGroup = EditorTools.tileTool.slotGroup;
 		}
 
 		public static void SetFuncTool( FuncTool tool ) {

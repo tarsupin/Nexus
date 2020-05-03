@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolPlatforms() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Platforms;
+
 			// TODO LOW PRIORITY: Add this whole section
 
 			//this.placeholders.Add(new EditorPlaceholder[] {

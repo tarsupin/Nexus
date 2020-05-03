@@ -8,6 +8,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolCollectables() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Collectables;
+
 			// Goodies (Health)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

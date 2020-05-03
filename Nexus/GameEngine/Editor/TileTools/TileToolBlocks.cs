@@ -8,6 +8,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolBlocks() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Blocks;
+			
 			// Bricks
 			// TODO LOW PRIORITY: Need "bricks" here. Brown and Gray options. Not just subType = 0;
 			this.placeholders.Add(new EditorPlaceholder[] {

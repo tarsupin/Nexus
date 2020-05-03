@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolGround() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Ground;
+
 			// Grass
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

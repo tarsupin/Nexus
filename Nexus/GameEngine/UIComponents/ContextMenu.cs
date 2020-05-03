@@ -71,7 +71,7 @@ namespace Nexus.GameEngine {
 				UIComponent.ComponentWithFocus = this;
 
 				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-					EditorUI.menuOptChosen = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
+					EditorUI.currentSlotGroup = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
 					this.CloseMenu(); return;
 				}
 			}

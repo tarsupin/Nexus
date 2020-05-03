@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else {
-				this.TileToolDraw(Cursor.MouseGridX, Cursor.MouseGridY);
+				this.TileToolTick(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 
 			// Faster Camera Movement (with arrow keys)
@@ -148,7 +148,7 @@ namespace Nexus.GameEngine {
 			this.tilemap.RemoveTileByGrid(gridX, gridY);
 		}
 
-		public void TileToolDraw(ushort gridX, ushort gridY) {
+		public void TileToolTick(ushort gridX, ushort gridY) {
 			
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
@@ -193,7 +193,7 @@ namespace Nexus.GameEngine {
 
 			// A right click will clone the current tile.
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(gridX, gridY);
+				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 
@@ -203,8 +203,6 @@ namespace Nexus.GameEngine {
 			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
 			if(tileData == null) { return; }
-
-			// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 
 			// Identify the tile, and set it as the current editing tool (if applicable)
 			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);

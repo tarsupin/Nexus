@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolGadgets() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Gadgets;
+
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.Cannon,

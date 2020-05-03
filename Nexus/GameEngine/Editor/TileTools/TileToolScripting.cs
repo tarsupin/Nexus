@@ -7,6 +7,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolScripting() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Scripting;
+
 			// TODO LOW PRIORITY: Add this whole section
 
 		}

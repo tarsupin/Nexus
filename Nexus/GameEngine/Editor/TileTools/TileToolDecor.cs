@@ -11,6 +11,8 @@ namespace Nexus.GameEngine {
 
 		public TileToolDecor() : base() {
 
+			this.slotGroup = (byte)SlotGroup.Decor;
+
 			// TODO LOW PRIORITY: Add this whole section (there's a section with facing options)
 
 			this.placeholders.Add(new EditorPlaceholder[] {
