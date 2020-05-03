@@ -202,20 +202,16 @@ namespace Nexus.GameEngine {
 			// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
 			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
-			// TODO CLEANUP: as a temporary measure, for now, assign the blocks tile:
-			//EditorTools.SetTileTool(TileTool.tileToolMap[(byte)SlotGroup.Blocks]);
-			
+			if(tileData == null) { return; }
+
 			// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 
-			//// If there is a valid Game Object to highlight, switch tool to draw it:
-			//if(tile && tile.objClass && Object.keys(tile.objClass).length > 0) {
+			// Identify the tile, and set it as the current editing tool (if applicable)
+			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
 
-			//	// Set the Slot Group
-			//	this.cursor.assignTool(this.tileToolMap[tile.objClass.meta.slotGroup as SlotGroupEnum]);
-
-			//	// Set the Specific Tile
-			//	this.scene.tileTool.setTileToolTile(tile);
-			//}
+			if(clonedTool is TileTool == true) {
+				EditorTools.SetTileTool(clonedTool);
+			}
 		}
 
 		//alterTile( layer: RoomLayer, gridX: number, gridY: number, split: boolean = false, del: boolean = false ) {

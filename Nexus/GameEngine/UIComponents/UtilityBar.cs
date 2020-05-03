@@ -11,20 +11,6 @@ namespace Nexus.GameEngine {
 			BarTiles = 26,
 		}
 
-		public static Dictionary<byte, TileTool> slots = new Dictionary<byte, TileTool>() {
-			{ (byte) SlotGroup.Blocks, new TileToolBlocks() },
-			{ (byte) SlotGroup.Platforms, new TileToolPlatforms() },
-			{ (byte) SlotGroup.Interactives, new TileToolInteractives() },
-			{ (byte) SlotGroup.EnemiesLand, new TileToolEnemyLand() },
-			{ (byte) SlotGroup.EnemiesFly, new TileToolEnemyFly() },
-			{ (byte) SlotGroup.Ground, new TileToolGround() },
-			{ (byte) SlotGroup.Upgrades, new TileToolUpgrades() },
-			{ (byte) SlotGroup.Collectables, new TileToolCollectables() },
-			{ (byte) SlotGroup.Decor, new TileToolDecor() },
-			{ (byte) SlotGroup.Gadgets, new TileToolGadgets() },
-			{ (byte) SlotGroup.Scripting, new TileToolScripting() },
-		};
-
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
 			this.x = posX;
 			this.y = posY;
@@ -36,7 +22,7 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 		}
 
-		public void Draw( byte menuOpt ) {
+		public void Draw( byte slotGroupNum ) {
 			byte tileWidth = (byte) TilemapEnum.TileWidth + 2;
 
 			// Draw Utility Bar Background
@@ -49,19 +35,19 @@ namespace Nexus.GameEngine {
 			}
 
 			// Tile Icons
-			if(UtilityBar.slots.ContainsKey((byte) menuOpt)) {
+			if(TileTool.tileToolMap.ContainsKey((byte) slotGroupNum)) {
 				Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-				List<EditorPlaceholder[]> placeholders = UtilityBar.slots[(byte)menuOpt].placeholders;
-				Dictionary<byte, TileGameObject> tileMap = Systems.mapper.TileDict;
+				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[(byte)slotGroupNum].placeholders;
+				Dictionary<byte, TileGameObject> tileDict = Systems.mapper.TileDict;
 
 				for(byte i = 0; i < 10; i++) {
 					if(placeholders.Count <= i) { continue; }
 					EditorPlaceholder ph = placeholders[i][0];
 					byte tileId = ph.tileId;
-					if(!tileMap.ContainsKey(tileId)) { continue; }
+					if(!tileDict.ContainsKey(tileId)) { continue; }
 
 					// Draw Tile (with correct subtype)
-					tileMap[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
+					tileDict[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
 
 					// Draw Keybind Text
 					Systems.fonts.baseText.Draw((i + 1).ToString(), this.x + i * tileWidth + 4, this.y + this.height - 18, Color.DarkOrange);

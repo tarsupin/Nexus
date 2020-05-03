@@ -1,0 +1,234 @@
+﻿
+Art Requests:
+	MiniElemental that faces proper rotation. (needs to be 16x16 frame; 12x12 inside boundary. roughly circular?)
+		- This was replaced with eye, so might be done now...
+	Creatures
+		- Bouncy / Shell
+		- Spiked
+		- Toss Around (Goomba)
+		- Eye, Looks at you
+	Merchant, new color or style. Only need a standing pose, nothing else. Can just update minor changes.
+
+Music:
+	https://www.bensound.com/		-- actually free (requires credit)
+	https://www.playonloop.com/royalty-free-music/
+	
+	
+[[[ Priority Creatures ]]]
+
+All creatures and entities, unless specified otherwise, should be designed to fit within a single grid square (48x48).
+
+Also, everything should be drawn at half scale (24x24).
+
+
+///////////////////////////////////////
+Ground Creature, Walks Back and Forth
+	
+	This creature doesn't react to the character in any special way. It just mindlessly walks back and forth.
+	
+	It turns around when hits a wall or approaches a ledge. No special animation needed, we'll just flip the image.
+	
+	Many ground creatures will end up having this behavior, and likely have special variations that do additional behaviors.
+	
+	
+	Variation #1: Standard Speed
+		- This creature is the "base" creature. Just walks back and forth, no reactions or special behaviors.
+	
+	
+	Variation #2: Fast Speed
+		- This creature looks essentially the same as the "base" creature, but is skinned differently / has some distinguishing feature about it.
+			- Maybe its skin is a different color, or its head is shaped differently, etc. As long as it's clear that it's different.
+		
+		- This creature moves faster than the base creature, but its animations are the same.
+	
+	
+	Variation #3: Hops Up
+		- This creature looks essentially the same as "base" creature, but another variation on the skin.
+		
+		- When the character is nearby, it reacts by "hopping" upward.
+	
+	
+///////////////////////////////////////
+Ground Creature #2, Walks Back and Forth
+	
+	Variation #1: Standard Speed
+		- This creature is the "base" creature. Just walks back and forth, no reactions or special behaviors.
+	
+	
+	Variation #2: Charges at Character
+		- When enemy is facing the character, and the character is reasonably close (within 3-4 grid spaces), it will prepare a charge.
+		- The enemy very briefly pauses to "charge up" its speed, giving the character some time to react.
+		- Then the enemy begins rushing in the direction of the character, quite quickly; difficult to escape its path.
+	
+	
+	Variation #3: Has Shell on Back
+		- Is wearing a shell.
+		- When he is destroyed (by being jumped on), a shell will appear in his place.
+		- Will need to design a shell that comes with this creature.
+		
+		
+///////////////////////////////////////
+Ground Creature #3, Walking Bomb, Walks Back and Forth
+	
+	Stance #1: Walks back and forth normally.
+		- This creature is the "base" creature. Just walks back and forth, no reactions or special behaviors.
+		- It looks like a walking bomb, but it's not active.
+	
+	
+	Stance #2: Sitting Down.
+		- In this stance, the bomb is just sitting down, like it's tired, or just resting.
+		- It's explosives are not currently active.
+		- It won't move in this form, just sit there.
+	
+	
+	Stance #3: Preparing to Detonate.
+		- The bomb is sitting, but now it's explosives are ready to activate.
+		- The bomb will flash on and off until it detonates.
+	
+	
+	
+	
+Themes:
+	
+	NOTE:
+		All themes have their own background. The background must be seamless horizontally, since it can be scrolled with parallax.
+		Each theme should also have tiles available that are common within its theme.
+			- For example, bricks may also be used elsewhere, but they're important for the castle theme.
+
+	Grassland Theme:
+		Basically like a standard, above-world mario level.
+		Tiles will also be heavily used in the jungle theme.
+	
+	Jungle Theme:
+		This is going to use all the same tiles as the Grassland theme (or nearly all the same), but with specific decor.
+		The background imagery and decor should be altered slightly.
+		This is just a way of providing some variation without having to make too much actual change.
+	
+	Castle Theme:
+		Will require bricks and other tiles that provide the appearance of a castle.
+	
+
+Character Base (References Available):
+	Head - Male
+	Head - Female
+	Torso - Male (or Gender Neutral)
+	Torso - Female (or use "Gender Neutral" Torso)
+	Arms / Hand - Resting
+	Arms / Hand - Running (Back)
+	Arms / Hand - Jumping
+	Arms / Hand - Holding
+	Arms / Hand - Falling
+	Legs / Feet - Standing
+	Legs / Feet - Running
+	Legs / Feet - Falling
+	
+	The character's head must work with the existing hair and hat options.
+	
+	The character's frames are built from the above components:
+		Stand (Resting Hands, Standing Feet)
+		Walk (Resting Hands, Running Feet)
+		Run (Running Hands, Running Feet)
+		Jump (Jumping Hands, Running Feet)
+		Fall (Falling Hands, Falling Feet)
+		Hold+Stand (Holding Hands, Standing Feet)
+		Hold+Run (Holding Hands, Running Feet)
+
+Civilian Suit (References Available)
+	Create a gender-neutral Character to apply to the Character Base.
+	
+Ninja Suits (References Available):
+	Create a Black "Ninja Suit" to apply to the Character Base.
+	There are four alternate colors: White, Blue, Green, and Red.
+	Create an "Assassin Head" for the White Ninja as an alternate style for the head.
+	
+Wizard Suits (References Available):
+	Create a Blue "Wizard Suit" to apply to the Character Base.
+	There are two alternate colors: Red, and Yellow.
+	It would be great if there were unique opportunities for additional layers for designs to further distinguish class/rank/etc.
+
+
+
+Shelled Enemies (Artistic License to Design):
+	
+	Standard Variation:
+		An enemy that, when jumped on, you bounce higher than usual.
+		The enemy does not die when bounced on, but can be damaged by projectiles and shell attacks.
+		
+	Shell-Drop Variation:
+		The enemy, when bounced on, dies. The shell remains.
+		
+	Spiked Variation:
+		The enemy is spiked. It will damage you if you try to bounce on it.
+
+
+Slime Monster (Artistic License):
+	
+	Standard Variation:
+		Moves one direction, bumps into a block and reverts its course. Easy to kill.
+		Two Colors (each travels at a different speed)
+		
+	Jumping Variation:
+		Stands in one place and jumps. (Note: doesn't have to be a slime monster; creative license allowed)
+
+
+Walking Monster (Artistic License):
+	
+	Standard Variation:
+		Moves one direction, bumps into a block and reverts its course.
+		When it gets jumped on, it becomes disoriented and can be tossed around.
+			- Important that disorientation mode has good gripping options.
+		May wake up if ignored.
+
+
+Rotational Flying Enemy (Artistic License):
+	
+	Standard Variation:
+		Always rotates to the direction it's facing (definitely can't have light shading from a particular side).
+		Bounces off of walls at a richochet angle.
+		It's hitbox need to be square-like due to the every-angle rotation, so it should be *roughly* square to accomodate this.
+		Alterate Appearance Option (for diversity)
+
+
+Cycle-Based Flying Monsters (Artistic License):
+	
+	Standard Variation:
+		Creature that flies back and forth, or in a circle.
+		Can jump on top of them. The enemy dies, the character bounces up.
+		
+	Saw:
+		A lethal, instant-kill enemy that cannot be damaged and ignores walls.
+		Rotates while it moves.
+
+
+Stationary Monsters (Artistic License):
+	
+	Plant Monster, Standard:
+		I envisioned this creature like a plant monster that can spew projectiles from it's mouth.
+		If it's not spewing projectiles, it's more like a muncher (from mario games).
+		The creature just sits there and blocks the way, munching, snapping its jaw.
+		Character is damaged if he touches the creature from any direction.
+		The creature can be damaged by projectiles.
+	
+	Plant Monster, Protected Variant:
+		This is a variation (metal? stone? bone? artistic license...) that is protected against nearly all projectiles.
+		It otherwise looks roughly the same as the standard plant monster.
+	
+	Plant Monster, Standard + Fires Projectiles:
+		This creature shoots fire projectiles. It just needs a slight artistic variation so that it's identifiable.
+		
+	Plant Monster, Protected + Fires Projectiles:
+		Same as above, except it has the projected variant's base. Needs slight variation so it's identifiable.
+	
+	Harmless Stationary Enemy:
+		This is a square-like enemy that just consumes the entire tile (perhaps rounded edges).
+		It does no damage to the character, but can be damaged by certain projectiles, making it a blocker.
+		The character can also use this as something to jump on.
+	
+	
+Hovering Monsters (Artistic License):
+	
+	NOTE: These creatures are stationary, but may "hover" - as in, they may not be placed on the ground.
+	
+	Eyeball Bolt Caster:
+		Hovering eyeball. Casts bolts directly at the character.
+

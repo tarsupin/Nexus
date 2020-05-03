@@ -1,0 +1,123 @@
+﻿
+Campaign Preparation:
+	Standard above-ground levels. No particular theme.
+	Bug / Enemy Above-Ground Level
+	Button Above-Ground Level
+	Axe Above-Ground Level
+	Bullet Above-Ground Level (Some bullets as theme, mostly other things)
+	Sword Above-Ground Level
+	Falling Platform Level
+	Moving Platform Level
+	Key Level
+	Spring Level
+	Shell Level
+	Elemental Level
+	Cluster Level
+	Infinite Collectable Level
+	Toggle Cannon Level
+	Generator Level
+	
+	
+	
+Ninja School:
+	https://www.youtube.com/watch?v=Afpn_--tRT4		// invictus
+		- Forcing player to constantly be on move, always something dangerous to avoid.
+		- One important method used is to have open floor, thus have to rely on platforms, spins, etc.
+	Timed Levels, where you run around with sword, jump on buzz, have to beat timer, get time items.
+	Timed levels, run with shells. Have special bamboo hat.
+	Shell bouncing back between toggles, must react. (Easy > Puzzle)
+	Dodging saws while spring and button jumping.
+	Platforms that you run across (long horizontal level) while eyes shoot at you, dodge saws, cannons, elementals, etc.
+	Survival Key Levels: Key slowly moves downward, must survive until you can grab it.
+	Survival Suit Levels: Suit or Hat slowly moves downard, must survive until you can grab it.
+	Survival Boss Levels: Boss room, must survive until something changes.
+	Cluster Levels: On a track or cluster-based level, moving through it until you can complete level.
+	
+Campaigns:
+	
+	"Realm of Prophecy" - Ryu is asleep, and in the realm of prophecy.
+		"Dreamers travel to the realm of prophecy all the time, they just never remember anything."
+		"The realm of prophecy grants insight into your future."
+		"Dude, your dream is seriously messed up... I wouldn't want to be you when you wake up."
+		"Hey, one of your friends came by and said you should meet at the battle arena some day. Whatever that means."
+		
+	"Whitehaven" - Ryu has to save the village after a magical chasm is discovered.
+		- STAGE 1: "Ryu! Thank goodness, you're alive. Whitehaven was attacked while you were away."
+			"Personally, I think the wizards are to blame. Ever since the rumors of the Dreadlands began, all sorts of weird stuff happened."
+			"A few hunters are clearing the area, but it'll start getting dangerous if you head in too deep. Be careful!"
+		- STAGE 2: "Hey kid, why aren't you indoors? You should let the hunters do their job. It only gets worse from here."
+			>> "You can ignore Larry. He's just upset because he saw your dope skills coming through."
+		- STAGE 3: "Ryu, some green goey monster chased me here! I tried to stop, drop, and roll. But that didn't work."
+			"Thankfully, I rigged up a spring contraption and bounced him away."
+		- STAGE 4: "You again!? You're trying to get back to Whitehaven, aren't you? Go back before you get hurt."
+			>> "Oh, its you. Since you seem intent on getting back, you should take one of my swords with you."
+				"Don't worry about returning it. The Hunter's Academy has plenty."
+		- STAGE 5: "RYU! Friend! Buddy! Pal! Have you heard? The wizards are coming to help us."
+			"Rumor is that some weird magic thing happened here. I wonder what it was..."
+		- STAGE 6: "Hey Ryu, look out for the road ahead. Some hunter told me that I'd probably die if I tried to go any further."
+			"And then he thought about it and said I'd probably die anyway."
+			"He's kind of a jerk."
+		- STAGE 7: "Ryu, you're back! You should stay with me for a while. The hunters will be patrolling here soon."
+			"But if you insist on leaving, take my axe. I killed some giant flying thing with it."
+		- STAGE 9: "You know, I'm beginning to wonder how you've survived this long."
+			"Maybe you can handle yourself after all."
+			>> "You know, what you've done along this route has been quite impressive."
+				"I hope our weaponry has served you well. The hunter's guild appreciates your help."
+		- STAGE 10: "You know, most hunters hadn't fought or even seen a monster before their training."
+			"Once you've found whatever it is you're looking for in Whitehaven, come find me at the Hunter Academy."
+			>> "Larry can be a bit rough around the edges, but he's a damn good hunter."
+				"And he's right. Master Dotu would definitely take you as a recruit. I'll vouch for you, too."
+			
+	"Hunter Academy" - Ryu is approached by Master Dotu, who tells him to meet. Tries out for Hunter Academy. Gets in.
+		- Stage 1: INFORMATION
+			"Ah, you came! Excellent. Welcome to Hunter Academy. Our job is to keep the civilized lands safe from monsters."
+			"As a recruit, your job is to train hard, learn our techniques, and pass the final tests to become a Hunter."
+			"Feel free to explore the Academy. Practice while you can. Master Dotu will be expecting you sometime this week."
+			
+			>> "Hi there, recruit. Ryu, is it? Hopefully you've had time to see the armory and the monster room."
+			"We keep the monsters alive so that we can teach new recruits about their habits. They're hard to capture!"
+			
+		- Stage 2: OBSTACLE COURSE
+			
+			"Recently, the wizards have been recruiting us to fight in the Dreadlands. Rumor is they found something valuable there."
+			"All I know is the Dreadlands is extremely dangerous. Makes that Whitehaven fiasco look easy."
+			"Anyway, go ahead and 
+			
+		- Stage 3: WEAPONS TRAINING
+			- Sword Training
+			- Axe Training
+			- Rock Training
+		
+		- Stage 4 & 5: ADVANCED COURSES
+			- Top Hat
+			- Fedora
+			- Cowboy Hat
+			- Ranger Hat
+			- Spiked Hat
+			- Hard Hat
+		
+		- Stage 6: ITEM TRAINING
+			Shell Levels. Some have special bamboo hat.
+			Springs Levels.
+			Button Levels.
+		
+		- Stage 7: SPEED TRAINING
+			Timed Levels, where you run around with sword, jump on buzz, have to beat timer, get time items.
+			
+	"The Apprentice" - Ryu becomes Avalon's disciple after Avalon discovers him. Ryu discovers magical powers.
+		- Fire discovery stage: Avalon says that many don't survive it. If he wants to risk it, he can try.
+	"Journey to the Dreadlands"
+	"The Dreadlands"
+		- Clearing Paths, Cartography / Mapping Out Area
+	"The Shimmering Spire" (( you discover the shimmering spire, must cleanse it of its ancient darkness ))
+	"" (( gathering parts for an artifact, to build a ritual ))
+	"Avalon's Blessing" (( gather components for a protection ritual ))
+	"The Golem's Dungeon" (( need the golem for reconstructing the spire ))
+	"Rebuilding the Spire" (( rebuilding the shimmering spire; requires multiple characters, Poo, Ryu, others ))
+	
+	// Side Campaigns
+	"_____'s Curse" - Dark beast or wizard creates a curse in the Dreadlands, Ryu has to stop him/it.
+	"The Beast's Lair" - A bunch of monsters are discovered. Possible treasures to recover.
+
+
+	

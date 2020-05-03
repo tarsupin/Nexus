@@ -1,0 +1,164 @@
+﻿
+Ideal Design Patterns:
+
+	"Pressure without Difficulty"
+		Make the player feel like they have to deal with multiple simultaneous challenges to increase pressure without the intensity of defeat.
+		The goal is for the player to win, but feel accomplished.
+		
+	"Two Simultaneous Challenges"
+		Have the player doing two separate tasks at once, such as:
+			Moving Platforms + Toggle Blocks
+			Uphill Climb / Jump + Dodging Cannonballs
+			Chase / Being Chased + Throwing Bombs
+			Using Projectiles + Moving Platforms
+	
+	"Speed as a Pressure Mechanism"
+		In additon to other pressures, to keep things moving, add an element of speed.
+			The speed element shouldn't be overbearing, but keeping the time low with time items would increase the sensation of pressure.
+
+	"Sense of Power"
+		The player shouldn't always feel like the underdog. Give them tools and fun abilities so they feel like they can overcome.
+		
+	"Options and Replayability"
+		Give different power choices for how a player wants to approach a challenge.
+			- Each choice can also alter how they would finish through a level.
+			
+Consider a Major Theme:
+	Fun				// Uses lots of Suits, Hats, Powers, and opportunities to attack.
+	Stunt			// Uses skilled behaviors and athletic moves.
+	Dodge			// Uses evasion from projectiles or enemies, possible bullet hell.
+	Puzzle			// May require clever thought, complex reasoning.
+	Creative		// May use items, toggle blocks, provide several distinct opportunities.
+
+NOTES:
+	- Temporary Powers and Temporary Items are going to be important.
+		- Some reason to get to a special area, rather than follow the safe path.
+		- Things like temporary invincibility, star power, guns / weapons...
+		- Mini powers could give you a small marker? A rune? And you spend it with Y or something?
+	- Keys are going to be important; can either force certain decisions, or give more options.
+	- Completion Coins / Quest Gifts are going to be important. Great for those decision paths.
+
+[[[ Level Themes ]]]
+
+Fun: Suits, Hats, Powers
+
+Stunts:
+	Wall Athletics: Slide, Jump, Grab
+	Slides
+	Stunt Jumps
+	One-Chance Stunts (Expert+) - Means the stunt cannot be reattempted.
+
+Jumping:
+	Jump
+	Double Jump
+	Short Jumps
+	Fast Jumps
+	Timed Jumps
+	Long Jumps
+	Bullet Jumping
+	Toggle Block Jumping
+	
+Speed:
+	Runner
+	Platforming Precision
+	Enemy Dodging
+	
+Adventures:
+	Chase Enemy
+	Being Chased By Enemy
+	
+Obstacles:
+	Uphill Climbing
+	
+Puzzle:
+	Obvious Puzzle (just identify and complete)
+	Clever Puzzles
+	Strategy (Given Choices, such as different suits to use)
+	
+Toggles:
+	Buttons
+	Fixed Buttons
+	Laborer
+
+Dodging:
+	Flying Enemies
+	Enemy Projectiles
+	Bullets
+	Bullet Bops (Jump Across)
+	Dodge from Above
+	Dodge from Side
+	
+Items:
+	Collect Items
+	Use Items
+	Carry / Bring Items
+	Shells
+	Shell Stunts
+	Buttons
+	Bombs / Destruction Items
+	
+Doors:
+	Use Doors
+	Unlock Doors
+	
+Platforms:
+	Blocking Platforms (One-Way)
+	Moving Platforms
+	Falling Platforms
+
+Friction-Ground:
+	Sticky Ground
+	Slippery Ground
+	Ungrippable Ground
+	
+Special Move Focus (Often Puzzle Based):
+	Phasing
+	Teleport
+	
+Exploration:
+	Treasure Hunt (Casual Play)
+	Exploration (Casual Play)
+
+Miscellaneous:
+	Stealth? (( Could add in creatures that respond to noise, visibility, etc. ))
+
+
+[[[ Level Difficulties ]]]
+
+Easy (1.25 Complete Rate)
+	
+	Plenty of time to complete; excess. Player should be able to play casually without concern for time.
+	At least three beneficial collectables in the level, dispersed in useful and accessible locations.
+	No forced damage tests.
+	Insta-death objects should not be used, or should be easily avoidable.
+	Checkpoint(s) for mid to long levels.
+	
+	From Variations:
+		Put helper blocks on difficult spots.
+		Remove blocks that were obstructions on harder levels.
+
+Normal (1.75 Complete Rate)
+	
+	Sufficient time to complete. Player shouldn't be pressed for time unless it's a speed run.
+	
+Hard (3.00 Complete Rate)
+
+Expert (6.00 Complete Rate)
+
+Master (> 6.00 Complete Rate)
+
+
+
+[[[ Levels to Build ]]]
+
+	// 5 Easy Levels
+		Ninja Tutorial
+		Wizard Tutorial
+		Power Tutorial
+		Elemental / Goo Tutorial
+		Platform Tutorial
+		
+
+
+
+
