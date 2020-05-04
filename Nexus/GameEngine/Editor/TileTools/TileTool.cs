@@ -34,6 +34,31 @@ namespace Nexus.GameEngine {
 			this.placeholders = new List<EditorPlaceholder[]>();
 		}
 
+		public void CycleSubIndex( sbyte dir ) {
+			if(dir == 0) { return; }
+
+			EditorPlaceholder[] pData = placeholders[this.index];
+			byte phSubLen = (byte)pData.Length;
+
+			// Cycle the SubIndex LEFT (by -1)
+			if(dir == -1) {
+				this.subIndex--;
+
+				if(this.subIndex < 0) {
+					this.subIndex = phSubLen - 1;
+				}
+			}
+
+			// Cycle the SubIndex Right (by +1)
+			else if(dir == 1) {
+				this.subIndex++;
+
+				if(this.subIndex >= phSubLen) {
+					this.subIndex = 0;
+				}
+			}
+		}
+
 		public static TileTool GetTileToolFromTileData(byte[] tileData) {
 			if(tileData == null) { return null; }
 

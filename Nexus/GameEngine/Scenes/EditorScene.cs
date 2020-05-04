@@ -47,7 +47,7 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
-			// Update the Mouse State
+			// Update the Mouse State Every Tick
 			Cursor.UpdateMouseState();
 
 			// TODO CLEANUP: REMOVE

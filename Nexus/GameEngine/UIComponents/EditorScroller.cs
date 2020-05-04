@@ -20,6 +20,13 @@ namespace Nexus.GameEngine {
 
 		public void RunTick() {
 			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
+
+			// Mouse Scroll (if TileTool is selected as active tool)
+			if(EditorTools.tileTool is TileTool == true) {
+				sbyte scrollVal = Cursor.GetMouseScrollDelta();
+				if(scrollVal == 0) { return; }
+				EditorTools.tileTool.CycleSubIndex(scrollVal); // Cycles the SubIndex by -1 or +1
+			}
 		}
 
 		public void Draw() {
@@ -42,34 +49,24 @@ namespace Nexus.GameEngine {
 				// Placeholder Loop
 				byte len = (byte) placeholders.Count;
 
-				for(byte i = 0; i < len; i++) {
-					EditorPlaceholder[] pData = placeholders[i];
+				EditorPlaceholder[] pData = placeholders[EditorTools.tileTool.index];
 
-					byte phSubLen = (byte)pData.Length;
-					for(byte s = 0; s < phSubLen; s++) {
-						EditorPlaceholder ph = pData[s];
+				byte phSubLen = (byte)pData.Length;
+				for(byte s = 0; s < phSubLen; s++) {
+					EditorPlaceholder ph = pData[s];
 
-						byte tileId = ph.tileId;
-						byte subType = ph.subType;
+					byte tileId = ph.tileId;
+					byte subType = ph.subType;
 
-						if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-							TileGameObject tgo = Systems.mapper.TileDict[tileId];
-							tgo.Draw(null, subType, 2, 50 * i + 2);
-						}
+					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
+						TileGameObject tgo = Systems.mapper.TileDict[tileId];
+						tgo.Draw(null, subType, 2, 50 * s + 2);
 					}
 				}
 
-				// TODO: Draw the highlight for the tile tool scroller
-				//// Draw Highlight
-				//this.hover.position.set(0, EditorCursor.tileTool.index * (byte)TilemapEnum.TileHeight);
-				//this.pixi.draw(this.hover);
-
-				//// Hovering Visual
-				//if(UIComponent.ComponentWithFocus is UtilityBar) {
-				//	short mx = (short)Snap.GridFloor(tileWidth, Cursor.MouseX - this.x);
-
-				//	Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);
-				//}
+				// Highlight the active color
+				short my = (short) Snap.GridFloor(tileHeight, EditorTools.tileTool.subIndex * tileHeight - this.y);
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 			}
 
 			// Hovering Visual

@@ -5,5 +5,12 @@
 
 May 3rd, 2020
 	- Added Clone Tile Behavior for Editor.
+	- Created Random-Collect Ninja and Wizard suits.
+	- Fixed missing and broken tile images.
 
-	
+May 4th, 2020
+	- Fixed Editor Scroller Behavior. Added Current Scroller Selection.
+	- Added Previous Mouse State, Added Delta Mouse Scroll Detection.
+
+
+	// A
