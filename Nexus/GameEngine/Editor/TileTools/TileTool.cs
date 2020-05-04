@@ -59,6 +59,10 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public EditorPlaceholder GetCurrentPlaceholder() {
+			return this.placeholders[this.index][this.subIndex];
+		}
+
 		public static TileTool GetTileToolFromTileData(byte[] tileData) {
 			if(tileData == null) { return null; }
 
