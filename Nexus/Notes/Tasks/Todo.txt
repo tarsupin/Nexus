@@ -2,5 +2,26 @@
 
 // TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
 
+Selecting an option in the utility bar should change the scroller.
+
+There should be a text indicator in the top center for what item is currently being placed.
+	- A description, like "Random Ninja Outfit" or something.
+	- Maybe some optional text if it's more involved.
+
 // TileToolColorToggles.cs doesn't have a slot group.
 	this.slotGroup = (byte)SlotGroup.Scripting;
+
+
+Several placeholder sprites don't work.
+	- Necro1, Necro2, and BoltNecro won't work. They don't have a value in Power.cs, and don't have their own classes.
+		- They are in the texture packer, though. So the textures are ready to be connected.
+		- Need to be added BACK to the placeholder in TileToolUpgrades.cs - currently commented out.
+
+Macros:
+	- Have a 'macros view' option that shows your current macros.
+	- f5 to f8 should be level-specific macros; they can be edited per level.
+
+Console:
+	- Debug info option.
+
+Place text on levels.

@@ -45,12 +45,17 @@ namespace Nexus.GameEngine {
 				for(byte i = 0; i < len; i++) {
 					EditorPlaceholder[] pData = placeholders[i];
 
-					byte tileId = pData[0].tileId;
-					byte subType = pData[0].subType;
+					byte phSubLen = (byte)pData.Length;
+					for(byte s = 0; s < phSubLen; s++) {
+						EditorPlaceholder ph = pData[s];
 
-					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-						TileGameObject tgo = Systems.mapper.TileDict[tileId];
-						tgo.Draw(null, subType, 2, 50 * i + 2);
+						byte tileId = ph.tileId;
+						byte subType = ph.subType;
+
+						if(Systems.mapper.TileDict.ContainsKey(tileId)) {
+							TileGameObject tgo = Systems.mapper.TileDict[tileId];
+							tgo.Draw(null, subType, 2, 50 * i + 2);
+						}
 					}
 				}
 
@@ -58,6 +63,13 @@ namespace Nexus.GameEngine {
 				//// Draw Highlight
 				//this.hover.position.set(0, EditorCursor.tileTool.index * (byte)TilemapEnum.TileHeight);
 				//this.pixi.draw(this.hover);
+
+				//// Hovering Visual
+				//if(UIComponent.ComponentWithFocus is UtilityBar) {
+				//	short mx = (short)Snap.GridFloor(tileWidth, Cursor.MouseX - this.x);
+
+				//	Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);
+				//}
 			}
 
 			// Hovering Visual

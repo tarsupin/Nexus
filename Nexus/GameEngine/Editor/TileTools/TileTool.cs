@@ -52,11 +52,11 @@ namespace Nexus.GameEngine {
 				byte phLen = (byte) placeholders.Count;
 
 				for(byte i = 0; i < phLen; i++) {
-					EditorPlaceholder[] phList = placeholders[i];
+					EditorPlaceholder[] pData = placeholders[i];
 
-					byte phSubLen = (byte) phList.Length;
+					byte phSubLen = (byte) pData.Length;
 					for(byte s = 0; s < phSubLen; s++) {
-						EditorPlaceholder ph = phList[s];
+						EditorPlaceholder ph = pData[s];
 
 						// If the tileData[0] ID & SubType matches with the TileTool placeholder, we've found a match.
 						if(tileData[0] == ph.tileId && tileData[1] == ph.subType) {

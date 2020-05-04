@@ -183,14 +183,14 @@ namespace Nexus.GameEngine {
 					tileId = (byte) TileEnum.CollectablePower,
 					subType = (byte) PowerSubType.Rock,
 				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Necro1,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Necro2,
-				},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.Necro1,
+				//},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.Necro2,
+				//},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
 					subType = (byte) PowerSubType.RandBook,
@@ -211,10 +211,10 @@ namespace Nexus.GameEngine {
 					tileId = (byte) TileEnum.CollectablePower,
 					subType = (byte) PowerSubType.BoltGold,
 				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.BoltNecro,
-				},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.BoltNecro,
+				//},
 			});
 			
 			// Power (Packs)

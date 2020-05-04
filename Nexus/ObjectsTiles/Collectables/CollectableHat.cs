@@ -32,6 +32,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte)HatSubType.RangerHat] = "HatCollect/RangerHat";
 			this.Texture[(byte)HatSubType.SpikeyHat] = "HatCollect/SpikeyHat";
 			this.Texture[(byte)HatSubType.TopHat] = "HatCollect/TopHat";
+			this.Texture[(byte)HatSubType.RandomHat] = "HatCollect/RandomHat";
 		}
 	}
 }
