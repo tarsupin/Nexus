@@ -13,4 +13,10 @@ May 4th, 2020
 	- Added Previous Mouse State, Added Delta Mouse Scroll Detection.
 	- Editor Cursor shows currently slotted item.
 	- Added Item Placement in Editor.
+	- Added Metadata to Tiles.
 
+
+	// need to handle:
+	// this.Meta = the metalist that the tile or thing is associated with - add this to all tiles and object
+	// need a function that returns the metadata based on tile data
+	// needs a function that returns the tile or object based on tile data

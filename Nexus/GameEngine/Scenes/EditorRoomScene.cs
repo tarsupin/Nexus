@@ -130,7 +130,6 @@ namespace Nexus.GameEngine {
 			// Place the Tile
 			if(layer == LayerEnum.main) {
 				this.tilemap.AddTile(gridId, tileId, subType);
-				System.Console.WriteLine("Tile ID: " + tileId + ", " + subType);
 			} else if(layer == LayerEnum.fg) {
 				this.tilemap.AddTile(gridId, 0, 0, tileId, subType);
 			} else if(layer == LayerEnum.obj) {
@@ -159,7 +158,7 @@ namespace Nexus.GameEngine {
 
 				TileTool tool = EditorTools.tileTool;
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
-				LayerEnum layer = LayerEnum.main;
+				LayerEnum layer = LayerEnum.main;		// TODO: Change this. Needs to be based on the actual tile or object.
 
 				// Place Tile
 				this.PlaceTile(layer, gridX, gridY, ph.tileId, ph.subType, null);

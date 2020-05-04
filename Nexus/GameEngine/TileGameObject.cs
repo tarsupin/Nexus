@@ -28,6 +28,7 @@ namespace Nexus.GameEngine {
 
 	public class TileGameObject {
 
+		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
 

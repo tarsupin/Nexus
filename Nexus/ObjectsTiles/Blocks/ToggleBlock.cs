@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
@@ -11,6 +12,7 @@ namespace Nexus.Objects {
 
 		public ToggleBlock() : base() {
 			this.collides = true;
+			this.Meta = Systems.mapper.MetaList[MetaGroup.ToggleBlock];
 		}
 
 		public bool Toggled(RoomScene room, bool toggleBR) {

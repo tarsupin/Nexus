@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
@@ -10,6 +11,7 @@ namespace Nexus.Objects {
 
 		public Ground() : base() {
 			this.collides = true;
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Ground];
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
@@ -11,6 +12,7 @@ namespace Nexus.Objects {
 
 		public PlatformFixed() : base() {
 			this.collides = true;
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
 			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");
 			this.tileId = (byte)TileEnum.PlatformFixed;

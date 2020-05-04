@@ -1,4 +1,6 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
@@ -8,6 +10,7 @@ namespace Nexus.Objects {
 
 		public Decor() : base() {
 			this.collides = false; // Since 'collides' is false, it never runs RunCollision() in base class.
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Decor];
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
