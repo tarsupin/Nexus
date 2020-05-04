@@ -106,7 +106,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void PlaceTile( LayerEnum layer, ushort gridX, ushort gridY, byte id, byte subType, JObject paramList = null) {
+		public void PlaceTile( LayerEnum layer, ushort gridX, ushort gridY, byte tileId, byte subType, JObject paramList = null) {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
@@ -125,13 +125,14 @@ namespace Nexus.GameEngine {
 			// Retrieve the Grid ID
 			uint gridId = this.tilemap.GetGridID(gridX, gridY);
 
-			byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
+			//byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
 
 			// Place the Tile
 			if(layer == LayerEnum.main) {
-				this.tilemap.AddTile(gridId, id, subType);
+				this.tilemap.AddTile(gridId, tileId, subType);
+				System.Console.WriteLine("Tile ID: " + tileId + ", " + subType);
 			} else if(layer == LayerEnum.fg) {
-				this.tilemap.AddTile(gridId, 0, 0, id, subType);
+				this.tilemap.AddTile(gridId, 0, 0, tileId, subType);
 			} else if(layer == LayerEnum.obj) {
 
 				// TODO: Handle Obj Tiles and Params when Adding Tiles
@@ -152,13 +153,16 @@ namespace Nexus.GameEngine {
 			
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-				TileTool tool = EditorTools.tileTool;
 
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
 
-				// TODO HIGH PRIORITY: PLACE TILE
-				//this.PlaceTile(tool.tile.layerName, gridX, gridY, tool.tile.id, tool.tile.subType, tool.tile.paramList);
+				TileTool tool = EditorTools.tileTool;
+				EditorPlaceholder ph = tool.CurrentPlaceholder;
+				LayerEnum layer = LayerEnum.main;
+
+				// Place Tile
+				this.PlaceTile(layer, gridX, gridY, ph.tileId, ph.subType, null);
 
 				// Auto-Tile if shift is being held (and tile can auto-tile).
 				bool autoTileRunning = false;

@@ -12,5 +12,5 @@ May 4th, 2020
 	- Fixed Editor Scroller Behavior. Added Current Scroller Selection.
 	- Added Previous Mouse State, Added Delta Mouse Scroll Detection.
 	- Editor Cursor shows currently slotted item.
-
+	- Added Item Placement in Editor.
 

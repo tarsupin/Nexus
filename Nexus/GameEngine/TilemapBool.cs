@@ -52,9 +52,9 @@ namespace Nexus.GameEngine {
 
 			} else {
 				if(id > 0) { this.tiles[gridId][0] = id; }
-				if(subType > 0) { this.tiles[gridId][0] = subType; }
-				if(fgId > 0) { this.tiles[gridId][0] = fgId; }
-				if(fgSubType > 0) { this.tiles[gridId][0] = fgSubType; }
+				if(subType > 0) { this.tiles[gridId][1] = subType; }
+				if(fgId > 0) { this.tiles[gridId][2] = fgId; }
+				if(fgSubType > 0) { this.tiles[gridId][3] = fgSubType; }
 			}
 		}
 

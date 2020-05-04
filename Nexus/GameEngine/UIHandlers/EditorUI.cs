@@ -51,18 +51,18 @@ namespace Nexus.GameEngine {
 			// Draw Editor UI Components
 			this.gridUI.Draw(offsetX, offsetY);
 
-			// Draw Highlighted Grid Square (if not overlapping a UI component)
+			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
 			TileTool tool = EditorTools.tileTool;
 
 			if(UIComponent.ComponentWithFocus == null && tool != null) {
-				EditorPlaceholder ph = tool.GetCurrentPlaceholder();
+				EditorPlaceholder ph = tool.CurrentPlaceholder;
 
 				if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
 					TileGameObject tgo = Systems.mapper.TileDict[ph.tileId];
 					tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 				}
 
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.DarkRed * 0.3f);
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 			}
 
 			this.utilityBar.Draw(EditorUI.currentSlotGroup);
