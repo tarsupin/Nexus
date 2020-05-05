@@ -13,8 +13,6 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Decor;
 
-			// TODO LOW PRIORITY: Add this whole section (there's a section with facing options)
-
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
@@ -42,16 +40,15 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine1,
+					subType = (byte) VegSubType.Tree1,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine2,
+					subType = (byte) VegSubType.Tree2,
 				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine3,
-				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
 					subType = (byte) VegSubType.Fung1,
@@ -72,17 +69,32 @@ namespace Nexus.GameEngine {
 					tileId = (byte) TileEnum.DecorVeg,
 					subType = (byte) VegSubType.Fung5,
 				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Tree1,
+					subType = (byte) VegSubType.Vine1,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Tree2,
+					subType = (byte) VegSubType.Vine2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Vine3,
 				},
 			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorCave,
+					subType = (byte) CaveSubType.Rock1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorCave,
+					subType = (byte) CaveSubType.Rock2,
+				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorCave,
 					subType = (byte) CaveSubType.Bulge1,
@@ -107,18 +119,9 @@ namespace Nexus.GameEngine {
 					tileId = (byte) TileEnum.DecorCave,
 					subType = (byte) CaveSubType.Bulge6,
 				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorCave,
-					subType = (byte) CaveSubType.Rock1,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorCave,
-					subType = (byte) CaveSubType.Rock2,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorCave,
-					subType = (byte) CaveSubType.Slime,
-				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorCave,
 					subType = (byte) CaveSubType.Top1,
@@ -134,6 +137,10 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorCave,
 					subType = (byte) CaveSubType.Top4,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorCave,
+					subType = (byte) CaveSubType.Slime,
 				},
 			});
 
@@ -254,185 +261,6 @@ namespace Nexus.GameEngine {
 					subType = (byte) PetSubType.SquirrelRight,
 				},
 			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.N1,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.N2,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.N3,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.N4,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.N5,
-				},
-			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Run,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Jump,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Cast,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Burst,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Fist,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Hand,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Chat,
-				},
-			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Left,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Right,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Up,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Down,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.A,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.B,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.X,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.Y,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.L1,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PromptIcon,
-					subType = (byte) IconSubType.R1,
-				},
-			});
-
-			// TODO LOW PRIORITY: Fix this section
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.UpRight,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.DownRight,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.Down,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.DownLeft,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Arrow,
-			//		face: DirRotate.UpLeft,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.UpRight,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.DownRight,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.Down,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.DownLeft,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PromptArrow,
-			//		subType = (byte) So.Finger,
-			//		face: DirRotate.UpLeft,
-			//	},
-			//});
 		}
 	}
 }

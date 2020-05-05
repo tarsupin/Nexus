@@ -112,6 +112,7 @@ namespace Nexus.Gameplay {
 		Upgrades,
 		Collectables,
 		Decor,
+		Prompts,
 		Gadgets,
 		Scripting,
 	}

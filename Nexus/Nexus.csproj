@@ -78,6 +78,7 @@
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolEraser.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolBlueprint.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncTool.cs" />
+    <Compile Include="GameEngine\Editor\TileTools\TileToolPrompts.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolUpgrades.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolGround.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolDecor.cs" />

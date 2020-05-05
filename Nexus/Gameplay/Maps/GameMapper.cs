@@ -122,7 +122,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.DecorPet, new DecorPet() },
 				{ (byte) TileEnum.DecorItems, new DecorItems() },
 				{ (byte) TileEnum.PromptArrow, new PromptArrow() },
-				//{ (byte) TileEnum.PromptIcon, new PromptSign() },
+				{ (byte) TileEnum.PromptIcon, new PromptIcon() },
 
 				// Background Interactives (These Collide)
 				//{ (byte) TileEnum.BGDisable, new BGDisable() },

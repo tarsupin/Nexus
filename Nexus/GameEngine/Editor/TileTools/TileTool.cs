@@ -26,6 +26,7 @@ namespace Nexus.GameEngine {
 			{ (byte) SlotGroup.Upgrades, new TileToolUpgrades() },
 			{ (byte) SlotGroup.Collectables, new TileToolCollectables() },
 			{ (byte) SlotGroup.Decor, new TileToolDecor() },
+			{ (byte) SlotGroup.Prompts, new TileToolPrompts() },
 			{ (byte) SlotGroup.Gadgets, new TileToolGadgets() },
 			{ (byte) SlotGroup.Scripting, new TileToolScripting() },
 		};
@@ -41,7 +42,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void SetIndex(byte index) {
-			if(this.placeholders.Count < index) { index = 0; } // Index must be <= the number of placeholders available:
+			if(this.placeholders.Count <= index) { index = 0; } // Index must be <= the number of placeholders available:
 			this.index = index;
 		}
 
