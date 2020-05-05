@@ -34,6 +34,29 @@ namespace Nexus.GameEngine {
 			this.placeholders = new List<EditorPlaceholder[]>();
 		}
 
+		public EditorPlaceholder CurrentPlaceholder {
+			get {
+				return this.placeholders[this.index][this.subIndex];
+			}
+		}
+
+		public void SetIndex(byte index) {
+
+			// If there are no placeholders, a TileTool must not be selected.
+			if(this.placeholders.Count <= 0) { return; }
+
+			// Can only select bar tiles equal to or less than the number of placeholders available:
+			if(this.placeholders.Count < index) { return; }
+
+			this.index = index;
+		}
+
+		public void SetSubIndex(byte subIndex) {
+			EditorPlaceholder[] pData = this.placeholders[this.index];
+			if(subIndex > (byte)pData.Length) { return; }
+			this.subIndex = subIndex;
+		}
+
 		public void CycleSubIndex( sbyte dir ) {
 			if(dir == 0) { return; }
 
@@ -56,12 +79,6 @@ namespace Nexus.GameEngine {
 				if(this.subIndex >= phSubLen) {
 					this.subIndex = 0;
 				}
-			}
-		}
-
-		public EditorPlaceholder CurrentPlaceholder {
-			get {
-				return this.placeholders[this.index][this.subIndex];
 			}
 		}
 

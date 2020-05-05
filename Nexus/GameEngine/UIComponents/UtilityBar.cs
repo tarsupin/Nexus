@@ -24,29 +24,17 @@ namespace Nexus.GameEngine {
 				UIComponent.ComponentWithFocus = this;
 
 				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-					byte barTileNum = this.GetBarTileNum(Cursor.MouseX);
-					this.SelectBarTile(barTileNum);
+					byte barTileNum = this.GetBarIndex(Cursor.MouseX);
+					EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, barTileNum);
 				}
 			}
 		}
 
-		public byte GetBarTileNum(int posX) {
+		public byte GetBarIndex(int posX) {
 			byte tileWidth = ((byte) TilemapEnum.TileWidth + 2);
 			short offsetX = (short) (posX - this.x);
-			byte position = (byte) System.Math.Floor((decimal) (offsetX / tileWidth));
-			return position;
-		}
-
-		public void SelectBarTile(byte barTileNum) {
-			List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[EditorUI.currentSlotGroup].placeholders;
-
-			// If there are no placeholders, a TileTool must not be selected.
-			if(placeholders.Count <= 0) { return; }
-
-			// Can only select bar tiles equal to or less than the number of placeholders available:
-			if(placeholders.Count < barTileNum) { return; }
-
-			EditorTools.SetTileTool(TileTool.tileToolMap[EditorUI.currentSlotGroup], barTileNum);
+			byte index = (byte) System.Math.Floor((decimal) (offsetX / tileWidth));
+			return index;
 		}
 
 		public void Draw() {
