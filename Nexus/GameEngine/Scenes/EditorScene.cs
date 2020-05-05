@@ -73,11 +73,10 @@ namespace Nexus.GameEngine {
 			Keys[] localKeys = input.GetAllLocalKeysDown();
 			if(localKeys.Length == 0) { return; }
 
-			// TODO HIGH PRIORITY
-			//// Tile Tool Key Binds
-			//if(TileTool.tileToolKey.ContainsKey(localKeys[0])) {
-			//	EditorTools.SetTileTool(TileTool.tileToolMap[TileTool.tileToolKey[localKeys[0]]]);
-			//}
+			// Tile Tool Key Binds
+			if(EditorUI.currentSlotGroup > 0) {
+				this.CheckTileToolKeyBinds(localKeys[0]);
+			}
 
 			// Func Tool Key Binds
 			else if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
@@ -86,6 +85,19 @@ namespace Nexus.GameEngine {
 
 			// Open Wheel Menu
 			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.contextMenu.OpenMenu(); }
+		}
+
+		public void CheckTileToolKeyBinds(Keys keyPressed) {
+			if(keyPressed == Keys.D1) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 1); }
+			else if(keyPressed == Keys.D2) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 2); }
+			else if(keyPressed == Keys.D3) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 3); }
+			else if(keyPressed == Keys.D4) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 4); }
+			else if(keyPressed == Keys.D5) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 5); }
+			else if(keyPressed == Keys.D6) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 6); }
+			else if(keyPressed == Keys.D7) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 7); }
+			else if(keyPressed == Keys.D8) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 8); }
+			else if(keyPressed == Keys.D9) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 9); }
+			else if(keyPressed == Keys.D0) { EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, 10); }
 		}
 
 		public override void Draw() {
