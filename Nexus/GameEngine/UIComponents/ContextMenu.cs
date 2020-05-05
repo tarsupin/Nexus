@@ -72,7 +72,8 @@ namespace Nexus.GameEngine {
 
 				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 					EditorUI.currentSlotGroup = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
-					this.CloseMenu(); return;
+					this.CloseMenu();
+					return;
 				}
 			}
 		}

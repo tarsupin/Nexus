@@ -25,3 +25,8 @@ Console:
 	- Debug info option.
 
 Place text on levels.
+
+// need to handle:
+// this.Meta = the metadata that the object is associated with - add this to all objects (tiles should be complete now)
+// need a function that returns the metadata based on tile data
+// needs a function that returns the tile or object based on tile data

@@ -157,6 +157,10 @@ namespace Nexus.GameEngine {
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
 
 				TileTool tool = EditorTools.tileTool;
+
+				// Make sure the tile tool is set, or placement cannot occur:
+				if(tool == null) { return; }
+
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
 				LayerEnum layer = LayerEnum.main;		// TODO: Change this. Needs to be based on the actual tile or object.
 

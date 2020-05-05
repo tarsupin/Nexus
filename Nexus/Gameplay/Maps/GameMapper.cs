@@ -172,7 +172,7 @@ namespace Nexus.Gameplay {
 				// These will have Passive Collision by Character Only.
 
 				// Character Interactives (150 - 159)
-				//{ (byte) TileEnum.Flag, new Flag() },
+				//{ (byte) TileEnum.Flag, new Flag() },		// TODO: Remove this; flags were moved to 170-174
 				//{ (byte) TileEnum.Chest, new Chest() },
 				//{ (byte) TileEnum.NPC, new NPC() },
 				//{ (byte) TileEnum.PeekMap, new PeekMap() },
@@ -186,6 +186,12 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CollectableSuit, new CollectableSuit() },
 				{ (byte) TileEnum.CollectableHat, new CollectableHat() },
 				{ (byte) TileEnum.CollectablePower, new CollectablePower() },
+
+				// Flags (170 - 174)
+				{ (byte) TileEnum.CheckFlagFinish, new CheckFlagFinish() },
+				{ (byte) TileEnum.CheckFlagCheckpoint, new CheckFlagCheckpoint() },
+				{ (byte) TileEnum.CheckFlagPass, new CheckFlagPass() },
+				{ (byte) TileEnum.CheckFlagRetry, new CheckFlagRetry() },
 			};
 		}
 

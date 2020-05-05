@@ -79,24 +79,24 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Flag,
-			//		subType = (byte) Something.Pass,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Flag,
-			//		subType = (byte) Something.Checkpoint,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Flag,
-			//		subType = (byte) Something.Retry,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Flag,
-			//		subType = (byte) Something.Finish,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CheckFlagPass,
+					subType = (byte) 0,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CheckFlagCheckpoint,
+					subType = (byte) 0,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CheckFlagRetry,
+					subType = (byte) 0,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CheckFlagFinish,
+					subType = (byte) 0,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

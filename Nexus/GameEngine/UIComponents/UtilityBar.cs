@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
@@ -19,10 +20,36 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
+			if(this.IsMouseOver()) {
+				UIComponent.ComponentWithFocus = this;
+
+				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+					byte barTileNum = this.GetBarTileNum(Cursor.MouseX);
+					this.SelectBarTile(barTileNum);
+				}
+			}
 		}
 
-		public void Draw( byte slotGroupNum ) {
+		public byte GetBarTileNum(int posX) {
+			byte tileWidth = ((byte) TilemapEnum.TileWidth + 2);
+			short offsetX = (short) (posX - this.x);
+			byte position = (byte) System.Math.Floor((decimal) (offsetX / tileWidth));
+			return position;
+		}
+
+		public void SelectBarTile(byte barTileNum) {
+			List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[EditorUI.currentSlotGroup].placeholders;
+
+			// If there are no placeholders, a TileTool must not be selected.
+			if(placeholders.Count <= 0) { return; }
+
+			// Can only select bar tiles equal to or less than the number of placeholders available:
+			if(placeholders.Count < barTileNum) { return; }
+
+			EditorTools.SetTileTool(TileTool.tileToolMap[EditorUI.currentSlotGroup], barTileNum);
+		}
+
+		public void Draw() {
 			byte tileWidth = (byte) TilemapEnum.TileWidth + 2;
 
 			// Draw Utility Bar Background
@@ -35,9 +62,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Tile Icons
-			if(TileTool.tileToolMap.ContainsKey((byte) slotGroupNum)) {
-				Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[(byte)slotGroupNum].placeholders;
+			if(TileTool.tileToolMap.ContainsKey(EditorUI.currentSlotGroup)) {
+				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[EditorUI.currentSlotGroup].placeholders;
 				Dictionary<byte, TileGameObject> tileDict = Systems.mapper.TileDict;
 
 				for(byte i = 0; i < 10; i++) {

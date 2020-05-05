@@ -285,6 +285,11 @@
     <Compile Include="ObjectComponents\Physics\Physics.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />
+    <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagPass.cs" />
+    <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagRetry.cs" />
+    <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagFinish.cs" />
+    <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlag.cs" />
     <Compile Include="ObjectsTiles\EnemiesTile\Chomper.cs" />
     <Compile Include="ObjectsTiles\EnemiesTile\ChomperGrass.cs" />
     <Compile Include="ObjectsTiles\EnemiesTile\ChomperMetal.cs" />
@@ -495,6 +500,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Atlas\World.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Notes\Process_Add_Item.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Notes\Tasks\Todo.txt">

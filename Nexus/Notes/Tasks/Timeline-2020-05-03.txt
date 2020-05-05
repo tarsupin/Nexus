@@ -14,9 +14,9 @@ May 4th, 2020
 	- Editor Cursor shows currently slotted item.
 	- Added Item Placement in Editor.
 	- Added Metadata to Tiles.
+	- Added Flag Placeholder Item.
+	- Fixes on Editor and Context Menu.
 
+May 5th, 2020
+	- Utility Bar can now be selected. Updates Scroller & TileTool Index.
 
-	// need to handle:
-	// this.Meta = the metalist that the tile or thing is associated with - add this to all tiles and object
-	// need a function that returns the metadata based on tile data
-	// needs a function that returns the tile or object based on tile data

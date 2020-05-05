@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 			}
 
-			this.utilityBar.Draw(EditorUI.currentSlotGroup);
+			this.utilityBar.Draw();
 			this.scroller.Draw();
 			this.contextMenu.Draw();
 

@@ -90,7 +90,7 @@ namespace Nexus.Gameplay {
 		BGWind = 142,
 
 		// Character Interactives (150 - 159)
-		Flag = 150,
+		Flag = 150,		// TODO: Remove "Flag" from this list; it's been moved to the Flags category (170-174)
 		Chest = 151,
 		NPC = 152,
 		PeekMap = 153,
@@ -104,6 +104,12 @@ namespace Nexus.Gameplay {
 		CollectableSuit = 162,
 		CollectableHat = 163,
 		CollectablePower = 164,
+
+		// Flags (170 - 174)
+		CheckFlagFinish = 170,
+		CheckFlagCheckpoint = 171,
+		CheckFlagPass = 172,
+		CheckFlagRetry = 173,
 	};
 
 	// List of Game Object Types
