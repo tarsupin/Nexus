@@ -17,18 +17,8 @@ namespace Nexus.GameEngine {
 			EditorUI.currentSlotGroup = EditorTools.tileTool.slotGroup;
 
 			// Assign Index and SubIndex to TileTool (if applicable)
-
-			// Index must be <= the number of placeholders available:
-			List<EditorPlaceholder[]> placeholders = tool.placeholders;
-			if(placeholders.Count < index) { index = 0; }
-
-			EditorTools.tileTool.index = index;
-
-			// SubIndex must be legal option.
-			byte phLen = (byte) placeholders[index].Length;
-			if(phLen < subIndex) { subIndex = 0; }
-
-			EditorTools.tileTool.subIndex = subIndex;
+			EditorTools.tileTool.SetIndex(index);
+			EditorTools.tileTool.SetSubIndex(subIndex);
 		}
 
 		public static void SetTileToolBySlotGroup(byte slotGroup, byte index = 0) {

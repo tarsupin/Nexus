@@ -41,19 +41,13 @@ namespace Nexus.GameEngine {
 		}
 
 		public void SetIndex(byte index) {
-
-			// If there are no placeholders, a TileTool must not be selected.
-			if(this.placeholders.Count <= 0) { return; }
-
-			// Can only select bar tiles equal to or less than the number of placeholders available:
-			if(this.placeholders.Count < index) { return; }
-
+			if(this.placeholders.Count < index) { index = 0; } // Index must be <= the number of placeholders available:
 			this.index = index;
 		}
 
 		public void SetSubIndex(byte subIndex) {
 			EditorPlaceholder[] pData = this.placeholders[this.index];
-			if(subIndex > (byte)pData.Length) { return; }
+			if(subIndex > (byte)pData.Length) { subIndex = 0; } // SubIndex must be within valid range.
 			this.subIndex = subIndex;
 		}
 
