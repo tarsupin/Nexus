@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Nexus.Scripts {
 
@@ -20,11 +21,12 @@ namespace Nexus.Scripts {
 		readonly string deliveryPath = "";
 
 		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
-		static string curLevelId;
-		static LevelFormat curLevelJson;
-		static string curRoomLayerId;
-		static ushort curGridY;
-		static ushort curGridX;
+		protected static string curLevelId;
+		protected static LevelFormat curLevelJson;
+		protected static string curRoomId;
+		protected static string curRoomLayerId;
+		protected static ushort curGridY;
+		protected static ushort curGridX;
 
 		// LevelContent.GetLocalLevelPath		// this returns "QC/QCAL10" from "QCAL10"
 
@@ -54,6 +56,7 @@ namespace Nexus.Scripts {
 			LevelConvert.curLevelJson = this.GetLevelJson(levelId);
 
 			foreach(KeyValuePair<string, RoomFormat> roomKVP in LevelConvert.curLevelJson.room) {
+				LevelConvert.curRoomId = roomKVP.Key;
 				RoomFormat roomData = roomKVP.Value;
 
 				if(roomData.bg != null) {
@@ -85,7 +88,7 @@ namespace Nexus.Scripts {
 				LevelConvert.curGridY = ushort.Parse(yData.Key);
 
 				// Loop through XData
-				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
+				foreach(KeyValuePair<string, ArrayList> xData in yData.Value.ToList()) {
 					LevelConvert.curGridX = ushort.Parse(xData.Key);
 
 					// Process the Tile JSON
@@ -96,6 +99,40 @@ namespace Nexus.Scripts {
 
 		protected virtual void ProcessTileData( ArrayList tileJson ) {
 			// tileJson[0], tileJson[1], tileJson[2]
+		}
+
+		// Overwrites the Tile JSON (per the currently indexed [static] grid coordinate trackers) with the new data:
+		protected void OverwriteTileData( ArrayList tileJson) {
+
+			ushort index = ushort.Parse(tileJson[0].ToString());
+			ushort subIndex = ushort.Parse(tileJson[1].ToString());
+			Dictionary<string, string> paramList = null;
+			
+			// TODO: Confirm this works. Probably won't. Will probably have to loop through tileJson and build it manually.
+			if(tileJson.Count > 2) {
+				paramList = (Dictionary<string, string>)(tileJson[2]);
+			}
+
+			RoomFormat roomData = LevelConvert.curLevelJson.room[curRoomId];
+			Dictionary<string, Dictionary<string, ArrayList>> roomLayer = null;
+
+			// Need to load the layer property with a switch.
+			if(curRoomLayerId == "main") { roomLayer = roomData.main; }
+			else if(curRoomLayerId == "obj") { roomLayer = roomData.obj; }
+			else if(curRoomLayerId == "bg") { roomLayer = roomData.bg; }
+			else if(curRoomLayerId == "fg") { roomLayer = roomData.fg; }
+
+			if(roomLayer != null) {
+				this.OverwriteTileDataPart2(roomLayer, index, subIndex, paramList);
+			}
+		}
+
+		protected void OverwriteTileDataPart2( Dictionary<string, Dictionary<string, ArrayList>> roomLayer, ushort index, ushort subIndex, Dictionary<string, string> paramList = null ) {
+			if(paramList == null) {
+				roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex };
+			} else {
+				roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex, paramList };
+			}
 		}
 
 		protected void RunAllLevels() {
@@ -114,7 +151,7 @@ namespace Nexus.Scripts {
 
 				if(!Directory.Exists(toDir)) {
 					Directory.CreateDirectory(toDir);
-					Console.WriteLine("Creating Delivery Directory: " + toDir);
+					System.Console.WriteLine("Creating Delivery Directory: " + toDir);
 				}
 
 				// Loop through each Level in the Level Directory
