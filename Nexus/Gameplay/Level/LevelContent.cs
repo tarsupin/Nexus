@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Nexus.Engine;
+using System.IO;
 
 namespace Nexus.Gameplay {
 
@@ -20,7 +21,7 @@ namespace Nexus.Gameplay {
 			// Update the Level ID, or use existing Level ID if applicable.
 			if(levelId.Length > 0) { this.levelId = levelId; } else if(this.levelId == "") { return false; }
 
-			string localPath = LevelContent.GetLocalLevelPath(this.levelId);
+			string localPath = Path.Combine("Levels", LevelContent.GetLocalLevelPath(this.levelId));
 			
 			// Make sure the level exists:
 			if(!Systems.filesLocal.FileExists(localPath)) { return false; }
@@ -37,11 +38,11 @@ namespace Nexus.Gameplay {
 		}
 
 		public static string GetLocalLevelPath( string levelId ) {
-			return "Levels/" + levelId.Substring(0, 2) + "/" + levelId + ".json";
+			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
 		}
 
 		public static string GetFullLevelPath(string levelId) {
-			return Systems.filesLocal.LocalFilePath(LevelContent.GetLocalLevelPath(levelId));
+			return Systems.filesLocal.LocalFilePath(Path.Combine("Levels", LevelContent.GetLocalLevelPath(levelId)));
 		}
 
 		private LevelFormat BuildLevelStruct() {
@@ -68,7 +69,7 @@ namespace Nexus.Gameplay {
 
 			// Save State
 			string json = JsonConvert.SerializeObject(this.data);
-			Systems.filesLocal.WriteFile(LevelContent.GetLocalLevelPath(this.levelId), json);
+			Systems.filesLocal.WriteFile(Path.Combine("Levels", LevelContent.GetLocalLevelPath(this.levelId)), json);
 		}
 	}
 }

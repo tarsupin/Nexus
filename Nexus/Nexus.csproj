@@ -286,6 +286,7 @@
     <Compile Include="ObjectComponents\Physics\Physics.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="Scripts\LevelConvert.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagPass.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagRetry.cs" />

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
+using Nexus.Scripts;
 using System;
 
 namespace Nexus
@@ -68,6 +70,9 @@ namespace Nexus
 
 			//Console.WriteLine("-----------------DATA--------------");
 			//Console.WriteLine(Systems.handler.level.data.id);
+
+			// Try converting levels
+			new LevelConvert();				// TODO CLEANUP: Remove this line.
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.

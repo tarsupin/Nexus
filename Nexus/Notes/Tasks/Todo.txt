@@ -1,8 +1,4 @@
-﻿
-
-// TODO: Set it so that every object has a slot group attached to the class. Like, ChomperFire would have a value.
-
-Selecting an option in the utility bar should change the scroller.
+﻿https://www.youtube.com/watch?v=0FcLGQRyVOw	// excellent examples, world 2 - ryu loves it; sky level world 2
 
 There should be a text indicator in the top center for what item is currently being placed.
 	- A description, like "Random Ninja Outfit" or something.

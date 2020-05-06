@@ -3,7 +3,6 @@ using static Nexus.Objects.DecorCave;
 using static Nexus.Objects.DecorItems;
 using static Nexus.Objects.DecorPet;
 using static Nexus.Objects.DecorVeg;
-using static Nexus.Objects.PromptIcon;
 
 namespace Nexus.GameEngine {
 
