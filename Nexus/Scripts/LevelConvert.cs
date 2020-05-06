@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -20,9 +19,18 @@ namespace Nexus.Scripts {
 		readonly string originalPath = "";
 		readonly string deliveryPath = "";
 
+		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
+		static string curLevelId;
+		static LevelFormat curLevelJson;
+		static string curRoomLayerId;
+		static ushort curGridY;
+		static ushort curGridX;
+
 		// LevelContent.GetLocalLevelPath		// this returns "QC/QCAL10" from "QCAL10"
 
 		public LevelConvert() {
+
+			// Set Paths
 			this.basePath = Systems.filesLocal.localDir;
 			this.originalPath = Path.Combine(basePath, originalFolder);
 			this.deliveryPath = Path.Combine(basePath, deliveryFolder);
@@ -30,37 +38,55 @@ namespace Nexus.Scripts {
 			this.RunAllLevels();
 		}
 
-		private LevelFormat GetLevelJson( string levelId) {
+		protected LevelFormat GetLevelJson( string levelId) {
 			string levelPath = Path.Combine(this.originalPath, LevelContent.GetLocalLevelPath(levelId));
 			string jsonRaw = File.ReadAllText(levelPath);
-			LevelFormat jsonContent = JsonConvert.DeserializeObject<LevelFormat>(jsonRaw);
-			return jsonContent;
+			LevelFormat levelJson = JsonConvert.DeserializeObject<LevelFormat>(jsonRaw);
+			return levelJson;
 		}
 		
-		private void ProcessLevel( string levelId ) {
+		protected void ProcessLevel( string levelId ) {
 			System.Console.WriteLine("Processing Level ID: " + levelId);
 
-			// Retrieve JSON for the given levelId
-			LevelFormat levelJson = this.GetLevelJson(levelId);
+			LevelConvert.curLevelId = levelId;
 
-			foreach(KeyValuePair<string, RoomFormat> roomKVP in levelJson.room) {
+			// Retrieve JSON for the given levelId
+			LevelConvert.curLevelJson = this.GetLevelJson(levelId);
+
+			foreach(KeyValuePair<string, RoomFormat> roomKVP in LevelConvert.curLevelJson.room) {
 				RoomFormat roomData = roomKVP.Value;
 
-				if(roomData.main != null) { this.ProcessLayerData(roomData.main); }
-				if(roomData.obj != null) { this.ProcessLayerData(roomData.obj); }
-				if(roomData.fg != null) { this.ProcessLayerData(roomData.fg); }
+				if(roomData.bg != null) {
+					LevelConvert.curRoomLayerId = "bg";
+					this.ProcessLayerData(roomData.bg);
+				}
+
+				if(roomData.main != null) {
+					LevelConvert.curRoomLayerId = "main";
+					this.ProcessLayerData(roomData.main);
+				}
+
+				if(roomData.obj != null) {
+					LevelConvert.curRoomLayerId = "obj";
+					this.ProcessLayerData(roomData.obj);
+				}
+
+				if(roomData.fg != null) {
+					LevelConvert.curRoomLayerId = "fg";
+					this.ProcessLayerData(roomData.fg);
+				}
 			}
 		}
 
-		private void ProcessLayerData( Dictionary<string, Dictionary<string, ArrayList>> layerJson ) {
+		protected virtual void ProcessLayerData( Dictionary<string, Dictionary<string, ArrayList>> layerJson ) {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layerJson) {
-				ushort gridY = ushort.Parse(yData.Key);
+				LevelConvert.curGridY = ushort.Parse(yData.Key);
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
-					//ushort gridX = ushort.Parse(xData.Key);
+					LevelConvert.curGridX = ushort.Parse(xData.Key);
 
 					// Process the Tile JSON
 					this.ProcessTileData(xData.Value);
@@ -68,11 +94,11 @@ namespace Nexus.Scripts {
 			}
 		}
 
-		protected void ProcessTileData( ArrayList tileJson ) {
+		protected virtual void ProcessTileData( ArrayList tileJson ) {
 			// tileJson[0], tileJson[1], tileJson[2]
 		}
 
-		private void RunAllLevels() {
+		protected void RunAllLevels() {
 			DirectoryInfo baseDir = new DirectoryInfo(this.originalPath);
 			DirectoryInfo deliverDir = new DirectoryInfo(this.deliveryPath);
 

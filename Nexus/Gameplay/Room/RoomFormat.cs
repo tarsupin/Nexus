@@ -6,6 +6,9 @@ namespace Nexus.Gameplay {
 
 	public class RoomFormat {
 
+		[JsonProperty("bg")]
+		public Dictionary<string, Dictionary<string, ArrayList>> bg { get; set; }
+		
 		[JsonProperty("main")]
 		public Dictionary<string, Dictionary<string, ArrayList>> main { get; set; }
 

@@ -21,3 +21,6 @@ May 5th, 2020
 	- Utility Bar can now be selected. Updates Scroller & TileTool Index.
 	- Tile Tool Key Binds for numbers.
 	- Added Prompts to Editor, Improved Decor Options.
+
+May 6th, 2020
+	- Added Base Level Converting Script.
