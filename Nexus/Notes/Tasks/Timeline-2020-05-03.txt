@@ -31,7 +31,7 @@ May 7th, 2020
 	- Updated Level Conversion to use LevelContent.
 	- Level Save Function Working Correctly.
 	- Added classes for Chests, NPCs, Doors.
-	- Added classes for Bricks, Toggle Platforms.
+	- Added classes for Bricks, Toggle Platforms, Leafs.
 
 
 

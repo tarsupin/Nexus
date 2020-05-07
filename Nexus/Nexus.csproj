@@ -284,6 +284,7 @@
     <Compile Include="ObjectComponents\Stats\CharacterStats.cs" />
     <Compile Include="ObjectComponents\Physics\Touch.cs" />
     <Compile Include="ObjectComponents\Physics\Physics.cs" />
+    <Compile Include="ObjectsTiles\Blocks\ExclaimBlock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Leaf.cs" />
     <Compile Include="ObjectsTiles\Blocks\Brick.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
