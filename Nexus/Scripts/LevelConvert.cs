@@ -40,6 +40,10 @@ namespace Nexus.Scripts {
 			this.RunAllLevels();
 		}
 
+		protected void SaveLevelJson( string levelId ) {
+
+		}
+
 		protected LevelFormat GetLevelJson( string levelId) {
 			string levelPath = Path.Combine(this.originalPath, LevelContent.GetLocalLevelPath(levelId));
 			string jsonRaw = File.ReadAllText(levelPath);
@@ -55,7 +59,7 @@ namespace Nexus.Scripts {
 			// Retrieve JSON for the given levelId
 			LevelConvert.curLevelJson = this.GetLevelJson(levelId);
 
-			foreach(KeyValuePair<string, RoomFormat> roomKVP in LevelConvert.curLevelJson.room) {
+			foreach(KeyValuePair<string, RoomFormat> roomKVP in LevelConvert.curLevelJson.rooms) {
 				LevelConvert.curRoomId = roomKVP.Key;
 				RoomFormat roomData = roomKVP.Value;
 
@@ -113,7 +117,7 @@ namespace Nexus.Scripts {
 				paramList = (Dictionary<string, string>)(tileJson[2]);
 			}
 
-			RoomFormat roomData = LevelConvert.curLevelJson.room[curRoomId];
+			RoomFormat roomData = LevelConvert.curLevelJson.rooms[curRoomId];
 			Dictionary<string, Dictionary<string, ArrayList>> roomLayer = null;
 
 			// Need to load the layer property with a switch.

@@ -8,12 +8,31 @@ namespace Nexus.Gameplay {
 
 		// Level Data
 		public string levelId;          // Level ID (e.g. "QCALQOD16")
-		public LevelFormat data;		// Level Data
+		public LevelFormat data;        // Level Data
 
-		public LevelContent() {
+		// Path
+		public string levelPath;
 
-			// Make sure the Levels directory exists.
-			Systems.filesLocal.MakeDirectory("Levels");
+		public LevelContent( string levelDir = null ) {
+
+			// If a level directory is not provided, use the default local directory.
+			if(levelDir == null) {
+				Systems.filesLocal.MakeDirectory("Levels"); // Make sure the Levels directory exists.
+				this.levelPath = Path.Combine(Systems.filesLocal.localDir, "Levels");
+			}
+
+			// Make sure the level directory provided exists.
+			else if(Directory.Exists(levelDir)) {
+				this.levelPath = levelDir;
+			}
+		}
+
+		public static string GetLocalLevelPath(string levelId) {
+			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
+		}
+
+		public string GetFullLevelPath(string levelId) {
+			return Path.Combine(this.levelPath, LevelContent.GetLocalLevelPath(levelId));
 		}
 
 		public bool LoadLevel(string levelId = "") {
@@ -21,13 +40,13 @@ namespace Nexus.Gameplay {
 			// Update the Level ID, or use existing Level ID if applicable.
 			if(levelId.Length > 0) { this.levelId = levelId; } else if(this.levelId == "") { return false; }
 
-			string localPath = Path.Combine("Levels", LevelContent.GetLocalLevelPath(this.levelId));
+			string fullLevelPath = this.GetFullLevelPath(this.levelId);
 			
 			// Make sure the level exists:
-			if(!Systems.filesLocal.FileExists(localPath)) { return false; }
+			if(!File.Exists(fullLevelPath)) { return false; }
 
-			string json = Systems.filesLocal.ReadFile(localPath);
-			
+			string json = File.ReadAllText(fullLevelPath);
+
 			// If there is no JSON content, end the attempt to load level:
 			if(json == "") { return false; }
 
@@ -37,24 +56,16 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
-		public static string GetLocalLevelPath( string levelId ) {
-			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
-		}
-
-		public static string GetFullLevelPath(string levelId) {
-			return Systems.filesLocal.LocalFilePath(Path.Combine("Levels", LevelContent.GetLocalLevelPath(levelId)));
-		}
-
 		private LevelFormat BuildLevelStruct() {
 			LevelFormat levelStructure = new LevelFormat();
 
 			levelStructure.id = levelId;
-			levelStructure.room["0"] = new RoomFormat();
+			levelStructure.rooms["0"] = new RoomFormat();
 			//levelStructure.room["0"].bgLayer;
-			levelStructure.room["0"].main["16"]["0"].Add(1);
-			levelStructure.room["0"].main["16"]["0"].Add(1);
-			levelStructure.room["0"].main["16"]["1"].Add(1);
-			levelStructure.room["0"].main["16"]["1"].Add(1);
+			levelStructure.rooms["0"].main["16"]["0"].Add(1);
+			levelStructure.rooms["0"].main["16"]["0"].Add(1);
+			levelStructure.rooms["0"].main["16"]["1"].Add(1);
+			levelStructure.rooms["0"].main["16"]["1"].Add(1);
 			//levelStructure.room["0"].cosmeticLayer;
 
 			return levelStructure;
@@ -69,7 +80,7 @@ namespace Nexus.Gameplay {
 
 			// Save State
 			string json = JsonConvert.SerializeObject(this.data);
-			Systems.filesLocal.WriteFile(Path.Combine("Levels", LevelContent.GetLocalLevelPath(this.levelId)), json);
+			File.WriteAllText(this.GetFullLevelPath(this.levelId), json);
 		}
 	}
 }

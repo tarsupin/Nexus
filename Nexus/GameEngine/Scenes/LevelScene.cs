@@ -27,7 +27,7 @@ namespace Nexus.GameEngine {
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, RoomScene>();
 
-			foreach(var roomKey in Systems.handler.levelContent.data.room.Keys) {
+			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
 				byte parsedKey = Byte.Parse(roomKey);
 				this.rooms[parsedKey] = new RoomScene(this, roomKey);
 			}

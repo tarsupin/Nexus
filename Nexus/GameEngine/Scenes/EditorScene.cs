@@ -21,7 +21,7 @@ namespace Nexus.GameEngine {
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, EditorRoomScene>();
 
-			foreach(var roomKey in Systems.handler.levelContent.data.room.Keys) {
+			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
 				byte parsedKey = Byte.Parse(roomKey);
 				this.rooms[parsedKey] = new EditorRoomScene(this, roomKey);
 			}
@@ -138,8 +138,8 @@ namespace Nexus.GameEngine {
 			this.roomNum = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
 
 			// If there is no data for the room, create an empty object for it.
-			if(Systems.handler.levelContent.data.room[this.roomNum.ToString()] == null) {
-				Systems.handler.levelContent.data.room.Add(this.roomNum.ToString(), new RoomFormat());
+			if(Systems.handler.levelContent.data.rooms[this.roomNum.ToString()] == null) {
+				Systems.handler.levelContent.data.rooms.Add(this.roomNum.ToString(), new RoomFormat());
 			}
 
 			// TODO: Update the editor camera's position:

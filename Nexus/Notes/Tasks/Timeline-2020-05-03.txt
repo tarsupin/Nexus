@@ -25,3 +25,4 @@ May 5th, 2020
 May 6th, 2020
 	- Added Base Level Converting Script.
 	- Added Test Converter for Level Conversion Script.
+	- Update LevelContent to work with other files.

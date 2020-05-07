@@ -9,6 +9,6 @@ namespace Nexus.Gameplay {
 		public string id { get; set; }
 
 		[JsonProperty("rooms")]
-		public Dictionary<string, RoomFormat> room { get; set; }
+		public Dictionary<string, RoomFormat> rooms { get; set; }
 	}
 }

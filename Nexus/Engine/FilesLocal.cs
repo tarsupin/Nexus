@@ -46,8 +46,7 @@ namespace Nexus.Engine {
 		}
 
 		public string LocalFilePath( string localPath, bool localDir = true ) {
-			string filePath = Path.GetFullPath(Path.Combine(localDir == true ? this.localDir : this.roamingDir, localPath));
-			return filePath;
+			return Path.GetFullPath(Path.Combine(localDir == true ? this.localDir : this.roamingDir, localPath));
 		}
 	}
 }

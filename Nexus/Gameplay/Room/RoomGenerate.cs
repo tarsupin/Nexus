@@ -14,7 +14,7 @@ namespace Nexus.Gameplay {
 		public static void GenerateRoom(RoomScene room, LevelContent levelContent, string roomId) {
 
 			// NOTE: If room properties are NULL, the LevelFormat probably broke and it needs to be updated (or level data was invalid structure).
-			RoomFormat roomData = levelContent.data.room[roomId];
+			RoomFormat roomData = levelContent.data.rooms[roomId];
 
 			if(roomData.main != null) { RoomGenerate.GenerateTileLayer(room, roomData.main); }
 			if(roomData.obj != null) { RoomGenerate.GenerateObjectLayer(room, roomData.obj); }
