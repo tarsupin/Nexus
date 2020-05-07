@@ -31,15 +31,16 @@ May 7th, 2020
 	- Updated Level Conversion to use LevelContent.
 	- Level Save Function Working Correctly.
 	- Added classes for Chests, NPCs, Doors.
+	- Added classes for Bricks, Toggle Platforms.
 
 
 
 // Next TODO List
 All Utility Belt Tiles are added.
 All Tiles are added into system.
-All Utility Belt Functions are added.
+Important Utility Belt Functions are added.
+	- Play (important for testing)
 	- Save
-	- Play
 	- Room Switch
 	- Room Swap
 	- Clone

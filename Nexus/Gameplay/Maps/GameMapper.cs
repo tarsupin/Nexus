@@ -149,10 +149,10 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ToggleBlockYellow, new ToggleBlockYellow() },
 				
 				// Solid, Toggled Platforms (56 - 59)
-				//{ (byte) TileEnum.TogglePlatBlue, new TogglePlatBlue() },
-				//{ (byte) TileEnum.TogglePlatRed, new TogglePlatRed() },
-				//{ (byte) TileEnum.TogglePlatGreen, new TogglePlatGreen() },
-				//{ (byte) TileEnum.TogglePlatYellow, new TogglePlatYellow() },
+				{ (byte) TileEnum.TogglePlatBlue, new TogglePlatBlue() },
+				{ (byte) TileEnum.TogglePlatRed, new TogglePlatRed() },
+				{ (byte) TileEnum.TogglePlatGreen, new TogglePlatGreen() },
+				{ (byte) TileEnum.TogglePlatYellow, new TogglePlatYellow() },
 
 				// Generators (60 - 64)
 				//{ (byte) TileEnum.Cannon, new Cannon() },

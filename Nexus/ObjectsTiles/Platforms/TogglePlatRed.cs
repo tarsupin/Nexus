@@ -5,7 +5,7 @@ namespace Nexus.Objects {
 
 	public class TogglePlatRed : TogglePlat {
 
-		public TogglePlatRed(byte subTypeId) : base() {
+		public TogglePlatRed() : base() {
 			this.Texture = "/Red/Plat";
 			this.toggleBR = true;
 			this.tileId = (byte)TileEnum.TogglePlatRed;
