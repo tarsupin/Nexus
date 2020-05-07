@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class Chest : TileGameObject {
 
-		protected string Texture;
+		public string[] Texture;
 		protected ChestSubType subType;
 
 		public enum ChestSubType : byte {
@@ -17,6 +17,7 @@ namespace Nexus.Objects {
 
 		public Chest() : base() {
 			this.collides = true;
+			this.CreateTextures();
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
 			this.tileId = (byte)TileEnum.Chest;
 
@@ -65,8 +66,15 @@ namespace Nexus.Objects {
 			// TODO: MUST PROVIDE OPENED CHEST ITEMS
 		}
 
+		private void CreateTextures() {
+			this.Texture = new string[3];
+			this.Texture[(byte)ChestSubType.Closed] = "Chest/Closed";
+			this.Texture[(byte)ChestSubType.Open] = "Chest/Open";
+			this.Texture[(byte)ChestSubType.Locked] = "Chest/Lock";
+		}
+
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture, posX, posY);
+			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}
 }

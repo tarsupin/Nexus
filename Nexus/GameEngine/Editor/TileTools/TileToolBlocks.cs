@@ -1,5 +1,7 @@
 ﻿using Nexus.Gameplay;
 using static Nexus.Objects.Box;
+using static Nexus.Objects.ExclaimBlock;
+using static Nexus.Objects.Leaf;
 using static Nexus.Objects.Spike;
 
 namespace Nexus.GameEngine {
@@ -36,11 +38,14 @@ namespace Nexus.GameEngine {
 			});
 
 			// Leaf
-			// TODO LOW PRIORITY: Need secondary leaf option. There's "basic" and "reform". Not just subType = 0;
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Leaf,
-					subType = 0,
+					subType = (byte) LeafSubType.Reform,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Leaf,
+					subType = (byte) LeafSubType.Basic,
 				},
 			});
 
@@ -57,20 +62,35 @@ namespace Nexus.GameEngine {
 			});
 
 			// Exclaim Block
-			// TODO LOW PRIORITY: Need correct versions. Not just subType = 0;
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.ExclaimBlock,
-					subType = (byte)GroundSubTypes.S,
+					subType = (byte) ExclaimBlockSubType.Active,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ExclaimBlock,
+					subType = (byte) ExclaimBlockSubType.Inactive,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ExclaimBlock,
+					subType = (byte) ExclaimBlockSubType.Transparent,
 				},
 			});
 
 			// Puff Block
 			// TODO LOW PRIORITY: Need correct FACING(?) versions. Not just subType = 0;
+			//this.placeholders.Add(new EditorPlaceholder[] {
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.PuffBlock,
+			//		subType = (byte)GroundSubTypes.S,
+			//	},
+			//});
+
+			// Lock
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PuffBlock,
-					subType = (byte)GroundSubTypes.S,
+					tileId = (byte) TileEnum.Lock,
+					subType = 0,
 				},
 			});
 		}

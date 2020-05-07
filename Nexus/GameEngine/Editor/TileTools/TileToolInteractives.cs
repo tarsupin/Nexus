@@ -1,5 +1,8 @@
 ﻿
 using Nexus.Gameplay;
+using static Nexus.Objects.Chest;
+using static Nexus.Objects.Door;
+using static Nexus.Objects.NPC;
 
 namespace Nexus.GameEngine {
 
@@ -18,59 +21,59 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.Girl,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.Guy,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.Girl,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.Guy,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.BlackNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.BlueNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.GreenNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.RedNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.WhiteNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.MasterNinja,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.BlueWizard,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.GreenWizard,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.RedWizard,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.NPC,
-			//		subType = (byte) Something.WhiteWizard,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaBlack,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaBlue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaGreen,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaRed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaWhite,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaMaster,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardBlue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardGreen,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardRed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardWhite,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
@@ -78,6 +81,18 @@ namespace Nexus.GameEngine {
 			//		subType = (byte) Something.Standard,
 			//	},
 			//});
+
+			// TODO LOW PRIORITY: FINISH
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Chest,
+					subType = (byte) ChestSubType.Closed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Chest,
+					subType = (byte) ChestSubType.Locked,
+				},
+			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
@@ -98,47 +113,47 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoor,
-			//		subType = (byte) Something.Blue,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoor,
-			//		subType = (byte) Something.Green,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoor,
-			//		subType = (byte) Something.Red,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoor,
-			//		subType = (byte) Something.Yellow,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoor,
-			//		subType = (byte) Something.Open,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Door,
+					subType = (byte) DoorSubType.Blue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Door,
+					subType = (byte) DoorSubType.Green,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Door,
+					subType = (byte) DoorSubType.Red,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Door,
+					subType = (byte) DoorSubType.Yellow,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Door,
+					subType = (byte) DoorSubType.Open,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoorLock,
-			//		subType = (byte) Something.Blue,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoorLock,
-			//		subType = (byte) Something.Green,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoorLock,
-			//		subType = (byte) Something.Red,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PortalDoorLock,
-			//		subType = (byte) Something.Yellow,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DoorLock,
+					subType = (byte) DoorSubType.Blue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DoorLock,
+					subType = (byte) DoorSubType.Green,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DoorLock,
+					subType = (byte) DoorSubType.Red,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DoorLock,
+					subType = (byte) DoorSubType.Yellow,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

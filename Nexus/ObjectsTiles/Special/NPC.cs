@@ -6,29 +6,31 @@ namespace Nexus.Objects {
 
 	public class NPC : TileGameObject {
 
-		protected string Texture;
+		public string[] Texture;
 		protected NPCSubType subType;
 
 		public enum NPCSubType : byte {
-			NPCGuy = 0,
-			NPCGirl = 5,
+			Guy = 0,
+			Girl = 1,
 
-			NPCNinjaBlack = 10,
-			NPCNinjaBlue = 11,
-			NPCNinjaGreen = 12,
-			NPCNinjaRed = 13,
-			NPCNinjaWhite = 14,
-			NPCNinjaMaster = 15,
+			NinjaBlack = 2,
+			NinjaBlue = 3,
+			NinjaGreen = 4,
+			NinjaRed = 5,
+			NinjaWhite = 6,
+			NinjaMaster = 7,
 
-			NPCWizardBlue = 20,
-			NPCWizardGreen = 21,
-			NPCWizardRed = 22,
-			NPCWizardWhite = 23,
+			WizardBlue = 8,
+			WizardGreen = 9,
+			WizardRed = 10,
+			WizardWhite = 11,
 		}
 
 		public NPC() : base() {
 			this.collides = true;
+			this.CreateTextures();
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
+			this.tileId = (byte)TileEnum.NPC;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -56,8 +58,24 @@ namespace Nexus.Objects {
 			return false;
 		}
 
+		private void CreateTextures() {
+			this.Texture = new string[12];
+			this.Texture[(byte)NPCSubType.Guy] = "NPC/Guy";
+			this.Texture[(byte)NPCSubType.Girl] = "NPC/Girl";
+			this.Texture[(byte)NPCSubType.NinjaBlack] = "NPC/BlackNinja";
+			this.Texture[(byte)NPCSubType.NinjaBlue] = "NPC/BlueNinja";
+			this.Texture[(byte)NPCSubType.NinjaGreen] = "NPC/GreenNinja";
+			this.Texture[(byte)NPCSubType.NinjaRed] = "NPC/RedNinja";
+			this.Texture[(byte)NPCSubType.NinjaWhite] = "NPC/WhiteNinja";
+			this.Texture[(byte)NPCSubType.NinjaMaster] = "NPC/MasterNinja";
+			this.Texture[(byte)NPCSubType.WizardBlue] = "NPC/BlueWizard";
+			this.Texture[(byte)NPCSubType.WizardGreen] = "NPC/GreenWizard";
+			this.Texture[(byte)NPCSubType.WizardRed] = "NPC/RedWizard";
+			this.Texture[(byte)NPCSubType.WizardWhite] = "NPC/WhiteWizard";
+		}
+
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture, posX, posY);
+			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}
 }

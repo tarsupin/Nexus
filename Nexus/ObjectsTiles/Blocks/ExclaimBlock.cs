@@ -47,7 +47,7 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[2];
+			this.Texture = new string[3];
 			this.Texture[(byte) ExclaimBlockSubType.Active] = "Exclaim/Active";
 			this.Texture[(byte) ExclaimBlockSubType.Inactive] = "Exclaim/Inactive";
 			this.Texture[(byte) ExclaimBlockSubType.Transparent] = "Exclaim/Transparent";

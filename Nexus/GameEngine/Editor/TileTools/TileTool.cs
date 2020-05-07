@@ -19,10 +19,11 @@ namespace Nexus.GameEngine {
 		public static Dictionary<byte, TileTool> tileToolMap = new Dictionary<byte, TileTool>() {
 			{ (byte) SlotGroup.Ground, new TileToolGround() },
 			{ (byte) SlotGroup.Blocks, new TileToolBlocks() },
+			{ (byte) SlotGroup.ColorToggles, new TileToolColorToggles() },
 			{ (byte) SlotGroup.Platforms, new TileToolPlatforms() },
-			{ (byte) SlotGroup.Interactives, new TileToolInteractives() },
 			{ (byte) SlotGroup.EnemiesLand, new TileToolEnemyLand() },
 			{ (byte) SlotGroup.EnemiesFly, new TileToolEnemyFly() },
+			{ (byte) SlotGroup.Interactives, new TileToolInteractives() },
 			{ (byte) SlotGroup.Upgrades, new TileToolUpgrades() },
 			{ (byte) SlotGroup.Collectables, new TileToolCollectables() },
 			{ (byte) SlotGroup.Decor, new TileToolDecor() },

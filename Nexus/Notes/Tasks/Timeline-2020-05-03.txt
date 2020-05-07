@@ -31,7 +31,10 @@ May 7th, 2020
 	- Updated Level Conversion to use LevelContent.
 	- Level Save Function Working Correctly.
 	- Added classes for Chests, NPCs, Doors.
-	- Added classes for Bricks, Toggle Platforms, Leafs.
+	- Added classes for Bricks, Toggle Platforms, Leafs, Exclaim Block.
+	- Several minor improvements and changes.
+	- NPC images switched to Tiles.
+	- Updated Tile Tool Placeholders, Context Menu.
 
 
 
@@ -53,3 +56,5 @@ Doors need to create a second tile below on creation, or expand border down.
 Attachment messages for NPCs, Doors, Characters, etc.
 Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
 Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
+Tile Platforms need to have subtypes for all directions. Or a face direction.
+Toggle Blocks need an on/off variation in editor. Subtypes.

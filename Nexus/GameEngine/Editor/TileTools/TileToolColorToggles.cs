@@ -196,25 +196,6 @@ namespace Nexus.GameEngine {
 			//		subType = (byte) Something.GY,
 			//	},
 			//});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Lock,
-					subType = 0,
-				},
-			});
-
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Chest,
-			//		subType = (byte) Something.Closed,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Chest,
-			//		subType = (byte) Something.Lock,
-			//	},
-			//});
 		}
 	}
 }

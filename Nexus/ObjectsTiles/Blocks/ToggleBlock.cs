@@ -16,8 +16,8 @@ namespace Nexus.Objects {
 		}
 
 		public bool Toggled(RoomScene room, bool toggleBR) {
-			if(toggleBR) { return room.flags.toggleBR; }
-			return room.flags.toggleGY;
+			if(toggleBR) { return room == null ? true : room.flags.toggleBR; }
+			return room == null ? true : room.flags.toggleGY;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
