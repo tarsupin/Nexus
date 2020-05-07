@@ -15,7 +15,7 @@ namespace Nexus.Scripts {
 		protected override void ProcessLayerData(Dictionary<string, Dictionary<string, ArrayList>> layerJson) {
 
 			// Temporary Blockers - Testing Purposes.
-			if(LevelConvert.curLevelId != "QCALQOD13") { return; }          // Specific Level Allowance
+			if(this.levelContent.levelId != "QCALQOD16") { return; }          // Specific Level Allowance
 			//if(CalcRandom.IntBetween(0, 50) == 35) { return; }
 
 			// Run Standard Layer Data Process

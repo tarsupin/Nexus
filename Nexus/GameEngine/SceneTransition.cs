@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 
 /*
  * The purpose of SceneTransition is to:
@@ -19,14 +20,44 @@ namespace Nexus.GameEngine {
 		}
 
 		// Go to Level Scene (In World)
-		public static bool ToLevel( string worldId, string levelId, bool runMenu = false, bool runEditor = false ) {
+		public static bool ToLevel( string worldId, string levelId, bool runMenu = false ) {
 			GameHandler handler = Systems.handler;
 
 			// Verify that we're loading a level that's different from our current one:
 			if(levelId == handler.levelContent.levelId) { return false; }
 			
 			// Get Level Path & Retrieve Level Data
-			if(!handler.levelContent.LoadLevel(levelId)) { return false; }
+			if(!handler.levelContent.LoadLevelData(levelId)) { return false; }
+
+			// Update the Level State
+			handler.levelState.FullLevelReset();
+
+			// End Old Level Scene
+			Systems.scene.EndScene();
+
+			// Create New Level Scene
+			Systems.scene = new LevelScene();
+
+			return true;
+		}
+
+		// Go to Level Editor Scene
+		public static bool ToLevelEditor( string worldId, string levelId ) {
+			GameHandler handler = Systems.handler;
+
+			// Load Level to Edit (unless it's already loaded)
+			if(levelId != handler.levelContent.levelId) {
+
+				// Get Level Path & Retrieve Level Data
+				if(!handler.levelContent.LoadLevelData(levelId)) {
+
+					#if debug
+					throw new Exception("Unable to load level data.");
+					#endif
+
+					return false;
+				}
+			}
 
 			// Update the Level State
 			handler.levelState.FullLevelReset();
@@ -37,10 +68,7 @@ namespace Nexus.GameEngine {
 			// TODO HIGH PRIORITY: Editable Levels should be 1 to 100 on localhost. Then, can send those to server, which changes to a special hash.
 
 			// Editor Scene
-			if(runEditor) { Systems.scene = new EditorScene(); }
-
-			// Create New Level Scene
-			else { Systems.scene = new LevelScene(); }
+			Systems.scene = new EditorScene();
 
 			return true;
 		}

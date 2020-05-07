@@ -21,12 +21,13 @@ namespace Nexus.Scripts {
 		readonly string deliveryPath = "";
 
 		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
-		protected static string curLevelId;
-		protected static LevelFormat curLevelJson;
 		protected static string curRoomId;
 		protected static string curRoomLayerId;
 		protected static ushort curGridY;
 		protected static ushort curGridX;
+
+		// Level Data
+		protected LevelContent levelContent;
 
 		// LevelContent.GetLocalLevelPath		// this returns "QC/QCAL10" from "QCAL10"
 
@@ -37,29 +38,23 @@ namespace Nexus.Scripts {
 			this.originalPath = Path.Combine(basePath, originalFolder);
 			this.deliveryPath = Path.Combine(basePath, deliveryFolder);
 
+			this.levelContent = new LevelContent(this.originalPath);
+
 			this.RunAllLevels();
 		}
 
-		protected void SaveLevelJson( string levelId ) {
-
-		}
-
-		protected LevelFormat GetLevelJson( string levelId) {
-			string levelPath = Path.Combine(this.originalPath, LevelContent.GetLocalLevelPath(levelId));
-			string jsonRaw = File.ReadAllText(levelPath);
-			LevelFormat levelJson = JsonConvert.DeserializeObject<LevelFormat>(jsonRaw);
-			return levelJson;
-		}
-		
 		protected void ProcessLevel( string levelId ) {
 			System.Console.WriteLine("Processing Level ID: " + levelId);
 
-			LevelConvert.curLevelId = levelId;
+			// Load the Level Content
+			this.levelContent.LoadLevelData(levelId);
 
-			// Retrieve JSON for the given levelId
-			LevelConvert.curLevelJson = this.GetLevelJson(levelId);
+			// If the level content wasn't loaded correctly:
+			if(this.levelContent.levelId != levelId) {
+				throw new Exception("Level content was not loaded correctly.");
+			}
 
-			foreach(KeyValuePair<string, RoomFormat> roomKVP in LevelConvert.curLevelJson.rooms) {
+			foreach(KeyValuePair<string, RoomFormat> roomKVP in this.levelContent.data.rooms) {
 				LevelConvert.curRoomId = roomKVP.Key;
 				RoomFormat roomData = roomKVP.Value;
 
@@ -83,6 +78,9 @@ namespace Nexus.Scripts {
 					this.ProcessLayerData(roomData.fg);
 				}
 			}
+
+			// Save the level content.
+			this.levelContent.SaveLevel(this.deliveryPath, levelId);
 		}
 
 		protected virtual void ProcessLayerData( Dictionary<string, Dictionary<string, ArrayList>> layerJson ) {
@@ -117,7 +115,7 @@ namespace Nexus.Scripts {
 				paramList = (Dictionary<string, string>)(tileJson[2]);
 			}
 
-			RoomFormat roomData = LevelConvert.curLevelJson.rooms[curRoomId];
+			RoomFormat roomData = this.levelContent.data.rooms[curRoomId];
 			Dictionary<string, Dictionary<string, ArrayList>> roomLayer = null;
 
 			// Need to load the layer property with a switch.
@@ -127,15 +125,11 @@ namespace Nexus.Scripts {
 			else if(curRoomLayerId == "fg") { roomLayer = roomData.fg; }
 
 			if(roomLayer != null) {
-				this.OverwriteTileDataPart2(roomLayer, index, subIndex, paramList);
-			}
-		}
-
-		protected void OverwriteTileDataPart2( Dictionary<string, Dictionary<string, ArrayList>> roomLayer, ushort index, ushort subIndex, Dictionary<string, string> paramList = null ) {
-			if(paramList == null) {
-				roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex };
-			} else {
-				roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex, paramList };
+				if(paramList == null) {
+					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex };
+				} else {
+					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex, paramList };
+				}
 			}
 		}
 

@@ -72,7 +72,7 @@ namespace Nexus.GameEngine {
 				string levelId = currentIns == "" ? Systems.handler.levelContent.levelId : currentIns;
 
 				// Transition to an Editor Scene
-				SceneTransition.ToLevel("", currentIns, false, true);
+				SceneTransition.ToLevelEditor("", levelId);
 			}
 		}
 
