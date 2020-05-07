@@ -47,4 +47,7 @@ All Utility Belt Functions are added.
 	- Home (Room Switch)
 Add Param Tool
 Add Param Behaviors
+Add Param System for Tiles to use Params.
 Level Conversion: Flag to 170-174
+Doors need to create a second tile below on creation, or expand border down.
+Attachment messages for NPCs, Doors, Characters, etc.

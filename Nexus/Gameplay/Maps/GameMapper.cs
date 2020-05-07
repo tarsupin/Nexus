@@ -177,8 +177,8 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.NPC, new NPC() },
 				//{ (byte) TileEnum.PeekMap, new PeekMap() },
 
-				//{ (byte) TileEnum.Door, new Door() },
-				//{ (byte) TileEnum.DoorLock, new DoorLock() },
+				{ (byte) TileEnum.Door, new Door() },
+				{ (byte) TileEnum.DoorLock, new DoorLock() },
 				
 				// Collectables (160 - 169)
 				{ (byte) TileEnum.Coins, new Coins() },
