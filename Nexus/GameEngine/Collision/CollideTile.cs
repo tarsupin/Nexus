@@ -7,6 +7,11 @@ namespace Nexus.GameEngine {
 
 	public class CollideTile {
 
+		// This tests if object is completely within a tile square.
+		public static bool IsWithinTile(DynamicGameObject dynamicObj, ushort gridX, ushort gridY) {
+			return (dynamicObj.GridX == gridX && dynamicObj.GridX2 == gridX && dynamicObj.GridY == gridY && dynamicObj.GridY2 == gridY);
+		}
+
 		// Perform Collision Detection against a designated Grid Square
 		public static bool RunGridTest(RoomScene room, DynamicGameObject actor, TilemapBool tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
 

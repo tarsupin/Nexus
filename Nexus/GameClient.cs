@@ -72,7 +72,7 @@ namespace Nexus
 			//Console.WriteLine(Systems.handler.level.data.id);
 
 			// Try converting levels
-			new LevelConvertV1();               // TODO CLEANUP: Remove this line.
+			//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.

@@ -170,7 +170,7 @@ namespace Nexus.GameEngine {
 				// Auto-Tile if shift is being held (and tile can auto-tile).
 				bool autoTileRunning = false;
 
-				// TODO HIGH PRIORITY: AUTO-TILING AFTER PLACEMENTE
+				// TODO HIGH PRIORITY: AUTO-TILING AFTER PLACEMENT
 				//if(Systems.input.LocalKeyDown(Keys.LeftShift)) {
 
 				//	// Attempt to run AutoTile (and trace success)
@@ -215,7 +215,7 @@ namespace Nexus.GameEngine {
 			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
 
 			if(clonedTool is TileTool == true) {
-				EditorTools.SetTileTool(clonedTool);
+				EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index, (byte) clonedTool.subIndex);
 			}
 		}
 

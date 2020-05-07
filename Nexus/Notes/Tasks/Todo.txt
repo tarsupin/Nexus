@@ -1,5 +1,17 @@
 ﻿https://www.youtube.com/watch?v=0FcLGQRyVOw	// excellent examples, world 2 - ryu loves it; sky level world 2
 
+Handle layering with bg, fg, main, and obj. BG is new.
+	- Add 'bg' layer to data.
+	- Convert data to include ledges as 'bg' layer.
+	- Add CharStart to RoomFormat
+	- Add Scripting to RoomFormat
+
+Console Switch Options
+	- Change tiles between two options.
+	- Add dictionary for words. Each name points to a class, and each class has sub-type names.
+	- Delete all tiles of a given type.
+
+
 There should be a text indicator in the top center for what item is currently being placed.
 	- A description, like "Random Ninja Outfit" or something.
 	- Maybe some optional text if it's more involved.

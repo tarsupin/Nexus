@@ -30,3 +30,20 @@ May 6th, 2020
 May 7th, 2020
 	- Updated Level Conversion to use LevelContent.
 	- Level Save Function Working Correctly.
+	- Added placeholder class for Chests.
+
+
+
+// Next TODO List
+All Utility Belt Tiles are added.
+All Tiles are added into system.
+All Utility Belt Functions are added.
+	- Save
+	- Play
+	- Room Switch
+	- Room Swap
+	- Clone
+	- Home (Room Switch)
+Add Param Tool
+Add Param Behaviors
+Level Conversion: Flag to 170-174

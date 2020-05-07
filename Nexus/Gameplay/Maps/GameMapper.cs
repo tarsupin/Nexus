@@ -173,9 +173,9 @@ namespace Nexus.Gameplay {
 
 				// Character Interactives (150 - 159)
 				//{ (byte) TileEnum.Flag, new Flag() },		// TODO: Remove this; flags were moved to 170-174
-				//{ (byte) TileEnum.Chest, new Chest() },
-				//{ (byte) TileEnum.NPC, new NPC() },
-				//{ (byte) TileEnum.PeekMap, new PeekMap() },
+				{ (byte) TileEnum.Chest, new Chest() },
+				{ (byte) TileEnum.NPC, new NPC() },
+				{ (byte) TileEnum.PeekMap, new PeekMap() },
 
 				//{ (byte) TileEnum.Door, new Door() },
 				//{ (byte) TileEnum.DoorLock, new DoorLock() },
