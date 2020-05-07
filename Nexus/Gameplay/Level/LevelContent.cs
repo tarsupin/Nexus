@@ -96,24 +96,16 @@ namespace Nexus.Gameplay {
 			if(destDir == null) { destDir = this.levelPath; }
 			if(destLevelId == null) { destLevelId = this.levelId; }
 
+			// Make sure the directory exists:
+			if(!Directory.Exists(destDir)) { Directory.CreateDirectory(destDir); }
+
 			// Can only save a level state if the level ID is assigned correctly.
 			if(destLevelId == null || destLevelId.Length == 0) { return; }
 
 			// TODO LOW PRIORITY: Verify that the levelId exists; not just that an ID is present.
 
-			// Make sure the full destination path exists:
-			string fullDestPath = this.GetFullDestinationPath(destDir, this.levelId);
-
-			if(!File.Exists(fullDestPath)) {
-
-				#if debug
-				throw new Exception("Unable to locate full destination path: " + fullDestPath);
-				#endif
-
-				return;
-			}
-
 			// Save State
+			string fullDestPath = this.GetFullDestinationPath(destDir, this.levelId);
 			string json = JsonConvert.SerializeObject(this.data);
 			File.WriteAllText(fullDestPath, json);
 		}
