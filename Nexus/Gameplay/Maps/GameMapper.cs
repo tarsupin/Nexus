@@ -133,7 +133,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.Brick, new Brick() },
 				{ (byte) TileEnum.Box, new Box() },
 				{ (byte) TileEnum.Lock, new Lock() },
-				//{ (byte) TileEnum.Leaf, new Leaf() },
+				{ (byte) TileEnum.Leaf, new Leaf() },
 				//{ (byte) TileEnum.ExclaimBlock, new ExclaimBlock() },
 				// ...
 				{ (byte) TileEnum.Spike, new Spike() },

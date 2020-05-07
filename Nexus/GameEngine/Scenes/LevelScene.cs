@@ -100,9 +100,9 @@ namespace Nexus.GameEngine {
 			// Update Timer
 			Systems.timer.RunTick();
 
-			// TODO: RUN EACH ROOM IN LEVEL
-			// TODO: RUN EACH ROOM IN LEVEL
-			// TODO: RUN EACH ROOM IN LEVEL
+			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
+			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
+			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
 			this.rooms[0].RunTick();
 		}
 

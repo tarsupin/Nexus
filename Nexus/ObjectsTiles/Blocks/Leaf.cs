@@ -4,24 +4,28 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Box : BlockTile {
+	public class Leaf : BlockTile {
 
 		public string[] Texture;
 
-		public enum BoxSubType : byte {
-			Brown = 0,
-			Gray = 1,
+		public enum LeafSubType : byte {
+			Basic = 0,
+			Reform = 1,
 		}
 
-		public Box() : base() {
+		public Leaf() : base() {
 			this.CreateTextures();
-			this.tileId = (byte)TileEnum.Box;
+			this.tileId = (byte)TileEnum.Leaf;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
-			// Destroy Box
+			// Destroy Leaf
 			if(dir == DirCardinal.Up) {
+				this.BreakApart(room, gridX, gridY);
+			} else if(dir == DirCardinal.Down) {
+
+				// TODO: Add a delay to the leaf at this gridId.
 				this.BreakApart(room, gridX, gridY);
 			}
 
@@ -38,20 +42,20 @@ namespace Nexus.Objects {
 				enemy.Die(DeathResult.Knockout);
 			}
 
-			// Destroy Box Tile
+			// Destroy Leaf Tile
 			room.tilemap.RemoveTileByGrid(gridX, gridY);
 
 			// Display Particle Effect
-			ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+			ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
 
-			// Box Breaking Sound
-			Systems.sounds.brickBreak.Play();
+			// Leaf Breaking Sound
+			Systems.sounds.thudTap.Play();
 		}
 
 		private void CreateTextures() {
 			this.Texture = new string[2];
-			this.Texture[(byte) BoxSubType.Brown] = "Box/Brown";
-			this.Texture[(byte) BoxSubType.Gray] = "Box/Gray";
+			this.Texture[(byte) LeafSubType.Basic] = "Leaf/Basic";
+			this.Texture[(byte) LeafSubType.Reform] = "Leaf/Reform";
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
