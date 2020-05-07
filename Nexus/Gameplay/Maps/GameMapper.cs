@@ -130,7 +130,7 @@ namespace Nexus.Gameplay {
 				//{ (byte) TileEnum.BGWind, new BGWind() },
 
 				// Fixed, Touch-Effect (40 - 49)
-				//{ (byte) TileEnum.Brick, new Brick() },
+				{ (byte) TileEnum.Brick, new Brick() },
 				{ (byte) TileEnum.Box, new Box() },
 				{ (byte) TileEnum.Lock, new Lock() },
 				//{ (byte) TileEnum.Leaf, new Leaf() },

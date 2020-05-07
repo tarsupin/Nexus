@@ -18,6 +18,7 @@ namespace Nexus.Objects {
 		public Chest() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
+			this.tileId = (byte)TileEnum.Chest;
 
 			// Chest Contents
 			// TODO: Update Chest Contents with Param system. Needs to work with tiles.

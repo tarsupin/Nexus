@@ -6,20 +6,22 @@ namespace Nexus.Objects {
 
 	public class Door : TileGameObject {
 
-		protected string Texture;
+		protected string[] Texture;
 		protected DoorSubType subType;
 
 		public enum DoorSubType : byte {
-			Normal = 0,
-			BlueDoor = 1,
-			GreenDoor = 2,
-			RedDoor = 3,
-			YellowDoor = 4,
+			Blue = 0,
+			Green = 1,
+			Red = 2,
+			Yellow = 3,
+			Open = 4,
 		}
 
 		public Door() : base() {
+			this.CreateTextures();
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Door];
+			this.tileId = (byte) TileEnum.Door;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -49,7 +51,16 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture, posX, posY);
+			this.atlas.Draw(this.Texture[subType], posX, posY);
+		}
+
+		protected virtual void CreateTextures() {
+			this.Texture = new string[5];
+			this.Texture[(byte)DoorSubType.Open] = "Door/Standard/Open";
+			this.Texture[(byte)DoorSubType.Blue] = "Door/Standard/Blue";
+			this.Texture[(byte)DoorSubType.Green] = "Door/Standard/Green";
+			this.Texture[(byte)DoorSubType.Red] = "Door/Standard/Red";
+			this.Texture[(byte)DoorSubType.Yellow] = "Door/Standard/Yellow";
 		}
 	}
 }
