@@ -18,12 +18,9 @@ namespace Nexus.Objects {
 		public Chest() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
-			this.subType = subType;
 
 			// Chest Contents
-			// TODO: Update Chest Contents with Param system.
-			//let contents = ParamsContains.handleParams( params );
-			//this.contentsId = contents.tile;
+			// TODO: Update Chest Contents with Param system. Needs to work with tiles.
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

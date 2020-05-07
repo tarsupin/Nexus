@@ -31,6 +31,7 @@ May 7th, 2020
 	- Updated Level Conversion to use LevelContent.
 	- Level Save Function Working Correctly.
 	- Added placeholder class for Chests.
+	- Added placeholder class for NPCs.
 
 
 
