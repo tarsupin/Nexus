@@ -42,7 +42,7 @@ May 8th, 2020
 	- Added BGDisable Tile, Added Suit + Hat Removal.
 	- Added BG Tap Class.
 	- Added Cannon Classes.
-
+	- Added PuffBlock.
 
 
 // Next TODO List
@@ -55,6 +55,7 @@ Important Utility Belt Functions are added.
 	- Room Swap
 	- Clone
 	- Home (Room Switch)
+	- Delete
 Add Param Tool
 Add Param Behaviors
 Add Param System for Tiles to use Params.

@@ -138,7 +138,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ExclaimBlock, new ExclaimBlock() },
 				// ...
 				{ (byte) TileEnum.Spike, new Spike() },
-				//{ (byte) TileEnum.PuffBlock, new PuffBlock() },
+				{ (byte) TileEnum.PuffBlock, new PuffBlock() },
 				//{ (byte) TileEnum.Conveyor, new Conveyor() },
 
 				// Solid, Toggled (50 - 55)

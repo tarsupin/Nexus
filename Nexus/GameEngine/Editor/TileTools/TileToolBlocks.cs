@@ -2,6 +2,7 @@
 using static Nexus.Objects.Box;
 using static Nexus.Objects.ExclaimBlock;
 using static Nexus.Objects.Leaf;
+using static Nexus.Objects.PuffBlock;
 using static Nexus.Objects.Spike;
 
 namespace Nexus.GameEngine {
@@ -78,13 +79,24 @@ namespace Nexus.GameEngine {
 			});
 
 			// Puff Block
-			// TODO LOW PRIORITY: Need correct FACING(?) versions. Not just subType = 0;
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PuffBlock,
-			//		subType = (byte)GroundSubTypes.S,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlock,
+					subType = (byte) PuffBlockSubType.Up,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlock,
+					subType = (byte) PuffBlockSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlock,
+					subType = (byte) PuffBlockSubType.Down,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlock,
+					subType = (byte) PuffBlockSubType.Left,
+				},
+			});
 
 			// Lock
 			this.placeholders.Add(new EditorPlaceholder[] {
