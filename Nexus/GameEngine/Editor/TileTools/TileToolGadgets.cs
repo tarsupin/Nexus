@@ -1,4 +1,8 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
+using static Nexus.Objects.CannonDiag;
+using static Nexus.Objects.CannonHor;
+using static Nexus.Objects.CannonVert;
 
 namespace Nexus.GameEngine {
 
@@ -8,48 +12,43 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Gadgets;
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Horizontal,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Vertical,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Horizontal,
-			//		face: DirRotate.FlipHor,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Vertical,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonHorizontal,
+					subType = (byte) CannonHorSubType.Left,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonHorizontal,
+					subType = (byte) CannonHorSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonVertical,
+					subType = (byte) CannonVertSubType.Up,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonVertical,
+					subType = (byte) CannonVertSubType.Down,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Diagonal,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Diagonal,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Diagonal,
-			//		face: DirRotate.Half,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cannon,
-			//		subType = (byte) Something.Diagonal,
-			//		face: DirRotate.FlipHor,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonDiagonal,
+					subType = (byte) CannonDiagSubType.DownLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonDiagonal,
+					subType = (byte) CannonDiagSubType.DownRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonDiagonal,
+					subType = (byte) CannonDiagSubType.UpLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CannonDiagonal,
+					subType = (byte) CannonDiagSubType.UpRight,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

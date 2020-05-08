@@ -41,7 +41,7 @@ May 8th, 2020
 	- Removed Unnecessary Toggle Blocks.
 	- Added BGDisable Tile, Added Suit + Hat Removal.
 	- Added BG Tap Class.
-
+	- Added Cannon Classes.
 
 
 
@@ -65,3 +65,4 @@ Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
 Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
 Tile Platforms need facing direction to collide correctly.
 Console for Editor. Allows scripting, etc.
+Cannons need RunTick() behavior; perhaps by Generator cycle in RoomScene.

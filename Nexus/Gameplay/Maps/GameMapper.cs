@@ -156,7 +156,9 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.TogglePlatYellow, new TogglePlatYellow() },
 
 				// Generators (60 - 64)
-				//{ (byte) TileEnum.Cannon, new Cannon() },
+				{ (byte) TileEnum.CannonHorizontal, new CannonHor() },
+				{ (byte) TileEnum.CannonVertical, new CannonVert() },
+				{ (byte) TileEnum.CannonDiagonal, new CannonDiag() },
 				//{ (byte) TileEnum.Placer, new Placer() },
 				
 				// Reserved (65 - 69)
