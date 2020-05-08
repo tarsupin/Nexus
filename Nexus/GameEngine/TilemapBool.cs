@@ -68,6 +68,12 @@ namespace Nexus.GameEngine {
 			this.tiles.Remove(gridId);
 		}
 
+		// Clear the Main Layer
+		public void ClearMainLayer(uint gridId) {
+			this.tiles[gridId][0] = 0;
+			this.tiles[gridId][1] = 0;
+		}
+
 		public uint GetGridID(ushort gridX, ushort gridY) {
 			return (uint)gridY * this.XCount + gridX;
 		}

@@ -278,6 +278,12 @@ namespace Nexus.GameEngine {
 			this.markedForRemoval.Clear();
 		}
 
+		// Toggle Colored Toggles. Used to be toggleWorldObjects()
+		public void ToggleColor( bool isBR ) {
+			if(isBR) { this.flags.toggleBR = !this.flags.toggleBR; }
+			else { this.flags.toggleGY = !this.flags.toggleGY; }
+		}
+
 		public void RestartRoom() {
 
 			// Toggle Resets

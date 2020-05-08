@@ -127,7 +127,7 @@ namespace Nexus.Gameplay {
 
 				// Background Interactives (These Collide)
 				{ (byte) TileEnum.BGDisable, new BGDisable() },
-				//{ (byte) TileEnum.BGTap, new BGTap() },
+				{ (byte) TileEnum.BGTap, new BGTap() },
 				//{ (byte) TileEnum.BGWind, new BGWind() },
 
 				// Fixed, Touch-Effect (40 - 49)

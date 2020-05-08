@@ -10,13 +10,20 @@ namespace Nexus.Objects {
 
 		public BGDisable() : base() {
 			this.tileId = (byte)TileEnum.BGDisable;
-			this.Texture = "BGObject/Disable";
+			this.Texture = "BGTile/Disable";
 		}
 
-		public override void ActivateBGEffect(Character character) {
-			if(character.DisableAbilities()) {
-				Systems.sounds.disableCollectable.Play();
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+
+			if(actor is Character) {
+				Character character = (Character)actor;
+
+				if(character.DisableAbilities()) {
+					Systems.sounds.disableCollectable.Play();
+				}
 			}
+
+			return false;
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

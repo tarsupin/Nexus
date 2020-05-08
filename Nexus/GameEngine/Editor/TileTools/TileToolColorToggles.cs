@@ -1,4 +1,5 @@
 ﻿using Nexus.Gameplay;
+using static Nexus.Objects.BGTap;
 
 namespace Nexus.GameEngine {
 
@@ -171,17 +172,16 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.BGTap,
-			//		subType = (byte) Something.BR,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.BGTap,
-			//		subType = (byte) Something.GY,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.BGTap,
+					subType = (byte) BGTapSubType.TapBR,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.BGTap,
+					subType = (byte) BGTapSubType.TapGY,
+				},
+			});
 		}
 	}
 }

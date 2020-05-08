@@ -72,8 +72,14 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public void Destroy( RoomScene room, ushort gridX, ushort gridY ) {
+		public void DestroyFull( RoomScene room, ushort gridX, ushort gridY ) {
 			room.tilemap.RemoveTileByGrid(gridX, gridY);
+		}
+
+		public void DestroyMainLayer( RoomScene room, ushort gridX, ushort gridY ) {
+			uint gridId = room.tilemap.GetGridID(gridX, gridY);
+			room.tilemap.tiles[gridId][0] = 0;
+			room.tilemap.tiles[gridId][1] = 0;
 		}
 	}
 }
