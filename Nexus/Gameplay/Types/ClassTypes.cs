@@ -24,6 +24,12 @@ namespace Nexus.Gameplay {
 		Wall = 10,
 		Log = 11,
 
+		// Non-Solid, Toggled Blocks (15 - 18)
+		ToggleBlockBlueOff = 15,
+		ToggleBlockRedOff = 16,
+		ToggleBlockGreenOff = 17,
+		ToggleBlockYellowOff = 18,
+
 		// Ledges (20 - 29)
 		LedgeGrass = 20,
 		LedgeGrassDecor = 21,
@@ -71,7 +77,11 @@ namespace Nexus.Gameplay {
 		Cannon = 60,
 		Placer = 61,
 
-		// Reserved (65 - 69)
+		// Non-Solid, Toggled Platforms (65 - 69)
+		TogglePlatBlueOff = 65,
+		TogglePlatRedOff = 66,
+		TogglePlatGreenOff = 67,
+		TogglePlatYellowOff = 68,
 
 		// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
 

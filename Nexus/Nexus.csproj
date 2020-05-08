@@ -293,6 +293,14 @@
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
     <Compile Include="ObjectsTiles\Special\NPC.cs" />
     <Compile Include="ObjectsTiles\Special\Chest.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockBlueOff.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockGreenOff.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockRedOff.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockYellowOff.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatBlueOff.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatGreenOff.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatRedOff.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatYellowOff.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />
     <Compile Include="Scripts\LevelConvert.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />
@@ -351,17 +359,17 @@
     <Compile Include="Objects\EnemyLand\Moosh.cs" />
     <Compile Include="Objects\EnemyLand\EnemyLand.cs" />
     <Compile Include="Objects\Enemy.cs" />
-    <Compile Include="ObjectsTiles\Platforms\TogglePlatYellow.cs" />
-    <Compile Include="ObjectsTiles\Platforms\TogglePlatGreen.cs" />
-    <Compile Include="ObjectsTiles\Platforms\TogglePlatRed.cs" />
-    <Compile Include="ObjectsTiles\Platforms\TogglePlatBlue.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBoxGY.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBoxBR.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBlockYellow.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBlockGreen.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBlockRed.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBlockBlue.cs" />
-    <Compile Include="ObjectsTiles\Blocks\ToggleBlock.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatYellow.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatGreen.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatRed.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatBlue.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBoxGY.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBoxBR.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockYellow.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockGreen.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockRed.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockBlue.cs" />
+    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlock.cs" />
     <Compile Include="ObjectsTiles\Collectables\CollectableHat.cs" />
     <Compile Include="ObjectsTiles\Collectables\Goodie.cs" />
     <Compile Include="ObjectsTiles\Collectables\CollectableSuit.cs" />
@@ -404,7 +412,7 @@
     <Compile Include="Gameplay\Types\ClassTypes.cs" />
     <Compile Include="Gameplay\Types\MetaTypes.cs" />
     <Compile Include="Gameplay\Types\ObjectTypes.cs" />
-    <Compile Include="ObjectsTiles\Platforms\TogglePlat.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

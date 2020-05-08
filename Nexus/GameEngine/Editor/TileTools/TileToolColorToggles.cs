@@ -12,18 +12,99 @@ namespace Nexus.GameEngine {
 					subType = (byte) 0,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ToggleBlockGreen,
+					tileId = (byte) TileEnum.ToggleBlockRed,
 					subType = (byte) 0,
 				},
 			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ToggleBlockRed,
+					tileId = (byte) TileEnum.ToggleBlockGreen,
 					subType = (byte) 0,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.ToggleBlockYellow,
+					subType = (byte) 0,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatBlue,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatRed,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatBlue,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatRed,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatBlue,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatRed,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatBlue,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatRed,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatGreen,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatYellow,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatGreen,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatYellow,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatGreen,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatYellow,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatGreen,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TogglePlatYellow,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ToggleBoxBR,
+					subType = (byte) 0,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ToggleBoxGY,
 					subType = (byte) 0,
 				},
 			});
@@ -51,103 +132,6 @@ namespace Nexus.GameEngine {
 			//		subType = (byte) Something.Yellow,
 			//	},
 			//});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatBlue,
-					subType = (byte) 0,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatGreen,
-					subType = (byte) 0,
-				},
-
-				// TODO LOW PRIORITY: FINISH
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Blue,
-				//	face: DirRotate.Right,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Green,
-				//	face: DirRotate.Right,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Blue,
-				//	face: DirRotate.FlipVert,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Green,
-				//	face: DirRotate.FlipVert,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Blue,
-				//	face: DirRotate.Left,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOnPlat,
-				//	subType = (byte) Something.Green,
-				//	face: DirRotate.Left,
-				//},
-			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatRed,
-					subType = (byte) 0,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatYellow,
-					subType = (byte) 0,
-				},
-
-				// TODO LOW PRIORITY: FINISH
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Red,
-				//	face: DirRotate.Right,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Yellow,
-				//	face: DirRotate.Right,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Red,
-				//	face: DirRotate.FlipVert,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Yellow,
-				//	face: DirRotate.FlipVert,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Red,
-				//	face: DirRotate.Left,
-				//},
-				//new EditorPlaceholder() {
-				//	tileId = (byte) TileEnum.ToggleOffPlat,
-				//	subType = (byte) Something.Yellow,
-				//	face: DirRotate.Left,
-				//},
-			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ToggleBoxBR,
-					subType = (byte) 0,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ToggleBoxGY,
-					subType = (byte) 0,
-				},
-			});
 
 			// TODO LOW PRIORITY: FINISH
 			//this.placeholders.Add(new EditorPlaceholder[] {

@@ -11,6 +11,7 @@ namespace Nexus.Objects {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)
+		protected bool on;			// TRUE if this tile is an ON tile, false if it's an OFF tile.
 
 		public TogglePlat() : base() {
 			this.collides = true;
@@ -18,8 +19,12 @@ namespace Nexus.Objects {
 		}
 
 		public bool Toggled(RoomScene room, bool toggleBR) {
-			if(toggleBR) { return room.flags.toggleBR; }
-			return room.flags.toggleGY;
+
+			// Utility Bar (Editor) does not provide a room scene. Show default texture.
+			if(room == null) { return this.on; }
+
+			if(toggleBR) { return room.flags.toggleBR ? this.on : !this.on; }
+			return room.flags.toggleGY ? this.on : !this.on;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -43,21 +48,22 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
+			string tex = (this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture;
 
 			if(subType == (byte) FacingSubType.FaceUp) {
-				this.atlas.Draw((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+				this.atlas.Draw(tex, posX, posY);
 			}
 			
 			else if(subType == (byte) FacingSubType.FaceDown) {
-				this.atlas.DrawFaceDown((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+				this.atlas.DrawFaceDown(tex, posX, posY);
 			}
 			
 			else if(subType == (byte) FacingSubType.FaceLeft) {
-				this.atlas.DrawFaceLeft((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+				this.atlas.DrawFaceLeft(tex, posX, posY);
 			}
 			
 			else if(subType == (byte) FacingSubType.FaceRight) {
-				this.atlas.DrawFaceRight((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+				this.atlas.DrawFaceRight(tex, posX, posY);
 			}
 		}
 	}

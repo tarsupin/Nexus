@@ -8,6 +8,7 @@ namespace Nexus.Objects {
 		public ToggleBlockBlue() : base() {
 			this.Texture = "/Blue/Block";
 			this.toggleBR = true;
+			this.on = true;
 			this.tileId = (byte)TileEnum.ToggleBlockBlue;
 		}
 	}

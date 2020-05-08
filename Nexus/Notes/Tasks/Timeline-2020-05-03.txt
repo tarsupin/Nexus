@@ -35,6 +35,7 @@ May 7th, 2020
 	- Several minor improvements and changes.
 	- NPC images switched to Tiles.
 	- Updated Tile Tool Placeholders, Context Menu.
+	- Created Color Toggle Off Sets.
 
 
 
