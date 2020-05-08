@@ -1,4 +1,5 @@
 ﻿using Nexus.Gameplay;
+using static Nexus.Objects.Conveyor;
 
 namespace Nexus.GameEngine {
 
@@ -91,24 +92,24 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Conveyor,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Conveyor,
-			//		subType = (byte) Something.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Conveyor,
-			//		subType = (byte) Something.SlowLeft,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Conveyor,
-			//		subType = (byte) Something.SlowRight,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Conveyor,
+					subType = (byte) ConveyorSubType.Left,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Conveyor,
+					subType = (byte) ConveyorSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Conveyor,
+					subType = (byte) ConveyorSubType.SlowLeft,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Conveyor,
+					subType = (byte) ConveyorSubType.SlowRight,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

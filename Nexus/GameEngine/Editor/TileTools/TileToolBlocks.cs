@@ -14,7 +14,6 @@ namespace Nexus.GameEngine {
 			this.slotGroup = (byte)SlotGroup.Blocks;
 			
 			// Bricks
-			// TODO LOW PRIORITY: Need "bricks" here. Brown and Gray options. Not just subType = 0;
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.Brick,
