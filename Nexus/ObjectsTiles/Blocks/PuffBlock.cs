@@ -1,7 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 

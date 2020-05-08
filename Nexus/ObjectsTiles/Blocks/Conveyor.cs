@@ -1,0 +1,68 @@
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
+
+namespace Nexus.Objects {
+
+	public class Conveyor : BlockTile {
+
+		public string[] Texture;
+
+		// TODO: Add Conveyor movement.
+
+		public enum ConveyorSubType : byte {
+			Left = 0,
+			Right = 1,
+			SlowLeft = 2,
+			SlowRight = 3,
+		}
+
+		public Conveyor() : base() {
+			this.CreateTextures();
+			this.tileId = (byte) TileEnum.Conveyor;
+		}
+
+		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+
+			//if(actor is Character) {
+			//	Character character = (Character) actor;
+
+			//	// Get the SubType
+			//	uint gridId = room.tilemap.GetGridID(gridX, gridY);
+			//	byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
+			//	byte subType = tileData[1];
+
+			//}
+
+			return base.RunImpact(room, actor, gridX, gridY, dir);
+		}
+
+		private void CreateTextures() {
+			this.Texture = new string[4];
+			this.Texture[(byte)ConveyorSubType.Left] = "Conveyor/Left";
+			this.Texture[(byte)ConveyorSubType.Right] = "Conveyor/Right";
+			this.Texture[(byte)ConveyorSubType.SlowLeft] = "Conveyor/SlowLeft";
+			this.Texture[(byte)ConveyorSubType.SlowRight] = "Conveyor/SlowRight";
+		}
+
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
+
+			// Drawing For Editor
+			if(room == null) {
+				this.atlas.Draw(this.Texture[subType], posX, posY);
+			}
+
+			// Standard Draw (Animated Conveyor)
+			// 'track1', 'track2', 'track3' - processed by Global Animation
+			//if(subType == (byte) ConveyorSubType.Left) {
+				
+			//} else if(subType == (byte) ConveyorSubType.Right) {
+				
+			//} else if(subType == (byte) ConveyorSubType.SlowLeft) {
+				
+			//} else if(subType == (byte) ConveyorSubType.SlowRight) {
+				
+			//}
+		}
+	}
+}

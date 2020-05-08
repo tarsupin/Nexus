@@ -43,6 +43,7 @@ May 8th, 2020
 	- Added BG Tap Class.
 	- Added Cannon Classes.
 	- Added PuffBlock.
+	- Added Global Animation Cycle Methods.
 
 
 // Next TODO List
