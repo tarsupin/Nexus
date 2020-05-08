@@ -40,6 +40,9 @@ May 7th, 2020
 May 8th, 2020
 	- Removed Unnecessary Toggle Blocks.
 	- Added BGDisable Tile, Added Suit + Hat Removal.
+	- Added BG Tap Class.
+
+
 
 
 // Next TODO List
@@ -61,3 +64,4 @@ Attachment messages for NPCs, Doors, Characters, etc.
 Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
 Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
 Tile Platforms need facing direction to collide correctly.
+Console for Editor. Allows scripting, etc.

@@ -6,6 +6,7 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
@@ -32,7 +33,7 @@ namespace Nexus.GameEngine {
 
 		// Object Coordination and Cleanup
 		private readonly List<DynamicGameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
-		private readonly List<DynamicGameObject> markedForRemoval;		// A list of objects that will be removed after the frame's loops have ended.
+		private readonly List<DynamicGameObject> markedForRemoval;      // A list of objects that will be removed after the frame's loops have ended.
 
 		public RoomScene(LevelScene scene, string roomID) : base() {
 

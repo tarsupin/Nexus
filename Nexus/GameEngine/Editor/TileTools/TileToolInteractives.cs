@@ -23,74 +23,8 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.Girl,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.Guy,
-				},
-			});
-
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaBlack,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaBlue,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaGreen,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaRed,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaWhite,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.NinjaMaster,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.WizardBlue,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.WizardGreen,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.WizardRed,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.NPC,
-					subType = (byte) NPCSubType.WizardWhite,
-				},
-			});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PeekMap,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: FINISH
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Chest,
-					subType = (byte) ChestSubType.Closed,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Chest,
-					subType = (byte) ChestSubType.Locked,
+					tileId = (byte) TileEnum.CheckFlagFinish,
+					subType = (byte) 0,
 				},
 			});
 
@@ -105,10 +39,6 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CheckFlagRetry,
-					subType = (byte) 0,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CheckFlagFinish,
 					subType = (byte) 0,
 				},
 			});
@@ -174,6 +104,79 @@ namespace Nexus.GameEngine {
 			//		tileId = (byte) TileEnum.PortalWarp,
 			//		subType = (byte) Something.Blue,
 			//		face: DirRotate.Left,
+			//	},
+			//});
+
+			// TODO LOW PRIORITY: FINISH
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Chest,
+					subType = (byte) ChestSubType.Closed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Chest,
+					subType = (byte) ChestSubType.Locked,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.Girl,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.Guy,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaBlack,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaBlue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaGreen,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaRed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaWhite,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.NinjaMaster,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardBlue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardGreen,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardRed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.NPC,
+					subType = (byte) NPCSubType.WizardWhite,
+				},
+			});
+
+			//this.placeholders.Add(new EditorPlaceholder[] {
+			//	new EditorPlaceholder() {
+			//		tileId = (byte) TileEnum.PeekMap,
+			//		subType = (byte) Something.Standard,
 			//	},
 			//});
 		}
