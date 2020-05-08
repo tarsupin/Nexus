@@ -19,24 +19,5 @@ namespace Nexus.Objects {
 			//	System.Console.WriteLine("GRAV: " + a.ToString());
 			// }
 		}
-
-		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-
-			if(subType == (byte) FacingSubType.FaceUp) {
-				this.atlas.Draw("Chomper/Fire/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceDown) {
-				this.atlas.DrawFaceDown("Chomper/Fire/Chomp1", posX, posY);
-			}
-
-			else if(subType == (byte) FacingSubType.FaceLeft) {
-				this.atlas.DrawFaceLeft("Chomper/Fire/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceRight) {
-				this.atlas.DrawFaceRight("Chomper/Fire/Chomp1", posX, posY);
-			}
-		}
 	}
 }

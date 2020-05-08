@@ -10,24 +10,5 @@ namespace Nexus.Objects {
 			this.KnockoutName = "Particles/Chomp/Grass";
 			this.tileId = (byte)TileEnum.ChomperGrass;
 		}
-
-		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-
-			if(subType == (byte) FacingSubType.FaceUp) {
-				this.atlas.Draw("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceDown) {
-				this.atlas.DrawFaceDown("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceLeft) {
-				this.atlas.DrawFaceLeft("Chomper/Grass/Chomp1", posX, posY);
-			}
-			
-			else if(subType == (byte) FacingSubType.FaceRight) {
-				this.atlas.DrawFaceRight("Chomper/Grass/Chomp1", posX, posY);
-			}
-		}
 	}
 }

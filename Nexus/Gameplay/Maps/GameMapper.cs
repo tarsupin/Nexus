@@ -20,10 +20,6 @@ namespace Nexus.Gameplay {
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
 	}
 
-	public class AnimationMap {
-		public AnimGlobal AnimationGlobal = new AnimGlobal();
-	}
-
 	public static class AnimCycleMap {
 		public static readonly string[] NoAnimation = new string[0] {};
 		public static readonly string[] Cycle2 = new string[2] { "1", "2" };

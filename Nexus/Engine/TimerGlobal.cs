@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace Nexus.Engine {
+
 	public class TimerGlobal {
 		private bool paused;
 

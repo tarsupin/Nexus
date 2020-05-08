@@ -39,5 +39,21 @@ namespace Nexus.Objects {
 
 			return true;
 		}
+
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
+
+			// Get the Chomping Texture with the Global Animation AnimId
+			string tex = this.SpriteName + (AnimGlobal.Get4PSAnimId(Systems.timer) % 2 + 1).ToString();
+
+			if(subType == (byte) FacingSubType.FaceUp) {
+				this.atlas.Draw(tex, posX, posY);
+			} else if(subType == (byte) FacingSubType.FaceDown) {
+				this.atlas.DrawFaceDown(tex, posX, posY);
+			} else if(subType == (byte) FacingSubType.FaceLeft) {
+				this.atlas.DrawFaceLeft(tex, posX, posY);
+			} else if(subType == (byte) FacingSubType.FaceRight) {
+				this.atlas.DrawFaceRight(tex, posX, posY);
+			}
+		}
 	}
 }

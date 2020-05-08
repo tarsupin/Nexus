@@ -11,27 +11,24 @@ namespace Nexus.GameEngine {
 
 			// TODO LOW PRIORITY: Add this whole section
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatSolid,
-			//		subType = (byte) Something.S,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatSolid,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatSolid,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatSolid,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.Left,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixed,
+					subType = (byte) GroundSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixed,
+					subType = (byte) GroundSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixed,
+					subType = (byte) GroundSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixed,
+					subType = (byte) GroundSubTypes.H3,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
