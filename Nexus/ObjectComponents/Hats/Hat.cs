@@ -122,10 +122,15 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public virtual void DestroyHat(Character character, bool resetStats) {
+			character.hat = null;
 
 			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
 			if(character.suit.DefaultCosmeticHat is Hat) {
 				character.suit.DefaultCosmeticHat.ApplyHat(character, false);
+			}
+
+			if(resetStats) {
+				character.stats.ResetCharacterStats();
 			}
 		}
 

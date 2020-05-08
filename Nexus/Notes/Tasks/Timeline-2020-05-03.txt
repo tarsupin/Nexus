@@ -37,6 +37,9 @@ May 7th, 2020
 	- Updated Tile Tool Placeholders, Context Menu.
 	- Created Color Toggle Off Sets.
 
+May 8th, 2020
+	- Removed Unnecessary Toggle Blocks.
+	- Added BGDisable Tile, Added Suit + Hat Removal.
 
 
 // Next TODO List

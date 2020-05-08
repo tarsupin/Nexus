@@ -58,6 +58,7 @@ namespace Nexus.Gameplay {
 				// All Ground, Leaf, Lock, GrowObj
 			MetaList[MetaGroup.Ledge] = new IMetaData(Arch.Platform, this.atlas[(byte) AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.main, LoadOrder.Platform);
 			MetaList[MetaGroup.Decor] = new IMetaData(Arch.Decor, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Decor, LayerEnum.fg, LoadOrder.Tile); // LoadOrder.Decor
+			MetaList[MetaGroup.BGTile] = new IMetaData(Arch.BGTile, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
 			MetaList[MetaGroup.Block] = new IMetaData(Arch.Block, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
 				// PuffBlock, Exclaim, Box, Brick
 			MetaList[MetaGroup.ToggleBlock] = new IMetaData(Arch.ToggleBlock, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Blocks, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
@@ -125,7 +126,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.PromptIcon, new PromptIcon() },
 
 				// Background Interactives (These Collide)
-				//{ (byte) TileEnum.BGDisable, new BGDisable() },
+				{ (byte) TileEnum.BGDisable, new BGDisable() },
 				//{ (byte) TileEnum.BGTap, new BGTap() },
 				//{ (byte) TileEnum.BGWind, new BGWind() },
 

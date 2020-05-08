@@ -22,6 +22,7 @@ namespace Nexus.Gameplay {
 		Ground,
 		Ledge,
 		Decor,
+		BGTile,
 		Block,
 		ToggleBlock,
 		Conveyor,
@@ -44,7 +45,7 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum Arch : byte {
-		BGObject,
+		BGTile,
 		Block,
 		Character,
 		Collectable,

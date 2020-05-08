@@ -288,6 +288,14 @@ namespace Nexus.GameEngine {
 					subType = (byte) PowerSubType.RandPot,
 				},
 			});
+
+			// Special, Miscellaneous
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.BGDisable,
+					subType = (byte) 0,
+				},
+			});
 		}
 	}
 }

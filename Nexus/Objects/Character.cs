@@ -87,11 +87,16 @@ namespace Nexus.Objects {
 		public bool DisableAbilities() {
 			bool disable = false; // We track if anything was disabled because certain sound effects require it.
 
-			// TODO HIGH PRIORITY: Reveal Disable Abilities
-			//if(this.Hat && this.Hat.IsProtective) { this.Hat.DestroyHat(); disable = true; }
-			//if(this.Suit && this.Suit.IsProtective) { this.Suit.DestroySuit(); disable = true; }
-			//if(this.PowerAttack) { this.PowerAttack.EndPower(); disable = true; }
-			//if(this.PowerMobility) { this.PowerMobility.EndPower(); disable = true; }
+			if(this.hat is Hat && this.hat.IsPowerHat) { this.hat.DestroyHat(this, false); disable = true; }
+			if(this.suit is Suit && this.suit.IsPowerSuit) { this.suit.DestroySuit(this, false); disable = true; }
+			if(this.attackPower is PowerAttack) { this.attackPower.EndPower(); disable = true; }
+			if(this.mobilityPower is PowerMobility) { this.mobilityPower.EndPower(); disable = true; }
+
+			if(disable) {
+
+				// Reset Character Abilities (since we set each individual destroy function to false)
+				this.stats.ResetCharacterStats();
+			}
 
 			return disable;
 		}

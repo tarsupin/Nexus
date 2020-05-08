@@ -118,6 +118,16 @@ namespace Nexus.ObjectComponents {
 		public bool IsCosmeticSuit { get { return this.suitRank == SuitRank.CosmeticSuit; } }
 		public bool IsPowerSuit { get { return this.suitRank == SuitRank.PowerSuit; } }
 
+		public virtual void DestroySuit(Character character, bool resetStats) {
+
+			// Default Suit, Default Head
+			Suit.AssignToCharacter(character, (byte) SuitSubType.RedBasic, false);
+
+			if(resetStats) {
+				character.stats.ResetCharacterStats();
+			}
+		}
+
 		// Suits with powers may update the stats of the character that wears them.
 		public virtual void UpdateCharacterStats(Character character) {}
 
