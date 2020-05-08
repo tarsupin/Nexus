@@ -76,6 +76,7 @@ namespace Nexus.Gameplay {
 		main = 0,
 		obj = 1,
 		fg = 2,
+		bg = 3,
 	}
 
 	// LoadOrder is used to determine rendering layers.

@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 
 		private Dictionary<byte, ContextMenuOpt> menuOptions;
 
-		public ContextMenu( UIComponent parent, short posX, short posY, byte xCount = 4, byte yCount = 3 ) : base(parent) {
+		public ContextMenu( UIComponent parent, short posX, short posY, byte xCount = 4, byte yCount = 4 ) : base(parent) {
 
 			this.xCount = xCount;
 			this.yCount = yCount;

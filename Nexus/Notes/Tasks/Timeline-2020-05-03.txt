@@ -58,4 +58,4 @@ Attachment messages for NPCs, Doors, Characters, etc.
 Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
 Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
 Tile Platforms need to have subtypes for all directions. Or a face direction.
-Toggle Blocks need an on/off variation in editor. Subtypes.
+Context Menu (Editor) needs scripting.
