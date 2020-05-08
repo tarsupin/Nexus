@@ -1,5 +1,4 @@
-﻿using Nexus.GameEngine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
@@ -8,7 +7,6 @@ namespace Nexus.Objects {
 		public TogglePlatYellow() : base() {
 			this.Texture = "/Yellow/Plat";
 			this.toggleBR = false;
-			this.on = true;
 			this.tileId = (byte)TileEnum.TogglePlatYellow;
 		}
 	}

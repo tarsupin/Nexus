@@ -107,12 +107,6 @@ namespace Nexus.Gameplay {
 				// Ground-Esque, Immutable (10 - 19)
 				{ (byte) TileEnum.Wall, new Wall() },
 				{ (byte) TileEnum.Log, new Log() },
-				
-				// Non-Solid, Toggled Blocks (15 - 18)
-				{ (byte) TileEnum.ToggleBlockBlueOff, new ToggleBlockBlueOff() },
-				{ (byte) TileEnum.ToggleBlockRedOff, new ToggleBlockRedOff() },
-				{ (byte) TileEnum.ToggleBlockGreenOff, new ToggleBlockGreenOff() },
-				{ (byte) TileEnum.ToggleBlockYellowOff, new ToggleBlockYellowOff() },
 
 				// Ledges (20 - 29)
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
@@ -164,11 +158,7 @@ namespace Nexus.Gameplay {
 				//{ (byte) TileEnum.Cannon, new Cannon() },
 				//{ (byte) TileEnum.Placer, new Placer() },
 				
-				// Non-Solid, Toggled Platforms (65 - 69)
-				{ (byte) TileEnum.TogglePlatBlueOff, new TogglePlatBlueOff() },
-				{ (byte) TileEnum.TogglePlatRedOff, new TogglePlatRedOff() },
-				{ (byte) TileEnum.TogglePlatGreenOff, new TogglePlatGreenOff() },
-				{ (byte) TileEnum.TogglePlatYellowOff, new TogglePlatYellowOff() },
+				// Reserved (65 - 69)
 				
 				// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
 				

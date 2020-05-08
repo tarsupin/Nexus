@@ -293,14 +293,6 @@
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
     <Compile Include="ObjectsTiles\Special\NPC.cs" />
     <Compile Include="ObjectsTiles\Special\Chest.cs" />
-    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockBlueOff.cs" />
-    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockGreenOff.cs" />
-    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockRedOff.cs" />
-    <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockYellowOff.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatBlueOff.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatGreenOff.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatRedOff.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatYellowOff.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />
     <Compile Include="Scripts\LevelConvert.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />

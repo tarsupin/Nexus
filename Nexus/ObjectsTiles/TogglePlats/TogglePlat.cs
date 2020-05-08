@@ -11,7 +11,6 @@ namespace Nexus.Objects {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)
-		protected bool on;			// TRUE if this tile is an ON tile, false if it's an OFF tile.
 
 		public TogglePlat() : base() {
 			this.collides = true;
@@ -21,10 +20,10 @@ namespace Nexus.Objects {
 		public bool Toggled(RoomScene room, bool toggleBR) {
 
 			// Utility Bar (Editor) does not provide a room scene. Show default texture.
-			if(room == null) { return this.on; }
+			if(room == null) { return true; }
 
-			if(toggleBR) { return room.flags.toggleBR ? this.on : !this.on; }
-			return room.flags.toggleGY ? this.on : !this.on;
+			if(toggleBR) { return room.flags.toggleBR; }
+			return room.flags.toggleGY;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
