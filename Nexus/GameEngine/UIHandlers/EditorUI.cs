@@ -13,6 +13,9 @@ namespace Nexus.GameEngine {
 		public readonly ContextMenu contextMenu;
 
 		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
+		
+		private string helperTitle = "";
+		private string helperText = "";
 
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
@@ -36,6 +39,11 @@ namespace Nexus.GameEngine {
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Prompts, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Prompt/DPad/Right", "Prompts");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Gadgets, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Cannon/Diagonal", "Gadgets");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Scripting, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "HiddenObject/Cluster", "Scripting");
+		}
+
+		public void SetHelperText( string title, string text ) {
+			this.helperTitle = title;
+			this.helperText = text;
 		}
 
 		public void RunTick() {
@@ -70,6 +78,15 @@ namespace Nexus.GameEngine {
 			this.utilityBar.Draw();
 			this.scroller.Draw();
 			this.contextMenu.Draw();
+
+			// Helper Text
+			if(Cursor.MouseY > 75 && this.helperText.Length > 0) {
+				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
+				Systems.fonts.baseText.Draw(this.helperTitle, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureTitle.X / 2), 5, Color.White);
+
+				Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
+				Systems.fonts.console.Draw(this.helperText, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureStr.X / 2), 30, Color.White);
+			}
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, (byte) TilemapEnum.TileWidth + 12, 5, Color.White);

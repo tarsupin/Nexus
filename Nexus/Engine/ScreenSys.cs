@@ -10,6 +10,7 @@ namespace Nexus.Engine {
 		public ushort screenHeight;
 		public ushort windowWidth;
 		public ushort windowHeight;
+		public ushort windowHalfWidth;
 
 		public ScreenSys(GameClient game) {
 			this.graphics = game.graphics;
@@ -25,6 +26,8 @@ namespace Nexus.Engine {
 			// Window Size
 			this.windowWidth = (ushort) this.graphics.GraphicsDevice.Viewport.Width;
 			this.windowHeight = (ushort) this.graphics.GraphicsDevice.Viewport.Height;
+
+			this.windowHalfWidth = (ushort) Math.Floor((decimal) (this.windowWidth / 2));
 		}
 
 		public void ResizeWindowTo( ushort width, ushort height ) {

@@ -48,7 +48,8 @@ May 8th, 2020
 	- Many Updates to TileTool listings.
 	- Animated Chompers.
 	- Added TrackDot Class.
-	- Bug Fix: Editor Drawing.
+	- Bug Fix: SubType-0 Editor Drawing.
+	- Added Helper Title + Text to Editor UI.
 
 
 // Next TODO List
