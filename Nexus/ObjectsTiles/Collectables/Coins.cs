@@ -14,8 +14,15 @@ namespace Nexus.Objects {
 		public Coins() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Coins;
-			this.title = "Gems";
-			this.description = "Adds gems to the character's collection.";
+
+			// Helper Texts
+			this.titles = new string[2];
+			this.titles[(byte)CoinsSubType.Coin] = "Small Gem";
+			this.titles[(byte)CoinsSubType.Gem] = "Large Gem";
+
+			this.descriptions = new string[2];
+			this.descriptions[(byte)CoinsSubType.Coin] = "Adds 1 Gem to the character's collection.";
+			this.descriptions[(byte)CoinsSubType.Gem] = "Adds 10 Gems to the character's collection.";
 		}
 
 		public override void Collect( RoomScene room, Character character, uint gridId ) {

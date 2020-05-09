@@ -10,6 +10,26 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Collectables;
 
+			// Coins
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Coin,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Coins,
+					subType = (byte) CoinsSubType.Gem,
+				},
+			});
+
+			// Goodies (Key)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Key,
+				},
+			});
+
 			// Goodies (Health)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
@@ -37,7 +57,7 @@ namespace Nexus.GameEngine {
 					subType = (byte) GoodieSubType.ShieldPlus,
 				},
 			});
-			
+
 			// Goodies (Protection)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
@@ -47,10 +67,6 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.GuardPlus,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Explosive,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
@@ -102,34 +118,6 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			// Coins
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Coins,
-					subType = (byte) CoinsSubType.Coin,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Coins,
-					subType = (byte) CoinsSubType.Gem,
-				},
-			});
-
-			// Goodies (Key)
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Key,
-				},
-			});
-
-			// BGDisable
-			// TODO LOW PRIORITY: Need correct options. Not just subType = 0;
-			this.placeholders.Add(new EditorPlaceholder[] {
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Key,
-				},
-			});
 		}
 	}
 }

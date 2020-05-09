@@ -31,8 +31,12 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
+
+		// Helper Titles and Text
 		public string title;
 		public string description;
+		public string[] titles;				// Gets used if there are multiple unique entries (subindexes) that need descriptions.
+		public string[] descriptions;       // Gets used if there are multiple unique entries (subindexes) that need descriptions.
 
 		// Collision Behaviors
 		public bool collides;           // TRUE if this tile allows collisions.

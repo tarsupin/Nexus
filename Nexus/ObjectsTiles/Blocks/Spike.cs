@@ -15,8 +15,15 @@ namespace Nexus.Objects {
 		public Spike() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Spike;
-			this.title = "Spike Block";
-			this.description = "Damages the character.";
+
+			// Helper Texts
+			this.titles = new string[2];
+			this.titles[(byte)SpikeSubType.Basic] = "Spike Block";
+			this.titles[(byte)SpikeSubType.Lethal] = "Lethal Spike Block";
+
+			this.descriptions = new string[2];
+			this.descriptions[(byte)SpikeSubType.Basic] = "Wounds a character that touches it.";
+			this.descriptions[(byte)SpikeSubType.Lethal] = "Kills a character that touches it.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

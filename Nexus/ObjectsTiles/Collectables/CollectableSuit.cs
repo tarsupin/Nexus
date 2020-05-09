@@ -10,8 +10,39 @@ namespace Nexus.Objects {
 		public CollectableSuit() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.CollectableSuit;
-			this.title = "Suit Collectable";
-			this.description = "Character equips the suit collected.";
+
+			// Helper Texts
+			this.titles = new string[12];
+			this.titles[(byte)SuitSubType.RandomSuit] = "Random Suit";
+			this.titles[(byte)SuitSubType.RandomNinja] = "Random Ninja Suit";
+			this.titles[(byte)SuitSubType.RandomWizard] = "Random Wizard Suit";
+
+			this.titles[(byte)SuitSubType.BlackNinja] = "Black Ninja Suit";
+			this.titles[(byte)SuitSubType.BlueNinja] = "Blue Ninja Suit";
+			this.titles[(byte)SuitSubType.GreenNinja] = "Green Ninja Suit";
+			this.titles[(byte)SuitSubType.RedNinja] = "Red Ninja Suit";
+			this.titles[(byte)SuitSubType.WhiteNinja] = "White Ninja Suit";
+
+			this.titles[(byte)SuitSubType.BlueWizard] = "Blue Wizard Suit";
+			this.titles[(byte)SuitSubType.GreenWizard] = "Green Wizard Suit";
+			this.titles[(byte)SuitSubType.RedWizard] = "Red Wizard Suit";
+			this.titles[(byte)SuitSubType.WhiteWizard] = "White Wizard Suit";
+
+			this.descriptions = new string[12];
+			this.descriptions[(byte)SuitSubType.RandomSuit] = "Grants a random suit.";
+			this.descriptions[(byte)SuitSubType.RandomNinja] = "Grants one of the ninja suits at random.";
+			this.descriptions[(byte)SuitSubType.RandomWizard] = "Grants one of the wizard suits at random.";
+
+			this.descriptions[(byte)SuitSubType.BlackNinja] = "Can cling to walls and either leap or drop off of them.";
+			this.descriptions[(byte)SuitSubType.BlueNinja] = "Gain wall-slide and wall-jumping. Jumps higher.";
+			this.descriptions[(byte)SuitSubType.GreenNinja] = "Gain wall-slide and wall-jumping. Moves faster.";
+			this.descriptions[(byte)SuitSubType.RedNinja] = "Gain wall-slide and wall-jumping. Gains an additional mid-air jump.";
+			this.descriptions[(byte)SuitSubType.WhiteNinja] = "Gain wall-slide and wall-jumping.";
+
+			this.descriptions[(byte)SuitSubType.BlueWizard] = "Can jump higher, casts projectiles faster.";
+			this.descriptions[(byte)SuitSubType.GreenWizard] = "Increased movement speed, casts projectiles faster.";
+			this.descriptions[(byte)SuitSubType.RedWizard] = "Gains an additional mid-air jump, casts projectiles faster.";
+			this.descriptions[(byte)SuitSubType.WhiteWizard] = "Gains a special regenerating shield, casts projectiles faster.";
 		}
 
 		public override void Collect(RoomScene room, Character character, uint gridId) {

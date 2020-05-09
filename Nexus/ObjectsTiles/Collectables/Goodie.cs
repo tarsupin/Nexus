@@ -38,8 +38,59 @@ namespace Nexus.Objects {
 		public Goodie() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Goodie;
-			this.title = "Goodie";
-			this.description = "Character gains a power-up.";
+
+			// Helper Texts
+			this.titles = new string[20];
+			this.titles[(byte)GoodieSubType.Apple] = "Apple";
+			this.titles[(byte)GoodieSubType.Pear] = "Pear";
+			this.titles[(byte)GoodieSubType.Heart] = "Heart Potion";
+			this.titles[(byte)GoodieSubType.Shield] = "Shield";
+			this.titles[(byte)GoodieSubType.ShieldPlus] = "Large Shield";
+
+			this.titles[(byte)GoodieSubType.Guard] = "Amulet";
+			this.titles[(byte)GoodieSubType.GuardPlus] = "Power Amulet";
+
+			this.titles[(byte)GoodieSubType.Shiny] = "Shiny Potion";
+			this.titles[(byte)GoodieSubType.Stars] = "Star Potion";
+			this.titles[(byte)GoodieSubType.GodMode] = "God Mode Collectable";
+
+			this.titles[(byte)GoodieSubType.Plus5] = "+5 Timer";
+			this.titles[(byte)GoodieSubType.Plus10] = "+10 Timer";
+			this.titles[(byte)GoodieSubType.Plus20] = "+20 Timer";
+			this.titles[(byte)GoodieSubType.Set5] = "5 Second Countdown";
+			this.titles[(byte)GoodieSubType.Set10] = "10 Second Countdown";
+			this.titles[(byte)GoodieSubType.Set20] = "20 Second Countdown";
+
+			this.titles[(byte)GoodieSubType.Disrupt] = "Disrupt Potion";
+			this.titles[(byte)GoodieSubType.Explosive] = "Explosive Potion";
+			this.titles[(byte)GoodieSubType.Key] = "Key";
+			this.titles[(byte)GoodieSubType.Blood] = "Blood Potion";
+
+			this.descriptions = new string[20];
+			this.descriptions[(byte)GoodieSubType.Apple] = "Grants +1 Health";
+			this.descriptions[(byte)GoodieSubType.Pear] = "Grants +1 Health";
+			this.descriptions[(byte)GoodieSubType.Heart] = "Grants Full Health";
+			this.descriptions[(byte)GoodieSubType.Shield] = "Grants +1 Shield";
+			this.descriptions[(byte)GoodieSubType.ShieldPlus] = "Grants Full Shields";
+
+			this.descriptions[(byte)GoodieSubType.Guard] = "Grants a minor shield attachment that protects the character.";
+			this.descriptions[(byte)GoodieSubType.GuardPlus] = "Grants a major shield attachment that protects the character.";
+
+			this.descriptions[(byte)GoodieSubType.Shiny] = "Makes the character invulnerable for ten seconds.";
+			this.descriptions[(byte)GoodieSubType.Stars] = "Makes the character invulnerable and deadly on contact for ten seconds.";
+			this.descriptions[(byte)GoodieSubType.GodMode] = "Makes the character invulnerable.";
+
+			this.descriptions[(byte)GoodieSubType.Plus5] = "Adds +5 seconds to the current timer.";
+			this.descriptions[(byte)GoodieSubType.Plus10] = "Adds +10 seconds to the current timer.";
+			this.descriptions[(byte)GoodieSubType.Plus20] = "Adds +20 seconds to the current timer.";
+			this.descriptions[(byte)GoodieSubType.Set5] = "Sets the timer to exactly five seconds.";
+			this.descriptions[(byte)GoodieSubType.Set10] = "Sets the timer to exactly ten seconds.";
+			this.descriptions[(byte)GoodieSubType.Set20] = "Sets the timer to exactly twenty seconds.";
+
+			this.descriptions[(byte)GoodieSubType.Disrupt] = "If touched, removes all the character's equipment and powers.";
+			this.descriptions[(byte)GoodieSubType.Explosive] = "Damages all enemies on the screen.";
+			this.descriptions[(byte)GoodieSubType.Key] = "Used to unlock things including doors, chests, etc.";
+			this.descriptions[(byte)GoodieSubType.Blood] = "Unknown.";
 		}
 
 		public override void Collect(RoomScene room, Character character, uint gridId) {

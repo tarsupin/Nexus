@@ -55,7 +55,7 @@ May 8th, 2020
 
 May 9th, 2020
 	- Add Helper Titles and Text to Tiles.
-
+	- Add Multiple Helper Descriptions to Collectable class, etc.
 
 // Next TODO List
 All Utility Belt Objects are added.

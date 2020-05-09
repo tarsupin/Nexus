@@ -2,7 +2,7 @@
 
 namespace Nexus.ObjectComponents {
 
-	// TODO: Add this power's behavior. Currently does nothing.
+	// TODO: Add this power's behavior. Currently does nothing. Maybe speed? Jump? Etc?
 	public class AthleteMobility : PowerMobility {
 
 		public AthleteMobility( Character character ) : base( character ) {
