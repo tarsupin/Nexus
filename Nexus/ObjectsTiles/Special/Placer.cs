@@ -21,6 +21,7 @@ namespace Nexus.Objects {
 		public Placer() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
+			this.tileId = (byte) TileEnum.Placer;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

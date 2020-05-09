@@ -296,6 +296,7 @@
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\Portals\DoorLock.cs" />
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
+    <Compile Include="ObjectsTiles\Special\TrackDot.cs" />
     <Compile Include="ObjectsTiles\Special\Placer.cs" />
     <Compile Include="ObjectsTiles\Special\Cannons\Cannon.cs" />
     <Compile Include="ObjectsTiles\Special\Cannons\CannonDiag.cs" />

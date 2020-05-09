@@ -1,5 +1,6 @@
 ﻿using Nexus.Gameplay;
 using Nexus.Objects;
+using static Nexus.Objects.TrackDot;
 
 namespace Nexus.GameEngine {
 
@@ -9,8 +10,20 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Scripting;
 
-			// TODO LOW PRIORITY: Add this whole section
-
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TrackDot,
+					subType = (byte) TrackDotSubType.Blue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TrackDot,
+					subType = (byte) TrackDotSubType.Green,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.TrackDot,
+					subType = (byte) TrackDotSubType.Red,
+				},
+			});
 		}
 	}
 }

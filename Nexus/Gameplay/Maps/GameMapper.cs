@@ -157,7 +157,8 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CannonDiagonal, new CannonDiag() },
 				{ (byte) TileEnum.Placer, new Placer() },
 				
-				// Reserved (65 - 69)
+				// Hidden Objects (65 - 69)
+				{ (byte) TileEnum.TrackDot, new TrackDot() },
 				
 				// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
 				
@@ -203,10 +204,6 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.PlatformFall, Type.GetType("Nexus.Objects.PlatformFall") },
 			{ (byte) ObjectEnum.PlatformMove, Type.GetType("Nexus.Objects.PlatformMove") },
 			
-			// Tracks (5 - 9)
-			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
-			{ (byte) ObjectEnum.Track, Type.GetType("Nexus.Objects.Track") },
-			
 			// Land & Fixed Enemies (10 - 39)
 			{ (byte) ObjectEnum.Moosh, Type.GetType("Nexus.Objects.Moosh") },
 			{ (byte) ObjectEnum.Shroom, Type.GetType("Nexus.Objects.Shroom") },
@@ -224,10 +221,6 @@ namespace Nexus.Gameplay {
 
 			{ (byte) ObjectEnum.Poke, Type.GetType("Nexus.Objects.Poke") },
 			{ (byte) ObjectEnum.Lich, Type.GetType("Nexus.Objects.Lich") },
-
-			{ (byte) ObjectEnum.Chomper, Type.GetType("Nexus.Objects.Chomper") },
-			{ (byte) ObjectEnum.ChomperFire, Type.GetType("Nexus.Objects.ChomperFire") },
-			{ (byte) ObjectEnum.Plant, Type.GetType("Nexus.Objects.Plant") },
 
 			// Flight Enemies (40 - 69)
 			{ (byte) ObjectEnum.Ghost, Type.GetType("Nexus.Objects.Ghost") },
@@ -268,7 +261,10 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.MobileBlockGreen, Type.GetType("Nexus.Objects.MobileBlockGreen") },
 			{ (byte) ObjectEnum.MobileBlockYellow, Type.GetType("Nexus.Objects.MobileBlockYellow") },
 
-			// Special Flags and Placements (100+)
+			// Special Objects
+			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
+
+			// Special Flags and Placements (150+)
 			{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },
 		};
 	}

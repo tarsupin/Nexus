@@ -47,6 +47,7 @@ May 8th, 2020
 	- Added Global Animation Cycle Methods.
 	- Many Updates to TileTool listings.
 	- Animated Chompers.
+	- Added TrackDot Class.
 
 
 // Next TODO List
@@ -63,12 +64,13 @@ Important Utility Belt Functions are added.
 Add Param Tool
 Add Param Behaviors
 Add Param System for Tiles to use Params.
-Level Conversion: Flag to 170-174, Placer was 61 (now 63)
+Level Conversion: Flag to 170-174, Placer was 61 (now 63), Track(65), Cluster (dyn 100), Character Flag (100 to 150)
 Doors need to create a second tile below on creation, or expand border down.
 Attachment messages for NPCs, Doors, Characters, etc.
 Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
 Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
 Tile Platforms need facing direction to collide correctly.
 Console for Editor. Allows scripting, etc.
-Cannons need RunTick() behavior; perhaps by Generator cycle in RoomScene.
-Make a Stable, Fixed Track (can make dynamic track later)
+Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
+Add Track System (for TrackDots, etc)
+Major Bug: Objects of subtype 0 can't draw over objects of subtype 1+ (see TrackDots for example).

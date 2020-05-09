@@ -24,12 +24,6 @@ namespace Nexus.Gameplay {
 		Wall = 10,
 		Log = 11,
 
-		// Non-Solid, Toggled Blocks (15 - 18)
-		ToggleBlockBlueOff = 15,
-		ToggleBlockRedOff = 16,
-		ToggleBlockGreenOff = 17,
-		ToggleBlockYellowOff = 18,
-
 		// Ledges (20 - 29)
 		LedgeGrass = 20,
 		LedgeGrassDecor = 21,
@@ -79,11 +73,8 @@ namespace Nexus.Gameplay {
 		CannonDiagonal = 62,
 		Placer = 63,
 
-		// Non-Solid, Toggled Platforms (65 - 69)
-		TogglePlatBlueOff = 65,
-		TogglePlatRedOff = 66,
-		TogglePlatGreenOff = 67,
-		TogglePlatYellowOff = 68,
+		// Hidden Special Objects (65 - 69)
+		TrackDot = 65,
 
 		// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
 
@@ -133,10 +124,6 @@ namespace Nexus.Gameplay {
 		PlatformFall = 3,
 		PlatformMove = 4,
 
-		// Tracks (5 - 9)
-		Cluster = 5,
-		Track = 6,
-
 		// Land & Fixed Enemies (10 - 39)
 		Moosh = 10,
 		Shroom = 11,
@@ -154,11 +141,7 @@ namespace Nexus.Gameplay {
 
 		Poke = 25,
 		Lich = 26,
-
-		Chomper = 30,
-		ChomperFire = 31,
-		Plant = 32,
-
+		
 		// Flight Enemies (40 - 69)
 		Ghost = 40,
 		FlairElectric = 41,
@@ -198,8 +181,11 @@ namespace Nexus.Gameplay {
 		MobileBlockGreen = 97,
 		MobileBlockYellow = 98,
 
-		// Special Flags and Placements (100+)
-		Character = 100,
+		// Special Objects
+		Cluster = 100,
+
+		// Special Flags and Placements (150+)
+		Character = 150,
 	};
 
 }

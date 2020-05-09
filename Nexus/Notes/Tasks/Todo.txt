@@ -39,3 +39,7 @@ Place text on levels.
 // this.Meta = the metadata that the object is associated with - add this to all objects (tiles should be complete now)
 // need a function that returns the metadata based on tile data
 // needs a function that returns the tile or object based on tile data
+
+
+Consider:
+Moving TrackDots? Dynamic. Could have interesting behaviors.
