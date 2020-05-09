@@ -12,6 +12,8 @@ namespace Nexus.Objects {
 		public Ledge() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Ledge];
+			this.title = "Ledge";
+			this.description = "A background landscape that acts like a platform.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

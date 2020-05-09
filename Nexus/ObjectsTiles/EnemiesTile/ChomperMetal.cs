@@ -9,6 +9,8 @@ namespace Nexus.Objects {
 			this.SpriteName = "Chomper/Metal/Chomp";
 			this.KnockoutName = "Particles/Chomp/Metal";
 			this.tileId = (byte)TileEnum.ChomperMetal;
+			this.title = "Metal Chomper";
+			this.description = "Stationary enemy. Harder to kill than regular Chomper.";
 		}
 	}
 }

@@ -11,6 +11,8 @@ namespace Nexus.Objects {
 		public BGDisable() : base() {
 			this.tileId = (byte)TileEnum.BGDisable;
 			this.Texture = "BGTile/Disable";
+			this.title = "Disable Zone";
+			this.description = "Removes all equipment and powers.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

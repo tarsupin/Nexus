@@ -7,6 +7,8 @@ namespace Nexus.Objects {
 		public GroundDirt() : base() {
 			this.BuildTextures("Grass/");
 			this.tileId = (byte)TileEnum.GroundDirt;
+			this.title = "Dirt Block";
+			this.description = "";
 		}
 	}
 }

@@ -16,6 +16,8 @@ namespace Nexus.Objects {
 		public Leaf() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Leaf;
+			this.title = "Leaf Block";
+			this.description = "Deforms shortly after standing on it.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

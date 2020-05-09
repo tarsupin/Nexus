@@ -20,6 +20,8 @@ namespace Nexus.Objects {
 		public ExclaimBlock() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.ExclaimBlock;
+			this.title = "Exclaim Block";
+			this.description = "Hit from beneath to activate.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

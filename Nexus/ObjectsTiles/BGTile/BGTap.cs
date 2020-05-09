@@ -16,6 +16,8 @@ namespace Nexus.Objects {
 		public BGTap() : base() {
 			this.tileId = (byte)TileEnum.BGTap;
 			this.CreateTextures();
+			this.title = "Color Toggle Tap";
+			this.description = "Toggles color blocks, then disappears along with its neighbors.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

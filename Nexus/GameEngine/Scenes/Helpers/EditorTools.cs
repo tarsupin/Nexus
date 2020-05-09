@@ -62,12 +62,12 @@ namespace Nexus.GameEngine {
 
 				if(ph.tileId > 0) {
 					TileGameObject tile = Systems.mapper.TileDict[ph.tileId];
-					editorScene.editorUI.SetHelperText(tile.tileId.ToString(), ph.subType.ToString());
-				} else {
-					editorScene.editorUI.SetHelperText("", "");
-				}
 
-				return;
+					if(tile.title.Length > 0) {
+						editorScene.editorUI.SetHelperText(tile.title, tile.description);
+						return;
+					}
+				}
 			}
 
 			editorScene.editorUI.SetHelperText("", "");

@@ -13,6 +13,8 @@ namespace Nexus.Objects {
 		public Cannon() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
+			this.title = "Cannon";
+			this.description = "Fires cannonballs at instructed times.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

@@ -9,6 +9,8 @@ namespace Nexus.Objects {
 		public DoorLock() : base() {
 			// TODO: Add Door Locked Behavior
 			this.tileId = (byte)TileEnum.DoorLock;
+			this.title = "Locked Door";
+			this.description = "A door that must be unlocked before use.";
 		}
 
 		protected override void CreateTextures() {

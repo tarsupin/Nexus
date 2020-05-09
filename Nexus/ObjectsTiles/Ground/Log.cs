@@ -7,6 +7,8 @@ namespace Nexus.Objects {
 		public Log() : base() {
 			this.BuildTextures("Log/");
 			this.tileId = (byte)TileEnum.Log;
+			this.title = "Log";
+			this.description = "";
 		}
 	}
 }

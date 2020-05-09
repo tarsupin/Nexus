@@ -20,6 +20,8 @@ namespace Nexus.Objects {
 		public PuffBlock() : base() {
 			this.tileId = (byte) TileEnum.PuffBlock;
 			this.Texture = "Puff/Off";
+			this.title = "Puff Block";
+			this.description = "Touching it causes the character to burst quickly in the designated direction.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

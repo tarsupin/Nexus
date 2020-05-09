@@ -16,6 +16,8 @@ namespace Nexus.Objects {
 			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");
 			this.tileId = (byte)TileEnum.PlatformFixed;
+			this.title = "Fixed Platform";
+			this.description = "A platform that never moves.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

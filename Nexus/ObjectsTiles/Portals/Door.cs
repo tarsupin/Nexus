@@ -22,6 +22,8 @@ namespace Nexus.Objects {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Door];
 			this.tileId = (byte) TileEnum.Door;
+			this.title = "Door";
+			this.description = "Allows passage to another room or door.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

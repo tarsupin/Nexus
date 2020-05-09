@@ -10,6 +10,8 @@ namespace Nexus.Objects {
 		public CollectableHat() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.CollectableHat;
+			this.title = "Hat Collectable";
+			this.description = "Character equips the hat collected.";
 		}
 
 		public override void Collect( RoomScene room, Character character, uint gridId ) {

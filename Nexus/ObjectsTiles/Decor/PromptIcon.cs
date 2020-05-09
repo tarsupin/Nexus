@@ -36,6 +36,8 @@ namespace Nexus.Objects {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.BuildTextures();
 			this.tileId = (byte)TileEnum.PromptIcon;
+			this.title = "Prompts";
+			this.description = "Useful to indicate a type of maneuver a character should use.";
 		}
 
 		public void BuildTextures() {

@@ -8,6 +8,8 @@ namespace Nexus.Objects {
 			this.Texture = "/BoxGY";
 			this.toggleBR = false;
 			this.tileId = (byte)TileEnum.ToggleBoxGY;
+			this.title = "Green-Yellow Toggle Box";
+			this.description = "Toggles the Green/Yellow color toggles.";
 		}
 	}
 }

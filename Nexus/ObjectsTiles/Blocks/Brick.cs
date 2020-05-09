@@ -19,6 +19,8 @@ namespace Nexus.Objects {
 		public Brick() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Brick;
+			this.title = "Brick";
+			this.description = "Nudged from underneath. Can be destroyed with Spikey Hat.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

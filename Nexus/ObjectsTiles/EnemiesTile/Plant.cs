@@ -18,6 +18,8 @@ namespace Nexus.Objects {
 			this.collides = true;
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Plant;
+			this.title = "Plant";
+			this.description = "Stationary. Doesn't hurt the character, but can be destroyed.";
 		}
 
 		// Plant Impacts

@@ -31,6 +31,8 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
+		public string title;
+		public string description;
 
 		// Collision Behaviors
 		public bool collides;           // TRUE if this tile allows collisions.

@@ -8,6 +8,8 @@ namespace Nexus.Objects {
 			this.Texture = "/Green/Plat";
 			this.toggleBR = false;
 			this.tileId = (byte)TileEnum.TogglePlatGreen;
+			this.title = "Green Toggle Platform";
+			this.description = "Acts like a platform when Green-Toggles are ON.";
 		}
 	}
 }

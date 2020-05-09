@@ -10,6 +10,8 @@ namespace Nexus.Objects {
 		public CollectablePower() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.CollectablePower;
+			this.title = "Power Collectable";
+			this.description = "Character acquires the power collected.";
 		}
 
 		public override void Collect( RoomScene room, Character character, uint gridId ) {

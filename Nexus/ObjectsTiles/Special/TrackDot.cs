@@ -22,6 +22,8 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
 			this.tileId = (byte)TileEnum.TrackDot;
+			this.title = "Track Dot";
+			this.description = "A designation that tracked items can move between.";
 		}
 
 		private void CreateTextures() {

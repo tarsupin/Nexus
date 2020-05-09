@@ -7,6 +7,8 @@ namespace Nexus.Objects {
 		public GroundSlime() : base() {
 			this.BuildTextures("Slime/");
 			this.tileId = (byte)TileEnum.GroundSlime;
+			this.title = "Slime Block";
+			this.description = "";
 		}
 	}
 }

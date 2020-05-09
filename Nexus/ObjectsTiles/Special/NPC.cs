@@ -31,6 +31,8 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
 			this.tileId = (byte)TileEnum.NPC;
+			this.title = "NPC";
+			this.description = "Can 'speak' to the character and allow simple interactions.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

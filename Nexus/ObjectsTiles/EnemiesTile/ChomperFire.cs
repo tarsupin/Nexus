@@ -10,6 +10,8 @@ namespace Nexus.Objects {
 			this.SpriteName = "Chomper/Fire/Chomp";
 			this.KnockoutName = "Particles/Chomp/Fire";
 			this.tileId = (byte)TileEnum.ChomperFire;
+			this.title = "Fire Chomper";
+			this.description = "Stationary enemy. Can shoot fireballs.";
 		}
 
 		public override void UpdateParams(JObject paramList) {

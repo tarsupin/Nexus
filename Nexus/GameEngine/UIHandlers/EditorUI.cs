@@ -80,12 +80,14 @@ namespace Nexus.GameEngine {
 			this.contextMenu.Draw();
 
 			// Helper Text
-			if(Cursor.MouseY > 75 && this.helperText.Length > 0) {
+			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
 				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
 				Systems.fonts.baseText.Draw(this.helperTitle, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureTitle.X / 2), 5, Color.White);
 
-				Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
-				Systems.fonts.console.Draw(this.helperText, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureStr.X / 2), 30, Color.White);
+				if(this.helperText.Length > 0) {
+					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
+					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
+				}
 			}
 
 			// Coordinate Tracker

@@ -7,6 +7,8 @@ namespace Nexus.Objects {
 		public CheckFlagPass() : base(FlagSubType.PassFlag) {
 			this.Texture = "Flag/White";
 			this.tileId = (byte)TileEnum.CheckFlagPass;
+			this.title = "Checkpoint-Pass Flag";
+			this.description = "A Checkpoint Flag that reacts to characters passing above it.";
 		}
 	}
 }

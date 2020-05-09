@@ -20,6 +20,8 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
 			this.tileId = (byte)TileEnum.Chest;
+			this.title = "Chest";
+			this.description = "Contains goodies and collectables.";
 
 			// Chest Contents
 			// TODO: Update Chest Contents with Param system. Needs to work with tiles.

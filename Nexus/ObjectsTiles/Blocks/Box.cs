@@ -16,6 +16,8 @@ namespace Nexus.Objects {
 		public Box() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Box;
+			this.title = "Box";
+			this.description = "Destroyed when hit from beneath.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

@@ -38,6 +38,8 @@ namespace Nexus.Objects {
 		public Goodie() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Goodie;
+			this.title = "Goodie";
+			this.description = "Character gains a power-up.";
 		}
 
 		public override void Collect(RoomScene room, Character character, uint gridId) {
