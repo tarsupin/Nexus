@@ -17,6 +17,14 @@ namespace Nexus.Engine {
 		IsSelected,
 	}
 
+	// Mouse Overlay State
+	public enum UIMouseOverState {
+		Off,
+		Entered,
+		On,
+		Exited,
+	}
+
 	public class UIComponent {
 
 		// Static Settings
@@ -55,6 +63,7 @@ namespace Nexus.Engine {
 		// Interactive Properties
 		public bool visible;
 		public bool IsSelected { get { return UIComponent.ComponentSelected.id == this.id; } }
+		public UIMouseOverState MouseOver;
 
 		public UIComponent( UIComponent parent ) {
 			this.id = UIComponent.NextID; // Attach an ID; useful to identify between components.
@@ -131,7 +140,17 @@ namespace Nexus.Engine {
 			int mouseX = Cursor.MouseX;
 			int mouseY = Cursor.MouseY;
 
-			if(mouseX < this.x || mouseX > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) { return false; }
+			if(mouseX < this.x || mouseX > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) {
+
+				// Update Mouse State to "Off" or "Exited"
+				if(this.MouseOver == UIMouseOverState.On) { this.MouseOver = UIMouseOverState.Exited; } else { this.MouseOver = UIMouseOverState.Off; }
+
+				return false;
+			}
+
+			// Update Mouse State to "On" or "Entered"
+			if(this.MouseOver == UIMouseOverState.Off) { this.MouseOver = UIMouseOverState.Entered; } else { this.MouseOver = UIMouseOverState.On; }
+
 			return true;
 		}
 

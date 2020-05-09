@@ -26,9 +26,11 @@ namespace Nexus.GameEngine {
 
 			// If the current slot group is being changed:
 			if(EditorTools.tileTool == null || EditorTools.tileTool.slotGroup != slotGroup) {
-				TileTool tool = TileTool.tileToolMap[slotGroup];
-				if(tool == null) { return; }
-				EditorTools.SetTileTool(tool, tool.index);
+				if(TileTool.tileToolMap.ContainsKey(slotGroup)) {
+					TileTool tool = TileTool.tileToolMap[slotGroup];
+					if(tool == null) { return; }
+					EditorTools.SetTileTool(tool, tool.index);
+				}
 			}
 
 			// If the current slot group is the same, need to change the index only.

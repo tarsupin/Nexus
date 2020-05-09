@@ -6,6 +6,14 @@ namespace Nexus.GameEngine {
 
 	public class FuncTool {
 
+		private enum FuncToolEnum : byte {
+			None,
+			Eraser,
+			Eyedrop,
+			Move,
+			Wand
+		}
+
 		public static Dictionary<byte, FuncTool> funcToolMap = new Dictionary<byte, FuncTool>() {
 			{ (byte) FuncToolEnum.Eraser, new FuncToolEraser() },
 			{ (byte) FuncToolEnum.Eyedrop, new FuncToolEyedrop() },

@@ -56,6 +56,8 @@ May 8th, 2020
 May 9th, 2020
 	- Add Helper Titles and Text to Tiles.
 	- Add Multiple Helper Descriptions to Collectable class, etc.
+	- Added Function Tools Placeholders, Helper Text.
+	- Added MouseOver detection to UIComponents.
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -79,5 +81,4 @@ Tile Platforms need facing direction to collide correctly.
 Console for Editor. Allows scripting, etc.
 Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
 Add Track System (for TrackDots, etc)
-Draw Title of Current TileTool or FunctionTool in header. (Maybe fade when mouse is nearby).
 nodeTesla/_backup/ has worlds/ and levels-by-hash/

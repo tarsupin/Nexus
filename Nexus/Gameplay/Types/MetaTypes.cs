@@ -119,13 +119,4 @@ namespace Nexus.Gameplay {
 		Gadgets,
 		Scripting,
 	}
-
-	// Function Tool Enum
-	public enum FuncToolEnum : byte {
-		None,
-		Eraser,
-		Eyedrop,
-		Move,
-		Wand
-	}
 }
