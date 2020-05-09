@@ -172,7 +172,6 @@ namespace Nexus.Gameplay {
 				// These will have Passive Collision by Character Only.
 
 				// Character Interactives (150 - 159)
-				//{ (byte) TileEnum.Flag, new Flag() },		// TODO: Remove this; flags were moved to 170-174
 				{ (byte) TileEnum.Chest, new Chest() },
 				{ (byte) TileEnum.NPC, new NPC() },
 				//{ (byte) TileEnum.PeekMap, new PeekMap() },

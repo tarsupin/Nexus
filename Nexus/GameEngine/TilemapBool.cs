@@ -51,10 +51,8 @@ namespace Nexus.GameEngine {
 				this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
 
 			} else {
-				if(id > 0) { this.tiles[gridId][0] = id; }
-				if(subType > 0) { this.tiles[gridId][1] = subType; }
-				if(fgId > 0) { this.tiles[gridId][2] = fgId; }
-				if(fgSubType > 0) { this.tiles[gridId][3] = fgSubType; }
+				if(id > 0) { this.tiles[gridId][0] = id; this.tiles[gridId][1] = subType; }
+				if(fgId > 0) { this.tiles[gridId][2] = fgId; this.tiles[gridId][3] = fgSubType; }
 			}
 		}
 
