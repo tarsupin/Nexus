@@ -155,7 +155,7 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CannonHorizontal, new CannonHor() },
 				{ (byte) TileEnum.CannonVertical, new CannonVert() },
 				{ (byte) TileEnum.CannonDiagonal, new CannonDiag() },
-				//{ (byte) TileEnum.Placer, new Placer() },
+				{ (byte) TileEnum.Placer, new Placer() },
 				
 				// Reserved (65 - 69)
 				

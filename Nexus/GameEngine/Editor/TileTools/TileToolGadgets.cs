@@ -3,6 +3,7 @@ using Nexus.Objects;
 using static Nexus.Objects.CannonDiag;
 using static Nexus.Objects.CannonHor;
 using static Nexus.Objects.CannonVert;
+using static Nexus.Objects.Placer;
 
 namespace Nexus.GameEngine {
 
@@ -50,28 +51,24 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Placer,
-			//		subType = (byte) Something.Horizontal,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Placer,
-			//		subType = (byte) Something.Vertical,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Placer,
-			//		subType = (byte) Something.Horizontal,
-			//		face: DirRotate.FlipHor,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Placer,
-			//		subType = (byte) Something.Vertical,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: Add this whole section
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Placer,
+					subType = (byte) PlacerSubType.Up,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Placer,
+					subType = (byte) PlacerSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Placer,
+					subType = (byte) PlacerSubType.Down,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Placer,
+					subType = (byte) PlacerSubType.Left,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

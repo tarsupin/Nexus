@@ -75,10 +75,9 @@ namespace Nexus.Gameplay {
 
 		// Generators (60 - 64)
 		CannonHorizontal = 60,
-		PlacerHorizontal = 61,
-		CannonVertical = 62,
-		PlacerVertical = 63,
-		CannonDiagonal = 64,
+		CannonVertical = 61,
+		CannonDiagonal = 62,
+		Placer = 63,
 
 		// Non-Solid, Toggled Platforms (65 - 69)
 		TogglePlatBlueOff = 65,
