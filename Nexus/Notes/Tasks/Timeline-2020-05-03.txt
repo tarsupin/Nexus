@@ -50,7 +50,8 @@ May 8th, 2020
 	- Added TrackDot Class.
 	- Bug Fix: SubType-0 Editor Drawing.
 	- Added Helper Title + Text to Editor UI.
-	- Tracking Slotgroup Indexes and Subindexes.
+	- Tracking SlotGroup Indexes and SubIndexes.
+	- Tracking all Indexes, SubIndexes in Placeholders.
 
 
 // Next TODO List
@@ -77,4 +78,4 @@ Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by 
 Add Track System (for TrackDots, etc)
 Draw Title of Current TileTool or FunctionTool in header. (Maybe fade when mouse is nearby).
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
-Have every placeholder save its existing index and subindex.
+Add Helper Titles and Text to Tiles.

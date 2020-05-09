@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 		public static FuncTool funcTool;    // The active Function Tool being used. High priority than TileTool, so it is set to null often.
 		public static FuncTool tempTool;    // The highest priority tool; runs because the user is forcing a temporary tool to activate.
 
-		public static void SetTileTool( TileTool tool, byte index = 0, byte subIndex = 0 ) {
+		public static void SetTileTool( TileTool tool, byte index = 0 ) {
 			EditorTools.tileTool = tool;
 			EditorTools.funcTool = null;
 			EditorTools.tempTool = null;
@@ -17,7 +17,6 @@ namespace Nexus.GameEngine {
 
 			// Assign Index and SubIndex to TileTool (if applicable)
 			EditorTools.tileTool.SetIndex(index);
-			EditorTools.tileTool.SetSubIndex(subIndex);
 
 			// Update Helper Text (if applicable)
 			EditorTools.UpdateHelperText();
@@ -29,12 +28,13 @@ namespace Nexus.GameEngine {
 			if(EditorTools.tileTool == null || EditorTools.tileTool.slotGroup != slotGroup) {
 				TileTool tool = TileTool.tileToolMap[slotGroup];
 				if(tool == null) { return; }
-				EditorTools.SetTileTool(tool, tool.index, tool.subIndex);
+				EditorTools.SetTileTool(tool, tool.index);
 			}
 
-			// If the current slot group is the same:
+			// If the current slot group is the same, need to change the index only.
 			else {
-				EditorTools.SetTileTool(EditorTools.tileTool, index);
+				TileTool tool = EditorTools.tileTool;
+				EditorTools.SetTileTool(tool, index);
 			}
 		}
 

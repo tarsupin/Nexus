@@ -215,7 +215,9 @@ namespace Nexus.GameEngine {
 			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
 
 			if(clonedTool is TileTool == true) {
-				EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index, (byte) clonedTool.subIndex);
+				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
+				EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index);
+				clonedTool.SetSubIndex(subIndex);
 			}
 		}
 

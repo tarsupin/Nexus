@@ -16,6 +16,7 @@ namespace Nexus.GameEngine {
 		public byte slotGroup = 0;		// Each tile tool has its own slot group metadata. Doesn't change.
 		public byte index = 0;
 		public byte subIndex = 0;
+		public byte[] subIndexSaves = new byte[10];
 
 		public static Dictionary<byte, TileTool> tileToolMap = new Dictionary<byte, TileTool>() {
 			{ (byte) SlotGroup.Ground, new TileToolGround() },
@@ -46,12 +47,14 @@ namespace Nexus.GameEngine {
 		public void SetIndex(byte index) {
 			if(this.placeholders.Count <= index) { index = 0; } // Index must be <= the number of placeholders available:
 			this.index = index;
+			this.subIndex = this.subIndexSaves[this.index];
 		}
 
 		public void SetSubIndex(byte subIndex) {
 			EditorPlaceholder[] pData = this.placeholders[this.index];
-			if(subIndex > (byte)pData.Length) { subIndex = 0; } // SubIndex must be within valid range.
+			if(subIndex >= (byte)pData.Length) { subIndex = 0; } // SubIndex must be within valid range.
 			this.subIndex = subIndex;
+			this.subIndexSaves[this.index] = subIndex;
 		}
 
 		public void CycleSubIndex( sbyte dir ) {
@@ -62,20 +65,12 @@ namespace Nexus.GameEngine {
 
 			// Cycle the SubIndex LEFT (by -1)
 			if(dir == -1) {
-				this.subIndex--;
-
-				if(this.subIndex < 0) {
-					this.subIndex = (byte) (phSubLen - 1);
-				}
+				this.SetSubIndex(this.subIndex == 0 ? (byte)(phSubLen - 1) : (byte) (this.subIndex - 1));
 			}
 
 			// Cycle the SubIndex Right (by +1)
 			else if(dir == 1) {
-				this.subIndex++;
-
-				if(this.subIndex >= phSubLen) {
-					this.subIndex = 0;
-				}
+				this.SetSubIndex(this.subIndex >= phSubLen ? (byte) 0 : (byte)(this.subIndex + 1));
 			}
 		}
 
@@ -110,6 +105,7 @@ namespace Nexus.GameEngine {
 							// Set the default values for the tool.
 							clonedTool.index = i;
 							clonedTool.subIndex = s;
+							clonedTool.subIndexSaves[i] = s;
 
 							return clonedTool;
 						}
