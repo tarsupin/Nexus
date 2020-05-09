@@ -9,32 +9,26 @@ namespace Nexus.GameEngine {
 
 	public class UtilityBar : UIComponent {
 
-		private Dictionary<byte, FuncButton> buttonMap = FuncButton.funcButtonMap;
-
 		private enum UtilityBarEnum : byte {
 			BarTiles = 26,
 		}
 
-		private enum FuncButtonPos : byte {
-			Info = 11,
-			Eraser = 12,
-			Move = 13,
-			Eyedrop = 14,
-
-			Wand = 15,
-			Settings = 16,
-
-			Undo = 17,
-			Redo = 18,
-
-			RoomLeft = 19,
-			Home = 20,
-			RoomRight = 21,
-			SwapRight = 22,
-
-			Save = 24,
-			Play = 25,
-		}
+		private Dictionary<byte, FuncButton> buttonMap = new Dictionary<byte, FuncButton>() {
+			{ 11, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Info] },
+			{ 12, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eraser] },
+			{ 13, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Move] },
+			{ 14, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eyedrop] },
+			{ 15, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Wand] },
+			{ 16, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Settings] },
+			{ 17, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Undo] },
+			{ 18, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Redo] },
+			{ 19, FuncButton.funcButtonMap[(byte) FuncButtonEnum.RoomLeft] },
+			{ 20, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Home] },
+			{ 21, FuncButton.funcButtonMap[(byte) FuncButtonEnum.RoomRight] },
+			{ 22, FuncButton.funcButtonMap[(byte) FuncButtonEnum.SwapRight] },
+			{ 24, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Save] },
+			{ 25, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Play] },
+		};
 
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
 			this.x = posX;
@@ -46,35 +40,32 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 			if(this.IsMouseOver()) {
 				UIComponent.ComponentWithFocus = this;
+				FuncButton funcButton = null;
 
 				// Identify which Bar Number is being highlighted:
 				byte barIndex = this.GetBarIndex(Cursor.MouseX);
 
+				// Check if a Function Button is highlighted:
+				if(buttonMap.ContainsKey(barIndex)) {
+					funcButton = buttonMap[barIndex];
+
+					// Draw the Helper Text associated with the Function Button
+					EditorScene editorScene = (EditorScene)Systems.scene;
+					editorScene.editorUI.SetHelperText(funcButton.title, funcButton.description);
+				}
+
 				// Mouse was pressed
 				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
-					// Selected a Tile Tool
+					// Clicked a Tile Tool
 					if(barIndex < 10) {
 						EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, barIndex);
 					}
-				}
 
-				// Mouse is only highlighting (not pressed)
-				else {
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Info, (byte) FuncButtonPos.Info);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Eraser, (byte) FuncButtonPos.Eraser);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Move, (byte) FuncButtonPos.Move);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Eyedrop, (byte) FuncButtonPos.Eyedrop);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Wand, (byte) FuncButtonPos.Wand);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Settings, (byte) FuncButtonPos.Settings);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Undo, (byte) FuncButtonPos.Undo);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Redo, (byte) FuncButtonPos.Redo);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.RoomLeft, (byte) FuncButtonPos.RoomLeft);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Home, (byte) FuncButtonPos.Home);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.RoomRight, (byte) FuncButtonPos.RoomRight);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.SwapRight, (byte) FuncButtonPos.SwapRight);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Save, (byte) FuncButtonPos.Save);
-					this.ShowHelperTextForFuncButton(barIndex, (byte) FuncButtonEnum.Play, (byte) FuncButtonPos.Play);
+					// Clicked a Function Button
+					if(funcButton != null) {
+						//funcButton.DO_A_THING;
+					}
 				}
 			}
 			
@@ -89,13 +80,6 @@ namespace Nexus.GameEngine {
 			short offsetX = (short) (posX - this.x);
 			byte index = (byte) System.Math.Floor((decimal) (offsetX / tileWidth));
 			return index;
-		}
-
-		private void ShowHelperTextForFuncButton(byte barIndex, byte funcNum, byte funcPos) {
-			if(barIndex != funcPos) { return; }
-			FuncButton funcButton = this.buttonMap[funcNum];
-			EditorScene editorScene = (EditorScene)Systems.scene;
-			editorScene.editorUI.SetHelperText(funcButton.title, funcButton.description);
 		}
 
 		public void Draw() {
@@ -132,23 +116,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Function Icons
-			this.buttonMap[(byte)FuncButtonEnum.Info].DrawFunctionTile(this.x + (byte)FuncButtonPos.Info * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Eraser].DrawFunctionTile(this.x + (byte)FuncButtonPos.Eraser * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Move].DrawFunctionTile(this.x + (byte)FuncButtonPos.Move * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Eyedrop].DrawFunctionTile(this.x + (byte)FuncButtonPos.Eyedrop * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Wand].DrawFunctionTile(this.x + (byte)FuncButtonPos.Wand * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Settings].DrawFunctionTile(this.x + (byte)FuncButtonPos.Settings * tileWidth + 2, this.y);
-
-			this.buttonMap[(byte)FuncButtonEnum.Undo].DrawFunctionTile(this.x + (byte)FuncButtonPos.Undo * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Redo].DrawFunctionTile(this.x + (byte)FuncButtonPos.Redo * tileWidth + 2, this.y);
-
-			this.buttonMap[(byte)FuncButtonEnum.RoomLeft].DrawFunctionTile(this.x + (byte)FuncButtonPos.RoomLeft * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Home].DrawFunctionTile(this.x + (byte)FuncButtonPos.Home * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.RoomRight].DrawFunctionTile(this.x + (byte)FuncButtonPos.RoomRight * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.SwapRight].DrawFunctionTile(this.x + (byte)FuncButtonPos.SwapRight * tileWidth + 2, this.y);
-
-			this.buttonMap[(byte)FuncButtonEnum.Save].DrawFunctionTile(this.x + (byte)FuncButtonPos.Save * tileWidth + 2, this.y);
-			this.buttonMap[(byte)FuncButtonEnum.Play].DrawFunctionTile(this.x + (byte)FuncButtonPos.Play * tileWidth + 2, this.y);
+			foreach(KeyValuePair<byte, FuncButton> button in this.buttonMap) {
+				byte barIndex = button.Key;
+				button.Value.DrawFunctionTile(this.x + barIndex * tileWidth + 2, this.y);
+			}
 
 			// Hovering Visual
 			if(UIComponent.ComponentWithFocus is UtilityBar) {
