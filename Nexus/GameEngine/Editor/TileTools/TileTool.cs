@@ -6,6 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class EditorPlaceholder {
 		public byte tileId;
+		public byte objectId;
 		public byte subType;
 	}
 
@@ -13,8 +14,8 @@ namespace Nexus.GameEngine {
 
 		public List<EditorPlaceholder[]> placeholders;
 		public byte slotGroup = 0;		// Each tile tool has its own slot group metadata. Doesn't change.
-		public int index = 0;
-		public int subIndex = 0;
+		public byte index = 0;
+		public byte subIndex = 0;
 
 		public static Dictionary<byte, TileTool> tileToolMap = new Dictionary<byte, TileTool>() {
 			{ (byte) SlotGroup.Ground, new TileToolGround() },
@@ -64,7 +65,7 @@ namespace Nexus.GameEngine {
 				this.subIndex--;
 
 				if(this.subIndex < 0) {
-					this.subIndex = phSubLen - 1;
+					this.subIndex = (byte) (phSubLen - 1);
 				}
 			}
 

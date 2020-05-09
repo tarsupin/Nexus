@@ -26,6 +26,7 @@ namespace Nexus.GameEngine {
 				sbyte scrollVal = Cursor.GetMouseScrollDelta();
 				if(scrollVal == 0) { return; }
 				EditorTools.tileTool.CycleSubIndex(scrollVal); // Cycles the SubIndex by -1 or +1
+				EditorTools.UpdateHelperText();
 			}
 		}
 
