@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Save";
 			this.description = "Saves the level.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Save");
+		}
 	}
 }

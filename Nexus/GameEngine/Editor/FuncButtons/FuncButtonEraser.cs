@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Eraser";
 			this.description = "Erases tiles.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Eraser");
+		}
 	}
 }

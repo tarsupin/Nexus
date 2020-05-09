@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) {
 				UIComponent.ComponentWithFocus = this;
 
-				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 					//EditorUI.menuOptChosen = this.GetWheelDir(Cursor.MouseX, Cursor.MouseY);
 					this.CloseMenu(); return;
 				}

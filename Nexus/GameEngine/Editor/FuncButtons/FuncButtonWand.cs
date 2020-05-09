@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Wand";
 			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Wand");
+		}
 	}
 }

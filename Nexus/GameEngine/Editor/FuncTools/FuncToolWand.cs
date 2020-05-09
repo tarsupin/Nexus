@@ -12,14 +12,14 @@ namespace Nexus.GameEngine {
 		public override void RunTick(EditorScene scene) {
 
 			// Left Mouse Button (Delete Current Tile)
-			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 
 				// TODO:
 				//this.CreateWandObject();
 			}
 
 			// Right Mouse Button (Clone Current Tile)
-			else if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
+			else if(Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
 
 				// TODO:
 				//this.scene.CloneTile();

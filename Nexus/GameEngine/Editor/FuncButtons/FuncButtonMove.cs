@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Move";
 			this.description = "No behavior at this time.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Move");
+		}
 	}
 }

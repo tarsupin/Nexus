@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Swap Room Position";
 			this.description = "Swaps the current room with the room to the right (+1 ID higher).";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Swap Right");
+		}
 	}
 }

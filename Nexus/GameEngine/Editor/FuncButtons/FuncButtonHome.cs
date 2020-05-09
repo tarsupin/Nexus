@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Home";
 			this.description = "Switches to the 'home' room, where the level begins.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Home");
+		}
 	}
 }

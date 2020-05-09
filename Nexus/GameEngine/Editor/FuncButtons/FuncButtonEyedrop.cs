@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Eyedrop";
 			this.description = "Clones a tile - same behavior as right clicking a tile.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Eyedrop");
+		}
 	}
 }

@@ -55,7 +55,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// Mouse was pressed
-				if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 
 					// Clicked a Tile Tool
 					if(barIndex < 10) {
@@ -64,7 +64,7 @@ namespace Nexus.GameEngine {
 
 					// Clicked a Function Button
 					if(funcButton != null) {
-						//funcButton.DO_A_THING;
+						funcButton.ActivateFuncButton();
 					}
 				}
 			}

@@ -58,6 +58,7 @@ May 9th, 2020
 	- Add Multiple Helper Descriptions to Collectable class, etc.
 	- Added Function Tools Placeholders, Helper Text.
 	- Added MouseOver detection to UIComponents.
+	- Improved Mouse-Down Detection.
 
 // Next TODO List
 All Utility Belt Objects are added.

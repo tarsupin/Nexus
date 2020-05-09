@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Editor Help";
 			this.description = "Provides help for using the editor.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Help");
+		}
 	}
 }

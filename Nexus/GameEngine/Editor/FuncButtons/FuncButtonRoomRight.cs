@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Switch Room Right";
 			this.description = "Switches the active editing room to one room ID higher.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Right Room");
+		}
 	}
 }

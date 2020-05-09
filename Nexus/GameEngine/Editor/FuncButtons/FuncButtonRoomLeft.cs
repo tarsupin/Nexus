@@ -1,4 +1,5 @@
-﻿
+﻿using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonRoomLeft : FuncButton {
@@ -8,6 +9,10 @@ namespace Nexus.GameEngine {
 			this.spriteName = "Icons/Left";
 			this.title = "Switch Room Left";
 			this.description = "Switches the active editing room to one room ID lower.";
+		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Left Room");
 		}
 	}
 }

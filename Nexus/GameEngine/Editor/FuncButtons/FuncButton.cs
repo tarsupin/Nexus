@@ -55,6 +55,8 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 		}
 
+		public virtual void ActivateFuncButton() {}
+
 		public void DrawFunctionTile(int posX, int posY) {
 			this.atlas.Draw(this.spriteName, posX, posY);
 

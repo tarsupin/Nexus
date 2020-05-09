@@ -9,5 +9,9 @@ namespace Nexus.GameEngine {
 			this.title = "Play";
 			this.description = "Saves the level, then initiates a playthrough.";
 		}
+
+		public override void ActivateFuncButton() {
+			System.Console.WriteLine("Activated Function Button: Play");
+		}
 	}
 }
