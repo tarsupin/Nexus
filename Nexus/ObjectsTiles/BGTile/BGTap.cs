@@ -41,9 +41,9 @@ namespace Nexus.Objects {
 		}
 
 		public void DestroyNeighborTap(RoomScene room, ushort gridX, ushort gridY) {
-			byte[] tileData = room.tilemap.GetTileDataAtGrid(gridX, gridY);
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-			if(tileData[0] == (byte) TileEnum.BGTap) {
+			if(subType == (byte) TileEnum.BGTap) {
 				room.tilemap.ClearMainLayer(gridX, gridY);
 			}
 		}

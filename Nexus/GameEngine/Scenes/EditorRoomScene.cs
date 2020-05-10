@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -10,6 +11,8 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly EditorScene scene;
+		public LevelContent levelContent;
+		public string roomID;
 
 		// Editor Data
 		public TilemapLevel tilemap;
@@ -18,15 +21,17 @@ namespace Nexus.GameEngine {
 
 			// References
 			this.scene = scene;
+			this.levelContent = this.scene.levelContent;
+			this.roomID = roomID;
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
-			EditorRoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.rooms[roomID], out xCount, out yCount);
+			EditorRoomGenerate.DetermineRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
 			this.tilemap = new TilemapLevel(xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
-			EditorRoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
+			EditorRoomGenerate.GenerateRoom(this, this.levelContent, roomID);
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }
@@ -77,28 +82,31 @@ namespace Nexus.GameEngine {
 			int camBottom = camY + cam.height;
 
 			var tileMap = Systems.mapper.TileDict;
+			var roomData = this.levelContent.data.rooms[this.roomID];
 
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {
 				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
 
+				// Make sure this Y-line exists, or skip further review:
+				if(!roomData.main.ContainsKey(y.ToString())) { continue; }
+				var yData = roomData.main[y.ToString()];
+
 				for(ushort x = startX; x <= gridX; x++) {
 
-					// Scan the Tiles Data at this grid square:
-					byte[] tileData = this.tilemap.GetTileDataAtGrid(x, y);
+					// Verify Tile Data exists at this Grid Square:
+					if(!yData.ContainsKey(x.ToString())) { continue; }
+					var xData = yData[x.ToString()];
+					byte index = byte.Parse(xData[0].ToString());
+					byte subIndex = byte.Parse(xData[1].ToString());
 
-					// This occurs when there is no data on the tile (removed, etc).
-					if(tileData == null) { continue; }
+					// Draw Layer
+					TileGameObject tileObj = tileMap[index];
 
-					// Draw Main Layer
-					if(tileData[0] != 0) {
-						TileGameObject tileObj = tileMap[tileData[0]];
-
-						// Render the tile with its designated Class Object:
-						if(tileObj is TileGameObject) {
-							tileObj.Draw(null, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
-						};
-					}
+					// Render the tile with its designated Class Object:
+					if(tileObj is TileGameObject) {
+						tileObj.Draw(null, subIndex, x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+					};
 				};
 			}
 		}

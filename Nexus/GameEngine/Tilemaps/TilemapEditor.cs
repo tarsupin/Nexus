@@ -64,24 +64,39 @@ namespace Nexus.GameEngine {
 			//this.tiles[gridX, gridY][1] = subType;
 		}
 
+		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void RemoveTile(ushort gridX, ushort gridY) {
-			//this.tiles.Remove(gridX, gridY);
+			//this.tiles[gridY, gridX] = null;
 		}
 
+		private void MaybeRemoveTile(ushort gridX, ushort gridY) {
+			//var x = this.tiles[gridY, gridX];
+
+			//// If every index (each layer) is empty, remove the tile:
+			//if(x[0] == 0 && x[2] == 0 && x[4] == 0) {
+			//	this.RemoveTile(gridX, gridY);
+			//}
+		}
+
+		// Clear the Main Layer
 		public void ClearMainLayer(ushort gridX, ushort gridY) {
-			//this.tiles[gridX, gridY][0] = 0;
-			//this.tiles[gridX, gridY][1] = 0;
+			//this.tiles[gridY, gridX][0] = 0;
+			//this.tiles[gridY, gridX][1] = 0;
+			//this.MaybeRemoveTile(gridX, gridY);
 		}
 
 		public void ClearBGLayer(ushort gridX, ushort gridY) {
-			//this.tiles[gridX, gridY][0] = 0;
-			//this.tiles[gridX, gridY][1] = 0;
+			//this.tiles[gridY, gridX][2] = 0;
+			//this.tiles[gridY, gridX][3] = 0;
+			//this.MaybeRemoveTile(gridX, gridY);
 		}
 
 		public void ClearFGLayer(ushort gridX, ushort gridY) {
-			//this.tiles[gridX, gridY][0] = 0;
-			//this.tiles[gridX, gridY][1] = 0;
+			//this.tiles[gridY, gridX][4] = 0;
+			//this.tiles[gridY, gridX][5] = 0;
+			//this.MaybeRemoveTile(gridX, gridY);
 		}
+
 
 		// Grid Square Positions
 		public static ushort GridX(int posX) { return (ushort)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)); }

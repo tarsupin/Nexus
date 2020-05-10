@@ -10,10 +10,14 @@ namespace Nexus.GameEngine {
 	public class EditorScene : Scene {
 
 		public readonly EditorUI editorUI;
+		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public byte roomNum = 0;
 
 		public EditorScene() : base() {
+
+			// References
+			this.levelContent = Systems.handler.levelContent;
 
 			// Create UI
 			this.editorUI = new EditorUI(this);
@@ -21,7 +25,7 @@ namespace Nexus.GameEngine {
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, EditorRoomScene>();
 
-			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
+			foreach(var roomKey in this.levelContent.data.rooms.Keys) {
 				byte parsedKey = Byte.Parse(roomKey);
 				this.rooms[parsedKey] = new EditorRoomScene(this, roomKey);
 			}
