@@ -29,8 +29,8 @@ namespace Nexus.Engine {
 			this.UpdateScene(scene);
 		}
 
-		public int GridX { get { return (int)Math.Floor((double)this.posX / (byte)TilemapEnum.TileWidth); } }
-		public int GridY { get { return (int)Math.Floor((double)this.posY / (byte)TilemapEnum.TileHeight); } }
+		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (ushort)TilemapEnum.TileWidth); } }
+		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (ushort)TilemapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene ) {
 			this.scene = scene;

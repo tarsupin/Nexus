@@ -24,15 +24,14 @@ namespace Nexus.Objects {
 			
 			// Characters receive Collectable:
 			if(actor is Character) {
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				this.Collect( room, (Character) actor, gridId );
+				this.Collect( room, (Character) actor, gridX, gridY );
 			}
 
 			return false;
 		}
 
-		public virtual void Collect( RoomScene room, Character character, uint gridId ) {
-			room.tilemap.RemoveTile(gridId);
+		public virtual void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
+			room.tilemap.RemoveTile(gridX, gridY);
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

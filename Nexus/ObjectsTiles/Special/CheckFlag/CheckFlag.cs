@@ -34,7 +34,7 @@ namespace Nexus.Objects {
 			
 			// Characters interact with CheckFlag:
 			if(actor is Character) {
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
+				//byte[] tileData = room.tilemap.GetTileDataAtGrid(gridX, gridY);
 
 				// TODO: Make a flag touch behavior
 				//this.TouchFlag( room, (Character) actor, gridId );

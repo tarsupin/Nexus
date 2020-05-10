@@ -27,9 +27,7 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Get the SubType
-			uint gridId = room.tilemap.GetGridID(gridX, gridY);
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-			byte subType = tileData[1];
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			// Transparent Exclaim Blocks only Collide From Below
 			if(subType == (byte) ExclaimBlockSubType.Transparent) {
@@ -40,7 +38,7 @@ namespace Nexus.Objects {
 			if(dir == DirCardinal.Up && subType != (byte) ExclaimBlockSubType.Inactive) {
 
 				// Swap to an Inactive Block
-				room.tilemap.SetTileSubType(gridId, (byte)ExclaimBlockSubType.Inactive);
+				room.tilemap.SetTileSubType(gridX, gridY, (byte)ExclaimBlockSubType.Inactive);
 
 				Systems.sounds.shellThud.Play();
 			}

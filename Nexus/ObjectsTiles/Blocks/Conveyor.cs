@@ -29,10 +29,8 @@ namespace Nexus.Objects {
 			//if(actor is Character) {
 			//	Character character = (Character) actor;
 
-			//	// Get the SubType
-			//	uint gridId = room.tilemap.GetGridID(gridX, gridY);
-			//	byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-			//	byte subType = tileData[1];
+			// // Get the SubType
+			// byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			//}
 

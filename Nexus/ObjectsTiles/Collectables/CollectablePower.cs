@@ -126,13 +126,13 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)PowerSubType.GrenadePack] = "A pack of three grenades.";
 		}
 
-		public override void Collect( RoomScene room, Character character, uint gridId ) {
+		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
 
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-			Power.AssignToCharacter(character, tileData[1]);
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			Power.AssignToCharacter(character, subType);
 
 			Systems.sounds.collectSubtle.Play();
-			base.Collect(room, character, gridId);
+			base.Collect(room, character, gridX, gridY);
 		}
 
 		private void CreateTextures() {

@@ -60,8 +60,8 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			Camera cam = Systems.camera;
 
-			int startX = Math.Max(0, cam.GridX);
-			int startY = Math.Max(0, cam.GridY);
+			ushort startX = (ushort) Math.Max((ushort)0, (ushort)cam.GridX);
+			ushort startY = (ushort) Math.Max((ushort)0, (ushort)cam.GridY);
 
 			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
 			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
@@ -76,37 +76,34 @@ namespace Nexus.GameEngine {
 			int camRight = camX + cam.width;
 			int camBottom = camY + cam.height;
 
-			var tileDict = Systems.mapper.TileDict;
+			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(int y = startY; y <= gridY; y++) {
-				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
+			for(ushort y = startY; y <= gridY; y++) {
+				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
 
-				for(int x = startX; x <= gridX; x++) {
+				for(ushort x = startX; x <= gridX; x++) {
 
 					// Scan the Tiles Data at this grid square:
-					uint gridId = this.tilemap.GetGridID((ushort)x, (ushort)y);
+					byte[] tileData = this.tilemap.GetTileDataAtGrid(x, y);
 
-					byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
+					// This occurs when there is no data on the tile (removed, etc).
+					if(tileData == null) { continue; }
 
-					if(tileData == null) {
-						// TODO HIGH PRIOIRTY: This block should never run; tileData should never be null.
-						// Remove any invalid options here.
-						// Delete this block once the TileMap has been completed.
-						continue;
+					// Draw Main Layer
+					if(tileData[0] != 0) {
+						TileGameObject tileObj = tileMap[tileData[0]];
+
+						// Render the tile with its designated Class Object:
+						if(tileObj is TileGameObject) {
+							tileObj.Draw(null, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+						};
 					}
-
-					TileGameObject tileObj = tileDict[tileData[0]];
-
-					// Render the tile with its designated Class Object:
-					if(tileObj is TileGameObject) {
-						tileObj.Draw(null, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
-					};
 				};
 			}
 		}
 
-		public void PlaceTile( LayerEnum layer, ushort gridX, ushort gridY, byte tileId, byte subType, JObject paramList = null) {
+		public void PlaceTile( LayerEnum layer, byte gridX, byte gridY, byte tileId, byte subType, JObject paramList = null) {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
@@ -122,16 +119,11 @@ namespace Nexus.GameEngine {
 			//	};
 			//}
 
-			// Retrieve the Grid ID
-			uint gridId = this.tilemap.GetGridID(gridX, gridY);
-
-			//byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
-
 			// Place the Tile
 			if(layer == LayerEnum.main) {
-				this.tilemap.SetTile(gridId, tileId, subType);
+				this.tilemap.SetTile(gridX, gridY, tileId, subType);
 			} else if(layer == LayerEnum.fg) {
-				this.tilemap.SetTile(gridId, 0, 0, tileId, subType);
+				this.tilemap.SetTile(gridX, gridY, 0, 0, tileId, subType);
 			} else if(layer == LayerEnum.obj) {
 
 				// TODO: Handle Obj Tiles and Params when Adding Tiles
@@ -144,11 +136,11 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void DeleteTile(ushort gridX, ushort gridY) {
-			this.tilemap.RemoveTileByGrid(gridX, gridY);
+		public void DeleteTile(byte gridX, byte gridY) {
+			this.tilemap.RemoveTile(gridX, gridY);
 		}
 
-		public void TileToolTick(ushort gridX, ushort gridY) {
+		public void TileToolTick(byte gridX, byte gridY) {
 			
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
@@ -204,7 +196,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void CloneTile(ushort gridX, ushort gridY) {
+		public void CloneTile(byte gridX, byte gridY) {
 
 			// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
 			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);

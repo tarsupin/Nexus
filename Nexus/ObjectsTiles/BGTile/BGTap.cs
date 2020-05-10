@@ -25,9 +25,7 @@ namespace Nexus.Objects {
 			if(actor is Character) {
 
 				// Get the SubType
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				byte subType = tileData[1];
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				// Toggle the color-toggle that matches this tap type.
 				room.ToggleColor(subType == (byte)BGTapSubType.TapBR);
@@ -43,11 +41,10 @@ namespace Nexus.Objects {
 		}
 
 		public void DestroyNeighborTap(RoomScene room, ushort gridX, ushort gridY) {
-			uint gridId = room.tilemap.GetGridID(gridX, gridY);
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-			
+			byte[] tileData = room.tilemap.GetTileDataAtGrid(gridX, gridY);
+
 			if(tileData[0] == (byte) TileEnum.BGTap) {
-				room.tilemap.ClearMainLayer(gridId);
+				room.tilemap.ClearMainLayer(gridX, gridY);
 			}
 		}
 

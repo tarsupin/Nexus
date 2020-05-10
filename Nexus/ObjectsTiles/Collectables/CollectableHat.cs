@@ -37,13 +37,13 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)HatSubType.RandomHat] = "Gain a random hat.";
 		}
 
-		public override void Collect( RoomScene room, Character character, uint gridId ) {
+		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
 
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-			Hat.AssignToCharacter(character, tileData[1], true);
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			Hat.AssignToCharacter(character, subType, true);
 
 			Systems.sounds.collectBweep.Play();
-			base.Collect(room, character, gridId);
+			base.Collect(room, character, gridX, gridY);
 		}
 
 		private void CreateTextures() {

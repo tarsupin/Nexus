@@ -93,10 +93,10 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)GoodieSubType.Blood] = "Unknown.";
 		}
 
-		public override void Collect(RoomScene room, Character character, uint gridId) {
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
+		public override void Collect(RoomScene room, Character character, ushort gridX, ushort gridY) {
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-			switch(tileData[1]) {
+			switch(subType) {
 
 				// Health
 				case (byte)GoodieSubType.Apple: this.GetHealth(character, 1); break;
@@ -134,7 +134,7 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.Key: this.CollectKey(character); break;
 			}
 
-			base.Collect(room, character, gridId);
+			base.Collect(room, character, gridX, gridY);
 		}
 
 		private void GetHealth(Character character, byte health) {

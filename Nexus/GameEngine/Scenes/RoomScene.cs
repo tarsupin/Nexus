@@ -134,8 +134,8 @@ namespace Nexus.GameEngine {
 
 			Camera cam = Systems.camera;
 
-			int startX = Math.Max(0, cam.GridX);
-			int startY = Math.Max(0, cam.GridY);
+			ushort startX = Math.Max((ushort)0, (ushort)cam.GridX);
+			ushort startY = Math.Max((ushort)0, (ushort)cam.GridY);
 
 			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
 			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
@@ -156,29 +156,26 @@ namespace Nexus.GameEngine {
 			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(int y = startY; y <= gridY; y++) {
-				int tileYPos = y * (byte)TilemapEnum.TileHeight - camY;
+			for(ushort y = startY; y <= gridY; y++) {
+				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
 
-				for(int x = startX; x <= gridX; x++) {
+				for(ushort x = startX; x <= gridX; x++) {
 
 					// Scan the Tiles Data at this grid square:
-					uint gridId = this.tilemap.GetGridID((ushort) x, (ushort) y);
+					byte[] tileData = tilemap.GetTileDataAtGrid(x, y);
 
-					byte[] tileData = this.tilemap.GetTileDataAtGridID(gridId);
+					// This occurs when there is no data on the tile (removed, etc).
+					if(tileData == null) { continue; }
 
-					if(tileData == null) {
-						// TODO HIGH PRIOIRTY: This block should never run; tileData should never be null.
-						// Remove any invalid options here.
-						// Delete this block once the TileMap has been completed.
-						continue;
+					// Draw Main Layer
+					if(tileData[0] != 0) {
+						TileGameObject tileObj = tileMap[tileData[0]];
+
+						// Render the tile with its designated Class Object:
+						if(tileObj is TileGameObject) {
+							tileObj.Draw(this, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+						};
 					}
-
-					TileGameObject tileObj = tileMap[tileData[0]];
-
-					// Render the tile with its designated Class Object:
-					if(tileObj is TileGameObject) {
-						tileObj.Draw(this, tileData[1], x * (byte) TilemapEnum.TileWidth - camX, tileYPos);
-					};
 				};
 			}
 

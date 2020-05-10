@@ -35,17 +35,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Verify that a tile exists at the given location:
-			uint gridId = tilemap.GetGridID(gridX, gridY);
+			byte[] tileData = tilemap.GetTileDataAtGrid(gridX, gridY);
 
-			byte[] tileData = tilemap.GetTileDataAtGridID(gridId);
-
-			// Make sure the tile class exists:
-			if(tileData == null) {
-				// TODO HIGH PRIOIRTY: This block should never run; tileData should never be null.
-				// Remove any invalid options here.
-				// Delete this block once the TileMap has been completed.
-				return false;
-			}
+			// If the tile was removed, never existed, or the main layer has no content:
+			if(tileData == null || tileData[0] == 0) { return false; }
 
 			TileGameObject tileObj = Systems.mapper.TileDict[tileData[0]];
 

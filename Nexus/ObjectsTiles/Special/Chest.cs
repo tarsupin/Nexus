@@ -31,10 +31,7 @@ namespace Nexus.Objects {
 			
 			// Characters interact with Chest:
 			if(actor is Character) {
-
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				byte subType = tileData[1];
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				// If the chest is open, no interactions are allowed:
 				if(subType == (byte) ChestSubType.Open) { return false; }
@@ -53,16 +50,16 @@ namespace Nexus.Objects {
 					return false;
 				}
 
-				this.OpenChest(room, gridId);
+				this.OpenChest(room, gridX, gridY);
 			}
 
 			return false;
 		}
 
-		protected void OpenChest(RoomScene room, uint gridId) {
+		protected void OpenChest(RoomScene room, ushort gridX, ushort gridY) {
 
 			// Open the Chest
-			room.tilemap.SetTileSubType(gridId, (byte)ChestSubType.Open);
+			room.tilemap.SetTileSubType(gridX, gridY, (byte)ChestSubType.Open);
 
 			// Provide the Opened Chest Items
 			// TODO: MUST PROVIDE OPENED CHEST ITEMS

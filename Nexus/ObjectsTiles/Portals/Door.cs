@@ -38,9 +38,7 @@ namespace Nexus.Objects {
 				// TODO: Default message should be possible. Describe the door being entered.
 				// TODO: Get Message Data. Hover it above the Door
 
-				//uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				//byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				//byte subType = tileData[1];
+				//byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				Character character = (Character)actor;
 

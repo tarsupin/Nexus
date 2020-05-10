@@ -6,8 +6,8 @@ namespace Nexus.GameEngine {
 
 	public class TilemapLevel : TilemapBool {
 
-		// Tile Data: Dictionaries of data that matches to the gridID (gridY*xCount + gridX)
-		private Dictionary<uint, byte[]> tiles;      // ID, SubType, Foreground ID, Foreground SubType
+		// Tile Array
+		private byte[,][] tiles;      // ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType
 
 		// Width and Height of the Tilemap:
 		public int Width { get; protected set; }
@@ -24,65 +24,65 @@ namespace Nexus.GameEngine {
 			this.Height = yCount * (byte)TilemapEnum.TileHeight;
 
 			// Data
-			this.tiles = new Dictionary<uint, byte[]>();
-		}
-
-		public byte[] GetTileDataAtGridID(uint gridId) {
-			this.tiles.TryGetValue(gridId, out byte[] val);
-			return val;
+			this.tiles = new byte[this.YCount + 1, this.XCount + 1][];
 		}
 
 		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
-			uint gridId = this.GetGridID(gridX, gridY);
-			this.tiles.TryGetValue(gridId, out byte[] val);
-			return val;
+			return this.tiles[gridY, gridX];
 		}
 
-		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddTileAtGrid(ushort gridX, ushort gridY, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
-			uint gridId = this.GetGridID(gridX, gridY);
-			this.SetTile(gridId, id, subType, fgId, fgSubType);
-		}
+		public byte GetMainSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][1]; }
+		public byte GetBGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][3]; }
+		public byte GetFGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][5]; }
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void SetTile(uint gridId, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
-
-			if(!this.tiles.ContainsKey(gridId)) {
-				this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
-
-			} else {
-				if(id > 0) { this.tiles[gridId][0] = id; this.tiles[gridId][1] = subType; }
-				if(fgId > 0) { this.tiles[gridId][2] = fgId; this.tiles[gridId][3] = fgSubType; }
+		public void SetTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0, byte bgId = 0, byte bgSubType = 0, byte fgId = 0, byte fgSubType = 0) {
+			
+			if(this.tiles[gridY, gridX] == null) {
+				this.tiles[gridY, gridX] = new byte[] { id, subType, bgId, bgSubType, fgId, fgSubType };
 			}
+			
+			if(id > 0) { this.tiles[gridY, gridX][0] = id; this.tiles[gridY, gridX][1] = subType; }
+			if(bgId > 0) { this.tiles[gridY, gridX][2] = bgId; this.tiles[gridY, gridX][3] = bgSubType; }
+			if(fgId > 0) { this.tiles[gridY, gridX][4] = fgId; this.tiles[gridY, gridX][5] = fgSubType; }
 		}
 
-		public void SetTileSubType(uint gridId, byte subType = 0) {
-			if(!this.tiles.ContainsKey(gridId)) { return; }
-			this.tiles[gridId][1] = subType;
+		public void SetTileSubType(ushort gridX, ushort gridY, byte subType = 0) {
+			this.tiles[gridY, gridX][1] = subType;
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void RemoveTileByGrid(ushort gridX, ushort gridY) {
-			uint gridId = this.GetGridID(gridX, gridY);
-			this.RemoveTile(gridId);
-		}
-
-		public void RemoveTile(uint gridId) {
-			this.tiles.Remove(gridId);
+		public void RemoveTile(ushort gridX, ushort gridY) {
+			var x = this.tiles[gridY, gridX];
+			x[0] = 0;
+			x[1] = 0;
+			x[2] = 0;
+			x[3] = 0;
+			x[4] = 0;
+			x[5] = 0;
 		}
 
 		// Clear the Main Layer
-		public void ClearMainLayer(uint gridId) {
-			this.tiles[gridId][0] = 0;
-			this.tiles[gridId][1] = 0;
+		public void ClearMainLayer(ushort gridX, ushort gridY) {
+			var x = this.tiles[gridY, gridX];
+			x[0] = 0;
+			x[1] = 0;
 		}
 
-		public uint GetGridID(ushort gridX, ushort gridY) {
-			return (uint)gridY * this.XCount + gridX;
+		public void ClearBGLayer(ushort gridX, ushort gridY) {
+			var x = this.tiles[gridY, gridX];
+			x[2] = 0;
+			x[3] = 0;
+		}
+
+		public void ClearFGLayer(ushort gridX, ushort gridY) {
+			var x = this.tiles[gridY, gridX];
+			x[4] = 0;
+			x[5] = 0;
 		}
 
 		// Grid Square Positions
-		public static ushort GridX(int posX) { return (ushort)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)); }
-		public static ushort GridY(int posY) { return (ushort)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)); }
+		public static ushort GridX(int posX) { return (ushort)Math.Floor((double)(posX / (ushort)TilemapEnum.TileWidth)); }
+		public static ushort GridY(int posY) { return (ushort)Math.Floor((double)(posY / (ushort)TilemapEnum.TileHeight)); }
 	}
 }

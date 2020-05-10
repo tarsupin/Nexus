@@ -25,18 +25,17 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)CoinsSubType.Gem] = "Adds 10 Gems to the character's collection.";
 		}
 
-		public override void Collect( RoomScene room, Character character, uint gridId ) {
+		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
 			Systems.sounds.coin.Play();
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-			byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-
-			if(tileData[1] == (byte)CoinsSubType.Coin) {
+			if(subType == (byte)CoinsSubType.Coin) {
 				Systems.handler.levelState.AddCoins(character, 1);
-			} else if(tileData[1] == (byte)CoinsSubType.Gem) {
+			} else if(subType == (byte)CoinsSubType.Gem) {
 				Systems.handler.levelState.AddCoins(character, 10);
 			}
 
-			base.Collect(room, character, gridId);
+			base.Collect(room, character, gridX, gridY);
 		}
 
 		private void CreateTextures() {

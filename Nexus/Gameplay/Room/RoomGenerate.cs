@@ -60,7 +60,7 @@ namespace Nexus.Gameplay {
 		}
 
 		private static void AddTileToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
-			room.tilemap.AddTileAtGrid(gridX, gridY, type, subType);
+			room.tilemap.SetTile(gridX, gridY, type, subType);
 		}
 
 		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {

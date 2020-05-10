@@ -37,9 +37,7 @@ namespace Nexus.Objects {
 			if(Systems.timer.IsBeatFrame) {
 
 				// TODO: Track the activations for this Placer.
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				byte subType = tileData[1];
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				// TODO: Use the gridId as part of a dictionary or KVP that activates the Placer Objects.
 

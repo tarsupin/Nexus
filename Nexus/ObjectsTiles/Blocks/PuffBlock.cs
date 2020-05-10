@@ -33,9 +33,7 @@ namespace Nexus.Objects {
 				if(!CollideTile.IsWithinPaddedTile(character, gridX, gridY, 6, 6, 6, 6)) { return false; }
 
 				// Get the SubType
-				uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				byte subType = tileData[1];
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				// Determine Movement Pattern
 				sbyte hor = 0;

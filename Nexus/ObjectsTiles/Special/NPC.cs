@@ -46,9 +46,7 @@ namespace Nexus.Objects {
 				// TODO: Get Message Data. Hover it above the NPC
 				// TODO: Allow cycling through it with Interaction. Maybe a more advanced option later.
 
-				//uint gridId = room.tilemap.GetGridID(gridX, gridY);
-				//byte[] tileData = room.tilemap.GetTileDataAtGridID(gridId);
-				//byte subType = tileData[1];
+				// byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				Character character = (Character)actor;
 

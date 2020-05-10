@@ -52,7 +52,7 @@ namespace Nexus.Objects {
 			}
 
 			// Destroy Leaf Tile
-			room.tilemap.RemoveTileByGrid(gridX, gridY);
+			room.tilemap.RemoveTile(gridX, gridY);
 
 			// Display Particle Effect
 			ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
