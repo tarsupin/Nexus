@@ -24,7 +24,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Perform Collision Detection against a designated Grid Square
-		public static bool RunGridTest(RoomScene room, DynamicGameObject actor, TilemapBool tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool RunGridTest(RoomScene room, DynamicGameObject actor, TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
@@ -102,7 +102,7 @@ namespace Nexus.GameEngine {
 			// If the object is interacting with all four tiles (Top-Left to Bottom-Right).
 			else {
 
-				TilemapBool tilemap = actor.room.tilemap;
+				TilemapLevel tilemap = actor.room.tilemap;
 
 				FInt velX = actor.physics.velocity.X;
 				FInt velY = actor.physics.velocity.Y;

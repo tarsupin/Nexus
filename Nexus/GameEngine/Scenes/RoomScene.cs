@@ -26,7 +26,7 @@ namespace Nexus.GameEngine {
 		public ParticleHandler particles;
 
 		// Level Data
-		public TilemapBool tilemap;
+		public TilemapLevel tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 
 		public RoomFlags flags = new RoomFlags();
@@ -59,7 +59,7 @@ namespace Nexus.GameEngine {
 			ushort xCount, yCount;
 			RoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.rooms[roomID], out xCount, out yCount);
 
-			this.tilemap = new TilemapBool(xCount, yCount);
+			this.tilemap = new TilemapLevel(xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);

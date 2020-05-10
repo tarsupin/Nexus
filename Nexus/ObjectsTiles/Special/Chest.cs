@@ -62,7 +62,7 @@ namespace Nexus.Objects {
 		protected void OpenChest(RoomScene room, uint gridId) {
 
 			// Open the Chest
-			room.tilemap.tiles[gridId][1] = (byte)ChestSubType.Open;
+			room.tilemap.SetTileSubType(gridId, (byte)ChestSubType.Open);
 
 			// Provide the Opened Chest Items
 			// TODO: MUST PROVIDE OPENED CHEST ITEMS

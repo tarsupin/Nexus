@@ -169,6 +169,8 @@
     <Compile Include="GameEngine\Scenes\EditorRoomScene.cs" />
     <Compile Include="GameEngine\Scenes\RoomScene.cs" />
     <Compile Include="GameEngine\Console\Console.cs" />
+    <Compile Include="GameEngine\Tilemaps\TilemapBool.cs" />
+    <Compile Include="GameEngine\Tilemaps\TilemapEditor.cs" />
     <Compile Include="GameEngine\UIComponents\EditorScroller.cs" />
     <Compile Include="GameEngine\UIComponents\ContextMenu.cs" />
     <Compile Include="GameEngine\UIComponents\WheelMenu.cs" />
@@ -194,7 +196,7 @@
     <Compile Include="GameEngine\Collision\CollideSequence.cs" />
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
     <Compile Include="GameEngine\TileGameObject.cs" />
-    <Compile Include="GameEngine\TilemapBool.cs" />
+    <Compile Include="GameEngine\Tilemaps\TilemapLevel.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
     <Compile Include="Gameplay\Editor\EditorRoomGenerate.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />

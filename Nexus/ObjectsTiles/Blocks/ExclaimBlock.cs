@@ -40,7 +40,7 @@ namespace Nexus.Objects {
 			if(dir == DirCardinal.Up && subType != (byte) ExclaimBlockSubType.Inactive) {
 
 				// Swap to an Inactive Block
-				room.tilemap.tiles[gridId][1] = (byte)ExclaimBlockSubType.Inactive;
+				room.tilemap.SetTileSubType(gridId, (byte)ExclaimBlockSubType.Inactive);
 
 				Systems.sounds.shellThud.Play();
 			}

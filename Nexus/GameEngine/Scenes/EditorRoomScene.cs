@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		public readonly EditorScene scene;
 
 		// Editor Data
-		public TilemapBool tilemap;
+		public TilemapLevel tilemap;
 
 		public EditorRoomScene(EditorScene scene, string roomID) : base() {
 
@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 			ushort xCount, yCount;
 			EditorRoomGenerate.DetermineRoomSize(Systems.handler.levelContent.data.rooms[roomID], out xCount, out yCount);
 
-			this.tilemap = new TilemapBool(xCount, yCount);
+			this.tilemap = new TilemapLevel(xCount, yCount);
 
 			// Generate Room Content (Tiles, Objects)
 			EditorRoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
@@ -129,9 +129,9 @@ namespace Nexus.GameEngine {
 
 			// Place the Tile
 			if(layer == LayerEnum.main) {
-				this.tilemap.AddTile(gridId, tileId, subType);
+				this.tilemap.SetTile(gridId, tileId, subType);
 			} else if(layer == LayerEnum.fg) {
-				this.tilemap.AddTile(gridId, 0, 0, tileId, subType);
+				this.tilemap.SetTile(gridId, 0, 0, tileId, subType);
 			} else if(layer == LayerEnum.obj) {
 
 				// TODO: Handle Obj Tiles and Params when Adding Tiles

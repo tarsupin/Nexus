@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class TilemapBool {
+	public class TilemapLevel : TilemapBool {
 
 		// Tile Data: Dictionaries of data that matches to the gridID (gridY*xCount + gridX)
-		public Dictionary<uint, byte[]> tiles;      // ID, SubType, Foreground ID, Foreground SubType
+		private Dictionary<uint, byte[]> tiles;      // ID, SubType, Foreground ID, Foreground SubType
 
 		// Width and Height of the Tilemap:
 		public int Width { get; protected set; }
@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 		public ushort XCount { get; protected set; }
 		public ushort YCount { get; protected set; }
 
-		public TilemapBool(ushort xCount, ushort yCount) {
+		public TilemapLevel(ushort xCount, ushort yCount) {
 
 			// Sizing
 			this.XCount = xCount;
@@ -41,11 +41,11 @@ namespace Nexus.GameEngine {
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void AddTileAtGrid(ushort gridX, ushort gridY, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
 			uint gridId = this.GetGridID(gridX, gridY);
-			this.AddTile(gridId, id, subType, fgId, fgSubType);
+			this.SetTile(gridId, id, subType, fgId, fgSubType);
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void AddTile(uint gridId, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
+		public void SetTile(uint gridId, byte id = 0, byte subType = 0, byte fgId = 0, byte fgSubType = 0) {
 
 			if(!this.tiles.ContainsKey(gridId)) {
 				this.tiles[gridId] = new byte[4] { id, subType, fgId, fgSubType };
@@ -54,6 +54,11 @@ namespace Nexus.GameEngine {
 				if(id > 0) { this.tiles[gridId][0] = id; this.tiles[gridId][1] = subType; }
 				if(fgId > 0) { this.tiles[gridId][2] = fgId; this.tiles[gridId][3] = fgSubType; }
 			}
+		}
+
+		public void SetTileSubType(uint gridId, byte subType = 0) {
+			if(!this.tiles.ContainsKey(gridId)) { return; }
+			this.tiles[gridId][1] = subType;
 		}
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
