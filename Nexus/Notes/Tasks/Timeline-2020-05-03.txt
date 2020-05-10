@@ -65,6 +65,7 @@ May 9th, 2020
 May 10th, 2020
 	- Split TilemapBool into Editor and Level Tilemaps.
 	- Overhauled Tilemap System.
+	- Removed Unnecessary Tilemap Code.
 
 // Next TODO List
 All Utility Belt Objects are added.

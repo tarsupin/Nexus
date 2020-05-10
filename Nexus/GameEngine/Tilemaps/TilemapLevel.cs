@@ -1,10 +1,9 @@
 ﻿using Nexus.Gameplay;
 using System;
-using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class TilemapLevel : TilemapBool {
+	public class TilemapLevel {
 
 		// Tile Array
 		private byte[,][] tiles;      // ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType

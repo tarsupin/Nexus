@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -15,7 +14,10 @@ namespace Nexus.GameEngine {
 		public string roomID;
 
 		// Editor Data
-		public TilemapLevel tilemap;
+		private readonly ushort xCount;
+		private readonly ushort yCount;
+		private readonly int mapWidth;
+		private readonly int mapHeight;
 
 		public EditorRoomScene(EditorScene scene, string roomID) : base() {
 
@@ -26,16 +28,17 @@ namespace Nexus.GameEngine {
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
-			EditorRoomGenerate.DetermineRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
+			EditorDetection.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
-			this.tilemap = new TilemapLevel(xCount, yCount);
-
-			// Generate Room Content (Tiles, Objects)
-			EditorRoomGenerate.GenerateRoom(this, this.levelContent, roomID);
+			// Sizing
+			this.xCount = xCount;
+			this.yCount = yCount;
+			this.mapWidth = xCount * (byte)TilemapEnum.TileWidth;
+			this.mapHeight = yCount * (byte)TilemapEnum.TileHeight;
 		}
 
-		public override int Width { get { return this.tilemap.Width; } }
-		public override int Height { get { return this.tilemap.Height; } }
+		public override int Width { get { return this.mapWidth; } }
+		public override int Height { get { return this.mapHeight; } }
 
 		public override void RunTick() {
 
@@ -71,18 +74,16 @@ namespace Nexus.GameEngine {
 			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
 			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
 
-			if(gridX > this.tilemap.XCount) { gridX = this.tilemap.XCount; } // Must limit to room size (due to the +1)
-			if(gridY > this.tilemap.YCount) { gridY = this.tilemap.YCount; } // Must limit to room size (due to the +1)
+			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size (due to the +1)
+			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size (due to the +1)
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
 			int camX = cam.posX + (isShaking ? cam.GetCameraShakeOffsetX() : 0);
-			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0); ;
-			int camRight = camX + cam.width;
-			int camBottom = camY + cam.height;
+			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
 
 			var tileMap = Systems.mapper.TileDict;
-			var roomData = this.levelContent.data.rooms[this.roomID];
+			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {
@@ -129,9 +130,9 @@ namespace Nexus.GameEngine {
 
 			// Place the Tile
 			if(layer == LayerEnum.main) {
-				this.tilemap.SetTile(gridX, gridY, tileId, subType);
+				//this.tilemap.SetTile(gridX, gridY, tileId, subType);
 			} else if(layer == LayerEnum.fg) {
-				this.tilemap.SetTile(gridX, gridY, 0, 0, tileId, subType);
+				//this.tilemap.SetTile(gridX, gridY, 0, 0, tileId, subType);
 			} else if(layer == LayerEnum.obj) {
 
 				// TODO: Handle Obj Tiles and Params when Adding Tiles
@@ -145,7 +146,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void DeleteTile(byte gridX, byte gridY) {
-			this.tilemap.RemoveTile(gridX, gridY);
+			//this.tilemap.RemoveTile(gridX, gridY);
 		}
 
 		public void TileToolTick(byte gridX, byte gridY) {
@@ -206,19 +207,19 @@ namespace Nexus.GameEngine {
 
 		public void CloneTile(byte gridX, byte gridY) {
 
-			// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
-			byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
+			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
+			//byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
 
-			if(tileData == null) { return; }
+			//if(tileData == null) { return; }
 
-			// Identify the tile, and set it as the current editing tool (if applicable)
-			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
+			//// Identify the tile, and set it as the current editing tool (if applicable)
+			//TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
 
-			if(clonedTool is TileTool == true) {
-				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
-				EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index);
-				clonedTool.SetSubIndex(subIndex);
-			}
+			//if(clonedTool is TileTool == true) {
+			//	byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
+			//	EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index);
+			//	clonedTool.SetSubIndex(subIndex);
+			//}
 		}
 
 		//alterTile( layer: RoomLayer, gridX: number, gridY: number, split: boolean = false, del: boolean = false ) {
