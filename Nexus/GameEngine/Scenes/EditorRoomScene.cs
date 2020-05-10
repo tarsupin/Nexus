@@ -3,6 +3,8 @@ using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -66,13 +68,21 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
+			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
+
+			if(roomData.bg != null) { DrawLayer(roomData.bg); }
+			if(roomData.main != null) { DrawLayer(roomData.main); }
+			if(roomData.fg != null) { DrawLayer(roomData.fg); }
+		}
+
+		private void DrawLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
 
-			ushort startX = (ushort) Math.Max((ushort)0, (ushort)cam.GridX);
-			ushort startY = (ushort) Math.Max((ushort)0, (ushort)cam.GridY);
+			ushort startX = (ushort)Math.Max((ushort)0, (ushort)cam.GridX);
+			ushort startY = (ushort)Math.Max((ushort)0, (ushort)cam.GridY);
 
-			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
-			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
+			ushort gridX = (ushort)(startX + 29 + 1); // 29 is view size. +1 is to render the edge.
+			ushort gridY = (ushort)(startY + 18 + 1); // 18 is view size. +1 is to render the edge.
 
 			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size (due to the +1)
 			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size (due to the +1)
@@ -83,15 +93,14 @@ namespace Nexus.GameEngine {
 			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
 
 			var tileMap = Systems.mapper.TileDict;
-			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
 			// Loop through the tilemap data:
 			for(ushort y = startY; y <= gridY; y++) {
-				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
+				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
 
 				// Make sure this Y-line exists, or skip further review:
-				if(!roomData.main.ContainsKey(y.ToString())) { continue; }
-				var yData = roomData.main[y.ToString()];
+				if(!layerData.ContainsKey(y.ToString())) { continue; }
+				var yData = layerData[y.ToString()];
 
 				for(ushort x = startX; x <= gridX; x++) {
 
