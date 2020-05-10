@@ -5,6 +5,7 @@ using Nexus.Gameplay;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
@@ -14,6 +15,8 @@ namespace Nexus.GameEngine {
 		public readonly EditorScene scene;
 		public LevelContent levelContent;
 		public string roomID;
+
+		Stopwatch stopwatch = new Stopwatch();
 
 		// Editor Data
 		private readonly ushort xCount;
@@ -70,9 +73,15 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
+			//this.stopwatch.Start();
+
 			if(roomData.bg != null) { DrawLayer(roomData.bg); }
 			if(roomData.main != null) { DrawLayer(roomData.main); }
 			if(roomData.fg != null) { DrawLayer(roomData.fg); }
+
+			// Debugging
+			//this.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 
 		private void DrawLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
@@ -81,11 +90,11 @@ namespace Nexus.GameEngine {
 			ushort startX = (ushort)Math.Max((ushort)0, (ushort)cam.GridX);
 			ushort startY = (ushort)Math.Max((ushort)0, (ushort)cam.GridY);
 
-			ushort gridX = (ushort)(startX + 29 + 1); // 29 is view size. +1 is to render the edge.
-			ushort gridY = (ushort)(startY + 18 + 1); // 18 is view size. +1 is to render the edge.
+			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size (due to the +1)
-			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size (due to the +1)
+			if(gridX > this.xCount) { gridX = (ushort) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = (ushort) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -95,14 +104,14 @@ namespace Nexus.GameEngine {
 			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(ushort y = startY; y <= gridY; y++) {
+			for(ushort y = gridY; y --> startY; ) {
 				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
 
 				// Make sure this Y-line exists, or skip further review:
 				if(!layerData.ContainsKey(y.ToString())) { continue; }
 				var yData = layerData[y.ToString()];
 
-				for(ushort x = startX; x <= gridX; x++) {
+				for(ushort x = gridX; x --> startX; ) {
 
 					// Verify Tile Data exists at this Grid Square:
 					if(!yData.ContainsKey(x.ToString())) { continue; }

@@ -68,6 +68,7 @@ May 10th, 2020
 	- Removed Unnecessary Tilemap Code.
 	- Level Editor now uses LevelContent class.
 	- Editor Room Draws All Tile Layers.
+	- Editor Draw Order Added.
 
 
 // Next TODO List
@@ -90,4 +91,4 @@ Console for Editor. Allows scripting, etc.
 Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
-Reverse draw order so that layers look correct.
+Reverse draw order in level scene so that layers look correct.
