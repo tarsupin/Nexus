@@ -135,12 +135,19 @@ namespace Nexus.GameEngine {
 		//}
 
 		public void SwitchRoom(byte newRoomId) {
-			this.roomNum = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
+			newRoomId = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
 
 			// If there is no data for the room, create an empty object for it.
-			if(Systems.handler.levelContent.data.rooms[this.roomNum.ToString()] == null) {
-				Systems.handler.levelContent.data.rooms.Add(this.roomNum.ToString(), new RoomFormat());
+			if(!Systems.handler.levelContent.data.rooms.ContainsKey(newRoomId.ToString())) {
+				Systems.handler.levelContent.data.rooms.Add(newRoomId.ToString(), new RoomFormat());
 			}
+
+			// We must generate the room scene as well:
+			if(!this.rooms.ContainsKey(newRoomId)) {
+				this.rooms[newRoomId] = new EditorRoomScene(this, newRoomId.ToString());
+			}
+
+			this.SetRoom(newRoomId);
 
 			// TODO: Update the editor camera's position:
 			//// If there is no saved camera position, set one based on character's position for that room (if available), or default it.

@@ -13,6 +13,7 @@ namespace Nexus.Gameplay {
 			// NOTE: If room properties are NULL, the LevelFormat probably broke and it needs to be updated (or level data was invalid structure).
 			RoomFormat roomData = levelContent.data.rooms[roomId];
 
+			if(roomData.bg != null) { EditorRoomGenerate.GenerateLayer(room, roomData.bg); }
 			if(roomData.main != null) { EditorRoomGenerate.GenerateLayer(room, roomData.main); }
 			//if(roomData.obj != null) { EditorRoomGenerate.GenerateLayer(room, roomData.obj); }
 			if(roomData.fg != null) { EditorRoomGenerate.GenerateLayer(room, roomData.fg, true); }
@@ -55,6 +56,7 @@ namespace Nexus.Gameplay {
 			yCount = 16;
 
 			// Scan the full level to determine it's size:
+			if(roomData.bg != null) { EditorRoomGenerate.DetermineLayerSize(roomData.bg, ref xCount, ref yCount); }
 			if(roomData.main != null) { EditorRoomGenerate.DetermineLayerSize(roomData.main, ref xCount, ref yCount); }
 			if(roomData.obj != null) { EditorRoomGenerate.DetermineLayerSize(roomData.obj, ref xCount, ref yCount); }
 			if(roomData.fg != null) { EditorRoomGenerate.DetermineLayerSize(roomData.fg, ref xCount, ref yCount); }

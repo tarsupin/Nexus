@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonHome : FuncButton {
@@ -11,7 +13,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Home");
+			EditorScene scene = (EditorScene)Systems.scene;
+			scene.SwitchRoom(0);
 		}
 	}
 }

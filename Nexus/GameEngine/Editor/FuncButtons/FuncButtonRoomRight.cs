@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonRoomRight : FuncButton {
@@ -11,7 +13,10 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Right Room");
+			EditorScene scene = (EditorScene)Systems.scene;
+			if(scene.roomNum < 9) {
+				scene.SwitchRoom((byte)(scene.roomNum + 1));
+			}
 		}
 	}
 }
