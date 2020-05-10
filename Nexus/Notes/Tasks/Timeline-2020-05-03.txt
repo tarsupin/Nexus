@@ -59,16 +59,15 @@ May 9th, 2020
 	- Added Function Tools Placeholders, Helper Text.
 	- Added MouseOver detection to UIComponents.
 	- Improved Mouse-Down Detection.
+	- Switch Between Editor Rooms.
 
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.
 	- Play (important for testing)
 	- Save
-	- Room Switch
 	- Room Swap
 	- Clone
-	- Home (Room Switch)
 	- Delete
 Add Param Tool
 Add Param Behaviors

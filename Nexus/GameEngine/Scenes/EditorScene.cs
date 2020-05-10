@@ -110,32 +110,7 @@ namespace Nexus.GameEngine {
 			Console.Draw();
 		}
 
-		// TODO: Rename to SwapRoomOrder
-		//// Swaps this room to the right (switches with next room)
-		//swapRoom(): void {
-		//	var curRoomId = this.game.level.state.roomId;
-
-		//	// Cannot swap this room if the room is unavailable.
-		//	if(curRoomId > 9) { return; }
-
-		//	// If there is no data for the room, create an empty object for it.
-		//	if(!this.level.levelData.rooms[curRoomId + 1]) {
-		//		this.level.levelData.rooms[curRoomId + 1] = {} as RoomData;
-		//	}
-
-		//	// Swap Rooms Accordingly
-		//	var tempRoom = this.level.levelData.rooms[curRoomId + 1];
-		//	this.level.levelData.rooms[curRoomId + 1] = this.level.levelData.rooms[curRoomId];
-		//	this.level.levelData.rooms[curRoomId] = tempRoom;
-
-		//	this.switchRoom( curRoomId + 1 );
-
-		//	// Update Camera Memory in Editor
-		//	this.editor.swapCameraMemoryRooms( curRoomId, curRoomId + 1 );
-		//}
-
-		public void SwitchRoom(byte newRoomId) {
-			newRoomId = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
+		private void PrepareEmptyRoom(byte newRoomId) {
 
 			// If there is no data for the room, create an empty object for it.
 			if(!Systems.handler.levelContent.data.rooms.ContainsKey(newRoomId.ToString())) {
@@ -146,7 +121,37 @@ namespace Nexus.GameEngine {
 			if(!this.rooms.ContainsKey(newRoomId)) {
 				this.rooms[newRoomId] = new EditorRoomScene(this, newRoomId.ToString());
 			}
+		}
 
+		// Swaps this room to the right (switches with next room)
+		public void SwapRoomOrder() {
+
+			// Cannot swap this room if the room is at the far end.
+			if(this.roomNum > 8) { return; }
+
+			byte newRoomId = (byte) (this.roomNum + 1);
+
+			this.PrepareEmptyRoom(newRoomId);
+
+			// Swap Rooms Accordingly
+			var tempRoomData = Systems.handler.levelContent.data.rooms[newRoomId.ToString()];
+			Systems.handler.levelContent.data.rooms[newRoomId.ToString()] = Systems.handler.levelContent.data.rooms[this.roomNum.ToString()];
+			Systems.handler.levelContent.data.rooms[this.roomNum.ToString()] = tempRoomData;
+
+			var tempRoom = this.rooms[this.roomNum];
+			this.rooms[this.roomNum] = this.rooms[newRoomId];
+			this.rooms[newRoomId] = tempRoom;
+
+			this.SwitchRoom(newRoomId);
+
+			// Update Camera Memory in Editor
+			//this.editor.swapCameraMemoryRooms(this.roomNum, newRoomId);
+		}
+
+		public void SwitchRoom(byte newRoomId) {
+			newRoomId = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
+
+			this.PrepareEmptyRoom(newRoomId);
 			this.SetRoom(newRoomId);
 
 			// TODO: Update the editor camera's position:

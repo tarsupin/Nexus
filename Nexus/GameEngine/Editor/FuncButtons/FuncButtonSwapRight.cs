@@ -1,4 +1,5 @@
-﻿
+﻿using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonSwapRight : FuncButton {
@@ -11,7 +12,10 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Swap Right");
+			EditorScene scene = (EditorScene)Systems.scene;
+			if(scene.roomNum < 8) {
+				scene.SwapRoomOrder();
+			}
 		}
 	}
 }
