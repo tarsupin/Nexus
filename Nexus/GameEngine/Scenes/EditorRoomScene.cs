@@ -112,43 +112,6 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void PlaceTile( LayerEnum layer, byte gridX, byte gridY, byte tileId, byte subType, JObject paramList = null) {
-
-			// Check Tiles with special requirements (such as being restricted to one):
-			//if(type == ObjectEnum.Character) {
-			//	let tileLoc = Tile.scanLayerForTile(roomData, "mainLayer", "Character/Ryu");
-
-			//	// Delete the existing version:
-			//	if(tileLoc) { this.deleteTileLayer(roomData, "mainLayer", tileLoc.x, tileLoc.y); }
-
-			//	// Update the character's starting point:
-			//	roomData.charStart = {
-			//	x: gridX * this.tilemap.tileWidth,
-			//		y: gridY * this.tilemap.tileHeight
-			//	};
-			//}
-
-			// Place the Tile
-			if(layer == LayerEnum.main) {
-				//this.tilemap.SetTile(gridX, gridY, tileId, subType);
-			} else if(layer == LayerEnum.fg) {
-				//this.tilemap.SetTile(gridX, gridY, 0, 0, tileId, subType);
-			} else if(layer == LayerEnum.obj) {
-
-				// TODO: Handle Obj Tiles and Params when Adding Tiles
-				//if(params && typeof(params) === "object") {
-				//	for(let p in params ) {
-				//		if(p === "id") { continue; }
-				//		yData[gridX][p] = params[p];
-				//	}
-				//}
-			}
-		}
-
-		public void DeleteTile(byte gridX, byte gridY) {
-			//this.tilemap.RemoveTile(gridX, gridY);
-		}
-
 		public void TileToolTick(byte gridX, byte gridY) {
 			
 			// Left Mouse Button (Overwrite Current Tile)
@@ -166,7 +129,7 @@ namespace Nexus.GameEngine {
 				LayerEnum layer = LayerEnum.main;		// TODO: Change this. Needs to be based on the actual tile or object.
 
 				// Place Tile
-				this.PlaceTile(layer, gridX, gridY, ph.tileId, ph.subType, null);
+				this.levelContent.SetTile(this.roomID, layer, gridX, gridY, ph.tileId, ph.subType, null);
 
 				// Auto-Tile if shift is being held (and tile can auto-tile).
 				bool autoTileRunning = false;
@@ -201,25 +164,25 @@ namespace Nexus.GameEngine {
 
 			// A right click will clone the current tile.
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				this.CloneTile(this.roomID, Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 
-		public void CloneTile(byte gridX, byte gridY) {
+		public void CloneTile(string roomID, byte gridX, byte gridY) {
 
 			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
-			//byte[] tileData = this.tilemap.GetTileDataAtGrid(gridX, gridY);
+			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[roomID].main, gridX, gridY);
 
-			//if(tileData == null) { return; }
+			if(tileData == null) { return; }
 
-			//// Identify the tile, and set it as the current editing tool (if applicable)
-			//TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
+			// Identify the tile, and set it as the current editing tool (if applicable)
+			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
 
-			//if(clonedTool is TileTool == true) {
-			//	byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
-			//	EditorTools.SetTileTool(clonedTool, (byte) clonedTool.index);
-			//	clonedTool.SetSubIndex(subIndex);
-			//}
+			if(clonedTool is TileTool == true) {
+				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
+				EditorTools.SetTileTool(clonedTool, (byte)clonedTool.index);
+				clonedTool.SetSubIndex(subIndex);
+			}
 		}
 
 		//alterTile( layer: RoomLayer, gridX: number, gridY: number, split: boolean = false, del: boolean = false ) {

@@ -66,6 +66,7 @@ May 10th, 2020
 	- Split TilemapBool into Editor and Level Tilemaps.
 	- Overhauled Tilemap System.
 	- Removed Unnecessary Tilemap Code.
+	- Level Editor now uses LevelContent class.
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -87,3 +88,4 @@ Console for Editor. Allows scripting, etc.
 Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
+Reverse draw order so that layers look correct.
