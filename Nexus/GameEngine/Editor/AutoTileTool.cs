@@ -8,7 +8,7 @@ namespace Nexus.Gameplay {
 		None,					// Has no auto-group, cannot be placed with the auto-tiler.
 		Horizontal,				// Will use horizontals (S, H1, H2, H3)
 		Vertical,				// Will use verticals (S, V1, V2, V3)
-		Ground,					// Will use ground sequence (horizontal, verticals, and full)
+		Full,					// Will use ground sequence (horizontal, verticals, and full)
 		Ledge,                  // Unique Ledge Behavior
 		Static,                 // Will create the same block across the full selection.
 		StaticCross,            // Will use either horizontal or vertical (whichever is dragged).
@@ -56,22 +56,71 @@ namespace Nexus.Gameplay {
 
 		public void PlaceAutoTiles(EditorRoomScene scene) {
 
+			// Skip this method if the auto-tile isn't in operation.
+			if(this.startFrame == 0) { return; }
+
 			ushort left = this.LeftTile;
 			ushort right = this.RightTile;
 			ushort top = this.TopTile;
 			ushort bottom = this.BottomTile;
-			
-			// Loop through all grid squres in Auto-Tile:
-			for(ushort x = left; x <= right; x++) {
-				for(ushort y = top; y<= bottom; y++) {
 
-					// Get the SubType assigned for that auto-tile position, then place it into the Editor Room.
-					byte subType = this.GetSubTypeAtPosition(x, y);
-					scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, x, y, this.tileId, subType, null);
+			if(this.autoGroup == AutoGroup.Full || this.autoGroup == AutoGroup.Static) {
+				this.PlaceAutoTilesFull(scene, left, right, top, bottom);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.Horizontal) {
+				this.PlaceAutoTilesHorizontal(scene, left, right, this.yStart);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.Vertical) {
+				this.PlaceAutoTilesVertical(scene, top, bottom, this.xStart);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.StaticCross) {
+
+				// If Horizontal is greater than or equal to Vertical distance, draw horizontal:
+				if(Math.Abs(right - left) > Math.Abs(bottom - top)) {
+					this.PlaceAutoTilesHorizontal(scene, left, right, this.yStart);
+					return;
+				}
+
+				// Otherwise, draw vertical:
+				else {
+					this.PlaceAutoTilesVertical(scene, top, bottom, this.xStart);
+					return;
 				}
 			}
 
 			this.ClearAutoTiles();
+		}
+
+		// Places a full X+Y grid.
+		private void PlaceAutoTilesFull(EditorRoomScene scene, ushort left, ushort right, ushort top, ushort bottom) {
+			for(ushort x = left; x <= right; x++) {
+				for(ushort y = top; y <= bottom; y++) {
+					byte subType = this.GetSubTypeAtPosition(x, y);
+					scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, x, y, this.tileId, subType, null);
+				}
+			}
+		}
+
+		// Restricts the dimensions of the AutoTile placement to the horizontal axis.
+		private void PlaceAutoTilesHorizontal(EditorRoomScene scene, ushort left, ushort right, ushort yLevel) {
+			for(ushort x = left; x <= right; x++) {
+				byte subType = this.GetSubTypeAtPosition(x, yLevel);
+				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, x, yLevel, this.tileId, subType, null);
+			}
+		}
+
+		// Restricts the dimensions of the AutoTile placement to the vertical axis.
+		private void PlaceAutoTilesVertical(EditorRoomScene scene, ushort top, ushort bottom, ushort xLevel) {
+			for(ushort y = top; y <= bottom; y++) {
+				byte subType = this.GetSubTypeAtPosition(xLevel, y);
+				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, xLevel, y, this.tileId, subType, null);
+			}
 		}
 
 		public void DrawAutoTiles() {
@@ -83,8 +132,40 @@ namespace Nexus.Gameplay {
 			ushort right = this.RightTile;
 			ushort top = this.TopTile;
 			ushort bottom = this.BottomTile;
-			
-			// Loop through all grid squres in Auto-Tile:
+
+			if(this.autoGroup == AutoGroup.Full || this.autoGroup == AutoGroup.Static) {
+				this.DrawAutoTilesFull(left, right, top, bottom);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.Horizontal) {
+				this.DrawAutoTilesHorizontal(left, right, this.yStart);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.Vertical) {
+				this.DrawAutoTilesVertical(top, bottom, this.xStart);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.StaticCross) {
+
+				// If Horizontal is greater than or equal to Vertical distance, draw horizontal:
+				if(Math.Abs(right - left) > Math.Abs(bottom - top)) {
+					this.DrawAutoTilesHorizontal(left, right, this.yStart);
+					return;
+				}
+				
+				// Otherwise, draw vertical:
+				else {
+					this.DrawAutoTilesVertical(top, bottom, this.xStart);
+					return;
+				}
+			}
+		}
+
+		// Places a full X+Y grid.
+		private void DrawAutoTilesFull(ushort left, ushort right, ushort top, ushort bottom) {
 			for(ushort x = left; x <= right; x++) {
 				for(ushort y = top; y<= bottom; y++) {
 
@@ -96,10 +177,28 @@ namespace Nexus.Gameplay {
 			}
 		}
 
+		// Restricts the dimensions of the AutoTile placement to the horizontal axis.
+		private void DrawAutoTilesHorizontal(ushort left, ushort right, ushort yLevel) {
+			for(ushort x = left; x <= right; x++) {
+				byte subType = this.GetSubTypeAtPosition(x, yLevel);
+				TileGameObject tgo = Systems.mapper.TileDict[this.tileId];
+				tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yLevel * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			}
+		}
+
+		// Restricts the dimensions of the AutoTile placement to the vertical axis.
+		private void DrawAutoTilesVertical(ushort top, ushort bottom, ushort xLevel) {
+			for(ushort y = top; y <= bottom; y++) {
+				byte subType = this.GetSubTypeAtPosition(xLevel, y);
+				TileGameObject tgo = Systems.mapper.TileDict[this.tileId];
+				tgo.Draw(null, subType, xLevel * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			}
+		}
+
 		private byte GetSubTypeAtPosition( ushort gridX, ushort gridY ) {
 
 			switch(this.autoGroup) {
-				case AutoGroup.Ground: return this.GetGroundSubType(gridX, gridY);
+				case AutoGroup.Full: return this.GetGroundSubType(gridX, gridY);
 				case AutoGroup.Horizontal: return this.GetHorizontalSubType(gridX, gridY);
 			}
 
@@ -132,13 +231,13 @@ namespace Nexus.Gameplay {
 			}
 
 			if(gridX == this.RightTile) {
-				if(gridY == this.TopTile) { return (byte)GroundSubTypes.FUR; }
-				if(gridY == this.BottomTile) { return (byte)GroundSubTypes.FBR; }
-				return (byte)GroundSubTypes.FR;
+				if(gridY == this.TopTile) { return (byte) GroundSubTypes.FUR; }
+				if(gridY == this.BottomTile) { return (byte) GroundSubTypes.FBR; }
+				return (byte) GroundSubTypes.FR;
 			}
 
-			if(gridY == this.TopTile) { return (byte)GroundSubTypes.FU; }
-			if(gridY == this.BottomTile) { return (byte)GroundSubTypes.FB; }
+			if(gridY == this.TopTile) { return (byte) GroundSubTypes.FU; }
+			if(gridY == this.BottomTile) { return (byte) GroundSubTypes.FB; }
 			return (byte) GroundSubTypes.FC;
 		}
 
@@ -160,21 +259,14 @@ namespace Nexus.Gameplay {
 				case (byte) TileEnum.GroundSlime:
 				case (byte) TileEnum.GroundSnow:
 				case (byte) TileEnum.GroundStone:
-					return AutoGroup.Ground;
+					return AutoGroup.Full;
 
 				// Horizontal Types
 				case (byte) TileEnum.Log:
 				case (byte) TileEnum.Wall:
 				case (byte) TileEnum.PlatformFixed:
 				case (byte) TileEnum.PlatformItem:
-				case (byte) TileEnum.TogglePlatBlue:
-				case (byte) TileEnum.TogglePlatGreen:
-				case (byte) TileEnum.TogglePlatRed:
-				case (byte) TileEnum.TogglePlatYellow:
 					return AutoGroup.Horizontal;
-
-				// Vertical Types
-					//return AutoGroup.Vertical;
 
 				// Static Cross Types
 				// Only draws the original tile, but allows one direction of movement.
@@ -183,6 +275,10 @@ namespace Nexus.Gameplay {
 				case (byte) TileEnum.ChomperFire:
 				case (byte) TileEnum.ChomperGrass:
 				case (byte) TileEnum.ChomperMetal:
+				case (byte) TileEnum.TogglePlatBlue:
+				case (byte) TileEnum.TogglePlatGreen:
+				case (byte) TileEnum.TogglePlatRed:
+				case (byte) TileEnum.TogglePlatYellow:
 					return AutoGroup.StaticCross;
 
 				// Ledges
