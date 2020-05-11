@@ -196,7 +196,6 @@
     <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\Tilemaps\TilemapLevel.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
-    <Compile Include="Gameplay\Editor\EditorDetection.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
@@ -574,6 +573,7 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Gameplay\Editor\" />
     <Folder Include="ObjectComponents\Attachments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

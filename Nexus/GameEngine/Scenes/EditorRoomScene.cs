@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
-			EditorDetection.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
+			RoomGenerate.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
 			// Sizing
 			this.xCount = xCount;

@@ -112,7 +112,7 @@ namespace Nexus.Gameplay {
 
 		//}
 
-		public static void DetermineRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {
+		public static void DetectRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {
 
 			// The Room may store its size in the data:
 			if(roomData.Width != 0 && roomData.Height != 0) {
@@ -126,12 +126,13 @@ namespace Nexus.Gameplay {
 			yCount = 16;
 
 			// Scan the full level to determine it's size:
-			if(roomData.main != null) { RoomGenerate.DetermineLayerSize(roomData.main, ref xCount, ref yCount); }
-			if(roomData.obj != null) { RoomGenerate.DetermineLayerSize(roomData.obj, ref xCount, ref yCount); }
-			if(roomData.fg != null) { RoomGenerate.DetermineLayerSize(roomData.fg, ref xCount, ref yCount); }
+			if(roomData.bg != null) { RoomGenerate.DetectLayerSize(roomData.bg, ref xCount, ref yCount); }
+			if(roomData.main != null) { RoomGenerate.DetectLayerSize(roomData.main, ref xCount, ref yCount); }
+			if(roomData.obj != null) { RoomGenerate.DetectLayerSize(roomData.obj, ref xCount, ref yCount); }
+			if(roomData.fg != null) { RoomGenerate.DetectLayerSize(roomData.fg, ref xCount, ref yCount); }
 		}
 
-		private static void DetermineLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort xCount, ref ushort yCount) {
+		private static void DetectLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort xCount, ref ushort yCount) {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
