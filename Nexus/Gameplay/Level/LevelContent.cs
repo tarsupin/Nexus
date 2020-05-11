@@ -119,32 +119,18 @@ namespace Nexus.Gameplay {
 			return new byte[] { byte.Parse(tileList[0].ToString()), byte.Parse(tileList[1].ToString()) };
 		}
 
-		public void SetTile(string roomID, LayerEnum layer, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
 
-			// Check Tiles with special requirements (such as being restricted to one):
-			//if(type == ObjectEnum.Character) {
-			//	let tileLoc = Tile.scanLayerForTile(roomData, "mainLayer", "Character/Ryu");
+			string xStr = gridX.ToString();
+			string yStr = gridY.ToString();
 
-			//	// Delete the existing version:
-			//	if(tileLoc) { this.deleteTileLayer(roomData, "mainLayer", tileLoc.x, tileLoc.y); }
-
-			//	// Update the character's starting point:
-			//	roomData.charStart = {
-			//	x: gridX * this.tilemap.tileWidth,
-			//		y: gridY * this.tilemap.tileHeight
-			//	};
-			//}
+			// Make sure the dictionaries exist:
+			if(!layerData.ContainsKey(yStr)) {
+				layerData[yStr] = new Dictionary<string, ArrayList>();
+			}
 
 			// Place the Tile
-			if(layer == LayerEnum.main) {
-				this.data.rooms[roomID].main[gridY.ToString()][gridX.ToString()] = new ArrayList() { tileId, subType };
-			} else if(layer == LayerEnum.bg) {
-				this.data.rooms[roomID].bg[gridY.ToString()][gridX.ToString()] = new ArrayList() { tileId, subType };
-			} else if(layer == LayerEnum.fg) {
-				this.data.rooms[roomID].fg[gridY.ToString()][gridX.ToString()] = new ArrayList() { tileId, subType };
-			} else if(layer == LayerEnum.obj) {
-				this.data.rooms[roomID].obj[gridY.ToString()][gridX.ToString()] = new ArrayList() { tileId, subType };
-			}
+			layerData[yStr][xStr] = new ArrayList() { tileId, subType };
 
 			// TODO: Handle Params when Adding Tiles and Objects
 			//if(params && typeof(params) === "object") {

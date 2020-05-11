@@ -107,9 +107,11 @@ namespace Nexus.GameEngine {
 			for(ushort y = gridY; y --> startY; ) {
 				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
 
+				string yStr = y.ToString();
+
 				// Make sure this Y-line exists, or skip further review:
-				if(!layerData.ContainsKey(y.ToString())) { continue; }
-				var yData = layerData[y.ToString()];
+				if(!layerData.ContainsKey(yStr)) { continue; }
+				var yData = layerData[yStr];
 
 				for(ushort x = gridX; x --> startX; ) {
 
@@ -135,6 +137,10 @@ namespace Nexus.GameEngine {
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
+				// Make sure placement is in valid location:
+				if(gridY < 0 || gridY > this.yCount) { return; }
+				if(gridX < 0 || gridX > this.xCount) { return; }
+
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
 
@@ -144,10 +150,9 @@ namespace Nexus.GameEngine {
 				if(tool == null) { return; }
 
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
-				LayerEnum layer = LayerEnum.main;		// TODO: Change this. Needs to be based on the actual tile or object.
 
 				// Place Tile
-				this.levelContent.SetTile(this.roomID, layer, gridX, gridY, ph.tileId, ph.subType, null);
+				this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, gridX, gridY, ph.tileId, ph.subType, null);
 
 				// Auto-Tile if shift is being held (and tile can auto-tile).
 				bool autoTileRunning = false;
@@ -184,6 +189,37 @@ namespace Nexus.GameEngine {
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
 				this.CloneTile(this.roomID, Cursor.MouseGridX, Cursor.MouseGridY);
 			}
+		}
+
+		public void DeleteTile(string roomID, byte gridX, byte gridY) {
+
+			// Make sure deletion is in valid location:
+			if(gridY < 0 || gridY > this.yCount) { return; }
+			if(gridX < 0 || gridX > this.xCount) { return; }
+
+			// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
+			if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
+
+			this.levelContent.DeleteTile(roomID, gridX, gridY);
+		}
+
+		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+
+			// Check Tiles with special requirements (such as being restricted to one):
+			//if(type == ObjectEnum.Character) {
+			//	let tileLoc = Tile.scanLayerForTile(roomData, "mainLayer", "Character/Ryu");
+
+			//	// Delete the existing version:
+			//	if(tileLoc) { this.deleteTileLayer(roomData, "mainLayer", tileLoc.x, tileLoc.y); }
+
+			//	// Update the character's starting point:
+			//	roomData.charStart = {
+			//	x: gridX * this.tilemap.tileWidth,
+			//		y: gridY * this.tilemap.tileHeight
+			//	};
+			//}
+
+			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
 		}
 
 		public void CloneTile(string roomID, byte gridX, byte gridY) {

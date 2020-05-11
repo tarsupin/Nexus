@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonPlay : FuncButton {
@@ -11,6 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
+			Systems.handler.levelContent.SaveLevel();
 			System.Console.WriteLine("Activated Function Button: Play");
 		}
 	}

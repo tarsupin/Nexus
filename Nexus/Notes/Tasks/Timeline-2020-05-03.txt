@@ -69,13 +69,12 @@ May 10th, 2020
 	- Level Editor now uses LevelContent class.
 	- Editor Room Draws All Tile Layers.
 	- Editor Draw Order Added.
-
+	- Editor Save Button Enabled.
 
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.
 	- Play (important for testing)
-	- Save
 	- Clone
 	- Delete
 Add Param Tool
