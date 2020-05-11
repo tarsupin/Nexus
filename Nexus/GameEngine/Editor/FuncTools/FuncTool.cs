@@ -24,8 +24,8 @@ namespace Nexus.GameEngine {
 		public static Dictionary<Keys, byte> funcToolKey = new Dictionary<Keys, byte>() {
 			{ Keys.X, (byte) FuncToolEnum.Eraser },
 			{ Keys.C, (byte) FuncToolEnum.Eyedrop },
-			{ Keys.M, (byte) FuncToolEnum.Move },
-			{ Keys.T, (byte) FuncToolEnum.Wand },
+			{ Keys.V, (byte) FuncToolEnum.Move },
+			{ Keys.E, (byte) FuncToolEnum.Wand },
 		};
 
 		public string spriteName;
