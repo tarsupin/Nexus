@@ -77,14 +77,13 @@ May 11th, 2020
 	- Eraser and Eyedrop Function Tools.
 	- Temporary Tools Working, Helper Texxt Added.
 	- AutoTile Tool Created.
+	- Fixed AutoTiling Bugs + Level Convert Structure.
 
 
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.
 	- Play (important for testing)
-	- Clone
-	- Delete
 Add Param Tool
 Add Param Behaviors
 Add Param System for Tiles to use Params.

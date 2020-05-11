@@ -9,83 +9,75 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Platforms;
 
-			// TODO LOW PRIORITY: Add this whole section
-
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixed,
-					subType = (byte) GroundSubTypes.S,
+					subType = (byte) HorizontalSubTypes.S,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixed,
-					subType = (byte) GroundSubTypes.H1,
+					subType = (byte) HorizontalSubTypes.H1,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixed,
-					subType = (byte) GroundSubTypes.H2,
+					subType = (byte) HorizontalSubTypes.H2,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixed,
-					subType = (byte) GroundSubTypes.H3,
+					subType = (byte) HorizontalSubTypes.H3,
 				},
 			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatFall,
-			//		subType = (byte) Something.S,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatDelay,
-			//		subType = (byte) Something.S,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatDip,
-			//		subType = (byte) Something.S,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatMove,
-			//		subType = (byte) Something.S,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatMove,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.Right,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatMove,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.FlipVert,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatMove,
-			//		subType = (byte) Something.S,
-			//		face: DirRotate.Left,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
-			//		subType = (byte) Something.Top,
+			//		subType = (byte) HorizontalSubTypes.S,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
-			//		subType = (byte) Something.Top,
-			//		face: DirRotate.Right,
+			//		subType = (byte) HorizontalSubTypes.H1,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
-			//		subType = (byte) Something.Top,
-			//		face: DirRotate.FlipVert,
+			//		subType = (byte) HorizontalSubTypes.H2,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
-			//		subType = (byte) Something.Top,
-			//		face: DirRotate.Left,
+			//		subType = (byte) HorizontalSubTypes.H3,
 			//	},
 			//});
 

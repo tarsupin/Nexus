@@ -104,7 +104,7 @@ namespace Nexus.Scripts {
 		}
 
 		// Overwrites the Tile JSON (per the currently indexed [static] grid coordinate trackers) with the new data:
-		protected void OverwriteTileData( ArrayList tileJson) {
+		protected void OverwriteTileData( ArrayList tileJson ) {
 
 			ushort index = ushort.Parse(tileJson[0].ToString());
 			ushort subIndex = ushort.Parse(tileJson[1].ToString());

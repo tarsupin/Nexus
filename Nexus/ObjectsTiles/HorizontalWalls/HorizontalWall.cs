@@ -34,10 +34,10 @@ namespace Nexus.Objects {
 
 		protected void BuildTextures(string baseName) {
 			this.Texture = new string[4];
-			this.Texture[(byte)HorizontalSubTypes.S] = baseName + "S";
-			this.Texture[(byte)HorizontalSubTypes.H1] = baseName + "H1";
-			this.Texture[(byte)HorizontalSubTypes.H2] = baseName + "H2";
-			this.Texture[(byte)HorizontalSubTypes.H3] = baseName + "H3";
+			this.Texture[(byte) HorizontalSubTypes.S] = baseName + "S";
+			this.Texture[(byte) HorizontalSubTypes.H1] = baseName + "H1";
+			this.Texture[(byte) HorizontalSubTypes.H2] = baseName + "H2";
+			this.Texture[(byte) HorizontalSubTypes.H3] = baseName + "H3";
 		}
 	}
 }

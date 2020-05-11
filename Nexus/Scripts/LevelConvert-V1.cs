@@ -27,15 +27,45 @@ namespace Nexus.Scripts {
 			System.Console.WriteLine(tileJson[0] + ", " + tileJson[1]);
 			//System.Console.WriteLine(tileJson[0] + ", " + tileJson[1] + ", " + tileJson[2]);
 			//this.ConvertGrassToMud(tileJson);
+			this.ConvertGroundSubTypesToHorizontal(tileJson);
 		}
 
 		protected void ConvertGrassToMud(ArrayList tileJson) {
 
 			// If the tile is Grass
-			if(Byte.Parse(tileJson[0].ToString()) == 1) {
+			if(Byte.Parse(tileJson[0].ToString()) == (byte) TileEnum.GroundGrass) {
 
 				// Convert the tile to Mud
-				tileJson[0] = (byte)TileEnum.GroundMud;
+				tileJson[0] = (byte) TileEnum.GroundMud;
+
+				this.OverwriteTileData(tileJson);
+			}
+		}
+		
+		protected void ConvertGroundSubTypesToHorizontal(ArrayList tileJson) {
+
+			byte tileId = Byte.Parse(tileJson[0].ToString());
+			byte subType = Byte.Parse(tileJson[1].ToString());
+
+			if(
+				tileId == (byte) TileEnum.PlatformFixed ||
+				tileId == (byte) TileEnum.PlatformItem ||
+				tileId == (byte) TileEnum.Log ||
+				tileId == (byte) TileEnum.Wall
+			) {
+
+				// Convert Ground Types to Horizontal Types
+				if(subType == (byte) GroundSubTypes.H1) {
+					tileJson[1] = (byte) HorizontalSubTypes.H1;
+				}
+
+				else if(subType == (byte)GroundSubTypes.H2) {
+					tileJson[1] = (byte)HorizontalSubTypes.H2;
+				}
+
+				else if(subType == (byte)GroundSubTypes.H3) {
+					tileJson[1] = (byte)HorizontalSubTypes.H3;
+				}
 
 				this.OverwriteTileData(tileJson);
 			}
