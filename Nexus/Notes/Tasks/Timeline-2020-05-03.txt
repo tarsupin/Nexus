@@ -91,5 +91,3 @@ Console for Editor. Allows scripting, etc.
 Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
-Reverse draw order in level scene so that layers look correct.
-EditorDetect is replicating the same behavior as RoomGenerate. Can remove it.

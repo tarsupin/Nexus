@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class FuncTool {
 
-		private enum FuncToolEnum : byte {
+		public enum FuncToolEnum : byte {
 			None,
 			Eraser,
 			Eyedrop,
@@ -28,7 +28,12 @@ namespace Nexus.GameEngine {
 			{ Keys.T, (byte) FuncToolEnum.Wand },
 		};
 
-		public FuncTool() {}
-		public virtual void RunTick(EditorScene scene) {}
+		public string spriteName;
+
+		public FuncTool() {
+
+		}
+
+		public virtual void RunTick(EditorRoomScene scene) {}
 	}
 }

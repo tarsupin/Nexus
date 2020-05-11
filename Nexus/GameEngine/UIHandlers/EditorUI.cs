@@ -62,14 +62,21 @@ namespace Nexus.GameEngine {
 			this.gridUI.Draw(offsetX, offsetY);
 
 			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
-			TileTool tool = EditorTools.tileTool;
 
-			if(UIComponent.ComponentWithFocus == null && tool != null) {
-				EditorPlaceholder ph = tool.CurrentPlaceholder;
+			if(UIComponent.ComponentWithFocus == null) {
 
-				if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
-					TileGameObject tgo = Systems.mapper.TileDict[ph.tileId];
-					tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+				if(EditorTools.tileTool != null) {
+					EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
+
+					if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
+						TileGameObject tgo = Systems.mapper.TileDict[ph.tileId];
+						tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+					}
+				}
+
+				else if(EditorTools.funcTool != null) {
+					Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+					atlas.Draw(EditorTools.funcTool.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 				}
 
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);

@@ -6,16 +6,14 @@ namespace Nexus.GameEngine {
 	public class FuncToolEyedrop : FuncTool {
 
 		public FuncToolEyedrop() : base() {
-
+			this.spriteName = "Icons/Eyedrop";
 		}
 
-		public override void RunTick(EditorScene scene) {
+		public override void RunTick(EditorRoomScene scene) {
 
 			// Left or Right Mouse Click
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked || Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-
-				// TODO:
-				//this.scene.CloneTile();
+				scene.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 	}

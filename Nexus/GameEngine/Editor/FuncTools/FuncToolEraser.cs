@@ -6,23 +6,19 @@ namespace Nexus.GameEngine {
 	public class FuncToolEraser : FuncTool {
 
 		public FuncToolEraser() : base() {
-
+			this.spriteName = "Icons/Eraser";
 		}
 
-		public override void RunTick(EditorScene scene) {
+		public override void RunTick(EditorRoomScene scene) {
 
 			// Left Mouse Button Down (Delete Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-
-				// TODO:
-				//this.scene.DeleteTile();
+				scene.DeleteTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 
 			// Right Mouse Button Clicked (Clone Current Tile)
 			else if(Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-
-				// TODO:
-				//this.scene.CloneTile();
+				scene.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 	}

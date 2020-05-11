@@ -42,6 +42,7 @@ namespace Nexus.GameEngine {
 
 		public static void SetFuncTool( FuncTool tool ) {
 			EditorTools.funcTool = tool;
+			EditorTools.tileTool = null;
 			EditorTools.tempTool = null;
 
 			// Update Helper Text (if applicable)

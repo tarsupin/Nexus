@@ -49,11 +49,11 @@ namespace Nexus.GameEngine {
 
 			// Update Tools
 			if(EditorTools.tempTool is FuncTool) {
-				EditorTools.tempTool.RunTick(this.scene);
+				EditorTools.tempTool.RunTick(this);
 			}
 			
 			else if(EditorTools.funcTool is FuncTool) {
-				EditorTools.funcTool.RunTick(this.scene);
+				EditorTools.funcTool.RunTick(this);
 			}
 
 			else {
@@ -187,11 +187,11 @@ namespace Nexus.GameEngine {
 
 			// A right click will clone the current tile.
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(this.roomID, Cursor.MouseGridX, Cursor.MouseGridY);
+				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 
-		public void DeleteTile(string roomID, byte gridX, byte gridY) {
+		public void DeleteTile(byte gridX, byte gridY) {
 
 			// Make sure deletion is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return; }
@@ -200,7 +200,7 @@ namespace Nexus.GameEngine {
 			// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 			if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
 
-			this.levelContent.DeleteTile(roomID, gridX, gridY);
+			this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 		}
 
 		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
@@ -222,10 +222,10 @@ namespace Nexus.GameEngine {
 			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
 		}
 
-		public void CloneTile(string roomID, byte gridX, byte gridY) {
+		public void CloneTile(byte gridX, byte gridY) {
 
 			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
-			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[roomID].main, gridX, gridY);
+			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[this.roomID].main, gridX, gridY);
 
 			if(tileData == null) { return; }
 
