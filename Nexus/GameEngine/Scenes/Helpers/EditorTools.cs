@@ -56,6 +56,15 @@ namespace Nexus.GameEngine {
 			EditorTools.UpdateHelperText();
 		}
 
+		public static void ClearTempTool() {
+			if(EditorTools.tempTool != null) {
+				EditorTools.tempTool = null;
+
+				// Update Helper Text (if applicable)
+				EditorTools.UpdateHelperText();
+			}
+		}
+
 		public static void UpdateHelperText() {
 			EditorScene editorScene = (EditorScene) Systems.scene;
 

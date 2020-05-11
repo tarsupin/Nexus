@@ -72,6 +72,12 @@ May 10th, 2020
 	- Editor Save Button Enabled.
 	- Room Scene Draw Layers.
 
+May 11th, 2020
+	- Function Tools Working.
+	- Eraser and Eyedrop Function Tools.
+	- Temporary Tools Working.
+
+
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.

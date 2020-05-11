@@ -68,18 +68,23 @@ namespace Nexus.GameEngine {
 		public void EditorInput() {
 			InputClient input = Systems.input;
 
+			// Release TempTool Control every tick:
+			if(EditorTools.tempTool != null) {
+				EditorTools.ClearTempTool();
+			}
+
 			// Get the Local Keys Held Down
 			Keys[] localKeys = input.GetAllLocalKeysDown();
 			if(localKeys.Length == 0) { return; }
 
-			// Tile Tool Key Binds
-			if(EditorUI.currentSlotGroup > 0) {
-				this.CheckTileToolKeyBinds(localKeys[0]);
+			// Func Tool Key Binds
+			if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
+				EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
 			}
 
-			// Func Tool Key Binds
-			else if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
-				EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
+			// Tile Tool Key Binds
+			else if(EditorUI.currentSlotGroup > 0) {
+				this.CheckTileToolKeyBinds(localKeys[0]);
 			}
 
 			// Open Wheel Menu

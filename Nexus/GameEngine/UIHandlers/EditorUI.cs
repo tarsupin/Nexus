@@ -65,18 +65,19 @@ namespace Nexus.GameEngine {
 
 			if(UIComponent.ComponentWithFocus == null) {
 
-				if(EditorTools.tileTool != null) {
+				if(EditorTools.funcTool != null || EditorTools.tempTool != null) {
+					string toolSprite = EditorTools.tempTool != null ? EditorTools.tempTool.spriteName : EditorTools.funcTool.spriteName;
+					Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+					atlas.Draw(toolSprite, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+				}
+
+				else if(EditorTools.tileTool != null) {
 					EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
 					if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
 						TileGameObject tgo = Systems.mapper.TileDict[ph.tileId];
 						tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
-				}
-
-				else if(EditorTools.funcTool != null) {
-					Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-					atlas.Draw(EditorTools.funcTool.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 				}
 
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
