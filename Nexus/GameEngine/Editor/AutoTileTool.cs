@@ -41,10 +41,16 @@ namespace Nexus.Gameplay {
 		public ushort BottomTile { get { return Math.Max(Cursor.MouseGridY, this.yStart); } }
 
 		public void StartAutoTile(byte tileId, byte subTypeId, ushort gridX, ushort gridY) {
+			this.autoGroup = AutoTileTool.IdentifyAutoGroup(tileId);
+			
+			if(this.autoGroup == AutoGroup.None) {
+				this.ClearAutoTiles();
+				return;
+			}
+
 			this.startFrame = Systems.timer.Frame;
 			this.tileId = tileId;
 			this.subTypeId = subTypeId;
-			this.autoGroup = AutoTileTool.IdentifyAutoGroup(tileId);
 			this.xStart = gridX;
 			this.yStart = gridY;
 		}

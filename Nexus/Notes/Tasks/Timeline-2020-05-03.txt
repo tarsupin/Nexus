@@ -78,6 +78,7 @@ May 11th, 2020
 	- Temporary Tools Working, Helper Texxt Added.
 	- AutoTile Tool Created.
 	- Fixed AutoTiling Bugs + Level Convert Structure.
+	- Added Axis-Specific AutoTiling.
 
 
 // Next TODO List
