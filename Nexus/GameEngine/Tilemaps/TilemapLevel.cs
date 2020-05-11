@@ -35,15 +35,34 @@ namespace Nexus.GameEngine {
 		public byte GetFGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][5]; }
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void SetTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0, byte bgId = 0, byte bgSubType = 0, byte fgId = 0, byte fgSubType = 0) {
+		public void SetMainTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0) {
 			
 			if(this.tiles[gridY, gridX] == null) {
-				this.tiles[gridY, gridX] = new byte[] { id, subType, bgId, bgSubType, fgId, fgSubType };
+				this.tiles[gridY, gridX] = new byte[] { id, subType, 0, 0, 0, 0 };
+			} else {
+				this.tiles[gridY, gridX][0] = id;
+				this.tiles[gridY, gridX][1] = subType;
 			}
+		}
+
+		public void SetBGTile(ushort gridX, ushort gridY, byte bgId = 0, byte bgSubType = 0) {
 			
-			if(id > 0) { this.tiles[gridY, gridX][0] = id; this.tiles[gridY, gridX][1] = subType; }
-			if(bgId > 0) { this.tiles[gridY, gridX][2] = bgId; this.tiles[gridY, gridX][3] = bgSubType; }
-			if(fgId > 0) { this.tiles[gridY, gridX][4] = fgId; this.tiles[gridY, gridX][5] = fgSubType; }
+			if(this.tiles[gridY, gridX] == null) {
+				this.tiles[gridY, gridX] = new byte[] { 0, 0, bgId, bgSubType, 0, 0 };
+			} else {
+				this.tiles[gridY, gridX][2] = bgId;
+				this.tiles[gridY, gridX][3] = bgSubType;
+			}
+		}
+
+		public void SetFGTile(ushort gridX, ushort gridY, byte fgId = 0, byte fgSubType = 0) {
+			
+			if(this.tiles[gridY, gridX] == null) {
+				this.tiles[gridY, gridX] = new byte[] { 0, 0, 0, 0, fgId, fgSubType };
+			} else {
+				this.tiles[gridY, gridX][4] = fgId;
+				this.tiles[gridY, gridX][5] = fgSubType;
+			}
 		}
 
 		public void SetTileSubType(ushort gridX, ushort gridY, byte subType = 0) {

@@ -54,11 +54,6 @@ namespace Nexus.GameEngine {
 			// Update the Mouse State Every Tick
 			Cursor.UpdateMouseState();
 
-			// TODO CLEANUP: REMOVE
-			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
-				ChatConsole.SendMessage("admin", "placed at " + Cursor.MouseGridX + ", " + Cursor.MouseGridY, Color.DarkGreen);
-			}
-
 			// Update UI Components
 			this.editorUI.RunTick();
 

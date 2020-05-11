@@ -70,6 +70,7 @@ May 10th, 2020
 	- Editor Room Draws All Tile Layers.
 	- Editor Draw Order Added.
 	- Editor Save Button Enabled.
+	- Room Scene Draw Layers.
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -91,3 +92,4 @@ Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by 
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
 Reverse draw order in level scene so that layers look correct.
+EditorDetect is replicating the same behavior as RoomGenerate. Can remove it.

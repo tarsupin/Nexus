@@ -16,13 +16,14 @@ namespace Nexus.Gameplay {
 			// NOTE: If room properties are NULL, the LevelFormat probably broke and it needs to be updated (or level data was invalid structure).
 			RoomFormat roomData = levelContent.data.rooms[roomId];
 
-			if(roomData.main != null) { RoomGenerate.GenerateTileLayer(room, roomData.main); }
+			if(roomData.bg != null) { RoomGenerate.GenerateTileLayer(room, roomData.bg, LayerEnum.bg); }
+			if(roomData.main != null) { RoomGenerate.GenerateTileLayer(room, roomData.main, LayerEnum.main); }
 			if(roomData.obj != null) { RoomGenerate.GenerateObjectLayer(room, roomData.obj); }
-			if(roomData.fg != null) { RoomGenerate.GenerateTileLayer(room, roomData.fg, true); }
+			if(roomData.fg != null) { RoomGenerate.GenerateTileLayer(room, roomData.fg, LayerEnum.fg); }
 		}
 
-		private static void GenerateTileLayer(RoomScene room, Dictionary<string, Dictionary<string, ArrayList>> layer, bool useForeground = false) {
-
+		private static void GenerateTileLayer(RoomScene room, Dictionary<string, Dictionary<string, ArrayList>> layer, LayerEnum layerEnum) {
+			
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
@@ -32,9 +33,9 @@ namespace Nexus.Gameplay {
 					ushort gridX = ushort.Parse(xData.Key);
 
 					if(xData.Value.Count == 2) {
-						RoomGenerate.AddTileToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground);
+						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						RoomGenerate.AddTileToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), useForeground, (JObject) xData.Value[2]);
+						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), (JObject) xData.Value[2]);
 					}
 				}
 			}
@@ -59,8 +60,14 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		private static void AddTileToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, bool useForeground = false, JObject paramList = null) {
-			room.tilemap.SetTile(gridX, gridY, type, subType);
+		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {
+			if(layerEnum == LayerEnum.main) {
+				room.tilemap.SetMainTile(gridX, gridY, type, subType);
+			} else if(layerEnum == LayerEnum.bg) {
+				room.tilemap.SetBGTile(gridX, gridY, type, subType);
+			} else if(layerEnum == LayerEnum.fg) {
+				room.tilemap.SetFGTile(gridX, gridY, type, subType);
+			}
 		}
 
 		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {

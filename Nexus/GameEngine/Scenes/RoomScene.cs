@@ -137,11 +137,11 @@ namespace Nexus.GameEngine {
 			ushort startX = Math.Max((ushort)0, (ushort)cam.GridX);
 			ushort startY = Math.Max((ushort)0, (ushort)cam.GridY);
 
-			ushort gridX = (ushort) (startX + 29 + 1); // 29 is view size. +1 is to render the edge.
-			ushort gridY = (ushort) (startY + 18 + 1); // 18 is view size. +1 is to render the edge.
+			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.tilemap.XCount) { gridX = this.tilemap.XCount; } // Must limit to room size (due to the +1)
-			if(gridY > this.tilemap.YCount) { gridY = this.tilemap.YCount; } // Must limit to room size (due to the +1)
+			if(gridX > this.tilemap.XCount) { gridX = (ushort)(this.tilemap.XCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.tilemap.YCount) { gridY = (ushort)(this.tilemap.YCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -156,16 +156,26 @@ namespace Nexus.GameEngine {
 			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(ushort y = startY; y <= gridY; y++) {
+			for(ushort y = gridY; y --> startY; ) {
 				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
 
-				for(ushort x = startX; x <= gridX; x++) {
+				for(ushort x = gridX; x --> startX; ) {
 
 					// Scan the Tiles Data at this grid square:
 					byte[] tileData = tilemap.GetTileDataAtGrid(x, y);
 
 					// This occurs when there is no data on the tile (removed, etc).
 					if(tileData == null) { continue; }
+
+					// Draw Background Layer
+					if(tileData[2] != 0) {
+						TileGameObject tileObj = tileMap[tileData[2]];
+
+						// Render the tile with its designated Class Object:
+						if(tileObj is TileGameObject) {
+							tileObj.Draw(this, tileData[3], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+						};
+					}
 
 					// Draw Main Layer
 					if(tileData[0] != 0) {
@@ -174,6 +184,16 @@ namespace Nexus.GameEngine {
 						// Render the tile with its designated Class Object:
 						if(tileObj is TileGameObject) {
 							tileObj.Draw(this, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+						};
+					}
+
+					// Draw Foreground Layer
+					if(tileData[4] != 0) {
+						TileGameObject tileObj = tileMap[tileData[4]];
+
+						// Render the tile with its designated Class Object:
+						if(tileObj is TileGameObject) {
+							tileObj.Draw(this, tileData[5], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 						};
 					}
 				};
