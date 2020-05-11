@@ -7,6 +7,8 @@ namespace Nexus.GameEngine {
 
 		public FuncToolEraser() : base() {
 			this.spriteName = "Icons/Eraser";
+			this.title = "Eraser";
+			this.description = "Erases tiles.";
 		}
 
 		public override void RunTick(EditorRoomScene scene) {

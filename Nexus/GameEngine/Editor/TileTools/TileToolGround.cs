@@ -360,19 +360,19 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
-					subType = (byte) GroundSubTypes.S,
+					subType = (byte) HorizontalSubTypes.S,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.Log,
-					subType = (byte)GroundSubTypes.H1,
+					subType = (byte) HorizontalSubTypes.H1,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.Log,
-					subType = (byte)GroundSubTypes.H2,
+					subType = (byte) HorizontalSubTypes.H2,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.Log,
-					subType = (byte)GroundSubTypes.H3,
+					subType = (byte) HorizontalSubTypes.H3,
 				},
 			});
 
@@ -381,11 +381,11 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
-					subType = (byte) GroundSubTypes.S,
+					subType = (byte) HorizontalSubTypes.S,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Log,
-					subType = (byte) GroundSubTypes.S,
+					subType = (byte) HorizontalSubTypes.S,
 				},
 			});
 		}

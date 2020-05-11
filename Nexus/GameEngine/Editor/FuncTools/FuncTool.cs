@@ -29,6 +29,8 @@ namespace Nexus.GameEngine {
 		};
 
 		public string spriteName;
+		public string title;
+		public string description;
 
 		public FuncTool() {
 

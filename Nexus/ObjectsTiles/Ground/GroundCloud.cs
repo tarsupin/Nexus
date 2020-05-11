@@ -9,7 +9,7 @@ namespace Nexus.Objects {
 			this.Texture = new string[1];
 			this.Texture[(byte)GroundSubTypes.S] = "Cloud/S";
 			this.title = "Cloud Block";
-			this.description = "";
+			this.description = "Hold Control to Auto-Tile";
 		}
 	}
 }

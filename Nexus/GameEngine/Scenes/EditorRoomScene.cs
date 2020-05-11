@@ -133,61 +133,59 @@ namespace Nexus.GameEngine {
 		}
 
 		public void TileToolTick(byte gridX, byte gridY) {
-			
+
+			// Make sure placement is in valid location:
+			if(gridY < 0 || gridY > this.yCount) { return; }
+			if(gridX < 0 || gridX > this.xCount) { return; }
+
+			// A right click will clone the current tile.
+			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
+				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				return;
+			}
+
+			TileTool tool = EditorTools.tileTool;
+
+			// Make sure the tile tool is set, or placement cannot occur:
+			if(tool == null) { return; }
+
+			// Check if AutoTile Tool is intended. Requires Control to be held down.
+			if(Systems.input.LocalKeyDown(Keys.LeftControl)) {
+
+				// If left mouse button was just clicked, AutoTile is being activated.
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+					EditorTools.StartAutoTool(gridX, gridY);
+				}
+			}
+
+			// If AutoTile Tool is active, run it's behavior:
+			if(EditorTools.autoTool.IsActive) {
+
+				// If left mouse was just released and AutoTile is active, place AutoTiles.
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Released) {
+					EditorTools.autoTool.PlaceAutoTiles(this);
+				}
+
+				// If Control key is not held down, auto-tiles must be deactivated.
+				else if(!Systems.input.LocalKeyDown(Keys.LeftControl)) {
+					EditorTools.autoTool.ClearAutoTiles();
+				}
+
+				return;
+			}
+
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
-				// Make sure placement is in valid location:
-				if(gridY < 0 || gridY > this.yCount) { return; }
-				if(gridX < 0 || gridX > this.xCount) { return; }
-
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
-
-				TileTool tool = EditorTools.tileTool;
-
-				// Make sure the tile tool is set, or placement cannot occur:
-				if(tool == null) { return; }
 
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
 
 				// Place Tile
 				this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, gridX, gridY, ph.tileId, ph.subType, null);
 
-				// Auto-Tile if shift is being held (and tile can auto-tile).
-				bool autoTileRunning = false;
-
-				// TODO HIGH PRIORITY: AUTO-TILING AFTER PLACEMENT
-				//if(Systems.input.LocalKeyDown(Keys.LeftShift)) {
-
-				//	// Attempt to run AutoTile (and trace success)
-				//	autoTileRunning = this.autoTile.runAutoTile(tool.tile);
-				//}
-
-				//// Place Tile
-				//if(!autoTileRunning) {
-
-				//	// Check if the auto-neighbor process is handling the placement:
-				//	bool autoNeighborRan = this.autoNeighbor.runAutoNeighbor(tool.tile, gridX, gridY);
-
-				//	if(!autoNeighborRan) {
-
-				//		// TODO UI
-				//		// If there are alterations to the main layer, test for special alteration rules.
-				//		// if(tool.tile.layerName === "mainLayer") {
-				//		// 	this.alterTile( "mainLayer", this.scene.MouseGridX, this.scene.MouseGridY, false, true );
-				//		// }
-
-				//		this.PlaceTile(tool.tile.layerName, gridX, gridY, tool.tile.id, tool.tile.subType, tool.tile.paramList);
-				//	}
-				//}
-
 				return;
-			}
-
-			// A right click will clone the current tile.
-			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
 			}
 		}
 

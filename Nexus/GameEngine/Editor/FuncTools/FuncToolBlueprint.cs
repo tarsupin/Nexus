@@ -5,6 +5,8 @@ namespace Nexus.GameEngine {
 
 		public FuncToolBlueprint() : base() {
 			this.spriteName = "Icons/Blueprint";
+			this.title = "Blueprint";
+			this.description = "No behavior at this time.";
 		}
 	}
 }

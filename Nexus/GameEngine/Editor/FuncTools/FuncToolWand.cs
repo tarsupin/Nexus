@@ -7,6 +7,8 @@ namespace Nexus.GameEngine {
 
 		public FuncToolWand() : base() {
 			this.spriteName = "Icons/Wand";
+			this.title = "Wand";
+			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}
 
 		public override void RunTick(EditorRoomScene scene) {

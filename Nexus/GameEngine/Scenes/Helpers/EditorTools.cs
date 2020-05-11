@@ -1,17 +1,22 @@
 ﻿using Nexus.Engine;
+using Nexus.Gameplay;
 
 namespace Nexus.GameEngine {
 
 	public static class EditorTools {
 
-		public static TileTool tileTool;    // The active Tile Tool being used.
-		public static FuncTool funcTool;    // The active Function Tool being used. High priority than TileTool, so it is set to null often.
-		public static FuncTool tempTool;    // The highest priority tool; runs because the user is forcing a temporary tool to activate.
+		public static TileTool tileTool;		// The active Tile Tool being used.
+		public static FuncTool funcTool;		// The active Function Tool being used. Higher priority than TileTool, so it is set to null often.
+		public static FuncTool tempTool;        // The highest priority tool; runs because the user is forcing a temporary tool to activate.
+
+		// The AutoTile tool. Always loaded, but can be enabled or disabled. Higher priority than TileTool, but used in sync with it.
+		public static AutoTileTool autoTool = new AutoTileTool();
 
 		public static void SetTileTool( TileTool tool, byte index = 0 ) {
 			EditorTools.tileTool = tool;
 			EditorTools.funcTool = null;
 			EditorTools.tempTool = null;
+			EditorTools.autoTool.ClearAutoTiles();
 
 			EditorUI.currentSlotGroup = EditorTools.tileTool.slotGroup;
 
@@ -40,10 +45,23 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public static void StartAutoTool(ushort gridX, ushort gridY) {
+
+			// Can only set an AutoTile tool if a TileTool is also active.
+			if(EditorTools.tileTool == null) { return; }
+
+			EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
+
+			EditorTools.autoTool.StartAutoTile(ph.tileId, ph.subType, gridX, gridY);
+			EditorTools.funcTool = null;
+			EditorTools.tempTool = null;
+		}
+
 		public static void SetFuncTool( FuncTool tool ) {
 			EditorTools.funcTool = tool;
 			EditorTools.tileTool = null;
 			EditorTools.tempTool = null;
+			EditorTools.autoTool.ClearAutoTiles();
 
 			// Update Helper Text (if applicable)
 			EditorTools.UpdateHelperText();
@@ -51,6 +69,7 @@ namespace Nexus.GameEngine {
 
 		public static void SetTempTool( FuncTool tool ) {
 			EditorTools.tempTool = tool;
+			EditorTools.autoTool.ClearAutoTiles();
 
 			// Update Helper Text (if applicable)
 			EditorTools.UpdateHelperText();
@@ -67,6 +86,14 @@ namespace Nexus.GameEngine {
 
 		public static void UpdateHelperText() {
 			EditorScene editorScene = (EditorScene) Systems.scene;
+
+			// Function Tool Helper Text
+			FuncTool tool = EditorTools.tempTool != null ? EditorTools.tempTool : EditorTools.funcTool;
+
+			if(tool != null) {
+				editorScene.editorUI.SetHelperText(tool.title, tool.description);
+				return;
+			}
 
 			// Tile Tool Helper Text
 			if(EditorTools.tileTool != null) {

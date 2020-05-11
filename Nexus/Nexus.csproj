@@ -196,6 +196,7 @@
     <Compile Include="GameEngine\TileGameObject.cs" />
     <Compile Include="GameEngine\Tilemaps\TilemapLevel.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
+    <Compile Include="GameEngine\Editor\AutoTileTool.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="ObjectsTiles\Blocks\Brick.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="ObjectsTiles\HorizontalWalls\HorizontalWall.cs" />
     <Compile Include="ObjectsTiles\Portals\DoorLock.cs" />
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
     <Compile Include="ObjectsTiles\Special\TrackDot.cs" />
@@ -405,8 +407,8 @@
     <Compile Include="ObjectsTiles\Ground\GroundSlime.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundSnow.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundMud.cs" />
-    <Compile Include="ObjectsTiles\Ground\Log.cs" />
-    <Compile Include="ObjectsTiles\Ground\Wall.cs" />
+    <Compile Include="ObjectsTiles\HorizontalWalls\Log.cs" />
+    <Compile Include="ObjectsTiles\HorizontalWalls\Wall.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundGrass.cs" />
     <Compile Include="ObjectsTiles\Ground\Ground.cs" />
     <Compile Include="Gameplay\Settings\Settings.cs" />
@@ -573,7 +575,6 @@
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Gameplay\Editor\" />
     <Folder Include="ObjectComponents\Attachments\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -73,9 +73,10 @@ May 10th, 2020
 	- Room Scene Draw Layers.
 
 May 11th, 2020
-	- Function Tools Working.
+	- Function Tools Working, Shortcuts Added.
 	- Eraser and Eyedrop Function Tools.
-	- Temporary Tools Working.
+	- Temporary Tools Working, Helper Texxt Added.
+	- AutoTile Tool Created.
 
 
 // Next TODO List
@@ -97,3 +98,4 @@ Console for Editor. Allows scripting, etc.
 Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
+Is .Meta used? IMetaData in MetaList doesn't need SlotGroup - can be altered with no consequence.
