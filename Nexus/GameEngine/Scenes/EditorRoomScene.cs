@@ -227,7 +227,9 @@ namespace Nexus.GameEngine {
 
 			// If no tile is cloned, set the current Function Tool to "Select"
 			if(tileData == null) {
-				EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte) FuncToolEnum.Select]);
+				FuncToolSelect selectFunc = (FuncToolSelect)FuncTool.funcToolMap[(byte)FuncToolEnum.Select];
+				EditorTools.SetFuncTool(selectFunc);
+				selectFunc.ClearSelection();
 				return;
 			}
 

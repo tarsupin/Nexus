@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
 			this.title = "Selection Tool";
-			this.description = "Drag a selection. Ctrl+C will copy, Ctrl+X will cut, Delete will delete.";
+			this.description = "Drag a selection. Ctrl+C will copy, Ctrl+X will cut, Delete will end the selection.";
 		}
 
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
@@ -73,8 +73,13 @@ namespace Nexus.GameEngine {
 
 			if(this.activity != SelectActivity.None) {
 
+				// If Delete is pressed:
+				if(Systems.input.LocalKeyPressed(Keys.Delete)) {
+					this.ClearSelection();
+				}
+
 				// If Control is being held down:
-				if(Systems.input.LocalKeyDown(Keys.LeftControl) || Systems.input.LocalKeyDown(Keys.RightControl)) {
+				else if(Systems.input.LocalKeyDown(Keys.LeftControl) || Systems.input.LocalKeyDown(Keys.RightControl)) {
 
 					// Copy + Cut
 					bool pressC = Systems.input.LocalKeyPressed(Keys.C);

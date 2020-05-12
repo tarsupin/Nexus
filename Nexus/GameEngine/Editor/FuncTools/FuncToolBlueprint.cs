@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -18,8 +19,8 @@ namespace Nexus.GameEngine {
 
 		public FuncToolBlueprint() : base() {
 			this.spriteName = "Icons/Blueprint";
-			this.title = "Blueprint";
-			this.description = "No behavior at this time.";
+			this.title = "Blueprint Tool";
+			this.description = "Click to place the selected blueprint. Cancel with delete or by changing tools.";
 		}
 
 		public void PrepareBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart, ushort xEnd, ushort yEnd) {
@@ -55,22 +56,29 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void ClearBlueprint() {
+		private void ClearBlueprint() {
 			this.isActive = false;
+		}
+
+		private void SwitchToSelectTool() {
+			this.ClearBlueprint();
+			FuncToolSelect selectFunc = (FuncToolSelect)FuncTool.funcToolMap[(byte)FuncToolEnum.Select];
+			EditorTools.SetFuncTool(selectFunc);
 		}
 
 		public override void RunTick(EditorRoomScene scene) {
 
 			if(this.isActive) {
 
-				// If left-mouse clicks, start the selection:
-				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					this.PasteBlueprint(scene, Cursor.MouseGridX, Cursor.MouseGridY);
-					this.ClearBlueprint();
+				// If Delete is pressed:
+				if(Systems.input.LocalKeyPressed(Keys.Delete)) {
+					this.SwitchToSelectTool();
+				}
 
-					// Switch to Selection Tool
-					FuncToolSelect selectFunc = (FuncToolSelect)FuncTool.funcToolMap[(byte)FuncToolEnum.Select];
-					EditorTools.SetFuncTool(selectFunc);
+				// If left-mouse clicks, start the selection:
+				else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+					this.PasteBlueprint(scene, Cursor.MouseGridX, Cursor.MouseGridY);
+					this.SwitchToSelectTool();
 				}
 			}
 		}
