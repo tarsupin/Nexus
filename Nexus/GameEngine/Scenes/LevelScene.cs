@@ -54,7 +54,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Debug Console (only runs if visible)
-			Systems.console.RunTick();
+			Systems.levelConsole.RunTick();
 
 			// If we're in debug mode:
 			if(DebugConfig.Debug) {
@@ -111,14 +111,14 @@ namespace Nexus.GameEngine {
 			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
 
-			if(input.LocalKeyPressed(Keys.F1)) { Systems.console.SendCommand(Systems.settings.input.macroF1); }
-			else if(input.LocalKeyPressed(Keys.F2)) { Systems.console.SendCommand(Systems.settings.input.macroF2); }
-			else if(input.LocalKeyPressed(Keys.F3)) { Systems.console.SendCommand(Systems.settings.input.macroF3); }
-			else if(input.LocalKeyPressed(Keys.F4)) { Systems.console.SendCommand(Systems.settings.input.macroF4); }
-			else if(input.LocalKeyPressed(Keys.F5)) { Systems.console.SendCommand(Systems.settings.input.macroF5); }
-			else if(input.LocalKeyPressed(Keys.F6)) { Systems.console.SendCommand(Systems.settings.input.macroF6); }
-			else if(input.LocalKeyPressed(Keys.F7)) { Systems.console.SendCommand(Systems.settings.input.macroF7); }
-			else if(input.LocalKeyPressed(Keys.F8)) { Systems.console.SendCommand(Systems.settings.input.macroF8); }
+			if(input.LocalKeyPressed(Keys.F1)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF1); }
+			else if(input.LocalKeyPressed(Keys.F2)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF2); }
+			else if(input.LocalKeyPressed(Keys.F3)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF3); }
+			else if(input.LocalKeyPressed(Keys.F4)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF4); }
+			else if(input.LocalKeyPressed(Keys.F5)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF5); }
+			else if(input.LocalKeyPressed(Keys.F6)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF6); }
+			else if(input.LocalKeyPressed(Keys.F7)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF7); }
+			else if(input.LocalKeyPressed(Keys.F8)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF8); }
 
 			//else if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
 			//else if(input.LocalKeyPressed(Keys.F6)) { DebugConfig.ToggleDebugFrames(); }
@@ -142,7 +142,7 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.levelUI.Draw();
-			Systems.console.Draw();
+			Systems.levelConsole.Draw();
 		}
 
 		public void RunCharacterDeath( Character character ) {

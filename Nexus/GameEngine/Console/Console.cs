@@ -14,6 +14,10 @@ namespace Nexus.GameEngine {
 		public sbyte lineNum = 0;
 		public uint backspaceFrame = 0;
 
+		// Console-Specific Values
+		public Dictionary<string, Action> consoleDict;     // A dictionary of base commands for the console.
+		public string baseHelperText = "";
+
 		public Console() : base(null) {
 
 		}
@@ -27,7 +31,7 @@ namespace Nexus.GameEngine {
 
 				if(this.visible) {
 					ConsoleTrack.ResetValues();
-					ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+					ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
 				}
 			}
 
@@ -77,13 +81,11 @@ namespace Nexus.GameEngine {
 		}
 
 		public void SendCommand(string insText, bool setActivate = true) {
-			if(!this.visible) { return; }
-
 			if(setActivate) { ConsoleTrack.activate = true; } // The instruction is meant to run (rather than just reveal new text hints).
 			ConsoleTrack.instructionText = insText;
 
 			// Process the Instruction
-			Console.ProcessInstruction(ConsoleTrack.instructionText);
+			this.ProcessInstruction(ConsoleTrack.instructionText);
 
 			if(ConsoleTrack.activate) {
 
@@ -104,12 +106,12 @@ namespace Nexus.GameEngine {
 				// Cleanup
 				this.lineNum = 0;
 				ConsoleTrack.ResetValues();
-				ConsoleTrack.PrepareTabLookup("The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
-				ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", consoleDict.Keys.ToArray());
+				ConsoleTrack.PrepareTabLookup(this.baseHelperText);
+				ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", this.consoleDict.Keys.ToArray());
 			}
 		}
 
-		public static void ProcessInstruction(string insText) {
+		public void ProcessInstruction(string insText) {
 
 			// Clean the instruction text.
 			string cleanText = insText.Trim().ToLower();
@@ -127,13 +129,13 @@ namespace Nexus.GameEngine {
 				// If we're activating the instructions, run all of them.
 				if(ConsoleTrack.activate) {
 					foreach(string ins in multiInstructions) {
-						Console.ProcessInstruction(ins);
+						this.ProcessInstruction(ins);
 					}
 				}
 
 				// If we're not activating the instructions, only run the last pipe (since we only need to identify that one).
 				else {
-					Console.ProcessInstruction(multiInstructions.Last());
+					this.ProcessInstruction(multiInstructions.Last());
 				}
 
 				return;
@@ -152,11 +154,11 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.character = Systems.localServer.MyCharacter;
 
 			// Update the tab lookup.
-			ConsoleTrack.PrepareTabLookup(consoleDict, currentIns, "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+			ConsoleTrack.PrepareTabLookup(this.consoleDict, currentIns, this.baseHelperText);
 
 			// Invoke the Relevant Next Function
-			if(consoleDict.ContainsKey(currentIns)) {
-				consoleDict[currentIns].Invoke();
+			if(this.consoleDict.ContainsKey(currentIns)) {
+				this.consoleDict[currentIns].Invoke();
 			}
 
 			//// Help
@@ -165,34 +167,6 @@ namespace Nexus.GameEngine {
 			//// Run Movement
 			//else if(currentIns == "teleport") { Console.CheatCodeTeleport(); }
 		}
-
-		public static readonly Dictionary<string, Action> consoleDict = new Dictionary<string, Action>() {
-			
-			// Debug
-			{ "debug", ConsoleDebug.DebugBase },
-			{ "macro", ConsoleMacro.DebugMacro },
-
-			// Level
-			{ "level", ConsoleLevel.CheatCodeLevel },
-
-			// Character Stats
-			{ "stats", ConsoleStats.CheatCodeStats },
-
-			// Character Equipment
-			{ "suit", ConsoleEquipment.CheatCodeSuit },
-			{ "hat", ConsoleEquipment.CheatCodeHat },
-			{ "head", ConsoleEquipment.CheatCodeHead },
-
-			// Character Powers
-			{ "power", ConsolePowers.CheatCodePowers },
-			
-			// Health, Wounds
-			{ "heal", ConsoleWounds.CheatCodeHeal },
-			{ "armor", ConsoleWounds.CheatCodeArmor },
-			{ "invincible", ConsoleWounds.CheatCodeInvincible },
-			{ "wound", ConsoleWounds.CheatCodeWound },
-			{ "kill", ConsoleWounds.CheatCodeKill },
-		};
 
 		public void ScrollConsoleText(sbyte scrollAmount) {
 			this.lineNum += scrollAmount;
@@ -211,13 +185,13 @@ namespace Nexus.GameEngine {
 				this.lineNum = (sbyte) Math.Min((byte) 5, this.lineNum);
 				ConsoleTrack.instructionText = Systems.settings.input.consoleDown[this.lineNum - 1];
 				if(ConsoleTrack.instructionText == null) { ConsoleTrack.instructionText = ""; }
-				ConsoleTrack.PrepareTabLookup(consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + this.lineNum);
+				ConsoleTrack.PrepareTabLookup(this.consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + this.lineNum);
 			}
 
 			// If the scroll value is 0, we've returned to the default / entry point for the Console line:
 			else {
 				ConsoleTrack.instructionText = "";
-				ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
+				ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
 			}
 		}
 

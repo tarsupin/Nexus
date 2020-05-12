@@ -65,6 +65,8 @@
     <Compile Include="Engine\ChatConsole.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
+    <Compile Include="GameEngine\Console\EditorConsole.cs" />
+    <Compile Include="GameEngine\Console\LevelConsole.cs" />
     <Compile Include="GameEngine\Console\ConsoleTrack.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleLevel.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleMacro.cs" />
