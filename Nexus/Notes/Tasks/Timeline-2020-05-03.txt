@@ -99,3 +99,11 @@ Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by 
 Add Track System (for TrackDots, etc)
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
 Is .Meta used? IMetaData in MetaList doesn't need SlotGroup - can be altered with no consequence.
+Enter Editor, get quick instructions to use tab.
+Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
+Load Objects into Editor
+LevelConvert decor, ledges, prompts, etc.
+Selection Tool: Control X, C, V. X and C create blueprint.
+Blueprint Tool: Tracks an array of tileId, subType, and params. Can place it.
+Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a "Control+X" option.
+Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)

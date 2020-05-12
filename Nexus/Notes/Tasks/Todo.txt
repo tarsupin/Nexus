@@ -33,7 +33,7 @@ Macros:
 Console:
 	- Debug info option.
 
-Place text on levels.
+Place text on levels. A text object that you can place? Invisible, but holds text?
 
 // need to handle:
 // this.Meta = the metadata that the object is associated with - add this to all objects (tiles should be complete now)

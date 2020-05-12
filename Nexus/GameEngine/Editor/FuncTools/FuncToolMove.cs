@@ -8,6 +8,5 @@ namespace Nexus.GameEngine {
 			this.title = "Move";
 			this.description = "No behavior at this time.";
 		}
-
 	}
 }

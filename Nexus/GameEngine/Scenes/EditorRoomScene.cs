@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -236,33 +235,5 @@ namespace Nexus.GameEngine {
 				clonedTool.SetSubIndex(subIndex);
 			}
 		}
-
-		//alterTile( layer: RoomLayer, gridX: number, gridY: number, split: boolean = false, del: boolean = false ) {
-
-		//	// Determine Tile to identify if there are special alteration cases.
-		//	let tile: Tile = this.getTileFromGrid( gridX, gridY, layer );
-
-		//	// If there is no tile to alter, end here.
-		//	if(!tile) { return; }
-
-		//	// Platforms have special alteration cases:
-		//	if(tile.objClass.meta.archetype === Arch.Platform) {
-		//		let chainCursor = this.autoNeighbor.chainCursor;
-		//		chainCursor.loadExtendedChain( tile, gridX, gridY );
-
-		//		switch( tile.objClass ) {
-
-		//			case PlatSolid:
-		//				chainCursor.smoothChain( 50, del );
-		//				break;
-
-		//			case PlatDip:
-		//			case PlatDelay:
-		//			case PlatFall:
-		//				chainCursor.smoothChain( 3, del );
-		//				break;
-		//		}
-		//	}
-		//}
 	}
 }

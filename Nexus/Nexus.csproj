@@ -87,6 +87,7 @@
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonEraser.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonInfo.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonHome.cs" />
+    <Compile Include="GameEngine\Editor\FuncTools\FuncToolSelect.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolWand.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolMove.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolEyedrop.cs" />
