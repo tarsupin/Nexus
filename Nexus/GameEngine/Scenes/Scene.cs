@@ -11,7 +11,6 @@ namespace Nexus.GameEngine {
 		public virtual int Width { get { return 0; } } // Placeholder for Camera
 		public virtual int Height { get { return 0; } } // Placeholder for Camera
 
-		// TODO: These don't appear to be used. Remove them, or find a use.
 		public virtual void StartScene() { }
 		public virtual void ResetScene() { }
 		public virtual void EndScene() { }

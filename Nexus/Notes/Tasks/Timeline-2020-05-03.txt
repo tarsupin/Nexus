@@ -112,7 +112,6 @@ Enter Editor, get quick instructions to use tab.
 Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
 Load Objects into Editor
 LevelConvert decor, ledges, prompts, etc.
-Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a "Control+X" option.
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor.
-Default to Selection Tool on Editor Enter.
+

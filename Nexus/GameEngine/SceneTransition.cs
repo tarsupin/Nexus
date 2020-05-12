@@ -37,6 +37,7 @@ namespace Nexus.GameEngine {
 
 			// Create New Level Scene
 			Systems.scene = new LevelScene();
+			Systems.scene.StartScene();
 
 			return true;
 		}
@@ -69,6 +70,7 @@ namespace Nexus.GameEngine {
 
 			// Editor Scene
 			Systems.scene = new EditorScene();
+			Systems.scene.StartScene();
 
 			return true;
 		}

@@ -4,6 +4,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using static Nexus.GameEngine.FuncTool;
 
 namespace Nexus.GameEngine {
 
@@ -36,6 +37,12 @@ namespace Nexus.GameEngine {
 
 			Systems.SetMouseVisible(true);
 			Cursor.UpdateMouseState();
+		}
+
+		public override void StartScene() {
+
+			// Set Default Tool to Selection Tool
+			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte)FuncToolEnum.Select]);
 		}
 
 		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }

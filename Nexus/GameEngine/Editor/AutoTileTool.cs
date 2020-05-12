@@ -63,7 +63,7 @@ namespace Nexus.Gameplay {
 		public void PlaceAutoTiles(EditorRoomScene scene) {
 
 			// Skip this method if the auto-tile isn't in operation.
-			if(this.startFrame == 0) { return; }
+			if(!this.IsActive) { return; }
 
 			ushort left = this.LeftTile;
 			ushort right = this.RightTile;
@@ -72,31 +72,26 @@ namespace Nexus.Gameplay {
 
 			if(this.autoGroup == AutoGroup.Full || this.autoGroup == AutoGroup.Static) {
 				this.PlaceAutoTilesFull(scene, left, right, top, bottom);
-				return;
 			}
 
-			if(this.autoGroup == AutoGroup.Horizontal) {
+			else if(this.autoGroup == AutoGroup.Horizontal) {
 				this.PlaceAutoTilesHorizontal(scene, left, right, this.yStart);
-				return;
 			}
 
-			if(this.autoGroup == AutoGroup.Vertical) {
+			else if(this.autoGroup == AutoGroup.Vertical) {
 				this.PlaceAutoTilesVertical(scene, top, bottom, this.xStart);
-				return;
 			}
 
-			if(this.autoGroup == AutoGroup.StaticCross) {
+			else if(this.autoGroup == AutoGroup.StaticCross) {
 
 				// If Horizontal is greater than or equal to Vertical distance, draw horizontal:
 				if(Math.Abs(right - left) > Math.Abs(bottom - top)) {
 					this.PlaceAutoTilesHorizontal(scene, left, right, this.yStart);
-					return;
 				}
 
 				// Otherwise, draw vertical:
 				else {
 					this.PlaceAutoTilesVertical(scene, top, bottom, this.xStart);
-					return;
 				}
 			}
 
