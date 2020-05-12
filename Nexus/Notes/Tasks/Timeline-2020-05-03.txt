@@ -87,6 +87,7 @@ May 12, 2020
 	- Blueprint Tool functioning.
 	- Copy, Cut, and Delete functionality added.
 	- Drag + Drop Added to Selection Tool.
+	- Drag + Drop includes Cursor Offset.
 
 
 // Next TODO List
@@ -115,4 +116,3 @@ Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a 
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor.
 Default to Selection Tool on Editor Enter.
-Selection Drag should have an offset based on your drag position.

@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
 			this.title = "Selection Tool";
-			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will end.";
+			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will delete.";
 		}
 
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
@@ -100,6 +100,7 @@ namespace Nexus.GameEngine {
 
 				// If Delete is pressed:
 				if(Systems.input.LocalKeyPressed(Keys.Delete)) {
+					this.CutTiles(scene);
 					this.ClearSelection();
 				}
 
@@ -123,8 +124,20 @@ namespace Nexus.GameEngine {
 			FuncToolBlueprint bpFunc = (FuncToolBlueprint)FuncTool.funcToolMap[(byte)FuncToolEnum.Blueprint];
 			EditorTools.SetFuncTool(bpFunc);
 
-			// Assign Grid Tiles
-			bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd);
+			// Handle Offsets
+			sbyte xOffset = 0;
+			sbyte yOffset = 0;
+
+			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+
+			if(Cursor.MouseGridX >= left && Cursor.MouseGridX <= right) { xOffset = (sbyte)(left - Cursor.MouseGridX); }
+			if(Cursor.MouseGridY >= top && Cursor.MouseGridY <= bottom) { yOffset = (sbyte)(top - Cursor.MouseGridY); }
+			
+			// Load Blueprint Tiles
+			bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd, xOffset, yOffset);
 
 			// If the selection was cut, remove the tiles:
 			if(cut) { this.CutTiles(scene); }

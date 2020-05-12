@@ -15,7 +15,9 @@ namespace Nexus.GameEngine {
 
 		private bool isActive;				// TRUE if the blueprint is active.
 		private ushort blueprintHeight;		// Width of the blueprint.
-		private ushort blueprintWidth;		// Height of the blueprint.
+		private ushort blueprintWidth;      // Height of the blueprint.
+		private sbyte xOffset;               // X-offset to drag the blueprint at, respective to the cursor.
+		private sbyte yOffset;				// Y-offset to drag the blueprint at, respective to the cursor.
 
 		public FuncToolBlueprint() : base() {
 			this.spriteName = "Icons/Blueprint";
@@ -23,7 +25,7 @@ namespace Nexus.GameEngine {
 			this.description = "Click to place the selected blueprint. Cancel with delete or by changing tools.";
 		}
 
-		public void PrepareBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart, ushort xEnd, ushort yEnd) {
+		public void PrepareBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart, ushort xEnd, ushort yEnd, sbyte xOffset = 0, sbyte yOffset = 0) {
 			
 			this.isActive = true;
 
@@ -32,6 +34,8 @@ namespace Nexus.GameEngine {
 
 			this.blueprintWidth = (ushort)(Math.Abs(xEnd - xStart) + 1);
 			this.blueprintHeight = (ushort)(Math.Abs(yEnd - yStart) + 1);
+			this.xOffset = xOffset;
+			this.yOffset = yOffset;
 
 			var layerData = scene.levelContent.data.rooms[scene.roomID].main;
 
@@ -86,6 +90,9 @@ namespace Nexus.GameEngine {
 		public void PasteBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart) {
 			if(this.isActive == false) { return; }
 
+			xStart = (ushort) (xStart + this.xOffset < 0 ? 0 : xStart + this.xOffset);
+			yStart = (ushort) (yStart + this.yOffset < 0 ? 0 : yStart + this.yOffset);
+
 			var layerData = scene.levelContent.data.rooms[scene.roomID].main;
 
 			// Loop through the blueprint:
@@ -110,6 +117,9 @@ namespace Nexus.GameEngine {
 		public override void DrawFuncTool() {
 			var tileDict = Systems.mapper.TileDict;
 
+			ushort xStart = (ushort)(Cursor.MouseGridX + this.xOffset < 0 ? 0 : Cursor.MouseGridX + this.xOffset);
+			ushort yStart = (ushort)(Cursor.MouseGridY + this.yOffset < 0 ? 0 : Cursor.MouseGridY + this.yOffset);
+
 			// Loop through the blueprint:
 			for(ushort y = 0; y < this.blueprintHeight; y++) {
 				for(ushort x = 0; x < this.blueprintWidth; x++) {
@@ -124,13 +134,13 @@ namespace Nexus.GameEngine {
 					// Draw the Blueprint Tile at the correct coordinate:
 					if(tileDict.ContainsKey(tileId)) {
 						TileGameObject tgo = tileDict[tileId];
-						tgo.Draw(null, byte.Parse(bpData[1].ToString()), (Cursor.MouseGridX + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (Cursor.MouseGridY + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+						tgo.Draw(null, byte.Parse(bpData[1].ToString()), (xStart + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (yStart + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
 				}
 			}
 
 			// Draw Semi-Transparent Box over Selection
-			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, this.blueprintWidth * (byte)TilemapEnum.TileWidth, this.blueprintHeight * (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
+			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(xStart * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yStart * (byte)TilemapEnum.TileHeight - Systems.camera.posY, this.blueprintWidth * (byte)TilemapEnum.TileWidth, this.blueprintHeight * (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 		}
 	}
 }
