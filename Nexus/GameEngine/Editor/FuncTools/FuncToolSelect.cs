@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
 			this.title = "Selection Tool";
-			this.description = "Drag a selection. Ctrl+C will copy, Ctrl+X will cut, Delete will end the selection.";
+			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will end.";
 		}
 
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
@@ -39,13 +39,32 @@ namespace Nexus.GameEngine {
 			this.yEnd = gridY;
 		}
 
-		public void UpdatePosition(ushort gridX, ushort gridY) {
+		private void UpdatePosition(ushort gridX, ushort gridY) {
 			if(Math.Abs(gridX - this.xStart) < 20) { this.xEnd = gridX; }
 			if(Math.Abs(gridY - this.yStart) < 20) { this.yEnd = gridY; }
 		}
 
-		public void EndSelection() { this.activity = SelectActivity.HasSelection; }
+		private void EndSelection() {
+			this.activity = SelectActivity.HasSelection;
+
+			// If we're currently using selection as a temporary tool, force it to be an active tool now that we have a selected area.
+			if(EditorTools.tempTool is FuncToolSelect) {
+				EditorTools.SetFuncTool(this);
+			}
+		}
+
 		public void ClearSelection() { this.activity = SelectActivity.None; this.xEnd = this.xStart; this.yEnd = this.yStart; }
+
+		private bool IsTileWithinSelection(ushort gridX, ushort gridY) {
+			if(this.activity != SelectActivity.HasSelection) { return false; }
+
+			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+
+			return gridX >= left && gridX <= right && gridY >= top && gridY <= bottom;
+		}
 
 		public override void RunTick(EditorRoomScene scene) {
 
@@ -65,9 +84,15 @@ namespace Nexus.GameEngine {
 
 			else {
 
-				// If left-mouse clicks, start the selection:
+				// If left-mouse clicks, start the selection or drag an existing one:
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
+
+					// Check if the mouse is within a selected area (allowing it to be dragged)
+					if(this.IsTileWithinSelection(Cursor.MouseGridX, Cursor.MouseGridY)) {
+						this.RunCopyOrCut(scene, true);
+					} else {
+						this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
+					}
 				}
 			}
 
@@ -82,29 +107,32 @@ namespace Nexus.GameEngine {
 				else if(Systems.input.LocalKeyDown(Keys.LeftControl) || Systems.input.LocalKeyDown(Keys.RightControl)) {
 
 					// Copy + Cut
-					bool pressC = Systems.input.LocalKeyPressed(Keys.C);
-					bool pressX = Systems.input.LocalKeyPressed(Keys.X);
+					bool copy = Systems.input.LocalKeyPressed(Keys.C);
+					bool cut = Systems.input.LocalKeyPressed(Keys.X);
 
-					// Set the Blueprint FuncTool as active.
-					if(pressC || pressX) {
-						FuncToolBlueprint bpFunc = (FuncToolBlueprint) FuncTool.funcToolMap[(byte)FuncToolEnum.Blueprint];
-						EditorTools.SetFuncTool(bpFunc);
-
-						// Assign Grid Tiles
-						bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd);
-
-						// If the selection was cut, remove the tiles:
-						if(pressX) {
-							this.CutTiles(scene);
-						}
-
-						this.ClearSelection();
+					if(copy || cut) {
+						this.RunCopyOrCut(scene, cut);
 					}
 				}
 			}
 		}
 
-		public void CutTiles(EditorRoomScene scene) {
+		private void RunCopyOrCut(EditorRoomScene scene, bool cut) {
+
+			// Set the Blueprint FuncTool as active.
+			FuncToolBlueprint bpFunc = (FuncToolBlueprint)FuncTool.funcToolMap[(byte)FuncToolEnum.Blueprint];
+			EditorTools.SetFuncTool(bpFunc);
+
+			// Assign Grid Tiles
+			bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd);
+
+			// If the selection was cut, remove the tiles:
+			if(cut) { this.CutTiles(scene); }
+
+			this.ClearSelection();
+		}
+
+		private void CutTiles(EditorRoomScene scene) {
 
 			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
 			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;

@@ -15,8 +15,8 @@ namespace Nexus.GameEngine {
 
 		private Dictionary<byte, FuncButton> buttonMap = new Dictionary<byte, FuncButton>() {
 			{ 11, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Info] },
-			{ 12, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eraser] },
-			{ 13, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Move] },
+			{ 12, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Select] },
+			{ 13, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eraser] },
 			{ 14, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eyedrop] },
 			{ 15, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Wand] },
 			{ 16, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Settings] },

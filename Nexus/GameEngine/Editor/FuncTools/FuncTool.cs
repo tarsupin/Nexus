@@ -21,7 +21,6 @@ namespace Nexus.GameEngine {
 			{ (byte) FuncToolEnum.Select, new FuncToolSelect() },
 			{ (byte) FuncToolEnum.Eraser, new FuncToolEraser() },
 			{ (byte) FuncToolEnum.Eyedrop, new FuncToolEyedrop() },
-			{ (byte) FuncToolEnum.Move, new FuncToolMove() },
 			{ (byte) FuncToolEnum.Blueprint, new FuncToolBlueprint() },
 			{ (byte) FuncToolEnum.Wand, new FuncToolWand() },
 		};
@@ -29,7 +28,7 @@ namespace Nexus.GameEngine {
 		public static Dictionary<Keys, byte> funcToolKey = new Dictionary<Keys, byte>() {
 			{ Keys.X, (byte) FuncToolEnum.Eraser },
 			{ Keys.C, (byte) FuncToolEnum.Eyedrop },
-			{ Keys.V, (byte) FuncToolEnum.Move },
+			{ Keys.V, (byte) FuncToolEnum.Select },
 			{ Keys.E, (byte) FuncToolEnum.Wand },
 		};
 

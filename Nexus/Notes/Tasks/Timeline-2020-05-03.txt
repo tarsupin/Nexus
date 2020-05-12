@@ -86,6 +86,7 @@ May 12, 2020
 	- Significant Improvements to Selection Tool.
 	- Blueprint Tool functioning.
 	- Copy, Cut, and Delete functionality added.
+	- Drag + Drop Added to Selection Tool.
 
 
 // Next TODO List
@@ -110,8 +111,8 @@ Enter Editor, get quick instructions to use tab.
 Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
 Load Objects into Editor
 LevelConvert decor, ledges, prompts, etc.
-Selection Tool: Control X, C, V. X and C create blueprint.
-Blueprint Tool: Tracks an array of tileId, subType, and params. Can place it.
 Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a "Control+X" option.
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor.
+Default to Selection Tool on Editor Enter.
+Selection Drag should have an offset based on your drag position.

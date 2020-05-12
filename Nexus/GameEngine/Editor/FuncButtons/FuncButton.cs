@@ -15,8 +15,8 @@ namespace Nexus.GameEngine {
 
 		public enum FuncButtonEnum : byte {
 			Info,
+			Select,
 			Eraser,
-			Move,
 			Eyedrop,
 			
 			Wand,
@@ -36,8 +36,8 @@ namespace Nexus.GameEngine {
 
 		public static Dictionary<byte, FuncButton> funcButtonMap = new Dictionary<byte, FuncButton>() {
 			{ (byte) FuncButtonEnum.Info, new FuncButtonInfo() },
+			{ (byte) FuncButtonEnum.Select, new FuncButtonSelect() },
 			{ (byte) FuncButtonEnum.Eraser, new FuncButtonEraser() },
-			{ (byte) FuncButtonEnum.Move, new FuncButtonMove() },
 			{ (byte) FuncButtonEnum.Eyedrop, new FuncButtonEyedrop() },
 			{ (byte) FuncButtonEnum.Wand, new FuncButtonWand() },
 			{ (byte) FuncButtonEnum.Settings, new FuncButtonSettings() },

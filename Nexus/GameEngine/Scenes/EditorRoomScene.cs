@@ -138,7 +138,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void TileToolTick(byte gridX, byte gridY) {
+		public void TileToolTick(ushort gridX, ushort gridY) {
 
 			// Make sure placement is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return; }
@@ -220,7 +220,7 @@ namespace Nexus.GameEngine {
 			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
 		}
 
-		public void CloneTile(byte gridX, byte gridY) {
+		public void CloneTile(ushort gridX, ushort gridY) {
 
 			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
 			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[this.roomID].main, gridX, gridY);

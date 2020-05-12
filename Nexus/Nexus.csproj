@@ -73,9 +73,9 @@
     <Compile Include="GameEngine\Console\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\ConsoleEquipment.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButton.cs" />
+    <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonSelect.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonWand.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonEyedrop.cs" />
-    <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonMove.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonPlay.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonSwapRight.cs" />
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonRoomRight.cs" />
@@ -89,7 +89,6 @@
     <Compile Include="GameEngine\Editor\FuncButtons\FuncButtonHome.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolSelect.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolWand.cs" />
-    <Compile Include="GameEngine\Editor\FuncTools\FuncToolMove.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolEyedrop.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolEraser.cs" />
     <Compile Include="GameEngine\Editor\FuncTools\FuncToolBlueprint.cs" />
