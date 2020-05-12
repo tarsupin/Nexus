@@ -25,6 +25,7 @@ namespace Nexus.Engine {
 		public static readonly TimerGlobal timer = new TimerGlobal();
 		public static readonly FilesLocal filesLocal = new FilesLocal();
 		public static readonly LocalServer localServer = new LocalServer();
+		public static readonly Console console = new Console();
 
 		// Graphics, Audio, and Assets
 		public static ScreenSys screen;

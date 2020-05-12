@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace Nexus.Engine {
@@ -45,6 +44,11 @@ namespace Nexus.Engine {
 		public static void SendMessage(string username, string message, Color color) {
 			if(!ChatConsole.isEnabled) { return; }
 			ChatConsole.chatLines.AddFirst(new ChatLine(username, message, color));
+
+			// If there are over 20 lines, remove the last one.
+			if(ChatConsole.chatLines.Count > 20) {
+				ChatConsole.chatLines.RemoveLast();
+			}
 		}
 
 		public static void Draw() {

@@ -1,5 +1,21 @@
 ﻿https://www.youtube.com/watch?v=0FcLGQRyVOw	// excellent examples, world 2 - ryu loves it; sky level world 2
 
+
+/********************************
+****** Editor
+********************************/
+
+
+
+
+
+
+
+/********************************
+****** Miscellaneous
+********************************/
+
+
 Handle layering with bg, fg, main, and obj. BG is new.
 	- Add 'bg' layer to data.
 	- Also add 'bg' layer to tileData as 3rd and 4th bytes, move fg to 5th and 6th byte.
@@ -11,15 +27,6 @@ Console Switch Options
 	- Change tiles between two options.
 	- Add dictionary for words. Each name points to a class, and each class has sub-type names.
 	- Delete all tiles of a given type.
-
-
-There should be a text indicator in the top center for what item is currently being placed.
-	- A description, like "Random Ninja Outfit" or something.
-	- Maybe some optional text if it's more involved.
-
-// TileToolColorToggles.cs doesn't have a slot group.
-	this.slotGroup = (byte)SlotGroup.Scripting;
-
 
 Several placeholder sprites don't work.
 	- Necro1, Necro2, and BoltNecro won't work. They don't have a value in Power.cs, and don't have their own classes.

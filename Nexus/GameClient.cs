@@ -83,7 +83,7 @@ namespace Nexus
 			//var stopwatch = new Stopwatch();
 			//stopwatch.Start();
 
-			Systems.input.PreProcess(!GameEngine.Console.isVisible);
+			Systems.input.PreProcess(!Systems.console.visible);
 			Systems.scene.RunTick();
 
 			base.Update(gameTime);

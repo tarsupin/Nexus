@@ -31,17 +31,17 @@ namespace Nexus.GameEngine {
 				if(statIns == "reset-all") { character.stats.ResetCharacterStats(); }
 
 				// Gravity
-				if(statIns == "gravity") { character.stats.BaseGravity = FInt.Create(ConsoleTrack.NextFloat()); }
+				if(statIns == "gravity") { character.stats.BaseGravity = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
 
 				// Abilities
-				else if(statIns == "fast-cast") { character.stats.CanFastCast = ConsoleTrack.NextBool(); }
-				else if(statIns == "shell-mastery") { character.stats.ShellMastery = ConsoleTrack.NextBool(); }
-				else if(statIns == "safe-above") { character.stats.SafeVsDamageAbove = ConsoleTrack.NextBool(); }
-				else if(statIns == "damage-above") { character.stats.InflictDamageAbove = ConsoleTrack.NextBool(); }
+				else if(statIns == "fast-cast") { character.stats.CanFastCast = ConsoleTrack.NextArgAsBool(); }
+				else if(statIns == "shell-mastery") { character.stats.ShellMastery = ConsoleTrack.NextArgAsBool(); }
+				else if(statIns == "safe-above") { character.stats.SafeVsDamageAbove = ConsoleTrack.NextArgAsBool(); }
+				else if(statIns == "damage-above") { character.stats.InflictDamageAbove = ConsoleTrack.NextArgAsBool(); }
 
 				// Wound Stats
-				else if(statIns == "maxhealth") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextInt(); }
-				else if(statIns == "maxarmor") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextInt(); }
+				else if(statIns == "maxhealth") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextArgAsInt(); }
+				else if(statIns == "maxarmor") { character.wounds.WoundMaximum = (byte) ConsoleTrack.NextArgAsInt(); }
 			}
 		}
 
@@ -100,14 +100,14 @@ namespace Nexus.GameEngine {
 				Character character = ConsoleTrack.character;
 
 				// Abilities
-				if(currentIns == "can-wall-jump") { bool boolVal = ConsoleTrack.NextBool(); character.stats.CanWallJump = boolVal; character.stats.CanWallSlide = boolVal; }
-				else if(currentIns == "can-grab") { character.stats.CanWallGrab = ConsoleTrack.NextBool(); }
-				else if(currentIns == "can-slide") { character.stats.CanWallSlide = ConsoleTrack.NextBool(); }
+				if(currentIns == "can-wall-jump") { bool boolVal = ConsoleTrack.NextArgAsBool(); character.stats.CanWallJump = boolVal; character.stats.CanWallSlide = boolVal; }
+				else if(currentIns == "can-grab") { character.stats.CanWallGrab = ConsoleTrack.NextArgAsBool(); }
+				else if(currentIns == "can-slide") { character.stats.CanWallSlide = ConsoleTrack.NextArgAsBool(); }
 
 				// Wall Jumping
-				else if(currentIns == "jump-duration") { character.stats.WallJumpDuration = (byte)Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "jump-strength") { character.stats.WallJumpXStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "jump-height") { character.stats.WallJumpYStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
+				else if(currentIns == "jump-duration") { character.stats.WallJumpDuration = (byte)Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "jump-strength") { character.stats.WallJumpXStrength = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "jump-height") { character.stats.WallJumpYStrength = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
 			}
 		}
 
@@ -139,10 +139,10 @@ namespace Nexus.GameEngine {
 			}
 
 			if(ConsoleTrack.activate) {
-				if(currentIns == "accel") { character.stats.RunAcceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "decel") { character.stats.RunDeceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "max-speed") { character.stats.RunMaxSpeed = (byte) ConsoleTrack.NextInt(); }
-				else if(currentIns == "walk-mult") { character.stats.SlowSpeedMult = FInt.Create(ConsoleTrack.NextFloat()); }
+				if(currentIns == "accel") { character.stats.RunAcceleration = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "decel") { character.stats.RunDeceleration = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "max-speed") { character.stats.RunMaxSpeed = (byte) ConsoleTrack.NextArgAsInt(); }
+				else if(currentIns == "walk-mult") { character.stats.SlowSpeedMult = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
 
 				// Regarldess of what changes, we need to re-run any effects that hats or other effects have.
 			}
@@ -170,13 +170,13 @@ namespace Nexus.GameEngine {
 				Character character = ConsoleTrack.character;
 				
 				// Air Speed
-				if(currentIns == "accel") { character.stats.AirAcceleration = FInt.Create(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "decel") { character.stats.AirDeceleration = FInt.Create(ConsoleTrack.NextFloat()); }
+				if(currentIns == "accel") { character.stats.AirAcceleration = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "decel") { character.stats.AirDeceleration = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
 
 				// Jumping
-				else if(currentIns == "max-jumps") { character.stats.JumpMaxTimes = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "duration") { character.stats.JumpDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "height") { character.stats.JumpStrength = (byte) Math.Round(ConsoleTrack.NextFloat()); }
+				else if(currentIns == "max-jumps") { character.stats.JumpMaxTimes = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "duration") { character.stats.JumpDuration = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "height") { character.stats.JumpStrength = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
 			}
 		}
 
@@ -207,9 +207,9 @@ namespace Nexus.GameEngine {
 				Character character = ConsoleTrack.character;
 				
 				// Slide
-				if(currentIns == "cooldown") { character.stats.SlideWaitDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "duration") { character.stats.SlideDuration = (byte) Math.Round(ConsoleTrack.NextFloat()); }
-				else if(currentIns == "strength") { character.stats.SlideStrength = FInt.Create(ConsoleTrack.NextFloat()); }
+				if(currentIns == "cooldown") { character.stats.SlideWaitDuration = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "duration") { character.stats.SlideDuration = (byte) Math.Round(ConsoleTrack.NextArgAsFloat()); }
+				else if(currentIns == "strength") { character.stats.SlideStrength = FInt.Create(ConsoleTrack.NextArgAsFloat()); }
 			}
 		}
 

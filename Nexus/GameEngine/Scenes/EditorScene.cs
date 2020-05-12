@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 			this.editorUI.RunTick();
 
 			// Debug Console (only runs if visible)
-			Console.RunTick();
+			Systems.console.RunTick();
 
 			// Run Input for Full Editor and Current Room
 			this.EditorInput();
@@ -122,7 +122,7 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.editorUI.Draw();
-			Console.Draw();
+			Systems.console.Draw();
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {

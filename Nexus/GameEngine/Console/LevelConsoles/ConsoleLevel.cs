@@ -29,8 +29,8 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.possibleTabs = "Example: `level teleport 10 10`";
 			ConsoleTrack.helpText = "The grid square (e.g. \"10, 10\") to teleport to.";
 			
-			int x = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileWidth;
-			int y = ConsoleTrack.NextInt() * (byte) TilemapEnum.TileHeight;
+			int x = ConsoleTrack.NextArgAsInt() * (byte) TilemapEnum.TileWidth;
+			int y = ConsoleTrack.NextArgAsInt() * (byte) TilemapEnum.TileHeight;
 
 			if(ConsoleTrack.activate && x > 0 && y > 0) {
 				Character.Teleport(ConsoleTrack.character, x, y);
@@ -41,8 +41,8 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.possibleTabs = "Example: `level teleport-coords 5000 450`";
 			ConsoleTrack.helpText = "The exact coordinates (e.g. \"5000, 450\") to teleport to.";
 			
-			int x = ConsoleTrack.NextInt();
-			int y = ConsoleTrack.NextInt();
+			int x = ConsoleTrack.NextArgAsInt();
+			int y = ConsoleTrack.NextArgAsInt();
 
 			if(ConsoleTrack.activate && x > 0 && y > 0) {
 				Character.Teleport(ConsoleTrack.character, x, y);

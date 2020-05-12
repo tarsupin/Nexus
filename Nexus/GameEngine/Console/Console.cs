@@ -1,191 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Nexus.GameEngine {
 
-	public static class ConsoleTrack {
-		public static Player player = null; // Tracks which player to apply the effect to, if applicable.
-		public static Character character = null; // Tracks which character to apply the effect to, if applicable.
-		public static string instructionText = String.Empty; // The original command, as written into the console.
-		public static List<string> instructionList = new List<string>() {}; // Stores the split() instructions.
-		public static byte instructionIndex = 0; // The index of the instructionList that is next in line.
-		public static string tabLookup = String.Empty; // The tab to highlight (whichever is most likely).
-		public static string helpText = String.Empty; // Helpful text that applies to the current instruction set you're in.
-		public static string possibleTabs = String.Empty; // A list of tab options to show.
-		public static bool activate = false; // TRUE on the RunTick() that 'enter' gets pressed.
+	public class Console : UIComponent {
 
-		public static void LoadInstructionText( string insText ) {
+		public LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
+		public sbyte lineNum = 0;
+		public uint backspaceFrame = 0;
 
-			// Get the instruction array.
-			string[] insArray = insText.Split(' ');
+		public Console() : base(null) {
 
-			ConsoleTrack.instructionList = new List<string>(insArray);
-
-			// Reset Console Track Information
-			ConsoleTrack.instructionIndex = 0;
-			ConsoleTrack.tabLookup = String.Empty;
-			ConsoleTrack.helpText = String.Empty;
-			ConsoleTrack.possibleTabs = String.Empty;
-			ConsoleTrack.player = null;
-			ConsoleTrack.character = null;
 		}
 
-		public static void PrepareTabLookup( Dictionary<string, Action> dict, string currentIns, string helpText ) {
-
-			// Update help text.
-			ConsoleTrack.helpText = helpText;
-
-			// Make sure you're on the last instruction, otherwise no tab lookup applies.
-			if(!ConsoleTrack.OnLastInstruction()) { return; }
-
-			if(currentIns.Length > 0) {
-
-				// Scan for instructions that start with the arg provided:
-				string tab = dict.Where(pv => pv.Key.StartsWith(currentIns)).FirstOrDefault().Key;
-
-				// Update the tab lookup.
-				ConsoleTrack.tabLookup = tab != null ? Regex.Replace(tab, "^" + currentIns, "") : string.Empty;
-			}
-
-			else {
-				ConsoleTrack.tabLookup = string.Empty;
-			}
-
-			// Update possible tabs.
-			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
-		}
-
-		public static void PrepareTabLookup( Dictionary<string, object> dict, string currentIns, string helpText ) {
-
-			// Update help text.
-			ConsoleTrack.helpText = helpText;
-
-			// Make sure you're on the last instruction, otherwise no tab lookup applies.
-			if(!ConsoleTrack.OnLastInstruction()) { return; }
-
-			if(currentIns.Length > 0) {
-
-				// Scan for instructions that start with the arg provided:
-				string tab = dict.Where(pv => pv.Key.StartsWith(currentIns)).FirstOrDefault().Key;
-
-				// Update the tab lookup.
-				ConsoleTrack.tabLookup = tab != null ? Regex.Replace(tab, "^" + currentIns, "") : string.Empty;
-
-			} else {
-				ConsoleTrack.tabLookup = string.Empty;
-			}
-
-			// Update possible tabs.
-			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
-		}
-
-		public static void PrepareTabLookup(string helpText) {
-
-			// Update help text.
-			ConsoleTrack.helpText = helpText;
-
-			// Clear the Menu's Text
-			ConsoleTrack.tabLookup = string.Empty;
-			ConsoleTrack.possibleTabs = string.Empty;
-		}
-
-		// Returns `true` if we're on the last instruction arg.
-		public static bool OnLastInstruction() {
-			return ConsoleTrack.instructionIndex >= ConsoleTrack.instructionList.Count;
-		}
-
-		// Updates the instruction index and returns next instruction instruction string (or "" if none).
-		public static string NextArg() {
-			byte num = ConsoleTrack.instructionIndex;
-			ConsoleTrack.instructionIndex++;
-
-			if(ConsoleTrack.instructionList.Count > num) {
-				return ConsoleTrack.instructionList[num];
-			}
-
-			return string.Empty;
-		}
-
-		// Returns the next instruction arg as a bool.
-		public static bool NextBool() {
-			string arg = ConsoleTrack.NextArg();
-			return (arg == "true" || arg == "1" || arg == "on");
-		}
-
-		// Returns the next instruction arg as an int.
-		public static int NextInt() {
-			string arg = ConsoleTrack.NextArg();
-
-			if(arg != string.Empty) {
-				int intVal;
-				if(!Int32.TryParse(arg, out intVal)) { intVal = 0; }
-				return intVal;
-			}
-
-			return 0;
-		}
-
-		// Returns the next instruction arg as a float.
-		public static float NextFloat() {
-			string arg = ConsoleTrack.NextArg();
-
-			if(arg != string.Empty) {
-				float floatVal;
-				if(!float.TryParse(arg, out floatVal)) { floatVal = 0; }
-				return floatVal;
-			}
-
-			return 0;
-		}
-
-		// Reset the Console Track Activation
-		public static void ResetAfterActivation() {
-			ConsoleTrack.activate = false; // Not resetting this would cause the instructions to activate every cycle.
-			ConsoleTrack.instructionText = string.Empty;
-			ConsoleTrack.helpText = String.Empty;
-			ConsoleTrack.possibleTabs = String.Empty;
-		}
-	}
-
-	public static class Console {
-
-		public static bool isEnabled = true;	// If console is not enabled, no commands can be triggered (even through macros).
-		public static bool isVisible = false;   // Whether or not console is currently visible.
-
-		public static LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
-		public static sbyte lineNum = 0;
-		public static uint backspaceFrame = 0;
-
-		public static void SetEnabled(bool enable) { Console.isEnabled = enable; if(!enable) { Console.isVisible = false; } }
-		public static void SetVisible(bool visible) { if(Console.isEnabled) { Console.PrepareConsole(visible); } else { Console.isVisible = false; } }
-
-		public static void PrepareConsole(bool visible) {
-			Console.isVisible = visible;
-			Console.lineNum = 0;
-		}
-
-		public static void RunTick() {
+		public void RunTick() {
 			InputClient input = Systems.input;
 
 			// Determine if the console is being set to visible, or hidden (with the tilde key)
 			if(input.LocalKeyPressed(Keys.OemTilde)) {
-				Console.SetVisible(!Console.isVisible);
+				this.SetVisible(!this.visible);
 
-				if(Console.isVisible) {
-					ConsoleTrack.ResetAfterActivation();
+				if(this.visible) {
+					ConsoleTrack.ResetValues();
 					ConsoleTrack.PrepareTabLookup(consoleDict, "", "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 				}
 			}
 
-			if(!Console.isVisible) { return; }
+			if(!this.visible) { return; }
 
 			// Get Characters Pressed (doesn't assist with order)
 			string charsPressed = input.GetCharactersPressed();
@@ -200,35 +46,25 @@ namespace Nexus.GameEngine {
 				// After a hard delete (just pressed), wait 10 frames rather than 3.
 				if(input.LocalKeyPressed(Keys.Back)) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
-					Console.backspaceFrame = Systems.timer.Frame + 10;
+					this.backspaceFrame = Systems.timer.Frame + 10;
 				}
 
-				else if(Console.backspaceFrame < Systems.timer.Frame) {
+				else if(this.backspaceFrame < Systems.timer.Frame) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 
 					// Delete a character every 3 frames.
-					Console.backspaceFrame = Systems.timer.Frame + 3;
+					this.backspaceFrame = Systems.timer.Frame + 3;
 				}
 			}
 
-			// Press Up
-			else if(input.LocalKeyPressed(Keys.Up)) {
-				Console.ScrollConsoleText(-1);
-			}
+			// Up + Down - Scroll through Console Text
+			else if(input.LocalKeyPressed(Keys.Up)) { this.ScrollConsoleText(-1); }
+			else if(input.LocalKeyPressed(Keys.Down)) { this.ScrollConsoleText(1); }
 
-			// Press Down
-			else if(input.LocalKeyPressed(Keys.Down)) {
-				Console.ScrollConsoleText(1);
-			}
-
-			// Tab
-			else if(input.LocalKeyDown(Keys.Tab)) {
-
-				// Appends the tab lookup to the current instruction text.
-				ConsoleTrack.instructionText += ConsoleTrack.tabLookup;
-			}
+			// Tab - Appends the tab lookup to the current instruction text.
+			else if(input.LocalKeyDown(Keys.Tab)) { ConsoleTrack.instructionText += ConsoleTrack.tabLookup; }
 			
-			// Enter
+			// Enter - Process the instruction.
 			else if(input.LocalKeyPressed(Keys.Enter)) {
 				ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
 			}
@@ -237,11 +73,11 @@ namespace Nexus.GameEngine {
 			else { return; }
 
 			// Process the Instruction
-			Console.SendCommand(ConsoleTrack.instructionText, false);
+			this.SendCommand(ConsoleTrack.instructionText, false);
 		}
 
-		public static void SendCommand(string insText, bool setActivate = true) {
-			if(!Console.isEnabled) { return; }
+		public void SendCommand(string insText, bool setActivate = true) {
+			if(!this.visible) { return; }
 
 			if(setActivate) { ConsoleTrack.activate = true; } // The instruction is meant to run (rather than just reveal new text hints).
 			ConsoleTrack.instructionText = insText;
@@ -252,22 +88,22 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.activate) {
 
 				// Track Written Lines
-				Console.consoleLines.AddFirst(ConsoleTrack.instructionText);
+				this.consoleLines.AddFirst(ConsoleTrack.instructionText);
 
 				// If we're in the console save slots, save the instruction to the appropriate slot:
-				if(Console.lineNum > 0 && Console.lineNum <= 5) {
-					Systems.settings.input.consoleDown[Console.lineNum - 1] = ConsoleTrack.instructionText;
+				if(this.lineNum > 0 && this.lineNum <= 5) {
+					Systems.settings.input.consoleDown[this.lineNum - 1] = ConsoleTrack.instructionText;
 					Systems.settings.input.SaveSettings();
 				}
 
 				// If there are over 20 lines, remove the last one.
-				if(Console.consoleLines.Count > 20) {
-					Console.consoleLines.RemoveLast();
+				if(this.consoleLines.Count > 20) {
+					this.consoleLines.RemoveLast();
 				}
 
 				// Cleanup
-				Console.lineNum = 0;
-				ConsoleTrack.ResetAfterActivation();
+				this.lineNum = 0;
+				ConsoleTrack.ResetValues();
 				ConsoleTrack.PrepareTabLookup("The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.");
 				ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", consoleDict.Keys.ToArray());
 			}
@@ -358,24 +194,24 @@ namespace Nexus.GameEngine {
 			{ "kill", ConsoleWounds.CheatCodeKill },
 		};
 
-		public static void ScrollConsoleText(sbyte scrollAmount) {
-			Console.lineNum += scrollAmount;
+		public void ScrollConsoleText(sbyte scrollAmount) {
+			this.lineNum += scrollAmount;
 
 			// If the scroll is less than 0, we're in the Console UP set:
-			if(Console.lineNum < 0) {
-				byte num = (byte) Math.Abs(Console.lineNum);
+			if(this.lineNum < 0) {
+				byte num = (byte) Math.Abs(this.lineNum);
 
-				if(num > Console.consoleLines.Count) { num = (byte) Console.consoleLines.Count; }
-				ConsoleTrack.instructionText = num > 0 ? Console.consoleLines.ElementAt(num - 1) : "";
-				Console.lineNum = (sbyte) -num;
+				if(num > this.consoleLines.Count) { num = (byte) this.consoleLines.Count; }
+				ConsoleTrack.instructionText = num > 0 ? this.consoleLines.ElementAt(num - 1) : "";
+				this.lineNum = (sbyte) -num;
 			}
 
 			// If the scroll value is greater than 0, we're in the Console DOWN set:
-			else if(Console.lineNum > 0) {
-				Console.lineNum = (sbyte) Math.Min((byte) 5, Console.lineNum);
-				ConsoleTrack.instructionText = Systems.settings.input.consoleDown[Console.lineNum - 1];
+			else if(this.lineNum > 0) {
+				this.lineNum = (sbyte) Math.Min((byte) 5, this.lineNum);
+				ConsoleTrack.instructionText = Systems.settings.input.consoleDown[this.lineNum - 1];
 				if(ConsoleTrack.instructionText == null) { ConsoleTrack.instructionText = ""; }
-				ConsoleTrack.PrepareTabLookup(consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + Console.lineNum);
+				ConsoleTrack.PrepareTabLookup(consoleDict, ConsoleTrack.instructionText, "Console Save Slot #" + this.lineNum);
 			}
 
 			// If the scroll value is 0, we've returned to the default / entry point for the Console line:
@@ -385,8 +221,8 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static void Draw() {
-			if(!Console.isVisible) { return; }
+		public void Draw() {
+			if(!this.visible) { return; }
 
 			FontClass consoleFont = Systems.fonts.console;
 
