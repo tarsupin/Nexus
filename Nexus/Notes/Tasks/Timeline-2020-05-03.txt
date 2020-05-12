@@ -79,6 +79,8 @@ May 11th, 2020
 	- AutoTile Tool Created.
 	- Fixed AutoTiling Bugs + Level Convert Structure.
 	- Added Axis-Specific AutoTiling.
+	- Added Basics of Blueprint Tools.
+	- Selection Tool Functioning and Rendered.
 
 
 // Next TODO List
@@ -104,6 +106,8 @@ Character Start Flag - maybe treat like Checkpoint; can have options of what to 
 Load Objects into Editor
 LevelConvert decor, ledges, prompts, etc.
 Selection Tool: Control X, C, V. X and C create blueprint.
+Cloning Empty Tile switches to Selection Tool.
 Blueprint Tool: Tracks an array of tileId, subType, and params. Can place it.
 Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a "Control+X" option.
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
+Change Level Size on Editor.

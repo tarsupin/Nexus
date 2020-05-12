@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
 
@@ -8,16 +9,20 @@ namespace Nexus.GameEngine {
 
 		public enum FuncToolEnum : byte {
 			None,
+			Select,
 			Eraser,
 			Eyedrop,
 			Move,
-			Wand
+			Blueprint,
+			Wand,
 		}
 
 		public static Dictionary<byte, FuncTool> funcToolMap = new Dictionary<byte, FuncTool>() {
+			{ (byte) FuncToolEnum.Select, new FuncToolSelect() },
 			{ (byte) FuncToolEnum.Eraser, new FuncToolEraser() },
 			{ (byte) FuncToolEnum.Eyedrop, new FuncToolEyedrop() },
 			{ (byte) FuncToolEnum.Move, new FuncToolMove() },
+			{ (byte) FuncToolEnum.Blueprint, new FuncToolBlueprint() },
 			{ (byte) FuncToolEnum.Wand, new FuncToolWand() },
 		};
 
@@ -28,14 +33,19 @@ namespace Nexus.GameEngine {
 			{ Keys.E, (byte) FuncToolEnum.Wand },
 		};
 
+		public Atlas atlas;
 		public string spriteName;
 		public string title;
 		public string description;
 
 		public FuncTool() {
-
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 		}
 
 		public virtual void RunTick(EditorRoomScene scene) {}
+
+		public virtual void DrawFuncTool() {
+			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+		}
 	}
 }

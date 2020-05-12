@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.Xna.Framework;
 using Nexus.Engine;
+using Nexus.Gameplay;
 using System;
 using System.Collections;
 
@@ -26,17 +28,20 @@ namespace Nexus.GameEngine {
 			this.description = "No behavior at this time.";
 		}
 
+		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
+		private byte BoxHeight { get { return (byte) (Math.Abs(this.yEnd - this.yStart) + 1); } }
+
 		public void StartSelection(ushort gridX, ushort gridY) {
 			this.activity = SelectActivity.Working;
 			this.xStart = gridX;
-			this.yStart = gridY;
 			this.xEnd = gridX;
+			this.yStart = gridY;
 			this.yEnd = gridY;
 		}
 
 		public void UpdatePosition(ushort gridX, ushort gridY) {
-			if(Math.Abs(this.xEnd - this.xStart) <= 20) { this.xEnd = gridX; }
-			if(Math.Abs(this.yEnd - this.yStart) <= 20) { this.yEnd = gridY; }
+			this.xEnd = gridX;
+			this.yEnd = gridY;
 		}
 
 		public void EndSelection() { this.activity = SelectActivity.HasSelection; }
@@ -65,6 +70,20 @@ namespace Nexus.GameEngine {
 					this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
 				}
 			}
+		}
+
+		public override void DrawFuncTool() {
+
+			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			int width = this.BoxWidth * (byte)TilemapEnum.TileWidth;
+			int height = this.BoxHeight * (byte)TilemapEnum.TileHeight;
+
+			// Draw Semi-Transparent Box over Selection
+			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(left * (byte)TilemapEnum.TileWidth - Systems.camera.posX, top * (byte)TilemapEnum.TileHeight - Systems.camera.posY, width, height), Color.White * 0.25f);
+
+			// Draw Selection Icon
+			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

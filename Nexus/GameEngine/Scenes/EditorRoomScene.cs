@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using static Nexus.GameEngine.FuncTool;
 
 namespace Nexus.GameEngine {
 
@@ -224,7 +225,11 @@ namespace Nexus.GameEngine {
 			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
 			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[this.roomID].main, gridX, gridY);
 
-			if(tileData == null) { return; }
+			// If no tile is cloned, set the current Function Tool to "Select"
+			if(tileData == null) {
+				EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte) FuncToolEnum.Select]);
+				return;
+			}
 
 			// Identify the tile, and set it as the current editing tool (if applicable)
 			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);

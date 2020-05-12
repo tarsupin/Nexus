@@ -65,11 +65,14 @@ namespace Nexus.GameEngine {
 
 			if(UIComponent.ComponentWithFocus == null) {
 
+				// Draw Temporary Function Tool (if active)
+				if(EditorTools.tempTool != null) {
+					EditorTools.tempTool.DrawFuncTool();
+				}
+
 				// Draw Function Tool (if active)
-				if(EditorTools.funcTool != null || EditorTools.tempTool != null) {
-					string toolSprite = EditorTools.tempTool != null ? EditorTools.tempTool.spriteName : EditorTools.funcTool.spriteName;
-					Atlas atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-					atlas.Draw(toolSprite, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+				else if(EditorTools.funcTool != null) {
+					EditorTools.funcTool.DrawFuncTool();
 				}
 
 				// Draw AutoTile Tool (if active)
