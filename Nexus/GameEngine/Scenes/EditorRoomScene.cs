@@ -47,6 +47,12 @@ namespace Nexus.GameEngine {
 
 		public override void RunTick() {
 
+			// A right click will clone the current tile.
+			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
+				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				return;
+			}
+
 			// Update Tools
 			if(EditorTools.tempTool is FuncTool) {
 				EditorTools.tempTool.RunTick(this);
@@ -138,12 +144,6 @@ namespace Nexus.GameEngine {
 			if(gridY < 0 || gridY > this.yCount) { return; }
 			if(gridX < 0 || gridX > this.xCount) { return; }
 
-			// A right click will clone the current tile.
-			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
-				return;
-			}
-
 			TileTool tool = EditorTools.tileTool;
 
 			// Make sure the tile tool is set, or placement cannot occur:
@@ -189,7 +189,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void DeleteTile(byte gridX, byte gridY) {
+		public void DeleteTile(ushort gridX, ushort gridY) {
 
 			// Make sure deletion is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return; }

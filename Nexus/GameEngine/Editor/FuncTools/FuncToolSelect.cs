@@ -1,9 +1,9 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
-using System.Collections;
 
 namespace Nexus.GameEngine {
 
@@ -24,8 +24,8 @@ namespace Nexus.GameEngine {
 
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
-			this.title = "Select";
-			this.description = "No behavior at this time.";
+			this.title = "Selection Tool";
+			this.description = "Drag a selection. Ctrl+C will copy, Ctrl+X will cut, Delete will delete.";
 		}
 
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
@@ -40,12 +40,12 @@ namespace Nexus.GameEngine {
 		}
 
 		public void UpdatePosition(ushort gridX, ushort gridY) {
-			this.xEnd = gridX;
-			this.yEnd = gridY;
+			if(Math.Abs(gridX - this.xStart) < 20) { this.xEnd = gridX; }
+			if(Math.Abs(gridY - this.yStart) < 20) { this.yEnd = gridY; }
 		}
 
 		public void EndSelection() { this.activity = SelectActivity.HasSelection; }
-		public void ClearSelection() { this.activity = SelectActivity.None; }
+		public void ClearSelection() { this.activity = SelectActivity.None; this.xEnd = this.xStart; this.yEnd = this.yStart; }
 
 		public override void RunTick(EditorRoomScene scene) {
 
@@ -70,6 +70,47 @@ namespace Nexus.GameEngine {
 					this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
 				}
 			}
+
+			if(this.activity != SelectActivity.None) {
+
+				// If Control is being held down:
+				if(Systems.input.LocalKeyDown(Keys.LeftControl) || Systems.input.LocalKeyDown(Keys.RightControl)) {
+
+					// Copy + Cut
+					bool pressC = Systems.input.LocalKeyPressed(Keys.C);
+					bool pressX = Systems.input.LocalKeyPressed(Keys.X);
+
+					// Set the Blueprint FuncTool as active.
+					if(pressC || pressX) {
+						FuncToolBlueprint bpFunc = (FuncToolBlueprint) FuncTool.funcToolMap[(byte)FuncToolEnum.Blueprint];
+						EditorTools.SetFuncTool(bpFunc);
+
+						// Assign Grid Tiles
+						bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd);
+
+						// If the selection was cut, remove the tiles:
+						if(pressX) {
+							this.CutTiles(scene);
+						}
+
+						this.ClearSelection();
+					}
+				}
+			}
+		}
+
+		public void CutTiles(EditorRoomScene scene) {
+
+			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+
+			for(ushort y = top; y <= bottom; y++) {
+				for(ushort x = left; x <= right; x++) {
+					scene.DeleteTile(x, y);
+				}
+			}
 		}
 
 		public override void DrawFuncTool() {
@@ -80,7 +121,9 @@ namespace Nexus.GameEngine {
 			int height = this.BoxHeight * (byte)TilemapEnum.TileHeight;
 
 			// Draw Semi-Transparent Box over Selection
-			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(left * (byte)TilemapEnum.TileWidth - Systems.camera.posX, top * (byte)TilemapEnum.TileHeight - Systems.camera.posY, width, height), Color.White * 0.25f);
+			if(this.activity != SelectActivity.None) {
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(left * (byte)TilemapEnum.TileWidth - Systems.camera.posX, top * (byte)TilemapEnum.TileHeight - Systems.camera.posY, width, height), Color.White * 0.25f);
+			}
 
 			// Draw Selection Icon
 			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);

@@ -77,14 +77,18 @@ namespace Nexus.GameEngine {
 			Keys[] localKeys = input.GetAllLocalKeysDown();
 			if(localKeys.Length == 0) { return; }
 
-			// Func Tool Key Binds
-			if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
-				EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
-			}
+			// Key Presses that AREN'T using control keys:
+			if(!input.LocalKeyDown(Keys.LeftControl) && !input.LocalKeyDown(Keys.RightControl)) {
 
-			// Tile Tool Key Binds
-			else if(EditorUI.currentSlotGroup > 0) {
-				this.CheckTileToolKeyBinds(localKeys[0]);
+				// Func Tool Key Binds
+				if(FuncTool.funcToolKey.ContainsKey(localKeys[0])) {
+					EditorTools.SetTempTool(FuncTool.funcToolMap[FuncTool.funcToolKey[localKeys[0]]]);
+				}
+
+				// Tile Tool Key Binds
+				else if(EditorUI.currentSlotGroup > 0) {
+					this.CheckTileToolKeyBinds(localKeys[0]);
+				}
 			}
 
 			// Open Wheel Menu

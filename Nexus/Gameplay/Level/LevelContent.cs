@@ -141,7 +141,7 @@ namespace Nexus.Gameplay {
 			//}
 		}
 
-		public void DeleteTile(string roomID, byte gridX, byte gridY) {
+		public void DeleteTile(string roomID, ushort gridX, ushort gridY) {
 			this.data.rooms[roomID].main[gridY.ToString()].Remove(gridX.ToString());
 		}
 	}

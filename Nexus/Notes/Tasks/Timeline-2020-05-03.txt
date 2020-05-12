@@ -82,6 +82,11 @@ May 11th, 2020
 	- Added Basics of Blueprint Tools.
 	- Selection Tool Functioning and Rendered.
 
+May 12, 2020
+	- Significant Improvements to Selection Tool.
+	- Blueprint Tool functioning.
+	- Copy, Cut, and Delete functionality added.
+
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -106,7 +111,6 @@ Character Start Flag - maybe treat like Checkpoint; can have options of what to 
 Load Objects into Editor
 LevelConvert decor, ledges, prompts, etc.
 Selection Tool: Control X, C, V. X and C create blueprint.
-Cloning Empty Tile switches to Selection Tool.
 Blueprint Tool: Tracks an array of tileId, subType, and params. Can place it.
 Move Tool: Adapt the behaviors of Selection and Blueprint tools; more or less a "Control+X" option.
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
