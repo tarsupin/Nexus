@@ -24,12 +24,12 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsFireBurstRules {
-		public static WholeRangeParam Count = new WholeRangeParam("Number of Fireballs", 1, 3, 1, 1);
-		public static WholeRangeParam Gravity = new WholeRangeParam("Gravity Influence", 0, 200, 10, 100, "%");
-		public static WholeRangeParam Cycle = new WholeRangeParam("Attack Frequency", 60, 300, 15, 120, " frames");
-		public static WholeRangeParam Offset = new WholeRangeParam("Timer Offset", 0, 300, 15, 0, " frames");
-		public static WholeRangeParam Speed = new WholeRangeParam("Fireball Speed", 20, 200, 10, 100, "%");
-		public static WholeRangeParam Spread = new WholeRangeParam("Fireball Spread", 50, 250, 10, 100, "%");
+		public static IntParam Count = new IntParam("Number of Fireballs", 1, 3, 1, 1);
+		public static IntParam Gravity = new IntParam("Gravity Influence", 0, 200, 10, 100, "%");
+		public static IntParam Cycle = new IntParam("Attack Frequency", 60, 300, 15, 120, " frames");
+		public static IntParam Offset = new IntParam("Timer Offset", 0, 300, 15, 0, " frames");
+		public static IntParam Speed = new IntParam("Fireball Speed", 20, 200, 10, 100, "%");
+		public static IntParam Spread = new IntParam("Fireball Spread", 50, 250, 10, 100, "%");
 	}
 
 	public static class ParamsFireBurst {

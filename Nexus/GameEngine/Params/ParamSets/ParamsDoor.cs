@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsDoorRules {
-		public static WholeRangeParam DestRoom = new WholeRangeParam("Room Destination", 0, 4, 1, 0, " frame(s)");
+		public static IntParam DestRoom = new IntParam("Room Destination", 0, 4, 1, 0, " frame(s)");
 		public static DictionaryParam ExitType = new DictionaryParam("Exit Type", new Dictionary<byte, string>() {
 			{ (byte) DoorExitType.ToSameColor, "To Same Door Color" },
 			{ (byte) DoorExitType.ToOpenDoor, "To Open Doorway" },

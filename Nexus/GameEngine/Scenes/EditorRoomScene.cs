@@ -107,7 +107,7 @@ namespace Nexus.GameEngine {
 			int camX = cam.posX + (isShaking ? cam.GetCameraShakeOffsetX() : 0);
 			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
 
-			var tileMap = Systems.mapper.TileDict;
+			var tileDict = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
 			for(ushort y = gridY; y --> startY; ) {
@@ -128,7 +128,7 @@ namespace Nexus.GameEngine {
 					byte subIndex = byte.Parse(xData[1].ToString());
 
 					// Draw Layer
-					TileGameObject tileObj = tileMap[index];
+					TileGameObject tileObj = tileDict[index];
 
 					// Render the tile with its designated Class Object:
 					if(tileObj is TileGameObject) {

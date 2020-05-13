@@ -17,9 +17,9 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsAttackEarthRules {
-		public static WholeRangeParam Cycle = new WholeRangeParam("Attack Frequency", 60, 300, 15, 120, " frames");
-		public static WholeRangeParam Offset = new WholeRangeParam("Timer Offset", 0, 300, 15, 0, " frames");
-		public static WholeRangeParam Speed = new WholeRangeParam("Stone Speed", 20, 200, 10, 100, "%");
+		public static IntParam Cycle = new IntParam("Attack Frequency", 60, 300, 15, 120, " frames");
+		public static IntParam Offset = new IntParam("Timer Offset", 0, 300, 15, 0, " frames");
+		public static IntParam Speed = new IntParam("Stone Speed", 20, 200, 10, 100, "%");
 	}
 
 	public static class ParamsAttackEarth {

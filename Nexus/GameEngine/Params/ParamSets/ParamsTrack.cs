@@ -19,10 +19,10 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsTrackRules {
-		public static WholeRangeParam TrackNum = new WholeRangeParam("Track ID", 0, 99, 1, 0);
-		public static WholeRangeParam ToTrack = new WholeRangeParam("Goes to Track ID", 0, 99, 1, 0);
-		public static WholeRangeParam Duration = new WholeRangeParam("Travel Duration", 60, 3600, 15, 180, " frame(s)");
-		public static WholeRangeParam Delay = new WholeRangeParam("Departure Delay", 0, 3600, 15, 0, " frame(s)");
+		public static IntParam TrackNum = new IntParam("Track ID", 0, 99, 1, 0);
+		public static IntParam ToTrack = new IntParam("Goes to Track ID", 0, 99, 1, 0);
+		public static IntParam Duration = new IntParam("Travel Duration", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Delay = new IntParam("Departure Delay", 0, 3600, 15, 0, " frame(s)");
 		public static BoolParam WillFall = new BoolParam("Falls On Arrival", false);
 	}
 

@@ -46,23 +46,23 @@ namespace Nexus.GameEngine {
 			{ (byte) FlightMovement.To, "Toward Destination" },
 		}, (byte) FlightMovement.Axis );
 
-		public static WholeRangeParam Duration = new WholeRangeParam("Move Duration", 60, 3600, 15, 180, " frame(s)");
-		public static WholeRangeParam Offset = new WholeRangeParam("Timer Offset", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Duration = new IntParam("Move Duration", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Offset = new IntParam("Timer Offset", 60, 3600, 15, 180, " frame(s)");
 
-		public static WholeRangeParam XMovement = new WholeRangeParam("X Movement", -20, 20, 1, 0, " tiles(s)");
-		public static WholeRangeParam YMovement = new WholeRangeParam("Y Movement", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam XMovement = new IntParam("X Movement", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam YMovement = new IntParam("Y Movement", -20, 20, 1, 0, " tiles(s)");
 
-		public static WholeRangeParam MidX = new WholeRangeParam("X Midpoint", -20, 20, 1, 0, " tiles(s)");
-		public static WholeRangeParam MidY = new WholeRangeParam("Y Midpoint", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam MidX = new IntParam("X Midpoint", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam MidY = new IntParam("Y Midpoint", -20, 20, 1, 0, " tiles(s)");
 
-		public static WholeRangeParam Diameter = new WholeRangeParam("Diameter", 0, 20, 1, 0, " tiles(s)");
+		public static IntParam Diameter = new IntParam("Diameter", 0, 20, 1, 0, " tiles(s)");
 
 		public static BoolParam Reverse = new BoolParam("Reverses Direction", false);
-		public static WholeRangeParam Countdown = new WholeRangeParam("Countdown", 0, 60, 1, 0, " second(s)");
+		public static IntParam Countdown = new IntParam("Countdown", 0, 60, 1, 0, " second(s)");
 
-		public static WholeRangeParam ToTrack = new WholeRangeParam("To Track #", 0, 100, 1, 1);
-		public static WholeRangeParam ClusterID = new WholeRangeParam("Act As Cluster ID", 0, 9, 1, 0);
-		public static WholeRangeParam ParentClusterID = new WholeRangeParam("Link To Cluster ID", 0, 9, 1, 0);
+		public static IntParam ToTrack = new IntParam("To Track #", 0, 100, 1, 1);
+		public static IntParam ClusterID = new IntParam("Act As Cluster ID", 0, 9, 1, 0);
+		public static IntParam ParentClusterID = new IntParam("Link To Cluster ID", 0, 9, 1, 0);
 	}
 
 	public static class ParamsMoveFlight {

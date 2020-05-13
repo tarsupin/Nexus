@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 
 	public static class ParamsCollectableRules {
 		public static LabeledParam Rule = new LabeledParam("Collectable Rule", new string[4] { "One Use Only", "One Per Player", "Always Available", "Regenerates After Use" }, (byte) CollectableRule.OneUseOnly);
-		public static WholeRangeParam RegenTime = new WholeRangeParam("Regen Time", 0, 60, 1, 0);
+		public static IntParam RegenTime = new IntParam("Regen Time", 0, 60, 1, 0);
 	}
 
 	public static class ParamsCollectable {

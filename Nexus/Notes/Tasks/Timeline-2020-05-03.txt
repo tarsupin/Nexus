@@ -88,6 +88,7 @@ May 12, 2020
 	- Copy, Cut, and Delete functionality added.
 	- Drag + Drop Added to Selection Tool.
 	- Drag + Drop includes Cursor Offset.
+	- Split Consoles into Level and Editor Consoles.
 
 
 // Next TODO List
@@ -114,4 +115,12 @@ Load Objects into Editor
 LevelConvert decor, ledges, prompts, etc.
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor.
+
+// Params
+Create a Dictionary<string, ParamGroup> for each Param set.
+	- "attSpeed": [param type, default value, low value, high value, increment, unit name]
+Assign all default params to a ParamDefault enum.
+	- See "FlightDefaults" for example
+A static map of each param set.
+Remove all IMechanics classes.
 

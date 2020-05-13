@@ -14,8 +14,8 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsMoveBounceRules {
-		public static WholeRangeParam XMovement = new WholeRangeParam("X Movement", -6, 6, 1, 2, " tile(s)");
-		public static WholeRangeParam YMovement = new WholeRangeParam("Y Movement", -6, 6, 1, 2, " tile(s)");
+		public static IntParam XMovement = new IntParam("X Movement", -6, 6, 1, 2, " tile(s)");
+		public static IntParam YMovement = new IntParam("Y Movement", -6, 6, 1, 2, " tile(s)");
 	}
 
 	public static class ParamsMoveBounce {

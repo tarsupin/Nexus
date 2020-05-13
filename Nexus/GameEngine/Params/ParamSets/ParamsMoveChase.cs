@@ -25,12 +25,12 @@ namespace Nexus.GameEngine {
 
 	public static class ParamsMoveChaseRules {
 		public static LabeledParam Axis = new LabeledParam("Movement Axis", new string[3] { "Both", "Vertical", "Horizontal" }, 0);
-		public static WholeRangeParam Speed = new WholeRangeParam("Movement Speed", 10, 200, 10, 100, "%");
-		public static WholeRangeParam Chase = new WholeRangeParam("Chase Range", 60, 300, 15, 120, " tile(s)");
-		public static WholeRangeParam Flee = new WholeRangeParam("Flee Range", 0, 300, 15, 0, " tile(s)");
-		public static WholeRangeParam Stall = new WholeRangeParam("Stall Range", 20, 200, 10, 100, " tile(s)");
+		public static IntParam Speed = new IntParam("Movement Speed", 10, 200, 10, 100, "%");
+		public static IntParam Chase = new IntParam("Chase Range", 60, 300, 15, 120, " tile(s)");
+		public static IntParam Flee = new IntParam("Flee Range", 0, 300, 15, 0, " tile(s)");
+		public static IntParam Stall = new IntParam("Stall Range", 20, 200, 10, 100, " tile(s)");
 		public static BoolParam Returns = new BoolParam("Returns to Start", true);
-		public static WholeRangeParam ReturnDelay = new WholeRangeParam("Delay for Returning", 0, 300, 15, 120, " frames");
+		public static IntParam ReturnDelay = new IntParam("Delay for Returning", 0, 300, 15, 120, " frames");
 	}
 
 	public static class ParamsMoveChase {

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
+using System.Collections;
 
 namespace Nexus.GameEngine {
 
@@ -21,11 +22,11 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsAttackBoltRules {
-		public static WholeRangeParam Count = new WholeRangeParam("Number of Bolts", 1, 3, 1, 1);
-		public static WholeRangeParam Cycle = new WholeRangeParam("Attack Frequency", 60, 300, 15, 120, " frames");
-		public static WholeRangeParam Offset = new WholeRangeParam("Timer Offset", 0, 300, 15, 0, " frames");
-		public static WholeRangeParam Speed = new WholeRangeParam("Bolt Speed", 20, 200, 10, 100, "%");
-		public static WholeRangeParam Spread = new WholeRangeParam("Bolt Spread", 50, 200, 10, 100, "%");
+		public static IntParam Count = new IntParam("Number of Bolts", 1, 3, 1, 1);
+		public static IntParam Cycle = new IntParam("Attack Frequency", 60, 300, 15, 120, " frames");
+		public static IntParam Offset = new IntParam("Timer Offset", 0, 300, 15, 0, " frames");
+		public static IntParam Speed = new IntParam("Bolt Speed", 20, 200, 10, 100, "%");
+		public static IntParam Spread = new IntParam("Bolt Spread", 50, 200, 10, 100, "%");
 	}
 
 	public static class ParamsAttackBolt {

@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 		public LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
 		public sbyte lineNum = 0;
 		public uint backspaceFrame = 0;
+		public bool enabled = true;		// Set to false when you're in a live game, or where you shouldn't be allowed to use console.
 
 		// Console-Specific Values
 		public Dictionary<string, Action> consoleDict;     // A dictionary of base commands for the console.
@@ -21,6 +22,8 @@ namespace Nexus.GameEngine {
 		public Console() : base(null) {
 
 		}
+
+		public void SetEnabled(bool enabled) { this.enabled = enabled; if(!this.enabled) { this.SetVisible(false); } }
 
 		public void RunTick() {
 			InputClient input = Systems.input;
@@ -160,12 +163,6 @@ namespace Nexus.GameEngine {
 			if(this.consoleDict.ContainsKey(currentIns)) {
 				this.consoleDict[currentIns].Invoke();
 			}
-
-			//// Help
-			//if(currentIns == "help") { /* Explain the help topics */  }
-
-			//// Run Movement
-			//else if(currentIns == "teleport") { Console.CheatCodeTeleport(); }
 		}
 
 		public void ScrollConsoleText(sbyte scrollAmount) {

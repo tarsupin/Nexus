@@ -14,8 +14,8 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsShellRules {
-		public static WholeRangeParam XMovement = new WholeRangeParam("X Movement", -7, 7, 1, 0, " tile(s)");
-		public static WholeRangeParam YMovement = new WholeRangeParam("Y Movement", -12, 7, 1, 0, " tile(s)");
+		public static IntParam XMovement = new IntParam("X Movement", -7, 7, 1, 0, " tile(s)");
+		public static IntParam YMovement = new IntParam("Y Movement", -12, 7, 1, 0, " tile(s)");
 	}
 
 	public static class ParamsShell {

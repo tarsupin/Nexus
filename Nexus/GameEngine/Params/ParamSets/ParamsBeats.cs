@@ -15,10 +15,10 @@ namespace Nexus.GameEngine {
 	}
 
 	public static class ParamsBeatsRules {
-		public static WholeRangeParam Beat1 = new WholeRangeParam("Beat #1", 0, 20, 1, 0);
-		public static WholeRangeParam Beat2 = new WholeRangeParam("Beat #2", 0, 20, 1, 0);
-		public static WholeRangeParam Beat3 = new WholeRangeParam("Beat #3", 0, 20, 1, 0);
-		public static WholeRangeParam Beat4 = new WholeRangeParam("Beat #4", 0, 20, 1, 0);
+		public static IntParam Beat1 = new IntParam("Beat #1", 0, 20, 1, 0);
+		public static IntParam Beat2 = new IntParam("Beat #2", 0, 20, 1, 0);
+		public static IntParam Beat3 = new IntParam("Beat #3", 0, 20, 1, 0);
+		public static IntParam Beat4 = new IntParam("Beat #4", 0, 20, 1, 0);
 	}
 
 	public static class ParamsBeats {
