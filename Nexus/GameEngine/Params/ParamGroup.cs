@@ -6,12 +6,18 @@ namespace Nexus.GameEngine {
 
 	public class ParamGroup {
 
-		public string name;		// Human title of the parameter, e.g. "Number of Bolts"
-		public string key;		// Computer key for parameter, e.g. "attCount"
+		public string name;			// Human title of the parameter, e.g. "Number of Bolts"
+		public string key;			// Computer key for parameter, e.g. "boltnum"
+		public string unitName;     // The name of the unit type, e.g. " frames" or " ms" (usually preceeded by a space)
+		public string defStr;		// The default value as a string.
 
 		public ParamGroup( string key, string name ) {
 			this.name = name;
 			this.key = key;
+		}
+
+		public string Cycle(string curVal, bool up = true) {
+			return "";
 		}
 	}
 
@@ -20,14 +26,14 @@ namespace Nexus.GameEngine {
 		public short max;
 		public short increment;
 		public short defValue;
-		public string unitName;
 
-		public IntParam( string key, string name, short min, short max, short increment, short defValue, string unitName = "" ) : base(name, key) {
+		public IntParam( string key, string name, short min, short max, short increment, short defValue, string unitName = "" ) : base(key, name) {
 			this.min = min;
 			this.max = max;
 			this.increment = increment;
 			this.defValue = defValue;
 			this.unitName = unitName;
+			this.defStr = defValue.ToString() + this.unitName;
 		}
 
 		public string Validate(short value) {
@@ -51,12 +57,14 @@ namespace Nexus.GameEngine {
 		public short defValue;
 		public FInt baseValue;			// This is the value that the percent is based on. So 100% would equal exactly this value.
 
-		public PercentParam( string key, string name, short min, short max, short increment, short defValue, FInt baseValue ) : base(name, key) {
+		public PercentParam( string key, string name, short min, short max, short increment, short defValue, FInt baseValue ) : base(key, name) {
 			this.min = min;
 			this.max = max;
 			this.increment = increment;
 			this.defValue = defValue;
 			this.baseValue = baseValue;
+			this.unitName = "%";
+			this.defStr = defValue.ToString() + this.unitName;
 		}
 
 		public FInt GetFIntFromJObject(JObject value) {
@@ -84,13 +92,13 @@ namespace Nexus.GameEngine {
 	public class LabeledParam : ParamGroup {
 		public string[] labels;
 		public short defValue;
-		public string unitName;
 
-		public LabeledParam( string key, string name, string[] labels, short defValue, string unitName = "") : base(name, key) {
+		public LabeledParam( string key, string name, string[] labels, short defValue) : base(key, name) {
 			this.name = name;
 			this.labels = labels;
 			this.defValue = defValue;
-			this.unitName = unitName;
+			this.defStr = labels[defValue];
+			this.unitName = "";
 		}
 
 		public string Validate(byte value) {
@@ -107,9 +115,11 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> labels;
 		public byte defValue;
 
-		public DictionaryParam( string key, string name, Dictionary<byte, string> labels, byte defValue) : base(name, key) {
+		public DictionaryParam( string key, string name, Dictionary<byte, string> labels, byte defValue) : base(key, name) {
 			this.labels = labels;
 			this.defValue = defValue;
+			this.defStr = labels[defValue];
+			this.unitName = "";
 		}
 
 		public string Validate(byte value) {
@@ -120,13 +130,19 @@ namespace Nexus.GameEngine {
 
 			return null;
 		}
+
+		public void GetTextValue() {
+
+		}
 	}
 
 	public class BoolParam : ParamGroup {
 		public bool defValue;
 
-		public BoolParam( string key, string name, bool defValue) : base(name, key) {
+		public BoolParam( string key, string name, bool defValue) : base(key, name) {
 			this.defValue = defValue;
+			this.defStr = defValue ? "true" : "false";
+			this.unitName = "";
 		}
 
 		public string Validate(bool value) {

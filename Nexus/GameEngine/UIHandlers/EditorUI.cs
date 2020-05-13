@@ -11,6 +11,7 @@ namespace Nexus.GameEngine {
 		private readonly UtilityBar utilityBar;
 		private readonly EditorScroller scroller;
 		public readonly ContextMenu contextMenu;
+		public readonly ParamMenu paramMenu;
 
 		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 		
@@ -23,7 +24,7 @@ namespace Nexus.GameEngine {
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth * 2, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null);
 
-			// Wheel Menu
+			// Tab Menu - TileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
 
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Ground, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Grass/S", "Ground");
@@ -39,6 +40,9 @@ namespace Nexus.GameEngine {
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Prompts, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Prompt/DPad/Right", "Prompts");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Gadgets, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Cannon/Diagonal", "Gadgets");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Scripting, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "HiddenObject/Cluster", "Scripting");
+
+			// Param Menu - Wand Tool
+			this.paramMenu = new ParamMenu(null);
 		}
 
 		public void SetHelperText( string title, string text ) {
@@ -51,6 +55,7 @@ namespace Nexus.GameEngine {
 			this.utilityBar.RunTick();
 			this.scroller.RunTick();
 			this.contextMenu.RunTick();
+			this.paramMenu.RunTick();
 		}
 
 		public void Draw() {
@@ -96,6 +101,7 @@ namespace Nexus.GameEngine {
 			this.utilityBar.Draw();
 			this.scroller.Draw();
 			this.contextMenu.Draw();
+			this.paramMenu.Draw();
 
 			// Helper Text
 			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {

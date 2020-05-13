@@ -39,6 +39,7 @@ namespace Nexus.Gameplay {
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
 		public Dictionary<byte, TileGameObject> TileDict;
+		public Dictionary<string, Params> ParamMap;
 
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
@@ -191,6 +192,21 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CheckFlagCheckpoint, new CheckFlagCheckpoint() },
 				{ (byte) TileEnum.CheckFlagPass, new CheckFlagPass() },
 				{ (byte) TileEnum.CheckFlagRetry, new CheckFlagRetry() },
+			};
+
+			// Map of Parameters
+			this.ParamMap = new Dictionary<string, Params>() {
+				{ "AttackBolt", new ParamsAttackBolt() },
+				{ "AttackEarth", new ParamsAttackEarth() },
+				{ "Beats", new ParamsBeats() },
+				{ "Collectable", new ParamsCollectable() },
+				{ "Door", new ParamsDoor() },
+				{ "Emblem", new ParamsEmblem() },
+				{ "FireBurst", new ParamsFireBurst() },
+				{ "MoveBounce", new ParamsMoveBounce() },
+				{ "MoveChase", new ParamsMoveChase() },
+				{ "MoveTrack", new ParamsMoveTrack() },
+				{ "Shell", new ParamsShell() },
 			};
 		}
 

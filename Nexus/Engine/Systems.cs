@@ -41,6 +41,7 @@ namespace Nexus.Engine {
 		public static Texture2D tex2dBlack;
 		public static Texture2D tex2dWhite;
 		public static Texture2D tex2dDarkRed;
+		public static Texture2D tex2dDarkGreen;
 
 		// Settings & States
 		public static readonly Settings settings = new Settings();
@@ -67,6 +68,9 @@ namespace Nexus.Engine {
 
 			Systems.tex2dDarkRed = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
 			Systems.tex2dDarkRed.SetData(new[] { Color.DarkRed });
+
+			Systems.tex2dDarkGreen = new Texture2D(Systems.graphics.GraphicsDevice, 1, 1);
+			Systems.tex2dDarkGreen.SetData(new[] { Color.DarkGreen });
 		}
 
 		public static void AddAudio( GameClient game ) {

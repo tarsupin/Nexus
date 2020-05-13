@@ -112,11 +112,21 @@ namespace Nexus.Gameplay {
 			File.WriteAllText(fullDestPath, json);
 		}
 
+		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+			if(!layerData.ContainsKey(gridY.ToString())) { return false; }
+			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return false; }
+			return true;
+		}
+
 		public static byte[] GetTileData(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
-			if(!layerData.ContainsKey(gridY.ToString())) { return null; }
-			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return null; }
-			var tileList = layerData[gridY.ToString()][gridX.ToString()];
+			if(!LevelContent.VerifyTiles(layerData, gridX, gridY)) { return null; }
+			ArrayList tileList = layerData[gridY.ToString()][gridX.ToString()];
 			return new byte[] { byte.Parse(tileList[0].ToString()), byte.Parse(tileList[1].ToString()) };
+		}
+
+		public static ArrayList GetTileDataWithParams(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+			if(!LevelContent.VerifyTiles(layerData, gridX, gridY)) { return null; }
+			return layerData[gridY.ToString()][gridX.ToString()];
 		}
 
 		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {

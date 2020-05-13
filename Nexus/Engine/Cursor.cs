@@ -21,7 +21,9 @@ namespace Nexus.Engine {
 		public static ushort MouseGridY { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
 
 		public static MouseDownState LeftMouseState;		// NOTE: Can use mouseState.LeftButton if you only need ON/OFF.
-		public static MouseDownState RightMouseState;		// NOTE: Can use mouseState.RightButton if you only need ON/OFF.
+		public static MouseDownState RightMouseState;       // NOTE: Can use mouseState.RightButton if you only need ON/OFF.
+
+		public static sbyte MouseScrollDelta;
 
 		public static sbyte GetMouseScrollDelta() {
 			int val = Cursor.mouseStatePrev.ScrollWheelValue - Cursor.mouseState.ScrollWheelValue;
@@ -37,6 +39,11 @@ namespace Nexus.Engine {
 		public static void UpdateMouseState() {
 			Cursor.mouseStatePrev = Cursor.mouseState;
 			Cursor.mouseState = Mouse.GetState();
+
+			// Get Mouse Scroll Delta
+			//int val = Cursor.mouseStatePrev.ScrollWheelValue - Cursor.mouseState.ScrollWheelValue;
+			//if(val == 0) { Cursor.MouseScrollDelta = 0; }
+			//else { Cursor.MouseScrollDelta = val > 0 ? (sbyte)1 : (sbyte)-1; }
 
 			// If the Left Button is held down:
 			if(Cursor.mouseState.LeftButton == ButtonState.Released) {
