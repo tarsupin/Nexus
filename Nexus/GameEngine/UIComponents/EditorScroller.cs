@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 
 			// Mouse Scroll (if TileTool is selected as active tool)
 			if(EditorTools.tileTool is TileTool == true) {
-				sbyte scrollVal = Cursor.GetMouseScrollDelta();
+				sbyte scrollVal = Cursor.MouseScrollDelta;
 				if(scrollVal == 0) { return; }
 				EditorTools.tileTool.CycleSubIndex(scrollVal); // Cycles the SubIndex by -1 or +1
 				EditorTools.UpdateHelperText();

@@ -110,43 +110,4 @@ namespace Nexus.GameEngine {
 			return null;
 		}
 	}
-
-	public class DictionaryParam : ParamGroup {
-		public Dictionary<byte, string> labels;
-		public byte defValue;
-
-		public DictionaryParam( string key, string name, Dictionary<byte, string> labels, byte defValue) : base(key, name) {
-			this.labels = labels;
-			this.defValue = defValue;
-			this.defStr = labels[defValue];
-			this.unitName = "";
-		}
-
-		public string Validate(byte value) {
-
-			if(!this.labels.ContainsKey(value)) {
-				return this.name + " does not contain the key \"" + value.ToString() + "\" provided.";
-			}
-
-			return null;
-		}
-
-		public void GetTextValue() {
-
-		}
-	}
-
-	public class BoolParam : ParamGroup {
-		public bool defValue;
-
-		public BoolParam( string key, string name, bool defValue) : base(key, name) {
-			this.defValue = defValue;
-			this.defStr = defValue ? "true" : "false";
-			this.unitName = "";
-		}
-
-		public string Validate(bool value) {
-			return null; // If something other than a bool is ever sent, it would catch a more severe error anyway.
-		}
-	}
 }

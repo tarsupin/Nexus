@@ -46,7 +46,7 @@ namespace Nexus.GameEngine {
 				IntParam intRule = (IntParam) paramRule;
 				if(paramVal == null) { paramVal = intRule.defValue; }
 				short newValue = this.CycleNumber((short) paramVal, intRule.min, intRule.max, intRule.increment, up);
-				paramList[paramKey] = newValue;
+				this.UpdateParamNum(paramList, paramKey, newValue, intRule.defValue);
 			}
 
 			// Cycle a Percent Param
@@ -54,25 +54,15 @@ namespace Nexus.GameEngine {
 				PercentParam perRule = (PercentParam)paramRule;
 				if(paramVal == null) { paramVal = perRule.defValue; }
 				short newValue = this.CycleNumber((short)paramVal, perRule.min, perRule.max, perRule.increment, up);
-				paramList[paramKey] = newValue;
+				this.UpdateParamNum(paramList, paramKey, newValue, perRule.defValue);
 			}
 
 			// Cycle a Labeled Param
 			else if(paramRule is LabeledParam) {
 				LabeledParam labelRule = (LabeledParam)paramRule;
 				if(paramVal == null) { paramVal = labelRule.defValue; }
-			}
-
-			// Cycle a Dictionary Param
-			else if(paramRule is DictionaryParam) {
-				DictionaryParam dictRule = (DictionaryParam)paramRule;
-				if(paramVal == null) { paramVal = dictRule.defValue; }
-			}
-
-			// Cycle a Bool Param
-			else if(paramRule is BoolParam) {
-				BoolParam boolRule = (BoolParam)paramRule;
-				if(paramVal == null) { paramVal = boolRule.defValue; }
+				short newValue = this.CycleNumber((short)paramVal, 0, (short) (labelRule.labels.Length - 1), 1, up);
+				this.UpdateParamNum(paramList, paramKey, newValue, labelRule.defValue);
 			}
 		}
 
@@ -81,6 +71,15 @@ namespace Nexus.GameEngine {
 			if(newValue <= min) { return min; }
 			if(newValue >= max) { return max; }
 			return newValue;
+		}
+
+		// Update a numeric parameter (or remove it if it's the default value).
+		private void UpdateParamNum(JObject paramList, string paramKey, short value, short defVal) {
+			if(value == defVal) {
+				paramList.Remove(paramKey);
+			} else {
+				paramList[paramKey] = value;
+			}
 		}
 	}
 
@@ -152,11 +151,7 @@ namespace Nexus.GameEngine {
 			this.rules[0] = new IntParam("room", "Room Destination", 0, 9, 1, 0, "");
 
 			// Determines what type of door you'll enter to (or to a checkpoint)
-			this.rules[1] = new DictionaryParam("exit", "Exit Type", new Dictionary<byte, string>(){
-				{ (byte) DoorExitType.ToSameColor, "To Same Door Color" },
-				{ (byte) DoorExitType.ToOpenDoor, "To Open Doorway" },
-				{ (byte) DoorExitType.ToCheckpoint, "To Checkpoint" },
-			}, (byte) DoorExitType.ToSameColor);
+			this.rules[1] = new LabeledParam("exit", "Exit Type", new string[3] { "To Same Door Color", "To Open Doorway", "To Checkpoint" }, (byte) DoorExitType.ToSameColor);
 		}
 	}
 
@@ -165,7 +160,7 @@ namespace Nexus.GameEngine {
 		public ParamsEmblem() {
 			this.rules = new ParamGroup[2];
 			this.rules[0] = new LabeledParam("color", "Emblem Color", new string[5] { "None", "Blue", "Red", "Green", "Yellow" }, (byte) 0);
-			this.rules[1] = new BoolParam("on", "Active at Start", false);
+			this.rules[1] = new LabeledParam("on", "Active at Start", new string[2] { "Inactive", "Active" }, (byte) 0);
 		}
 	}
 
@@ -208,7 +203,7 @@ namespace Nexus.GameEngine {
 			this.rules[2] = new IntParam("chase", "Chase Range", 0, 40, 1, 10, " tile(s)");
 			this.rules[3] = new IntParam("flee", "Flee Range", 0, 40, 1, 0, " tile(s)");
 			this.rules[4] = new IntParam("stall", "Stall Range", 0, 40, 1, 8, " tile(s)");
-			this.rules[5] = new BoolParam("returns", "Returns to Start", true);
+			this.rules[1] = new LabeledParam("returns", "Returns to Start", new string[2] { "Returns", "Doesn't Return" }, (byte)0);
 			this.rules[6] = new IntParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames");
 		}
 	}
@@ -231,7 +226,7 @@ namespace Nexus.GameEngine {
 			this.rules[1] = new IntParam("to", "Goes to Track ID", 0, 99, 1, 0, "");
 			this.rules[2] = new IntParam("duration", "Travel Duration", 60, 3600, 15, 180, " frames");
 			this.rules[3] = new IntParam("delay", "Departure Delay", 0, 3600, 15, 0, " frames");
-			this.rules[4] = new BoolParam("beginFall", "Falls On Arrival", false);
+			this.rules[1] = new LabeledParam("beginFall", "Falls on Arrival", new string[2] { "False", "True" }, (byte)0);
 		}
 	}
 

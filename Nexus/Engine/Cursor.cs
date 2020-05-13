@@ -25,12 +25,6 @@ namespace Nexus.Engine {
 
 		public static sbyte MouseScrollDelta;
 
-		public static sbyte GetMouseScrollDelta() {
-			int val = Cursor.mouseStatePrev.ScrollWheelValue - Cursor.mouseState.ScrollWheelValue;
-			if(val == 0) { return 0; }
-			return val > 0 ? (sbyte) 1 : (sbyte) -1;
-		}
-
 		public static void SetPos( int posX, int posY ) {
 			Mouse.SetPosition(posX, posY);
 			Cursor.UpdateMouseState(); // Update mouse state, even if it happens on same frame.
@@ -41,9 +35,9 @@ namespace Nexus.Engine {
 			Cursor.mouseState = Mouse.GetState();
 
 			// Get Mouse Scroll Delta
-			//int val = Cursor.mouseStatePrev.ScrollWheelValue - Cursor.mouseState.ScrollWheelValue;
-			//if(val == 0) { Cursor.MouseScrollDelta = 0; }
-			//else { Cursor.MouseScrollDelta = val > 0 ? (sbyte)1 : (sbyte)-1; }
+			int val = Cursor.mouseStatePrev.ScrollWheelValue - Cursor.mouseState.ScrollWheelValue;
+			if(val == 0) { Cursor.MouseScrollDelta = 0; }
+			else { Cursor.MouseScrollDelta = val > 0 ? (sbyte)1 : (sbyte)-1; }
 
 			// If the Left Button is held down:
 			if(Cursor.mouseState.LeftButton == ButtonState.Released) {

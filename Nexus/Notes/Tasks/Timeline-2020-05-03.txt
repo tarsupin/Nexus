@@ -93,13 +93,13 @@ May 12, 2020
 
 May 13, 2020
 	- Built Initial Architecture for Param Menu.
-
+	- Wand Modifications Working.
+	- Simple GUI added for Wand Tool.
 
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.
 	- Play (important for testing)
-Add Param Tool
 Add Param Behaviors
 Add Param System for Tiles to use Params.
 Level Conversion: Flag to 170-174, Placer was 61 (now 63), Track(65), Cluster (dyn 100), Character Flag (100 to 150)
@@ -122,7 +122,7 @@ Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor. Console option. Maybe settings button links to it.
 
 // Params
-GUI display and interaction for params.
-	- Clicking on text will increment.
-	- Scrolling will increment or decrement.
-
+Return param to default when default is applied.
+Update params on tile data (in LevelContent).
+Position wand tool more dynamically.
+The param applied must match the tile type. May need to assign a param to each tile.

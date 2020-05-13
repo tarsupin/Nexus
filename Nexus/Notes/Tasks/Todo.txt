@@ -8,6 +8,25 @@
 
 
 
+/********************************
+****** Levels
+********************************/
+
+Dash Power - like celeste; see https://www.youtube.com/watch?v=2sJkEWlyk74
+Ninja Suit with Dash Power?
+
+Ground content that appears from below when you run over it.
+Temporary flight lights - you run into them and then you get 2 seconds of flight movement.
+Bumpers? Like springs, but multi-directional?
+
+
+/********************************
+****** Content
+********************************/
+
+https://www.youtube.com/watch?v=2sJkEWlyk74		// celeste mario rom hack
+
+
 
 
 

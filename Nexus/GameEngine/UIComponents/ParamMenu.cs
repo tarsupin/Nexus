@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 			this.rightWidth = this.GetRightWidth();
 
 			this.width = (short)(this.leftWidth + 20 + this.rightWidth);
-			this.height = (short)(this.paramSet.rules.Length * ParamMenu.SlotHeight);
+			this.height = (short)(this.paramSet.rules.Length * ParamMenu.SlotHeight - 1);
 
 			// posX, posY describes the center of the context menu.
 			// x, y describes the top-left corner of the context menu.
@@ -121,22 +121,14 @@ namespace Nexus.GameEngine {
 				sbyte curSelection = this.GetMenuSelection(Cursor.MouseY);
 				if(curSelection < 0) { return; }
 
-				bool runCycle = false;
-				bool up = true;
+				// Cycle through parameter using mouse scroll:
+				if(Cursor.MouseScrollDelta != 0) {
 
-				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					runCycle = true;
-					up = true;
-				}
-
-				//else if(Cursor.GetMouseScrollDelta)
-
-				if(runCycle) {
 					// Get the parameter key (e.g. "speed", "count", etc)
 					string paramKey = this.paramSet.GetParamKey((byte)curSelection);
 
 					// Increment the parameter value by 1 step:
-					this.paramSet.CycleParam(this.layerData, this.tileX, this.tileY, paramKey, true);
+					this.paramSet.CycleParam(this.layerData, this.tileX, this.tileY, paramKey, Cursor.MouseScrollDelta < 0);
 				}
 			}
 		}
@@ -146,7 +138,7 @@ namespace Nexus.GameEngine {
 			if(UIComponent.ComponentWithFocus is ParamMenu == false) { return -1; }
 			short distFromTop = (short) (posY - this.y);
 			if(distFromTop <= ParamMenu.SlotHeight) { return 0; }
-			return (sbyte) Math.Round((decimal) (distFromTop / ParamMenu.SlotHeight));
+			return (sbyte) Math.Floor((decimal) (distFromTop / ParamMenu.SlotHeight));
 		}
 
 		public void OpenMenu() {
