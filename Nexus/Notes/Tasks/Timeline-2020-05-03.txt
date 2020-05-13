@@ -95,6 +95,7 @@ May 13, 2020
 	- Built Initial Architecture for Param Menu.
 	- Wand Modifications Working.
 	- Simple GUI added for Wand Tool.
+	- Code Cleanup: Mouse, Params
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -126,3 +127,5 @@ Return param to default when default is applied.
 Update params on tile data (in LevelContent).
 Position wand tool more dynamically.
 The param applied must match the tile type. May need to assign a param to each tile.
+Must recognize tiles that can be modified but don't have any params yet.
+

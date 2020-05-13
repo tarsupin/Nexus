@@ -95,7 +95,7 @@ namespace Nexus.GameEngine {
 			ushort rightWidth = 140;
 
 			foreach(ParamGroup group in rules) {
-				if(group is LabeledParam || group is DictionaryParam) {
+				if(group is LabeledParam) {
 					rightWidth += 80;
 					break;
 				}

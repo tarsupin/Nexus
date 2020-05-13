@@ -10,8 +10,8 @@ namespace Nexus.GameEngine {
 		sbyte YMovement { get; set; }               // Y Movement (in grid squares) - Axis, Quadratic
 		sbyte MidX { get; set; }                    // Midpoint of X Movement (in grid squares) - Quadratic
 		sbyte MidY { get; set; }                    // Midpoint of Y Movement (in grid squares) - Quadratic
-		sbyte Diameter { get; set; }				// Diameter of movement - Circle
-		bool Reverse { get; set; }                  // Whether to move in the reverse direction or not. - Circle, Axis, Quadratic
+		sbyte Diameter { get; set; }                // Diameter of movement - Circle
+		short Reverse { get; set; }                  // Whether to move in the reverse direction or not. - Circle, Axis, Quadratic
 		byte Countdown { get; set; }                // An optional timer that counts down, then causes a drop. - To
 		ushort Duration { get; set; }               // How long the full cycle / duration of the movement lasts.
 		ushort Offset { get; set; }					// The duration offset of the global timer.
@@ -21,13 +21,13 @@ namespace Nexus.GameEngine {
 	}
 
 	public class IMechanicsMoveFlight {
-		public byte FlyType { get; set; }
+		public short FlyType { get; set; }
 		public sbyte XMovement { get; set; }
 		public sbyte YMovement { get; set; }
 		public sbyte MidX { get; set; }
 		public sbyte MidY { get; set; }
 		public sbyte Diameter { get; set; }
-		public bool Reverse { get; set; }
+		public short Reverse { get; set; }
 		public byte Countdown { get; set; }
 		public ushort Duration { get; set; }
 		public ushort Offset { get; set; }
@@ -38,13 +38,7 @@ namespace Nexus.GameEngine {
 
 	public static class ParamsMoveFlightRules {
 
-		public static DictionaryParam FlyType = new DictionaryParam("fly", "Movement Type", new Dictionary<byte, string>() {
-			{ (byte) FlightMovement.Axis, "Axis" },
-			{ (byte) FlightMovement.Quadratic, "Quadratic" },
-			{ (byte) FlightMovement.Circle, "Circle" },
-			{ (byte) FlightMovement.Track, "Track" },
-			{ (byte) FlightMovement.To, "Toward Destination" },
-		}, (byte) FlightMovement.Axis );
+		public static LabeledParam FlyType = new LabeledParam("fly", "Movement Type", new string[5] { "Axis", "Quadratic", "Circle", "Track", "Toward Destination", }, (byte) FlightMovement.Axis );
 
 		public static IntParam Duration = new IntParam("duration", "Move Duration", 60, 3600, 15, 180, " frame(s)");
 		public static IntParam Offset = new IntParam("durationOffset", "Timer Offset", 60, 3600, 15, 180, " frame(s)");
@@ -57,7 +51,7 @@ namespace Nexus.GameEngine {
 
 		public static IntParam Diameter = new IntParam("diameter", "Diameter", 0, 20, 1, 0, " tiles(s)");
 
-		public static BoolParam Reverse = new BoolParam("reverse", "Reverses Direction", false);
+		public static LabeledParam Reverse = new LabeledParam("reverse", "Reverses Direction", new string[2] { "False", "True", }, (byte) 0);
 		public static IntParam Countdown = new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)");
 
 		public static IntParam ToTrack = new IntParam("toTrack", "To Track #", 0, 100, 1, 1);
@@ -70,7 +64,7 @@ namespace Nexus.GameEngine {
 		public static IMechanicsMoveFlight ConvertToMechanics( JObject paramsList ) {
 			IMechanicsMoveFlight mechanics = new IMechanicsMoveFlight();
 
-			mechanics.FlyType = paramsList["fly"] == null ? ParamsMoveFlightRules.FlyType.defValue : paramsList["fly"].Value<byte>();
+			mechanics.FlyType = paramsList["fly"] == null ? ParamsMoveFlightRules.FlyType.defValue : paramsList["fly"].Value<short>();
 
 			switch(mechanics.FlyType) {
 
@@ -107,7 +101,7 @@ namespace Nexus.GameEngine {
 		public static IMechanicsMoveFlight GetMechanicsAxis( JObject paramsList, IMechanicsMoveFlight mechanics ) {
 			mechanics.XMovement = paramsList["x"] == null ? (sbyte) ParamsMoveFlightRules.XMovement.defValue : paramsList["x"].Value<sbyte>();
 			mechanics.YMovement = paramsList["y"] == null ? (sbyte) ParamsMoveFlightRules.YMovement.defValue : paramsList["y"].Value<sbyte>();
-			mechanics.Reverse = paramsList["reverse"] == null ? (bool) ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<bool>();
+			mechanics.Reverse = paramsList["reverse"] == null ? (short) ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<short>();
 			return mechanics;
 		}
 
@@ -116,13 +110,13 @@ namespace Nexus.GameEngine {
 			mechanics.YMovement = paramsList["y"] == null ? (sbyte) ParamsMoveFlightRules.YMovement.defValue : paramsList["y"].Value<sbyte>();
 			mechanics.MidX = paramsList["midX"] == null ? (sbyte) ParamsMoveFlightRules.MidX.defValue : paramsList["midX"].Value<sbyte>();
 			mechanics.MidY = paramsList["midY"] == null ? (sbyte) ParamsMoveFlightRules.MidY.defValue : paramsList["midY"].Value<sbyte>();
-			mechanics.Reverse = paramsList["reverse"] == null ? ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<bool>();
+			mechanics.Reverse = paramsList["reverse"] == null ? ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<short>();
 			return mechanics;
 		}
 
 		public static IMechanicsMoveFlight GetMechanicsCircle( JObject paramsList, IMechanicsMoveFlight mechanics ) {
 			mechanics.Diameter = paramsList["diameter"] == null ? (sbyte) ParamsMoveFlightRules.Diameter.defValue : paramsList["diameter"].Value<sbyte>();
-			mechanics.Reverse = paramsList["reverse"] == null ? ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<bool>();
+			mechanics.Reverse = paramsList["reverse"] == null ? ParamsMoveFlightRules.Reverse.defValue : paramsList["reverse"].Value<short>();
 			return mechanics;
 		}
 
