@@ -6,7 +6,23 @@ using System.Collections.Generic;
 namespace Nexus.GameEngine {
 
 	public class Params {
+
 		public Dictionary<string, ParamGroup> rules = new Dictionary<string, ParamGroup>();
+
+		public static Dictionary<string, Params> paramMap = new Dictionary<string, Params>() {
+			{ "AttackBolt", new ParamsAttackBolt() },
+			{ "AttackEarth", new ParamsAttackEarth() },
+			{ "Beats", new ParamsBeats() },
+			{ "Collectable", new ParamsCollectable() },
+			{ "Door", new ParamsDoor() },
+			{ "Emblem", new ParamsEmblem() },
+			{ "FireBurst", new ParamsFireBurst() },
+			{ "MoveBounce", new ParamsMoveBounce() },
+			{ "MoveChase", new ParamsMoveChase() },
+			{ "Shell", new ParamsShell() },
+			{ "MoveTrack", new ParamsMoveTrack() },
+		};
+
 		public Params() {}
 	}
 

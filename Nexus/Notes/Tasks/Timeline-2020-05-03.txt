@@ -89,7 +89,7 @@ May 12, 2020
 	- Drag + Drop Added to Selection Tool.
 	- Drag + Drop includes Cursor Offset.
 	- Split Consoles into Level and Editor Consoles.
-
+	- New Architecture for Params.
 
 // Next TODO List
 All Utility Belt Objects are added.
@@ -117,10 +117,7 @@ Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor.
 
 // Params
-Create a Dictionary<string, ParamGroup> for each Param set.
-	- "attSpeed": [param type, default value, low value, high value, increment, unit name]
-Assign all default params to a ParamDefault enum.
-	- See "FlightDefaults" for example
 A static map of each param set.
-Remove all IMechanics classes.
-
+GUI display and interaction for params.
+	- Clicking on text will increment.
+	- Scrolling will increment or decrement.
