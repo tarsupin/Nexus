@@ -38,7 +38,7 @@ namespace Nexus.GameEngine {
 
 	public static class ParamsMoveFlightRules {
 
-		public static DictionaryParam FlyType = new DictionaryParam("Movement Type", new Dictionary<byte, string>() {
+		public static DictionaryParam FlyType = new DictionaryParam("fly", "Movement Type", new Dictionary<byte, string>() {
 			{ (byte) FlightMovement.Axis, "Axis" },
 			{ (byte) FlightMovement.Quadratic, "Quadratic" },
 			{ (byte) FlightMovement.Circle, "Circle" },
@@ -46,23 +46,23 @@ namespace Nexus.GameEngine {
 			{ (byte) FlightMovement.To, "Toward Destination" },
 		}, (byte) FlightMovement.Axis );
 
-		public static IntParam Duration = new IntParam("Move Duration", 60, 3600, 15, 180, " frame(s)");
-		public static IntParam Offset = new IntParam("Timer Offset", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Duration = new IntParam("duration", "Move Duration", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Offset = new IntParam("durationOffset", "Timer Offset", 60, 3600, 15, 180, " frame(s)");
 
-		public static IntParam XMovement = new IntParam("X Movement", -20, 20, 1, 0, " tiles(s)");
-		public static IntParam YMovement = new IntParam("Y Movement", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam XMovement = new IntParam("x", "X Movement", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam YMovement = new IntParam("y", "Y Movement", -20, 20, 1, 0, " tiles(s)");
 
-		public static IntParam MidX = new IntParam("X Midpoint", -20, 20, 1, 0, " tiles(s)");
-		public static IntParam MidY = new IntParam("Y Midpoint", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam MidX = new IntParam("midX", "X Midpoint", -20, 20, 1, 0, " tiles(s)");
+		public static IntParam MidY = new IntParam("midY", "Y Midpoint", -20, 20, 1, 0, " tiles(s)");
 
-		public static IntParam Diameter = new IntParam("Diameter", 0, 20, 1, 0, " tiles(s)");
+		public static IntParam Diameter = new IntParam("diameter", "Diameter", 0, 20, 1, 0, " tiles(s)");
 
-		public static BoolParam Reverse = new BoolParam("Reverses Direction", false);
-		public static IntParam Countdown = new IntParam("Countdown", 0, 60, 1, 0, " second(s)");
+		public static BoolParam Reverse = new BoolParam("reverse", "Reverses Direction", false);
+		public static IntParam Countdown = new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)");
 
-		public static IntParam ToTrack = new IntParam("To Track #", 0, 100, 1, 1);
-		public static IntParam ClusterID = new IntParam("Act As Cluster ID", 0, 9, 1, 0);
-		public static IntParam ParentClusterID = new IntParam("Link To Cluster ID", 0, 9, 1, 0);
+		public static IntParam ToTrack = new IntParam("toTrack", "To Track #", 0, 100, 1, 1);
+		public static IntParam ClusterID = new IntParam("clusterId", "Act As Cluster ID", 0, 9, 1, 0);
+		public static IntParam ParentClusterID = new IntParam("toCluster", "Link To Cluster ID", 0, 9, 1, 0);
 	}
 
 	public static class ParamsMoveFlight {
