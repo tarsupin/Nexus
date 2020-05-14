@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			Systems.handler.levelContent.SaveLevel();
-			System.Console.WriteLine("Activated Function Button: Play");
+			SceneTransition.ToLevel("", ((EditorScene) Systems.scene).levelContent.levelId);
 		}
 	}
 }

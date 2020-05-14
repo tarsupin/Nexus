@@ -23,8 +23,8 @@ namespace Nexus.GameEngine {
 		public static bool ToLevel( string worldId, string levelId, bool runMenu = false ) {
 			GameHandler handler = Systems.handler;
 
-			// Verify that we're loading a level that's different from our current one:
-			if(levelId == handler.levelContent.levelId) { return false; }
+			// If we're already in a Level Scene, verify that we're loading a level that's different from our current one.
+			if(Systems.scene is LevelScene && levelId == handler.levelContent.levelId) { return false; }
 			
 			// Get Level Path & Retrieve Level Data
 			if(!handler.levelContent.LoadLevelData(levelId)) { return false; }

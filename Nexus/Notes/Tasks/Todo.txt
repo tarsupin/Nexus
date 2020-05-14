@@ -9,7 +9,26 @@
 
 
 /********************************
-****** Levels
+****** Levels - Repair
+********************************/
+
+Doors need to create a second tile below on creation, or expand border down.
+Attachment messages for NPCs, Doors, Characters, etc.
+Leaf needs to track 'delay' on a per-entry basis with a key-value gridID pair.
+Need LevelScriptEvent class to tracks script events on frames. (Old system: Queue)
+Tile Platforms need facing direction to collide correctly.
+
+Cannons, Placers, Conveyor, Chompers (Fire) need RunTick() behavior; perhaps by Generator cycle in RoomScene.
+Add Track System (for TrackDots, etc)
+
+Add Param Behaviors
+
+Level Conversion: Flag to 170-174, Placer was 61 (now 63), Track(65), Cluster (dyn 100), Character Flag (100 to 150)
+LevelConvert decor, ledges, prompts, etc.
+LevelConvert durations, cycles, offsets, anything in ms: divide by 250, multiply by 15 (to switch to frames)
+
+/********************************
+****** Levels - Mechanics
 ********************************/
 
 Dash Power - like celeste; see https://www.youtube.com/watch?v=2sJkEWlyk74 (mario/celeste)		https://www.youtube.com/watch?v=-lTI7Io0m6Y (celeste)
@@ -78,6 +97,9 @@ https://www.youtube.com/watch?v=2sJkEWlyk74 (mario/celeste)
 /********************************
 ****** Miscellaneous
 ********************************/
+
+nodeTesla/_backup/ has worlds/ and levels-by-hash/
+Is .Meta used? IMetaData in MetaList doesn't need SlotGroup - can be altered with no consequence.
 
 Show a speedrun clock (FPS, timer, etc.)
 
