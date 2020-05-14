@@ -38,6 +38,7 @@ namespace Nexus.Objects {
 		public Goodie() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Goodie;
+			this.paramSets = new Params[1] { Params.ParamMap["Collectable"] };
 
 			// Helper Texts
 			this.titles = new string[20];

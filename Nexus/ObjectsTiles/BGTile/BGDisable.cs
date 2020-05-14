@@ -9,7 +9,7 @@ namespace Nexus.Objects {
 		public string Texture;
 
 		public BGDisable() : base() {
-			this.tileId = (byte)TileEnum.BGDisable;
+			this.tileId = (byte) TileEnum.BGDisable;
 			this.Texture = "BGTile/Disable";
 			this.title = "Disable Zone";
 			this.description = "Removes all equipment and powers.";

@@ -58,7 +58,7 @@ namespace Nexus.GameEngine {
 			string paramKey = "FireBurst";
 
 			// Get Parameter List
-			this.paramSet = Systems.mapper.ParamMap[paramKey];
+			this.paramSet = Params.ParamMap[paramKey];
 
 			// Get Sizing Details
 			this.leftWidth = this.GetLeftWidth();

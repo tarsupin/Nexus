@@ -1,4 +1,4 @@
-﻿https://www.youtube.com/watch?v=0FcLGQRyVOw	// excellent examples, world 2 - ryu loves it; sky level world 2
+﻿
 
 
 /********************************
@@ -32,9 +32,21 @@ Bumpers? Like springs, but multi-directional?
 Movers - you stand on them and can control their movement
 Different platform dropping speeds; slow delay vs. 
 
-Add All Sounds
-Add All Music
+/********************************
+****** Params
+********************************/
 
+Checkpoint Params
+- Flags need to be able to have suits, powers, shoes, etc.
+
+Contents Params
+- Can this be merged with Checkpoint? Checkpoint has a lot of them, though, each separate. Would have to split into multiple categories
+	- Shoes, Hats, Suits, Mobility Powers, Attack Powers
+	- Even then, not sure if it works.
+
+Placer Param
+	- Need another similar set for this, as checkpoint and contents.
+	- Can probably create a few methods that offload the similarities.
 
 /********************************
 ****** Content
@@ -42,9 +54,17 @@ Add All Music
 
 https://www.youtube.com/watch?v=2sJkEWlyk74		// celeste mario rom hack
 
-Music
-- soundimage.org ; needs to provide credits or pay $30
+Add All Sounds
+Add All Music
 
+
+
+
+/********************************
+****** Level Design
+********************************/
+https://www.youtube.com/watch?v=0FcLGQRyVOw	// excellent examples, world 2 - ryu loves it; sky level world 2
+https://www.youtube.com/watch?v=2sJkEWlyk74 (mario/celeste)
 
 
 /********************************

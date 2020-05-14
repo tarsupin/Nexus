@@ -24,6 +24,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte) TileEnum.Placer;
 			this.title = "Placer";
 			this.description = "Can place objects, items, collectables, etc.";
+			this.paramSets = new Params[1] { Params.ParamMap["Placer"] };
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

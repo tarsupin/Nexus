@@ -97,6 +97,11 @@ May 13, 2020
 	- Simple GUI added for Wand Tool.
 	- Code Cleanup: Mouse, Params
 
+May 14, 2020
+	- Wand GUI Repositions Dynamically
+	- Added Param Sets to Tiles.
+
+
 // Next TODO List
 All Utility Belt Objects are added.
 Important Utility Belt Functions are added.
@@ -124,7 +129,8 @@ Change Level Size on Editor. Console option. Maybe settings button links to it.
 
 // Params
 Update params on tile data (in LevelContent).
-Position wand tool GUI more dynamically.
 The param applied must match the tile type. May need to assign a param to each tile.
 Must recognize tiles that can be modified but don't have any params yet.
 
+// Integrating Objects
+Objects require Param options.

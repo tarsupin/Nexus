@@ -1,4 +1,6 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
@@ -9,6 +11,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.CheckFlagPass;
 			this.title = "Checkpoint-Pass Flag";
 			this.description = "A Checkpoint Flag that reacts to characters passing above it.";
+			this.paramSets = new Params[1] { Params.ParamMap["Checkpoint"] };
 		}
 	}
 }

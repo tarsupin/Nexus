@@ -8,6 +8,25 @@ using System.Collections.Generic;
 namespace Nexus.GameEngine {
 
 	public class Params {
+
+		// Map of Parameters
+		public static Dictionary<string, Params> ParamMap = new Dictionary<string, Params>() {
+			{ "AttackBolt", new ParamsAttackBolt() },
+			{ "AttackEarth", new ParamsAttackEarth() },
+			{ "Beats", new ParamsBeats() },
+			{ "Checkpoint", new ParamsCheckpoint() },
+			{ "Collectable", new ParamsCollectable() },
+			{ "Contents", new ParamsContents() },
+			{ "Door", new ParamsDoor() },
+			{ "Emblem", new ParamsEmblem() },
+			{ "FireBurst", new ParamsFireBurst() },
+			{ "MoveBounce", new ParamsMoveBounce() },
+			{ "MoveChase", new ParamsMoveChase() },
+			{ "Placer", new ParamsPlacer() },
+			{ "TrackDot", new ParamsTrackDot() },
+			{ "Shell", new ParamsShell() },
+		};
+		
 		public ParamGroup[] rules;
 		public Params() {}
 		
@@ -127,6 +146,20 @@ namespace Nexus.GameEngine {
 		}
 	}
 
+	public class ParamsCheckpoint : Params {
+
+		public ParamsCheckpoint() {
+
+			this.rules = new ParamGroup[2];
+
+			this.rules = new ParamGroup[1];
+
+			// TODO: ADD CHECKPIONT PARAMS
+			// TODO: ADD CHECKPIONT PARAMS
+			this.rules[0] = new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0);
+		}
+	}
+
 	public class ParamsCollectable : Params {
 
 		public ParamsCollectable() {
@@ -138,6 +171,18 @@ namespace Nexus.GameEngine {
 
 			// Regen only applies if the rule is set to "Regenerates After Use"
 			this.rules[1] = new IntParam("regen", "Regeneration Time", 0, 60, 1, 0);
+		}
+	}
+
+	public class ParamsContents : Params {
+
+		public ParamsContents() {
+
+			this.rules = new ParamGroup[1];
+
+			// TODO: ADD Contents PARAMS
+			// TODO: ADD Contents PARAMS
+			this.rules[0] = new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0);
 		}
 	}
 
@@ -207,6 +252,19 @@ namespace Nexus.GameEngine {
 			this.rules[6] = new IntParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames");
 		}
 	}
+	
+	public class ParamsPlacer : Params {
+
+		// This applies to chasing creatures.
+		public ParamsPlacer() {
+
+			this.rules = new ParamGroup[1];
+
+			// TODO: ADD Placer PARAMS
+			// TODO: ADD Placer PARAMS
+			this.rules[0] = new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0);
+		}
+	}
 
 	public class ParamsShell : Params {
 
@@ -218,9 +276,9 @@ namespace Nexus.GameEngine {
 		}
 	}
 
-	public class ParamsMoveTrack : Params {
+	public class ParamsTrackDot : Params {
 
-		public ParamsMoveTrack() {
+		public ParamsTrackDot() {
 			this.rules = new ParamGroup[5];
 			this.rules[0] = new IntParam("trackNum", "Track ID", 0, 99, 1, 0, "");
 			this.rules[1] = new IntParam("to", "Goes to Track ID", 0, 99, 1, 0, "");

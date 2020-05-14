@@ -15,6 +15,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.title = "Cannon";
 			this.description = "Fires cannonballs at instructed times.";
+			this.paramSets = new Params[1] { Params.ParamMap["Beats"] };
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

@@ -11,6 +11,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.DoorLock;
 			this.title = "Locked Door";
 			this.description = "A door that must be unlocked before use.";
+			this.paramSets = new Params[1] { Params.ParamMap["Door"] };
 		}
 
 		protected override void CreateTextures() {

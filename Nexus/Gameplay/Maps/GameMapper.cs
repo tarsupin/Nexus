@@ -45,9 +45,9 @@ namespace Nexus.Gameplay {
 
 			// Create Atlas List
 			this.atlas = new Atlas[3];
-			this.atlas[(byte)AtlasGroup.Tiles] = new Atlas(game, spriteBatch, "Atlas/Tiles.png");
-			this.atlas[(byte)AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
-			this.atlas[(byte)AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
+			this.atlas[(byte) AtlasGroup.Tiles] = new Atlas(game, spriteBatch, "Atlas/Tiles.png");
+			this.atlas[(byte) AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
+			this.atlas[(byte) AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
 
 			// List of Game Object Metadata
 			MetaList[MetaGroup.Character] = new IMetaData(Arch.Character, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.main, LoadOrder.Character);
@@ -192,21 +192,6 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CheckFlagCheckpoint, new CheckFlagCheckpoint() },
 				{ (byte) TileEnum.CheckFlagPass, new CheckFlagPass() },
 				{ (byte) TileEnum.CheckFlagRetry, new CheckFlagRetry() },
-			};
-
-			// Map of Parameters
-			this.ParamMap = new Dictionary<string, Params>() {
-				{ "AttackBolt", new ParamsAttackBolt() },
-				{ "AttackEarth", new ParamsAttackEarth() },
-				{ "Beats", new ParamsBeats() },
-				{ "Collectable", new ParamsCollectable() },
-				{ "Door", new ParamsDoor() },
-				{ "Emblem", new ParamsEmblem() },
-				{ "FireBurst", new ParamsFireBurst() },
-				{ "MoveBounce", new ParamsMoveBounce() },
-				{ "MoveChase", new ParamsMoveChase() },
-				{ "MoveTrack", new ParamsMoveTrack() },
-				{ "Shell", new ParamsShell() },
 			};
 		}
 
