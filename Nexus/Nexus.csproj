@@ -143,9 +143,9 @@
     <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
     <Compile Include="Engine\Particles\Emitter.cs" />
     <Compile Include="Engine\Particles\EmitterSimple.cs" />
+    <Compile Include="GameEngine\Params\ParamDict.cs" />
     <Compile Include="GameEngine\Params\ParamGroup.cs" />
     <Compile Include="GameEngine\Params\ParamSets\ParamsMoveFlight.cs" />
-    <Compile Include="GameEngine\Params\ParamSets\ParamsContains.cs" />
     <Compile Include="GameEngine\ParticleEmitters\DeathEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
     <Compile Include="GameEngine\ParticleGenerator\ParticleGen.cs" />
@@ -416,7 +416,6 @@
     <Compile Include="Gameplay\States\CampaignState.cs" />
     <Compile Include="Gameplay\Maps\GameMapper.cs" />
     <Compile Include="GameEngine\DynamicGameObject.cs" />
-    <Compile Include="GameEngine\StaticGameObject.cs" />
     <Compile Include="GameEngine\GameObject.cs" />
     <Compile Include="ObjectsTiles\Collectables\Coins.cs" />
     <Compile Include="ObjectsTiles\Collectables\Collectable.cs" />

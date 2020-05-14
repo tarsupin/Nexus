@@ -96,22 +96,28 @@ May 13, 2020
 	- Wand Modifications Working.
 	- Simple GUI added for Wand Tool.
 	- Code Cleanup: Mouse, Params
+	- Reviewed Music Tracks.
 
 May 14, 2020
 	- Wand GUI Repositions Dynamically
 	- Added Param Sets to Tiles. Params Recognized by Param Menu.
 	- Params Save on Use.
 	- Play Button and Functionality.
+	- Edited Several Music Tracks.
+
 
 
 // Next TODO List
-Console for Editor. Allows scripting, etc.
-- Change Level Size on Editor. Console option. Maybe settings button links to it.
-
-Enter Editor, get quick instructions to use tab.
-Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
-Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
+Remaining Param Sets
 
 Load Objects into Editor
 - Integrate Params with Objects.
 - Draw Objects
+
+Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
+
+Console for Editor. Allows scripting, etc.
+- Change Level Size on Editor. Console option. Maybe settings button links to it.
+
+Enter Editor, get quick instructions to use tab. Maybe on Console intro?
+Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)

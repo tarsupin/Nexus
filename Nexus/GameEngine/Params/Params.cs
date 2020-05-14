@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System.Collections;
 using System.Collections.Generic;
+using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
 
@@ -174,11 +176,9 @@ namespace Nexus.GameEngine {
 
 		public ParamsContents() {
 
-			this.rules = new ParamGroup[1];
+			// Was supposed to be ClassID and SubType
+			this.rules[0] = new LabeledParam("", "", GoodieSubTypes, (byte)GoodieSubType.Apple);
 
-			// TODO: ADD Contents PARAMS
-			// TODO: ADD Contents PARAMS
-			this.rules[0] = new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0);
 		}
 	}
 

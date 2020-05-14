@@ -8,45 +8,45 @@ Total of 25 songs available.
 
 Songs chosen from CodeManu's Platformer Pack: platformer-game-music-pack
 	// https://opengameart.org/content/platformer-game-music-pack		CC-BY 3.0 - Must Credit CodeManu
-	- Boss Theme							> Boss Fight 1
-	- Desert Theme							> Desert
-	- Dungeon Theme							> Dungeon
-	- Grasslands Theme						> Grasslands
-	- Iceland Theme							> Iceland
+	- Boss Theme							> Boss Fight 2 *
+	- Desert Theme							> Casual Desert
+	- Dungeon Theme							> Casual Dungeon
+	- Grasslands Theme						> Casual Grassland
+	- Iceland Theme							> Casual Iceland
 	- Intro Theme							> Peaceful
-	- Mushroom Theme						> Forest
-	- Worldmap Theme						> Overworld
+	- Mushroom Theme						> Casual Forest
 
 Songs chosen from CodeManu's SlimeKing Paack
 	// https://opengameart.org/content/the-slimekings-tower-ost-retro-like		CC-BY 3.0 - Must Credit CodeManu
 	- SlimeKing-Menu							> Epic Task
-	- SlimeKing-Beta							> Challenge Theme 1
-	- SlimeKing-Omega							> Challenge Theme 2
-	- SlimeKing-Alpha							> Challenge Theme 3
+	- SlimeKing-Beta							> Challenge 1
+	- SlimeKing-Omega							> Challenge 2
+	- SlimeKing-Alpha							> Challenge 3
 
 Songs chosen from Juhani Junkala
 	// https://juhanijunkala.com/		Public Domain (but give credit anyway)
-	- Juhani Pack Level 1						> Intensity
-	- Juhani Pack Level 3						> Intensity Plus
-	- Chiptune Adventures Boss Fight			> Boss Fight 2
+	- Chiptune Adventures Boss Fight			> Boss Fight 1
 	- Chiptune Adventures Stage 1				> Pleasant Day 1
 	- Chiptune Adventures Stage 2				> Pleasant Day 2
-	- Chiptune Adventures Stage Select			> Stage Select
 	
 Songs chosen from CodeManu's 8-Bit Pack
 	// https://opengameart.org/content/8-bit-music-pack-loopable		CC-BY 3.0 - Must Credit CodeManu
-	- CodeManu-bgm_action_3						> Opera Tech 1
-	- CodeManu-bgm_action_4						> Opera Tech 2
+	- CodeManu-bgm_action_3						> Intensity 1
+	- CodeManu-bgm_action_4						> Intensity 2
 	- CodeManu-epic loop						> Journey
 
 Songs chosen from SketchyLogic
 	// https://opengameart.org/content/hungry-dino-9-chiptune-tracks-10-sfx		CC-BY 3.0 - Must Credit SketchyLogic
-	- SketchyLogic-8BitMetal					> Time to Race
-	- SketchyLogic-FranticLevel					> Panic Slightly
-	- SketchyLogic-MainTheme					> Flower Petals
-	- SketchyLogic-SwingingLevel				> Cartoon Sky
+	- SketchyLogic-8BitMetal					> Intensity 4
+	- SketchyLogic-FranticLevel					> Intensity 3
+	- SketchyLogic-MainTheme					> Pleasant Day 3
+	- SketchyLogic-SwingingLevel				> Pleasant Day 4
 
-
+	
+Returned to Nomination Pool:
+	- Juhani Pack Level 1						> Intensity
+	- Juhani Pack Level 3						> Intensity Plus
+	- Chiptune Adventures Stage Select			> Stage Select
 
 ///////////////////
 /// Primary Sources

@@ -1,5 +1,4 @@
-﻿
-using Nexus.Engine;
+﻿using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
