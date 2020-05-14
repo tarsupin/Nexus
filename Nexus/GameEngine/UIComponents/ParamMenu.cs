@@ -36,7 +36,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Rebuild the ParamMenu design:
-		public void LoadParamMenu(EditorRoomScene scene, ushort gridX, ushort gridY, ushort posX = 500, ushort posY = 100) {
+		public void LoadParamMenu(EditorRoomScene scene, ushort gridX, ushort gridY) {
 
 			// Get Tile Information
 			this.scene = ((EditorScene)Systems.scene).CurrentRoom;
@@ -69,8 +69,14 @@ namespace Nexus.GameEngine {
 
 			// posX, posY describes the center of the context menu.
 			// x, y describes the top-left corner of the context menu.
-			this.x = (short)(posX - this.width);		// Only need to readjust x coord, since we're right-aligning it.
-			this.y = (short)(posY);
+			this.x = (short)((gridX * (byte) TilemapEnum.TileWidth) - Systems.camera.posX - this.width);		// Only need to readjust x coord, since we're right-aligning it.
+			this.y = (short)((gridY * (byte) TilemapEnum.TileHeight) - Systems.camera.posY);
+
+			// Reposition the menu if it would overlap other content:
+			if(this.x < 100) { this.x = 100; }
+			if(this.y < 50) { this.y = 50; }
+			if(this.y + this.height > Systems.screen.windowHeight - 50) { this.y = (short) (Systems.screen.windowHeight - 50 - this.height); }
+
 			this.splitPos = (ushort) (this.x + this.leftWidth + 10);
 
 			this.SetVisible(true);

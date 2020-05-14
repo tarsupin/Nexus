@@ -123,9 +123,8 @@ Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor. Console option. Maybe settings button links to it.
 
 // Params
-Return param to default when default is applied.
 Update params on tile data (in LevelContent).
-Position wand tool more dynamically.
+Position wand tool GUI more dynamically.
 The param applied must match the tile type. May need to assign a param to each tile.
 Must recognize tiles that can be modified but don't have any params yet.
 

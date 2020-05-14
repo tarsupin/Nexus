@@ -12,12 +12,28 @@
 ****** Levels
 ********************************/
 
-Dash Power - like celeste; see https://www.youtube.com/watch?v=2sJkEWlyk74
+Dash Power - like celeste; see https://www.youtube.com/watch?v=2sJkEWlyk74 (mario/celeste)		https://www.youtube.com/watch?v=-lTI7Io0m6Y (celeste)
+Double Dash Power - also like celeste; have high level of precision to use it; the reset has to be grounded or without jump again
 Ninja Suit with Dash Power?
+
+Shoes - AButton (run) turns to Celeste Dash
+	- Maybe two types of shoes, one for dash, one for double.
+	- Already have the images for this.
+	- Also means you can retain your motion powers and stack them.
+
+White Ninja gains Climb ability.
+	- This provides the white ninja with a specialty.
+	- Also means that climb is now a power; celeste-like.
 
 Ground content that appears from below when you run over it.
 Temporary flight lights - you run into them and then you get 2 seconds of flight movement.
 Bumpers? Like springs, but multi-directional?
+
+Movers - you stand on them and can control their movement
+Different platform dropping speeds; slow delay vs. 
+
+Add All Sounds
+Add All Music
 
 
 /********************************
@@ -26,7 +42,8 @@ Bumpers? Like springs, but multi-directional?
 
 https://www.youtube.com/watch?v=2sJkEWlyk74		// celeste mario rom hack
 
-
+Music
+- soundimage.org ; needs to provide credits or pay $30
 
 
 
@@ -34,6 +51,7 @@ https://www.youtube.com/watch?v=2sJkEWlyk74		// celeste mario rom hack
 ****** Miscellaneous
 ********************************/
 
+Show a speedrun clock (FPS, timer, etc.)
 
 Handle layering with bg, fg, main, and obj. BG is new.
 	- Add 'bg' layer to data.

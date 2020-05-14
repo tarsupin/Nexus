@@ -1,0 +1,11 @@
+﻿
+Use Audacity
+
+- Change bitrate.
+	- Bottom left corner has an option for it.
+	- Also need to go to "Mix" and "Remaster" in the tools. Has a setting there.
+
+- Export to .ogg file.
+	- We can't use .mp3, we'd have to purchase a license.
+
+
