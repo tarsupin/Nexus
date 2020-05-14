@@ -46,13 +46,17 @@ namespace Nexus.GameEngine {
 			ArrayList tileObj = LevelContent.GetTileDataWithParams(layerData, gridX, gridY);
 			
 			// Verify that the parameter can exist.
-			if(tileObj == null || tileObj.Count <= 2 || tileObj[2] is JObject == false) { return; }
+			if(tileObj == null) { return; }
+
+			if(tileObj.Count <= 2 || tileObj[2] is JObject == false) {
+				tileObj.Add(new JObject());
+			}
 
 			// Retrieve Rule
 			ParamGroup paramRule = this.GetParamRule(paramKey);
 
 			// Get Tile Data
-			JObject paramList = (JObject) tileObj[2];
+			JObject paramList = (JObject)tileObj[2];
 			JToken paramVal = null;
 
 			// Retrieve the parameter value (or the default value if it's not set)
@@ -101,14 +105,6 @@ namespace Nexus.GameEngine {
 			}
 		}
 	}
-
-	// Params TODO: 
-	//		- ParamsCluster
-	//		- ParamsClusterChar
-	//		- ParamsClusterScreen
-	//		- ParamsContains (combine dictionary with system)
-	//		- ParamsMoveFlight (advanced mechanics)
-	//		- ParamsPlacer (requires dictionary, like Contains)
 
 	public class ParamsAttackBolt : Params {
 
@@ -170,7 +166,7 @@ namespace Nexus.GameEngine {
 			this.rules[0] = new LabeledParam("beat1", "Collectable Rule", new string[4] { "One Use Only", "One Per Player", "Always Available", "Regenerates After Use" }, (byte)CollectableRule.OneUseOnly);
 
 			// Regen only applies if the rule is set to "Regenerates After Use"
-			this.rules[1] = new IntParam("regen", "Regeneration Time", 0, 60, 1, 0);
+			this.rules[1] = new IntParam("regen", "Regeneration Time", 0, 60, 1, 0, " seconds");
 		}
 	}
 

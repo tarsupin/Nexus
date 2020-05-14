@@ -48,17 +48,15 @@ namespace Nexus.GameEngine {
 			this.tileX = gridX;
 			this.tileY = gridY;
 
+			// Get the Tile Class
 			ArrayList tileObj = LevelContent.GetTileDataWithParams(this.layerData, this.tileX, this.tileY);
+			TileGameObject tile = Systems.mapper.TileDict[byte.Parse(tileObj[0].ToString())];
 
-			// TODO: USE TILEOBJ to determine the paramKey:
-			// TODO: USE TILEOBJ to determine the paramKey:
+			// If the tile has param sets, it can be used here. Otherwise, return.
+			if(tile.paramSets == null) { return; }
 
-			// TODO: Change this value
-			// TODO: Change this value
-			string paramKey = "FireBurst";
-
-			// Get Parameter List
-			this.paramSet = Params.ParamMap[paramKey];
+			// Get Parameter Set
+			this.paramSet = tile.paramSets[0];		// TODO: Either remove multiple param sets, or update this to accomodate multiple
 
 			// Get Sizing Details
 			this.leftWidth = this.GetLeftWidth();
@@ -196,7 +194,11 @@ namespace Nexus.GameEngine {
 						}
 
 						// Draw the Text
-						ParamMenu.font.Draw(paramList[paramKey].ToString() + rules[i].unitName, this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
+						if(rules[i] is LabeledParam) {
+							ParamMenu.font.Draw(((LabeledParam)(rules[i])).labels[short.Parse(paramList[paramKey].ToString())], this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
+						} else {
+							ParamMenu.font.Draw(paramList[paramKey].ToString() + rules[i].unitName, this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
+						}
 					}
 				}
 

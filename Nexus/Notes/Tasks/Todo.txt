@@ -36,6 +36,14 @@ Different platform dropping speeds; slow delay vs.
 ****** Params
 ********************************/
 
+// Params TODO: 
+	- ParamsCluster
+	- ParamsClusterChar
+	- ParamsClusterScreen
+	- ParamsContains (combine dictionary with system)
+	- ParamsMoveFlight (advanced mechanics)
+	- ParamsPlacer (requires dictionary, like Contains)
+
 Checkpoint Params
 - Flags need to be able to have suits, powers, shoes, etc.
 

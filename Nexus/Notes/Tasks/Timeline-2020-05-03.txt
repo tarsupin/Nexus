@@ -99,7 +99,8 @@ May 13, 2020
 
 May 14, 2020
 	- Wand GUI Repositions Dynamically
-	- Added Param Sets to Tiles.
+	- Added Param Sets to Tiles. Params Recognized by Param Menu.
+	- Params Save on Use.
 
 
 // Next TODO List
@@ -126,11 +127,6 @@ LevelConvert decor, ledges, prompts, etc.
 LevelConvert durations, cycles, offsets, anything in ms: divide by 250, multiply by 15 (to switch to frames)
 Undo and Redo Tools. Array of 1000 edits. (20x20 = 400)
 Change Level Size on Editor. Console option. Maybe settings button links to it.
-
-// Params
-Update params on tile data (in LevelContent).
-The param applied must match the tile type. May need to assign a param to each tile.
-Must recognize tiles that can be modified but don't have any params yet.
 
 // Integrating Objects
 Objects require Param options.
