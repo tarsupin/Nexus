@@ -114,6 +114,7 @@ May 15th, 2020
 	- Chest Params Working
 	- Flight Params Working
 	- Improved Function Tools. Fixed Bugs.
+	- Major Overhaul of JObjects to Dictionaries.
 
 // Next TODO List
 Flight Params

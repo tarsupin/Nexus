@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Objects;
@@ -35,7 +35,8 @@ namespace Nexus.Gameplay {
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), (JObject) xData.Value[2]);
+						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
+						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), paramList);
 					}
 				}
 			}
@@ -54,13 +55,14 @@ namespace Nexus.Gameplay {
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
-						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), (JObject) xData.Value[2]);
+						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
+						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), paramList);
 					}
 				}
 			}
 		}
 
-		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {
+		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, ushort gridX, ushort gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 			if(layerEnum == LayerEnum.main) {
 				room.tilemap.SetMainTile(gridX, gridY, type, subType);
 			} else if(layerEnum == LayerEnum.bg) {
@@ -70,7 +72,7 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, JObject paramList = null) {
+		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Prepare Position
 			FVector pos = FVector.Create(
@@ -94,11 +96,11 @@ namespace Nexus.Gameplay {
 
 			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
 			if(classType.GetMethod("Generate") != null) {
-				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (byte)subType, (FVector)pos, (JObject) paramList });
+				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (byte)subType, (FVector)pos, (Dictionary<string, short>) paramList });
 
 			// Create Object
 			} else {
-				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (JObject) paramList });
+				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
 
 				// Add the Object to the Scene
 				if(gameObj is DynamicGameObject) {

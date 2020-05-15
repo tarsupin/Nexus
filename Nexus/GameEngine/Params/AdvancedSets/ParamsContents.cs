@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.ObjectComponents;
+﻿using Nexus.ObjectComponents;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,31 +32,30 @@ namespace Nexus.GameEngine {
 			if(tileObj == null) { return; }
 
 			if(tileObj.Count <= 2) {
-				tileObj.Add(new JObject());
+				tileObj.Add(new Dictionary<string, short>());
 			}
 
 			// Get Tile Data
-			JObject paramList = (JObject)tileObj[2];
+			Dictionary<string, short> paramList = (Dictionary<string, short>)tileObj[2];
 
 			// A Content Group must be listed:
 			if(!paramList.ContainsKey("content")) { paramList["content"] = 0; }
 			if(!paramList.ContainsKey("id")) { paramList["id"] = 0; }
 
-			JToken groupVal = paramList["content"];
+			short groupVal = paramList["content"];
 
 			// Cycle "content" Param
 			if(paramKey == "content") {
-				short newValue = this.CycleNumber((short)groupVal, 0, (short)(this.contentGroup.Length - 1), 1, up);
+				short newValue = this.CycleNumber(groupVal, 0, (short)(this.contentGroup.Length - 1), 1, up);
 				this.UpdateParamNum(paramList, paramKey, newValue, 0);
 				this.UpdateParamNum(paramList, "id", 0, 0);
 			}
 
 			// Cycle "id" Supply Param (dependent on "content" type)
 			else {
-				byte gVal = byte.Parse(groupVal.ToString());
-				if(gVal < 0 || gVal > 9) { gVal = 0; }
+				if(groupVal < 0 || groupVal > 9) { groupVal = 0; }
 
-				DictParam rule = (DictParam)WandData.paramRules[(byte)(gVal + 1)];
+				DictParam rule = (DictParam)WandData.paramRules[(byte)(groupVal + 1)];
 				Dictionary<byte, string> dict = rule.dict;
 				byte[] contentKeys = dict.Keys.ToArray<byte>();
 

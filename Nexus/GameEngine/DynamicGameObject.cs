@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -46,7 +46,7 @@ namespace Nexus.GameEngine {
 		public ActorState State { get; protected set; }    // Tracks the actor's current state.
 		public bool FaceRight { get; protected set; }      // TRUE if the actor is facing right.
 
-		public DynamicGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {
+		public DynamicGameObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) : base(room, subType, pos, paramList) {
 			this.SetActivity(Activity.Active);
 		}
 

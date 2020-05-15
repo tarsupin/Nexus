@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -12,10 +12,10 @@ namespace Nexus.ObjectComponents {
 		protected int midX;                 // Middle X position of a motion, such as for curves (quadratic motion)
 		protected int midY;                 // Middle Y position of a motion, such as for curves (quadratic motion).
 
-		public FlightQuadratic(DynamicGameObject actor, JObject paramList) : base(actor, paramList) {
+		public FlightQuadratic(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
-			this.midX = this.startX + (paramList["midX"] != null ? paramList["midX"].Value<int>() * (byte) TilemapEnum.TileWidth : 0);
-			this.midY = this.startY + (paramList["midY"] != null ? paramList["midY"].Value<int>() * (byte) TilemapEnum.TileHeight : 0);
+			this.midX = this.startX + (paramList.ContainsKey("midX") ? paramList["midX"] * (byte) TilemapEnum.TileWidth : 0);
+			this.midY = this.startY + (paramList.ContainsKey("midY") ? paramList["midY"] * (byte) TilemapEnum.TileHeight : 0);
 		}
 
 		// TODO OPTIMIZE: This section has a huge opportunity for optimization, since we're currently using QuadBezierEaseBothDir() twice.

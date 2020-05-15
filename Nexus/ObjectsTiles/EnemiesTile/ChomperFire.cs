@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using Nexus.GameEngine;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -13,14 +13,6 @@ namespace Nexus.Objects {
 			this.title = "Fire Chomper";
 			this.description = "Stationary enemy. Can shoot fireballs.";
 			this.paramSet =  Params.ParamMap["FireBurst"];
-		}
-
-		public override void UpdateParams(JObject paramList) {
-			// JToken token = paramList["attGrav"];
-			// if(token != null) {
-			//	int a = (int) paramList.GetValue("attGrav");
-			//	System.Console.WriteLine("GRAV: " + a.ToString());
-			// }
 		}
 	}
 }

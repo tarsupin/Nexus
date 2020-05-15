@@ -67,11 +67,11 @@ namespace Nexus.GameEngine {
 		public static byte[] menuOptRuleIds = new byte[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		// Retrieve Param List (the 3rd tile data value, which may be null)
-		public static JObject GetParamList() {
+		public static Dictionary<string, short> GetParamList() {
 			ArrayList tileObj = WandData.wandTileData;
 
-			if(tileObj.Count > 2 && tileObj[2] is JObject) {
-				return (JObject) tileObj[2];
+			if(tileObj.Count > 2 && tileObj[2] is Dictionary<string, short>) {
+				return (Dictionary<string, short>) tileObj[2];
 			}
 
 			return null;
@@ -79,7 +79,7 @@ namespace Nexus.GameEngine {
 
 		// Retrieve Param Value from Param List (the JSON for the specific param key)
 		public static short GetParamVal(string paramKey) {
-			JObject paramList = WandData.GetParamList();
+			Dictionary<string, short> paramList = WandData.GetParamList();
 
 			// Get the default value if the tile data does not have one saved:
 			if(paramList == null || !paramList.ContainsKey(paramKey)) {
@@ -92,7 +92,7 @@ namespace Nexus.GameEngine {
 
 		// Update Menu Options (run when menu changes)
 		public static void UpdateMenuOptions(byte numOptsToShow = 0, byte[] optRuleIds = null) {
-			JObject paramList = WandData.GetParamList();
+			Dictionary<string, short> paramList = WandData.GetParamList();
 
 			// Get Rules
 			ParamGroup[] rules = WandData.paramRules;

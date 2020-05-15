@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -11,9 +11,9 @@ namespace Nexus.ObjectComponents {
 		Physics physics;		// Reference to the actor's physics.
 		float radius;			// The radius of the flight circle.
 
-		public FlightCircle(DynamicGameObject actor, JObject paramList) : base(actor, paramList) {
+		public FlightCircle(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
-			byte diameter = paramList["diameter"] != null ? paramList["diameter"].Value<byte>() : (byte) ParamsMoveFlightRules.Diameter.defValue;
+			byte diameter = paramList.ContainsKey("diameter") ? (byte) paramList["diameter"] : (byte) ParamsMoveFlightRules.Diameter.defValue;
 			this.radius = (float) Math.Round((double) diameter / 2, 1) * (byte) TilemapEnum.TileWidth;
 		}
 

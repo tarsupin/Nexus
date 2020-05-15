@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
 	public class ProjectileGameObject : GameObject {
 
-		public ProjectileGameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) : base(room, subType, pos, paramList) {
+		public ProjectileGameObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) : base(room, subType, pos, paramList) {
 
 		}
 

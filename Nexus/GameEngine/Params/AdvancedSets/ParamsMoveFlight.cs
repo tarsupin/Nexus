@@ -41,7 +41,7 @@ namespace Nexus.GameEngine {
 		public static LabeledParam FlyType = new LabeledParam("fly", "Movement Type", new string[5] { "Axis", "Quadratic", "Circle", "Track", "Toward Destination", }, (byte) FlightMovement.Axis );
 
 		public static IntParam Duration = new IntParam("duration", "Move Duration", 60, 3600, 15, 180, " frame(s)");
-		public static IntParam Offset = new IntParam("durationOffset", "Timer Offset", 60, 3600, 15, 180, " frame(s)");
+		public static IntParam Offset = new IntParam("offset", "Timer Offset", 60, 3600, 15, 180, " frame(s)");
 
 		public static IntParam XMovement = new IntParam("x", "X Movement", -20, 20, 1, 0, " tiles(s)");
 		public static IntParam YMovement = new IntParam("y", "Y Movement", -20, 20, 1, 0, " tiles(s)");

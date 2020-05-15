@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -24,22 +24,22 @@ namespace Nexus.ObjectComponents {
 		protected byte actAsClusterId;      // Indicates that this object is a cluster. All child clusters will remain offset to it.
 		protected byte clusterLinkId;		// Indicates a cluster to link to. Object will lock its offset position to the parent.
 
-		public FlightBehavior( DynamicGameObject actor, JObject paramList) : base(actor) {
+		public FlightBehavior( DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor) {
+			
+			this.reverse = paramList["reverse"] == 1;
 
-			this.reverse = paramList["reverse"] != null;
-
-			this.duration = paramList["duration"] != null ? paramList["duration"].Value<ushort>() : (ushort) FlightDefaults.MoveFlightDuration;
-			this.offset = paramList["offset"] != null ? paramList["offset"].Value<ushort>() : (ushort) 0;
+			this.duration = paramList.ContainsKey("duration") ? (ushort) paramList["duration"] : (ushort) FlightDefaults.MoveFlightDuration;
+			this.offset = paramList.ContainsKey("offset") ? (ushort) paramList["offset"] : (ushort) 0;
 
 			// Positions
 			this.startX = actor.posX;
 			this.startY = actor.posY;
-			this.endX = this.startX + (paramList["x"] != null ? paramList["x"].Value<int>() * (byte) TilemapEnum.TileWidth : 0);
-			this.endY = this.startY + (paramList["y"] != null ? paramList["y"].Value<int>() * (byte) TilemapEnum.TileHeight : 0);
+			this.endX = this.startX + (paramList.ContainsKey("x") ? paramList["x"] * (byte) TilemapEnum.TileWidth : 0);
+			this.endY = this.startY + (paramList.ContainsKey("y") ? paramList["y"] * (byte) TilemapEnum.TileHeight : 0);
 
 			// Clusters
-			this.actAsClusterId = paramList["clusterId"] != null ? paramList["clusterId"].Value<byte>() : (byte) 0;
-			this.clusterLinkId = paramList["toCluster"] != null ? paramList["toCluster"].Value<byte>() : (byte) 0;
+			this.actAsClusterId = paramList.ContainsKey("clusterId") ? (byte) paramList["clusterId"] : (byte) 0;
+			this.clusterLinkId = paramList.ContainsKey("toCluster") ? (byte) paramList["toCluster"] : (byte) 0;
 
 			// If the object is a cluster, or is attached to a parent cluster, it must be tracked through the full level.
 			if(this.actAsClusterId > 0 || this.clusterLinkId > 0) {
@@ -47,8 +47,8 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public static FlightBehavior AssignFlightMotion( DynamicGameObject actor, JObject paramList ) {
-			byte type = paramList["fly"] == null ? (byte) FlightMovement.Axis : paramList["fly"].Value<byte>();
+		public static FlightBehavior AssignFlightMotion( DynamicGameObject actor, Dictionary<string, short> paramList ) {
+			byte type = paramList.ContainsKey("fly") ? (byte) FlightMovement.Axis : (byte) paramList["fly"];
 
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:

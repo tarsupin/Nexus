@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -18,17 +18,18 @@ namespace Nexus.ObjectComponents {
 		protected bool isFalling;		// TRUE means the motion is falling (e.g. like falling platforms).
 		protected FInt fallAccel;		// The acceleration at which the attached object will fall.
 
-		public FlightTo(DynamicGameObject actor, JObject paramList) : base(actor, paramList) {
+		public FlightTo(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 
-			this.countdown = paramList["countdown"] != null ? paramList["countdown"].Value<byte>() : (byte) 0;
+			this.countdown = paramList.ContainsKey("countdown") ? (byte) paramList["countdown"] : (byte) 0;
 			this.startFrame = 0;
 			this.endFrame = 0;
 
 			this.isFalling = false;
-			this.fallAccel = paramList["fallAccel"] != null ? FInt.Create(paramList["fallAccel"].Value<byte>()) : FInt.Create(0.25);
+			this.fallAccel = paramList.ContainsKey("fallAccel") ? FInt.Create((byte) paramList["fallAccel"]) : FInt.Create(0.25);
 
-			this.startX = paramList["countdown"] != null ? paramList["countdown"].Value<byte>() : (byte) 0;
+			// Not sure why startX is set like this. Setting to non-zero to indicate that it moves?
+			this.startX = paramList.ContainsKey("countdown") ? paramList["countdown"] : (byte) 0;
 
 			this.speedX = FInt.Create(Interpolation.Speed(this.endX - this.startX, this.duration) * 60);
 			this.speedY = FInt.Create(Interpolation.Speed(this.endY - this.startY, this.duration) * 60);

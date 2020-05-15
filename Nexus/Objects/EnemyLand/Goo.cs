@@ -2,7 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 
 		public string subTypeStr;
 
-		public Goo(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
+		public Goo(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
 
 			// Physics, Collisions, etc.

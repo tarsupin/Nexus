@@ -1,13 +1,13 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
-using Newtonsoft.Json.Linq;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
 	public class Block : DynamicGameObject {
 
-		public Block(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
+		public Block(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}
 

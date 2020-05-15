@@ -1,6 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
-using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		protected FInt speed;
 
-		public EnemyLand(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
+		public EnemyLand(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}
 

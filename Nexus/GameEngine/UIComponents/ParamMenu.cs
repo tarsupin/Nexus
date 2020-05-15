@@ -147,7 +147,7 @@ namespace Nexus.GameEngine {
 		public virtual void Draw() {
 			if(!this.visible) { return; }
 
-			JObject paramList = WandData.GetParamList();
+			Dictionary<string, short> paramList = WandData.GetParamList();
 
 			// Draw Line Divisions & Menu Options
 			byte count = (byte) WandData.numberOptsToShow;

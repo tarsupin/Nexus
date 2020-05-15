@@ -2,7 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 // NOTES:
 // Must be able to have multiple characters in the level.
@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
-		public Character(RoomScene room, byte subType, FVector pos, JObject paramList) : base(room, subType, pos, paramList) {
+		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
 			this.SetSpriteName("BasicChar/Stand");
 

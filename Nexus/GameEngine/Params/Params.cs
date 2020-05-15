@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 using Nexus.Objects;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
 
@@ -54,14 +50,14 @@ namespace Nexus.GameEngine {
 			if(tileObj == null) { return; }
 
 			if(tileObj.Count <= 2) {
-				tileObj.Add(new JObject());
+				tileObj.Add(new Dictionary<string, short>());
 			}
 
 			// Retrieve Rule
 			ParamGroup paramRule = this.GetParamRule(paramKey);
 
 			// Get Tile Data
-			JObject paramList = (JObject)tileObj[2];
+			Dictionary<string, short> paramList = (Dictionary<string, short>)tileObj[2];
 			JToken paramVal = null;
 
 			// Retrieve the parameter value (or the default value if it's not set)
@@ -107,7 +103,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Update a numeric parameter (or remove it if it's the default value).
-		protected void UpdateParamNum(JObject paramList, string paramKey, short value, short defVal) {
+		protected void UpdateParamNum(Dictionary<string, short> paramList, string paramKey, short value, short defVal) {
 			if(value == defVal) {
 				paramList.Remove(paramKey);
 			} else {

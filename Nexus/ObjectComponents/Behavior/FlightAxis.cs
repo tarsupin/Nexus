@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		Physics physics;		// Reference to the actor's physics.
 
-		public FlightAxis(DynamicGameObject actor, JObject paramList) : base(actor, paramList) {
+		public FlightAxis(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 		}
 

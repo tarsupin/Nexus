@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -35,14 +35,14 @@ namespace Nexus.GameEngine {
 		// Object Physics
 		// TODO: Collision, Physics, Sector (Tile Position; this exists in static, not needed here? might be.)
 
-		public GameObject(RoomScene room, byte subType, FVector pos, JObject paramList = null) {
+		public GameObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) {
 			this.id = room.nextId;
 			this.room = room;
 			this.subType = subType;
 			this.posX = pos.X.IntValue;
 			this.posY = pos.Y.IntValue;
 
-			// Dealing with JObject paramList:
+			// Dealing with Dictionary<string, short> paramList:
 			// System.Console.WriteLine(paramList);
 			// System.Console.WriteLine(paramList.GetType().ToString());
 

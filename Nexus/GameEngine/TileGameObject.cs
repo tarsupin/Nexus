@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
+using System.Collections.Generic;
 
 /*
  * Tile Game Object:
@@ -45,17 +45,6 @@ namespace Nexus.GameEngine {
 
 		public TileGameObject() {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-		}
-
-		public virtual void UpdateParams( JObject paramList ) {
-			// System.Console.WriteLine(paramList);
-			// System.Console.WriteLine(paramList.GetType().ToString());
-
-			// JToken token = paramList["attGrav"];
-			// if(token != null) {
-			//	int a = (int) paramList.GetValue("attGrav");
-			//	System.Console.WriteLine("GRAV: " + a.ToString());
-			// }
 		}
 
 		public virtual void Draw( RoomScene room, byte subType, int posX, int posY ) {

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -58,10 +57,6 @@ namespace Nexus.GameEngine {
 			this.baseValue = baseValue;
 			this.unitName = "%";
 			this.defStr = defValue.ToString() + this.unitName;
-		}
-
-		public FInt GetFIntFromJObject(JObject value) {
-			return (value == null ? FInt.Create(this.defValue) : FInt.Create(value.Value<byte>()));
 		}
 
 		public FInt GetTrueValue(short value) {
