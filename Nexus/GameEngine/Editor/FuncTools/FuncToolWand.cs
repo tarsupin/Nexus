@@ -3,6 +3,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -46,68 +47,94 @@ namespace Nexus.GameEngine {
 		public static ArrayList wandTileData;
 		public static TileGameObject wandTile;
 
-		// Option-Specific Data
-		// Data that pertains to the menu option being currently selected or focused on.
-		public static string curParamKey;
-
 		// Essential References to Wand and Parameter Tools
 		public static Params paramSet;					// Current parameter set (e.g. ParamsCollectable, ParamsContent, ParamsFireBurst, etc).
-		public static ParamGroup[] paramRules;			// Shorthand for paramSet.rules
+		public static ParamGroup[] paramRules;          // Shorthand for paramSet.rules
 
 		// Basic Menu Information
-		public static byte optionsToShow = 1;			// Number of Menu Options to Show
+		public static bool menuOptsChanged = false;			// Sets to true if the menu changes, and needs a display update and/or resize.
+		public static byte numberOptsToShow = 1;		// Number of Menu Options to Show
 		public static sbyte optionSelected = 0;			// Current Menu Option Highlighted
 
 		// The Menu Options Displayed
 		// Stored for speed, as well as because it can change dynamically.
-		public static string[] menuOptionLabels = new string[10] { "", "", "", "", "", "", "", "", "", "" };
-		public static short[] menuOptionNumbers = new short[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		public static string[] menuOptionText = new string[10] { "", "", "", "", "", "", "", "", "", "" };
+		public static string[] menuOptLabels = new string[10] { "", "", "", "", "", "", "", "", "", "" };
+		public static string[] menuOptText = new string[10] { "", "", "", "", "", "", "", "", "", "" };
 
 		// Rules Currently Loaded
 		// This is important because some rules might not be loaded at times, such as with the "Flight" wand menu - rules change based on the Flight type.
-		public static byte[] menuOptionRule = new byte[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public static byte[] menuOptRuleIds = new byte[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-
-		// Update Menu Options (run when menu changes)
-		public static void UpdateMenuOptions() {
-
-			// Get Param List
+		// Retrieve Param List (the 3rd tile data value, which may be null)
+		public static JObject GetParamList() {
 			ArrayList tileObj = WandData.wandTileData;
-			JObject paramList = null;
 
 			if(tileObj.Count > 2 && tileObj[2] is JObject) {
-				paramList = (JObject) tileObj[2];
+				return (JObject) tileObj[2];
 			}
+
+			return null;
+		}
+
+		// Retrieve Param Value from Param List (the JSON for the specific param key)
+		public static short GetParamVal(string paramKey) {
+			JObject paramList = WandData.GetParamList();
+
+			// Get the default value if the tile data does not have one saved:
+			if(paramList == null || !paramList.ContainsKey(paramKey)) {
+				ParamGroup rule = WandData.paramSet.GetParamRule(paramKey);
+				return rule.defValue;
+			}
+
+			return (short) paramList[paramKey];
+		}
+
+		// Update Menu Options (run when menu changes)
+		public static void UpdateMenuOptions(byte numOptsToShow = 0, byte[] optRuleIds = null) {
+			JObject paramList = WandData.GetParamList();
 
 			// Get Rules
 			ParamGroup[] rules = WandData.paramRules;
-			byte ruleCount = (byte) rules.Length;
 
 			// Prepare Menu Options
-			WandData.optionsToShow = ruleCount;
+			if(numOptsToShow == 0) {
+				WandData.numberOptsToShow = (byte) rules.Length;
+			} else {
+				WandData.numberOptsToShow = numOptsToShow;
+				WandData.menuOptsChanged = true;
+			}
+
+			// Determine the Rule IDs that appear in the Option List. The default is just to list each rule in order.
+			// Some wand menus (such as Flight and Chest) will have different sequences that must be sent to this method.
+			// The reason for this is because there are certain rules that will affect others. Such as Flight Type of Rotation making the rotating diameter value visible.
+			for(byte i = 0; i < WandData.numberOptsToShow; i++) {
+				WandData.menuOptRuleIds[i] = optRuleIds == null ? i : optRuleIds[i];
+			}
 
 			// Loop through each rule:
-			for(byte i = 0; i < ruleCount; i++) {
-				WandData.menuOptionRule[i] = i;
-				WandData.menuOptionLabels[i] = rules[i].name;
+			for(byte i = 0; i < WandData.numberOptsToShow; i++) {
+				byte ruleId = WandData.menuOptRuleIds[i];
+				ParamGroup rule = rules[ruleId];
 
-				ParamGroup rule = rules[i];
+				WandData.menuOptLabels[i] = rule.name;
 
 				// Determine the Text
 				if(paramList != null && paramList.ContainsKey(rule.key)) {
 
 					if(rule is LabeledParam) {
-						WandData.menuOptionText[i] = ((LabeledParam)(rule)).labels[short.Parse(paramList[rule.key].ToString())];
+						WandData.menuOptText[i] = ((LabeledParam)(rule)).labels[short.Parse(paramList[rule.key].ToString())];
+					} else if(rule is DictParam) {
+						DictParam dictRule = (DictParam)(rule);
+						byte[] contentKeys = dictRule.dict.Keys.ToArray<byte>();
+						byte paramVal = byte.Parse(paramList[rule.key].ToString());
+						WandData.menuOptText[i] = dictRule.dict[contentKeys[paramVal]];
 					} else {
-						WandData.menuOptionText[i] = paramList[rule.key].ToString() + rule.unitName;
+						WandData.menuOptText[i] = paramList[rule.key].ToString() + rule.unitName;
 					}
 				} else {
-					WandData.menuOptionText[i] = rules[i].defStr;
+					WandData.menuOptText[i] = rule.defStr;
 				}
 			}
-
-			//WandData.menuOptionNumbers;
 		}
 
 		// Initialize Wand Data
@@ -137,7 +164,7 @@ namespace Nexus.GameEngine {
 			WandData.paramRules = WandData.paramSet.rules;
 
 			// Reset Menu Information
-			WandData.optionsToShow = 1;
+			WandData.numberOptsToShow = 1;
 			WandData.optionSelected = -1;
 
 			return true;

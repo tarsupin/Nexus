@@ -121,7 +121,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectablePower,
-					subType = (byte)PowerSubType.RandThrown
+					subType = (byte)PowerSubType.RandomThrown
 				},
 			});
 
@@ -153,7 +153,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.RandWeapon,
+					subType = (byte) PowerSubType.RandomWeapon,
 				},
 			});
 			
@@ -193,7 +193,7 @@ namespace Nexus.GameEngine {
 				//},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.RandBook,
+					subType = (byte) PowerSubType.RandomPotion,
 				},
 			});
 			
@@ -285,7 +285,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.RandPot,
+					subType = (byte) PowerSubType.RandomBook,
 				},
 			});
 

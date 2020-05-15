@@ -111,8 +111,11 @@ May 14, 2020
 May 15th, 2020
 	- Static WandData Class to Preserve Wand Data.
 	- Simplified, Cleaned, and Optimized Param Menu.
+	- Chest Params Working
 
 // Next TODO List
+Flight Params
+
 Remaining Param Sets
 	- GetMenuOptions() - Add this to all Params base class; simplifies the search.
 		- Advanced overrides can be used for Flight, Chests, other multiple relation options.

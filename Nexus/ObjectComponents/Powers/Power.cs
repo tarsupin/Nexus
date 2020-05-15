@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	public enum PowerSubType : byte {
 
 		// Collectable Powers - Mobility
-		RandBook = 0,
+		RandomPotion = 0,
 		SlowFall = 1,
 		Hover = 2,
 		Levitate = 3,
@@ -21,7 +21,7 @@ namespace Nexus.ObjectComponents {
 		Teleport = 11,
 
 		// Collectable Powers - Weapon
-		RandWeapon = 20,
+		RandomWeapon = 20,
 		BoxingRed = 21,
 		BoxingWhite = 22,
 		Dagger = 23,
@@ -30,7 +30,7 @@ namespace Nexus.ObjectComponents {
 		Sword = 26,
 
 		// Collectable Powers - Book / Projectiles
-		RandPot = 30,
+		RandomBook = 30,
 		Electric = 31,
 		Fire = 32,
 		Frost = 33,
@@ -40,13 +40,13 @@ namespace Nexus.ObjectComponents {
 		Ball = 37,
 
 		// Collectable Powers - Thrown
-		RandThrown = 40,
+		RandomThrown = 40,
 		Axe = 41,
 		Hammer = 42,
 		Shuriken = 43,
 
 		// Power Collectable - Bolts
-		RandBolt = 50,
+		RandomBolt = 50,
 		BoltBlue = 51,
 		BoltGold = 52,
 		BoltGreen = 53,
@@ -81,31 +81,31 @@ namespace Nexus.ObjectComponents {
 		public static void AssignToCharacter(Character character, byte subType) {
 
 			// Random Throwing Weapon
-			if(subType == (byte) PowerSubType.RandThrown) {
+			if(subType == (byte) PowerSubType.RandomThrown) {
 				Random rand = new Random((int) Systems.timer.Frame);
 				subType = (byte)rand.Next(41, 43);
 			}
 
 			// Random Potion (Mobility Powers)
-			else if(subType == (byte) PowerSubType.RandPot) {
+			else if(subType == (byte) PowerSubType.RandomBook) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(1, 11);
 			}
 			
 			// Random Book (Ball Projectiles)
-			else if(subType == (byte) PowerSubType.RandBook) {
+			else if(subType == (byte) PowerSubType.RandomPotion) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(31, 37);
 			}
 			
 			// Random Weapon
-			else if(subType == (byte) PowerSubType.RandWeapon) {
+			else if(subType == (byte) PowerSubType.RandomWeapon) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(21, 26);
 			}
 			
 			// Random Bolt
-			else if(subType == (byte) PowerSubType.RandBolt) {
+			else if(subType == (byte) PowerSubType.RandomBolt) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(51, 53);
 			}

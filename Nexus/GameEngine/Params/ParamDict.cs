@@ -69,7 +69,7 @@ namespace Nexus.GameEngine {
 
 		// Collectable Powers - Mobility
 		public static Dictionary<byte, string> MobPowers = new Dictionary<byte, string>() {
-			{ (byte) PowerSubType.RandBook, "RandBook" },
+			{ (byte) PowerSubType.RandomPotion, "RandPot" },
 			{ (byte) PowerSubType.SlowFall, "SlowFall" },
 			{ (byte) PowerSubType.Hover, "Hover" },
 			{ (byte) PowerSubType.Levitate, "Levitate" },
@@ -85,7 +85,7 @@ namespace Nexus.GameEngine {
 
 		// Collectable Powers - Weapon
 		public static Dictionary<byte, string> Weapons = new Dictionary<byte, string>() {
-			{ (byte) PowerSubType.RandWeapon, "RandWeapon" },
+			{ (byte) PowerSubType.RandomWeapon, "RandWeapon" },
 			{ (byte) PowerSubType.BoxingRed, "BoxingRed" },
 			{ (byte) PowerSubType.BoxingWhite, "BoxingWhite" },
 			{ (byte) PowerSubType.Dagger, "Dagger" },
@@ -94,9 +94,9 @@ namespace Nexus.GameEngine {
 			{ (byte) PowerSubType.Sword, "Sword" },
 		};
 
-		// Collectable Powers - Potions
-		public static Dictionary<byte, string> Potions = new Dictionary<byte, string>() {
-			{ (byte) PowerSubType.RandPot, "RandPot" },
+		// Collectable Powers - Spells, Books
+		public static Dictionary<byte, string> Spells = new Dictionary<byte, string>() {
+			{ (byte) PowerSubType.RandomBook, "RandBook" },
 			{ (byte) PowerSubType.Electric, "Electric" },
 			{ (byte) PowerSubType.Fire, "Fire" },
 			{ (byte) PowerSubType.Frost, "Frost" },
@@ -107,7 +107,7 @@ namespace Nexus.GameEngine {
 
 		// Collectable Powers - Thrown
 		public static Dictionary<byte, string> Thrown = new Dictionary<byte, string>() {
-			{ (byte) PowerSubType.RandThrown, "RandThrown" },
+			{ (byte) PowerSubType.RandomThrown, "RandThrown" },
 			{ (byte) PowerSubType.Axe, "Axe" },
 			{ (byte) PowerSubType.Hammer, "Hammer" },
 			{ (byte) PowerSubType.Shuriken, "Shuriken" },
@@ -115,7 +115,7 @@ namespace Nexus.GameEngine {
 
 		// Collectable Powers - Bolts
 		public static Dictionary<byte, string> Bolts = new Dictionary<byte, string>() {
-			{ (byte) PowerSubType.RandBolt, "RandBolt" },
+			{ (byte) PowerSubType.RandomBolt, "RandBolt" },
 			{ (byte) PowerSubType.BoltBlue, "BoltBlue" },
 			{ (byte) PowerSubType.BoltGold, "BoltGold" },
 			{ (byte) PowerSubType.BoltGreen, "BoltGreen" },

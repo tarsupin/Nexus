@@ -33,30 +33,39 @@ namespace Nexus.GameEngine {
 			bool validWand = WandData.InitializeWandData(scene, gridX, gridY);
 			if(validWand == false) { return; }
 
-			// Get Sizing Details
-			this.leftWidth = this.GetLeftWidth();
-			this.rightWidth = this.GetRightWidth();
-
-			this.width = (short)(this.leftWidth + 20 + this.rightWidth);
-			this.height = (short)(WandData.paramRules.Length * ParamMenu.SlotHeight - 1);
-
-			// posX, posY describes the center of the context menu.
-			// x, y describes the top-left corner of the context menu.
-			this.x = (short)((gridX * (byte) TilemapEnum.TileWidth) - Systems.camera.posX - this.width);		// Only need to readjust x coord, since we're right-aligning it.
-			this.y = (short)((gridY * (byte) TilemapEnum.TileHeight) - Systems.camera.posY);
-
-			// Reposition the menu if it would overlap other content:
-			if(this.x < 100) { this.x = 100; }
-			if(this.y < 50) { this.y = 50; }
-			if(this.y + this.height > Systems.screen.windowHeight - 50) { this.y = (short) (Systems.screen.windowHeight - 50 - this.height); }
-
-			this.splitPos = (ushort) (this.x + this.leftWidth + 10);
-
 			// Update Menu Options
-			WandData.UpdateMenuOptions();
+			WandData.paramSet.UpdateMenu();
+
+			this.ResizeMenu(true);
 
 			// Update Menu Visibility
 			this.SetVisible(true);
+		}
+
+		private void ResizeMenu(bool fullResize) {
+
+			if(fullResize) {
+				this.leftWidth = this.GetLeftWidth();
+				this.rightWidth = this.GetRightWidth();
+				this.width = (short)(this.leftWidth + 20 + this.rightWidth);
+			}
+
+			this.height = (short)(WandData.numberOptsToShow * ParamMenu.SlotHeight - 1);
+
+			// x, y describes the top-left corner of the context menu.
+			// Will reposition the menu if it would overlap other content:
+			if(fullResize) {
+				this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX - this.width);     // Only need to readjust x coord, since we're right-aligning it.
+				if(this.x < 100) { this.x = 100; }
+				this.splitPos = (ushort)(this.x + this.leftWidth + 10);
+			}
+
+			this.y = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
+			if(this.y < 50) { this.y = 50; }
+			if(this.y + this.height > Systems.screen.windowHeight - 50) { this.y = (short)(Systems.screen.windowHeight - 50 - this.height); }
+
+			// Resize has been updated:
+			WandData.menuOptsChanged = false;
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.
@@ -89,6 +98,11 @@ namespace Nexus.GameEngine {
 
 			// End method if the context menu isn't visible, or if the tab key was released.
 			if(!this.visible) { return; }
+
+			// If the menu options changed, need to resize menu:
+			if(WandData.menuOptsChanged) {
+				this.ResizeMenu(false);
+			}
 
 			// If the current tool switches away from the wand, close the menu:
 			if(EditorTools.tempTool is FuncToolWand == false && EditorTools.funcTool is FuncToolWand == false) {
@@ -133,16 +147,10 @@ namespace Nexus.GameEngine {
 		public virtual void Draw() {
 			if(!this.visible) { return; }
 
-			// If the LevelContent Tile exists and has data, draw it:
-			ArrayList tileObj = WandData.wandTileData;
-			JObject paramList = null;
-
-			if(tileObj.Count > 2 && tileObj[2] is JObject) {
-				paramList = (JObject) tileObj[2];
-			}
+			JObject paramList = WandData.GetParamList();
 
 			// Draw Line Divisions & Menu Options
-			byte count = (byte) WandData.optionsToShow;
+			byte count = (byte) WandData.numberOptsToShow;
 
 			// Draw White Background
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x, this.y, this.width, this.height), Color.White * 0.75f);
@@ -150,14 +158,14 @@ namespace Nexus.GameEngine {
 			// Loop through vertical set:
 			for(byte i = 0; i < count; i++) {
 
-				string label = WandData.menuOptionLabels[i];
-				string text = WandData.menuOptionText[i];
+				string label = WandData.menuOptLabels[i];
+				string text = WandData.menuOptText[i];
 
 				// Draw Line
 				Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * i, this.width, 2), Color.Black);
 
 				// Set this line as green to indicate that it's not a default value (unless currently being highlighted):
-				if(WandData.optionSelected != i && paramList != null && paramList.ContainsKey(WandData.paramRules[(byte) WandData.menuOptionRule[i]].key)) {
+				if(WandData.optionSelected != i && paramList != null && paramList.ContainsKey(WandData.paramRules[(byte) WandData.menuOptRuleIds[i]].key)) {
 					Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * i, this.width, ParamMenu.SlotHeight), Color.White * 0.2f);
 				}
 

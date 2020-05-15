@@ -38,7 +38,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "weapon" was the final valid instruction. Give a random weapon to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandWeapon);
+				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomWeapon);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "ranged" was the final valid instruction. Give a random ranged weapon to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandThrown);
+				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomThrown);
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandBolt);
+				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomBolt);
 			}
 		}
 
@@ -122,7 +122,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandBook);
+				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomPotion);
 			}
 		}
 
@@ -151,7 +151,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandPot);
+				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomBook);
 			}
 		}
 
