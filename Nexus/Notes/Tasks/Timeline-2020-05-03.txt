@@ -115,15 +115,10 @@ May 15th, 2020
 	- Flight Params Working
 	- Improved Function Tools. Fixed Bugs.
 	- Major Overhaul of JObjects to Dictionaries.
+	- Level Conversion Script Updates
+	- Fixed Many Broken Params in Level Data.
 
 // Next TODO List
-Flight Params
-
-Remaining Param Sets
-	- GetMenuOptions() - Add this to all Params base class; simplifies the search.
-		- Advanced overrides can be used for Flight, Chests, other multiple relation options.
-	- GetLabelText() - Add to base Params class; simplifies text lookup.
-		- Advanced overrides can be used for Flight, Chests, other multiple relation options.
 
 Load Objects into Editor
 - Integrate Params with Objects.

@@ -19,7 +19,7 @@ namespace Nexus.Scripts {
 		protected override void ProcessLayerData(Dictionary<string, Dictionary<string, ArrayList>> layerJson) {
 
 			// Temporary Blockers - Testing Purposes.
-			if(this.levelContent.levelId != "QCALQOD16") { return; }          // Specific Level Allowance
+			//if(this.levelContent.levelId != "QCALQOD16") { return; }          // Specific Level Allowance
 			//if(CalcRandom.IntBetween(0, 50) == 35) { return; }
 
 			// Run Standard Layer Data Process
@@ -62,6 +62,7 @@ namespace Nexus.Scripts {
 			Dictionary<string, object> paramsOld = JsonConvert.DeserializeObject<Dictionary<string, object>>(tileJson[2].ToString());
 			//Dictionary<string, object> paramsOld = (Dictionary<string, object>) tileJson[2];
 
+
 			bool changed = false;
 
 			// Loop through each param
@@ -74,18 +75,61 @@ namespace Nexus.Scripts {
 				if(param.Key == "suit") {
 					switch(paramVal) {
 						case "WhiteNinja": changed = true; newValue = (byte)SuitSubType.WhiteNinja; break;
+						case "BlueNinja": changed = true; newValue = (byte)SuitSubType.BlueNinja; break;
+						case "GreenNinja": changed = true; newValue = (byte)SuitSubType.GreenNinja; break;
+						case "RedNinja": changed = true; newValue = (byte)SuitSubType.RedNinja; break;
+						case "BlackNinja": changed = true; newValue = (byte)SuitSubType.BlackNinja; break;
+						case "BlueWizard": changed = true; newValue = (byte)SuitSubType.BlueWizard; break;
+						case "WhiteWizard": changed = true; newValue = (byte)SuitSubType.WhiteWizard; break;
+						case "RedWizard": changed = true; newValue = (byte)SuitSubType.RedWizard; break;
+						case "GreenWizard": changed = true; newValue = (byte)SuitSubType.GreenWizard; break;
+					}
+				}
+				
+				else if(param.Key == "hat") {
+					switch(paramVal) {
+						case "WizBlueHat": changed = true; newValue = (byte)HatSubType.WizardBlueHat; break;
+						case "WizGreenHat": changed = true; newValue = (byte)HatSubType.WizardGreenHat; break;
+						case "WizRedHat": changed = true; newValue = (byte)HatSubType.WizardRedHat; break;
+						case "WizWhiteHat": changed = true; newValue = (byte)HatSubType.WizardWhiteHat; break;
+						case "FeatheredHat": changed = true; newValue = (byte)HatSubType.FeatheredHat; break;
 					}
 				}
 
 				else if(param.Key == "powerAtt") {
 					switch(paramVal) {
 						case "Shuriken": changed = true; newValue = (byte) PowerSubType.Shuriken; break;
+						case "BoxingRed": changed = true; newValue = (byte) PowerSubType.BoxingRed; break;
+					}
+				}
+				
+				else if(param.Key == "powerMob") {
+					switch(paramVal) {
+						case "BurstPower": changed = true; newValue = (byte) PowerSubType.Burst; break;
+						case "SlowFall": changed = true; newValue = (byte) PowerSubType.SlowFall; break;
+						case "LeapPower": changed = true; newValue = (byte) PowerSubType.Leap; break;
+					}
+				}
+
+				else if(param.Key == "reverse" || param.Key == "attAllow" || param.Key == "beginFall" || param.Key == "perm") {
+					switch(paramVal) {
+						case "False": changed = true; newValue = 0; break;
+						case "True": changed = true; newValue = 1; break;
+						case true: changed = true; newValue = 1; break;
 					}
 				}
 
 				if(changed) {
-					System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  " + newValue);
+					//System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  " + newValue);
 					newParams[param.Key] = newValue;
+				}
+				
+				else {
+					bool isNumeric = short.TryParse(paramVal.ToString(), out _);
+
+					if(!isNumeric) {
+						System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  UNRESOLVED");
+					}
 				}
 			}
 
