@@ -13,17 +13,10 @@ namespace Nexus.GameEngine {
 
 		protected static byte SlotHeight = 30;		// The height of each slot.
 
-		protected Params paramSet;			// The parameter set to use.
 		protected ushort splitPos;			// The "central" section in the middle that splits the left and right sides.
 		protected ushort leftWidth;			// The amount of width for the left side (titles)
 		protected ushort rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
 		protected static FontClass font;
-
-		// Tile Details
-		protected EditorRoomScene scene;
-		protected Dictionary<string, Dictionary<string, ArrayList>> layerData;		// The LevelContent layer data (main) for this tile.
-		protected ushort tileX;			// The tile's GridX position.
-		protected ushort tileY;			// The tile's GridY position.
 
 		public ParamMenu( UIComponent parent ) : base(parent) {
 
@@ -37,31 +30,15 @@ namespace Nexus.GameEngine {
 
 		// Rebuild the ParamMenu design:
 		public void LoadParamMenu(EditorRoomScene scene, ushort gridX, ushort gridY) {
-
-			// Get Tile Information
-			this.scene = ((EditorScene)Systems.scene).CurrentRoom;
-			this.layerData = this.scene.levelContent.data.rooms[this.scene.roomID].main;
-
-			// Verify that Tile is Valid:
-			if(!LevelContent.VerifyTiles(this.layerData, gridX, gridY)) { return; }
-
-			this.tileX = gridX;
-			this.tileY = gridY;
-
-			// Get the Tile Class
-			ArrayList tileObj = LevelContent.GetTileDataWithParams(this.layerData, this.tileX, this.tileY);
-			TileGameObject tile = Systems.mapper.TileDict[byte.Parse(tileObj[0].ToString())];
-
-			// If the tile has param sets, it can be used here. Otherwise, return.
-			if(tile.paramSet == null) { return; }
-			this.paramSet = tile.paramSet;
+			bool validWand = WandData.InitializeWandData(scene, gridX, gridY);
+			if(validWand == false) { return; }
 
 			// Get Sizing Details
 			this.leftWidth = this.GetLeftWidth();
 			this.rightWidth = this.GetRightWidth();
 
 			this.width = (short)(this.leftWidth + 20 + this.rightWidth);
-			this.height = (short)(this.paramSet.rules.Length * ParamMenu.SlotHeight - 1);
+			this.height = (short)(WandData.paramRules.Length * ParamMenu.SlotHeight - 1);
 
 			// posX, posY describes the center of the context menu.
 			// x, y describes the top-left corner of the context menu.
@@ -75,16 +52,19 @@ namespace Nexus.GameEngine {
 
 			this.splitPos = (ushort) (this.x + this.leftWidth + 10);
 
+			// Update Menu Options
+			WandData.UpdateMenuOptions();
+
+			// Update Menu Visibility
 			this.SetVisible(true);
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.
 		private ushort GetLeftWidth() {
-			var rules = this.paramSet.rules;
 			ushort largestWidth = 0;
 
-			for(byte i = 0; i < rules.Length; i++) {
-				ushort w = (ushort) ParamMenu.font.font.MeasureString(rules[i].name).X;
+			for(byte i = 0; i < WandData.paramRules.Length; i++) {
+				ushort w = (ushort) ParamMenu.font.font.MeasureString(WandData.paramRules[i].name).X;
 				if(w > largestWidth) { largestWidth = w; }
 			}
 
@@ -93,10 +73,9 @@ namespace Nexus.GameEngine {
 
 		// Identifies the width that the left side should be by determining the width of the largest string.
 		private ushort GetRightWidth() {
-			var rules = this.paramSet.rules;
 			ushort rightWidth = 140;
 
-			foreach(ParamGroup group in rules) {
+			foreach(ParamGroup group in WandData.paramRules) {
 				if(group is LabeledParam) {
 					rightWidth += 80;
 					break;
@@ -120,17 +99,17 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) {
 				UIComponent.ComponentWithFocus = this;
 
-				sbyte curSelection = this.GetMenuSelection(Cursor.MouseY);
-				if(curSelection < 0) { return; }
+				WandData.optionSelected = this.GetMenuSelection(Cursor.MouseY);
+				if(WandData.optionSelected < 0) { return; }
 
 				// Cycle through parameter using mouse scroll:
 				if(Cursor.MouseScrollDelta != 0) {
 
 					// Get the parameter key (e.g. "speed", "count", etc)
-					string paramKey = this.paramSet.GetParamKey((byte)curSelection);
+					string paramKey = WandData.paramSet.GetParamKey((byte) WandData.optionSelected);
 
 					// Increment the parameter value by 1 step:
-					this.paramSet.CycleParam(this.layerData, this.tileX, this.tileY, paramKey, Cursor.MouseScrollDelta < 0);
+					WandData.paramSet.CycleParam(paramKey, Cursor.MouseScrollDelta < 0);
 				}
 			}
 		}
@@ -154,64 +133,46 @@ namespace Nexus.GameEngine {
 		public virtual void Draw() {
 			if(!this.visible) { return; }
 
-			ParamGroup[] rules = this.paramSet.rules;
-			ArrayList tileObj = LevelContent.GetTileDataWithParams(this.layerData, this.tileX, this.tileY);
+			// If the LevelContent Tile exists and has data, draw it:
+			ArrayList tileObj = WandData.wandTileData;
+			JObject paramList = null;
 
-			// Draw White Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x, this.y, this.width, this.height), Color.White * 0.6f);
+			if(tileObj.Count > 2 && tileObj[2] is JObject) {
+				paramList = (JObject) tileObj[2];
+			}
 
 			// Draw Line Divisions & Menu Options
-			byte count = (byte) rules.Length;
-			sbyte curSelection = this.GetMenuSelection(Cursor.MouseY);
+			byte count = (byte) WandData.optionsToShow;
+
+			// Draw White Background
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x, this.y, this.width, this.height), Color.White * 0.75f);
 
 			// Loop through vertical set:
 			for(byte i = 0; i < count; i++) {
 
+				string label = WandData.menuOptionLabels[i];
+				string text = WandData.menuOptionText[i];
+
 				// Draw Line
 				Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * i, this.width, 2), Color.Black);
 
-				// Add Title
-				string name = rules[i].name;
-				Vector2 textSize = ParamMenu.font.font.MeasureString(name);
-				ParamMenu.font.Draw(name, this.splitPos - 10 - (byte) Math.Floor(textSize.X), this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
-
-				// Draw Current Value
-				string paramKey = rules[i].key;
-				bool isDefault = true;
-
-				// If the LevelContent Tile exists and has data, draw it:
-				if(tileObj.Count > 2 && tileObj[2] is JObject) {
-					JObject paramList = (JObject) tileObj[2];
-					
-					if(paramList.ContainsKey(paramKey)) {
-						isDefault = false;
-
-						// Set this line as green to indicate that it's not a default value (unless currently being highlighted):
-						if(curSelection != i) {
-							Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * i, this.width, ParamMenu.SlotHeight), Color.White * 0.2f);
-						}
-
-						// Draw the Text
-						if(rules[i] is LabeledParam) {
-							ParamMenu.font.Draw(((LabeledParam)(rules[i])).labels[short.Parse(paramList[paramKey].ToString())], this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
-						} else {
-							ParamMenu.font.Draw(paramList[paramKey].ToString() + rules[i].unitName, this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
-						}
-					}
+				// Set this line as green to indicate that it's not a default value (unless currently being highlighted):
+				if(WandData.optionSelected != i && paramList != null && paramList.ContainsKey(WandData.paramRules[(byte) WandData.menuOptionRule[i]].key)) {
+					Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * i, this.width, ParamMenu.SlotHeight), Color.White * 0.2f);
 				}
 
-				// Draw the default value if a value wasn't provided:
-				if(isDefault) {
-					ParamMenu.font.Draw(rules[i].defStr, this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
-				}
+				// Draw Label + Text
+				Vector2 textSize = ParamMenu.font.font.MeasureString(label);
+				ParamMenu.font.Draw(label, this.splitPos - 10 - (byte) Math.Floor(textSize.X), this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
+				ParamMenu.font.Draw(text, this.splitPos + 10, this.y + ParamMenu.SlotHeight * i + 8, Color.Black);
 			}
 
 			// Draw Bottom Line
 			Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * count, this.width, 2), Color.Black);
 
 			// Hovering Visual
-			if(curSelection > -1) {
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * curSelection, this.width, ParamMenu.SlotHeight), Color.White * 0.5f);
+			if(WandData.optionSelected > -1) {
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + ParamMenu.SlotHeight * WandData.optionSelected, this.width, ParamMenu.SlotHeight), Color.White * 0.5f);
 			}
 		}
 	}

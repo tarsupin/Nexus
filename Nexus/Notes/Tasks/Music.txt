@@ -39,8 +39,8 @@ Songs chosen from SketchyLogic
 	// https://opengameart.org/content/hungry-dino-9-chiptune-tracks-10-sfx		CC-BY 3.0 - Must Credit SketchyLogic
 	- SketchyLogic-8BitMetal					> Intensity 4
 	- SketchyLogic-FranticLevel					> Intensity 3
-	- SketchyLogic-MainTheme					> Pleasant Day 3
-	- SketchyLogic-SwingingLevel				> Pleasant Day 4
+	- SketchyLogic-MainTheme					> Happy 1
+	- SketchyLogic-SwingingLevel				> Happy 2
 
 	
 Returned to Nomination Pool:

@@ -101,20 +101,33 @@ https://www.youtube.com/watch?v=2sJkEWlyk74 (mario/celeste)
 
 
 /********************************
+****** Publishing
+********************************/
+
+Possible Deployment: Itch.io
+
+// ClickOnce Security and Deployment
+https://docs.microsoft.com/en-us/visualstudio/deployment/clickonce-security-and-deployment?view=vs-2019
+	https://docs.microsoft.com/en-us/visualstudio/deployment/how-to-publish-a-clickonce-application-using-the-publish-wizard?view=vs-2019
+	
+// Notes on Setup Project
+https://docs.microsoft.com/en-us/dotnet/framework/windows-services/how-to-install-and-uninstall-services
+https://docs.microsoft.com/en-us/visualstudio/deployment/deploying-applications-services-and-components?view=vs-2019#create-an-installer-package-windows-desktop
+
+
+/********************************
 ****** Miscellaneous
 ********************************/
+
+Proper GUI design
+	- RPG UI
+	- Add to Wand Tool
+	- Settings GUI
 
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
 Is .Meta used? IMetaData in MetaList doesn't need SlotGroup - can be altered with no consequence.
 
 Show a speedrun clock (FPS, timer, etc.)
-
-Handle layering with bg, fg, main, and obj. BG is new.
-	- Add 'bg' layer to data.
-	- Also add 'bg' layer to tileData as 3rd and 4th bytes, move fg to 5th and 6th byte.
-	- Convert data to include ledges as 'bg' layer.
-	- Add CharStart to RoomFormat
-	- Add Scripting to RoomFormat
 
 Console Switch Options
 	- Change tiles between two options.

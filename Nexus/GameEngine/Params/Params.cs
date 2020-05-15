@@ -46,8 +46,8 @@ namespace Nexus.GameEngine {
 			return this.rules[ruleNum].key;
 		}
 
-		public virtual void CycleParam(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, string paramKey, bool up = true) {
-			ArrayList tileObj = LevelContent.GetTileDataWithParams(layerData, gridX, gridY);
+		public virtual void CycleParam(string paramKey, bool up = true) {
+			ArrayList tileObj = WandData.wandTileData;
 			
 			// Verify that the parameter can exist.
 			if(tileObj == null) { return; }
@@ -91,6 +91,11 @@ namespace Nexus.GameEngine {
 				short newValue = this.CycleNumber((short)paramVal, 0, (short) (labelRule.labels.Length - 1), 1, up);
 				this.UpdateParamNum(paramList, paramKey, newValue, labelRule.defValue);
 			}
+
+			else { return; }
+
+			// Update the Menu Options
+			this.UpdateMenu();
 		}
 
 		protected short CycleNumber(short value, short min, short max, short increment, bool up = true) {
@@ -107,6 +112,10 @@ namespace Nexus.GameEngine {
 			} else {
 				paramList[paramKey] = value;
 			}
+		}
+
+		protected virtual void UpdateMenu() {
+			WandData.UpdateMenuOptions();		// The default practice is to defer to the WandData's method.
 		}
 	}
 
@@ -181,11 +190,12 @@ namespace Nexus.GameEngine {
 		public ParamsContents() {
 			this.rules = new ParamGroup[2];
 			this.rules[0] = new LabeledParam("content", "Content Type", this.contentGroup, (byte) 0);
-			this.rules[1] = new SpecialLabelParam("id", "Content Supply", "content", this.contentDict);
+			//this.rules[1] = new SpecialLabelParam("id", "Content Supply", "content", this.contentDict);
+			this.rules[1] = new LabeledParam("id", "Content Supply", this.contentGroup, (byte)0);
 		}
 
-		public override void CycleParam(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, string paramKey, bool up = true) {
-			ArrayList tileObj = LevelContent.GetTileDataWithParams(layerData, gridX, gridY);
+		public override void CycleParam(string paramKey, bool up = true) {
+			ArrayList tileObj = WandData.wandTileData;
 
 			// Verify that the parameter can exist.
 			if(tileObj == null) { return; }

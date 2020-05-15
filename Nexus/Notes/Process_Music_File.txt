@@ -1,11 +1,17 @@
 ﻿
 Use Audacity
 
-- Change bitrate.
-	- Bottom left corner has an option for it.
-	- Also need to go to "Mix" and "Remaster" in the tools. Has a setting there.
+- Loop the track
+	- Zoom in, and look at the leftmost and rightmost sides. Musicians often add little gaps there, which makes looping inaccurate.
+	- Subtract the sides.
 
-- Export to .ogg file.
+- Add additional tracks if needed.
+	- If alterations are needed, add a track to make the modifications easier.
+
+- Save the project. That way we can return to it later. .aup files (Audacity Project Files)
+
+- Export to .ogg with quality level 5.
+	- Level 5 is about 160k bit rate, which is generally considered imperceptible loss.
 	- We can't use .mp3, we'd have to purchase a license.
 
 

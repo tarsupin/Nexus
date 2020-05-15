@@ -104,14 +104,15 @@ May 14, 2020
 	- Params Save on Use.
 	- Play Button and Functionality.
 	- Edited Several Music Tracks.
+	- Finished Full Batch of Music.
 	- Created Param Dictionary.
+	- Several Improvements to Wand, Param Tools.
 
+May 15th, 2020
+	- Static WandData Class to Preserve Wand Data.
+	- Simplified, Cleaned, and Optimized Param Menu.
 
 // Next TODO List
-Static Class WandData
-	- An initialization method
-
-
 Remaining Param Sets
 	- GetMenuOptions() - Add this to all Params base class; simplifies the search.
 		- Advanced overrides can be used for Flight, Chests, other multiple relation options.
@@ -121,6 +122,14 @@ Remaining Param Sets
 Load Objects into Editor
 - Integrate Params with Objects.
 - Draw Objects
+
+Handle layering with bg, fg, main, and obj. BG is new.
+	- Add 'bg' layer to data.
+	- Convert data to include ledges as 'bg' layer.
+
+Level Content
+	- Add CharStart to RoomFormat
+	- Add Scripting to RoomFormat
 
 Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
 
