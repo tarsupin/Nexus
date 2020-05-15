@@ -63,6 +63,7 @@ namespace Nexus.Gameplay {
 	 */
 
 	public enum FlightMovement : byte {
+		None = 0,
 		Axis = 1,
 		Quadratic = 2,
 		Circle = 3,

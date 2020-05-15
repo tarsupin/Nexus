@@ -158,9 +158,11 @@
     <Compile Include="GameEngine\HitCompare\HitCompareCharacter.cs" />
     <Compile Include="Engine\Particles\Emitter.cs" />
     <Compile Include="Engine\Particles\EmitterSimple.cs" />
+    <Compile Include="GameEngine\Params\AdvancedSets\ParamsFlight.cs" />
+    <Compile Include="GameEngine\Params\AdvancedSets\ParamsContents.cs" />
     <Compile Include="GameEngine\Params\ParamDict.cs" />
     <Compile Include="GameEngine\Params\ParamGroup.cs" />
-    <Compile Include="GameEngine\Params\ParamSets\ParamsMoveFlight.cs" />
+    <Compile Include="GameEngine\Params\AdvancedSets\ParamsMoveFlight.cs" />
     <Compile Include="GameEngine\ParticleEmitters\DeathEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
     <Compile Include="GameEngine\ParticleGenerator\ParticleGen.cs" />

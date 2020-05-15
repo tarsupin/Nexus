@@ -89,6 +89,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void UpdateHelperText() {
+			if(Systems.scene is EditorScene == false) { return; }
 			EditorScene editorScene = (EditorScene) Systems.scene;
 
 			// Function Tool Helper Text

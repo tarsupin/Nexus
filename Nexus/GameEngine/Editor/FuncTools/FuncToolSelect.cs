@@ -67,6 +67,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void RunTick(EditorRoomScene scene) {
+			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			if(this.activity == SelectActivity.Working) {
 

@@ -112,6 +112,8 @@ May 15th, 2020
 	- Static WandData Class to Preserve Wand Data.
 	- Simplified, Cleaned, and Optimized Param Menu.
 	- Chest Params Working
+	- Flight Params Working
+	- Improved Function Tools. Fixed Bugs.
 
 // Next TODO List
 Flight Params

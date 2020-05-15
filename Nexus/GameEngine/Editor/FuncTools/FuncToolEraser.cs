@@ -12,6 +12,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void RunTick(EditorRoomScene scene) {
+			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			// Left Mouse Button Down (Delete Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {

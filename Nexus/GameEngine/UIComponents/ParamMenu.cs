@@ -120,7 +120,7 @@ namespace Nexus.GameEngine {
 				if(Cursor.MouseScrollDelta != 0) {
 
 					// Get the parameter key (e.g. "speed", "count", etc)
-					string paramKey = WandData.paramSet.GetParamKey((byte) WandData.optionSelected);
+					string paramKey = WandData.paramSet.GetParamKey((byte) WandData.menuOptRuleIds[(byte)WandData.optionSelected]);
 
 					// Increment the parameter value by 1 step:
 					WandData.paramSet.CycleParam(paramKey, Cursor.MouseScrollDelta < 0);

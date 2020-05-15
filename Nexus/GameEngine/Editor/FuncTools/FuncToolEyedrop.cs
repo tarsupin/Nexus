@@ -11,6 +11,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void RunTick(EditorRoomScene scene) {
+			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			// Left or Right Mouse Click
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked || Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {

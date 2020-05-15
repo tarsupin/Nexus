@@ -71,19 +71,17 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void RunTick(EditorRoomScene scene) {
+			if(!this.isActive || UIComponent.ComponentWithFocus != null) { return; }
 
-			if(this.isActive) {
+			// If Delete is pressed:
+			if(Systems.input.LocalKeyPressed(Keys.Delete)) {
+				this.SwitchToSelectTool();
+			}
 
-				// If Delete is pressed:
-				if(Systems.input.LocalKeyPressed(Keys.Delete)) {
-					this.SwitchToSelectTool();
-				}
-
-				// If left-mouse clicks, start the selection:
-				else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					this.PasteBlueprint(scene, Cursor.MouseGridX, Cursor.MouseGridY);
-					this.SwitchToSelectTool();
-				}
+			// If left-mouse clicks, start the selection:
+			else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.PasteBlueprint(scene, Cursor.MouseGridX, Cursor.MouseGridY);
+				this.SwitchToSelectTool();
 			}
 		}
 

@@ -41,7 +41,9 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 		}
 
-		public virtual void RunTick(EditorRoomScene scene) {}
+		public virtual void RunTick(EditorRoomScene scene) {
+			if(UIComponent.ComponentWithFocus != null) { return; }
+		}
 
 		public virtual void DrawFuncTool() {
 			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
