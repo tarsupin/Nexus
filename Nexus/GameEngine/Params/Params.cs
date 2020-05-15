@@ -3,8 +3,10 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
@@ -28,7 +30,7 @@ namespace Nexus.GameEngine {
 			{ "TrackDot", new ParamsTrackDot() },
 			{ "Shell", new ParamsShell() },
 		};
-		
+
 		public ParamGroup[] rules;
 		public Params() {}
 		
@@ -44,7 +46,7 @@ namespace Nexus.GameEngine {
 			return this.rules[ruleNum].key;
 		}
 
-		public void CycleParam(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, string paramKey, bool up = true) {
+		public virtual void CycleParam(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, string paramKey, bool up = true) {
 			ArrayList tileObj = LevelContent.GetTileDataWithParams(layerData, gridX, gridY);
 			
 			// Verify that the parameter can exist.
@@ -91,7 +93,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		private short CycleNumber(short value, short min, short max, short increment, bool up = true) {
+		protected short CycleNumber(short value, short min, short max, short increment, bool up = true) {
 			short newValue = (short) (value + (up ? increment : 0 - increment));
 			if(newValue <= min) { return min; }
 			if(newValue >= max) { return max; }
@@ -99,7 +101,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Update a numeric parameter (or remove it if it's the default value).
-		private void UpdateParamNum(JObject paramList, string paramKey, short value, short defVal) {
+		protected void UpdateParamNum(JObject paramList, string paramKey, short value, short defVal) {
 			if(value == defVal) {
 				paramList.Remove(paramKey);
 			} else {
@@ -132,11 +134,9 @@ namespace Nexus.GameEngine {
 
 	public class ParamsBeats : Params {
 
+		// Every second has four beats. This indicates which it should trigger at, for two seconds worth of beats.
 		public ParamsBeats() {
-
 			this.rules = new ParamGroup[4];
-
-			// Every second has four beats. This indicates which it should trigger at, for two seconds worth of beats.
 			this.rules[0] = new IntParam("beat1", "Beat #1", 0, 7, 1, 0);
 			this.rules[1] = new IntParam("beat2", "Beat #2", 0, 7, 1, 0);
 			this.rules[2] = new IntParam("beat3", "Beat #3", 0, 7, 1, 0);
@@ -147,8 +147,6 @@ namespace Nexus.GameEngine {
 	public class ParamsCheckpoint : Params {
 
 		public ParamsCheckpoint() {
-
-			this.rules = new ParamGroup[2];
 
 			this.rules = new ParamGroup[1];
 
@@ -174,11 +172,56 @@ namespace Nexus.GameEngine {
 
 	public class ParamsContents : Params {
 
+		public string[] contentGroup = new string[10] { "Goodie", "Suit", "Hat", "Timer Mod", "Mobility Power", "Weapon", "Potion", "Thrown", "Bolt", "Stack" };
+
+		public Dictionary<byte, string>[] contentDict = new Dictionary<byte, string>[10] {
+			ParamDict.Goodies, ParamDict.Suits, ParamDict.Hats, ParamDict.Timers, ParamDict.MobPowers, ParamDict.Weapons, ParamDict.Potions, ParamDict.Thrown, ParamDict.Bolts, ParamDict.Stacks,
+		};
+
 		public ParamsContents() {
+			this.rules = new ParamGroup[2];
+			this.rules[0] = new LabeledParam("content", "Content Type", this.contentGroup, (byte) 0);
+			this.rules[1] = new SpecialLabelParam("id", "Content Supply", "content", this.contentDict);
+		}
 
-			// Was supposed to be ClassID and SubType
-			this.rules[0] = new LabeledParam("", "", GoodieSubTypes, (byte)GoodieSubType.Apple);
+		public override void CycleParam(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, string paramKey, bool up = true) {
+			ArrayList tileObj = LevelContent.GetTileDataWithParams(layerData, gridX, gridY);
 
+			// Verify that the parameter can exist.
+			if(tileObj == null) { return; }
+
+			if(tileObj.Count <= 2 || tileObj[2] is JObject == false) {
+				tileObj.Add(new JObject());
+			}
+
+			// Get Tile Data
+			JObject paramList = (JObject)tileObj[2];
+
+			// A Content Group must be listed:
+			if(!paramList.ContainsKey("content")) { paramList["content"] = 0; }
+
+			JToken groupVal = paramList["content"];
+
+			// Cycle "content" Param
+			if(paramKey == "content") {
+				short newValue = this.CycleNumber((short) groupVal, 0, (short)(this.contentGroup.Length - 1), 1, up);
+				this.UpdateParamNum(paramList, paramKey, newValue, 0);
+			}
+
+			// Cycle "id" Supply Param (dependent on "content" type)
+			else {
+				byte gVal = byte.Parse(groupVal.ToString());
+				if(gVal < 0 || gVal > 9) { gVal = 0; }
+
+				Dictionary<byte, string> dict = this.contentDict[gVal];
+				byte[] contentKeys = dict.Keys.ToArray<byte>();
+
+				if(!paramList.ContainsKey("id")) { paramList["id"] = 0; }
+				byte cId = byte.Parse(paramList["id"].ToString());
+
+				short newId = this.CycleNumber((short) cId, 0, (short)(contentKeys.Length - 1), 1, up);
+				this.UpdateParamNum(paramList, paramKey, newId, contentKeys[0]);
+			}
 		}
 	}
 

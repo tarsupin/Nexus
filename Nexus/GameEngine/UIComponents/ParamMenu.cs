@@ -11,19 +11,19 @@ namespace Nexus.GameEngine {
 
 	public class ParamMenu : UIComponent {
 
-		private static byte SlotHeight = 30;        // The height of each slot.
+		protected static byte SlotHeight = 30;		// The height of each slot.
 
-		private Params paramSet;		// The parameter set to use.
-		private ushort splitPos;		// The "central" section in the middle that splits the left and right sides.
-		private ushort leftWidth;		// The amount of width for the left side (titles)
-		private ushort rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
-		private static FontClass font;
+		protected Params paramSet;			// The parameter set to use.
+		protected ushort splitPos;			// The "central" section in the middle that splits the left and right sides.
+		protected ushort leftWidth;			// The amount of width for the left side (titles)
+		protected ushort rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
+		protected static FontClass font;
 
 		// Tile Details
-		private EditorRoomScene scene;
-		private Dictionary<string, Dictionary<string, ArrayList>> layerData;		// The LevelContent layer data (main) for this tile.
-		private ushort tileX;		// The tile's GridX position.
-		private ushort tileY;		// The tile's GridY position.
+		protected EditorRoomScene scene;
+		protected Dictionary<string, Dictionary<string, ArrayList>> layerData;		// The LevelContent layer data (main) for this tile.
+		protected ushort tileX;			// The tile's GridX position.
+		protected ushort tileY;			// The tile's GridY position.
 
 		public ParamMenu( UIComponent parent ) : base(parent) {
 
@@ -53,10 +53,8 @@ namespace Nexus.GameEngine {
 			TileGameObject tile = Systems.mapper.TileDict[byte.Parse(tileObj[0].ToString())];
 
 			// If the tile has param sets, it can be used here. Otherwise, return.
-			if(tile.paramSets == null) { return; }
-
-			// Get Parameter Set
-			this.paramSet = tile.paramSets[0];		// TODO: Either remove multiple param sets, or update this to accomodate multiple
+			if(tile.paramSet == null) { return; }
+			this.paramSet = tile.paramSet;
 
 			// Get Sizing Details
 			this.leftWidth = this.GetLeftWidth();
@@ -153,7 +151,7 @@ namespace Nexus.GameEngine {
 			this.SetVisible(false);
 		}
 
-		public void Draw() {
+		public virtual void Draw() {
 			if(!this.visible) { return; }
 
 			ParamGroup[] rules = this.paramSet.rules;

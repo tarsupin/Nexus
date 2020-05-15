@@ -31,7 +31,7 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
-		public Params[] paramSets;
+		public Params paramSet;
 
 		// Helper Titles and Text
 		public string title;

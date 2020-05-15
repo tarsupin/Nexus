@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte) TileEnum.Door;
 			this.title = "Door";
 			this.description = "Allows passage to another room or door.";
-			this.paramSets = new Params[1] { Params.ParamMap["Door"] };
+			this.paramSet =  Params.ParamMap["Door"];
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {

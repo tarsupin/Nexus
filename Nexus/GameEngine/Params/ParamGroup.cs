@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -37,15 +38,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public string Validate(short value) {
-
-			if(value < this.min) {
-				return this.name + " must be between " + this.min.ToString() + " and " + this.max.ToString() + this.unitName + ". " + value + " is too low.";
-			}
-
-			if(value > this.max) {
-				return this.name + " must be between " + this.min.ToString() + " and " + this.max.ToString() + this.unitName + ". " + value + " is too high.";
-			}
-
+			if(value < this.min) { return this.name + " must be between " + this.min.ToString() + " and " + this.max.ToString() + this.unitName + ". " + value + " is too low."; }
+			if(value > this.max) { return this.name + " must be between " + this.min.ToString() + " and " + this.max.ToString() + this.unitName + ". " + value + " is too high."; }
 			return null;
 		}
 	}
@@ -76,15 +70,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public string Validate(short value) {
-
-			if(value < this.min) {
-				return this.name + " must be between " + this.min.ToString() + "% and " + this.max.ToString() + "%. " + value + "% is too low.";
-			}
-
-			if(value > this.max) {
-				return this.name + " must be between " + this.min.ToString() + "% and " + this.max.ToString() + "%. " + value + "% is too high.";
-			}
-
+			if(value < this.min) { return this.name + " must be between " + this.min.ToString() + "% and " + this.max.ToString() + "%. " + value + "% is too low."; }
+			if(value > this.max) { return this.name + " must be between " + this.min.ToString() + "% and " + this.max.ToString() + "%. " + value + "% is too high."; }
 			return null;
 		}
 	}
@@ -97,17 +84,29 @@ namespace Nexus.GameEngine {
 			this.name = name;
 			this.labels = labels;
 			this.defValue = defValue;
-			this.defStr = labels[defValue];
+			this.defStr = labels == null ? "" : labels[defValue];
 			this.unitName = "";
 		}
 
 		public string Validate(byte value) {
-
-			if(this.labels.Length < value) {
-				return this.name + " has " + this.labels.Length + " labels, but an invalid number (" + value.ToString() + ") was chosen.";
-			}
-
+			if(this.labels.Length < value) { return this.name + " has " + this.labels.Length + " labels, but an invalid number (" + value.ToString() + ") was chosen."; }
 			return null;
+		}
+	}
+
+	public class SpecialLabelParam : LabeledParam {
+		public string parentParamKey;
+		public Dictionary<byte, string>[] parentDict;
+
+		public SpecialLabelParam( string key, string name, string parentParamKey, Dictionary<byte, string>[] parentDict ) : base(key, name, null, 0) {
+			this.parentParamKey = parentParamKey;
+			this.parentDict = parentDict;
+		}
+
+		public string GetLabelText(byte parentDictId, byte contentId) {
+			Dictionary<byte, string> dict = this.parentDict[parentDictId];
+			byte[] contentKeys = dict.Keys.ToArray<byte>();
+			return this.parentDict[parentDictId][contentKeys[contentId]];
 		}
 	}
 }

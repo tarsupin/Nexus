@@ -86,6 +86,12 @@ Add All Music
 
 
 
+/********************************
+****** Bugs
+********************************/
+
+Throwing shuriken above ceiling crashes the system.
+
 
 /********************************
 ****** Level Design

@@ -104,11 +104,19 @@ May 14, 2020
 	- Params Save on Use.
 	- Play Button and Functionality.
 	- Edited Several Music Tracks.
-
+	- Created Param Dictionary.
 
 
 // Next TODO List
+Static Class WandData
+	- An initialization method
+
+
 Remaining Param Sets
+	- GetMenuOptions() - Add this to all Params base class; simplifies the search.
+		- Advanced overrides can be used for Flight, Chests, other multiple relation options.
+	- GetLabelText() - Add to base Params class; simplifies text lookup.
+		- Advanced overrides can be used for Flight, Chests, other multiple relation options.
 
 Load Objects into Editor
 - Integrate Params with Objects.

@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.ChomperFire;
 			this.title = "Fire Chomper";
 			this.description = "Stationary enemy. Can shoot fireballs.";
-			this.paramSets = new Params[1] { Params.ParamMap["FireBurst"] };
+			this.paramSet =  Params.ParamMap["FireBurst"];
 		}
 
 		public override void UpdateParams(JObject paramList) {

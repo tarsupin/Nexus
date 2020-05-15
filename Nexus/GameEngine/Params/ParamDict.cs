@@ -51,17 +51,20 @@ namespace Nexus.GameEngine {
 			{ (byte) GoodieSubType.Stars, "Stars" },
 			{ (byte) GoodieSubType.GodMode, "GodMode" },
 
+			{ (byte) GoodieSubType.Disrupt, "Disrupt" },
+			{ (byte) GoodieSubType.Explosive, "Explosive" },
+			{ (byte) GoodieSubType.Key, "Key" },
+			{ (byte) GoodieSubType.Blood, "Blood" },
+		};
+
+		// Timers
+		public static Dictionary<byte, string> Timers = new Dictionary<byte, string>() {
 			{ (byte) GoodieSubType.Plus5, "Plus5" },
 			{ (byte) GoodieSubType.Plus10, "Plus10" },
 			{ (byte) GoodieSubType.Plus20, "Plus20" },
 			{ (byte) GoodieSubType.Set5, "Set5" },
 			{ (byte) GoodieSubType.Set10, "Set10" },
 			{ (byte) GoodieSubType.Set20, "Set20" },
-
-			{ (byte) GoodieSubType.Disrupt, "Disrupt" },
-			{ (byte) GoodieSubType.Explosive, "Explosive" },
-			{ (byte) GoodieSubType.Key, "Key" },
-			{ (byte) GoodieSubType.Blood, "Blood" },
 		};
 
 		// Collectable Powers - Mobility

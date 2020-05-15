@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.TrackDot;
 			this.title = "Track Dot";
 			this.description = "A designation that tracked items can move between.";
-			this.paramSets = new Params[1] { Params.ParamMap["TrackDot"] };
+			this.paramSet =  Params.ParamMap["TrackDot"];
 		}
 
 		private void CreateTextures() {
