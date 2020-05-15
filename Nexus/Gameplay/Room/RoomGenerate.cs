@@ -35,6 +35,9 @@ namespace Nexus.Gameplay {
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
+
+						// ERRORS HERE MEAN: The json data saved a string instead of a short; e.g. {"Suit", "WhiteNinja"} instead of {"Suit", 2}
+							// To fix it, we need to run LevelConvert updates that make the appropriate changes.
 						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), paramList);
 					}
@@ -55,6 +58,9 @@ namespace Nexus.Gameplay {
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
+
+						// ERRORS HERE MEAN: The json data saved a string instead of a short; e.g. {"Suit", "WhiteNinja"} instead of {"Suit", 2}
+							// To fix it, we need to run LevelConvert updates that make the appropriate changes.
 						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
 						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), paramList);
 					}

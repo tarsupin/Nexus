@@ -26,7 +26,7 @@ namespace Nexus.ObjectComponents {
 
 		public FlightBehavior( DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor) {
 			
-			this.reverse = paramList["reverse"] == 1;
+			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
 			this.duration = paramList.ContainsKey("duration") ? (ushort) paramList["duration"] : (ushort) FlightDefaults.MoveFlightDuration;
 			this.offset = paramList.ContainsKey("offset") ? (ushort) paramList["offset"] : (ushort) 0;
@@ -48,7 +48,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public static FlightBehavior AssignFlightMotion( DynamicGameObject actor, Dictionary<string, short> paramList ) {
-			byte type = paramList.ContainsKey("fly") ? (byte) FlightMovement.Axis : (byte) paramList["fly"];
+			byte type = paramList.ContainsKey("fly") ? (byte) paramList["fly"] : (byte) FlightMovement.Axis;
 
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:

@@ -104,16 +104,7 @@ namespace Nexus.Scripts {
 		}
 
 		// Overwrites the Tile JSON (per the currently indexed [static] grid coordinate trackers) with the new data:
-		protected void OverwriteTileData( ArrayList tileJson ) {
-
-			ushort index = ushort.Parse(tileJson[0].ToString());
-			ushort subIndex = ushort.Parse(tileJson[1].ToString());
-			Dictionary<string, string> paramList = null;
-			
-			// TODO: Confirm this works. Probably won't. Will probably have to loop through tileJson and build it manually.
-			if(tileJson.Count > 2) {
-				paramList = (Dictionary<string, string>)(tileJson[2]);
-			}
+		protected void OverwriteTileData( ArrayList tileJson, byte tileId, byte subTypeId, Dictionary<string, short> paramList = null ) {
 
 			RoomFormat roomData = this.levelContent.data.rooms[curRoomId];
 			Dictionary<string, Dictionary<string, ArrayList>> roomLayer = null;
@@ -126,9 +117,9 @@ namespace Nexus.Scripts {
 
 			if(roomLayer != null) {
 				if(paramList == null) {
-					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex };
+					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId };
 				} else {
-					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { index, subIndex, paramList };
+					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId, paramList };
 				}
 			}
 		}

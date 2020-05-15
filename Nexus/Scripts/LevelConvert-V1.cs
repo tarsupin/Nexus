@@ -1,15 +1,19 @@
-﻿using Nexus.Engine;
+﻿using Newtonsoft.Json;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.Scripts {
 
 	class LevelConvertV1 : LevelConvert {
 
 		public LevelConvertV1() : base() {
-
+			System.Console.WriteLine("--------------------------------------");
+			System.Console.WriteLine("----- LEVEL CONVERSION - Version 1.0");
+			System.Console.WriteLine("--------------------------------------");
 		}
 
 		protected override void ProcessLayerData(Dictionary<string, Dictionary<string, ArrayList>> layerJson) {
@@ -24,28 +28,82 @@ namespace Nexus.Scripts {
 
 		protected override void ProcessTileData( ArrayList tileJson ) {
 			// tileJson[0], tileJson[1], tileJson[2]
-			System.Console.WriteLine(tileJson[0] + ", " + tileJson[1]);
+			//System.Console.WriteLine(tileJson[0] + ", " + tileJson[1]);
 			//System.Console.WriteLine(tileJson[0] + ", " + tileJson[1] + ", " + tileJson[2]);
-			//this.ConvertGrassToMud(tileJson);
-			this.ConvertGroundSubTypesToHorizontal(tileJson);
+
+			// Prepare Tile Data
+			byte tileId = Byte.Parse(tileJson[0].ToString());
+			byte subTypeId = Byte.Parse(tileJson[1].ToString());
+			Dictionary<string, short> paramList = null;
+
+			// Param-Specific Conversions
+			if(tileJson.Count >= 3) {
+				this.ConvertStringParams(tileJson, tileId, subTypeId);
+			}
+
+			// Retrieve Parameter List
+			//if(tileJson.Count >= 3) {
+			//	paramList = (Dictionary<string, short>) tileJson[2];
+			//}
+
+			// Run Conversions
+			//this.ConvertGrassToMud(tileJson, tileId, subTypeId);
+			this.ConvertGroundSubTypesToHorizontal(tileJson, tileId, subTypeId);
+
 		}
 
-		protected void ConvertGrassToMud(ArrayList tileJson) {
+		// This method will look for params that are still stored as string values, so that we can identify what needs to be changed to 'short' numbers.
+		protected void ConvertStringParams(ArrayList tileJson, byte tileId, byte subTypeId) {
+			// {{ "suit": "WhiteNinja", "powerAtt": "Shuriken" }}
 
-			// If the tile is Grass
-			if(Byte.Parse(tileJson[0].ToString()) == (byte) TileEnum.GroundGrass) {
+			Dictionary<string, short> newParams = new Dictionary<string, short>();
 
-				// Convert the tile to Mud
-				tileJson[0] = (byte) TileEnum.GroundMud;
+			// We'll need to just look at tileJson, since the cast will be inaccurate.
+			Dictionary<string, object> paramsOld = JsonConvert.DeserializeObject<Dictionary<string, object>>(tileJson[2].ToString());
+			//Dictionary<string, object> paramsOld = (Dictionary<string, object>) tileJson[2];
 
-				this.OverwriteTileData(tileJson);
+			bool changed = false;
+
+			// Loop through each param
+			foreach(var param in paramsOld) {
+
+				// Convert any broken parameters:
+				var paramVal = param.Value;
+				short newValue = 0;
+
+				if(param.Key == "suit") {
+					switch(paramVal) {
+						case "WhiteNinja": changed = true; newValue = (byte)SuitSubType.WhiteNinja; break;
+					}
+				}
+
+				else if(param.Key == "powerAtt") {
+					switch(paramVal) {
+						case "Shuriken": changed = true; newValue = (byte) PowerSubType.Shuriken; break;
+					}
+				}
+
+				if(changed) {
+					System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  " + newValue);
+					newParams[param.Key] = newValue;
+				}
+			}
+
+			if(changed) {
+				this.OverwriteTileData(tileJson, tileId, subTypeId, newParams);
+			}
+		}
+
+		protected void ConvertGrassToMud(ArrayList tileJson, byte tileId, byte subTypeId) {
+
+			// If the tile is Grass, convert it to Mud
+			if(tileId == (byte) TileEnum.GroundGrass) {
+				tileId = (byte) TileEnum.GroundMud;
+				this.OverwriteTileData(tileJson, tileId, subTypeId);
 			}
 		}
 		
-		protected void ConvertGroundSubTypesToHorizontal(ArrayList tileJson) {
-
-			byte tileId = Byte.Parse(tileJson[0].ToString());
-			byte subType = Byte.Parse(tileJson[1].ToString());
+		protected void ConvertGroundSubTypesToHorizontal(ArrayList tileJson, byte tileId, byte subTypeId) {
 
 			if(
 				tileId == (byte) TileEnum.PlatformFixed ||
@@ -55,19 +113,19 @@ namespace Nexus.Scripts {
 			) {
 
 				// Convert Ground Types to Horizontal Types
-				if(subType == (byte) GroundSubTypes.H1) {
-					tileJson[1] = (byte) HorizontalSubTypes.H1;
+				if(subTypeId == (byte) GroundSubTypes.H1) {
+					subTypeId = (byte) HorizontalSubTypes.H1;
 				}
 
-				else if(subType == (byte)GroundSubTypes.H2) {
-					tileJson[1] = (byte)HorizontalSubTypes.H2;
+				else if(subTypeId == (byte)GroundSubTypes.H2) {
+					subTypeId = (byte)HorizontalSubTypes.H2;
 				}
 
-				else if(subType == (byte)GroundSubTypes.H3) {
-					tileJson[1] = (byte)HorizontalSubTypes.H3;
+				else if(subTypeId == (byte)GroundSubTypes.H3) {
+					subTypeId = (byte)HorizontalSubTypes.H3;
 				}
 
-				this.OverwriteTileData(tileJson);
+				this.OverwriteTileData(tileJson, tileId, subTypeId);
 			}
 		}
 	}
