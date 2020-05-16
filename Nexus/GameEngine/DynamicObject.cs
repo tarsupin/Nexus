@@ -42,7 +42,6 @@ namespace Nexus.GameEngine {
 		public readonly uint id;
 		public IMetaData Meta { get; protected set; }
 		public readonly RoomScene room;
-		public readonly float texLayer;         // 0.0f is bottom layer, 1.0f is top layer
 
 		// Data
 		public byte subType;

@@ -318,6 +318,7 @@
     <Compile Include="ObjectsTiles\HorizontalWalls\HorizontalWall.cs" />
     <Compile Include="ObjectsTiles\Portals\DoorLock.cs" />
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
+    <Compile Include="GameEngine\ShadowTile.cs" />
     <Compile Include="ObjectsTiles\Special\TrackDot.cs" />
     <Compile Include="ObjectsTiles\Special\Placer.cs" />
     <Compile Include="ObjectsTiles\Special\Cannons\Cannon.cs" />

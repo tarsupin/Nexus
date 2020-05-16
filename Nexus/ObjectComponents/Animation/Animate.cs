@@ -2,7 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 
-// The Animate Class is attached as a component to the DynamicGameObject (e.g. character.animate).
+// The Animate Class is attached as a component to the DynamicObject (e.g. character.animate).
 
 namespace Nexus.ObjectComponents {
 

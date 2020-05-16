@@ -27,7 +27,7 @@ namespace Nexus.GameEngine {
 
 		// Level Data
 		public TilemapLevel tilemap;
-		public Dictionary<byte, Dictionary<uint, DynamicObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
+		public Dictionary<byte, Dictionary<uint, DynamicObject>> objects;       // objects[LoadOrder][ObjectID] = DynamicObject
 
 		public RoomFlags flags = new RoomFlags();
 

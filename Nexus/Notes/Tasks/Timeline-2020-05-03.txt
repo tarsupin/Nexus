@@ -128,6 +128,7 @@
 
 2020-05-16
 	New Dynamic Object Architecture.
+	Added ShadowTile System. Editor can now render Objects.
 
 
 // Next TODO List
@@ -135,7 +136,10 @@ Finish Up Editor Basics, list it for version 0.22.1.
 
 Load Objects into Editor
 - Integrate Params with Objects.
-- Draw Objects
+- Allow Object Interactions with Function Tools
+	- Move Objects
+
+Wand Tool Object Integration
 
 Handle layering with bg, fg, main, and obj. BG is new.
 	- Add 'bg' layer to data.

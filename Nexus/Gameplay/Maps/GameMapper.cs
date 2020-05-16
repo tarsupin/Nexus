@@ -49,6 +49,9 @@ namespace Nexus.Gameplay {
 			this.atlas[(byte) AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
 			this.atlas[(byte) AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
 
+			// Need to assign Object Atlas to Shadow Tile so that it can replicate the Object imagery.
+			ShadowTile.atlas = this.atlas[(byte) AtlasGroup.Objects];
+
 			// List of Game Object Metadata
 			MetaList[MetaGroup.Character] = new IMetaData(Arch.Character, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.main, LoadOrder.Character);
 			MetaList[MetaGroup.Ground] = new IMetaData(Arch.Ground, this.atlas[(byte) AtlasGroup.Tiles], SlotGroup.Ground, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
@@ -161,8 +164,6 @@ namespace Nexus.Gameplay {
 				// Hidden Objects (65 - 69)
 				{ (byte) TileEnum.TrackDot, new TrackDot() },
 				
-				// Anything below this section has an ObjectID, possibly Update(), and Passive Collision.
-				
 				// Tile-Based Creatures (70 - 79)
 				{ (byte) TileEnum.Plant, new Plant() },
 				{ (byte) TileEnum.ChomperGrass, new ChomperGrass() },
@@ -266,6 +267,7 @@ namespace Nexus.Gameplay {
 
 			// Special Flags and Placements (150+)
 			{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },
+
 		};
 	}
 }

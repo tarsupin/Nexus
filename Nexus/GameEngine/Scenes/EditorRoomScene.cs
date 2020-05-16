@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -84,6 +85,7 @@ namespace Nexus.GameEngine {
 			if(roomData.bg != null) { DrawLayer(roomData.bg); }
 			if(roomData.main != null) { DrawLayer(roomData.main); }
 			if(roomData.fg != null) { DrawLayer(roomData.fg); }
+			if(roomData.obj != null) { DrawObjectLayer(roomData.obj); }
 
 			// Debugging
 			//this.stopwatch.Stop();
@@ -125,15 +127,56 @@ namespace Nexus.GameEngine {
 					if(!yData.ContainsKey(x.ToString())) { continue; }
 					var xData = yData[x.ToString()];
 					byte index = byte.Parse(xData[0].ToString());
-					byte subIndex = byte.Parse(xData[1].ToString());
+					byte subType = byte.Parse(xData[1].ToString());
 
 					// Draw Layer
 					TileObject tileObj = tileDict[index];
 
 					// Render the tile with its designated Class Object:
 					if(tileObj is TileObject) {
-						tileObj.Draw(null, subIndex, x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
+						tileObj.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 					};
+				};
+			}
+		}
+
+		private void DrawObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
+			Camera cam = Systems.camera;
+
+			ushort startX = (ushort)Math.Max((ushort)0, (ushort)cam.GridX);
+			ushort startY = (ushort)Math.Max((ushort)0, (ushort)cam.GridY);
+
+			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+
+			if(gridX > this.xCount) { gridX = (ushort) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = (ushort) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+
+			// Camera Position
+			bool isShaking = cam.IsShaking();
+			int camX = cam.posX + (isShaking ? cam.GetCameraShakeOffsetX() : 0);
+			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
+
+			// Loop through the tilemap data:
+			for(ushort y = gridY; y --> startY; ) {
+				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
+
+				string yStr = y.ToString();
+
+				// Make sure this Y-line exists, or skip further review:
+				if(!layerData.ContainsKey(yStr)) { continue; }
+				var yData = layerData[yStr];
+
+				for(ushort x = gridX; x --> startX; ) {
+
+					// Verify Tile Data exists at this Grid Square:
+					if(!yData.ContainsKey(x.ToString())) { continue; }
+					var xData = yData[x.ToString()];
+					byte index = byte.Parse(xData[0].ToString());
+					byte subType = byte.Parse(xData[1].ToString());
+
+					// Draw Layer
+					ShadowTile.Draw(index, subType, null, x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 				};
 			}
 		}
