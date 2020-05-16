@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 
 	public class Shuriken : PowerThrown {
 
-		public Shuriken( Character character, WeaponShurikenSubType subType ) : base( character ) {
+		public Shuriken( Character character, byte subType ) : base( character ) {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;
 			this.IconTexture = "Power/Shuriken";

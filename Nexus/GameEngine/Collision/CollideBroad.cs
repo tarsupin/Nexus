@@ -21,8 +21,8 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	class BroadComparePos : IComparer<DynamicGameObject> {
-		public int Compare(DynamicGameObject obj1, DynamicGameObject obj2) {
+	class BroadComparePos : IComparer<DynamicObject> {
+		public int Compare(DynamicObject obj1, DynamicObject obj2) {
 			return obj1.posX.CompareTo(obj2.posX);
 		}
 	}
@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 	public class CollideBroad {
 
 		private readonly CollideDetect narrow;
-		private List<DynamicGameObject>[] objectList;
+		private List<DynamicObject>[] objectList;
 		private BroadComparePos comparePos;
 
 		public CollideBroad() {
@@ -39,16 +39,16 @@ namespace Nexus.GameEngine {
 			this.narrow = new CollideDetect();
 
 			// Build List for Broad Collision
-			this.objectList = new List<DynamicGameObject>[4];
-			this.objectList[0] = new List<DynamicGameObject>();
-			this.objectList[1] = new List<DynamicGameObject>();
-			this.objectList[2] = new List<DynamicGameObject>();
-			this.objectList[3] = new List<DynamicGameObject>();
+			this.objectList = new List<DynamicObject>[4];
+			this.objectList[0] = new List<DynamicObject>();
+			this.objectList[1] = new List<DynamicObject>();
+			this.objectList[2] = new List<DynamicObject>();
+			this.objectList[3] = new List<DynamicObject>();
 
 			this.comparePos = new BroadComparePos();
 		}
 
-		public void RunBroadSequence( byte roomId, Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects) {
+		public void RunBroadSequence( byte roomId, Dictionary<byte, Dictionary<uint, DynamicObject>> objects) {
 			this.objectList[roomId].Clear();
 
 			CollideBroad.SweepObjectGroup(this.objectList[roomId], objects[(byte)LoadOrder.Platform]);
@@ -64,7 +64,7 @@ namespace Nexus.GameEngine {
 			CollideBroad.PassToNarrow(this.objectList[roomId]);
 		}
 
-		private static void SweepObjectGroup( List<DynamicGameObject> objList, Dictionary<uint, DynamicGameObject> objects ) {
+		private static void SweepObjectGroup( List<DynamicObject> objList, Dictionary<uint, DynamicObject> objects ) {
 
 			// Loop through every object, add it to an array.
 			foreach( var obj in objects ) {
@@ -76,12 +76,12 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		private static void PassToNarrow( List<DynamicGameObject> objList ) {
+		private static void PassToNarrow( List<DynamicObject> objList ) {
 			ushort count = (ushort) objList.Count;
 
 			// Loop through every object, starting from left.
 			for( ushort left = 0; left < count; left++ ) {
-				DynamicGameObject obj = objList[left];
+				DynamicObject obj = objList[left];
 
 				// Determine the right-boundary of the LEFT CURSOR object.
 				int rBound = obj.posX + obj.bounds.Right;
@@ -91,7 +91,7 @@ namespace Nexus.GameEngine {
 
 				// Compare the LEFT CURSOR to objects to its right until a short-circuit is found.
 				while( right < count ) {
-					DynamicGameObject obj2 = objList[right];
+					DynamicObject obj2 = objList[right];
 					right++;
 
 					// Check if the RIGHT CURSOR object cannot collide (it's X position is too far right).

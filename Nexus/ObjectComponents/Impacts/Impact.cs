@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public static class Impact {
 
 		// A Standard Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool StandardImpact( DynamicGameObject actor, DynamicGameObject obj, DirCardinal dir = DirCardinal.Center) {
+		public static bool StandardImpact( DynamicObject actor, DynamicObject obj, DirCardinal dir = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Center) {
 				return false;
@@ -47,7 +47,7 @@ namespace Nexus.ObjectComponents {
 			return false;
 		}
 
-		public static bool CollideUp( DynamicGameObject actor, GameObject obj ) {
+		public static bool CollideUp( DynamicObject actor, DynamicObject obj ) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -59,7 +59,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public static bool CollideDown( DynamicGameObject actor, GameObject obj ) {
+		public static bool CollideDown( DynamicObject actor, DynamicObject obj ) {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -71,7 +71,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public static bool CollideLeft( DynamicGameObject actor, GameObject obj ) {
+		public static bool CollideLeft( DynamicObject actor, DynamicObject obj ) {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -83,7 +83,7 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public static bool CollideRight( DynamicGameObject actor, GameObject obj ) {
+		public static bool CollideRight( DynamicObject actor, DynamicObject obj ) {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.

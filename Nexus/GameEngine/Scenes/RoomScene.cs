@@ -27,13 +27,13 @@ namespace Nexus.GameEngine {
 
 		// Level Data
 		public TilemapLevel tilemap;
-		public Dictionary<byte, Dictionary<uint, DynamicGameObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
+		public Dictionary<byte, Dictionary<uint, DynamicObject>> objects;		// objects[LoadOrder][ObjectID] = DynamicGameObject
 
 		public RoomFlags flags = new RoomFlags();
 
 		// Object Coordination and Cleanup
-		private readonly List<DynamicGameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
-		private readonly List<DynamicGameObject> markedForRemoval;      // A list of objects that will be removed after the frame's loops have ended.
+		private readonly List<DynamicObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
+		private readonly List<DynamicObject> markedForRemoval;      // A list of objects that will be removed after the frame's loops have ended.
 
 		public RoomScene(LevelScene scene, string roomID) : base() {
 
@@ -42,18 +42,18 @@ namespace Nexus.GameEngine {
 			this.collideSequence = new CollideSequence(this);
 
 			// Game Objects
-			this.objects = new Dictionary<byte, Dictionary<uint, DynamicGameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicGameObject>(),
-				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicGameObject>()
+			this.objects = new Dictionary<byte, Dictionary<uint, DynamicObject>> {
+				[(byte) LoadOrder.Platform] = new Dictionary<uint, DynamicObject>(),
+				[(byte) LoadOrder.Enemy] = new Dictionary<uint, DynamicObject>(),
+				[(byte) LoadOrder.Item] = new Dictionary<uint, DynamicObject>(),
+				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, DynamicObject>(),
+				[(byte) LoadOrder.Character] = new Dictionary<uint, DynamicObject>(),
+				[(byte) LoadOrder.Projectile] = new Dictionary<uint, DynamicObject>()
 			};
 
 			// Object Coordination and Cleanup
-			this.markedForAddition = new List<DynamicGameObject>();
-			this.markedForRemoval = new List<DynamicGameObject>();
+			this.markedForAddition = new List<DynamicObject>();
+			this.markedForRemoval = new List<DynamicObject>();
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 			this.RunCharacterSpriteTick(this.objects[(byte)LoadOrder.Character]);
 		}
 
-		public void RunTickForObjectGroup(Dictionary<uint, DynamicGameObject> objectGroup) {
+		public void RunTickForObjectGroup(Dictionary<uint, DynamicObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -118,7 +118,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void RunCharacterSpriteTick(Dictionary<uint, DynamicGameObject> objectGroup) {
+		public void RunCharacterSpriteTick(Dictionary<uint, DynamicObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -218,11 +218,11 @@ namespace Nexus.GameEngine {
 			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
 		}
 
-		private void DrawObjectGroup( Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
+		private void DrawObjectGroup( Dictionary<uint, DynamicObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
 
 			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
-				DynamicGameObject oVal = obj.Value;
+				DynamicObject oVal = obj.Value;
 
 				// Make sure the frame is visible:
 				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
@@ -241,11 +241,11 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		private void DrawDebugFrame(Dictionary<uint, DynamicGameObject> objectGroup, int camX, int camY, int camRight, int camBottom) {
+		private void DrawDebugFrame(Dictionary<uint, DynamicObject> objectGroup, int camX, int camY, int camRight, int camBottom) {
 
 			// Loop through each object in the dictionary:
 			foreach(var obj in objectGroup) {
-				DynamicGameObject oVal = obj.Value;
+				DynamicObject oVal = obj.Value;
 
 				// Make sure the object is visible, then draw a debug rectangle over it.
 				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
@@ -254,7 +254,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void AddToScene( DynamicGameObject gameObject, bool immediately ) {
+		public void AddToScene( DynamicObject gameObject, bool immediately ) {
 			if(immediately) {
 				this.objects[(byte)gameObject.Meta.LoadOrder][gameObject.id] = gameObject;
 			} else {
@@ -262,7 +262,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void RemoveFromScene( DynamicGameObject gameObject ) {
+		public void RemoveFromScene( DynamicObject gameObject ) {
 			this.markedForRemoval.Add(gameObject);
 		}
 
@@ -273,7 +273,7 @@ namespace Nexus.GameEngine {
 			if(this.markedForAddition.Count == 0) { return; }
 
 			// Loop through the list of objects to destroy
-			foreach(DynamicGameObject obj in this.markedForAddition) {
+			foreach(DynamicObject obj in this.markedForAddition) {
 				this.objects[(byte)obj.Meta.LoadOrder][obj.id] = obj;
 			}
 
@@ -288,7 +288,7 @@ namespace Nexus.GameEngine {
 			if(this.markedForRemoval.Count == 0) { return; }
 
 			// Loop through the list of objects to destroy
-			foreach(DynamicGameObject obj in this.markedForRemoval) {
+			foreach(DynamicObject obj in this.markedForRemoval) {
 				this.objects[(byte)obj.Meta.LoadOrder].Remove(obj.id);
 			}
 

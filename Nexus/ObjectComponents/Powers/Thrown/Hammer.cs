@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 
 	public class Hammer : PowerThrown {
 
-		public Hammer( Character character, WeaponHammerSubType subType ) : base( character ) {
+		public Hammer( Character character, byte subType ) : base( character ) {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;
 			this.IconTexture = "Power/Hammer";

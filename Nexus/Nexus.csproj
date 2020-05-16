@@ -185,7 +185,6 @@
     <Compile Include="GameEngine\Editor\TileTools\TileTool.cs" />
     <Compile Include="GameEngine\UIHandlers\EditorUI.cs" />
     <Compile Include="GameEngine\UIHandlers\LevelUI.cs" />
-    <Compile Include="GameEngine\ProjectileGameObject.cs" />
     <Compile Include="GameEngine\LocalServer\PlayerInput.cs" />
     <Compile Include="GameEngine\LocalServer\GamePackets.cs" />
     <Compile Include="GameEngine\LocalServer\Player.cs" />
@@ -431,8 +430,7 @@
     <Compile Include="Gameplay\World\WorldState.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />
     <Compile Include="Gameplay\Maps\GameMapper.cs" />
-    <Compile Include="GameEngine\DynamicGameObject.cs" />
-    <Compile Include="GameEngine\GameObject.cs" />
+    <Compile Include="GameEngine\DynamicObject.cs" />
     <Compile Include="ObjectsTiles\Collectables\Coins.cs" />
     <Compile Include="ObjectsTiles\Collectables\Collectable.cs" />
     <Compile Include="Gameplay\Types\ClassTypes.cs" />

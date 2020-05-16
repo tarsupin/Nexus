@@ -8,7 +8,6 @@ namespace Nexus.ObjectComponents {
 
 		private byte chargeSpeed;           // The speed that the enemy should charge at.
 		private byte hopSpeed;              // Charges can be accompanied by hops. This identifies the Y-Velocity to hop with, if applicable.
-
 		private byte actionSpeed;           // The speed of the current charge (varies during the action).
 
 		public ChargeBehavior( EnemyLand actor, byte chargeSpeed = 6, byte hopSpeed = 0, byte viewDistance = 144, byte viewHeight = 32) : base(actor, viewDistance, viewHeight) {
@@ -32,7 +31,7 @@ namespace Nexus.ObjectComponents {
 
 			// End charge when touching ground and action has expired.
 			if(touch.toBottom && this.actionEnd < this.timer.Frame) {
-				this.EndAction(ActorState.MotionEnd);
+				this.EndAction((byte) CommonState.MotionEnd);
 				return;
 			}
 
@@ -40,13 +39,13 @@ namespace Nexus.ObjectComponents {
 			if(this.dirRight) {
 				if(touch.toRight) {
 					this.actor.physics.StopX();
-					this.EndAction(ActorState.Wait);
+					this.EndAction((byte) CommonState.Wait);
 					return;
 				}
 			} else {
 				if(touch.toLeft) {
 					this.actor.physics.StopX();
-					this.EndAction(ActorState.Wait);
+					this.EndAction((byte) CommonState.Wait);
 					return;
 				}
 			}

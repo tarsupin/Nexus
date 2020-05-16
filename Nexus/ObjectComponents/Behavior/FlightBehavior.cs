@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 		protected byte actAsClusterId;      // Indicates that this object is a cluster. All child clusters will remain offset to it.
 		protected byte clusterLinkId;		// Indicates a cluster to link to. Object will lock its offset position to the parent.
 
-		public FlightBehavior( DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor) {
+		public FlightBehavior( DynamicObject actor, Dictionary<string, short> paramList) : base(actor) {
 			
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
@@ -47,7 +47,7 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public static FlightBehavior AssignFlightMotion( DynamicGameObject actor, Dictionary<string, short> paramList ) {
+		public static FlightBehavior AssignFlightMotion( DynamicObject actor, Dictionary<string, short> paramList ) {
 			byte type = paramList.ContainsKey("fly") ? (byte) paramList["fly"] : (byte) FlightMovement.Axis;
 
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:

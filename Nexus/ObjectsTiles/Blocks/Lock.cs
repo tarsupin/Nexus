@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 			this.description = "A key will remove it, along with all neighboring locks.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 				// TODO: Special Lock Behavior, Unlock it if Character has a key.

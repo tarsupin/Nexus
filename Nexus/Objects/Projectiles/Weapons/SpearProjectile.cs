@@ -4,10 +4,6 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public enum WeaponSpearSubType : byte {
-		Spear
-	}
-
 	public class SpearProjectile : Projectile {
 
 		private SpearProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
@@ -29,7 +25,7 @@ namespace Nexus.Objects {
 				projectile = new SpearProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.AssignSubType(subType);
+			projectile.SetSpriteName("Weapon/Spear");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
@@ -40,11 +36,5 @@ namespace Nexus.Objects {
 
 		// Prevent collision destruction of Weapon; it can go through multiple objects.
 		public override void Destroy( ) {}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponSpearSubType.Spear) {
-				this.SetSpriteName("Weapon/Spear");
-			}
-		}
 	}
 }

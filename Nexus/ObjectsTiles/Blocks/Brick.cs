@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 			this.description = "Nudged from underneath. Can be destroyed with Spikey Hat.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			// Nudge Brick Upward
 			if(dir == DirCardinal.Up) {

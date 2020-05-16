@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.description = "Moves creatures and items that are on it.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			//if(actor is Character) {
 			//	Character character = (Character) actor;

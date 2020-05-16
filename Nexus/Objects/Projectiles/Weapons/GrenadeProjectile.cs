@@ -4,10 +4,6 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public enum WeaponGrenadeSubType : byte {
-		Grenade
-	}
-
 	public class GrenadeProjectile : Projectile {
 
 		private GrenadeProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
@@ -30,19 +26,13 @@ namespace Nexus.Objects {
 				projectile = new GrenadeProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.AssignSubType(subType);
+			projectile.SetSpriteName("Weapon/Grenade");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
 
 			return projectile;
-		}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponGrenadeSubType.Grenade) {
-				this.SetSpriteName("Weapon/Grenade");
-			}
 		}
 	}
 }

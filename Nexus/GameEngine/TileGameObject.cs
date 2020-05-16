@@ -2,26 +2,20 @@
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
-using System.Collections.Generic;
 
 /*
  * Tile Game Object:
- *	- Tile Game Objects are not placed in the game world. They represent MULTIPLE game objects of IDENTICAL MECHANICS.
- *	- IMMUTABLE values and mechanics. All objects represented by a Tile Game Object must have identical and persistent properties.
- *	- CANNOT have Update() methods, as there would be nothing mutable to update.
- *	- Have NO associated position.
- *	- Will render their objects with a dynamically assigned texture and position.
+ *		- Tile Game Objects are not placed in the game world. They represent MULTIPLE game objects of IDENTICAL MECHANICS.
+ *		- TGO's are IMMUTABLE, but their grid position may have subtypes that represent different immutable versions.
+ *		- TGO's do not have a RunTick() methods.
+ *			- If a TGO needs to have behaviors (such as cannons firing, or a leaf being destroyed), it must use the Queue.
  *	
  *	The purpose of Tile Game Objects is to eliminate the need for large quantities of similar tiles.
- *		- For example, if there are 600 Ground Tiles in a level, there is only one class needed to handle their mechanics.
+ *		- For example, if there are 1500 Ground Tiles in a level, there is only one class needed to handle their mechanics.
  *	
  *	The Tilemap will make heavy use of Tile Game Objects.
- *		- A tile can identify a ClassID that it wants to render through, or use behaviors of.
  *		- The Tile Game Object will handle those statuses, mechanics, rendering, or whatever is request on behalf of that tile.
  *		
- *		
- * How Tile Game Objects are Stored & Referenced:
- *		Scene.classObjects[classID] = ClassGameObject;
  */
 
 namespace Nexus.GameEngine {
@@ -51,7 +45,7 @@ namespace Nexus.GameEngine {
 			//this.atlas.Draw(texture, posX, posY);
 		}
 
-		public virtual bool RunImpact( RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
+		public virtual bool RunImpact( RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			if(actor is EnemyLand) {

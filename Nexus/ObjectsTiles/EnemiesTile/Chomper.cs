@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 		}
 
 		// TODO HIGH PRIORITY: Chomper Impacts (projectiles, character, etc.)
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Characters Receive Chomper Damage

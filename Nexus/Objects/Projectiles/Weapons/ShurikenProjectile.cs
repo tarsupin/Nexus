@@ -6,10 +6,6 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public enum WeaponShurikenSubType : byte {
-		Shuriken
-	}
-
 	public class ShurikenProjectile : Projectile {
 
 		private uint endFrame;			// The frame that a movement style ends on.
@@ -34,12 +30,12 @@ namespace Nexus.Objects {
 				projectile = new ShurikenProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.AssignSubType(subType);
+			projectile.SetSpriteName("Weapon/Shuriken");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Assign the beginning of the shuriken attack:
 			projectile.physics.SetGravity(FInt.Create(0)); // Switches to 0.4 after MotionStart finished.
-			projectile.SetState(ActorState.MotionStart);
+			projectile.SetState((byte) CommonState.MotionStart);
 			projectile.endFrame = Systems.timer.Frame + 8;
 			projectile.rotation = 2;
 
@@ -53,10 +49,10 @@ namespace Nexus.Objects {
 			this.Meta.Atlas.DrawRotation(this.SpriteName, this.posX + 16 - camX, this.posY + 16 - camY, this.rotation, new Vector2(16, 16));
 		}
 
-		public override void Destroy(DirCardinal dir = DirCardinal.Center, GameObject obj = null) {
-			if(this.State == ActorState.Death) { return; }
+		public override void Destroy(DirCardinal dir = DirCardinal.Center, DynamicObject obj = null) {
+			if(this.State == (byte) CommonState.Death) { return; }
 
-			this.SetState(ActorState.Death);
+			this.SetState((byte) CommonState.Death);
 			this.physics.SetGravity(FInt.Create(0.7));
 			this.endFrame = Systems.timer.Frame + 12;
 
@@ -90,29 +86,23 @@ namespace Nexus.Objects {
 			this.rotation += 0.14f;
 
 			// Standard Motion for Shuriken
-			if(this.State == ActorState.MotionStart) {
+			if(this.State == (byte) CommonState.MotionStart) {
 				if(this.endFrame == Systems.timer.Frame) {
-					this.SetState(ActorState.Motion);
+					this.SetState((byte) CommonState.Motion);
 					this.physics.SetGravity(FInt.Create(0.4));
 				}
 			}
 			
 			// Death Motion for Shuriken
-			else if(this.State == ActorState.Death) {
+			else if(this.State == (byte) CommonState.Death) {
 				this.rotation -= 0.08f;
 				if(this.endFrame == Systems.timer.Frame) {
-					this.Disable();
+					this.ReturnToPool();
 				}
 			}
 
 			// Standard Physics
 			this.physics.RunTick();
-		}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponShurikenSubType.Shuriken) {
-				this.SetSpriteName("Weapon/Shuriken");
-			}
 		}
 	}
 }

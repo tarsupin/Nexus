@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Nexus.GameEngine {
 
 	public interface IHitCompare {
-		bool RunImpact(DynamicGameObject obj, DynamicGameObject obj2);
+		bool RunImpact(DynamicObject obj, DynamicObject obj2);
 	}
 
 	public class CollideNarrow {
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			{ (byte) LoadOrder.Projectile, new HitCompareProjectile() },
 		};
 
-		public static void ProcessCollision( DynamicGameObject obj, DynamicGameObject obj2 ) {
+		public static void ProcessCollision( DynamicObject obj, DynamicObject obj2 ) {
 
 			// If an overlap is not detected, end the narrow testing here.
 			if(!CollideDetect.IsOverlapping(obj, obj2)) { return; }
@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static void RefineCollision( DynamicGameObject obj, DynamicGameObject obj2 ) {
+		public static void RefineCollision( DynamicObject obj, DynamicObject obj2 ) {
 
 			// Run Mapped Collisions
 			if(CollideNarrow.NarrowMap.ContainsKey((byte) obj.Meta.LoadOrder)) {

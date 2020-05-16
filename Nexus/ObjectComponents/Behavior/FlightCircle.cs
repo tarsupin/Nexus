@@ -11,7 +11,7 @@ namespace Nexus.ObjectComponents {
 		Physics physics;		// Reference to the actor's physics.
 		float radius;			// The radius of the flight circle.
 
-		public FlightCircle(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
+		public FlightCircle(DynamicObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 			byte diameter = paramList.ContainsKey("diameter") ? (byte) paramList["diameter"] : (byte) 3;
 			this.radius = (float) Math.Round((double) diameter / 2, 1) * (byte) TilemapEnum.TileWidth;

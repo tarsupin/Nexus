@@ -22,12 +22,12 @@ namespace Nexus.GameEngine {
 		// You can supply an existing ID to scan for IDs above a previous value.
 		// For example, if you retrieved ID 10 from this, you could search again with ID 10 as a minimum, and it will only return newer objects.
 		// uint enemyFoundId = CollideDetect.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectWithinArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
+		public static uint FindObjectWithinArea(Dictionary<uint, DynamicObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, DynamicGameObject> actorEntry in objectList) {
-				DynamicGameObject actor = actorEntry.Value;
+			foreach(KeyValuePair<uint, DynamicObject> actorEntry in objectList) {
+				DynamicObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
 				if(actor.posX >= posX && actor.posX + actor.bounds.Right <= right && actor.posY >= posY && actor.posY + actor.bounds.Bottom <= bottom) {
@@ -43,12 +43,12 @@ namespace Nexus.GameEngine {
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
 		// uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectsTouchingArea(Dictionary<uint, DynamicGameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
+		public static uint FindObjectsTouchingArea(Dictionary<uint, DynamicObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
 			uint right = posX + width;
 			uint bottom = posY + height;
 
-			foreach(KeyValuePair<uint, DynamicGameObject> actorEntry in objectList) {
-				DynamicGameObject actor = actorEntry.Value;
+			foreach(KeyValuePair<uint, DynamicObject> actorEntry in objectList) {
+				DynamicObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
 				if(actor.posX < right && actor.posX + actor.bounds.Right >= posX && actor.posY <= bottom && actor.posY + actor.bounds.Bottom >= posY) {
@@ -67,7 +67,7 @@ namespace Nexus.GameEngine {
 		***************/
 
 		// Check if two objects overlap each other:
-		public static bool IsOverlapping(DynamicGameObject obj, GameObject obj2) {
+		public static bool IsOverlapping(DynamicObject obj, DynamicObject obj2) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
 			int y1 = obj.posY;
@@ -84,7 +84,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// This tests if the first object completely overlaps the smaller object.
-		public static bool IsOverlappingTotal(GameObject largeObject, GameObject smallObject) {
+		public static bool IsOverlappingTotal(DynamicObject largeObject, DynamicObject smallObject) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
 			int y1 = largeObject.posY;
@@ -102,7 +102,7 @@ namespace Nexus.GameEngine {
 
 		// GetOverlapX retrieves the current X overlap.
 		// If moving left and overlap by 7 pixels, would give -7. If moving right and overlap by 7 pixels, gives 7.
-		public static int GetOverlapX(DynamicGameObject obj, GameObject obj2, sbyte relativeX) {
+		public static int GetOverlapX(DynamicObject obj, DynamicObject obj2, sbyte relativeX) {
 
 			// Object 1 is to the left of Object 2
 			if(relativeX <= 0) {
@@ -115,7 +115,7 @@ namespace Nexus.GameEngine {
 
 		// GetOverlapX retrieves the current Y overlap.
 		// If moving up and overlap by 7 pixels, would give -7. If moving down and overlap by 7 pixels, gives 7.
-		public static int GetOverlapY(DynamicGameObject obj, GameObject obj2, sbyte relativeY) {
+		public static int GetOverlapY(DynamicObject obj, DynamicObject obj2, sbyte relativeY) {
 
 			// Object 1 is below Object 2
 			if(relativeY <= 0) {
@@ -170,7 +170,7 @@ namespace Nexus.GameEngine {
 		*** Relative Positions ***
 		*************************/
 
-		public static short GetRelativeX(DynamicGameObject obj, GameObject obj2) {
+		public static short GetRelativeX(DynamicObject obj, DynamicObject obj2) {
 			return (short) ((obj.posX + obj.bounds.MidX) - (obj2.posX + obj.bounds.MidX));
 		}
 
@@ -190,7 +190,7 @@ namespace Nexus.GameEngine {
 
 		// Identifies the direction of a collision.
 		// WARNING: Heavy use. Only run this AFTER you've tested for if the objects overlap.
-		public static DirCardinal GetDirectionOfCollision( DynamicGameObject obj, DynamicGameObject obj2 ) {
+		public static DirCardinal GetDirectionOfCollision( DynamicObject obj, DynamicObject obj2 ) {
 
 			// If the movement between the objects > the amount overlapped, ignore the overlap.
 			// This prevents problems like inaccurate hitboxes from the wrong side.

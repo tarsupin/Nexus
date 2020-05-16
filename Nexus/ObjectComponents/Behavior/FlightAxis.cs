@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		Physics physics;		// Reference to the actor's physics.
 
-		public FlightAxis(DynamicGameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
+		public FlightAxis(DynamicObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 		}
 

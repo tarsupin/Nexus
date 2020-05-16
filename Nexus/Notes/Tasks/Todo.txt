@@ -124,6 +124,16 @@ Proper GUI design
 	- Add to Wand Tool
 	- Settings GUI
 
+Fixed Queue
+	- Handles global behaviors on specific beats, and decides whether or not to activate tiles based on their locations.
+		- Examples: Chomper Fire, Placer, Cannons
+		- Will store a list of any tiles or objects that can trigger, then test them on that beat.
+
+Reactionary Queue
+	- Stores temporary events that got triggered. Stores references to tiles or objects that activated something.
+	- When the frame listed is met, it will use its value to send data or state back the object.
+	- Saves: Frame to Trigger On, Object or Tile Reference, Information to Trigger With (a short[] value?)
+
 nodeTesla/_backup/ has worlds/ and levels-by-hash/
 Is .Meta used? IMetaData in MetaList doesn't need SlotGroup - can be altered with no consequence.
 

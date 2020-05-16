@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 			// TODO: Update Chest Contents with Param system. Needs to work with tiles.
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			// Characters interact with Chest:
 			if(actor is Character) {

@@ -8,12 +8,12 @@ namespace Nexus.GameEngine {
 	public class CollideTile {
 
 		// Tests if object is completely within a tile square.
-		public static bool IsWithinTile(DynamicGameObject dynamicObj, ushort gridX, ushort gridY) {
+		public static bool IsWithinTile(DynamicObject dynamicObj, ushort gridX, ushort gridY) {
 			return (dynamicObj.GridX == gridX && dynamicObj.GridX2 == gridX && dynamicObj.GridY == gridY && dynamicObj.GridY2 == gridY);
 		}
 
 		// Tests if object is within a tile with padded borders. Note: Many tests can't use this, since they're probably already touching the tile.
-		public static bool IsWithinPaddedTile(DynamicGameObject dynamicObj, ushort gridX, ushort gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
+		public static bool IsWithinPaddedTile(DynamicObject dynamicObj, ushort gridX, ushort gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
 
 			byte w = (byte) TilemapEnum.TileWidth;
 			byte h = (byte) TilemapEnum.TileHeight;
@@ -24,7 +24,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Perform Collision Detection against a designated Grid Square
-		public static bool RunGridTest(RoomScene room, DynamicGameObject actor, TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool RunGridTest(RoomScene room, DynamicObject actor, TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
@@ -50,7 +50,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.
-		public static void RunQuadrantDetection(RoomScene room, DynamicGameObject actor) {
+		public static void RunQuadrantDetection(RoomScene room, DynamicObject actor) {
 
 			// Don't run collision if the actor is designated not to collide.
 			if(actor.Activity <= Activity.NoCollide) { return; }

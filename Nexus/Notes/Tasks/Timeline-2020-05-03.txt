@@ -1,124 +1,137 @@
 ﻿
-/*****************************
-****** Project Timeline ******
-*****************************/
+#Release: v.0.22.1 - Level Editor
+------------------------------
 
-May 3rd, 2020
-	- Added Clone Tile Behavior for Editor.
-	- Created Random-Collect Ninja and Wizard suits.
-	- Fixed missing and broken tile images.
+##Major Features:
+	
+	TODO
+	TODO
+	TODO
 
-May 4th, 2020
-	- Fixed Editor Scroller Behavior. Added Current Scroller Selection.
-	- Added Previous Mouse State, Added Delta Mouse Scroll Detection.
-	- Editor Cursor shows currently slotted item.
-	- Added Item Placement in Editor.
-	- Added Metadata to Tiles.
-	- Added Flag Placeholder Item.
-	- Fixes on Editor and Context Menu.
+##Timeline:
+------------------------------
 
-May 5th, 2020
-	- Utility Bar can now be selected. Updates Scroller & TileTool Index.
-	- Tile Tool Key Binds for numbers.
-	- Added Prompts to Editor, Improved Decor Options.
+2020-05-03
+	Added Clone Tile Behavior for Editor.
+	Created Random-Collect Ninja and Wizard suits.
+	Fixed missing and broken tile images.
 
-May 6th, 2020
-	- Added Base Level Converting Script.
-	- Added Test Converter for Level Conversion Script.
-	- Update LevelContent to work with other files.
+2020-05-04
+	Fixed Editor Scroller Behavior. Added Current Scroller Selection.
+	Added Previous Mouse State, Added Delta Mouse Scroll Detection.
+	Editor Cursor shows currently slotted item.
+	Added Item Placement in Editor.
+	Added Metadata to Tiles.
+	Added Flag Placeholder Item.
+	Fixes on Editor and Context Menu.
 
-May 7th, 2020
-	- Updated Level Conversion to use LevelContent.
-	- Level Save Function Working Correctly.
-	- Added classes for Chests, NPCs, Doors.
-	- Added classes for Bricks, Toggle Platforms, Leafs, Exclaim Block.
-	- Several minor improvements and changes.
-	- NPC images switched to Tiles.
-	- Updated Tile Tool Placeholders, Context Menu.
-	- Created Color Toggle Off Sets.
+2020-05-05
+	Utility Bar can now be selected. Updates Scroller & TileTool Index.
+	Tile Tool Key Binds for numbers.
+	Added Prompts to Editor, Improved Decor Options.
 
-May 8th, 2020
-	- Removed Unnecessary Toggle Blocks.
-	- Added BGDisable Tile, Added Suit + Hat Removal.
-	- Added BG Tap Class.
-	- Added Cannon Classes.
-	- Added PuffBlock, Conveyor Block.
-	- Added Placer Class (Unfinished).
-	- Added Global Animation Cycle Methods.
-	- Many Updates to TileTool listings.
-	- Animated Chompers.
-	- Added TrackDot Class.
-	- Bug Fix: SubType-0 Editor Drawing.
-	- Added Helper Title + Text to Editor UI.
-	- Tracking SlotGroup Indexes and SubIndexes.
-	- Tracking all Indexes, SubIndexes in Placeholders.
+2020-05-06
+	Added Base Level Converting Script.
+	Added Test Converter for Level Conversion Script.
+	Update LevelContent to work with other files.
 
-May 9th, 2020
-	- Add Helper Titles and Text to Tiles.
-	- Add Multiple Helper Descriptions to Collectable class, etc.
-	- Added Function Tools Placeholders, Helper Text.
-	- Added MouseOver detection to UIComponents.
-	- Improved Mouse-Down Detection.
-	- Switch Between Editor Rooms.
-	- Swap Room Order.
+2020-05-07
+	Updated Level Conversion to use LevelContent.
+	Level Save Function Working Correctly.
+	Added classes for Chests, NPCs, Doors.
+	Added classes for Bricks, Toggle Platforms, Leafs, Exclaim Block.
+	Several minor improvements and changes.
+	NPC images switched to Tiles.
+	Updated Tile Tool Placeholders, Context Menu.
+	Created Color Toggle Off Sets.
 
-May 10th, 2020
-	- Split TilemapBool into Editor and Level Tilemaps.
-	- Overhauled Tilemap System.
-	- Removed Unnecessary Tilemap Code.
-	- Level Editor now uses LevelContent class.
-	- Editor Room Draws All Tile Layers.
-	- Editor Draw Order Added.
-	- Editor Save Button Enabled.
-	- Room Scene Draw Layers.
+2020-05-08
+	Removed Unnecessary Toggle Blocks.
+	Added BGDisable Tile, Added Suit + Hat Removal.
+	Added BG Tap Class.
+	Added Cannon Classes.
+	Added PuffBlock, Conveyor Block.
+	Added Placer Class (Unfinished).
+	Added Global Animation Cycle Methods.
+	Many Updates to TileTool listings.
+	Animated Chompers.
+	Added TrackDot Class.
+	Bug Fix: SubType-0 Editor Drawing.
+	Added Helper Title + Text to Editor UI.
+	Tracking SlotGroup Indexes and SubIndexes.
+	Tracking all Indexes, SubIndexes in Placeholders.
 
-May 11th, 2020
-	- Function Tools Working, Shortcuts Added.
-	- Eraser and Eyedrop Function Tools.
-	- Temporary Tools Working, Helper Texxt Added.
-	- AutoTile Tool Created.
-	- Fixed AutoTiling Bugs + Level Convert Structure.
-	- Added Axis-Specific AutoTiling.
-	- Added Basics of Blueprint Tools.
-	- Selection Tool Functioning and Rendered.
+2020-05-09
+	Add Helper Titles and Text to Tiles.
+	Add Multiple Helper Descriptions to Collectable class, etc.
+	Added Function Tools Placeholders, Helper Text.
+	Added MouseOver detection to UIComponents.
+	Improved Mouse-Down Detection.
+	Switch Between Editor Rooms.
+	Swap Room Order.
 
-May 12, 2020
-	- Significant Improvements to Selection Tool.
-	- Blueprint Tool functioning.
-	- Copy, Cut, and Delete functionality added.
-	- Drag + Drop Added to Selection Tool.
-	- Drag + Drop includes Cursor Offset.
-	- Split Consoles into Level and Editor Consoles.
-	- New Architecture for Params.
+2020-05-10
+	Split TilemapBool into Editor and Level Tilemaps.
+	Overhauled Tilemap System.
+	Removed Unnecessary Tilemap Code.
+	Level Editor now uses LevelContent class.
+	Editor Room Draws All Tile Layers.
+	Editor Draw Order Added.
+	Editor Save Button Enabled.
+	Room Scene Draw Layers.
 
-May 13, 2020
-	- Built Initial Architecture for Param Menu.
-	- Wand Modifications Working.
-	- Simple GUI added for Wand Tool.
-	- Code Cleanup: Mouse, Params
-	- Reviewed Music Tracks.
+2020-05-11
+	Function Tools Working, Shortcuts Added.
+	Eraser and Eyedrop Function Tools.
+	Temporary Tools Working, Helper Texxt Added.
+	AutoTile Tool Created.
+	Fixed AutoTiling Bugs + Level Convert Structure.
+	Added Axis-Specific AutoTiling.
+	Added Basics of Blueprint Tools.
+	Selection Tool Functioning and Rendered.
 
-May 14, 2020
-	- Wand GUI Repositions Dynamically
-	- Added Param Sets to Tiles. Params Recognized by Param Menu.
-	- Params Save on Use.
-	- Play Button and Functionality.
-	- Edited Several Music Tracks.
-	- Finished Full Batch of Music.
-	- Created Param Dictionary.
-	- Several Improvements to Wand, Param Tools.
+2020-05-12
+	Significant Improvements to Selection Tool.
+	Blueprint Tool functioning.
+	Copy, Cut, and Delete functionality added.
+	Drag + Drop Added to Selection Tool.
+	Drag + Drop includes Cursor Offset.
+	Split Consoles into Level and Editor Consoles.
+	New Architecture for Params.
 
-May 15th, 2020
-	- Static WandData Class to Preserve Wand Data.
-	- Simplified, Cleaned, and Optimized Param Menu.
-	- Chest Params Working
-	- Flight Params Working
-	- Improved Function Tools. Fixed Bugs.
-	- Major Overhaul of JObjects to Dictionaries.
-	- Level Conversion Script Updates
-	- Fixed Many Broken Params in Level Data.
+2020-05-13
+	Built Initial Architecture for Param Menu.
+	Wand Modifications Working.
+	Simple GUI added for Wand Tool.
+	Code Cleanup: Mouse, Params
+	Reviewed Music Tracks.
+
+2020-05-14
+	Wand GUI Repositions Dynamically
+	Added Param Sets to Tiles. Params Recognized by Param Menu.
+	Params Save on Use.
+	Play Button and Functionality.
+	Edited Several Music Tracks.
+	Finished Full Batch of Music.
+	Created Param Dictionary.
+	Several Improvements to Wand, Param Tools.
+
+2020-05-15
+	Static WandData Class to Preserve Wand Data.
+	Simplified, Cleaned, and Optimized Param Menu.
+	Chest Params Working
+	Flight Params Working
+	Improved Function Tools. Fixed Bugs.
+	Major Overhaul of JObjects to Dictionaries.
+	Level Conversion Script Updates
+	Fixed Many Broken Params in Level Data.
+
+2020-05-16
+	New Dynamic Object Architecture.
+
 
 // Next TODO List
+Finish Up Editor Basics, list it for version 0.22.1.
 
 Load Objects into Editor
 - Integrate Params with Objects.

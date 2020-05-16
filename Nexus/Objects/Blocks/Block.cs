@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Block : DynamicGameObject {
+	public class Block : DynamicObject {
 
 		public Block(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 

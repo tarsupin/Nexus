@@ -14,7 +14,7 @@ namespace Nexus.ObjectComponents {
 
 		public bool toFloor = false;			// True if touching the floor; lasts for extra round beyond touchBottom.
 
-		public GameObject touchObj = null;		// Touching Floor
+		public DynamicObject touchObj = null;		// Touching Floor
 
 		public void ResetTouch() {
 			if(!this.isTouching) { return; }
@@ -63,7 +63,7 @@ namespace Nexus.ObjectComponents {
 			this.isTouching = true;
 		}
 
-		public void TouchPlatform( GameObject platform ) {
+		public void TouchPlatform( DynamicObject platform ) {
 			this.isTouching = true;
 			this.touchObj = platform;
 		}

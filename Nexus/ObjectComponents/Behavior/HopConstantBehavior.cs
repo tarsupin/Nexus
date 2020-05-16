@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 			this.actor.physics.velocity.X = FInt.Create(this.actor.FaceRight ? this.xSpeed : -this.xSpeed);
 			this.actor.physics.velocity.Y = FInt.Create(-this.hopStrength);
 
-			this.actor.SetState(ActorState.Move);
+			this.actor.SetState((byte) CommonState.Move);
 		}
 
 		public override void RunTick() {
@@ -35,7 +35,7 @@ namespace Nexus.ObjectComponents {
 				if(this.actor.physics.touch.toBottom) { this.StartHop(); }
 
 				// If the hop has already started, keep refreshing the velocity (maintains jump until beats have expired)
-				else if(this.actor.State == ActorState.Move) {
+				else if(this.actor.State == (byte) CommonState.Move) {
 					this.actor.physics.velocity.Y = FInt.Create(-8);
 				}
 			}
@@ -46,9 +46,9 @@ namespace Nexus.ObjectComponents {
 				// If the actor is currently grounded (and waiting)
 				if(this.actor.physics.touch.toBottom) {
 					this.actor.physics.StopX();
-					this.actor.SetState(ActorState.Wait);
+					this.actor.SetState((byte) CommonState.Wait);
 				} else {
-					this.actor.SetState(ActorState.Motion);
+					this.actor.SetState((byte) CommonState.Motion);
 				}
 			}
 		}

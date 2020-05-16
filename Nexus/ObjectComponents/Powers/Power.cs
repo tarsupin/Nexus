@@ -143,8 +143,8 @@ namespace Nexus.ObjectComponents {
 
 				// Collectable Powers - Thrown
 				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
-				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, WeaponHammerSubType.Hammer); break;
-				case (byte) PowerSubType.Shuriken: character.attackPower = new Shuriken(character, WeaponShurikenSubType.Shuriken); break;
+				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, 0); break;
+				case (byte) PowerSubType.Shuriken: character.attackPower = new Shuriken(character, 0); break;
 
 				// Power Collectable - Bolts
 				case (byte) PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;

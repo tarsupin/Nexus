@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.description = "A background landscape that acts like a platform.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
 			if(collided) {

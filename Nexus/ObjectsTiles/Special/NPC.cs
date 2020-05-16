@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 			this.description = "Can 'speak' to the character and allow simple interactions.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Characters interact with NPC:
 			if(actor is Character) {

@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 		Special = 5,                // Special Collision type (Used for Earth, which runs Destroy())
 	}
 
-	public class Projectile : DynamicGameObject {
+	public class Projectile : DynamicObject {
 
 		// Projectile Traits
 		public DamageStrength Damage { get; protected set; }
@@ -37,6 +37,12 @@ namespace Nexus.Objects {
 			this.Damage = DamageStrength.Standard;
 		}
 
+		public override void RunTick() {
+
+			// Standard Physics
+			this.physics.RunTick();
+		}
+
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
 			this.subType = subType;
 			this.posX = pos.X.IntValue;
@@ -48,8 +54,14 @@ namespace Nexus.Objects {
 			this.physics.velocity = velocity;
 		}
 
-		public virtual void Destroy( DirCardinal dir = DirCardinal.Center, GameObject obj = null ) {
-			this.Disable();
+		public virtual void Destroy( DirCardinal dir = DirCardinal.Center, DynamicObject obj = null ) {
+			this.ReturnToPool();
+		}
+
+		// TODO: MAKE THIS WORK CORRECTLY
+		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.
+		public virtual void ReturnToPool() {
+			this.room.RemoveFromScene(this);        // This is identical to Destroy(), but probably works since pool is connected elsewhere.
 		}
 
 		// If set, this activates when the projectile bounces on the ground. Can set physics.velocity.Y here to a designated amount.

@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 				projectile = new ChakramProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.AssignSubType(subType);
+			projectile.SetSpriteName("Weapon/Chakram");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
@@ -40,11 +40,5 @@ namespace Nexus.Objects {
 
 		// Prevent collision destruction of Weapon; it can go through multiple objects.
 		public override void Destroy( ) {}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponChakramSubType.Chakram) {
-				this.SetSpriteName("Weapon/Chakram");
-			}
-		}
 	}
 }

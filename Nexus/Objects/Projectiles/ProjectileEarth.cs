@@ -48,14 +48,14 @@ namespace Nexus.Objects {
 			// If the death sequence is active, test for when it ends.
 			if(this.DeathSequence > 0 && Systems.timer.Frame > this.DeathSequence) {
 				this.DeathSequence = 0;
-				this.Disable();
+				this.ReturnToPool();
 				return;
 			}
 
 			base.RunTick();
 		}
 
-		public override void Destroy( DirCardinal dir = DirCardinal.Center, GameObject obj = null ) {
+		public override void Destroy( DirCardinal dir = DirCardinal.Center, DynamicObject obj = null ) {
 			
 			// Can't be destroyed if already being destroyed:
 			if(this.DeathSequence > 0) { return; }

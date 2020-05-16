@@ -30,7 +30,7 @@ namespace Nexus.Objects {
 			// Needs to have a RunTick() function that detects when you're vertically crossing it.
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			// Characters interact with CheckFlag:
 			if(actor is Character) {

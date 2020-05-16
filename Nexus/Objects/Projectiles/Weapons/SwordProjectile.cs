@@ -4,10 +4,6 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public enum WeaponSwordSubType : byte {
-		Sword
-	}
-
 	public class SwordProjectile : Projectile {
 
 		private SwordProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
@@ -29,7 +25,7 @@ namespace Nexus.Objects {
 				projectile = new SwordProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.AssignSubType(subType);
+			projectile.SetSpriteName("Weapon/Sword");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene
@@ -40,11 +36,5 @@ namespace Nexus.Objects {
 
 		// Prevent collision destruction of Weapon; it can go through multiple objects.
 		public override void Destroy( ) {}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponSwordSubType.Sword) {
-				this.SetSpriteName("Weapon/Sword");
-			}
-		}
 	}
 }

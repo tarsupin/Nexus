@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public static class TileSolidImpact {
 
 		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.Center) {
+		public static bool RunImpact(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Down) {
 				CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);

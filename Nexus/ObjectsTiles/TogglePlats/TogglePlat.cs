@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			return room.flags.toggleGY;
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.Toggled(room, this.toggleBR)) {
 

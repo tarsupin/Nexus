@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public static class TileFacingImpact {
 
 		// A Facing Tile Impact only collides if the actor is colliding against the faced direction.
-		public static bool RunImpact(DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir, DirCardinal facing) {
+		public static bool RunImpact(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir, DirCardinal facing) {
 
 			if(dir == DirCardinal.Center) { return false; }
 

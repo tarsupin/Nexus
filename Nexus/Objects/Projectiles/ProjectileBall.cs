@@ -45,7 +45,7 @@ namespace Nexus.Objects {
 		}
 
 		// Return the ProjectileBall to the Pool
-		public override void Disable() {
+		public override void ReturnToPool() {
 			this.room.RemoveFromScene(this);
 			// TODO LOW PRIORITY: Is there any possible chance this could cause a ball to return to pool on same frame it's marked for delete?
 			ObjectPool.ProjectileBall.Push(this);

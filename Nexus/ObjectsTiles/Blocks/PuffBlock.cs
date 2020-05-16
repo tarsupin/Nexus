@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.description = "Touching it causes the character to burst quickly in the designated direction.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 				Character character = (Character) actor;

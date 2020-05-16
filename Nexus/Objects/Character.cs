@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Character : DynamicGameObject {
+	public class Character : DynamicObject {
 
 		// References
 		public Player player;       // The player that controls this character.
@@ -427,7 +427,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public override void BounceUp( GameObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
+		public override void BounceUp( DynamicObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
 			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
 		}
 

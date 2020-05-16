@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class Physics {
 
 		// Object Reference
-		protected DynamicGameObject actor;
+		protected DynamicObject actor;
 
 		// Physics Values
 		public FVector physPos;			// The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
@@ -19,7 +19,7 @@ namespace Nexus.ObjectComponents {
 
 		protected bool hasExtraMovement;
 
-		public Physics( DynamicGameObject actor ) {
+		public Physics( DynamicObject actor ) {
 			this.actor = actor;
 
 			this.physPos = FVector.Create(this.actor.posX, this.actor.posY);

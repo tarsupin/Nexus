@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Right);
 
 			if(collided && actor is Character) {

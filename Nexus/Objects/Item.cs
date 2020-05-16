@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Item : DynamicGameObject {
+	public class Item : DynamicObject {
 
 		// Item Traits
 		public byte KickStrength { get; private set; }		// The X-Axis Force that an item is kicked with. 0 means it cannot be kicked.

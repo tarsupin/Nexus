@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 			this.paramSet =  Params.ParamMap["Placer"];
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicGameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			return true;
 		}
 
