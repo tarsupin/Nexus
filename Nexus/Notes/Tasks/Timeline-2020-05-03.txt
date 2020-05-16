@@ -131,7 +131,7 @@
 	Added ShadowTile System. Editor can now render Objects.
 	Updated Enemy Land Tile Tool.
 	Integrated ShadowTiles into Scroller, Utility Bar, and Cursor.
-	Tools Updated with Objects: Delete
+	Tools Updated with Objects: Delete, Place
 
 // Next TODO List
 Finish Up Editor Basics, list it for version 0.22.1.
@@ -145,19 +145,21 @@ Load Objects into Editor
 - Allow Object Interactions with Function Tools
 	- Move Objects
 	- Eyedrop
-	- Eraser
 	- Blueprint
 	- Clone
 
 Wand Tool Object Integration
 
 Handle layering with bg, fg, main, and obj. BG is new.
-	- Add 'bg' layer to data.
 	- Convert data to include ledges as 'bg' layer.
 
 Level Content
 	- Add CharStart to RoomFormat
 	- Add Scripting to RoomFormat
+
+Place Tiles:
+	- Can place on bg and fg, based on TileTool settings.
+	- Add TileTool settings for bg and fg.
 
 Character Start Flag - maybe treat like Checkpoint; can have options of what to start with.
 

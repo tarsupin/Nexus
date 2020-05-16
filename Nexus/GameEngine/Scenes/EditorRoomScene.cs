@@ -226,7 +226,14 @@ namespace Nexus.GameEngine {
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
 
 				// Place Tile
-				this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, gridX, gridY, ph.tileId, ph.subType, null);
+				if(ph.tileId > 0) {
+					this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, gridX, gridY, ph.tileId, ph.subType, null);
+				}
+
+				// Place Object
+				else if(ph.objectId > 0) {
+					this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, gridX, gridY, ph.objectId, ph.subType, null);
+				}
 
 				return;
 			}
