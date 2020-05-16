@@ -13,8 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
-			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte) FuncToolEnum.Eyedrop]);
-			System.Console.WriteLine("Activated Function Button: Eyedrop");
+			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte) FuncToolEnum.Select]);
 		}
 	}
 }

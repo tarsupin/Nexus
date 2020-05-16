@@ -85,7 +85,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Loop through every TileTool in an effort to locate a match for the tile data.
-			for(byte slotGroupNum = 1; slotGroupNum < 10; slotGroupNum++ ) {
+			for(byte slotGroupNum = 1; slotGroupNum < 13; slotGroupNum++ ) {
 				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[(byte)slotGroupNum].placeholders;
 
 				// Loop through each placeholders to see if a tileData ID match is found.

@@ -113,6 +113,7 @@ namespace Nexus.Gameplay {
 		}
 
 		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+			if(layerData == null) { return false; }
 			if(!layerData.ContainsKey(gridY.ToString())) { return false; }
 			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return false; }
 			return true;

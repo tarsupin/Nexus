@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -56,12 +57,20 @@ namespace Nexus.GameEngine {
 				for(byte s = 0; s < phSubLen; s++) {
 					EditorPlaceholder ph = pData[s];
 
-					byte tileId = ph.tileId;
 					byte subType = ph.subType;
+					byte tileId = ph.tileId;
 
-					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-						TileObject tgo = Systems.mapper.TileDict[tileId];
-						tgo.Draw(null, subType, 2, 50 * s + 2);
+					// Draw Tiles
+					if(tileId > 0) {
+						if(Systems.mapper.TileDict.ContainsKey(tileId)) {
+							TileObject tgo = Systems.mapper.TileDict[tileId];
+							tgo.Draw(null, subType, 2, 50 * s + 2);
+						}
+					}
+
+					// Draw Objects
+					else if(ph.objectId > 0) {
+						ShadowTile.Draw(ph.objectId, ph.subType, null, 2, 50 * s + 2);
 					}
 				}
 

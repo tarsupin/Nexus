@@ -263,18 +263,30 @@ namespace Nexus.GameEngine {
 			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
 		}
 
-		public void CloneTile(ushort gridX, ushort gridY) {
+		public Dictionary<string, Dictionary<string, ArrayList>> GetLayerDataForPriorityTile(ushort gridX, ushort gridY) {
+			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
-			//// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
-			byte[] tileData = LevelContent.GetTileData(this.levelContent.data.rooms[this.roomID].main, gridX, gridY);
+			if(LevelContent.VerifyTiles(roomData.obj, gridX, gridY)) { return roomData.obj; }
+			if(LevelContent.VerifyTiles(roomData.fg, gridX, gridY)) { return roomData.fg; }
+			if(LevelContent.VerifyTiles(roomData.main, gridX, gridY)) { return roomData.main; }
+			if(LevelContent.VerifyTiles(roomData.bg, gridX, gridY)) { return roomData.bg; }
+
+			return null;
+		}
+
+		public void CloneTile(ushort gridX, ushort gridY) {
+			Dictionary<string, Dictionary<string, ArrayList>> layerData = this.GetLayerDataForPriorityTile(gridX, gridY);
 
 			// If no tile is cloned, set the current Function Tool to "Select"
-			if(tileData == null) {
+			if(layerData == null) {
 				FuncToolSelect selectFunc = (FuncToolSelect)FuncTool.funcToolMap[(byte)FuncToolEnum.Select];
 				EditorTools.SetFuncTool(selectFunc);
 				selectFunc.ClearSelection();
 				return;
 			}
+
+			// Get the Object from the Highlighted Tile (Search Front to Back until a tile is identified)
+			byte[] tileData = LevelContent.GetTileData(layerData, gridX, gridY);
 
 			// Identify the tile, and set it as the current editing tool (if applicable)
 			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);

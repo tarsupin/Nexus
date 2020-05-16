@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 using System.Collections.Generic;
 using static Nexus.GameEngine.FuncButton;
 
@@ -103,10 +104,17 @@ namespace Nexus.GameEngine {
 					if(placeholders.Count <= i) { continue; }
 					EditorPlaceholder ph = placeholders[i][0];
 					byte tileId = ph.tileId;
-					if(!tileDict.ContainsKey(tileId)) { continue; }
 
-					// Draw Tile (with correct subtype)
-					tileDict[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
+					// Draw Tile
+					if(tileId > 0) {
+						if(!tileDict.ContainsKey(tileId)) { continue; }
+						tileDict[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
+					}
+
+					// Draw Object (if tile is not present)
+					else if(ph.objectId > 0) {
+						ShadowTile.Draw(ph.objectId, ph.subType, null, this.x + i * tileWidth + 2, this.y);
+					}
 				}
 			}
 

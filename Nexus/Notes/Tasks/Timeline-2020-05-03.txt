@@ -119,8 +119,8 @@
 2020-05-15
 	Static WandData Class to Preserve Wand Data.
 	Simplified, Cleaned, and Optimized Param Menu.
-	Chest Params Working
-	Flight Params Working
+	Chest Params Working.
+	Flight Params Working.
 	Improved Function Tools. Fixed Bugs.
 	Major Overhaul of JObjects to Dictionaries.
 	Level Conversion Script Updates
@@ -129,15 +129,24 @@
 2020-05-16
 	New Dynamic Object Architecture.
 	Added ShadowTile System. Editor can now render Objects.
-
+	Updated Enemy Land Tile Tool.
+	Integrated ShadowTiles into Scroller, Utility Bar.
 
 // Next TODO List
 Finish Up Editor Basics, list it for version 0.22.1.
+
+ShadowTileTool; object equivalent of TileTool
+	- Allow placement of ShadowTiles
+	- Allow cloning of ShadowTiles
 
 Load Objects into Editor
 - Integrate Params with Objects.
 - Allow Object Interactions with Function Tools
 	- Move Objects
+	- Eyedrop
+	- Eraser
+	- Blueprint
+	- Clone
 
 Wand Tool Object Integration
 

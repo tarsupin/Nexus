@@ -1,5 +1,6 @@
-﻿
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
+using Nexus.Objects;
+using static Nexus.Objects.Plant;
 
 namespace Nexus.GameEngine {
 
@@ -9,84 +10,73 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.EnemiesLand;
 
-			// TODO LOW PRIORITY: Add this whole section
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperGrass,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperGrass,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperGrass,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperGrass,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperGrass,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperGrass,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperGrass,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperGrass,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.Left,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperMetal,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperMetal,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperMetal,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperMetal,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+			});
+			
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperFire,
+					subType = (byte) FacingSubType.FaceUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperFire,
+					subType = (byte) FacingSubType.FaceRight,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperFire,
+					subType = (byte) FacingSubType.FaceDown,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ChomperFire,
+					subType = (byte) FacingSubType.FaceLeft,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperMetal,
-			//		subType = (byte) Something.Metal,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperMetal,
-			//		subType = (byte) Something.Metal,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperMetal,
-			//		subType = (byte) Something.Metal,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperMetal,
-			//		subType = (byte) Something.Metal,
-			//		face: DirRotate.Left,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperFire,
-			//		subType = (byte) Something.Fire,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperFire,
-			//		subType = (byte) Something.Fire,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperFire,
-			//		subType = (byte) Something.Fire,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ChomperFire,
-			//		subType = (byte) Something.Fire,
-			//		face: DirRotate.Left,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Plant,
-			//		subType = (byte) Something.Fixed,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Plant,
-			//		subType = (byte) Something.FixedMetal,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Plant,
+					subType = (byte) PlantSubType.Plant,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Plant,
+					subType = (byte) PlantSubType.Metal,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
@@ -130,35 +120,35 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Moosh,
-			//		subType = (byte) Something.Brown,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Moosh,
-			//		subType = (byte) Something.Purple,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Moosh,
-			//		subType = (byte) Something.White,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Moosh,
+					subType = (byte) MooshSubType.Brown,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Moosh,
+					subType = (byte) MooshSubType.Purple,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Moosh,
+					subType = (byte) MooshSubType.White,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Shroom,
-			//		subType = (byte) Something.Red,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Shroom,
-			//		subType = (byte) Something.Purple,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Shroom,
-			//		subType = (byte) Something.Black,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shroom,
+					subType = (byte) ShroomSubType.Red,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shroom,
+					subType = (byte) ShroomSubType.Purple,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shroom,
+					subType = (byte) ShroomSubType.Black,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
