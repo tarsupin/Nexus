@@ -74,14 +74,19 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static TileTool GetTileToolFromTileData(byte[] tileData) {
+		public static TileTool GetTileToolFromTileData(byte[] tileData, bool isObject = false) {
 			if(tileData == null) { return null; }
 
-			Dictionary<byte, TileObject> tileDict = Systems.mapper.TileDict;
-
-			// If the Tile Dictionary does not contain the tileData[0] ID, it means this is not a valid tile.
-			if(!tileDict.ContainsKey(tileData[0])) {
-				return null;
+			// If we're retrieving a object, verify that it exists in the Object Dictionary (otherwise it's invalid).
+			if(isObject) {
+				Dictionary<byte, System.Type> objDict = Systems.mapper.ObjectTypeDict;
+				if(!objDict.ContainsKey(tileData[0])) { return null; }
+			}
+			
+			// If we're retrieving a tile, verify that it exists in the Tile Dictionary (otherwise it's invalid).
+			else {
+				Dictionary<byte, TileObject> tileDict = Systems.mapper.TileDict;
+				if(!tileDict.ContainsKey(tileData[0])) { return null; }
 			}
 
 			// Loop through every TileTool in an effort to locate a match for the tile data.
@@ -98,17 +103,22 @@ namespace Nexus.GameEngine {
 					for(byte s = 0; s < phSubLen; s++) {
 						EditorPlaceholder ph = pData[s];
 
-						// If the tileData[0] ID & SubType matches with the TileTool placeholder, we've found a match.
-						if(tileData[0] == ph.tileId && tileData[1] == ph.subType) {
-							TileTool clonedTool = TileTool.tileToolMap[(byte)slotGroupNum];
-
-							// Set the default values for the tool.
-							clonedTool.index = i;
-							clonedTool.subIndex = s;
-							clonedTool.subIndexSaves[i] = s;
-
-							return clonedTool;
+						// Check if the placeholder matches the tileData correctly:
+						if(isObject) {
+							if(tileData[0] != ph.objectId || tileData[1] != ph.subType) { continue; }
+						} else {
+							if(tileData[0] != ph.tileId || tileData[1] != ph.subType) { continue; }
 						}
+
+						// If the tileData[0] ID & SubType matches with the TileTool placeholder, we've found a match.
+						TileTool clonedTool = TileTool.tileToolMap[(byte)slotGroupNum];
+
+						// Set the default values for the tool.
+						clonedTool.index = i;
+						clonedTool.subIndex = s;
+						clonedTool.subIndexSaves[i] = s;
+
+						return clonedTool;
 					}
 				}
 			}

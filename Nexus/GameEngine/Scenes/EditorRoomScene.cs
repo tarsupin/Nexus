@@ -270,19 +270,15 @@ namespace Nexus.GameEngine {
 			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
 		}
 
-		public Dictionary<string, Dictionary<string, ArrayList>> GetLayerDataForPriorityTile(ushort gridX, ushort gridY) {
-			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
-
-			if(LevelContent.VerifyTiles(roomData.obj, gridX, gridY)) { return roomData.obj; }
-			if(LevelContent.VerifyTiles(roomData.fg, gridX, gridY)) { return roomData.fg; }
-			if(LevelContent.VerifyTiles(roomData.main, gridX, gridY)) { return roomData.main; }
-			if(LevelContent.VerifyTiles(roomData.bg, gridX, gridY)) { return roomData.bg; }
-
-			return null;
-		}
-
 		public void CloneTile(ushort gridX, ushort gridY) {
-			Dictionary<string, Dictionary<string, ArrayList>> layerData = this.GetLayerDataForPriorityTile(gridX, gridY);
+			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
+			Dictionary<string, Dictionary<string, ArrayList>> layerData = null;
+			bool isObject = false;
+
+			if(LevelContent.VerifyTiles(roomData.obj, gridX, gridY)) { layerData = roomData.obj; isObject = true; }
+			else if(LevelContent.VerifyTiles(roomData.main, gridX, gridY)) { layerData = roomData.main; }
+			else if(LevelContent.VerifyTiles(roomData.fg, gridX, gridY)) { layerData = roomData.fg; }
+			else if(LevelContent.VerifyTiles(roomData.bg, gridX, gridY)) { layerData = roomData.bg; }
 
 			// If no tile is cloned, set the current Function Tool to "Select"
 			if(layerData == null) {
@@ -296,7 +292,7 @@ namespace Nexus.GameEngine {
 			byte[] tileData = LevelContent.GetTileData(layerData, gridX, gridY);
 
 			// Identify the tile, and set it as the current editing tool (if applicable)
-			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData);
+			TileTool clonedTool = TileTool.GetTileToolFromTileData(tileData, isObject);
 
 			if(clonedTool is TileTool == true) {
 				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
