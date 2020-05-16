@@ -133,19 +133,14 @@
 	Integrated ShadowTiles into Scroller, Utility Bar, and Cursor.
 	Tools Updated with Objects: Delete, Place, Clone.
 	Placement on Main Layer Replaces Object Layer.
+	Select + Blueprint Tools Integrated with Objects.
+
 
 // Next TODO List
 Finish Up Editor Basics, list it for version 0.22.1.
 
-Load Objects into Editor
-- Integrate Params with Objects.
-- If placing on main or obj layers, delete the other.
-- Allow Object Interactions with Function Tools
-	- Move Objects
-	- Eyedrop
-	- Blueprint
-
 Wand Tool Object Integration
+- Add Params for Wand Objects.
 
 Handle layering with bg, fg, main, and obj. BG is new.
 	- Convert data to include ledges as 'bg' layer.
@@ -153,6 +148,7 @@ Handle layering with bg, fg, main, and obj. BG is new.
 Level Content
 	- Add CharStart to RoomFormat
 	- Add Scripting to RoomFormat
+	- Convert room layer X, Y coordinates to ushorts (currently JSON string)
 
 Place Tiles:
 	- Can place on bg and fg, based on TileTool settings.

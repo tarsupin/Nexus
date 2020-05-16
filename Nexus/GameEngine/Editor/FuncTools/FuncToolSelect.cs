@@ -38,10 +38,10 @@ namespace Nexus.GameEngine {
 			this.yStart = gridY;
 			this.yEnd = gridY;
 		}
-
+		
 		private void UpdatePosition(ushort gridX, ushort gridY) {
-			if(Math.Abs(gridX - this.xStart) < 20) { this.xEnd = gridX; }
-			if(Math.Abs(gridY - this.yStart) < 20) { this.yEnd = gridY; }
+			if(Math.Abs(gridX - this.xStart) < FuncToolBlueprint.BPMaxWidth) { this.xEnd = gridX; }
+			if(Math.Abs(gridY - this.yStart) < FuncToolBlueprint.BPMaxHeight) { this.yEnd = gridY; }
 		}
 
 		private void EndSelection() {

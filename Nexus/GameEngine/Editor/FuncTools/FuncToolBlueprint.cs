@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,12 +12,15 @@ namespace Nexus.GameEngine {
 	// This class tracks a grid up to 20x20 blueprint of tiles, allowing user to place them all at once.
 	public class FuncToolBlueprint : FuncTool {
 
-		private ArrayList[,] gridTrack = new ArrayList[20, 20];
+		public static byte BPMaxWidth = 16;
+		public static byte BPMaxHeight = 16;
+
+		private ArrayList[,,] gridTrack = new ArrayList[4, FuncToolBlueprint.BPMaxWidth, FuncToolBlueprint.BPMaxHeight];
 
 		private bool isActive;				// TRUE if the blueprint is active.
 		private ushort blueprintHeight;		// Width of the blueprint.
-		private ushort blueprintWidth;      // Height of the blueprint.
-		private sbyte xOffset;               // X-offset to drag the blueprint at, respective to the cursor.
+		private ushort blueprintWidth;		// Height of the blueprint.
+		private sbyte xOffset;				// X-offset to drag the blueprint at, respective to the cursor.
 		private sbyte yOffset;				// Y-offset to drag the blueprint at, respective to the cursor.
 
 		public FuncToolBlueprint() : base() {
@@ -37,27 +41,39 @@ namespace Nexus.GameEngine {
 			this.xOffset = xOffset;
 			this.yOffset = yOffset;
 
-			var layerData = scene.levelContent.data.rooms[scene.roomID].main;
+			RoomFormat roomData = scene.levelContent.data.rooms[scene.roomID];
+
+			var mainData = roomData.main;
+			var objData = roomData.obj;
+			var bgData = roomData.bg;
+			var fgData = roomData.fg;
 
 			// Loop through the blueprint:
 			for(ushort y = 0; y < this.blueprintHeight; y++) {
-				for(ushort x = 0; x < this.blueprintWidth; x++) {
+				string yPos = (top + y).ToString();
 
-					// Make sure tile exists:
-					string yPos = (top + y).ToString();
+				for(ushort x = 0; x < this.blueprintWidth; x++) {
 					string xPos = (left + x).ToString();
 
-					if(!layerData.ContainsKey(yPos) || !layerData[yPos].ContainsKey(xPos)) {
-						this.gridTrack[y, x] = null;
-						continue;
-					}
-
-					// Save the value stored in this blueprint at correct tile position:
-					var tileData = layerData[yPos][xPos];
-
-					this.gridTrack[y, x] = tileData;
+					this.AddToBlueprintTile(mainData, LayerEnum.main, x, y, xPos, yPos);
+					this.AddToBlueprintTile(objData, LayerEnum.obj, x, y, xPos, yPos);
+					this.AddToBlueprintTile(bgData, LayerEnum.bg, x, y, xPos, yPos);
+					this.AddToBlueprintTile(fgData, LayerEnum.fg, x, y, xPos, yPos);
 				}
 			}
+		}
+
+		public void AddToBlueprintTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort x, ushort y, string xPos, string yPos) {
+
+			if(!layerData.ContainsKey(yPos) || !layerData[yPos].ContainsKey(xPos)) {
+				this.gridTrack[(byte) layerEnum, y, x] = null;
+				return;
+			}
+
+			// Save the value stored in this blueprint at correct tile position:
+			var tileData = layerData[yPos][xPos];
+
+			this.gridTrack[(byte) layerEnum, y, x] = tileData;
 		}
 
 		private void ClearBlueprint() {
@@ -91,29 +107,40 @@ namespace Nexus.GameEngine {
 			xStart = (ushort) (xStart + this.xOffset < 0 ? 0 : xStart + this.xOffset);
 			yStart = (ushort) (yStart + this.yOffset < 0 ? 0 : yStart + this.yOffset);
 
-			var layerData = scene.levelContent.data.rooms[scene.roomID].main;
+			RoomFormat roomData = scene.levelContent.data.rooms[scene.roomID];
+
+			var mainData = roomData.main;
+			var objData = roomData.obj;
+			var bgData = roomData.bg;
+			var fgData = roomData.fg;
 
 			// Loop through the blueprint:
 			for(ushort y = 0; y < this.blueprintHeight; y++) {
 				for(ushort x = 0; x < this.blueprintWidth; x++) {
-
-					// Get the value stored in this blueprint at correct tile position:
-					ArrayList bpData = this.gridTrack[y, x];
-
-					if(bpData == null) { continue; }
-
-					// Copy the blueprint at correct tile position in level editor:
-					if(bpData.Count > 2) {
-						scene.PlaceTile(layerData, LayerEnum.main, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
-					} else {
-						scene.PlaceTile(layerData, LayerEnum.main, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
-					}
+					this.PasteBlueprintByLayer(scene, objData, LayerEnum.obj, x, y, xStart, yStart);
+					this.PasteBlueprintByLayer(scene, mainData, LayerEnum.main, x, y, xStart, yStart);
+					this.PasteBlueprintByLayer(scene, bgData, LayerEnum.bg, x, y, xStart, yStart);
+					this.PasteBlueprintByLayer(scene, fgData, LayerEnum.fg, x, y, xStart, yStart);
 				}
 			}
 		}
 
+		public void PasteBlueprintByLayer(EditorRoomScene scene, Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort x, ushort y, ushort xStart, ushort yStart) {
+
+			// Get the value stored in this blueprint at correct tile position:
+			ArrayList bpData = this.gridTrack[(byte) layerEnum, y, x];
+
+			if(bpData == null) { return; }
+
+			// Copy the blueprint at correct tile position in level editor:
+			if(bpData.Count > 2) {
+				scene.PlaceTile(layerData, layerEnum, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
+			} else {
+				scene.PlaceTile(layerData, layerEnum, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
+			}
+		}
+
 		public override void DrawFuncTool() {
-			var tileDict = Systems.mapper.TileDict;
 
 			ushort xStart = (ushort)(Cursor.MouseGridX + this.xOffset < 0 ? 0 : Cursor.MouseGridX + this.xOffset);
 			ushort yStart = (ushort)(Cursor.MouseGridY + this.yOffset < 0 ? 0 : Cursor.MouseGridY + this.yOffset);
@@ -121,24 +148,41 @@ namespace Nexus.GameEngine {
 			// Loop through the blueprint:
 			for(ushort y = 0; y < this.blueprintHeight; y++) {
 				for(ushort x = 0; x < this.blueprintWidth; x++) {
-
-					// Get the value stored in this blueprint at correct tile position:
-					ArrayList bpData = this.gridTrack[y, x];
-
-					if(bpData == null) { continue; }
-
-					byte tileId = byte.Parse(bpData[0].ToString());
-
-					// Draw the Blueprint Tile at the correct coordinate:
-					if(tileDict.ContainsKey(tileId)) {
-						TileObject tgo = tileDict[tileId];
-						tgo.Draw(null, byte.Parse(bpData[1].ToString()), (xStart + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (yStart + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
-					}
+					DrawBlueprintByLayer(LayerEnum.bg, x, y, xStart, yStart);
+					DrawBlueprintByLayer(LayerEnum.main, x, y, xStart, yStart);
+					DrawBlueprintByLayer(LayerEnum.obj, x, y, xStart, yStart);
+					DrawBlueprintByLayer(LayerEnum.fg, x, y, xStart, yStart);
 				}
 			}
 
 			// Draw Semi-Transparent Box over Selection
 			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(xStart * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yStart * (byte)TilemapEnum.TileHeight - Systems.camera.posY, this.blueprintWidth * (byte)TilemapEnum.TileWidth, this.blueprintHeight * (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
+		}
+
+		public void DrawBlueprintByLayer(LayerEnum layerEnum, ushort x, ushort y, ushort xStart, ushort yStart) {
+
+			// Get the value stored in this blueprint at correct tile position:
+			ArrayList bpData = this.gridTrack[(byte) layerEnum, y, x];
+			if(bpData == null) { return; }
+
+			// Verify that a TileID (or ObjectID) is present
+			byte objOrTileID = byte.Parse(bpData[0].ToString());
+			if(objOrTileID == 0) { return; }
+
+			// Drawing Objects
+			if(layerEnum == LayerEnum.obj) {
+				ShadowTile.Draw(objOrTileID, byte.Parse(bpData[1].ToString()), null, (xStart + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (yStart + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			}
+
+			// Drawing Tiles
+			else {
+				var tileDict = Systems.mapper.TileDict;
+
+				if(tileDict.ContainsKey(objOrTileID)) {
+					TileObject tgo = tileDict[objOrTileID];
+					tgo.Draw(null, byte.Parse(bpData[1].ToString()), (xStart + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (yStart + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+				}
+			}
 		}
 	}
 }

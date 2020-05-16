@@ -167,9 +167,9 @@ namespace Nexus.Gameplay {
 			string strY = gridY.ToString();
 
 			if(roomData.obj.ContainsKey(strY)) { roomData.obj[strY].Remove(strX); }
-			else if(roomData.main.ContainsKey(strY)) { roomData.main[strY].Remove(strX); }
-			else if(roomData.fg.ContainsKey(strY)) { roomData.fg[strY].Remove(strX); }
-			else if(roomData.bg.ContainsKey(strY)) { roomData.bg[strY].Remove(strX); }
+			if(roomData.main.ContainsKey(strY)) { roomData.main[strY].Remove(strX); }
+			if(roomData.fg.ContainsKey(strY)) { roomData.fg[strY].Remove(strX); }
+			if(roomData.bg.ContainsKey(strY)) { roomData.bg[strY].Remove(strX); }
 		}
 
 		public void DeleteTileOnLayer(LayerEnum layerEnum, string roomID, ushort gridX, ushort gridY) {
