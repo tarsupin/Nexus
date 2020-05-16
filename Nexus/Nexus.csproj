@@ -200,7 +200,7 @@
     <Compile Include="GameEngine\Collision\CollideBroad.cs" />
     <Compile Include="GameEngine\Collision\CollideSequence.cs" />
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
-    <Compile Include="GameEngine\TileGameObject.cs" />
+    <Compile Include="GameEngine\TileObject.cs" />
     <Compile Include="GameEngine\Tilemaps\TilemapLevel.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
     <Compile Include="GameEngine\Editor\AutoTileTool.cs" />
@@ -213,7 +213,6 @@
     <Compile Include="Gameplay\World\WorldContent.cs" />
     <Compile Include="Gameplay\Level\LevelFormat.cs" />
     <Compile Include="GameEngine\Loader.cs" />
-    <Compile Include="GameEngine\Paths.cs" />
     <Compile Include="GameEngine\SceneTransition.cs" />
     <Compile Include="GameEngine\Scenes\Scene.cs" />
     <Compile Include="Gameplay\Level\LevelContent.cs" />

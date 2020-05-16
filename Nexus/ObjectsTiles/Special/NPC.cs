@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class NPC : TileGameObject {
+	public class NPC : TileObject {
 
 		public string[] Texture;
 		protected NPCSubType subType;

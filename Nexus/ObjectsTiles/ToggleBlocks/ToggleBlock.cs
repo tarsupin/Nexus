@@ -5,7 +5,7 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class ToggleBlock : TileGameObject {
+	public class ToggleBlock : TileObject {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)

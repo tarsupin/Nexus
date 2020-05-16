@@ -90,7 +90,7 @@ namespace Nexus.GameEngine {
 					EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
 					if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
-						TileGameObject tgo = Systems.mapper.TileDict[ph.tileId];
+						TileObject tgo = Systems.mapper.TileDict[ph.tileId];
 						tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
 

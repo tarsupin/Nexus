@@ -45,7 +45,7 @@ namespace Nexus.GameEngine {
 
 		// Essential Tile Data
 		public static ArrayList wandTileData;
-		public static TileGameObject wandTile;
+		public static TileObject wandTile;
 
 		// Essential References to Wand and Parameter Tools
 		public static Params paramSet;					// Current parameter set (e.g. ParamsCollectable, ParamsContent, ParamsFireBurst, etc).

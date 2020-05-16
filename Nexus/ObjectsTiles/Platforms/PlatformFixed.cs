@@ -5,7 +5,7 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class PlatformFixed : TileGameObject {
+	public class PlatformFixed : TileObject {
 
 		protected string[] Texture;
 		protected DirCardinal facing;

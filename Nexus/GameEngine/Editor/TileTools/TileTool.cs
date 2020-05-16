@@ -77,7 +77,7 @@ namespace Nexus.GameEngine {
 		public static TileTool GetTileToolFromTileData(byte[] tileData) {
 			if(tileData == null) { return null; }
 
-			Dictionary<byte, TileGameObject> tileDict = Systems.mapper.TileDict;
+			Dictionary<byte, TileObject> tileDict = Systems.mapper.TileDict;
 
 			// If the Tile Dictionary does not contain the tileData[0] ID, it means this is not a valid tile.
 			if(!tileDict.ContainsKey(tileData[0])) {

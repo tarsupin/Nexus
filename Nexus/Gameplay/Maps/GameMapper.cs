@@ -38,7 +38,7 @@ namespace Nexus.Gameplay {
 
 		public readonly Atlas[] atlas;
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
-		public Dictionary<byte, TileGameObject> TileDict;
+		public Dictionary<byte, TileObject> TileDict;
 		public Dictionary<string, Params> ParamMap;
 
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
@@ -91,7 +91,7 @@ namespace Nexus.Gameplay {
 		public void PostLoad() {
 
 			// Map of Tile Classes
-			this.TileDict = new Dictionary<byte, TileGameObject>() {
+			this.TileDict = new Dictionary<byte, TileObject>() {
 				
 				// Ground, Immutable (0 - 9)
 				{ (byte) TileEnum.GroundGrass, new GroundGrass() },

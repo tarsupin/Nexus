@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Placer : TileGameObject {
+	public class Placer : TileObject {
 
 		protected PlacerSubType subType;
 

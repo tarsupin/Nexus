@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Chest : TileGameObject {
+	public class Chest : TileObject {
 
 		public string[] Texture;
 		protected ChestSubType subType;

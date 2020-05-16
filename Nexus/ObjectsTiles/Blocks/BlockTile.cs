@@ -5,7 +5,7 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class BlockTile : TileGameObject {
+	public class BlockTile : TileObject {
 
 		public BlockTile() : base() {
 			this.collides = true;

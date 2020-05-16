@@ -169,30 +169,30 @@ namespace Nexus.GameEngine {
 
 					// Draw Background Layer
 					if(tileData[2] != 0) {
-						TileGameObject tileObj = tileMap[tileData[2]];
+						TileObject tileObj = tileMap[tileData[2]];
 
 						// Render the tile with its designated Class Object:
-						if(tileObj is TileGameObject) {
+						if(tileObj is TileObject) {
 							tileObj.Draw(this, tileData[3], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 						};
 					}
 
 					// Draw Main Layer
 					if(tileData[0] != 0) {
-						TileGameObject tileObj = tileMap[tileData[0]];
+						TileObject tileObj = tileMap[tileData[0]];
 
 						// Render the tile with its designated Class Object:
-						if(tileObj is TileGameObject) {
+						if(tileObj is TileObject) {
 							tileObj.Draw(this, tileData[1], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 						};
 					}
 
 					// Draw Foreground Layer
 					if(tileData[4] != 0) {
-						TileGameObject tileObj = tileMap[tileData[4]];
+						TileObject tileObj = tileMap[tileData[4]];
 
 						// Render the tile with its designated Class Object:
-						if(tileObj is TileGameObject) {
+						if(tileObj is TileObject) {
 							tileObj.Draw(this, tileData[5], x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 						};
 					}

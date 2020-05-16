@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Decor : TileGameObject {
+	public class Decor : TileObject {
 
 		public string[] Texture;
 

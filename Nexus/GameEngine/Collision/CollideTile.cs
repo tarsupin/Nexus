@@ -40,7 +40,7 @@ namespace Nexus.GameEngine {
 			// If the tile was removed, never existed, or the main layer has no content:
 			if(tileData == null || tileData[0] == 0) { return false; }
 
-			TileGameObject tileObj = Systems.mapper.TileDict[tileData[0]];
+			TileObject tileObj = Systems.mapper.TileDict[tileData[0]];
 
 			// Make sure the tile exists and collides, otherwise there's no point in testing any further:
 			if(tileObj == null || !tileObj.collides) { return false; }

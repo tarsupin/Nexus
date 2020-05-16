@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Door : TileGameObject {
+	public class Door : TileObject {
 
 		protected string[] Texture;
 		protected DoorSubType subType;

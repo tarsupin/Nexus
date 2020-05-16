@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 
 	// TogglePlat class has special collisions, since it can cause side-collisions or underneath-collisions.
 
-	public class TogglePlat : TileGameObject {
+	public class TogglePlat : TileObject {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)

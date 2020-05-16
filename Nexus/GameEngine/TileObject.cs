@@ -20,7 +20,7 @@ using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
-	public class TileGameObject {
+	public class TileObject {
 
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
@@ -37,7 +37,7 @@ namespace Nexus.GameEngine {
 		public bool collides;           // TRUE if this tile allows collisions.
 		//public bool subTypeCollision;	// TRUE if subtypes are relevant for collisions.
 
-		public TileGameObject() {
+		public TileObject() {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 		}
 

@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 				EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
 				if(ph.tileId > 0) {
-					TileGameObject tile = Systems.mapper.TileDict[ph.tileId];
+					TileObject tile = Systems.mapper.TileDict[ph.tileId];
 
 					if(tile.titles != null) {
 						editorScene.editorUI.SetHelperText(tile.titles[ph.subType], tile.descriptions[ph.subType]);

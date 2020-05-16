@@ -60,7 +60,7 @@ namespace Nexus.GameEngine {
 					byte subType = ph.subType;
 
 					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-						TileGameObject tgo = Systems.mapper.TileDict[tileId];
+						TileObject tgo = Systems.mapper.TileDict[tileId];
 						tgo.Draw(null, subType, 2, 50 * s + 2);
 					}
 				}

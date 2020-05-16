@@ -5,7 +5,7 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class Plant : TileGameObject {
+	public class Plant : TileObject {
 
 		public string[] Texture;
 

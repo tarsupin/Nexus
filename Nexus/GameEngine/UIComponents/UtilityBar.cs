@@ -97,7 +97,7 @@ namespace Nexus.GameEngine {
 			// Tile Icons
 			if(TileTool.tileToolMap.ContainsKey(EditorUI.currentSlotGroup)) {
 				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[EditorUI.currentSlotGroup].placeholders;
-				Dictionary<byte, TileGameObject> tileDict = Systems.mapper.TileDict;
+				Dictionary<byte, TileObject> tileDict = Systems.mapper.TileDict;
 
 				for(byte i = 0; i < 10; i++) {
 					if(placeholders.Count <= i) { continue; }

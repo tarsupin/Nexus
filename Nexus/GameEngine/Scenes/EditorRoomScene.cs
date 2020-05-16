@@ -128,10 +128,10 @@ namespace Nexus.GameEngine {
 					byte subIndex = byte.Parse(xData[1].ToString());
 
 					// Draw Layer
-					TileGameObject tileObj = tileDict[index];
+					TileObject tileObj = tileDict[index];
 
 					// Render the tile with its designated Class Object:
-					if(tileObj is TileGameObject) {
+					if(tileObj is TileObject) {
 						tileObj.Draw(null, subIndex, x * (byte)TilemapEnum.TileWidth - camX, tileYPos);
 					};
 				};

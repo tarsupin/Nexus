@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class CheckFlag : TileGameObject {
+	public class CheckFlag : TileObject {
 
 		protected string Texture;
 		protected FlagSubType subType;

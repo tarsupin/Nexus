@@ -5,7 +5,7 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class PlatformDown : TileGameObject {
+	public class PlatformDown : TileObject {
 
 		protected string Texture;
 

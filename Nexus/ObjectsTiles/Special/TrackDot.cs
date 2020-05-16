@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class TrackDot : TileGameObject {
+	public class TrackDot : TileObject {
 
 		public string[] Texture;
 		protected TrackDotSubType subType;

@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class BGTile : TileGameObject {
+	public class BGTile : TileObject {
 
 		public BGTile() : base() {
 			this.collides = true;

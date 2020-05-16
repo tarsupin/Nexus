@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 		RegeneratesAfterUse = 3,		// The consumable disappears, but regenerates after a designed number of frames.
 	}
 
-	public class Collectable : TileGameObject {
+	public class Collectable : TileObject {
 
 		protected string[] Texture;
 

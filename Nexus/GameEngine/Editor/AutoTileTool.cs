@@ -172,7 +172,7 @@ namespace Nexus.Gameplay {
 
 					// Get the SubType assigned for that auto-tile position, then draw it.
 					byte subType = this.GetSubTypeAtPosition(x, y);
-					TileGameObject tgo = Systems.mapper.TileDict[this.tileId];
+					TileObject tgo = Systems.mapper.TileDict[this.tileId];
 					tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 				}
 			}
@@ -182,7 +182,7 @@ namespace Nexus.Gameplay {
 		private void DrawAutoTilesHorizontal(ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
 				byte subType = this.GetSubTypeAtPosition(x, yLevel);
-				TileGameObject tgo = Systems.mapper.TileDict[this.tileId];
+				TileObject tgo = Systems.mapper.TileDict[this.tileId];
 				tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yLevel * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 			}
 		}
@@ -191,7 +191,7 @@ namespace Nexus.Gameplay {
 		private void DrawAutoTilesVertical(ushort top, ushort bottom, ushort xLevel) {
 			for(ushort y = top; y <= bottom; y++) {
 				byte subType = this.GetSubTypeAtPosition(xLevel, y);
-				TileGameObject tgo = Systems.mapper.TileDict[this.tileId];
+				TileObject tgo = Systems.mapper.TileDict[this.tileId];
 				tgo.Draw(null, subType, xLevel * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 			}
 		}

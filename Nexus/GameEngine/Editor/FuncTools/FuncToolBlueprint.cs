@@ -131,7 +131,7 @@ namespace Nexus.GameEngine {
 
 					// Draw the Blueprint Tile at the correct coordinate:
 					if(tileDict.ContainsKey(tileId)) {
-						TileGameObject tgo = tileDict[tileId];
+						TileObject tgo = tileDict[tileId];
 						tgo.Draw(null, byte.Parse(bpData[1].ToString()), (xStart + x) * (byte)TilemapEnum.TileWidth - Systems.camera.posX, (yStart + y) * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
 				}

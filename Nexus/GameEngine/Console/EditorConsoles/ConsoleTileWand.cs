@@ -51,10 +51,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Get the Tile Object
-			TileGameObject tileObj = Systems.mapper.TileDict[tileData[0]];
+			TileObject tileObj = Systems.mapper.TileDict[tileData[0]];
 
 			// Render the tile with its designated Class Object:
-			if(tileObj is TileGameObject) {
+			if(tileObj is TileObject) {
 				if(tileObj.title != null) {
 					ConsoleTrack.helpText = tileObj.title + " at " + statIns + "!";
 				} else if(tileObj.titles != null) {
