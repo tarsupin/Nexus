@@ -181,6 +181,18 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public bool ConfirmDraw(ushort gridX, ushort gridY) {
+
+			// Make sure deletion is in valid location:
+			if(gridY < 0 || gridY > this.yCount) { return false; }
+			if(gridX < 0 || gridX > this.xCount) { return false; }
+
+			// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
+			if(!DrawTracker.AttemptDraw(gridX, gridY)) { return false; }
+
+			return true;
+		}
+
 		public void TileToolTick(ushort gridX, ushort gridY) {
 
 			// Make sure placement is in valid location:
@@ -227,12 +239,12 @@ namespace Nexus.GameEngine {
 
 				// Place Tile
 				if(ph.tileId > 0) {
-					this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, gridX, gridY, ph.tileId, ph.subType, null);
+					this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, LayerEnum.main, gridX, gridY, ph.tileId, ph.subType, null);
 				}
 
 				// Place Object
 				else if(ph.objectId > 0) {
-					this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, gridX, gridY, ph.objectId, ph.subType, null);
+					this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, LayerEnum.obj, gridX, gridY, ph.objectId, ph.subType, null);
 				}
 
 				return;
@@ -240,18 +252,16 @@ namespace Nexus.GameEngine {
 		}
 
 		public void DeleteTile(ushort gridX, ushort gridY) {
-
-			// Make sure deletion is in valid location:
-			if(gridY < 0 || gridY > this.yCount) { return; }
-			if(gridX < 0 || gridX > this.xCount) { return; }
-
-			// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
-			if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
-
+			if(!this.ConfirmDraw(gridX, gridY)) { return; }
 			this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 		}
 
-		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void DeleteTileOnLayer(LayerEnum layerEnum, ushort gridX, ushort gridY) {
+			if(!this.ConfirmDraw(gridX, gridY)) { return; }
+			this.levelContent.DeleteTileOnLayer(layerEnum, this.roomID, gridX, gridY);
+		}
+
+		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
@@ -268,6 +278,13 @@ namespace Nexus.GameEngine {
 			//}
 
 			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
+
+			// If placing on 'obj' or 'main' layer, delete the other:
+			if(layerEnum == LayerEnum.main) {
+				this.DeleteTileOnLayer(LayerEnum.obj, gridX, gridY);
+			} else if(layerEnum == LayerEnum.obj) {
+				this.DeleteTileOnLayer(LayerEnum.main, gridX, gridY);
+			}
 		}
 
 		public void CloneTile(ushort gridX, ushort gridY) {

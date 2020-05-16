@@ -104,9 +104,9 @@ namespace Nexus.GameEngine {
 
 					// Copy the blueprint at correct tile position in level editor:
 					if(bpData.Count > 2) {
-						scene.PlaceTile(layerData, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
+						scene.PlaceTile(layerData, LayerEnum.main, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
 					} else {
-						scene.PlaceTile(layerData, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
+						scene.PlaceTile(layerData, LayerEnum.main, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
 					}
 				}
 			}

@@ -103,7 +103,7 @@ namespace Nexus.Gameplay {
 			for(ushort x = left; x <= right; x++) {
 				for(ushort y = top; y <= bottom; y++) {
 					byte subType = this.GetSubTypeAtPosition(x, y);
-					scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, x, y, this.tileId, subType, null);
+					scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, LayerEnum.main, x, y, this.tileId, subType, null);
 				}
 			}
 		}
@@ -112,7 +112,7 @@ namespace Nexus.Gameplay {
 		private void PlaceAutoTilesHorizontal(EditorRoomScene scene, ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
 				byte subType = this.GetSubTypeAtPosition(x, yLevel);
-				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, x, yLevel, this.tileId, subType, null);
+				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, LayerEnum.main, x, yLevel, this.tileId, subType, null);
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace Nexus.Gameplay {
 		private void PlaceAutoTilesVertical(EditorRoomScene scene, ushort top, ushort bottom, ushort xLevel) {
 			for(ushort y = top; y <= bottom; y++) {
 				byte subType = this.GetSubTypeAtPosition(xLevel, y);
-				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, xLevel, y, this.tileId, subType, null);
+				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, LayerEnum.main, xLevel, y, this.tileId, subType, null);
 			}
 		}
 
