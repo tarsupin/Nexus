@@ -82,12 +82,14 @@ namespace Nexus.Gameplay {
 
 			levelStructure.id = levelId;
 			levelStructure.rooms["0"] = new RoomFormat();
-			//levelStructure.room["0"].bgLayer;
 			levelStructure.rooms["0"].main["16"]["0"].Add(1);
 			levelStructure.rooms["0"].main["16"]["0"].Add(1);
 			levelStructure.rooms["0"].main["16"]["1"].Add(1);
 			levelStructure.rooms["0"].main["16"]["1"].Add(1);
-			//levelStructure.room["0"].cosmeticLayer;
+
+			// TODO: Must confirm that .obj, .fg, and .bg are being added to level structure by new RoomFormat()
+			// TODO: If not, then we need to add them here.
+			//levelStructure.rooms["0"].bg
 
 			return levelStructure;
 		}
@@ -113,7 +115,6 @@ namespace Nexus.Gameplay {
 		}
 
 		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
-			if(layerData == null) { return false; }
 			if(!layerData.ContainsKey(gridY.ToString())) { return false; }
 			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return false; }
 			return true;
@@ -160,7 +161,15 @@ namespace Nexus.Gameplay {
 		}
 
 		public void DeleteTile(string roomID, ushort gridX, ushort gridY) {
-			this.data.rooms[roomID].main[gridY.ToString()].Remove(gridX.ToString());
+			RoomFormat roomData = this.data.rooms[roomID];
+
+			string strX = gridX.ToString();
+			string strY = gridY.ToString();
+
+			if(roomData.obj.ContainsKey(strY)) { roomData.obj[strY].Remove(strX); }
+			if(roomData.main.ContainsKey(strY)) { roomData.main[strY].Remove(strX); }
+			if(roomData.fg.ContainsKey(strY)) { roomData.fg[strY].Remove(strX); }
+			if(roomData.bg.ContainsKey(strY)) { roomData.bg[strY].Remove(strX); }
 		}
 	}
 }

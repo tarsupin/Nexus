@@ -60,21 +60,29 @@ namespace Nexus.Scripts {
 				if(roomData.bg != null) {
 					LevelConvert.curRoomLayerId = "bg";
 					this.ProcessLayerData(roomData.bg);
+				} else {
+					roomData.bg = new Dictionary<string, Dictionary<string, ArrayList>>();
 				}
 
 				if(roomData.main != null) {
 					LevelConvert.curRoomLayerId = "main";
 					this.ProcessLayerData(roomData.main);
+				} else {
+					roomData.main = new Dictionary<string, Dictionary<string, ArrayList>>();
 				}
 
 				if(roomData.obj != null) {
 					LevelConvert.curRoomLayerId = "obj";
 					this.ProcessLayerData(roomData.obj);
+				} else {
+					roomData.obj = new Dictionary<string, Dictionary<string, ArrayList>>();
 				}
 
 				if(roomData.fg != null) {
 					LevelConvert.curRoomLayerId = "fg";
 					this.ProcessLayerData(roomData.fg);
+				} else {
+					roomData.fg = new Dictionary<string, Dictionary<string, ArrayList>>();
 				}
 			}
 

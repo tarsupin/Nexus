@@ -130,7 +130,8 @@
 	New Dynamic Object Architecture.
 	Added ShadowTile System. Editor can now render Objects.
 	Updated Enemy Land Tile Tool.
-	Integrated ShadowTiles into Scroller, Utility Bar.
+	Integrated ShadowTiles into Scroller, Utility Bar, and Cursor.
+	Tools Updated with Objects: Delete
 
 // Next TODO List
 Finish Up Editor Basics, list it for version 0.22.1.

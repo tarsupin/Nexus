@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -89,9 +90,17 @@ namespace Nexus.GameEngine {
 				else if(EditorTools.tileTool != null) {
 					EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
-					if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
-						TileObject tgo = Systems.mapper.TileDict[ph.tileId];
-						tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+					// Draw Tile
+					if(ph.tileId > 0) {
+						if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
+							TileObject tgo = Systems.mapper.TileDict[ph.tileId];
+							tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+						}
+					}
+
+					// Draw Object
+					else if(ph.objectId > 0) {
+						ShadowTile.Draw(ph.objectId, ph.subType, null, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
 
 					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
