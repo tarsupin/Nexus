@@ -4,7 +4,6 @@ using Nexus.ObjectComponents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nexus.Scripts {
 
@@ -36,9 +35,9 @@ namespace Nexus.Scripts {
 			byte subTypeId = Byte.Parse(tileJson[1].ToString());
 			Dictionary<string, short> paramList = null;
 
-			// Param-Specific Conversions
+			// Param Conversions
 			if(tileJson.Count >= 3) {
-				this.ConvertStringParams(tileJson, tileId, subTypeId);
+				this.ParamConversions(tileJson, tileId, subTypeId);
 			}
 
 			// Retrieve Parameter List
@@ -53,7 +52,7 @@ namespace Nexus.Scripts {
 		}
 
 		// This method will look for params that are still stored as string values, so that we can identify what needs to be changed to 'short' numbers.
-		protected void ConvertStringParams(ArrayList tileJson, byte tileId, byte subTypeId) {
+		protected void ParamConversions(ArrayList tileJson, byte tileId, byte subTypeId) {
 			// {{ "suit": "WhiteNinja", "powerAtt": "Shuriken" }}
 
 			Dictionary<string, short> newParams = new Dictionary<string, short>();
@@ -62,8 +61,7 @@ namespace Nexus.Scripts {
 			Dictionary<string, object> paramsOld = JsonConvert.DeserializeObject<Dictionary<string, object>>(tileJson[2].ToString());
 			//Dictionary<string, object> paramsOld = (Dictionary<string, object>) tileJson[2];
 
-
-			bool changed = false;
+			bool anyChange = false;
 
 			// Loop through each param
 			foreach(var param in paramsOld) {
@@ -71,6 +69,7 @@ namespace Nexus.Scripts {
 				// Convert any broken parameters:
 				var paramVal = param.Value;
 				short newValue = 0;
+				bool changed = false;
 
 				if(param.Key == "suit") {
 					switch(paramVal) {
@@ -93,6 +92,7 @@ namespace Nexus.Scripts {
 						case "WizRedHat": changed = true; newValue = (byte)HatSubType.WizardRedHat; break;
 						case "WizWhiteHat": changed = true; newValue = (byte)HatSubType.WizardWhiteHat; break;
 						case "FeatheredHat": changed = true; newValue = (byte)HatSubType.FeatheredHat; break;
+						case "TopHat": changed = true; newValue = (byte)HatSubType.TopHat; break;
 					}
 				}
 
@@ -116,24 +116,39 @@ namespace Nexus.Scripts {
 						case "False": changed = true; newValue = 0; break;
 						case "True": changed = true; newValue = 1; break;
 						case true: changed = true; newValue = 1; break;
+						case false: changed = true; newValue = 0; break;
 					}
 				}
 
-				if(changed) {
-					//System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  " + newValue);
-					newParams[param.Key] = newValue;
+				// Looking for "ms" settings, regardless of tileId type
+				if(changed == false && (param.Key == "duration" || param.Key == "offset" || param.Key == "durationOffset" || param.Key == "delay" || param.Key == "retDelay" || param.Key == "cycle")) {
+					changed = true;
+					newValue = (short)(int.Parse(param.Value.ToString()) * 60 / 1000);
+					//System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + param.Value.ToString() + " }  -->  " + newParams[param.Key]);
 				}
-				
-				else {
-					bool isNumeric = short.TryParse(paramVal.ToString(), out _);
+
+				// Looking for "bool" sets, regardless of type:
+				if(changed == false && paramVal is bool) {
+					changed = true;
+					if((bool) paramVal == true) { newValue = 1; }
+				}
+
+				if(changed) {
+					anyChange = true;
+					newParams[param.Key] = newValue;
+					//System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  " + newValue);
+				} else {
+					bool isNumeric = short.TryParse(paramVal.ToString(), out short newShort);
 
 					if(!isNumeric) {
 						System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + paramVal.ToString() + " }  -->  UNRESOLVED");
+					} else {
+						newParams[param.Key] = newShort;
 					}
 				}
 			}
 
-			if(changed) {
+			if(anyChange) {
 				this.OverwriteTileData(tileJson, tileId, subTypeId, newParams);
 			}
 		}

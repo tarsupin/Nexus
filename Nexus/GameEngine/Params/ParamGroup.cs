@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -41,6 +40,10 @@ namespace Nexus.GameEngine {
 			if(value > this.max) { return this.name + " must be between " + this.min.ToString() + " and " + this.max.ToString() + this.unitName + ". " + value + " is too high."; }
 			return null;
 		}
+	}
+
+	public class FrameParam : IntParam {
+		public FrameParam( string key, string name, short min, short max, short increment, short defValue, string unitName = "" ) : base(key, name, min, max, increment, defValue, " ms") {}
 	}
 
 	public class PercentParam : ParamGroup {

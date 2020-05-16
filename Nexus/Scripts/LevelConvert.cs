@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections;
@@ -110,10 +109,10 @@ namespace Nexus.Scripts {
 			Dictionary<string, Dictionary<string, ArrayList>> roomLayer = null;
 
 			// Need to load the layer property with a switch.
-			if(curRoomLayerId == "main") { roomLayer = roomData.main; }
-			else if(curRoomLayerId == "obj") { roomLayer = roomData.obj; }
-			else if(curRoomLayerId == "bg") { roomLayer = roomData.bg; }
-			else if(curRoomLayerId == "fg") { roomLayer = roomData.fg; }
+			if(LevelConvert.curRoomLayerId == "main") { roomLayer = roomData.main; }
+			else if(LevelConvert.curRoomLayerId == "obj") { roomLayer = roomData.obj; }
+			else if(LevelConvert.curRoomLayerId == "bg") { roomLayer = roomData.bg; }
+			else if(LevelConvert.curRoomLayerId == "fg") { roomLayer = roomData.fg; }
 
 			if(roomLayer != null) {
 				if(paramList == null) {

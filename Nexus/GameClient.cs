@@ -53,9 +53,9 @@ namespace Nexus
 			Window.AllowUserResizing = true;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
-			
+
 			// Try converting levels
-			new LevelConvertV1();               // TODO CLEANUP: Remove this line.
+			//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
 
 
 			// TODO: use this.Content to load your game content here

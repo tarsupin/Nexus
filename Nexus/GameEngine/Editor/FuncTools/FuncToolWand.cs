@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,14 +121,27 @@ namespace Nexus.GameEngine {
 				// Determine the Text
 				if(paramList != null && paramList.ContainsKey(rule.key)) {
 
+					// Labeled Params
 					if(rule is LabeledParam) {
 						WandData.menuOptText[i] = ((LabeledParam)(rule)).labels[short.Parse(paramList[rule.key].ToString())];
-					} else if(rule is DictParam) {
+					}
+					
+					// Dictionary Params
+					else if(rule is DictParam) {
 						DictParam dictRule = (DictParam)(rule);
 						byte[] contentKeys = dictRule.dict.Keys.ToArray<byte>();
 						byte paramVal = byte.Parse(paramList[rule.key].ToString());
 						WandData.menuOptText[i] = dictRule.dict[contentKeys[paramVal]];
-					} else {
+					}
+					
+					// Frame Params (show them as milliseconds, rather than by frames)
+					else if(rule is FrameParam) {
+						int newVal = byte.Parse(paramList[rule.key].ToString()) * 1000 / 60;
+						WandData.menuOptText[i] = newVal.ToString() + " ms";
+					}
+					
+					// Default Numeric Params
+					else {
 						WandData.menuOptText[i] = paramList[rule.key].ToString() + rule.unitName;
 					}
 				} else {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Gameplay;
-using System.Collections;
+﻿using Nexus.Gameplay;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -11,8 +9,8 @@ namespace Nexus.GameEngine {
 			this.rules = new ParamGroup[13];
 			this.rules[0] = new LabeledParam("fly", "Movement Type", new string[6] { "None", "Axis", "Quadratic", "Circle", "To Direction", "Follows Track", }, (byte) FlightMovement.Axis );
 
-			this.rules[1] = new IntParam("duration", "Move Duration", 60, 3600, 15, 180, " frame(s)");
-			this.rules[2] = new IntParam("durationOffset", "Timer Offset", 0, 3600, 15, 0, " frame(s)");
+			this.rules[1] = new IntParam("duration", "Move Duration", 100, 6000, 25, 300, "0 ms");
+			this.rules[2] = new IntParam("durationOffset", "Timer Offset", 0, 6000, 25, 0, "0 ms");
 
 			this.rules[3] = new IntParam("x", "X Movement", -20, 20, 1, 0, " tiles(s)");
 			this.rules[4] = new IntParam("y", "Y Movement", -20, 20, 1, 0, " tiles(s)");
@@ -20,7 +18,7 @@ namespace Nexus.GameEngine {
 			this.rules[5] = new IntParam("midX", "X Midpoint", -20, 20, 1, 0, " tiles(s)");
 			this.rules[6] = new IntParam("midY", "Y Midpoint", -20, 20, 1, 0, " tiles(s)");
 
-			this.rules[7] = new IntParam("diameter", "Diameter", 0, 20, 1, 0, " tiles(s)");
+			this.rules[7] = new IntParam("diameter", "Diameter", 0, 20, 1, 3, " tiles(s)");
 
 			this.rules[8] = new LabeledParam("reverse", "Reverses Direction", new string[2] { "False", "True" }, (byte) 0);
 			this.rules[9] = new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)");

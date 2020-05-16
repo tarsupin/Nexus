@@ -126,7 +126,14 @@ namespace Nexus.Gameplay {
 
 		public static ArrayList GetTileDataWithParams(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
 			if(!LevelContent.VerifyTiles(layerData, gridX, gridY)) { return null; }
-			return layerData[gridY.ToString()][gridX.ToString()];
+			ArrayList tileObj = layerData[gridY.ToString()][gridX.ToString()];
+
+			// Convert the parameter list from JObject to Dictionary<string, short>
+			if(tileObj.Count > 2) {
+				tileObj[2] = JsonConvert.DeserializeObject<Dictionary<string, short>>(tileObj[2].ToString());
+			}
+
+			return tileObj;
 		}
 
 		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {

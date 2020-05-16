@@ -162,7 +162,6 @@
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsContents.cs" />
     <Compile Include="GameEngine\Params\ParamDict.cs" />
     <Compile Include="GameEngine\Params\ParamGroup.cs" />
-    <Compile Include="GameEngine\Params\AdvancedSets\ParamsMoveFlight.cs" />
     <Compile Include="GameEngine\ParticleEmitters\DeathEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />
     <Compile Include="GameEngine\ParticleGenerator\ParticleGen.cs" />

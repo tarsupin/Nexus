@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System.Collections;
@@ -57,18 +56,14 @@ namespace Nexus.GameEngine {
 			ParamGroup paramRule = this.GetParamRule(paramKey);
 
 			// Get Tile Data
-			Dictionary<string, short> paramList = (Dictionary<string, short>)tileObj[2];
-			JToken paramVal = null;
+			Dictionary<string, short> paramList = (Dictionary<string, short>) tileObj[2];
 
 			// Retrieve the parameter value (or the default value if it's not set)
-			if(paramList.ContainsKey(paramKey)) {
-				paramVal = paramList[paramKey];
-			}
+			short paramVal = paramList.ContainsKey(paramKey) ? paramList[paramKey] : paramRule.defValue;
 
 			// Cycle an Integer Param
 			if(paramRule is IntParam) {
 				IntParam intRule = (IntParam) paramRule;
-				if(paramVal == null) { paramVal = intRule.defValue; }
 				short newValue = this.CycleNumber((short) paramVal, intRule.min, intRule.max, intRule.increment, up);
 				this.UpdateParamNum(paramList, paramKey, newValue, intRule.defValue);
 			}
@@ -76,7 +71,6 @@ namespace Nexus.GameEngine {
 			// Cycle a Percent Param
 			else if(paramRule is PercentParam) {
 				PercentParam perRule = (PercentParam)paramRule;
-				if(paramVal == null) { paramVal = perRule.defValue; }
 				short newValue = this.CycleNumber((short)paramVal, perRule.min, perRule.max, perRule.increment, up);
 				this.UpdateParamNum(paramList, paramKey, newValue, perRule.defValue);
 			}
@@ -84,7 +78,6 @@ namespace Nexus.GameEngine {
 			// Cycle a Labeled Param
 			else if(paramRule is LabeledParam) {
 				LabeledParam labelRule = (LabeledParam)paramRule;
-				if(paramVal == null) { paramVal = labelRule.defValue; }
 				short newValue = this.CycleNumber((short)paramVal, 0, (short) (labelRule.labels.Length - 1), 1, up);
 				this.UpdateParamNum(paramList, paramKey, newValue, labelRule.defValue);
 			}

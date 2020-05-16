@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json.Linq;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
