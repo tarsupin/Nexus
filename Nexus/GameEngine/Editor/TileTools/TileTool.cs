@@ -8,6 +8,7 @@ namespace Nexus.GameEngine {
 		public byte tileId;
 		public byte objectId;
 		public byte subType;
+		public LayerEnum layerEnum;
 	}
 
 	public class TileTool {

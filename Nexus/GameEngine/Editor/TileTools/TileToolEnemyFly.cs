@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Buzz,
 					subType = (byte) BuzzSubType.Buzz,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -21,14 +22,17 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalAir,
 					subType = (byte) ElementalAirSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalFire,
 					subType = (byte) ElementalFireSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalEarth,
 					subType = (byte) ElementalEarthSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -36,14 +40,17 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.FlairElectric,
 					subType = (byte) FlairElectricSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.FlairFire,
 					subType = (byte) FlairFireSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.FlairMagic,
 					subType = (byte) FlairMagicSubType.Normal,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -51,14 +58,17 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Ghost,
 					subType = (byte) GhostSubType.Norm,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Ghost,
 					subType = (byte) GhostSubType.Hide,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Ghost,
 					subType = (byte) GhostSubType.Hat,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -66,18 +76,22 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Saw,
 					subType = (byte) SawSubType.Small,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Saw,
 					subType = (byte) SawSubType.LethalSmall,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Saw,
 					subType = (byte) SawSubType.Large,
+					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Saw,
 					subType = (byte) SawSubType.LethalLarge,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -85,6 +99,7 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.HoveringEye,
 					subType = (byte) HoveringEyeSubType.Eye,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -92,6 +107,7 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Slammer,
 					subType = (byte) SlammerSubType.Slammer,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 
@@ -99,6 +115,7 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Dire,
 					subType = (byte) DireSubType.Dire,
+					layerEnum = LayerEnum.obj,
 				},
 			});
 		}

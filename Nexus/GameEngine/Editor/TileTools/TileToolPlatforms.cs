@@ -30,35 +30,42 @@ namespace Nexus.GameEngine {
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatFall,
+			//		objectId = (byte) TileEnum.PlatFall,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatDelay,
+			//		objectId = (byte) TileEnum.PlatDelay,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatDip,
+			//		objectId = (byte) TileEnum.PlatDip,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatMove,
+			//		objectId = (byte) TileEnum.PlatMove,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatMove,
+			//		objectId = (byte) TileEnum.PlatMove,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatMove,
+			//		objectId = (byte) TileEnum.PlatMove,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.PlatMove,
+			//		objectId = (byte) TileEnum.PlatMove,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//});
 
@@ -66,18 +73,22 @@ namespace Nexus.GameEngine {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
 			//		subType = (byte) HorizontalSubTypes.S,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
 			//		subType = (byte) HorizontalSubTypes.H1,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
 			//		subType = (byte) HorizontalSubTypes.H2,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.PlatItem,
 			//		subType = (byte) HorizontalSubTypes.H3,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//});
 
@@ -102,16 +113,19 @@ namespace Nexus.GameEngine {
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cluster,
+			//		objectId = (byte) TileEnum.Cluster,
 			//		subType = (byte) Something.Cluster,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cluster,
+			//		objectId = (byte) TileEnum.Cluster,
 			//		subType = (byte) Something.Char,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Cluster,
+			//		objectId = (byte) TileEnum.Cluster,
 			//		subType = (byte) Something.Screen,
+			//		layerEnum = LayerEnum.obj,
 			//	},
 			//});
 
@@ -119,14 +133,17 @@ namespace Nexus.GameEngine {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.Track,
 			//		subType = (byte) Something.Blue,
+			//		layerEnum = LayerEnum.fg,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.Track,
 			//		subType = (byte) Something.Green,
+			//		layerEnum = LayerEnum.fg,
 			//	},
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.Track,
 			//		subType = (byte) Something.Red,
+			//		layerEnum = LayerEnum.fg,
 			//	},
 			//});
 

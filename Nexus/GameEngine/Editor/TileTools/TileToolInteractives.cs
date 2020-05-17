@@ -12,8 +12,6 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Interactives;
 
-			// TODO LOW PRIORITY: Add this whole section
-
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.Character,
