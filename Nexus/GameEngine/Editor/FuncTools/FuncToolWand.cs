@@ -46,7 +46,6 @@ namespace Nexus.GameEngine {
 
 		// Essential Tile Data
 		public static ArrayList wandTileData;
-		public static TileObject wandTile;
 
 		// Essential References to Wand and Parameter Tools
 		public static Params paramSet;					// Current parameter set (e.g. ParamsCollectable, ParamsContent, ParamsFireBurst, etc).
@@ -184,20 +183,21 @@ namespace Nexus.GameEngine {
 			WandData.wandTileData = LevelContent.GetTileDataWithParams(WandData.layerData, WandData.gridX, WandData.gridY);
 
 			// Get the Param Set Used
+			Params paramSet = null;
+
 			if(WandData.isObject) {
-
+				paramSet = Systems.mapper.ObjectMetaData[byte.Parse(WandData.wandTileData[0].ToString())].paramSet;
+			} else {
+				TileObject wandTile = Systems.mapper.TileDict[byte.Parse(WandData.wandTileData[0].ToString())];
+				paramSet = wandTile.paramSet;
 			}
 
-			else {
-				WandData.wandTile = Systems.mapper.TileDict[byte.Parse(WandData.wandTileData[0].ToString())];
+			// If the tile has param sets, it can be used here. Otherwise, return.
+			WandData.validTile = paramSet != null;
+			if(WandData.validTile == false) { return false; }
 
-				// If the tile has param sets, it can be used here. Otherwise, return.
-				WandData.validTile = WandData.wandTile.paramSet != null;
-				if(WandData.validTile == false) { return false; }
-
-				WandData.paramSet = WandData.wandTile.paramSet;
-				WandData.paramRules = WandData.paramSet.rules;
-			}
+			WandData.paramSet = paramSet;
+			WandData.paramRules = WandData.paramSet.rules;
 
 			// Reset Menu Information
 			WandData.numberOptsToShow = 1;

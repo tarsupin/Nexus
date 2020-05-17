@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 	public class Moosh : EnemyLand {
 
 		public Moosh(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Moosh].meta;
 
 			// Movement
 			this.speed = FInt.Create(0.4);
