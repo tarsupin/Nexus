@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 	public class Ghost : EnemyFlight {
 
 		public Ghost(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Ghost].meta;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);

@@ -25,7 +25,6 @@ namespace Nexus.Objects {
 		public uint intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
 
 		public Item(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.Item];
 
 			// Physics
 			this.physics = new Physics(this);

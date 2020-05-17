@@ -9,7 +9,6 @@ namespace Nexus.Objects {
 	public class Elemental : EnemyFlight {
 
 		public Elemental(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);

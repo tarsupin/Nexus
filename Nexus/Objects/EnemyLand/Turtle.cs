@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 	public class Turtle : EnemyLand {
 
 		public Turtle(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Turtle].meta;
 
 			// Movement
 			this.speed = FInt.Create(1.0);

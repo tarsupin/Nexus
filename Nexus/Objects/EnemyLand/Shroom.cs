@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 	public class Shroom : EnemyLand {
 
 		public Shroom(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Shroom].meta;
 			this.AssignSubType(subType);
 
 			// Movement

@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 		public PowerMobility mobilityPower;
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.Character];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
 			this.SetSpriteName("BasicChar/Stand");
 
 			// Physics, Collisions, etc.

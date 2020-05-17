@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 	public class Bouncer : EnemyFlight {
 
 		public Bouncer(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Bouncer].meta;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);

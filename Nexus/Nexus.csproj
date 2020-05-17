@@ -334,10 +334,10 @@
     <Compile Include="Objects\EnemyFlight\Saw.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairMagic.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairElectric.cs" />
-    <Compile Include="Objects\EnemyFlight\Flair\FireFlair.cs" />
+    <Compile Include="Objects\EnemyFlight\Flair\FlairFire.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\Flair.cs" />
     <Compile Include="Objects\EnemyFlight\Ghost.cs" />
-    <Compile Include="Objects\EnemyFlight\Elemental\EarthElemental.cs" />
+    <Compile Include="Objects\EnemyFlight\Elemental\ElementalEarth.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalFire.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalAir.cs" />
     <Compile Include="Objects\Items\TNT.cs" />

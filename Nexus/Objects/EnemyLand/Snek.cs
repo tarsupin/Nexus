@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 	public class Snek : EnemyLand {
 
 		public Snek(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Snek].meta;
 
 			// Movement
 			this.speed = FInt.Create(0.8);

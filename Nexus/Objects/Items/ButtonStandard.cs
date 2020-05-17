@@ -8,6 +8,7 @@ namespace Nexus.Objects {
 	public class ButtonStandard : Item {
 
 		public ButtonStandard(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ButtonStandard].meta;
 			this.ThrowStrength = 14;
 
 			// Grip Points (When Held)

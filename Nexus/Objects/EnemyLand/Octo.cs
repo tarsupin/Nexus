@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 	public class Octo : EnemyLand {
 
 		public Octo(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Octo].meta;
 
 			// Movement
 			this.speed = FInt.Create(0.6);

@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 		public string subTypeStr;
 
 		public Goo(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Goo].meta;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);

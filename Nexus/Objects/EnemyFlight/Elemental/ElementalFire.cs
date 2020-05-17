@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -9,6 +10,7 @@ namespace Nexus.Objects {
 	public class ElementalFire : Elemental {
 
 		public ElementalFire(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ElementalFire].meta;
 			this.AssignSubType(subType);
 		}
 

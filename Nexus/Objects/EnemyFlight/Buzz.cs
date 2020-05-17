@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 	public class Buzz : EnemyFlight {
 
 		public Buzz(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Buzz].meta;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);

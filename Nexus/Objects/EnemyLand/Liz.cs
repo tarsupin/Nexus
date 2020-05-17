@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 	public class Liz : EnemyLand {
 
 		public Liz(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Liz].meta;
 
 			// Movement
 			this.speed = FInt.Create(0.8);

@@ -13,7 +13,10 @@ namespace Nexus.Objects {
 		public static readonly FInt MaxFallVelocity = FInt.Create(5);
 
 		public Platform(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
+			
+			// TODO: MUST ADD META TO EACH PLATFORM CLASS - NOT THE BASE ONE
+			//this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Plat].meta;
+			
 			this.AssignBoundsByAtlas();
 			this.physics.SetGravity(FInt.Create(0));
 		}

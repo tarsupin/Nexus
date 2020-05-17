@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 	public class Snail : EnemyLand {
 
 		public Snail(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyLand];
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Snail].meta;
 
 			// Movement
 			this.speed = FInt.Create(1.0);
