@@ -95,32 +95,72 @@ namespace Nexus.Objects {
 			{ (byte) ObjectEnum.Buzz, new Dictionary<byte, string> {
 				{  (byte) BuzzSubType.Buzz, "Buzz/Left2" },
 			}},
-			
-			// TODO:
-			//// Flight Enemies (40 - 69)
-			//{ (byte) ObjectEnum.Ghost, Type.GetType("Nexus.Objects.Ghost") },
-			//{ (byte) ObjectEnum.FlairElectric, Type.GetType("Nexus.Objects.FlairElectric") },
-			//{ (byte) ObjectEnum.FlairFire, Type.GetType("Nexus.Objects.FlairFire") },
-			//{ (byte) ObjectEnum.FlairMagic, Type.GetType("Nexus.Objects.FlairMagic") },
-
-			//{ (byte) ObjectEnum.ElementalAir, Type.GetType("Nexus.Objects.ElementalAir") },
-			//{ (byte) ObjectEnum.ElementalEarth, Type.GetType("Nexus.Objects.ElementalEarth") },
-			//{ (byte) ObjectEnum.ElementalFire, Type.GetType("Nexus.Objects.ElementalFire") },
-
-			//{ (byte) ObjectEnum.Saw, Type.GetType("Nexus.Objects.Saw") },
-			//{ (byte) ObjectEnum.Slammer, Type.GetType("Nexus.Objects.Slammer") },
-			//{ (byte) ObjectEnum.HoveringEye, Type.GetType("Nexus.Objects.HoveringEye") },
-			//{ (byte) ObjectEnum.WallBouncer, Type.GetType("Nexus.Objects.WallBouncer") },
-			
-			//{ (byte) ObjectEnum.Dire, Type.GetType("Nexus.Objects.Dire") },
 
 			// Ghost
-			//{ (byte) ObjectEnum.Ghost, new Dictionary<byte, string> {
-			//	{  (byte) GhostSubType.Normal, "Ghost/Norm/Left" },
-			//	{  (byte) GhostSubType.Hide, "Ghost/Hide/Left" },
-			//	{  (byte) GhostSubType.Hat, "Ghost/Hat/Left" },
-			//}},
+			{ (byte) ObjectEnum.Ghost, new Dictionary<byte, string> {
+				{  (byte) GhostSubType.Norm, "Ghost/Norm/Left" },
+				{  (byte) GhostSubType.Hide, "Ghost/Hide/Left" },
+				{  (byte) GhostSubType.Hat, "Ghost/Hat/Left" },
+			}},
 			
+			// FlairElectric
+			{ (byte) ObjectEnum.FlairElectric, new Dictionary<byte, string> {
+				{  (byte) FlairElectricSubType.Normal, "Flair/Electric/Left2" },
+			}},
+
+			// FlairFire
+			{ (byte) ObjectEnum.FlairFire, new Dictionary<byte, string> {
+				{  (byte) FlairFireSubType.Normal, "Flair/Fire/Left2" },
+			}},
+			
+			// FlairMagic
+			{ (byte) ObjectEnum.FlairMagic, new Dictionary<byte, string> {
+				{  (byte) FlairMagicSubType.Normal, "Flair/Magic/Left2" },
+			}},
+			
+			// ElementalAir
+			{ (byte) ObjectEnum.ElementalAir, new Dictionary<byte, string> {
+				{  (byte) ElementalAirSubType.Normal, "Elemental/Air/Left" },
+			}},
+
+			// ElementalEarth
+			{ (byte) ObjectEnum.ElementalEarth, new Dictionary<byte, string> {
+				{  (byte) ElementalEarthSubType.Normal, "Elemental/Earth/Left" },
+			}},
+
+			// ElementalFire
+			{ (byte) ObjectEnum.ElementalFire, new Dictionary<byte, string> {
+				{  (byte) ElementalFireSubType.Normal, "Elemental/Fire/Left" },
+			}},
+			
+			// Saw
+			{ (byte) ObjectEnum.Saw, new Dictionary<byte, string> {
+				{  (byte) SawSubType.Small, "Saw/Small" },
+				{  (byte) SawSubType.Large, "Saw/Large" },
+				{  (byte) SawSubType.LethalSmall, "Saw/LethalSmall" },
+				{  (byte) SawSubType.LethalLarge, "Saw/LethalLarge" },
+			}},
+			
+			// Slammer
+			{ (byte) ObjectEnum.Slammer, new Dictionary<byte, string> {
+				{  (byte) SlammerSubType.Slammer, "Slammer/Standard" },
+			}},
+			
+			// HoveringEye
+			{ (byte) ObjectEnum.HoveringEye, new Dictionary<byte, string> {
+				{  (byte) HoveringEyeSubType.Eye, "Eye/Eye" },
+			}},
+
+			// WallBouncer
+			{ (byte) ObjectEnum.WallBouncer, new Dictionary<byte, string> {
+				{  (byte) WallBouncerSubType.Normal, "Bouncer/Norm" },
+			}},
+			
+			// Dire
+			{ (byte) ObjectEnum.Dire, new Dictionary<byte, string> {
+				{  (byte) DireSubType.Dire, "Dire/Left1" },
+			}},
+
 			///////////////////////////////
 			////// DYNAMIC PLATFORMS //////
 			///////////////////////////////

@@ -1,5 +1,6 @@
 ﻿
 using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -9,117 +10,97 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.EnemiesFly;
 
-			// TODO LOW PRIORITY: Add this whole section
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Buzz,
+					subType = (byte) BuzzSubType.Buzz,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Buzz,
-			//		subType = (byte) Something.Buzz,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalAir,
+					subType = (byte) ElementalAirSubType.Normal,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalFire,
+					subType = (byte) ElementalFireSubType.Normal,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalEarth,
+					subType = (byte) ElementalEarthSubType.Normal,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalAir,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalAir,
-			//		subType = (byte) Something.Right,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.FlairElectric,
+					subType = (byte) FlairElectricSubType.Normal,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.FlairFire,
+					subType = (byte) FlairFireSubType.Normal,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.FlairMagic,
+					subType = (byte) FlairMagicSubType.Normal,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalFire,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalFire,
-			//		subType = (byte) Something.Right,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Ghost,
+					subType = (byte) GhostSubType.Norm,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Ghost,
+					subType = (byte) GhostSubType.Hide,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Ghost,
+					subType = (byte) GhostSubType.Hat,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalEarth,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.ElementalEarth,
-			//		subType = (byte) Something.Right,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Saw,
+					subType = (byte) SawSubType.Small,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Saw,
+					subType = (byte) SawSubType.LethalSmall,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Saw,
+					subType = (byte) SawSubType.Large,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Saw,
+					subType = (byte) SawSubType.LethalLarge,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.MiniElemental,
-			//		subType = (byte) Something.Air,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.HoveringEye,
+					subType = (byte) HoveringEyeSubType.Eye,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.FlairElectric,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.FlairFire,
-			//		subType = (byte) Something.Left,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.FlairMagic,
-			//		subType = (byte) Something.Left,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Slammer,
+					subType = (byte) SlammerSubType.Slammer,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Ghost,
-			//		subType = (byte) Something.Norm,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Ghost,
-			//		subType = (byte) Something.Hat,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Ghost,
-			//		subType = (byte) Something.Hide,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Saw,
-			//		subType = (byte) Something.Small,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Saw,
-			//		subType = (byte) Something.Lethal,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Saw,
-			//		subType = (byte) Something.Large,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Saw,
-			//		subType = (byte) Something.LethalLarge,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Slammer,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) ObjectEnum.Dire,
-			//		subType = (byte) Something.Dire,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Dire,
+					subType = (byte) DireSubType.Dire,
+				},
+			});
 		}
 	}
 }

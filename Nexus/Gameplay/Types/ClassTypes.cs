@@ -158,13 +158,8 @@ namespace Nexus.Gameplay {
 		Slammer = 61,
 		HoveringEye = 62,
 		WallBouncer = 63,
-		SawLarge = 64,
 
 		Dire = 65,
-
-		// Items, Fixed (70 - 79)
-		SpringFixed = 70,
-		ButtonFixed = 71,
 
 		// Items, Mobile (80 - 99)
 		Shell = 80,
@@ -175,12 +170,6 @@ namespace Nexus.Gameplay {
 
 		SpringStandard = 90,
 		ButtonStandard = 91,
-		ButtonTimed = 92,
-
-		MobileBlockBlue = 95,
-		MobileBlockRed = 96,
-		MobileBlockGreen = 97,
-		MobileBlockYellow = 98,
 
 		// Special Objects
 		Cluster = 100,

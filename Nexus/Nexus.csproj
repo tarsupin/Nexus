@@ -340,6 +340,10 @@
     <Compile Include="Objects\EnemyFlight\Elemental\EarthElemental.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalFire.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalAir.cs" />
+    <Compile Include="Objects\Items\TNT.cs" />
+    <Compile Include="Objects\Items\Bomb.cs" />
+    <Compile Include="Objects\Items\Boulder.cs" />
+    <Compile Include="Objects\Items\Shell.cs" />
     <Compile Include="Objects\Items\ButtonStandard.cs" />
     <Compile Include="Objects\Items\SpringStandard.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />

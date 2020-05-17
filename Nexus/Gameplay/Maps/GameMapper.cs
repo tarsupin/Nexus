@@ -242,10 +242,6 @@ namespace Nexus.Gameplay {
 
 			{ (byte) ObjectEnum.Dire, Type.GetType("Nexus.Objects.Dire") },
 
-			// Items, Fixed (70 - 79)
-			{ (byte) ObjectEnum.SpringFixed, Type.GetType("Nexus.Objects.SpringFixed") },
-			{ (byte) ObjectEnum.ButtonFixed, Type.GetType("Nexus.Objects.ButtonFixed") },
-
 			// Items, Mobile (80 - 99)
 			{ (byte) ObjectEnum.Shell, Type.GetType("Nexus.Objects.Shell") },
 			{ (byte) ObjectEnum.Boulder, Type.GetType("Nexus.Objects.Boulder") },
@@ -255,12 +251,6 @@ namespace Nexus.Gameplay {
 
 			{ (byte) ObjectEnum.SpringStandard, Type.GetType("Nexus.Objects.SpringStandard") },
 			{ (byte) ObjectEnum.ButtonStandard, Type.GetType("Nexus.Objects.ButtonStandard") },
-			{ (byte) ObjectEnum.ButtonTimed, Type.GetType("Nexus.Objects.ButtonTimed") },
-
-			{ (byte) ObjectEnum.MobileBlockBlue, Type.GetType("Nexus.Objects.MobileBlockBlue") },
-			{ (byte) ObjectEnum.MobileBlockRed, Type.GetType("Nexus.Objects.MobileBlockRed") },
-			{ (byte) ObjectEnum.MobileBlockGreen, Type.GetType("Nexus.Objects.MobileBlockGreen") },
-			{ (byte) ObjectEnum.MobileBlockYellow, Type.GetType("Nexus.Objects.MobileBlockYellow") },
 
 			// Special Objects
 			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
