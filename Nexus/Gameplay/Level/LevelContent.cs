@@ -114,6 +114,14 @@ namespace Nexus.Gameplay {
 			File.WriteAllText(fullDestPath, json);
 		}
 
+		public static Dictionary<string, Dictionary<string, ArrayList>> GetLayerData(RoomFormat roomData, LayerEnum layerEnum) {
+			if(layerEnum == LayerEnum.main) { return roomData.main; }
+			if(layerEnum == LayerEnum.obj) { return roomData.obj; }
+			if(layerEnum == LayerEnum.bg) { return roomData.bg; }
+			if(layerEnum == LayerEnum.fg) { return roomData.fg; }
+			return null;
+		}
+
 		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
 			if(!layerData.ContainsKey(gridY.ToString())) { return false; }
 			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return false; }

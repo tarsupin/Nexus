@@ -18,7 +18,8 @@ namespace Nexus.Gameplay {
 
 		public uint startFrame;			// The frame number when the auto-tile process begins. 0 if inactive.
 		public byte tileId;				// The Tile ID being used in the auto-tile process.
-		public byte subTypeId;			// The SubType index used on the tile.
+		public byte subTypeId;          // The SubType index used on the tile.
+		public LayerEnum layerEnum;		// The layer to place on. Can be BG or MAIN.
 		public AutoGroup autoGroup;		// The auto-group that is being applied.
 
 		public ushort xStart;			// X-Grid that the drag is starting at.
@@ -40,7 +41,7 @@ namespace Nexus.Gameplay {
 		public ushort TopTile { get { return Math.Min(Cursor.MouseGridY, this.yStart); } }
 		public ushort BottomTile { get { return Math.Max(Cursor.MouseGridY, this.yStart); } }
 
-		public void StartAutoTile(byte tileId, byte subTypeId, ushort gridX, ushort gridY) {
+		public void StartAutoTile(byte tileId, byte subTypeId, LayerEnum layerEnum, ushort gridX, ushort gridY) {
 			this.autoGroup = AutoTileTool.IdentifyAutoGroup(tileId);
 			
 			if(this.autoGroup == AutoGroup.None) {
@@ -51,6 +52,7 @@ namespace Nexus.Gameplay {
 			this.startFrame = Systems.timer.Frame;
 			this.tileId = tileId;
 			this.subTypeId = subTypeId;
+			this.layerEnum = layerEnum;
 			this.xStart = gridX;
 			this.yStart = gridY;
 		}
@@ -72,6 +74,10 @@ namespace Nexus.Gameplay {
 
 			if(this.autoGroup == AutoGroup.Full || this.autoGroup == AutoGroup.Static) {
 				this.PlaceAutoTilesFull(scene, left, right, top, bottom);
+			}
+
+			else if(this.autoGroup == AutoGroup.Ledge) {
+				this.PlaceAutoTilesLedge(scene, left, right, top, bottom);
 			}
 
 			else if(this.autoGroup == AutoGroup.Horizontal) {
@@ -107,6 +113,27 @@ namespace Nexus.Gameplay {
 				}
 			}
 		}
+		
+		// Special Ledge Placement (full axis movement). Top section will use Ledge, rest will use LedgeDecor.
+		private void PlaceAutoTilesLedge(EditorRoomScene scene, ushort left, ushort right, ushort top, ushort bottom) {
+			byte ledgeTool = this.tileId;
+			byte decorTool = (byte) (this.tileId + 1);
+
+			// Place Top of Ledge
+			for(ushort x = left; x <= right; x++) {
+				byte subType = this.GetSubTypeAtPosition(x, top);
+				scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].main, LayerEnum.main, x, top, ledgeTool, subType, null);
+			}
+
+			// Place Rest of Ledge (Decor)
+			top += 1;
+			for(ushort x = left; x <= right; x++) {
+				for(ushort y = top; y <= bottom; y++) {
+					byte subType = this.GetSubTypeAtPosition(x, y);
+					scene.PlaceTile(scene.levelContent.data.rooms[scene.roomID].bg, LayerEnum.bg, x, y, decorTool, subType, null);
+				}
+			}
+		}
 
 		// Restricts the dimensions of the AutoTile placement to the horizontal axis.
 		private void PlaceAutoTilesHorizontal(EditorRoomScene scene, ushort left, ushort right, ushort yLevel) {
@@ -136,6 +163,11 @@ namespace Nexus.Gameplay {
 
 			if(this.autoGroup == AutoGroup.Full || this.autoGroup == AutoGroup.Static) {
 				this.DrawAutoTilesFull(left, right, top, bottom);
+				return;
+			}
+
+			if(this.autoGroup == AutoGroup.Ledge) {
+				this.DrawAutoTilesLedge(left, right, top, bottom);
 				return;
 			}
 
@@ -178,6 +210,29 @@ namespace Nexus.Gameplay {
 			}
 		}
 
+		// Special Ledge Draw. Top section will use Ledge, rest will use LedgeDecor.
+		private void DrawAutoTilesLedge(ushort left, ushort right, ushort top, ushort bottom) {
+			byte ledgeTool = this.tileId;
+			byte decorTool = (byte)(this.tileId + 1);
+
+			// Draw Top of Ledge
+			for(ushort x = left; x <= right; x++) {
+				byte subType = this.GetSubTypeAtPosition(x, top);
+				TileObject tgo = Systems.mapper.TileDict[ledgeTool];
+				tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, top * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			}
+
+			// Draw Rest of Ledge (Decor)
+			top += 1;
+			for(ushort x = left; x <= right; x++) {
+				for(ushort y = top; y <= bottom; y++) {
+					byte subType = this.GetSubTypeAtPosition(x, y);
+					TileObject tgo = Systems.mapper.TileDict[decorTool];
+					tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+				}
+			}
+		}
+
 		// Restricts the dimensions of the AutoTile placement to the horizontal axis.
 		private void DrawAutoTilesHorizontal(ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
@@ -200,6 +255,7 @@ namespace Nexus.Gameplay {
 
 			switch(this.autoGroup) {
 				case AutoGroup.Full: return this.GetGroundSubType(gridX, gridY);
+				case AutoGroup.Ledge: return this.GetGroundSubType(gridX, gridY);
 				case AutoGroup.Horizontal: return this.GetHorizontalSubType(gridX, gridY);
 			}
 
@@ -297,10 +353,6 @@ namespace Nexus.Gameplay {
 				case (byte) TileEnum.Lock:
 				case (byte) TileEnum.Plant:
 				case (byte) TileEnum.Spike:
-				case (byte) TileEnum.ToggleBlockBlue:
-				case (byte) TileEnum.ToggleBlockGreen:
-				case (byte) TileEnum.ToggleBlockRed:
-				case (byte) TileEnum.ToggleBlockYellow:
 					return AutoGroup.Static;
 			}
 

@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 
 			EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
-			EditorTools.autoTool.StartAutoTile(ph.tileId, ph.subType, gridX, gridY);
+			EditorTools.autoTool.StartAutoTile(ph.tileId, ph.subType, ph.layerEnum, gridX, gridY);
 
 			// Only disable other tools if the AutoTile tool started.
 			if(EditorTools.autoTool.IsActive) {
