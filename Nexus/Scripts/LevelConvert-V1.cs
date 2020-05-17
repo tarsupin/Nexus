@@ -15,17 +15,16 @@ namespace Nexus.Scripts {
 			System.Console.WriteLine("--------------------------------------");
 		}
 
-		protected override void ProcessLayerData(Dictionary<string, Dictionary<string, ArrayList>> layerJson) {
+		protected override void ProcessLayerData(Dictionary<string, Dictionary<string, ArrayList>> layerJson, bool isObjectLayer = false) {
 
 			// Temporary Blockers - Testing Purposes.
-			//if(this.levelContent.levelId != "QCALQOD16") { return; }          // Specific Level Allowance
 			//if(CalcRandom.IntBetween(0, 50) == 35) { return; }
 
 			// Run Standard Layer Data Process
-			base.ProcessLayerData(layerJson);
+			base.ProcessLayerData(layerJson, isObjectLayer);
 		}
 
-		protected override void ProcessTileData( ArrayList tileJson ) {
+		protected override void ProcessTileData( ArrayList tileJson, bool isObject = false ) {
 			// tileJson[0], tileJson[1], tileJson[2]
 			//System.Console.WriteLine(tileJson[0] + ", " + tileJson[1]);
 			//System.Console.WriteLine(tileJson[0] + ", " + tileJson[1] + ", " + tileJson[2]);
@@ -34,6 +33,17 @@ namespace Nexus.Scripts {
 			byte tileId = Byte.Parse(tileJson[0].ToString());
 			byte subTypeId = Byte.Parse(tileJson[1].ToString());
 			Dictionary<string, short> paramList = null;
+
+			// Objects to Move to Tiles
+			if(isObject) {
+				if(
+					tileId == (byte)TileEnum.PlatformFixed ||
+					tileId == (byte)TileEnum.PlatformItem
+				) {
+					this.MoveTileDataToLayer(LayerEnum.main, tileId, subTypeId, paramList);
+					isObject = false;
+				}
+			}
 
 			// Param Conversions
 			if(tileJson.Count >= 3) {
@@ -45,10 +55,21 @@ namespace Nexus.Scripts {
 			//	paramList = (Dictionary<string, short>) tileJson[2];
 			//}
 
-			// Run Conversions
-			//this.ConvertGrassToMud(tileJson, tileId, subTypeId);
-			this.ConvertGroundSubTypesToHorizontal(tileJson, tileId, subTypeId);
+			// Objects
+			if(isObject) {
 
+				// Run Conversions
+				this.ConvertObjPlatformSubTypes(tileId, subTypeId);
+			}
+
+			// Tiles
+			else {
+
+				// Run Conversions
+				//this.ConvertGrassToMud(tileJson, tileId, subTypeId);
+				this.ConvertGroundSubTypesToHorizontal(tileId, subTypeId);
+				this.ConvertTilePlatformSubTypes(tileId, subTypeId);
+			}
 		}
 
 		// This method will look for params that are still stored as string values, so that we can identify what needs to be changed to 'short' numbers.
@@ -149,20 +170,20 @@ namespace Nexus.Scripts {
 			}
 
 			if(anyChange) {
-				this.OverwriteTileData(tileJson, tileId, subTypeId, newParams);
+				this.OverwriteTileData(tileId, subTypeId, newParams);
 			}
 		}
 
-		protected void ConvertGrassToMud(ArrayList tileJson, byte tileId, byte subTypeId) {
+		protected void ConvertGrassToMud(byte tileId, byte subTypeId) {
 
 			// If the tile is Grass, convert it to Mud
 			if(tileId == (byte) TileEnum.GroundGrass) {
 				tileId = (byte) TileEnum.GroundMud;
-				this.OverwriteTileData(tileJson, tileId, subTypeId);
+				this.OverwriteTileData(tileId, subTypeId);
 			}
 		}
 		
-		protected void ConvertGroundSubTypesToHorizontal(ArrayList tileJson, byte tileId, byte subTypeId) {
+		protected void ConvertGroundSubTypesToHorizontal(byte tileId, byte subTypeId) {
 
 			if(
 				tileId == (byte) TileEnum.PlatformFixed ||
@@ -184,7 +205,43 @@ namespace Nexus.Scripts {
 					subTypeId = (byte)HorizontalSubTypes.H3;
 				}
 
-				this.OverwriteTileData(tileJson, tileId, subTypeId);
+				this.OverwriteTileData(tileId, subTypeId);
+			}
+		}
+		
+		protected void ConvertObjPlatformSubTypes(byte objectId, byte subTypeId) {
+
+			if(
+				objectId == (byte) ObjectEnum.PlatformDelay ||
+				objectId == (byte) ObjectEnum.PlatformDip ||
+				objectId == (byte) ObjectEnum.PlatformFall ||
+				objectId == (byte) ObjectEnum.PlatformMove
+			) {
+
+				// Convert Ground Types to Horizontal Types
+				if(subTypeId == 6) { subTypeId = (byte) HorizontalSubTypes.H1; }
+				else if(subTypeId == 7) { subTypeId = (byte)HorizontalSubTypes.H2; }
+				else if(subTypeId == 8) { subTypeId = (byte)HorizontalSubTypes.H3; }
+
+				this.OverwriteTileData(objectId, subTypeId);
+			}
+		}
+		
+		protected void ConvertTilePlatformSubTypes(byte tileId, byte subTypeId) {
+
+			if(
+				tileId == (byte)TileEnum.PlatformFixed ||
+				tileId == (byte)TileEnum.PlatformItem ||
+				tileId == (byte)TileEnum.Wall ||
+				tileId == (byte)TileEnum.Log
+			) {
+
+				// Convert Ground Types to Horizontal Types
+				if(subTypeId == 6) { subTypeId = (byte) HorizontalSubTypes.H1; }
+				else if(subTypeId == 7) { subTypeId = (byte)HorizontalSubTypes.H2; }
+				else if(subTypeId == 8) { subTypeId = (byte)HorizontalSubTypes.H3; }
+
+				this.OverwriteTileData(tileId, subTypeId);
 			}
 		}
 	}

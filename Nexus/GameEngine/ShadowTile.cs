@@ -1,6 +1,11 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
+using static Nexus.Objects.Bomb;
+using static Nexus.Objects.Boulder;
+using static Nexus.Objects.Shell;
+using static Nexus.Objects.SpringStandard;
+using static Nexus.Objects.TNT;
 
 namespace Nexus.Objects {
 
@@ -165,36 +170,76 @@ namespace Nexus.Objects {
 			////// DYNAMIC PLATFORMS //////
 			///////////////////////////////
 			
-			//// Platforms (1 - 4)
-			//{ (byte) ObjectEnum.PlatformDip, Type.GetType("Nexus.Objects.PlatformDip") },
-			//{ (byte) ObjectEnum.PlatformDelay, Type.GetType("Nexus.Objects.PlatformDelay") },
-			//{ (byte) ObjectEnum.PlatformFall, Type.GetType("Nexus.Objects.PlatformFall") },
-			//{ (byte) ObjectEnum.PlatformMove, Type.GetType("Nexus.Objects.PlatformMove") },
+			// PlatformDip
+			{ (byte) ObjectEnum.PlatformDip, new Dictionary<byte, string> {
+				{  (byte) HorizontalSubTypes.S, "Platform/Dip/S" },
+				{  (byte) HorizontalSubTypes.H1, "Platform/Dip/H1" },
+				{  (byte) HorizontalSubTypes.H2, "Platform/Dip/H2" },
+				{  (byte) HorizontalSubTypes.H3, "Platform/Dip/H3" },
+			}},
 			
+			// PlatformDelay
+			{ (byte) ObjectEnum.PlatformDelay, new Dictionary<byte, string> {
+				{  (byte) HorizontalSubTypes.S, "Platform/Delay/S" },
+				{  (byte) HorizontalSubTypes.H1, "Platform/Delay/H1" },
+				{  (byte) HorizontalSubTypes.H2, "Platform/Delay/H2" },
+				{  (byte) HorizontalSubTypes.H3, "Platform/Delay/H3" },
+			}},
+			
+			// PlatformFall
+			{ (byte) ObjectEnum.PlatformFall, new Dictionary<byte, string> {
+				{  (byte) HorizontalSubTypes.S, "Platform/Fall/S" },
+				{  (byte) HorizontalSubTypes.H1, "Platform/Fall/H1" },
+				{  (byte) HorizontalSubTypes.H2, "Platform/Fall/H2" },
+				{  (byte) HorizontalSubTypes.H3, "Platform/Fall/H3" },
+			}},
+			
+			// PlatformMove
+			{ (byte) ObjectEnum.PlatformMove, new Dictionary<byte, string> {
+				{  (byte) HorizontalSubTypes.S, "Platform/Move/S" },
+				{  (byte) HorizontalSubTypes.H1, "Platform/Move/H1" },
+				{  (byte) HorizontalSubTypes.H2, "Platform/Move/H2" },
+				{  (byte) HorizontalSubTypes.H3, "Platform/Move/H3" },
+			}},
+
 			///////////////////
 			////// ITEMS //////
 			///////////////////
 			
-			//// Items, Fixed (70 - 79)
-			//{ (byte) ObjectEnum.SpringFixed, Type.GetType("Nexus.Objects.SpringFixed") },
-			//{ (byte) ObjectEnum.ButtonFixed, Type.GetType("Nexus.Objects.ButtonFixed") },
+			// Shell
+			{ (byte) ObjectEnum.Shell, new Dictionary<byte, string> {
+				{  (byte) ShellSubType.Green, "Shell/Green/Side" },
+				{  (byte) ShellSubType.GreenWing, "Shell/GreenWing/Side" },
+				{  (byte) ShellSubType.Heavy, "Shell/Heavy/Side" },
+				{  (byte) ShellSubType.Red, "Shell/Red/Side" },
+			}},
+			
+			// Boulder
+			{ (byte) ObjectEnum.Boulder, new Dictionary<byte, string> {
+				{  (byte) BoulderSubType.Boulder, "Items/Boulder" },
+			}},
+			
+			// Bomb
+			{ (byte) ObjectEnum.Bomb, new Dictionary<byte, string> {
+				{  (byte) BombSubType.Bomb, "Items/Bomb" },
+			}},
+			
+			// TNT
+			{ (byte) ObjectEnum.TNT, new Dictionary<byte, string> {
+				{  (byte) TNTSubType.TNT, "Items/TNT" },
+			}},
+			
+			// Spring - Standard
+			{ (byte) ObjectEnum.SpringStandard, new Dictionary<byte, string> {
+				{  (byte) SpringStandardSubType.Norm, "Spring/Standard/Up" },
+			}},
 
-			//// Items, Mobile (80 - 99)
-			//{ (byte) ObjectEnum.Shell, Type.GetType("Nexus.Objects.Shell") },
-			//{ (byte) ObjectEnum.Boulder, Type.GetType("Nexus.Objects.Boulder") },
-			//{ (byte) ObjectEnum.Bomb, Type.GetType("Nexus.Objects.Bomb") },
-
-			//{ (byte) ObjectEnum.TNT, Type.GetType("Nexus.Objects.TNT") },
-
-			//{ (byte) ObjectEnum.SpringStandard, Type.GetType("Nexus.Objects.SpringStandard") },
-			//{ (byte) ObjectEnum.ButtonStandard, Type.GetType("Nexus.Objects.ButtonStandard") },
-			//{ (byte) ObjectEnum.ButtonTimed, Type.GetType("Nexus.Objects.ButtonTimed") },
-
-			//{ (byte) ObjectEnum.MobileBlockBlue, Type.GetType("Nexus.Objects.MobileBlockBlue") },
-			//{ (byte) ObjectEnum.MobileBlockRed, Type.GetType("Nexus.Objects.MobileBlockRed") },
-			//{ (byte) ObjectEnum.MobileBlockGreen, Type.GetType("Nexus.Objects.MobileBlockGreen") },
-			//{ (byte) ObjectEnum.MobileBlockYellow, Type.GetType("Nexus.Objects.MobileBlockYellow") },
-
+			// Button - Standard
+			{ (byte) ObjectEnum.ButtonStandard, new Dictionary<byte, string> {
+				{  (byte) ButtonSubTypes.BR, "Button/Standard/BR" },
+				{  (byte) ButtonSubTypes.GY, "Button/Standard/GY" },
+			}},
+			
 			/////////////////////////////
 			////// SPECIAL OBJECTS //////
 			/////////////////////////////
