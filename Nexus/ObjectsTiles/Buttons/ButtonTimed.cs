@@ -9,6 +9,8 @@ namespace Nexus.Objects {
 		public ButtonTimed() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.ButtonFixed];
+			this.title = "Fixed Button";
+			this.description = "Toggles colors, but the effect only lasts for 10 seconds.";
 			this.CreateTextures();
 		}
 

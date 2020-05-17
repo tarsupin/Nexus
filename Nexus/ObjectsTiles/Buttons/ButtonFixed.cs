@@ -9,6 +9,8 @@ namespace Nexus.Objects {
 		public ButtonFixed() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.ButtonFixed];
+			this.title = "Fixed Button";
+			this.description = "Toggles colors.";
 			this.CreateTextures();
 		}
 

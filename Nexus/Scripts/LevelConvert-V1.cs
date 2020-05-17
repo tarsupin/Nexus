@@ -75,6 +75,7 @@ namespace Nexus.Scripts {
 				//this.ConvertGrassToMud(tileJson, tileId, subTypeId);
 				this.ConvertGroundSubTypesToHorizontal(tileId, subTypeId);
 				this.ConvertTilePlatformSubTypes(tileId, subTypeId);
+				this.ConvertFlagData(tileId, subTypeId);
 			}
 		}
 
@@ -248,6 +249,22 @@ namespace Nexus.Scripts {
 				else if(subTypeId == 8) { subTypeId = (byte)HorizontalSubTypes.H3; }
 
 				this.OverwriteTileData(tileId, subTypeId);
+			}
+		}
+		
+		protected void ConvertFlagData(byte tileId, byte subTypeId) {
+
+			if(tileId == 150) {
+
+				byte newTileId = 0;
+
+				// Convert Ground Types to Horizontal Types
+				if(subTypeId == 3) { subTypeId = 0; newTileId = (byte) TileEnum.CheckFlagFinish; }
+				else if(subTypeId == 2) { subTypeId = 0; newTileId = (byte) TileEnum.CheckFlagCheckpoint; }
+				else if(subTypeId == 0) { subTypeId = 0; newTileId = (byte) TileEnum.CheckFlagPass; }
+				else if(subTypeId == 1) { subTypeId = 0; newTileId = (byte) TileEnum.CheckFlagRetry; }
+
+				this.OverwriteTileData(newTileId, subTypeId);
 			}
 		}
 		

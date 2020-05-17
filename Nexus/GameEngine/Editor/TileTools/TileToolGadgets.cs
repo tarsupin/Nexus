@@ -70,6 +70,25 @@ namespace Nexus.GameEngine {
 				},
 			});
 
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonFixed,
+					subType = (byte) ButtonSubTypes.BR,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonFixed,
+					subType = (byte) ButtonSubTypes.GY,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonTimed,
+					subType = (byte) ButtonSubTypes.BR,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonTimed,
+					subType = (byte) ButtonSubTypes.GY,
+				},
+			});
+
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
 			//		tileId = (byte) TileEnum.SpringFixed,
