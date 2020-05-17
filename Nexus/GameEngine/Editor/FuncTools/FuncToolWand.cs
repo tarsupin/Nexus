@@ -33,6 +33,7 @@ namespace Nexus.GameEngine {
 	public static class WandData {
 
 		public static bool validTile = false;
+		public static bool isObject = false;
 
 		// References to Scene and Layer Info
 		public static EditorRoomScene editorScene;
@@ -156,25 +157,47 @@ namespace Nexus.GameEngine {
 			// Get Scene References
 			WandData.editorScene = scene;
 			WandData.levelContent = WandData.editorScene.levelContent;
-			WandData.layerData = WandData.levelContent.data.rooms[WandData.editorScene.roomID].main;
+
+			RoomFormat roomData = WandData.levelContent.data.rooms[WandData.editorScene.roomID];
 
 			// Verify that Tile is Valid:
-			WandData.validTile = LevelContent.VerifyTiles(WandData.layerData, gridX, gridY);
-			if(WandData.validTile == false) { return false; }
+			WandData.validTile = false;
+
+			if(LevelContent.VerifyTiles(roomData.main, gridX, gridY)) {
+				WandData.layerData = roomData.main;
+				WandData.isObject = false;
+			}
+			
+			else if(LevelContent.VerifyTiles(roomData.obj, gridX, gridY)) {
+				WandData.layerData = roomData.obj;
+				WandData.isObject = true;
+			}
+
+			else { return false; }
+
+			WandData.validTile = true;
 
 			WandData.gridX = gridX;
 			WandData.gridY = gridY;
 
-			// Get the Tile Class
+			// Get Tile Content Data
 			WandData.wandTileData = LevelContent.GetTileDataWithParams(WandData.layerData, WandData.gridX, WandData.gridY);
-			WandData.wandTile = Systems.mapper.TileDict[byte.Parse(WandData.wandTileData[0].ToString())];
 
-			// If the tile has param sets, it can be used here. Otherwise, return.
-			WandData.validTile = WandData.wandTile.paramSet != null;
-			if(WandData.validTile == false) { return false; }
+			// Get the Param Set Used
+			if(WandData.isObject) {
 
-			WandData.paramSet = WandData.wandTile.paramSet;
-			WandData.paramRules = WandData.paramSet.rules;
+			}
+
+			else {
+				WandData.wandTile = Systems.mapper.TileDict[byte.Parse(WandData.wandTileData[0].ToString())];
+
+				// If the tile has param sets, it can be used here. Otherwise, return.
+				WandData.validTile = WandData.wandTile.paramSet != null;
+				if(WandData.validTile == false) { return false; }
+
+				WandData.paramSet = WandData.wandTile.paramSet;
+				WandData.paramRules = WandData.paramSet.rules;
+			}
 
 			// Reset Menu Information
 			WandData.numberOptsToShow = 1;
