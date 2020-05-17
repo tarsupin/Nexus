@@ -157,7 +157,7 @@ namespace Nexus.Gameplay {
 		Saw = 60,
 		Slammer = 61,
 		HoveringEye = 62,
-		WallBouncer = 63,
+		Bouncer = 63,
 
 		Dire = 65,
 

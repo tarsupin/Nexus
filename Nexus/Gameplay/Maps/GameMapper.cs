@@ -238,7 +238,7 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.Saw, Type.GetType("Nexus.Objects.Saw") },
 			{ (byte) ObjectEnum.Slammer, Type.GetType("Nexus.Objects.Slammer") },
 			{ (byte) ObjectEnum.HoveringEye, Type.GetType("Nexus.Objects.HoveringEye") },
-			{ (byte) ObjectEnum.WallBouncer, Type.GetType("Nexus.Objects.WallBouncer") },
+			{ (byte) ObjectEnum.Bouncer, Type.GetType("Nexus.Objects.Bouncer") },
 
 			{ (byte) ObjectEnum.Dire, Type.GetType("Nexus.Objects.Dire") },
 

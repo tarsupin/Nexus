@@ -329,7 +329,7 @@
     <Compile Include="ObjectsTiles\Special\Chest.cs" />
     <Compile Include="Objects\EnemyFlight\Slammer.cs" />
     <Compile Include="Objects\EnemyFlight\Dire.cs" />
-    <Compile Include="Objects\EnemyFlight\WallBouncer.cs" />
+    <Compile Include="Objects\EnemyFlight\Bouncer.cs" />
     <Compile Include="Objects\EnemyFlight\HoveringEye.cs" />
     <Compile Include="Objects\EnemyFlight\Saw.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairMagic.cs" />

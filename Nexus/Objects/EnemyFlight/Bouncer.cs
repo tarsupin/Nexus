@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public enum WallBouncerSubType : byte { Normal }
+	public enum BouncerSubType : byte { Normal }
 
-	public class WallBouncer : EnemyFlight {
+	public class Bouncer : EnemyFlight {
 
-		public WallBouncer(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+		public Bouncer(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
 
 			// Physics, Collisions, etc.

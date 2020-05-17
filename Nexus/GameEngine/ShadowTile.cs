@@ -151,9 +151,9 @@ namespace Nexus.Objects {
 				{  (byte) HoveringEyeSubType.Eye, "Eye/Eye" },
 			}},
 
-			// WallBouncer
-			{ (byte) ObjectEnum.WallBouncer, new Dictionary<byte, string> {
-				{  (byte) WallBouncerSubType.Normal, "Bouncer/Norm" },
+			// Bouncer
+			{ (byte) ObjectEnum.Bouncer, new Dictionary<byte, string> {
+				{  (byte) BouncerSubType.Normal, "Bouncer/Norm" },
 			}},
 			
 			// Dire
