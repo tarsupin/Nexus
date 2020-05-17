@@ -239,7 +239,15 @@ namespace Nexus.GameEngine {
 
 				// Place Tile
 				if(ph.tileId > 0) {
-					this.PlaceTile(this.levelContent.data.rooms[this.roomID].main, LayerEnum.main, gridX, gridY, ph.tileId, ph.subType, null);
+					RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
+
+					if(ph.layerEnum == LayerEnum.main) {
+						this.PlaceTile(roomData.main, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
+					} else  if(ph.layerEnum == LayerEnum.bg) {
+						this.PlaceTile(roomData.bg, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
+					} else  if(ph.layerEnum == LayerEnum.fg) {
+						this.PlaceTile(roomData.fg, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
+					}
 				}
 
 				// Place Object
