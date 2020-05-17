@@ -38,7 +38,7 @@ namespace Nexus.Scripts {
 			if(isObject) {
 				if(
 					tileId == (byte)TileEnum.PlatformFixed ||
-					tileId == (byte)TileEnum.PlatformItem ||
+					tileId == (byte)TileEnum.PlatformItem
 				) {
 					this.MoveTileDataToLayer(LayerEnum.main, tileId, subTypeId, paramList);
 					isObject = false;
