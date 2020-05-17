@@ -80,7 +80,7 @@ namespace Nexus.GameEngine {
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ElementalEye,
+			//		tileId = (byte) ObjectEnum.HoveringEye,
 			//		subType = (byte) Something.Standard,
 			//	},
 			//});

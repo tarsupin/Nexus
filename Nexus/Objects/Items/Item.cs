@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
@@ -11,8 +12,8 @@ namespace Nexus.Objects {
 	public class Item : DynamicObject {
 
 		// Item Traits
-		public byte KickStrength { get; private set; }		// The X-Axis Force that an item is kicked with. 0 means it cannot be kicked.
-		public byte ThrowStrength { get; private set; }     // The Y-Axis Force that an item is thrown with. 0 means it cannot be thrown.
+		public byte KickStrength { get; protected set; }		// The X-Axis Force that an item is kicked with. 0 means it cannot be kicked.
+		public byte ThrowStrength { get; protected set; }		// The Y-Axis Force that an item is thrown with. 0 means it cannot be thrown.
 
 		// Grip Points (where the item is held, relative to the Character holding it)
 		public sbyte gripLeft;				// The negative X value offset when facing left.
@@ -24,6 +25,7 @@ namespace Nexus.Objects {
 		public uint intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
 
 		public Item(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Item];
 
 			// Physics
 			this.physics = new Physics(this);

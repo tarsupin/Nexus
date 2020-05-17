@@ -6,13 +6,13 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public enum BuzzSubType : byte {
-		Buzz
+	public enum DireSubType : byte {
+		Dire
 	}
 
-	public class Buzz : EnemyFlight {
+	public class Dire : EnemyFlight {
 
-		public Buzz(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+		public Dire(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFly];
 
 			// Physics, Collisions, etc.
@@ -22,11 +22,11 @@ namespace Nexus.Objects {
 			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 
 			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(2, 2, -2, -2);
+			this.AssignBoundsByAtlas(6, 28, -28, -6);
 		}
 
 		private void AssignSubType( byte subType ) {
-			this.SpriteName = "Buzz/Left2";
+			this.SpriteName = "Dire/Left2";
 		}
 	}
 }

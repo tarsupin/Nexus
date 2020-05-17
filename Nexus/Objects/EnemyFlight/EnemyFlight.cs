@@ -9,5 +9,7 @@ namespace Nexus.Objects {
 		public EnemyFlight(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}
+
+		public override bool DamageByTNT() { return false; }
 	}
 }

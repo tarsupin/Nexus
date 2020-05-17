@@ -109,7 +109,7 @@ namespace Nexus.Objects {
 
 			//{ (byte) ObjectEnum.Saw, Type.GetType("Nexus.Objects.Saw") },
 			//{ (byte) ObjectEnum.Slammer, Type.GetType("Nexus.Objects.Slammer") },
-			//{ (byte) ObjectEnum.ElementalEye, Type.GetType("Nexus.Objects.ElementalEye") },
+			//{ (byte) ObjectEnum.HoveringEye, Type.GetType("Nexus.Objects.HoveringEye") },
 			//{ (byte) ObjectEnum.WallBouncer, Type.GetType("Nexus.Objects.WallBouncer") },
 			
 			//{ (byte) ObjectEnum.Dire, Type.GetType("Nexus.Objects.Dire") },

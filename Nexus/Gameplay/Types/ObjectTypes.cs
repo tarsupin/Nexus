@@ -46,6 +46,17 @@ namespace Nexus.Gameplay {
 		Yellow = 4,
 	}
 
+	public enum ButtonSubTypes : byte {
+		BR,
+		BRDown,
+		BROff,
+		BROffDown,
+		GY,
+		GYDown,
+		GYOff,
+		GYOffDown,
+	}
+
 	public enum FlightChaseAxis : byte {
 		Both = 0,
 		Horizontal = 1,
