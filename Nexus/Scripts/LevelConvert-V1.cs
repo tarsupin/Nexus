@@ -38,11 +38,17 @@ namespace Nexus.Scripts {
 			if(isObject) {
 				if(
 					tileId == (byte)TileEnum.PlatformFixed ||
-					tileId == (byte)TileEnum.PlatformItem
+					tileId == (byte)TileEnum.PlatformItem ||
 				) {
 					this.MoveTileDataToLayer(LayerEnum.main, tileId, subTypeId, paramList);
 					isObject = false;
 				}
+
+				// Fixed Button ID - from object ID 71 to tile ID 80
+				if(tileId == 71) { this.MoveTileDataToLayer(LayerEnum.main, 80, subTypeId, paramList); return; }
+
+				// Timed Button ID - from object ID 92 to tile ID 81
+				if(tileId == 71) { this.MoveTileDataToLayer(LayerEnum.main, 81, subTypeId, paramList); return; }
 			}
 
 			// Param Conversions
