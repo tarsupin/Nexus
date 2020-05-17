@@ -57,6 +57,13 @@ namespace Nexus.Scripts {
 				LevelConvert.curRoomId = roomKVP.Key;
 				RoomFormat roomData = roomKVP.Value;
 
+				if(roomData.obj != null) {
+					LevelConvert.curRoomLayerId = "obj";
+					this.ProcessLayerData(roomData.obj, true);
+				} else {
+					roomData.obj = new Dictionary<string, Dictionary<string, ArrayList>>();
+				}
+
 				if(roomData.bg != null) {
 					LevelConvert.curRoomLayerId = "bg";
 					this.ProcessLayerData(roomData.bg);
@@ -69,13 +76,6 @@ namespace Nexus.Scripts {
 					this.ProcessLayerData(roomData.main);
 				} else {
 					roomData.main = new Dictionary<string, Dictionary<string, ArrayList>>();
-				}
-
-				if(roomData.obj != null) {
-					LevelConvert.curRoomLayerId = "obj";
-					this.ProcessLayerData(roomData.obj, true);
-				} else {
-					roomData.obj = new Dictionary<string, Dictionary<string, ArrayList>>();
 				}
 
 				if(roomData.fg != null) {

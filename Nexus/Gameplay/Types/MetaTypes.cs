@@ -34,6 +34,7 @@ namespace Nexus.Gameplay {
 		BlockMoving,
 		Item,
 		Button,
+		ButtonFixed,
 		Generator,
 		Collectable,
 		Track,

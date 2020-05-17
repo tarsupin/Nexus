@@ -84,6 +84,10 @@ namespace Nexus.Gameplay {
 		ChomperMetal = 72,
 		ChomperFire = 73,
 
+		// Fixed Items (80 - 90)
+		ButtonFixed = 80,
+		ButtonTimed = 81,
+
 		// Anything below can only be interacted with by a character:
 		// These will have Passive Collision by Character Only.
 

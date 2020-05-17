@@ -315,6 +315,9 @@
     <Compile Include="ObjectsTiles\Blocks\Brick.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="ObjectsTiles\Buttons\ButtonTile.cs" />
+    <Compile Include="ObjectsTiles\Buttons\ButtonTimed.cs" />
+    <Compile Include="ObjectsTiles\Buttons\ButtonFixed.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\HorizontalWall.cs" />
     <Compile Include="ObjectsTiles\Portals\DoorLock.cs" />
     <Compile Include="ObjectsTiles\Portals\Door.cs" />

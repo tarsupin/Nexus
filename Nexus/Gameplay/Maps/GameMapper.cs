@@ -81,13 +81,14 @@ namespace Nexus.Gameplay {
 				// PlatSolid, PlatMove, PlatFall, PlatDip, PlatDelay
 			MetaList[MetaGroup.EnemyFixed] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesLand, LayerEnum.main, LoadOrder.Enemy);
 				// Chomper, Fire Chomper, Plant
-			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesLand, LayerEnum.main, LoadOrder.Enemy);
-			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesFly, LayerEnum.main, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyLand] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesLand, LayerEnum.obj, LoadOrder.Enemy);
+			MetaList[MetaGroup.EnemyFly] = new IMetaData(Arch.Enemy, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesFly, LayerEnum.obj, LoadOrder.Enemy);
 			MetaList[MetaGroup.BlockMoving] = new IMetaData(Arch.MovingBlock, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.EnemiesFly, LayerEnum.main, LoadOrder.Enemy);
 				// Slammer
-			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.main, LoadOrder.Item);
+			MetaList[MetaGroup.Item] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.obj, LoadOrder.Item);
 				// Most Items (but not buttons)
-			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.main, LoadOrder.Item);
+			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.obj, LoadOrder.Item);
+			MetaList[MetaGroup.ButtonFixed] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.ColorToggles, LayerEnum.main, LoadOrder.Item);
 				// Buttons
 			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
 				// Cannon, Placer
@@ -199,11 +200,6 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.PromptArrow, new PromptArrow() },
 				{ (byte) TileEnum.PromptIcon, new PromptIcon() },
 
-				// Background Interactives (These Collide)
-				{ (byte) TileEnum.BGDisable, new BGDisable() },
-				{ (byte) TileEnum.BGTap, new BGTap() },
-				//{ (byte) TileEnum.BGWind, new BGWind() },
-
 				// Fixed, Touch-Effect (40 - 49)
 				{ (byte) TileEnum.Brick, new Brick() },
 				{ (byte) TileEnum.Box, new Box() },
@@ -244,8 +240,17 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ChomperMetal, new ChomperMetal() },
 				{ (byte) TileEnum.ChomperFire, new ChomperFire() },
 
+				// Fixed Items (80 - 90)
+				{ (byte) TileEnum.ButtonFixed, new ButtonFixed() },
+				{ (byte) TileEnum.ButtonTimed, new ButtonTimed() },
+
 				// Anything below can only be interacted with by a character:
 				// These will have Passive Collision by Character Only.
+				
+				// Background Interactives (These Collide) (140 - 149)
+				{ (byte) TileEnum.BGDisable, new BGDisable() },
+				{ (byte) TileEnum.BGTap, new BGTap() },
+				//{ (byte) TileEnum.BGWind, new BGWind() },
 
 				// Character Interactives (150 - 159)
 				{ (byte) TileEnum.Chest, new Chest() },
