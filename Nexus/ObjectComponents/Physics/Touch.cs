@@ -44,27 +44,27 @@ namespace Nexus.ObjectComponents {
 
 		public void TouchLeft() {
 			this.toLeft = true;
-			this.isTouching = true;
+			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
 		public void TouchRight() {
 			this.toRight = true;
-			this.isTouching = true;
+			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
 		public void TouchUp() {
 			this.toTop = true;
-			this.isTouching = true;
+			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
 		public void TouchDown() {
 			this.toBottom = true;
 			this.toFloor = true;
-			this.isTouching = true;
+			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
 		public void TouchPlatform( DynamicObject platform ) {
-			this.isTouching = true;
+			if(this.isTouching == false) { this.isTouching = true; }
 			this.touchObj = platform;
 		}
 	}

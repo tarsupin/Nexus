@@ -10,14 +10,21 @@ namespace Nexus.ObjectComponents {
 
 		// Physics Values
 		public FVector physPos;			// The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
+
+		// Detection
 		public int lastPosX;
 		public int lastPosY;
-		public FVector velocity;
-		public FVector extraMovement;
-		public FInt gravity;
 		public Touch touch;
 
 		protected bool hasExtraMovement;
+
+		// Movements
+		public FVector moved;           // The X, Y actually moved during its last frame, after its resistances were handled. Once set for the frame, don't change it.
+		public FVector intend;          // The X, Y the actor intends to move during its frame. A combination of gravity + velocity + extraMovement. Once set for the frame, don't change it.
+		public FVector result;			// The X, Y the actor will actually travel. This can change through the frame, if blocked by tile or object.
+		public FVector velocity;
+		public FVector extraMovement;	// Added values, such as for conveyor belts, platforms, etc.
+		public FInt gravity;
 
 		public Physics( DynamicObject actor ) {
 			this.actor = actor;
