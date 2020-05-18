@@ -140,23 +140,6 @@ namespace Nexus.ObjectComponents {
 			this.TrackPhysicsTick();
 		}
 
-		// Run this method AFTER collisions take place.
-		// At this point, this.result may have changed from collisions. Update certain values accordingly.
-		public void RunPhysicsTickNew() {
-
-			this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
-
-			this.velocity.Y += this.gravity;
-			this.touch.ResetTouch();
-			this.TrackPhysicsTick();
-		}
-
-		// Run this method after the physics tick has occurred. It resets any values that need to be reset.
-		public void ResetPhysicsValues() {
-			if(hasExtraMovement) { this.extraMovement = new FVector(); }
-			this.touch.ResetTouch();
-		}
-
 		public void TrackPhysicsTick() {
 
 			// Update Positions
