@@ -71,7 +71,6 @@ namespace Nexus.ObjectComponents {
 
 			if(hasExtraMovement) {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
-				this.extraMovement = new FVector(); // Reset Extra Movement
 			}
 
 			// Reset the result, matching the intention - it may change throughout the rest of the physics update.
@@ -82,44 +81,44 @@ namespace Nexus.ObjectComponents {
 			this.passVertTile = 0;
 
 			// Crosses X Grid Left?
-			if(this.result.X.IntValue < 0) {
+			if(this.result.X < 0) {
 				int posX = this.actor.posX + this.actor.bounds.Left;
 				int gridRight = (int) (Math.Ceiling((double)(posX / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
 				
-				if(gridRight >= posX - this.result.X.IntValue) {
+				if(gridRight >= posX - this.result.X) {
 					this.passHorTile = -1;
 					this.gridCrossHor = gridRight;
 				}
 			}
 			
 			// Crosses X Grid Right?
-			else if(this.result.X.IntValue > 0) {
+			else if(this.result.X > 0) {
 				int posX = this.actor.posX + this.actor.bounds.Right;
 				int gridLeft = (int)(Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
 
-				if(gridLeft <= posX + this.result.X.IntValue) {
+				if(gridLeft <= posX + this.result.X) {
 					this.passHorTile = 1;
 					this.gridCrossHor = gridLeft;
 				}
 			}
 
 			// Crosses Y Grid Up?
-			if(this.result.Y.IntValue < 0) {
+			if(this.result.Y < 0) {
 				int posY = this.actor.posY + this.actor.bounds.Left;
 				int gridBottom = (int) (Math.Ceiling((double)(posY / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
 				
-				if(gridBottom >= posY - this.result.Y.IntValue) {
+				if(gridBottom >= posY - this.result.Y) {
 					this.passVertTile = -1;
 					this.gridCrossVert = gridBottom;
 				}
 			}
 			
 			// Crosses Y Grid Down?
-			else if(this.result.Y.IntValue > 0) {
+			else if(this.result.Y > 0) {
 				int posY = this.actor.posY + this.actor.bounds.Right;
 				int gridTop = (int)(Math.Floor((double)(posY / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
 
-				if(gridTop <= posY + this.result.Y.IntValue) {
+				if(gridTop <= posY + this.result.Y) {
 					this.passVertTile = 1;
 					this.gridCrossVert = gridTop;
 				}
@@ -129,27 +128,57 @@ namespace Nexus.ObjectComponents {
 		// Run this method AFTER collisions take place.
 		// At this point, this.result may have changed from collisions. Update certain values accordingly.
 		public void RunPhysicsTick() {
+
+			// Extra Movement (such as caused by Platforms or Conveyors)
+			if(hasExtraMovement) {
+				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
+				this.extraMovement = new FVector();
+			}
+
+			this.velocity.Y += this.gravity;
 			this.touch.ResetTouch();
-
-			this.physPos = FVector.VectorAdd(this.physPos, this.result); // Update Positions
-
-			if(this.result.X.IntValue != 0) {
-				this.actor.posX = this.physPos.X.IntValue;
-			}
-
-			if(this.result.Y.IntValue != 0) {
-				this.actor.posY = this.physPos.Y.IntValue;
-			}
+			this.TrackPhysicsTick();
 		}
 
-		// Teleports the actor to a new location after a full reset of velocity.
-		public void TeleportToPos(int x, int y, int newVelX = 0, int newVelY = 0) {
-			this.result = FVector.Create(0, 0);
-			this.velocity = FVector.Create(newVelX, newVelY);
-			this.extraMovement = FVector.Create(0, 0);
-			this.physPos = FVector.Create(x, y);
-			this.InitializePhysicsTick();
-			this.RunPhysicsTick();
+		public void TrackPhysicsTick() {
+
+			// Update Positions
+			this.physPos = FVector.VectorAdd(this.physPos, this.velocity);
+
+			// Extra Movement (such as caused by Platforms or Conveyors)
+			if(hasExtraMovement) {
+				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
+				this.extraMovement = new FVector();
+			}
+
+			this.UpdatePosX();
+			this.UpdatePosY();
+		}
+
+		public void UpdatePosX() {
+			this.lastPosX = this.actor.posX;
+			this.actor.posX = this.physPos.X.IntValue;
+		}
+
+		public void UpdatePosY() {
+			this.lastPosY = this.actor.posY;
+			this.actor.posY = this.physPos.Y.IntValue;
+		}
+
+		public void MoveToPos( FVector pos ) {
+			this.physPos = pos;
+			this.UpdatePosX();
+			this.UpdatePosY();
+		}
+
+		public void MoveToPosX( int posX ) {
+			this.physPos.X = FInt.Create(posX);
+			this.UpdatePosX();
+		}
+
+		public void MoveToPosY( int posY ) {
+			this.physPos.Y = FInt.Create(posY);
+			this.UpdatePosY();
 		}
 
 		public void StopX() {
@@ -158,32 +187,6 @@ namespace Nexus.ObjectComponents {
 
 		public void StopY() {
 			this.velocity.Y = FInt.Create(0);
-		}
-
-		// --- Collisions --- //
-		// Collisions with fixed objects (tiles) cannot repel further than the .intent value.
-		public void CollideUp(int posY) {
-			this.touch.TouchUp();
-			this.StopY();
-			this.physPos.Y = FInt.Create(posY - this.actor.bounds.Top);
-		}
-
-		public void CollideDown(int posY) {
-			this.touch.TouchDown();
-			this.StopY();
-			this.physPos.Y = FInt.Create(posY - this.actor.bounds.Bottom);
-		}
-
-		public void CollideLeft(int posX) {
-			this.touch.TouchLeft();
-			this.StopX();
-			this.physPos.X = FInt.Create(posX - this.actor.bounds.Left);
-		}
-
-		public void CollideRight(int posX) {
-			this.touch.TouchRight();
-			this.StopX();
-			this.physPos.X = FInt.Create(posX - this.actor.bounds.Right);
 		}
 	}
 }

@@ -5,6 +5,7 @@ namespace Nexus.ObjectComponents {
 
 	public static class TileCharBasicImpact {
 
+		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
 		public static bool RunImpact(Character character, DirCardinal dir, DirCardinal facing = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Right) {

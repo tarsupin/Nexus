@@ -399,27 +399,24 @@ namespace Nexus.Objects {
 
 		private void RestrictWorldSides() {
 
-			// TODO URGENT: Cleanup after messing with Collisions.
-			//// Left Bounds
-			//if(this.posX < 0) {
-			//	this.physics.MoveToPosX(0);
-			//	this.physics.StopX();
-			//}
+			// Left Bounds
+			if(this.posX < 0) {
+				this.physics.MoveToPosX(0);
+				this.physics.StopX();
+			}
 
-			//// Right Bounds
-			//else if(this.posX + this.bounds.Right >= this.room.tilemap.Width) {
-			//	this.physics.MoveToPosX(this.room.tilemap.Width - this.bounds.Right);
-			//	this.physics.StopX();
-			//}
+			// Right Bounds
+			else if(this.posX + this.bounds.Right >= this.room.tilemap.Width) {
+				this.physics.MoveToPosX(this.room.tilemap.Width - this.bounds.Right);
+				this.physics.StopX();
+			}
 		}
 
 		private void RestrictWorldTop() {
-
-			// TODO URGENT: Cleanup after messing with Collisions.
-			//if(this.posY < 0) {
-			//	this.physics.MoveToPosY(0);
-			//	this.physics.StopY();
-			//}
+			if(this.posY < 0) {
+				this.physics.MoveToPosY(0);
+				this.physics.StopY();
+			}
 		}
 
 		private void CheckFallOfWorld() {
@@ -432,6 +429,11 @@ namespace Nexus.Objects {
 
 		public override void BounceUp( DynamicObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
 			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
+		}
+
+		public static void Teleport( Character character, int posX, int posY ) {
+			character.physics.MoveToPos(FVector.Create(posX, posY));
+			character.physics.MoveToPos(FVector.Create(posX, posY)); // Second one is to reset the 'lastPos' value, to avoid 'moving' this frame.
 		}
 	}
 }

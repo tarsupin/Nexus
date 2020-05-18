@@ -9,13 +9,13 @@ namespace Nexus.ObjectComponents {
 		public static bool RunImpact(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.Center) {
 
 			if(dir == DirCardinal.Down) {
-				actor.physics.CollideDown(gridY * (byte)TilemapEnum.TileHeight);
+				CollideTileAffect.CollideDown(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
 			} else if(dir == DirCardinal.Right) {
-				actor.physics.CollideRight(gridX * (byte)TilemapEnum.TileWidth);
+				CollideTileAffect.CollideRight(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Right);
 			} else if(dir == DirCardinal.Left) {
-				actor.physics.CollideLeft(gridX * (byte)TilemapEnum.TileWidth);
+				CollideTileAffect.CollideLeft(actor, gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
 			} else if(dir == DirCardinal.Up) {
-				actor.physics.CollideUp(gridY * (byte)TilemapEnum.TileHeight);
+				CollideTileAffect.CollideUp(actor, gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Top);
 			}
 
 			return true;
