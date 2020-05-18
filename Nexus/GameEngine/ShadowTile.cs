@@ -221,7 +221,7 @@ namespace Nexus.Objects {
 			
 			// Bomb
 			{ (byte) ObjectEnum.Bomb, new Dictionary<byte, string> {
-				{  (byte) BombSubType.Bomb, "Items/Bomb" },
+				{  (byte) BombSubType.Bomb, "Items/Bomb1" },
 			}},
 			
 			// TNT
@@ -236,8 +236,8 @@ namespace Nexus.Objects {
 
 			// Button - Standard
 			{ (byte) ObjectEnum.ButtonStandard, new Dictionary<byte, string> {
-				{  (byte) ButtonSubTypes.BR, "Button/Standard/BR" },
-				{  (byte) ButtonSubTypes.GY, "Button/Standard/GY" },
+				{  (byte) ButtonSubTypes.BR, "Button/BR" },
+				{  (byte) ButtonSubTypes.GY, "Button/GY" },
 			}},
 			
 			/////////////////////////////

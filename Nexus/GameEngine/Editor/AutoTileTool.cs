@@ -320,7 +320,7 @@ namespace Nexus.Gameplay {
 
 				// Horizontal Types
 				case (byte) TileEnum.Log:
-				case (byte) TileEnum.Wall:
+				case (byte) TileEnum.SlabGray:
 				case (byte) TileEnum.PlatformFixed:
 				case (byte) TileEnum.PlatformItem:
 					return AutoGroup.Horizontal;

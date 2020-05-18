@@ -196,7 +196,7 @@ namespace Nexus.Scripts {
 				tileId == (byte) TileEnum.PlatformFixed ||
 				tileId == (byte) TileEnum.PlatformItem ||
 				tileId == (byte) TileEnum.Log ||
-				tileId == (byte) TileEnum.Wall
+				tileId == (byte) TileEnum.SlabGray
 			) {
 
 				// Convert Ground Types to Horizontal Types
@@ -239,7 +239,7 @@ namespace Nexus.Scripts {
 			if(
 				tileId == (byte)TileEnum.PlatformFixed ||
 				tileId == (byte)TileEnum.PlatformItem ||
-				tileId == (byte)TileEnum.Wall ||
+				tileId == (byte)TileEnum.SlabGray ||
 				tileId == (byte)TileEnum.Log
 			) {
 

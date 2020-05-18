@@ -1,9 +1,14 @@
 ﻿using Nexus.Gameplay;
 using Nexus.Objects;
+using static Nexus.Objects.Bomb;
+using static Nexus.Objects.Boulder;
 using static Nexus.Objects.CannonDiag;
 using static Nexus.Objects.CannonHor;
 using static Nexus.Objects.CannonVert;
 using static Nexus.Objects.Placer;
+using static Nexus.Objects.Shell;
+using static Nexus.Objects.SpringStandard;
+using static Nexus.Objects.TNT;
 
 namespace Nexus.GameEngine {
 
@@ -72,6 +77,16 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ButtonStandard,
+					subType = (byte) ButtonSubTypes.BR,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ButtonStandard,
+					subType = (byte) ButtonSubTypes.GY,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.ButtonFixed,
 					subType = (byte) ButtonSubTypes.BR,
 				},
@@ -111,45 +126,54 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.SpringStandard,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.SpringStandard,
+					subType = (byte) SpringStandardSubType.Norm,
+					layerEnum = LayerEnum.obj,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Shell,
-			//		subType = (byte) Something.Red,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Shell,
-			//		subType = (byte) Something.Green,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Shell,
-			//		subType = (byte) Something.GreenWing,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Shell,
-			//		subType = (byte) Something.Heavy,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shell,
+					subType = (byte) ShellSubType.Red,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shell,
+					subType = (byte) ShellSubType.Green,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shell,
+					subType = (byte) ShellSubType.GreenWing,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Shell,
+					subType = (byte) ShellSubType.Heavy,
+					layerEnum = LayerEnum.obj,
+				},
+			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Boulder,
-			//		subType = (byte) Something.Boulder,
-			//	},
-			//});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.TNT,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Bomb,
+					subType = (byte) BombSubType.Bomb,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.TNT,
+					subType = (byte) TNTSubType.TNT,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Boulder,
+					subType = (byte) BoulderSubType.Boulder,
+					layerEnum = LayerEnum.obj,
+				},
+			});
 
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {

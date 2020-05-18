@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) TNTSubType.TNT) {
-				this.SpriteName = "Item/TNT";
+				this.SpriteName = "Items/TNT";
 			}
 		}
 	}

@@ -21,8 +21,9 @@ namespace Nexus.Gameplay {
 		GroundCloud = 7,
 
 		// Ground-Esque, Immutable (10 - 19)
-		Wall = 10,
+		SlabGray = 10,
 		Log = 11,
+		SlabBrown = 12,
 
 		// Ledges (20 - 29)
 		LedgeGrass = 20,

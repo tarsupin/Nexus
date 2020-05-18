@@ -181,8 +181,9 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.GroundCloud, new GroundCloud() },
 				
 				// Ground-Esque, Immutable (10 - 19)
-				{ (byte) TileEnum.Wall, new Wall() },
+				{ (byte) TileEnum.SlabGray, new SlabGray() },
 				{ (byte) TileEnum.Log, new Log() },
+				{ (byte) TileEnum.SlabBrown, new SlabBrown() },
 
 				// Ledges (20 - 29)
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },

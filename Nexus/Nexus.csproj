@@ -315,6 +315,9 @@
     <Compile Include="ObjectsTiles\Blocks\Brick.cs" />
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
+    <Compile Include="ObjectsTiles\HorizontalWalls\SlabBrown.cs" />
+    <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
+    <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />
     <Compile Include="ObjectsTiles\Buttons\ButtonTile.cs" />
     <Compile Include="ObjectsTiles\Buttons\ButtonTimed.cs" />
     <Compile Include="ObjectsTiles\Buttons\ButtonFixed.cs" />
@@ -441,7 +444,7 @@
     <Compile Include="ObjectsTiles\Ground\GroundSnow.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundMud.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\Log.cs" />
-    <Compile Include="ObjectsTiles\HorizontalWalls\Wall.cs" />
+    <Compile Include="ObjectsTiles\HorizontalWalls\SlabGray.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundGrass.cs" />
     <Compile Include="ObjectsTiles\Ground\Ground.cs" />
     <Compile Include="Gameplay\Settings\Settings.cs" />
@@ -604,7 +607,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ObjectComponents\Attachments\" />
-    <Folder Include="ObjectsTiles\Springs\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

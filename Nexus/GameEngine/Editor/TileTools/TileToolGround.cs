@@ -392,18 +392,46 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			// Slab (Gray, Brown)
-			// TODO LOW PRIORITY: Need correct versions. Not just subType = 0;
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Log,
-			//		subType = (byte) HorizontalSubTypes.S,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Log,
-			//		subType = (byte) HorizontalSubTypes.S,
-			//	},
-			//});
+			// Slab (Gray)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SlabGray,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabGray,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabGray,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabGray,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+			});
+
+			// Slab (Brown)
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SlabBrown,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabBrown,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabBrown,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.SlabBrown,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+			});
+			
 		}
 	}
 }
