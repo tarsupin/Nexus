@@ -88,6 +88,8 @@ namespace Nexus.Gameplay {
 		// Fixed Items (80 - 90)
 		ButtonFixed = 80,
 		ButtonTimed = 81,
+		SpringFixed = 82,
+		SpringSide = 83,
 
 		// Anything below can only be interacted with by a character:
 		// These will have Passive Collision by Character Only.

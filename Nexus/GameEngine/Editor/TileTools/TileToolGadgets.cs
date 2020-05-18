@@ -1,5 +1,4 @@
 ﻿using Nexus.Gameplay;
-using Nexus.Objects;
 using static Nexus.Objects.Bomb;
 using static Nexus.Objects.Boulder;
 using static Nexus.Objects.CannonDiag;
@@ -7,6 +6,8 @@ using static Nexus.Objects.CannonHor;
 using static Nexus.Objects.CannonVert;
 using static Nexus.Objects.Placer;
 using static Nexus.Objects.Shell;
+using static Nexus.Objects.SpringFixed;
+using static Nexus.Objects.SpringSide;
 using static Nexus.Objects.SpringStandard;
 using static Nexus.Objects.TNT;
 
@@ -104,33 +105,23 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.SpringFixed,
-			//		subType = (byte) Something.Standard,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.SpringFixed,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.Right,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.SpringFixed,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.FlipVert,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.SpringFixed,
-			//		subType = (byte) Something.Standard,
-			//		face: DirRotate.Left,
-			//	},
-			//});
-
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.SpringStandard,
 					subType = (byte) SpringStandardSubType.Norm,
 					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SpringFixed,
+					subType = (byte) SpringFixedSubType.Fixed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SpringSide,
+					subType = (byte) SpringSideSubType.Left,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SpringSide,
+					subType = (byte) SpringSideSubType.Right,
 				},
 			});
 
@@ -174,13 +165,6 @@ namespace Nexus.GameEngine {
 					layerEnum = LayerEnum.obj,
 				},
 			});
-
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Handheld,
-			//		subType = (byte) Something.Feather,
-			//	},
-			//});
 		}
 	}
 }

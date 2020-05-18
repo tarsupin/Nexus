@@ -244,6 +244,8 @@ namespace Nexus.Gameplay {
 				// Fixed Items (80 - 90)
 				{ (byte) TileEnum.ButtonFixed, new ButtonFixed() },
 				{ (byte) TileEnum.ButtonTimed, new ButtonTimed() },
+				{ (byte) TileEnum.SpringFixed, new SpringFixed() },
+				{ (byte) TileEnum.SpringSide, new SpringSide() },
 
 				// Anything below can only be interacted with by a character:
 				// These will have Passive Collision by Character Only.

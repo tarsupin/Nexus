@@ -4,17 +4,18 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class SpringFixed : SpringTile {
+	public class SpringSide : SpringTile {
 
-		public enum SpringFixedSubType : byte {
-			Fixed = 0,
+		public enum SpringSideSubType : byte {
+			Left = 0,
+			Right = 1,
 		}
 
-		public SpringFixed() : base() {
+		public SpringSide() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Block];
-			this.title = "Fixed Spring";
-			this.description = "A spring to bounce things on.";
+			this.title = "Side Spring";
+			this.description = "A spring that things bounce off of.";
 			this.CreateTextures();
 		}
 
@@ -23,8 +24,9 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[1];
-			this.Texture[(byte)SpringFixedSubType.Fixed] = "Spring/Up";
+			this.Texture = new string[2];
+			this.Texture[(byte)SpringSideSubType.Left] = "Spring/Left";
+			this.Texture[(byte)SpringSideSubType.Right] = "Spring/Right";
 		}
 	}
 }
