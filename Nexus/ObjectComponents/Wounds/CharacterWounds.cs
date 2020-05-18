@@ -116,7 +116,7 @@ namespace Nexus.ObjectComponents {
 			// Check if there is a Retry Flag available. If so, use that.
 			if(levelState.retryFlag.active) {
 				levelState.retryFlag.active = false;
-				this.character.physics.MoveToPos(FVector.Create(levelState.retryFlag.gridX * (byte)TilemapEnum.TileWidth, levelState.retryFlag.gridY * (byte)TilemapEnum.TileHeight));
+				this.character.physics.TeleportToPos(levelState.retryFlag.gridX * (byte)TilemapEnum.TileWidth, levelState.retryFlag.gridY * (byte)TilemapEnum.TileHeight);
 				return false;
 			}
 

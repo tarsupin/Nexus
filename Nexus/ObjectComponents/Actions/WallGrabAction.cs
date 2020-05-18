@@ -78,8 +78,11 @@ namespace Nexus.ObjectComponents {
 			// TODO HIGH PRIORITY: CONFIRM GRAB MOVING PLATFORM WORKS. STILL CODE UNUSED.
 			// Wall Grabbing has Special Move Behavior (otherwise can't grab moving platforms)
 			if(grab) {
-				physics.touch.ResetTouch();
-				physics.TrackPhysicsTick();
+
+				// TODO URGENT: I removed these during the Collision Update. May need to do something here.
+				// TODO URGENT: I removed these during the Collision Update. May need to do something here.
+				//physics.touch.ResetTouch();
+				//physics.TrackPhysicsTick();
 			}
 
 			// Standard Physics
