@@ -102,7 +102,7 @@ namespace Nexus.Objects {
 			}
 
 			// Standard Physics
-			this.physics.RunTick();
+			this.physics.RunPhysicsTick();
 		}
 	}
 }

@@ -74,7 +74,7 @@ namespace Nexus.GameEngine {
 		public virtual void RunTick() {
 
 			// Standard Physics
-			this.physics.RunTick();
+			this.physics.RunPhysicsTick();
 			
 			// Animations, if applicable.
 			if(this.animate is Animate) {

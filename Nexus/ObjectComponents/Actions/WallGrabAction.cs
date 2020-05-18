@@ -83,7 +83,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Standard Physics
-			physics.RunTick();
+			physics.RunPhysicsTick();
 		}
 
 		public override void EndAction(Character character) {

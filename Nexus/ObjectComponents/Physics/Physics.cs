@@ -49,10 +49,41 @@ namespace Nexus.ObjectComponents {
 			this.gravity = gravity;
 		}
 
-		public void RunTick() {
+		// Run this method BEFORE any collisions take place. The .result value will change from collisions.
+		public void InitializePhysicsTick() {
+
+			// Track what was moved last frame:
+			this.moved = this.result;
+
+			// Determine what the intended movement is for this frame.
+			this.intend = FVector.VectorAdd(this.velocity, FVector.Create(FInt.Create(0), this.gravity));
+
+			if(hasExtraMovement) {
+				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
+			}
+
+			// Reset the result, matching the intention - it may change throughout the rest of the physics update.
+			this.result = this.intend;
+		}
+
+		// Run this method AFTER collisions take place.
+		// At this point, this.result may have changed from collisions. Update certain values accordingly.
+		public void RunPhysicsTick() {
+
+			// Extra Movement (such as caused by Platforms or Conveyors)
+			if(hasExtraMovement) {
+				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
+				this.extraMovement = new FVector();
+			}
+
 			this.velocity.Y += this.gravity;
 			this.touch.ResetTouch();
 			this.TrackPhysicsTick();
+		}
+
+		public void ResetPhysicsValues() {
+			if(hasExtraMovement) { this.extraMovement = new FVector(); }
+			this.touch.ResetTouch();
 		}
 
 		public void TrackPhysicsTick() {

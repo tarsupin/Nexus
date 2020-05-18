@@ -40,7 +40,7 @@ namespace Nexus.Objects {
 		public override void RunTick() {
 
 			// Standard Physics
-			this.physics.RunTick();
+			this.physics.RunPhysicsTick();
 		}
 
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
