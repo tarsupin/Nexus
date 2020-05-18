@@ -21,18 +21,16 @@ namespace Nexus.ObjectComponents {
 		protected bool hasExtraMovement;
 
 		// Movements
-		public FVector moved;           // The X, Y actually moved during its last frame, after its resistances were handled. Once set for the frame, don't change it.
 		public FVector intend;          // The X, Y the actor intends to move during its frame. A combination of gravity + velocity + extraMovement. Once set for the frame, don't change it.
-		public FVector result;			// The X, Y the actor will actually travel. This can change through the frame, if blocked by tile or object.
 		public FVector velocity;
 		public FVector extraMovement;	// Added values, such as for conveyor belts, platforms, etc.
 		public FInt gravity;
 
 		// Grid Crossing
-		public sbyte passHorTile;		// 0 = no horizontal grid squares were crossed. -1 means crossed LEFT, 1 means crossed RIGHT
+		public sbyte passHorTile;       // 0 = no horizontal grid squares were crossed. -1 means crossed LEFT, 1 means crossed RIGHT
 		public sbyte passVertTile;      // 0 = no vertical grid squares were crossed. -1 means crossed UP, 1 means crossed DOWN
-		public int gridCrossHor;		// The integer value of the horizontal grid line being crossed.
-		public int gridCrossVert;		// The integer value of the vertical grid line being crossed.
+		public ushort gridXCollide;     // The grid X value that was crossed into (if applicable).
+		public ushort gridYCollide;     // The grid Y value that was crossed into (if applicable).
 
 		public Physics( DynamicObject actor ) {
 			this.actor = actor;
@@ -58,10 +56,8 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// Run this method BEFORE any collisions take place. The .result value will change from collisions.
-		public void InitializePhysicsTick() {
-
-			// Track what was moved last frame:
-			this.moved = this.result;
+		public void RunPhysicsTick() {
+			this.touch.ResetTouch();
 
 			// Apply Gravity to Velocity
 			this.velocity.Y += this.gravity;
@@ -73,70 +69,54 @@ namespace Nexus.ObjectComponents {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
 			}
 
-			// Reset the result, matching the intention - it may change throughout the rest of the physics update.
-			this.result = this.intend;
-
 			// --- Determine if actor crosses a grid square to potentially collide with a tile. --- //
 			this.passHorTile = 0;
 			this.passVertTile = 0;
 
 			// Crosses X Grid Left?
-			if(this.result.X < 0) {
+			if(this.intend.X.IntValue < 0) {
 				int posX = this.actor.posX + this.actor.bounds.Left;
-				int gridRight = (int) (Math.Ceiling((double)(posX / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
-				
-				if(gridRight >= posX - this.result.X) {
+				ushort gridRight = (ushort)Math.Ceiling((double)(posX / (byte)TilemapEnum.TileWidth));
+
+				if(gridRight * (byte)TilemapEnum.TileWidth >= posX - this.intend.X.IntValue) {
 					this.passHorTile = -1;
-					this.gridCrossHor = gridRight;
+					this.gridXCollide = (ushort)(gridRight - 1);
 				}
 			}
-			
-			// Crosses X Grid Right?
-			else if(this.result.X > 0) {
-				int posX = this.actor.posX + this.actor.bounds.Right;
-				int gridLeft = (int)(Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
 
-				if(gridLeft <= posX + this.result.X) {
+			// Crosses X Grid Right?
+			else if(this.intend.X.IntValue > 0) {
+				int posX = this.actor.posX + this.actor.bounds.Right;
+				ushort gridLeft = (ushort)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth));
+
+				if(gridLeft * (byte)TilemapEnum.TileWidth <= posX + this.intend.X.IntValue) {
 					this.passHorTile = 1;
-					this.gridCrossHor = gridLeft;
+					this.gridXCollide = (ushort)(gridLeft + 1);
 				}
 			}
 
 			// Crosses Y Grid Up?
-			if(this.result.Y < 0) {
+			if(this.intend.Y.IntValue < 0) {
 				int posY = this.actor.posY + this.actor.bounds.Left;
-				int gridBottom = (int) (Math.Ceiling((double)(posY / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
-				
-				if(gridBottom >= posY - this.result.Y) {
+				ushort gridBottom = (ushort)Math.Ceiling((double)(posY / (byte)TilemapEnum.TileHeight));
+
+				if(gridBottom * (byte)TilemapEnum.TileHeight >= posY - this.intend.Y.IntValue) {
 					this.passVertTile = -1;
-					this.gridCrossVert = gridBottom;
+					this.gridYCollide = (ushort)(gridBottom - 1);
+				}
+			}
+
+			// Crosses Y Grid Down?
+			else if(this.intend.Y.IntValue > 0) {
+				int posY = this.actor.posY + this.actor.bounds.Right;
+				ushort gridTop = (ushort)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight));
+
+				if(gridTop * (byte)TilemapEnum.TileHeight <= posY + this.intend.Y.IntValue) {
+					this.passVertTile = 1;
+					this.gridYCollide = (ushort)(gridTop + 1);
 				}
 			}
 			
-			// Crosses Y Grid Down?
-			else if(this.result.Y > 0) {
-				int posY = this.actor.posY + this.actor.bounds.Right;
-				int gridTop = (int)(Math.Floor((double)(posY / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
-
-				if(gridTop <= posY + this.result.Y) {
-					this.passVertTile = 1;
-					this.gridCrossVert = gridTop;
-				}
-			}
-		}
-
-		// Run this method AFTER collisions take place.
-		// At this point, this.result may have changed from collisions. Update certain values accordingly.
-		public void RunPhysicsTick() {
-
-			// Extra Movement (such as caused by Platforms or Conveyors)
-			if(hasExtraMovement) {
-				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
-				this.extraMovement = new FVector();
-			}
-
-			this.velocity.Y += this.gravity;
-			this.touch.ResetTouch();
 			this.TrackPhysicsTick();
 		}
 
