@@ -1,5 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
+using System;
 
 namespace Nexus.ObjectComponents {
 
@@ -25,6 +27,12 @@ namespace Nexus.ObjectComponents {
 		public FVector velocity;
 		public FVector extraMovement;	// Added values, such as for conveyor belts, platforms, etc.
 		public FInt gravity;
+
+		// Grid Crossing
+		public sbyte passHorTile;		// 0 = no horizontal grid squares were crossed. -1 means crossed LEFT, 1 means crossed RIGHT
+		public sbyte passVertTile;      // 0 = no vertical grid squares were crossed. -1 means crossed UP, 1 means crossed DOWN
+		public int gridCrossHor;		// The integer value of the horizontal grid line being crossed.
+		public int gridCrossVert;		// The integer value of the vertical grid line being crossed.
 
 		public Physics( DynamicObject actor ) {
 			this.actor = actor;
@@ -55,8 +63,11 @@ namespace Nexus.ObjectComponents {
 			// Track what was moved last frame:
 			this.moved = this.result;
 
+			// Apply Gravity to Velocity
+			this.velocity.Y += this.gravity;
+
 			// Determine what the intended movement is for this frame.
-			this.intend = FVector.VectorAdd(this.velocity, FVector.Create(FInt.Create(0), this.gravity));
+			this.intend = this.velocity;
 
 			if(hasExtraMovement) {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
@@ -64,6 +75,54 @@ namespace Nexus.ObjectComponents {
 
 			// Reset the result, matching the intention - it may change throughout the rest of the physics update.
 			this.result = this.intend;
+
+			// --- Determine if actor crosses a grid square to potentially collide with a tile. --- //
+			this.passHorTile = 0;
+			this.passVertTile = 0;
+
+			// Crosses X Grid Left?
+			if(this.result.X < 0) {
+				int posX = this.actor.posX + this.actor.bounds.Left;
+				int gridRight = (int) (Math.Ceiling((double)(posX / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
+				
+				if(gridRight >= posX - this.result.X) {
+					this.passHorTile = -1;
+					this.gridCrossHor = gridRight;
+				}
+			}
+			
+			// Crosses X Grid Right?
+			else if(this.result.X > 0) {
+				int posX = this.actor.posX + this.actor.bounds.Right;
+				int gridLeft = (int)(Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
+
+				if(gridLeft <= posX + this.result.X) {
+					this.passHorTile = 1;
+					this.gridCrossHor = gridLeft;
+				}
+			}
+
+			// Crosses Y Grid Up?
+			if(this.result.Y < 0) {
+				int posY = this.actor.posY + this.actor.bounds.Left;
+				int gridBottom = (int) (Math.Ceiling((double)(posY / (byte) TilemapEnum.TileWidth)) * (byte) TilemapEnum.TileWidth);
+				
+				if(gridBottom >= posY - this.result.Y) {
+					this.passVertTile = -1;
+					this.gridCrossVert = gridBottom;
+				}
+			}
+			
+			// Crosses Y Grid Down?
+			else if(this.result.Y > 0) {
+				int posY = this.actor.posY + this.actor.bounds.Right;
+				int gridTop = (int)(Math.Floor((double)(posY / (byte)TilemapEnum.TileWidth)) * (byte)TilemapEnum.TileWidth);
+
+				if(gridTop <= posY + this.result.Y) {
+					this.passVertTile = 1;
+					this.gridCrossVert = gridTop;
+				}
+			}
 		}
 
 		// Run this method AFTER collisions take place.
@@ -81,6 +140,18 @@ namespace Nexus.ObjectComponents {
 			this.TrackPhysicsTick();
 		}
 
+		// Run this method AFTER collisions take place.
+		// At this point, this.result may have changed from collisions. Update certain values accordingly.
+		public void RunPhysicsTickNew() {
+
+			this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
+
+			this.velocity.Y += this.gravity;
+			this.touch.ResetTouch();
+			this.TrackPhysicsTick();
+		}
+
+		// Run this method after the physics tick has occurred. It resets any values that need to be reset.
 		public void ResetPhysicsValues() {
 			if(hasExtraMovement) { this.extraMovement = new FVector(); }
 			this.touch.ResetTouch();
