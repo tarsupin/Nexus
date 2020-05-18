@@ -187,7 +187,8 @@ namespace Nexus.Gameplay {
 
 				// Ledges (20 - 29)
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
-				{ (byte) TileEnum.LedgeGrassDecor, new LedgeGrassDecor() },
+				{ (byte) TileEnum.LedgeDecor, new LedgeDecor() },
+				{ (byte) TileEnum.LedgeSnow, new LedgeSnow() },
 				{ (byte) TileEnum.PlatformFixed, new PlatformFixed() },
 				//{ (byte) TileEnum.PlatformItem, new PlatformItem() },
 				

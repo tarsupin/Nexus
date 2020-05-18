@@ -117,7 +117,7 @@ namespace Nexus.Gameplay {
 		// Special Ledge Placement (full axis movement). Top section will use Ledge, rest will use LedgeDecor.
 		private void PlaceAutoTilesLedge(EditorRoomScene scene, ushort left, ushort right, ushort top, ushort bottom) {
 			byte ledgeTool = this.tileId;
-			byte decorTool = (byte) (this.tileId + 1);
+			byte decorTool = (byte)TileEnum.LedgeDecor;
 
 			// Place Top of Ledge
 			for(ushort x = left; x <= right; x++) {
@@ -213,7 +213,7 @@ namespace Nexus.Gameplay {
 		// Special Ledge Draw. Top section will use Ledge, rest will use LedgeDecor.
 		private void DrawAutoTilesLedge(ushort left, ushort right, ushort top, ushort bottom) {
 			byte ledgeTool = this.tileId;
-			byte decorTool = (byte)(this.tileId + 1);
+			byte decorTool = (byte) TileEnum.LedgeDecor;
 
 			// Draw Top of Ledge
 			for(ushort x = left; x <= right; x++) {
@@ -340,6 +340,7 @@ namespace Nexus.Gameplay {
 
 				// Ledges
 				case (byte) TileEnum.LedgeGrass:
+				case (byte) TileEnum.LedgeSnow:
 					return AutoGroup.Ledge;
 
 				// Static

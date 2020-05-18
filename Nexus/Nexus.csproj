@@ -316,6 +316,7 @@
     <Compile Include="ObjectsTiles\Blocks\Box.cs" />
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\SlabBrown.cs" />
+    <Compile Include="ObjectsTiles\Ledges\LedgeSnow.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringSide.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />
@@ -373,7 +374,7 @@
     <Compile Include="ObjectsTiles\Blocks\BlockTile.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundCloud.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundDirt.cs" />
-    <Compile Include="ObjectsTiles\Ledges\LedgeGrassDecor.cs" />
+    <Compile Include="ObjectsTiles\Ledges\LedgeDecor.cs" />
     <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformDown.cs" />
     <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformRight.cs" />
     <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformLeft.cs" />

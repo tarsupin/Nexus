@@ -2,11 +2,11 @@
 
 namespace Nexus.Objects {
 
-	public class LedgeGrassDecor : Decor {
+	public class LedgeDecor : Decor {
 
-		public LedgeGrassDecor() : base() {
+		public LedgeDecor() : base() {
 			this.BuildTextures("GrassLedge/");
-			this.tileId = (byte)TileEnum.LedgeGrassDecor;
+			this.tileId = (byte)TileEnum.LedgeDecor;
 		}
 
 		protected void BuildTextures(string baseName) {

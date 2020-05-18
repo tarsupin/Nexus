@@ -27,7 +27,8 @@ namespace Nexus.Gameplay {
 
 		// Ledges (20 - 29)
 		LedgeGrass = 20,
-		LedgeGrassDecor = 21,
+		LedgeDecor = 21,
+		LedgeSnow = 22,
 		PlatformFixed = 25,
 		PlatformItem = 26,
 
