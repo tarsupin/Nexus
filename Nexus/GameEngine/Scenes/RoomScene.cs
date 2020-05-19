@@ -113,8 +113,7 @@ namespace Nexus.GameEngine {
 				obj.Value.RunTick();
 
 				// Run Tile Detection for the Object
-				// TODO: Eventually check 1x1 size, and replace with a tile detection that can account for larger sets if it's not 1x1 tile sized.
-				CollideTile.RunQuadrantDetection(this, obj.Value);
+				CollideTile.RunTileCollision(obj.Value);
 			}
 		}
 

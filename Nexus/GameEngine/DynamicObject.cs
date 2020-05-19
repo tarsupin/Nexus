@@ -9,8 +9,9 @@ namespace Nexus.GameEngine {
 	public enum Activity : byte {
 		Inactive = 0,               // The object is inactive, not visible, etc. No reason to run updates.
 		NoCollide = 1,				// The object requires updates, but don't run collision.
-		Active = 2,                 // The object is currently active; usually visible to a player (multiplayer-ready). Needs to run updates.
-		ForceActive = 3,            // The object is forced to be active through the whole level. Always run updates.
+		NoTileCollide = 2,			// The object requires updates, but doesn't collide with tiles.
+		Active = 3,                 // The object is currently active; usually visible to a player (multiplayer-ready). Needs to run updates.
+		ForceActive = 4,            // The object is forced to be active through the whole level. Always run updates.
 	}
 
 	public enum CommonState : byte {

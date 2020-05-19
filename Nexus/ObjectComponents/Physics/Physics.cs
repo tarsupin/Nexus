@@ -11,7 +11,7 @@ namespace Nexus.ObjectComponents {
 		protected DynamicObject actor;
 
 		// Physics Values
-		public FVector physPos;			// The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
+		public FVector physPos;         // The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
 
 		// Detection
 		public int lastPosX;
@@ -23,7 +23,7 @@ namespace Nexus.ObjectComponents {
 		// Movements
 		public FVector intend;          // The X, Y the actor intends to move during its frame. A combination of gravity + velocity + extraMovement. Once set for the frame, don't change it.
 		public FVector velocity;
-		public FVector extraMovement;	// Added values, such as for conveyor belts, platforms, etc.
+		public FVector extraMovement;   // Added values, such as for conveyor belts, platforms, etc.
 		public FInt gravity;
 
 		// Grid Crossing
@@ -32,7 +32,7 @@ namespace Nexus.ObjectComponents {
 		public ushort gridXCollide;     // The grid X value that was crossed into (if applicable).
 		public ushort gridYCollide;     // The grid Y value that was crossed into (if applicable).
 
-		public Physics( DynamicObject actor ) {
+		public Physics(DynamicObject actor) {
 			this.actor = actor;
 
 			this.physPos = FVector.Create(this.actor.posX, this.actor.posY);
@@ -51,7 +51,7 @@ namespace Nexus.ObjectComponents {
 		public int AmountMovedX { get { return this.actor.posX - this.lastPosX; } }
 		public int AmountMovedY { get { return this.actor.posY - this.lastPosY; } }
 
-		public void SetGravity( FInt gravity ) {
+		public void SetGravity(FInt gravity) {
 			this.gravity = gravity;
 		}
 
@@ -69,54 +69,6 @@ namespace Nexus.ObjectComponents {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
 			}
 
-			// --- Determine if actor crosses a grid square to potentially collide with a tile. --- //
-			this.passHorTile = 0;
-			this.passVertTile = 0;
-
-			// Crosses X Grid Left?
-			if(this.intend.X.IntValue < 0) {
-				int posX = this.actor.posX + this.actor.bounds.Left;
-				ushort gridRight = (ushort)Math.Ceiling((double)(posX / (byte)TilemapEnum.TileWidth));
-
-				if(gridRight * (byte)TilemapEnum.TileWidth >= posX - this.intend.X.IntValue) {
-					this.passHorTile = -1;
-					this.gridXCollide = (ushort)(gridRight - 1);
-				}
-			}
-
-			// Crosses X Grid Right?
-			else if(this.intend.X.IntValue > 0) {
-				int posX = this.actor.posX + this.actor.bounds.Right;
-				ushort gridLeft = (ushort)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth));
-
-				if(gridLeft * (byte)TilemapEnum.TileWidth <= posX + this.intend.X.IntValue) {
-					this.passHorTile = 1;
-					this.gridXCollide = (ushort)(gridLeft + 1);
-				}
-			}
-
-			// Crosses Y Grid Up?
-			if(this.intend.Y.IntValue < 0) {
-				int posY = this.actor.posY + this.actor.bounds.Left;
-				ushort gridBottom = (ushort)Math.Ceiling((double)(posY / (byte)TilemapEnum.TileHeight));
-
-				if(gridBottom * (byte)TilemapEnum.TileHeight >= posY - this.intend.Y.IntValue) {
-					this.passVertTile = -1;
-					this.gridYCollide = (ushort)(gridBottom - 1);
-				}
-			}
-
-			// Crosses Y Grid Down?
-			else if(this.intend.Y.IntValue > 0) {
-				int posY = this.actor.posY + this.actor.bounds.Right;
-				ushort gridTop = (ushort)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight));
-
-				if(gridTop * (byte)TilemapEnum.TileHeight <= posY + this.intend.Y.IntValue) {
-					this.passVertTile = 1;
-					this.gridYCollide = (ushort)(gridTop + 1);
-				}
-			}
-			
 			this.TrackPhysicsTick();
 		}
 
@@ -145,18 +97,18 @@ namespace Nexus.ObjectComponents {
 			this.actor.posY = this.physPos.Y.IntValue;
 		}
 
-		public void MoveToPos( FVector pos ) {
+		public void MoveToPos(FVector pos) {
 			this.physPos = pos;
 			this.UpdatePosX();
 			this.UpdatePosY();
 		}
 
-		public void MoveToPosX( int posX ) {
+		public void MoveToPosX(int posX) {
 			this.physPos.X = FInt.Create(posX);
 			this.UpdatePosX();
 		}
 
-		public void MoveToPosY( int posY ) {
+		public void MoveToPosY(int posY) {
 			this.physPos.Y = FInt.Create(posY);
 			this.UpdatePosY();
 		}
@@ -168,5 +120,17 @@ namespace Nexus.ObjectComponents {
 		public void StopY() {
 			this.velocity.Y = FInt.Create(0);
 		}
+
+		// --- Return TRUE if crossed a threshold. Used for checking if a new grid square was entered. --- //
+		public bool CrossedThresholdUp(int posY) { int top = this.actor.posY + this.actor.bounds.Top; return top >= posY && top + this.intend.Y.IntValue <= posY; }
+		public bool CrossedThresholdDown(int posY) { int bottom = this.actor.posY + this.actor.bounds.Bottom; return bottom <= posY && bottom + this.intend.Y.IntValue >= posY; }
+		public bool CrossedThresholdLeft(int posX) { int left = this.actor.posX + this.actor.bounds.Left; return left >= posX && left + this.intend.X.IntValue <= posX; }
+		public bool CrossedThresholdRight(int posX) { int right = this.actor.posX + this.actor.bounds.Right; return right <= posX && right + this.intend.X.IntValue >= posX; }
+
+		// --- Return the distance of how far a threshold was crossed. -- //
+		public int CrossedThresholdUpDist(int posY) { return this.actor.posY + this.actor.bounds.Top + this.intend.Y.IntValue - posY; }
+		public int CrossedThresholdDownDist(int posY) { return this.actor.posY + this.actor.bounds.Bottom + this.intend.Y.IntValue - posY; }
+		public int CrossedThresholdLeftDist(int posX) { return this.actor.posX + this.actor.bounds.Left + this.intend.X.IntValue - posX; }
+		public int CrossedThresholdRightDist(int posX) { return this.actor.posX + this.actor.bounds.Right + this.intend.X.IntValue - posX; }
 	}
 }

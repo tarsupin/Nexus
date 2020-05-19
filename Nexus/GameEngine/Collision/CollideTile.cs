@@ -1,5 +1,8 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using Nexus.Objects;
 
 // CollideTile handles collision detection between objects and tiles.
 
@@ -24,18 +27,17 @@ namespace Nexus.GameEngine {
 		}
 
 		// Perform Collision Detection against a designated Grid Square
-		public static bool RunGridTest(RoomScene room, DynamicObject actor, TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool RunGridTest(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
 			// Destroy objects that get too close to bottom:
-			var something = tilemap.Height;
-			if(actor.posY >= something) {
+			if(actor.posY >= actor.room.tilemap.Height) {
 				actor.Destroy();
 				return false;
 			}
 
 			// Verify that a tile exists at the given location:
-			byte[] tileData = tilemap.GetTileDataAtGrid(gridX, gridY);
+			byte[] tileData = actor.room.tilemap.GetTileDataAtGrid(gridX, gridY);
 
 			// If the tile was removed, never existed, or the main layer has no content:
 			if(tileData == null || tileData[0] == 0) { return false; }
@@ -46,14 +48,14 @@ namespace Nexus.GameEngine {
 			if(tileObj == null || !tileObj.collides) { return false; }
 
 			// Run Tile Collision
-			return tileObj.RunImpact(room, actor, gridX, gridY, dir);
+			return tileObj.RunImpact(actor.room, actor, gridX, gridY, dir);
 		}
 
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.
-		public static void RunQuadrantDetection(RoomScene room, DynamicObject actor) {
+		public static void RunTileCollision(DynamicObject actor) {
 
 			// Don't run collision if the actor is designated not to collide.
-			if(actor.Activity <= Activity.NoCollide) { return; }
+			if(actor.Activity <= Activity.NoTileCollide) { return; }
 
 			// Determine Tiles Potentially Touched
 			ushort gridX = actor.GridX;
@@ -73,29 +75,21 @@ namespace Nexus.GameEngine {
 				FInt velY = actor.physics.velocity.Y;
 
 				if(velY >= 0) {
-
-					// TODO: Want to implement this, but causes corner clipping when all of them are added.
-					// If the Y-Overlap has exceeded the maximum allowed, no need to run any tests.
-					//int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight);
-					//if(yOverlap > actor.physics.AmountMovedY) { return; }
-
-					CollideTile.RunGridTest(room, actor, actor.room.tilemap, gridX, gridY2, DirCardinal.Down);
+					CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
 				}
 
-				else if(velY < 0) { CollideTile.RunGridTest(room, actor, actor.room.tilemap, gridX, gridY, DirCardinal.Up); }
+				else if(velY < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
 			}
 
 			// If the object is only interacting between two tiles (left and right).
 			else if(horOnly) {
 				FInt velX = actor.physics.velocity.X;
-				if(velX >= 0) { CollideTile.RunGridTest(room, actor, actor.room.tilemap, gridX2, gridY, DirCardinal.Right); }
-				else if(velX < 0) { CollideTile.RunGridTest(room, actor, actor.room.tilemap, gridX, gridY, DirCardinal.Left); }
+				if(velX >= 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right); }
+				else if(velX < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left); }
 			}
 
 			// If the object is interacting with all four tiles (Top-Left to Bottom-Right).
 			else {
-
-				TilemapLevel tilemap = actor.room.tilemap;
 
 				FInt velX = actor.physics.velocity.X;
 				FInt velY = actor.physics.velocity.Y;
@@ -107,19 +101,13 @@ namespace Nexus.GameEngine {
 					if(velX > 0) {
 
 						// Compare against BOTTOM-LEFT (vs. up) and TOP-RIGHT (vs. left)
-						bool down = CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY2, DirCardinal.Down);
-						bool right = CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY, DirCardinal.Right);
+						bool right = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right);
+						bool down = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!down && !right) {
 							int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
-
-							// TODO: Want to implement this, but causes corner clipping when all of them are added.
-							// If the Y-Overlap has exceeded the maximum allowed, no need to run any tests.
-							//int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight);
-							//if(yOverlap > actor.physics.AmountMovedY) { return; }
-
-							CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY2, xOverlap > actor.physics.AmountMovedX ? DirCardinal.Down : DirCardinal.Right);
+							CollideTile.RunGridTest(actor, gridX2, gridY2, xOverlap > actor.physics.intend.X.IntValue ? DirCardinal.Down : DirCardinal.Right);
 						}
 					}
 
@@ -127,37 +115,26 @@ namespace Nexus.GameEngine {
 					else if(velX < 0) {
 
 						// Compare against BOTTOM-RIGHT (vs.up) and TOP-LEFT (vs. right)
-						bool down = CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY2, DirCardinal.Down);
-						bool left = CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY, DirCardinal.Left);
+						bool left = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left);
+						bool down = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down);
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!down && !left) {
-
-							// TODO: Want to implement this, but causes corner clipping when all of them are added.
-							// If the Y-Overlap has exceeded the maximum allowed, no need to run any tests.
-							//int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight);
-							//if(yOverlap > actor.physics.AmountMovedY) { return; }
-
-							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY2, xOverlap < actor.physics.AmountMovedX ? DirCardinal.Down : DirCardinal.Left);
+							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
+							CollideTile.RunGridTest(actor, gridX, gridY2, xOverlap < actor.physics.intend.X.IntValue ? DirCardinal.Down : DirCardinal.Left);
 						}
 					}
 
 					// If moving DOWN:
 					else {
 
-						// TODO: Want to implement this, but causes corner clipping when all of them are added.
-						// If the Y-Overlap has exceeded the maximum allowed, no need to run any tests.
-						//int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight);
-						//if(yOverlap > actor.physics.AmountMovedY) { return; }
-
 						// Get Overlaps
 						int xOverlapLeft = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
 						int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
 						// Compare against BOTTOM HALF (vs. up). No corner test.
-						if(xOverlapLeft < 0) { CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY2, DirCardinal.Down); }
-						if(xOverlapRight > 0) { CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY2, DirCardinal.Down); }
+						if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down); }
+						if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down); }
 					}
 				}
 
@@ -168,13 +145,13 @@ namespace Nexus.GameEngine {
 					if(velX > 0) {
 
 						// Compare against TOP-LEFT (vs. down) and BOTTOM-RIGHT (vs. left) 
-						bool up = CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY, DirCardinal.Up);
-						bool right = CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY2, DirCardinal.Right);
+						bool up = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up);
+						bool right = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Right);
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!up && !right) {
-							int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY, xOverlap > actor.physics.AmountMovedX ? DirCardinal.Up : DirCardinal.Right);
+							int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth); // Returns positive value, e.g. 5
+							CollideTile.RunGridTest(actor, gridX2, gridY, xOverlap > actor.physics.intend.X.IntValue ? DirCardinal.Up : DirCardinal.Right);
 						}
 					}
 
@@ -182,13 +159,13 @@ namespace Nexus.GameEngine {
 					else if(velX < 0) {
 
 						// Compare against TOP-RIGHT (vs. down) and BOTTOM-LEFT (vs. right)
-						bool up = CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY, DirCardinal.Up);
-						bool left = CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY2, DirCardinal.Left);
+						bool up = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up);
+						bool left = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Left);
 
 						// Test against corner if neither of the above collided. Direction of collision based on momentum.
 						if(!up && !left) {
-							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY, xOverlap < actor.physics.AmountMovedX ? DirCardinal.Up : DirCardinal.Left);
+							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
+							CollideTile.RunGridTest(actor, gridX, gridY, xOverlap < actor.physics.intend.X.IntValue ? DirCardinal.Up : DirCardinal.Left);
 						}
 					}
 
@@ -200,11 +177,12 @@ namespace Nexus.GameEngine {
 						int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
 						// Compare against TOP HALF (vs. down). No corner test.
-						if(xOverlapLeft < 0) { CollideTile.RunGridTest(room, actor, tilemap, gridX, gridY, DirCardinal.Up); }
-						if(xOverlapRight > 0) { CollideTile.RunGridTest(room, actor, tilemap, gridX2, gridY, DirCardinal.Up); }
+						if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
+						if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up); }
 					}
 				}
 			}
 		}
+
 	}
 }
