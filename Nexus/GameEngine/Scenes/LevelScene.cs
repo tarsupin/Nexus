@@ -5,7 +5,6 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
@@ -13,13 +12,9 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
-		public Stopwatch stopwatch;
 		public Dictionary<byte, RoomScene> rooms;
 
 		public LevelScene() : base() {
-
-			// TODO CLEANUP: Debugging stopwatch should be removed. Or converted to static access, like Systems.timer.stopwatch.
-			this.stopwatch = new Stopwatch();
 
 			// Create UI
 			this.levelUI = new LevelUI(this);

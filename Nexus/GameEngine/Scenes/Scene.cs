@@ -15,8 +15,8 @@ namespace Nexus.GameEngine {
 		public virtual void ResetScene() { }
 		public virtual void EndScene() { }
 
-		public virtual void RunTick() { throw new ArgumentNullException("Must implement RunTick() in Child Scene."); }
-		public virtual void Draw() { throw new ArgumentNullException("Must implement Draw() in Child Scene."); }
+		public virtual void RunTick() { }
+		public virtual void Draw() { }
 
 		public uint nextId {
 			get {

@@ -17,8 +17,6 @@ namespace Nexus.GameEngine {
 		public LevelContent levelContent;
 		public string roomID;
 
-		Stopwatch stopwatch = new Stopwatch();
-
 		// Editor Data
 		private readonly ushort xCount;
 		private readonly ushort yCount;
@@ -80,7 +78,7 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
-			//this.stopwatch.Start();
+			//Systems.timer.stopwatch.Start();
 
 			if(roomData.bg != null) { DrawLayer(roomData.bg); }
 			if(roomData.main != null) { DrawLayer(roomData.main); }
@@ -88,8 +86,8 @@ namespace Nexus.GameEngine {
 			if(roomData.obj != null) { DrawObjectLayer(roomData.obj); }
 
 			// Debugging
-			//this.stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			//Systems.timer.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + Systems.timer.stopwatch.ElapsedTicks + ", " + Systems.timer.stopwatch.ElapsedMilliseconds);
 		}
 
 		private void DrawLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {

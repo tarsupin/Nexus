@@ -129,7 +129,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
-			//this.stopwatch.Start();
+			//Systems.timer.stopwatch.Start();
 
 			Camera cam = Systems.camera;
 
@@ -213,8 +213,8 @@ namespace Nexus.GameEngine {
 			if(DebugConfig.DrawDebugFrames) { this.DrawDebug(camX, camY, camRight, camBottom); }
 
 			// Debugging
-			//this.stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + this.stopwatch.ElapsedTicks + ", " + this.stopwatch.ElapsedMilliseconds);
+			//Systems.timer.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + Systems.timer.stopwatch.ElapsedTicks + ", " + Systems.timer.stopwatch.ElapsedMilliseconds);
 		}
 
 		private void DrawObjectGroup( Dictionary<uint, DynamicObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {

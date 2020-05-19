@@ -14,10 +14,12 @@ namespace Nexus
 		// XNA Graphics
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+		private readonly Action loadInstructions;
 
-		public GameClient() {
+		public GameClient(Action LoadInstructions = null) {
 			graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+			loadInstructions = LoadInstructions;
 		}
 
 		/// Load any non-graphic content. Screen sizes, systems, etc.
@@ -54,29 +56,8 @@ namespace Nexus
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
 
-			// Try converting levels
-			//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
-
-			//DebugConfig.SetTickSpeed(DebugTickSpeed.HalfSpeed);
-			//DebugConfig.SetTickSpeed(DebugTickSpeed.WhenYPressed);
-
-			// TODO: use this.Content to load your game content here
-
-			// TODO: Change playtesting level to correct setup.
-			// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.
-			// TODO: We also need levels to be somehow loaded into local data during installation. Unfamiliar with that process atm.
-			// Load a default level.
-			SceneTransition.ToLevel("", "QCALQOD16");
-			Systems.camera.CenterAtPosition(1200, 0);
-
-			// TODO CLEANUP: REMOVE THIS
-			ChatConsole.SendMessage("debug", "This is just a debug message.", Color.DarkSeaGreen);
-			ChatConsole.SendMessage("debug", "Once upon a time there was a long message, and it was split into multiple lines across the console screen.", Color.DarkSalmon);
-			ChatConsole.SendMessage("debug", "Why do I write silly things?", Color.DarkTurquoise);
-
-			//Console.WriteLine("-----------------DATA--------------");
-			//Console.WriteLine(Systems.handler.level.data.id);
-
+			// Process Extra Loading Instructions
+			if(loadInstructions != null) { loadInstructions(); }
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -84,8 +65,7 @@ namespace Nexus
 
         /// Run Game Logic; e.g. updating the world, checking for collisions, gathering input, playing audio, etc.
         protected override void Update(GameTime gameTime) {
-			//var stopwatch = new Stopwatch();
-			//stopwatch.Start();
+			//Systems.timer.stopwatch.Start();
 
 			Systems.input.PreProcess(!Systems.levelConsole.visible);
 			Systems.scene.RunTick();
@@ -93,8 +73,8 @@ namespace Nexus
 			base.Update(gameTime);
 
 			// Debugging
-			//stopwatch.Stop();
-			//System.Console.WriteLine("Benchmark: " + stopwatch.ElapsedTicks + ", " + stopwatch.ElapsedMilliseconds);
+			//Systems.timer.stopwatch.Stop();
+			//System.Console.WriteLine("Benchmark: " + Systems.timer.stopwatch.ElapsedTicks + ", " + Systems.timer.stopwatch.ElapsedMilliseconds);
 		}
 
 		/// This is called when the game should draw itself.
@@ -125,7 +105,31 @@ namespace Nexus
 			//	//sc.SendData(bytes);
 			//}
 
-			using(var game = new GameClient()) {
+			Action gameLoadInstructions = () => {
+				
+				// Try converting levels
+				//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
+
+				//DebugConfig.SetTickSpeed(DebugTickSpeed.HalfSpeed);
+				//DebugConfig.SetTickSpeed(DebugTickSpeed.WhenYPressed);
+
+				// TODO: Change playtesting level to correct setup.
+				// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.
+				// TODO: We also need levels to be somehow loaded into local data during installation. Unfamiliar with that process atm.
+				// Load a default level.
+				SceneTransition.ToLevel("", "QCALQOD16");
+				Systems.camera.CenterAtPosition(1200, 0);
+
+				// TODO CLEANUP: REMOVE THIS
+				ChatConsole.SendMessage("debug", "This is just a debug message.", Color.DarkSeaGreen);
+				ChatConsole.SendMessage("debug", "Once upon a time there was a long message, and it was split into multiple lines across the console screen.", Color.DarkSalmon);
+				ChatConsole.SendMessage("debug", "Why do I write silly things?", Color.DarkTurquoise);
+
+				//Console.WriteLine("-----------------DATA--------------");
+				//Console.WriteLine(Systems.handler.level.data.id);
+			};
+
+			using(var game = new GameClient(gameLoadInstructions)) {
 				game.Run();
 			}
 		}

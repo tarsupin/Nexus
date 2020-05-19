@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Nexus.Engine {
 
 	public class TimerGlobal {
 		private bool paused;
+
+		public Stopwatch stopwatch;						// A global stopwatch reference.
 
 		public uint Frame { get; protected set; }       // The current frame.
 

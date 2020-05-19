@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus", "Nexus\Nexus.csproj", "{C23E5ACA-65D6-4DDF-A1EC-B60251CD0451}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexusTests", "NexusTests\NexusTests.csproj", "{CD4112A7-D90A-49B6-B457-072958FBC6AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{C23E5ACA-65D6-4DDF-A1EC-B60251CD0451}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C23E5ACA-65D6-4DDF-A1EC-B60251CD0451}.Release|x86.ActiveCfg = Release|x86
 		{C23E5ACA-65D6-4DDF-A1EC-B60251CD0451}.Release|x86.Build.0 = Release|x86
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{CD4112A7-D90A-49B6-B457-072958FBC6AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
