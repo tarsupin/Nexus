@@ -45,8 +45,8 @@ namespace Nexus.Objects {
 
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
 			this.subType = subType;
-			this.posX = pos.X.IntValue;
-			this.posY = pos.Y.IntValue;
+			this.posX = pos.X.RoundInt;
+			this.posY = pos.Y.RoundInt;
 			this.physics.velocity = velocity;
 		}
 

@@ -15,8 +15,8 @@ namespace Nexus.Engine {
 		}
 
 		public static FInt GetDistanceFInt(FVector pos1, FVector pos2) {
-			int dx = pos2.X.IntValue - pos1.X.IntValue;
-			int dy = pos2.Y.IntValue - pos1.Y.IntValue;
+			int dx = pos2.X.RoundInt - pos1.X.RoundInt;
+			int dy = pos2.Y.RoundInt - pos1.Y.RoundInt;
 			return FInt.Create(Math.Sqrt(dx * dy + dx * dy));
 		}
 	}

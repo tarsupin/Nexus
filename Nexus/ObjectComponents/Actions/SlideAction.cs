@@ -26,7 +26,7 @@ namespace Nexus.ObjectComponents {
 
 		public static bool IsAbleToSlide( Character character, bool slideRight ) {
 			CharacterStatus status = character.status;
-			sbyte velX = (sbyte) character.physics.velocity.X.IntValue;
+			sbyte velX = (sbyte) character.physics.velocity.X.RoundInt;
 
 			// Make sure the character's slide timer has cooled down.
 			if(status.nextSlide > Systems.timer.Frame) { return false; }

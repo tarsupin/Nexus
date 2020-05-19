@@ -30,6 +30,10 @@ namespace Nexus.Engine {
 			return fInt;
 		}
 
+		public int RoundInt {
+			get { return (int) Math.Round((double) this.RawValue / (double) One); }
+		}
+
 		public int IntValue {
 			get { return (int)(this.RawValue >> SHIFT_AMOUNT); }
 		}

@@ -66,8 +66,8 @@ namespace Nexus.GameEngine {
 			this.id = room.nextId;
 			this.room = room;
 			this.subType = subType;
-			this.posX = pos.X.IntValue;
-			this.posY = pos.Y.IntValue;
+			this.posX = pos.X.RoundInt;
+			this.posY = pos.Y.RoundInt;
 
 			this.SetActivity(Activity.Active);
 		}

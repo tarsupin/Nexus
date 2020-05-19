@@ -64,15 +64,15 @@ namespace Nexus.Objects {
 
 			// Magi-Rotation
 			int cycleDuration = this.radius * 2;
-			FInt weight = FInt.Create(((Systems.timer.Frame - this.elapsedOffset.IntValue) % cycleDuration) / cycleDuration);
+			FInt weight = FInt.Create(((Systems.timer.Frame - this.elapsedOffset.RoundInt) % cycleDuration) / cycleDuration);
 			FInt radian = weight * FInt.PI * 2;
 
 			// Set Position of Projectile
 			FInt getX = this.actor.posX + 8 + (radius * FInt.Cos(radian));
 			FInt getY = this.actor.posY + 14 + (radius * FInt.Sin(radian));
 
-			this.posX = getX.IntValue;
-			this.posY = getY.IntValue;
+			this.posX = getX.RoundInt;
+			this.posY = getY.RoundInt;
 
 			// Update Energy
 			if(this.sustained > 0 && this.sustained < 1) {

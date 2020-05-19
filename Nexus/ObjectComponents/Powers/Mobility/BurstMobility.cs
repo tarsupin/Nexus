@@ -47,8 +47,8 @@ namespace Nexus.ObjectComponents {
 			if(directionHor != 0) {
 				physics.velocity.X += 6 * directionHor;
 
-				if(physics.velocity.X.IntValue > 16) { physics.velocity.X = (FInt) 16; }
-				else if(physics.velocity.X.IntValue < -16) { physics.velocity.X = (FInt) 0 - 16; }
+				if(physics.velocity.X.RoundInt > 16) { physics.velocity.X = (FInt) 16; }
+				else if(physics.velocity.X.RoundInt < -16) { physics.velocity.X = (FInt) 0 - 16; }
 			}
 
 			if(directionVert == -1) {

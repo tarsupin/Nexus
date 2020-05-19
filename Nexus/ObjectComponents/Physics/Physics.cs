@@ -26,12 +26,6 @@ namespace Nexus.ObjectComponents {
 		public FVector extraMovement;   // Added values, such as for conveyor belts, platforms, etc.
 		public FInt gravity;
 
-		// Grid Crossing
-		public sbyte passHorTile;       // 0 = no horizontal grid squares were crossed. -1 means crossed LEFT, 1 means crossed RIGHT
-		public sbyte passVertTile;      // 0 = no vertical grid squares were crossed. -1 means crossed UP, 1 means crossed DOWN
-		public ushort gridXCollide;     // The grid X value that was crossed into (if applicable).
-		public ushort gridYCollide;     // The grid Y value that was crossed into (if applicable).
-
 		public Physics(DynamicObject actor) {
 			this.actor = actor;
 
@@ -89,16 +83,17 @@ namespace Nexus.ObjectComponents {
 
 		public void UpdatePosX() {
 			this.lastPosX = this.actor.posX;
-			this.actor.posX = this.physPos.X.IntValue;
+			this.actor.posX = this.physPos.X.RoundInt;
 		}
 
 		public void UpdatePosY() {
 			this.lastPosY = this.actor.posY;
-			this.actor.posY = this.physPos.Y.IntValue;
+			this.actor.posY = this.physPos.Y.RoundInt;
 		}
 
-		public void MoveToPos(FVector pos) {
-			this.physPos = pos;
+		public void MoveToPos(int posX, int posY) {
+			this.physPos.X = FInt.Create(posX);
+			this.physPos.Y = FInt.Create(posY);
 			this.UpdatePosX();
 			this.UpdatePosY();
 		}
@@ -122,15 +117,15 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// --- Return TRUE if crossed a threshold. Used for checking if a new grid square was entered. --- //
-		public bool CrossedThresholdUp(int posY) { int top = this.actor.posY + this.actor.bounds.Top; return top >= posY && top + this.intend.Y.IntValue <= posY; }
-		public bool CrossedThresholdDown(int posY) { int bottom = this.actor.posY + this.actor.bounds.Bottom; return bottom <= posY && bottom + this.intend.Y.IntValue >= posY; }
-		public bool CrossedThresholdLeft(int posX) { int left = this.actor.posX + this.actor.bounds.Left; return left >= posX && left + this.intend.X.IntValue <= posX; }
-		public bool CrossedThresholdRight(int posX) { int right = this.actor.posX + this.actor.bounds.Right; return right <= posX && right + this.intend.X.IntValue >= posX; }
+		public bool CrossedThresholdUp(int posY) { int top = this.actor.posY + this.actor.bounds.Top; return top >= posY && top + this.intend.Y.RoundInt <= posY; }
+		public bool CrossedThresholdDown(int posY) { int bottom = this.actor.posY + this.actor.bounds.Bottom; return bottom <= posY && bottom + this.intend.Y.RoundInt >= posY; }
+		public bool CrossedThresholdLeft(int posX) { int left = this.actor.posX + this.actor.bounds.Left; return left >= posX && left + this.intend.X.RoundInt <= posX; }
+		public bool CrossedThresholdRight(int posX) { int right = this.actor.posX + this.actor.bounds.Right; return right <= posX && right + this.intend.X.RoundInt >= posX; }
 
 		// --- Return the distance of how far a threshold was crossed. -- //
-		public int CrossedThresholdUpDist(int posY) { return this.actor.posY + this.actor.bounds.Top + this.intend.Y.IntValue - posY; }
-		public int CrossedThresholdDownDist(int posY) { return this.actor.posY + this.actor.bounds.Bottom + this.intend.Y.IntValue - posY; }
-		public int CrossedThresholdLeftDist(int posX) { return this.actor.posX + this.actor.bounds.Left + this.intend.X.IntValue - posX; }
-		public int CrossedThresholdRightDist(int posX) { return this.actor.posX + this.actor.bounds.Right + this.intend.X.IntValue - posX; }
+		public int CrossedThresholdUpDist(int posY) { return this.actor.posY + this.actor.bounds.Top + this.intend.Y.RoundInt - posY; }
+		public int CrossedThresholdDownDist(int posY) { return this.actor.posY + this.actor.bounds.Bottom + this.intend.Y.RoundInt - posY; }
+		public int CrossedThresholdLeftDist(int posX) { return this.actor.posX + this.actor.bounds.Left + this.intend.X.RoundInt - posX; }
+		public int CrossedThresholdRightDist(int posX) { return this.actor.posX + this.actor.bounds.Right + this.intend.X.RoundInt - posX; }
 	}
 }

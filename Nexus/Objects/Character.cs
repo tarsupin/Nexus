@@ -303,7 +303,7 @@ namespace Nexus.Objects {
 		public void SpriteTick() {
 
 			// Animations & Drawing
-			int velX = this.physics.velocity.X.IntValue;
+			int velX = this.physics.velocity.X.RoundInt;
 			bool heldItem = false;
 
 			// Ground Movement & Actions
@@ -358,7 +358,7 @@ namespace Nexus.Objects {
 				}
 
 				// Falling
-				else if(this.physics.velocity.Y.IntValue > 3) {
+				else if(this.physics.velocity.Y.RoundInt > 3) {
 					this.SetSpriteName(this.suit.texture + "/Fall" + (this.FaceRight ? "" : "Left"));
 				}
 
@@ -432,8 +432,8 @@ namespace Nexus.Objects {
 		}
 
 		public static void Teleport( Character character, int posX, int posY ) {
-			character.physics.MoveToPos(FVector.Create(posX, posY));
-			character.physics.MoveToPos(FVector.Create(posX, posY)); // Second one is to reset the 'lastPos' value, to avoid 'moving' this frame.
+			character.physics.MoveToPos(posX, posY);
+			character.physics.MoveToPos(posX, posY); // Second one is to reset the 'lastPos' value, to avoid 'moving' this frame.
 		}
 	}
 }
