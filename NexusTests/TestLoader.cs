@@ -16,7 +16,7 @@ namespace NexusTests {
 		public static void AssemblyInit(TestContext context) {
 			
 			Action gameLoadInstructions = () => {
-				SceneTransition.ToLevel("", "QCALQOD16");
+				SceneTransition.ToLevel("", "TEST_DEBUG_01");
 				Systems.camera.CenterAtPosition(1200, 0);
 			};
 
