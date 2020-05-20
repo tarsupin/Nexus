@@ -196,7 +196,7 @@ namespace Nexus.GameEngine {
 			// This prevents problems like inaccurate hitboxes from the wrong side.
 			// TODO HIGH PRIORITY: Is this still accurate? Haven't tested for months, and may have changed in that time.
 			// TODO: Also, would this not also explain why we phase through items on platforms? The extra movement would skip it?
-			int maxOverlapY = CollideDetect.GetMaxOverlapY( obj.physics, obj2.physics);
+			int maxOverlapY = CollideDetect.GetMaxOverlapY(obj.physics, obj2.physics);
 			int relativeY = CollideDetect.GetRelativeDY(obj.physics, obj2.physics);
 			int overlapY = CollideDetect.GetOverlapY(obj, obj2, (sbyte) relativeY);
 			//int diffY = maxOverlapY - overlapY;

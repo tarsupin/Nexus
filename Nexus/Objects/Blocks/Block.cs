@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 				DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);
 
 				if(dir == DirCardinal.Down) {
-					CollideAffect.AlignUp(projectile, this);
+					projectile.physics.AlignUp(this);
 					projectile.BounceOnGround();
 					return false;
 				}

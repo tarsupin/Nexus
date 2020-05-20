@@ -51,9 +51,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(actor.physics.velocity.Y + actor.physics.extraMovement.Y >= 0) { return false; }
+			if(actor.physics.intend.Y >= 0) { return false; }
 
-			CollideAffect.AlignDown(actor, obj);
+			actor.physics.AlignDown(obj);
 			actor.physics.StopY();
 
 			return true;
@@ -63,9 +63,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(actor.physics.velocity.Y + actor.physics.extraMovement.Y <= 0) { return false; }
+			if(actor.physics.intend.Y <= 0) { return false; }
 
-			CollideAffect.AlignUp(actor, obj);
+			actor.physics.AlignUp(obj);
 			actor.physics.StopY();
 
 			return true;
@@ -75,9 +75,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(actor.physics.velocity.X + actor.physics.extraMovement.X >= 0) { return false; }
+			if(actor.physics.intend.X >= 0) { return false; }
 
-			CollideAffect.AlignRight(actor, obj);
+			actor.physics.AlignRight(obj);
 			actor.physics.StopX();
 
 			return true;
@@ -87,9 +87,9 @@ namespace Nexus.ObjectComponents {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
-			if(actor.physics.velocity.X + actor.physics.extraMovement.X <= 0) { return false; }
+			if(actor.physics.intend.X <= 0) { return false; }
 
-			CollideAffect.AlignLeft(actor, obj);
+			actor.physics.AlignLeft(obj);
 			actor.physics.StopX();
 
 			return true;

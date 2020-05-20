@@ -151,7 +151,6 @@
     <Compile Include="GameEngine\Collision\CollideTileAffect.cs" />
     <Compile Include="GameEngine\Collision\CollideTile.cs" />
     <Compile Include="GameEngine\Collision\CollideFunc.cs" />
-    <Compile Include="GameEngine\Collision\CollideAffect.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareEnemy.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareItem.cs" />
     <Compile Include="GameEngine\HitCompare\HitCompareProjectile.cs" />
