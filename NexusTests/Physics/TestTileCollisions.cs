@@ -64,6 +64,11 @@ namespace NexusTests {
 			Debug.Assert(ch.posX + ch.bounds.Left == 528, "Character posX should be 528.");
 			Debug.Assert(ch.posY + ch.bounds.Bottom == 432, "Character posY should be 432.");
 
+			// Delete Tiles
+			this.tilemap.ClearMainLayer(10, 8);
+			this.tilemap.ClearMainLayer(9, 9);
+			this.tilemap.ClearMainLayer(10, 10);
+			this.tilemap.ClearMainLayer(11, 9);
 		}
 
 		[TestMethod]

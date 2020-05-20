@@ -67,22 +67,14 @@ namespace Nexus.ObjectComponents {
 
 			if(hasExtraMovement) {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
+				this.extraMovement = new FVector();
 			}
 
 			this.TrackPhysicsTick();
 		}
 
 		public void TrackPhysicsTick() {
-
-			// Update Positions
-			this.physPos = FVector.VectorAdd(this.physPos, this.velocity);
-
-			// Extra Movement (such as caused by Platforms or Conveyors)
-			if(hasExtraMovement) {
-				this.physPos = FVector.VectorAdd(this.physPos, this.extraMovement);
-				this.extraMovement = new FVector();
-			}
-
+			this.physPos = FVector.VectorAdd(this.physPos, this.intend);
 			this.UpdatePosX();
 			this.UpdatePosY();
 		}
@@ -139,10 +131,12 @@ namespace Nexus.ObjectComponents {
 		// --- Stop Velocity --- //
 		public void StopX() {
 			this.velocity.X = FInt.Create(0);
+			this.intend.X = FInt.Create(0);
 		}
 
 		public void StopY() {
 			this.velocity.Y = FInt.Create(0);
+			this.intend.Y = FInt.Create(0);
 		}
 
 		// --- Return TRUE if crossed a threshold. Used for checking if a new grid square was entered. --- //

@@ -100,12 +100,11 @@ namespace Nexus.GameEngine {
 			return (x1 + largeObject.bounds.Right <= x2 + smallObject.bounds.Right && x1 + largeObject.bounds.Left > x2 + smallObject.bounds.Left);
 		}
 
-		// GetOverlapX retrieves the current X overlap.
-		// If moving left and overlap by 7 pixels, would give -7. If moving right and overlap by 7 pixels, gives 7.
-		public static int GetOverlapX(DynamicObject obj, DynamicObject obj2, sbyte relativeX) {
+		// GetOverlapX retrieves the current X overlap. Negative means not overlapping.
+		public static int GetOverlapX(DynamicObject obj, DynamicObject obj2, bool obj1IsLeft) {
 
 			// Object 1 is to the left of Object 2
-			if(relativeX <= 0) {
+			if(obj1IsLeft) {
 				return (obj.posX + obj.bounds.Right) - (obj2.posX + obj2.bounds.Left);
 			}
 
@@ -113,12 +112,11 @@ namespace Nexus.GameEngine {
 			return (obj.posX + obj.bounds.Left) - (obj2.posX + obj2.bounds.Right);
 		}
 
-		// GetOverlapX retrieves the current Y overlap.
-		// If moving up and overlap by 7 pixels, would give -7. If moving down and overlap by 7 pixels, gives 7.
-		public static int GetOverlapY(DynamicObject obj, DynamicObject obj2, sbyte relativeY) {
+		// GetOverlapX retrieves the current Y overlap. Negative means not overlapping.
+		public static int GetOverlapY(DynamicObject obj, DynamicObject obj2, bool obj1IsAbove) {
 
 			// Object 1 is below Object 2
-			if(relativeY <= 0) {
+			if(obj1IsAbove) {
 				return (obj.posY + obj.bounds.Bottom) - (obj2.posY + obj2.bounds.Top);
 			}
 
@@ -198,7 +196,7 @@ namespace Nexus.GameEngine {
 			// TODO: Also, would this not also explain why we phase through items on platforms? The extra movement would skip it?
 			int maxOverlapY = CollideDetect.GetMaxOverlapY(obj.physics, obj2.physics);
 			int relativeY = CollideDetect.GetRelativeDY(obj.physics, obj2.physics);
-			int overlapY = CollideDetect.GetOverlapY(obj, obj2, (sbyte) relativeY);
+			int overlapY = CollideDetect.GetOverlapY(obj, obj2, relativeY <= 0);
 			//int diffY = maxOverlapY - overlapY;
 
 			if(Math.Abs(overlapY) <= maxOverlapY) { return relativeY > 0 ? DirCardinal.Up : DirCardinal.Down; }
@@ -206,7 +204,7 @@ namespace Nexus.GameEngine {
 			// Same as above, but for X coordinates.
 			int maxOverlapX = CollideDetect.GetMaxOverlapX(obj.physics, obj2.physics);
 			int relativeX = CollideDetect.GetRelativeDX(obj.physics, obj2.physics);
-			int overlapX = CollideDetect.GetOverlapX(obj, obj2, (sbyte) relativeX);
+			int overlapX = CollideDetect.GetOverlapX(obj, obj2, relativeX <= 0);
 			//int diffX = maxOverlapX - overlapX;
 
 			// NOTE GUESS:
