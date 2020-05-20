@@ -44,12 +44,6 @@ namespace NexusTests {
 			Debug.Assert(CollideDetect.IsOverlapping(ch, shroom) == true);
 			Debug.Assert(CollideDetect.GetOverlapX(ch, shroom, true) == 1);
 
-			var asdfdf = CollideDetect.GetMaxOverlapX(phys, shroom.physics);
-			var fasdfb = CollideDetect.GetMaxOverlapY(phys, shroom.physics);
-
-			Debug.Assert(CollideDetect.GetMaxOverlapX(phys, shroom.physics) == 1);
-			Debug.Assert(CollideDetect.GetMaxOverlapY(phys, shroom.physics) == 1);
-
 			shroom.physics.AlignLeft(ch);
 			Debug.Assert(CollideDetect.IsOverlapping(ch, shroom) == false);
 
