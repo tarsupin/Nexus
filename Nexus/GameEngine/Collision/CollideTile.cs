@@ -54,13 +54,6 @@ namespace Nexus.GameEngine {
 		// Perform Collision Detection against a designated Grid Square
 		public static bool RunGridTest(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			// TODO HIGH PRIORITY: DELETE THE CRAP OUT OF THIS. It's just a temporary measure to avoid the tilePresent thing with bool below.
-			// Destroy objects that get too close to bottom:
-			if(actor.posY >= actor.room.tilemap.Height) {
-				actor.Destroy();
-				return false;
-			}
-
 			// Verify that a tile exists at the given location:
 			byte[] tileData = actor.room.tilemap.GetTileDataAtGrid(gridX, gridY);
 

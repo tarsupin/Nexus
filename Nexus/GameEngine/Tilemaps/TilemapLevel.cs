@@ -22,8 +22,11 @@ namespace Nexus.GameEngine {
 			this.Width = xCount * (byte)TilemapEnum.TileWidth;
 			this.Height = yCount * (byte)TilemapEnum.TileHeight;
 
-			// Data
-			this.tiles = new byte[this.YCount + 1, this.XCount + 1][];
+			ushort fullXCount = (ushort)(xCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight);
+			ushort fullYCount = (ushort)(yCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown);
+
+			// Create Empty Tilemap Data
+			this.tiles = new byte[fullYCount, fullXCount][];
 		}
 
 		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
@@ -36,7 +39,7 @@ namespace Nexus.GameEngine {
 
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void SetMainTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0) {
-			
+
 			if(this.tiles[gridY, gridX] == null) {
 				this.tiles[gridY, gridX] = new byte[] { id, subType, 0, 0, 0, 0 };
 			} else {
@@ -46,7 +49,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void SetBGTile(ushort gridX, ushort gridY, byte bgId = 0, byte bgSubType = 0) {
-			
+
 			if(this.tiles[gridY, gridX] == null) {
 				this.tiles[gridY, gridX] = new byte[] { 0, 0, bgId, bgSubType, 0, 0 };
 			} else {

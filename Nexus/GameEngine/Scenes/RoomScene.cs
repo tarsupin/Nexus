@@ -136,6 +136,10 @@ namespace Nexus.GameEngine {
 			ushort startX = Math.Max((ushort)0, (ushort)cam.GridX);
 			ushort startY = Math.Max((ushort)0, (ushort)cam.GridY);
 
+			// Must adjust for the World Gaps (Resistance Barrier)
+			if(startX < (byte)TilemapEnum.WorldGapLeft) { startX = (byte)TilemapEnum.WorldGapLeft; }
+			if(startY < (byte)TilemapEnum.WorldGapUp) { startY = (byte)TilemapEnum.WorldGapUp; }
+
 			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
@@ -145,9 +149,9 @@ namespace Nexus.GameEngine {
 			// Camera Position
 			bool isShaking = cam.IsShaking();
 			int camX = cam.posX + (isShaking ? cam.GetCameraShakeOffsetX() : 0);
-			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0); ;
+			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
 			int camRight = camX + cam.width;
-			int camBottom = camY + cam.height;
+			int camBottom = camY + cam.height + (byte)TilemapEnum.TileHeight;
 
 			// Run Parallax Handler
 			this.parallax.Draw();
@@ -224,7 +228,7 @@ namespace Nexus.GameEngine {
 				DynamicObject oVal = obj.Value;
 
 				// Make sure the frame is visible:
-				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
+				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + (byte)TilemapEnum.TileWidth > camX && oVal.posY + (byte)TilemapEnum.TileHeight > camY) {
 					oVal.Draw( camX, camY );
 				}
 			}

@@ -140,8 +140,6 @@ namespace Nexus.Objects {
 			// this.animation.run(timer);
 
 			// Restrict to World Bounds (except below, for falling deaths)
-			this.RestrictWorldSides();
-			this.RestrictWorldTop();
 			this.CheckFallOfWorld();
 			
 			// Run Physics
@@ -397,32 +395,10 @@ namespace Nexus.Objects {
 			// TODO HIGH PRIORITY: Render Attachments, such as Y prompt
 		}
 
-		private void RestrictWorldSides() {
-
-			// Left Bounds
-			if(this.posX < 0) {
-				this.physics.MoveToPosX(0);
-				this.physics.StopX();
-			}
-
-			// Right Bounds
-			else if(this.posX + this.bounds.Right >= this.room.tilemap.Width) {
-				this.physics.MoveToPosX(this.room.tilemap.Width - this.bounds.Right);
-				this.physics.StopX();
-			}
-		}
-
-		private void RestrictWorldTop() {
-			if(this.posY < 0) {
-				this.physics.MoveToPosY(0);
-				this.physics.StopY();
-			}
-		}
-
 		private void CheckFallOfWorld() {
 
 			// If the Character falls off the world edge, die.
-			if(this.posY > this.room.tilemap.Height) {
+			if(this.posY - this.bounds.Top > this.room.tilemap.Height) {
 				this.wounds.Death();
 			}
 		}

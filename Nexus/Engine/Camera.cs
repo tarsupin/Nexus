@@ -56,8 +56,8 @@ namespace Nexus.Engine {
 
 		// Camera Bounds
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
-			this.bounds.Top = top;
-			this.bounds.Left = left;
+			this.bounds.Top = top + ((byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight);
+			this.bounds.Left = left + ((byte) TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
 			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth + (byte) TilemapEnum.TileWidth; ;
 			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight) + (byte) TilemapEnum.TileHeight;
 		}

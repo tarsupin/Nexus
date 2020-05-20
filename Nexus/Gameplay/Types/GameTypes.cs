@@ -10,6 +10,12 @@ namespace Nexus.Gameplay {
 		TileWidth = 48,
 		TileHeight = 48,
 
+		// World Gaps - the amount of grid tiles above and below the world lines.
+		WorldGapLeft = 1,
+		WorldGapRight = 1,
+		WorldGapUp = 3,
+		WorldGapDown = 2,
+
 		// Tilemap Limits
 		MaxTilesWide = 800,
 		MaxTilesHigh = 800,
