@@ -30,9 +30,11 @@ namespace NexusTests {
 			phys.StopX(); phys.StopY(); // Reset the Character's Velocity
 			phys.MoveToPos(600, 300); // Reset the Character's Position
 			phys.SetGravity(FInt.Create(0));
+			phys.intend = FVector.Create(3, 3);
 
 			// Setup Shroom
 			Shroom shroom = new Shroom(this.roomScene, (byte) ShroomSubType.Black, FVector.Create(700, 300), null);
+			shroom.physics.intend = FVector.Create(-1, -1);
 
 			// Confirm that Physics Alignments, IsOverlapping, GetOverlapX, GetOverlapY are working correctly:
 			shroom.physics.AlignRight(ch);
@@ -41,6 +43,12 @@ namespace NexusTests {
 			shroom.physics.MoveToPosX(shroom.posX - 1);
 			Debug.Assert(CollideDetect.IsOverlapping(ch, shroom) == true);
 			Debug.Assert(CollideDetect.GetOverlapX(ch, shroom, true) == 1);
+
+			var asdfdf = CollideDetect.GetMaxOverlapX(phys, shroom.physics);
+			var fasdfb = CollideDetect.GetMaxOverlapY(phys, shroom.physics);
+
+			Debug.Assert(CollideDetect.GetMaxOverlapX(phys, shroom.physics) == 1);
+			Debug.Assert(CollideDetect.GetMaxOverlapY(phys, shroom.physics) == 1);
 
 			shroom.physics.AlignLeft(ch);
 			Debug.Assert(CollideDetect.IsOverlapping(ch, shroom) == false);
@@ -66,6 +74,8 @@ namespace NexusTests {
 			// Move Away (no longer overlapping, off by 2)
 			shroom.physics.MoveToPosY(shroom.posY + 3);
 			Debug.Assert(CollideDetect.GetOverlapY(ch, shroom, true) == -2);
+
+
 		}
 
 		private void VerifyVelocityX(double physPosXd) {

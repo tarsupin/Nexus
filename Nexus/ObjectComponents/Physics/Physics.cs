@@ -54,10 +54,9 @@ namespace Nexus.ObjectComponents {
 		public void RunPhysicsTick() {
 			this.touch.ResetTouch();
 
-			// TODO: Do we need .lastPosX?
 			// Update Last Positions
-			//this.lastPosX = this.actor.posX;
-			//this.lastPosY = this.actor.posY;
+			this.lastPosX = this.actor.posX;
+			this.lastPosY = this.actor.posY;
 
 			// Apply Gravity to Velocity
 			this.velocity.Y += this.gravity;
@@ -75,57 +74,47 @@ namespace Nexus.ObjectComponents {
 
 		public void TrackPhysicsTick() {
 			this.physPos = FVector.VectorAdd(this.physPos, this.intend);
-			this.UpdatePosX();
-			this.UpdatePosY();
-		}
-
-		public void UpdatePosX() {
-			this.lastPosX = this.actor.posX;
 			this.actor.posX = this.physPos.X.RoundInt;
-		}
-
-		public void UpdatePosY() {
-			this.lastPosY = this.actor.posY;
 			this.actor.posY = this.physPos.Y.RoundInt;
 		}
-		
+
 		// --- Move Actor --- //
 		public void MoveToPos(int posX, int posY) {
 			this.physPos.X = FInt.Create(posX);
 			this.physPos.Y = FInt.Create(posY);
-			this.UpdatePosX();
-			this.UpdatePosY();
+			this.actor.posX = posX;
+			this.actor.posY = posY;
 		}
 
 		public void MoveToPosX(int posX) {
 			this.physPos.X = FInt.Create(posX);
-			this.UpdatePosX();
+			this.actor.posX = posX;
 		}
 
 		public void MoveToPosY(int posY) {
 			this.physPos.Y = FInt.Create(posY);
-			this.UpdatePosY();
+			this.actor.posY = posY;
 		}
 
 		// --- Align Relative to Object --- //
 		public void AlignLeft(DynamicObject obj) {
-			this.physPos.X = FInt.Create(obj.posX + obj.bounds.Left - this.actor.bounds.Right);
-			this.UpdatePosX();
+			this.actor.posX = obj.posX + obj.bounds.Left - this.actor.bounds.Right;
+			this.physPos.X = FInt.Create(this.actor.posX);
 		}
 
 		public void AlignRight(DynamicObject obj) {
-			this.physPos.X = FInt.Create(obj.posX + obj.bounds.Right - this.actor.bounds.Left);
-			this.UpdatePosX();
+			this.actor.posX = obj.posX + obj.bounds.Right - this.actor.bounds.Left;
+			this.physPos.X = FInt.Create(this.actor.posX);
 		}
 
 		public void AlignUp(DynamicObject obj) {
-			this.physPos.Y = FInt.Create(obj.posY + obj.bounds.Top - this.actor.bounds.Bottom);
-			this.UpdatePosY();
+			this.actor.posY = obj.posY + obj.bounds.Top - this.actor.bounds.Bottom;
+			this.physPos.Y = FInt.Create(this.actor.posY);
 		}
 
 		public void AlignDown(DynamicObject obj) {
-			this.physPos.Y = FInt.Create(obj.posY + obj.bounds.Bottom - this.actor.bounds.Top);
-			this.UpdatePosY();
+			this.actor.posY = obj.posY + obj.bounds.Bottom - this.actor.bounds.Top;
+			this.physPos.Y = FInt.Create(this.actor.posY);
 		}
 
 		// --- Stop Velocity --- //
