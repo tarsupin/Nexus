@@ -32,7 +32,7 @@ namespace Nexus.Engine {
 		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (ushort)TilemapEnum.TileWidth); } }
 		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (ushort)TilemapEnum.TileHeight); } }
 
-		public void UpdateScene( Scene scene ) {
+		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;
 			this.posX = 0;
 			this.posY = 0;
@@ -40,7 +40,7 @@ namespace Nexus.Engine {
 			this.controlSpeed = 8;
 			this.SetSize(1440, 816);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
 			this.bounds = new BoundsCamera();
-			this.BindToScene();
+			this.BindToScene(top, left, right, bottom);
 		}
 
 		public void SetSize( ushort width, ushort height ) {
@@ -56,8 +56,8 @@ namespace Nexus.Engine {
 
 		// Camera Bounds
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
-			this.bounds.Top = top + ((byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight);
-			this.bounds.Left = left + ((byte) TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
+			this.bounds.Top = top;
+			this.bounds.Left = left;
 			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth + (byte) TilemapEnum.TileWidth; ;
 			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight) + (byte) TilemapEnum.TileHeight;
 		}

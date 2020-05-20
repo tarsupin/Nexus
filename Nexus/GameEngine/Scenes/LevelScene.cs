@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Important Components
-			Systems.camera.UpdateScene(this.rooms[0]);
+			Systems.camera.UpdateScene(this.rooms[0], (byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
 		}
 
 		public override void RunTick() {

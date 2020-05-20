@@ -23,14 +23,17 @@ namespace Nexus.Gameplay {
 			if(roomData.fg != null) { RoomGenerate.GenerateTileLayer(room, roomData.fg, LayerEnum.fg); }
 
 			// Build "Resistance Barrier" around Level. Designed to protect against objects crossing tile path.
-			for(ushort y = 0; y <= room.tilemap.YCount; y++) {
+			ushort maxX = (ushort) (room.tilemap.XCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight - 1);
+			ushort maxY = (ushort) (room.tilemap.YCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown - 1);
+
+			for(ushort y = 0; y <= maxY; y++) {
 				room.tilemap.SetMainTile(0, y, 1, 0);
-				room.tilemap.SetMainTile((ushort)(room.tilemap.XCount + 1), y, 1, 0);
+				room.tilemap.SetMainTile(maxX, y, 1, 0);
 			}
 
-			for(ushort x = 0; x <= room.tilemap.XCount; x++) {
+			for(ushort x = 0; x <= maxX; x++) {
 				room.tilemap.SetMainTile(x, 0, 1, 0);
-				room.tilemap.SetMainTile(x, (ushort)(room.tilemap.YCount + (byte)TilemapEnum.WorldGapDown), 1, 0);
+				room.tilemap.SetMainTile(x, maxY, 1, 0);
 			}
 		}
 
