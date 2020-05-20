@@ -115,8 +115,8 @@ namespace Nexus.GameEngine {
 		public ushort GridX { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Left) / (byte)TilemapEnum.TileWidth)); } }
 		public ushort GridY { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Top) / (byte)TilemapEnum.TileHeight)); } }
 
-		public ushort GridX2 { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Right) / (byte)TilemapEnum.TileWidth)); } }
-		public ushort GridY2 { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Bottom) / (byte)TilemapEnum.TileHeight)); } }
+		public ushort GridX2 { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Right -1) / (byte)TilemapEnum.TileWidth)); } }
+		public ushort GridY2 { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Bottom -1) / (byte)TilemapEnum.TileHeight)); } }
 
 		public virtual void SetSpriteName(string spriteName) {
 			this.SpriteName = spriteName;
