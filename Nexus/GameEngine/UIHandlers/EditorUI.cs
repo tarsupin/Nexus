@@ -22,8 +22,8 @@ namespace Nexus.GameEngine {
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
 			this.gridUI = new GridOverlay(null);
-			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth * 2, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
-			this.scroller = new EditorScroller(null);
+			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
+			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
 
 			// Tab Menu - TileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
@@ -124,10 +124,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Coordinate Tracker
-			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, (byte) TilemapEnum.TileWidth + 12, 5, Color.White);
+			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, 12, 5, Color.White);
 
 			// Room Counter (Which Room)
-			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - 184, 5, Color.White);
+			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
 		}
 	}
 }
