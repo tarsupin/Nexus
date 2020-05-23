@@ -22,9 +22,12 @@ namespace Nexus.Engine {
 
 			this.ws.OnMessage += (sender, e) => {
 				if(e.IsText) {
-
+					Console.WriteLine("Received String: " + e.Data);
 				} else if(e.IsBinary) {
-
+					int frame = BitConverter.ToInt32(e.RawData, 1);
+					Console.WriteLine("On frame " + frame.ToString() + ", received 1st instruction of " + e.RawData[0].ToString());
+					//Console.WriteLine("Received Binary Data: " + BitConverter.ToString(e.RawData));
+					//Console.WriteLine("Received Binary Data: " + System.Text.Encoding.UTF8.GetString(e.RawData, 0, e.RawData.Length));
 				}
 			};
 

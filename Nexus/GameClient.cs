@@ -95,14 +95,22 @@ namespace Nexus
 		/// The main entry point for the application.
 		static void Main() {
 
+			//byte[] byteVals = new byte[] { 10, 1, 0, 0, 1, 0, 0 };
+
+			////var frameSlice = byteVals[1..4];
+
+			//int frame = BitConverter.ToInt32(byteVals, 0);
+			//System.Console.WriteLine(frame.ToString());
+
+			//return;
+
 			//SocketClient sc = new SocketClient();
 
 			//while(true) {
-			//	Thread.Sleep(1000);
-			//	//sc.SendText("asdf! How are things?");
-
-			//	//byte[] bytes = Encoding.ASCII.GetBytes("Testing a hello.");
-			//	//sc.SendData(bytes);
+			//	sc.SendText(":loadRoom");
+			//	byte[] bytes = new byte[] { 5, 10, 234, 3 };
+			//	sc.SendData(bytes);
+			//	System.Threading.Thread.Sleep(2000);
 			//}
 
 			Action gameLoadInstructions = () => {
