@@ -95,23 +95,30 @@ namespace Nexus
 		/// The main entry point for the application.
 		static void Main() {
 
-			//byte[] byteVals = new byte[] { 10, 1, 0, 0, 1, 0, 0 };
+			//byte[] byteVals = new byte[] { 0, 0, 1, 10, 1, 0, 0 };
+			//int frameIndex = 0;
+			//int frame;
+			
+			//// Some architectures reverse the BitConverter.ToInt32() method.
+			//if(BitConverter.IsLittleEndian) {
+			//	byte[] frameSlice = new byte[] { byteVals[frameIndex + 3], byteVals[frameIndex + 2], byteVals[frameIndex + 1], byteVals[frameIndex] };
+			//	frame = BitConverter.ToInt32(frameSlice, 0);
+			//} else {
+			//	frame = BitConverter.ToInt32(byteVals, frameIndex);
+			//}
 
-			////var frameSlice = byteVals[1..4];
-
-			//int frame = BitConverter.ToInt32(byteVals, 0);
 			//System.Console.WriteLine(frame.ToString());
 
 			//return;
 
-			//SocketClient sc = new SocketClient();
+			SocketClient sc = new SocketClient();
 
-			//while(true) {
-			//	sc.SendText(":loadRoom");
-			//	byte[] bytes = new byte[] { 5, 10, 234, 3 };
-			//	sc.SendData(bytes);
-			//	System.Threading.Thread.Sleep(2000);
-			//}
+			while(true) {
+				sc.SendText(":loadRoom");
+				byte[] bytes = new byte[] { 5, 10, 234, 3 };
+				sc.SendData(bytes);
+				System.Threading.Thread.Sleep(2000);
+			}
 
 			Action gameLoadInstructions = () => {
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
     <AssemblyName>Nexus</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -200,13 +201,33 @@
     <Compile Include="GameEngine\Scenes\LevelScene.cs" />
     <Compile Include="GameEngine\TileObject.cs" />
     <Compile Include="GameEngine\Tilemaps\TilemapLevel.cs" />
+    <Compile Include="Gameplay\GameClasses\TreasureHunt.cs" />
+    <Compile Include="Gameplay\GameClasses\TowerDefense.cs" />
+    <Compile Include="Gameplay\GameClasses\TeamDeathmatch.cs" />
+    <Compile Include="Gameplay\GameClasses\Superheroes.cs" />
+    <Compile Include="Gameplay\GameClasses\Safari.cs" />
+    <Compile Include="Gameplay\GameClasses\NinjaBall.cs" />
+    <Compile Include="Gameplay\GameClasses\NinjaAcademy.cs" />
+    <Compile Include="Gameplay\GameClasses\LevelVersus.cs" />
+    <Compile Include="Gameplay\GameClasses\LevelRace.cs" />
+    <Compile Include="Gameplay\GameClasses\LevelCoop.cs" />
+    <Compile Include="Gameplay\GameClasses\GhostTown.cs" />
+    <Compile Include="Gameplay\GameClasses\Dodgeball.cs" />
+    <Compile Include="Gameplay\GameClasses\Deathmatch.cs" />
+    <Compile Include="Gameplay\GameClasses\DarkCircus.cs" />
+    <Compile Include="Gameplay\GameClasses\CaptureTheFlag.cs" />
+    <Compile Include="Gameplay\GameClasses\BossBattle.cs" />
+    <Compile Include="Gameplay\GameClasses\BattleRoyale.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
     <Compile Include="GameEngine\Editor\AutoTileTool.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
+    <Compile Include="Gameplay\GameClasses\GameClass.cs" />
     <Compile Include="Gameplay\Types\ActionTypes.cs" />
     <Compile Include="Gameplay\Types\GameTypes.cs" />
+    <Compile Include="Gameplay\Types\ArenaTypes.cs" />
+    <Compile Include="Gameplay\Types\SocketFlagTypes.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
     <Compile Include="Gameplay\World\WorldContent.cs" />
     <Compile Include="Gameplay\Level\LevelFormat.cs" />
@@ -542,6 +563,7 @@
       <Link>MonoGame.Framework.dll.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <Content Include="Content\Atlas\Objects.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
