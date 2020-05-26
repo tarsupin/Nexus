@@ -5,10 +5,10 @@ namespace Nexus.Gameplay {
 	public class CampaignJson {
 
 		// Location Data
-		public string worldId;          // World ID; e.g. "Scionax", "Astaria", etc.
-		public byte zone;               // Zone ID (numeric).
-		public byte currentNodeId;      // The current Node # you're standing on.
-		public byte lastNodeId;         // The last Node # you moved from. Important for remembering paths.
+		public string worldId;			// World ID; e.g. "Scionax", "Astaria", etc.
+		public byte zoneId;				// Zone ID (numeric).
+		public ushort currentNodeId;	// The current Node # you're standing on.
+		public ushort lastNodeId;		// The last Node # you moved from. Important for remembering paths.
 
 		// Character Survival
 		public byte lives;             // The number of lives you possess.
@@ -45,11 +45,11 @@ namespace Nexus.Gameplay {
 		}
 
 		public void SetZone(byte zone = 0) {
-			this.zone = zone;
+			this.zoneId = zone;
 		}
 
-		public void SetNode(byte nodeId = 0) {
-			this.lastNodeId = this.currentNodeId;
+		public void SetNode(ushort nodeId = 0, ushort lastNodeId = 0) {
+			this.lastNodeId = lastNodeId == 0 ? this.currentNodeId : lastNodeId;
 			this.currentNodeId = nodeId;
 		}
 
@@ -69,9 +69,17 @@ namespace Nexus.Gameplay {
 			this.powerMob = powerMob;
 		}
 
-		// TODO HIGH PRIORITY: getNodeStatus() // see CampaignState.ts
-		// TODO HIGH PRIORITY: isLevelWon() // see CampaignState.ts
-		// TODO HIGH PRIORITY: completedLevel() // see CampaignState.ts
+		// TODO HIGH PRIORITY.
+		// Return TRUE if the level has been completed in this campaign.
+		public bool IsLevelWon( ushort nodeId ) {
+			// TODO HIGH PRIORITY: isLevelWon() // see CampaignState.ts
+			return false;
+		}
+
+		public void ProcessLevelCompletion() {
+			// TODO HIGH PRIORITY: completedLevel() // see CampaignState.ts
+		}
+
 
 		public void SaveCampaign() {
 
@@ -84,7 +92,7 @@ namespace Nexus.Gameplay {
 
 				// Location Data
 				worldId = this.worldId,
-				zone = this.zone,
+				zoneId = this.zoneId,
 				currentNodeId = this.currentNodeId,
 				lastNodeId = this.lastNodeId,
 
@@ -117,7 +125,7 @@ namespace Nexus.Gameplay {
 			CampaignJson camp = JsonConvert.DeserializeObject<CampaignJson>(json);
 
 			this.SetWorld(camp.worldId);
-			this.SetZone(camp.zone);
+			this.SetZone(camp.zoneId);
 			this.SetNode(camp.currentNodeId);
 			this.SetLives(camp.lives);
 			this.SetWounds(camp.health, camp.armor);

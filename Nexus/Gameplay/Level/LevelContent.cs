@@ -53,7 +53,7 @@ namespace Nexus.Gameplay {
 		public bool LoadLevelData(string levelId = "") {
 
 			// Update the Level ID, or use existing Level ID if applicable.
-			if(levelId == null || levelId.Length > 0) { this.levelId = levelId; } else { return false; }
+			if(levelId.Length > 0) { this.levelId = levelId; } else { return false; }
 
 			string fullLevelPath = this.GetFullLevelPath(this.levelId);
 			

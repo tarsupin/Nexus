@@ -1,13 +1,14 @@
 ﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 
 namespace Nexus.ObjectComponents {
 
 	public enum SuitRank : byte {
-		BaseSuit = 0,			// A base-level suit with no mechanical advantages or powers.
-		CosmeticSuit = 1,		// A cosmetic suit; has no mechanical advantages, but is not a base suit.
-		PowerSuit = 2,			// A power suit; grants some sort of advantage when equipped, can soak damage.
+		BaseSuit = 0,           // A base-level suit with no mechanical advantages or powers.
+		CosmeticSuit = 1,       // A cosmetic suit; has no mechanical advantages, but is not a base suit.
+		PowerSuit = 2,          // A power suit; grants some sort of advantage when equipped, can soak damage.
 	}
 
 	public enum SuitSubType : byte {
@@ -57,28 +58,30 @@ namespace Nexus.ObjectComponents {
 	public class Suit {
 
 		protected SuitRank suitRank;
+		protected Atlas atlas;
 		public readonly string texture;
 		public readonly Hat DefaultCosmeticHat; // A default, Cosmetic Hat associated with the Suit (such as Wizard Hats for Wizards).
 
-		public Suit( SuitRank suitRank, string texture, Hat defaultCosmeticHat = null ) {
+		public Suit(SuitRank suitRank, string texture, Hat defaultCosmeticHat = null) {
 			this.suitRank = suitRank;
 			this.texture = texture;
 			this.DefaultCosmeticHat = defaultCosmeticHat;
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];
 		}
 
-		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+		public static Suit GetSuitBySubType(byte subType) {
 
 			// Random Suit
-			if(subType == (byte) SuitSubType.RandomSuit) {
+			if(subType == (byte)SuitSubType.RandomSuit) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(3, 11);
-			} else if(subType == (byte) SuitSubType.RandomNinja) {
+			} else if(subType == (byte)SuitSubType.RandomNinja) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(3, 7);
-			} else if(subType == (byte) SuitSubType.RandomWizard) {
+			} else if(subType == (byte)SuitSubType.RandomWizard) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(8, 11);
-			} else if(subType == (byte) SuitSubType.RandomBasic) {
+			} else if(subType == (byte)SuitSubType.RandomBasic) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(51, 51);
 			}
@@ -86,24 +89,31 @@ namespace Nexus.ObjectComponents {
 			switch(subType) {
 
 				// Ninjas
-				case (byte) SuitSubType.BlackNinja: SuitMap.BlackNinja.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.BlueNinja: SuitMap.BlueNinja.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.GreenNinja: SuitMap.GreenNinja.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.RedNinja: SuitMap.RedNinja.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.WhiteNinja: SuitMap.WhiteNinja.ApplySuit(character, resetStats); break;
+				case (byte)SuitSubType.BlackNinja: return SuitMap.BlackNinja;
+				case (byte)SuitSubType.BlueNinja: return SuitMap.BlueNinja;
+				case (byte)SuitSubType.GreenNinja: return SuitMap.GreenNinja;
+				case (byte)SuitSubType.RedNinja: return SuitMap.RedNinja;
+				case (byte)SuitSubType.WhiteNinja: return SuitMap.WhiteNinja;
 
 				// Wizards
-				case (byte) SuitSubType.BlueWizard: SuitMap.BlueWizard.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.GreenWizard: SuitMap.GreenWizard.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.RedWizard: SuitMap.RedWizard.ApplySuit(character, resetStats); break;
-				case (byte) SuitSubType.WhiteWizard: SuitMap.WhiteWizard.ApplySuit(character, resetStats); break;
+				case (byte)SuitSubType.BlueWizard: return SuitMap.BlueWizard;
+				case (byte)SuitSubType.GreenWizard: return SuitMap.GreenWizard;
+				case (byte)SuitSubType.RedWizard: return SuitMap.RedWizard;
+				case (byte)SuitSubType.WhiteWizard: return SuitMap.WhiteWizard;
 
 				// Cosmetic Suits
-				case (byte) SuitSubType.RedBasic: SuitMap.BasicRedSuit.ApplySuit(character, resetStats); break;
+				case (byte)SuitSubType.RedBasic: return SuitMap.BasicRedSuit;
 			}
+
+			return SuitMap.BasicRedSuit;
 		}
 
-		public void ApplySuit( Character character, bool resetStats ) {
+		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+			Suit suit = Suit.GetSuitBySubType(subType);
+			suit.ApplySuit(character, resetStats);
+		}
+
+		public void ApplySuit(Character character, bool resetStats) {
 			character.suit = this; // Apply Suit to Character
 
 			// Apply the Suit's Default Hat if the character has no hat OR a cosmetic hat.
@@ -121,7 +131,7 @@ namespace Nexus.ObjectComponents {
 		public virtual void DestroySuit(Character character, bool resetStats) {
 
 			// Default Suit, Default Head
-			Suit.AssignToCharacter(character, (byte) SuitSubType.RedBasic, false);
+			Suit.AssignToCharacter(character, (byte)SuitSubType.RedBasic, false);
 
 			if(resetStats) {
 				character.stats.ResetCharacterStats();
@@ -129,7 +139,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// Suits with powers may update the stats of the character that wears them.
-		public virtual void UpdateCharacterStats(Character character) {}
+		public virtual void UpdateCharacterStats(Character character) { }
 
 		// Some Suits come with default hats.
 		public void AssignSuitDefaultHat(Character character) {

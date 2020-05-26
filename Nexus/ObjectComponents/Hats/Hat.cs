@@ -77,18 +77,20 @@ namespace Nexus.ObjectComponents {
 	public class Hat {
 
 		protected HatRank hatRank;
+		protected Atlas atlas;
 		protected sbyte yOffset;        // The Y-Offset for placing the hat on the character's head.
-		protected string SpriteName;	// Name of the sprite to draw.
+		protected string SpriteName;	// Name of the base sprite to draw.
 
 		public Hat( HatRank hatRank = HatRank.BaseHat ) {
 			this.hatRank = hatRank;
 			this.yOffset = -12;
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];
 		}
 
-		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+		public static Hat GetHatBySubType(byte subType) {
 
 			// Random Hat
-			if(subType == (byte) HatSubType.RandomHat) {
+			if(subType == (byte)HatSubType.RandomHat) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(1, 9);
 			}
@@ -96,22 +98,30 @@ namespace Nexus.ObjectComponents {
 			switch(subType) {
 
 				// Power Hats
-				case (byte) HatSubType.AngelHat: HatMap.AngelHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.BambooHat: HatMap.BambooHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.CowboyHat: HatMap.CowboyHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.FeatheredHat: HatMap.FeatheredHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.FedoraHat: HatMap.FedoraHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.HardHat: HatMap.HardHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.RangerHat: HatMap.RangerHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.SpikeyHat: HatMap.SpikeyHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.TopHat: HatMap.TopHat.ApplyHat(character, resetStats); break;
+				case (byte)HatSubType.AngelHat: return HatMap.AngelHat;
+				case (byte)HatSubType.BambooHat: return HatMap.BambooHat;
+				case (byte)HatSubType.CowboyHat: return HatMap.CowboyHat;
+				case (byte)HatSubType.FeatheredHat: return HatMap.FeatheredHat;
+				case (byte)HatSubType.FedoraHat: return HatMap.FedoraHat;
+				case (byte)HatSubType.HardHat: return HatMap.HardHat;
+				case (byte)HatSubType.RangerHat: return HatMap.RangerHat;
+				case (byte)HatSubType.SpikeyHat: return HatMap.SpikeyHat;
+				case (byte)HatSubType.TopHat: return HatMap.TopHat;
 
 				// Cosmetic Hats
-				case (byte) HatSubType.WizardBlueHat: HatMap.WizardBlueHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.WizardGreenHat: HatMap.WizardGreenHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.WizardRedHat: HatMap.WizardRedHat.ApplyHat(character, resetStats); break;
-				case (byte) HatSubType.WizardWhiteHat: HatMap.WizardWhiteHat.ApplyHat(character, resetStats); break;
+				case (byte)HatSubType.WizardBlueHat: return HatMap.WizardBlueHat;
+				case (byte)HatSubType.WizardGreenHat: return HatMap.WizardGreenHat;
+				case (byte)HatSubType.WizardRedHat: return HatMap.WizardRedHat;
+				case (byte)HatSubType.WizardWhiteHat: return HatMap.WizardWhiteHat;
 			}
+
+			return null;
+		}
+
+		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+			Hat hat = Hat.GetHatBySubType(subType);
+			if(hat == null) { return; }
+			hat.ApplyHat(character, resetStats);
 		}
 
 		public void ApplyHat(Character character, bool resetStats) {
@@ -137,11 +147,12 @@ namespace Nexus.ObjectComponents {
 		public bool IsCosmeticHat { get { return this.hatRank == HatRank.CosmeticHat; } }
 		public bool IsPowerHat { get { return this.hatRank == HatRank.PowerHat; } }
 
-		public void Draw(Character character, int camX, int camY) {
-			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (character.FaceRight ? "" : "Left"), character.posX - camX, character.posY + this.yOffset - camY);
-		}
-
 		// Hats with powers may update the stats of the character that wears them.
 		public virtual void UpdateCharacterStats(Character character) {}
+
+		// posX and posY should be set to character.posX and .posY respectively.
+		public void Draw(bool faceRight, int posX, int posY, int camX, int camY) {
+			this.atlas.Draw(this.SpriteName + (faceRight ? "" : "Left"), posX - camX, posY + this.yOffset - camY);
+		}
 	}
 }

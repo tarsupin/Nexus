@@ -111,14 +111,14 @@ namespace Nexus
 
 			//return;
 
-			SocketClient sc = new SocketClient();
+			//SocketClient sc = new SocketClient();
 
-			while(true) {
-				sc.SendText(":loadRoom");
-				byte[] bytes = new byte[] { 5, 10, 234, 3 };
-				sc.SendData(bytes);
-				System.Threading.Thread.Sleep(2000);
-			}
+			//while(true) {
+			//	sc.SendText(":loadRoom");
+			//	byte[] bytes = new byte[] { 5, 10, 234, 3 };
+			//	sc.SendData(bytes);
+			//	System.Threading.Thread.Sleep(2000);
+			//}
 
 			Action gameLoadInstructions = () => {
 

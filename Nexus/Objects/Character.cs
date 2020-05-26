@@ -388,8 +388,8 @@ namespace Nexus.Objects {
 			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
 
 			// Draw Character's Head and Hat
-			this.head.Draw(this, camX, camY);
-			if(this.hat is Hat) { this.hat.Draw(this, camX, camY); }
+			this.head.Draw(this.FaceRight, posX, posY, camX, camY);
+			if(this.hat is Hat) { this.hat.Draw(this.FaceRight, posX, posY, camX, camY); }
 
 			// Render Attachments, if applicable.
 			// TODO HIGH PRIORITY: Render Attachments, such as Y prompt

@@ -15,8 +15,15 @@ namespace Nexus.GameEngine {
 	public class SceneTransition {
 
 		// Go to World Scene
-		public static void ToWorld( string worldId, bool runMenu = false, bool runEditor = false ) {
+		public static bool ToWorld( string worldId, bool runMenu = false, bool runEditor = false ) {
+			GameHandler handler = Systems.handler;
 
+			// If we're already in a World Scene, verify that we're loading a different world from our current one.
+			if(Systems.scene is WorldScene && worldId == handler.worldContent.worldId) { return false; }
+
+
+
+			return true;
 		}
 
 		// Go to Level Scene (In World)

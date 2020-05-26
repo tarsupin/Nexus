@@ -1,12 +1,9 @@
-﻿/*
- * SubTypes may overlap in many objects.
- */
-
+﻿
 namespace Nexus.Gameplay {
 
 	public enum TilemapEnum : ushort {
 
-		// Grid Spaces
+		// Grid Sizes
 		TileWidth = 48,
 		TileHeight = 48,
 
@@ -29,4 +26,5 @@ namespace Nexus.Gameplay {
 		SectorXPixels = 288,
 		SectorYPixels = 288,
 	}
+
 }

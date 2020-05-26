@@ -31,6 +31,7 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum DirCardinal : byte {
+		None = 0,
 		Center = 5,
 		Up = 8,
 		Down = 2,

@@ -68,37 +68,40 @@ namespace Nexus.Gameplay {
 
 	public enum GameClassFlag : byte {
 
+		// Single Player (1 - 30)
+		LevelStandard = 1,
+
 		// Cooperative Traditional (Single Team)
-		LevelCoop = 1,
-		Safari = 2,
-		Superheroes = 3,
-		NinjaAcademy = 4,
+		LevelCoop = 30,
+		Safari = 31,
+		Superheroes = 32,
+		NinjaAcademy = 33,
 
 		// Friendly Traditional (No PVP)
-		LevelRace = 11,
+		LevelRace = 40,
 
 		// Competitive Traditional
-		LevelVersus = 20,
+		LevelVersus = 50,
 
 		// Cooperative Arena (Single Team)
-		TowerDefense = 31,
-		BossBattle = 32,
+		TowerDefense = 60,
+		BossBattle = 61,
 
 		// Friendly Arena (No PVP)
-		TreasureHunt = 40,
+		TreasureHunt = 70,
 
 		// Team Arena
-		TeamDeathmatch = 50,
-		GhostTown = 51,
-		CaptureTheFlag = 52,
-		NinjaBall = 53,
-		Dodgeball = 54,
-		Endbringers = 55,
+		TeamDeathmatch = 80,
+		GhostTown = 81,
+		CaptureTheFlag = 82,
+		NinjaBall = 83,
+		Dodgeball = 84,
+		Endbringers = 85,
 
 		// Competitive Arena
-		Deathmatch = 60,
-		DarkCircus = 61,
-		BattleRoyale = 62,
+		Deathmatch = 90,
+		DarkCircus = 91,
+		BattleRoyale = 92,
 	}
 
 	// Admin Message Flags have a follow-up sequence:

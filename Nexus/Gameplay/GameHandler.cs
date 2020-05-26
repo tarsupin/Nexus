@@ -10,7 +10,7 @@ namespace Nexus.Gameplay {
 
 		// Game Content Classes
 		public readonly LevelContent levelContent;
-		public readonly WorldContent world;
+		public readonly WorldContent worldContent;
 
 		// Game State Classes
 		public readonly CampaignState campaignState;
@@ -27,7 +27,7 @@ namespace Nexus.Gameplay {
 
 			// Content
 			this.levelContent = new LevelContent();
-			this.world = new WorldContent(this);
+			this.worldContent = new WorldContent(this);
 
 			// State
 			this.campaignState = new CampaignState(this);

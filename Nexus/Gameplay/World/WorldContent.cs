@@ -16,23 +16,25 @@ namespace Nexus.Gameplay {
 			Systems.filesLocal.MakeDirectory("Worlds");
 		}
 
-		public void LoadWorld(string worldId) {
+		public bool LoadWorld(string worldId = "") {
 
 			// Update the World ID, or use existing World ID if applicable.
-			if(worldId.Length > 0) { this.worldId = worldId; } else if(this.worldId == "") { return; }
+			if(worldId.Length > 0) { this.worldId = worldId; } else { return false; }
 
 			string localPath = WorldContent.GetLocalWorldPath(this.worldId);
 
 			// Make sure the world exists:
-			if(!Systems.filesLocal.FileExists(localPath)) { return; }
+			if(!Systems.filesLocal.FileExists(localPath)) { return false; }
 
 			string json = Systems.filesLocal.ReadFile(localPath);
 
 			// If there is no JSON content, end the attempt to load world:
-			if(json == "") { return; }
+			if(json == "") { return false; }
 
 			// Load the Data
 			this.data = JsonConvert.DeserializeObject<WorldFormat>(json);
+
+			return true;
 		}
 
 		public static string GetLocalWorldPath(string worldId) {

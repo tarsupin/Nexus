@@ -11,38 +11,53 @@ namespace Nexus.ObjectComponents {
 
 		// Standard Heads
 		RyuHead = 5,
+		PooHead = 6,
+		CarlHead = 7,
 	}
 
 	public static class HeadMap {
 		public static readonly RyuHead RyuHead = new RyuHead();
+		public static readonly PooHead PooHead = new PooHead();
+		public static readonly CarlHead CarlHead = new CarlHead();
 	}
 
 	public class Head {
 
-		protected readonly string SpriteName;   // Name of the sprite to draw.
-		public readonly Hat DefaultCosmeticHat; // A default, Cosmetic Hat associated with the Head (such as Wizard Hats for Wizards).
+		protected readonly Atlas atlas;
+		protected readonly string SpriteName;		// Name of the base sprite to draw.
+		public readonly Hat DefaultCosmeticHat;		// A default, Cosmetic Hat associated with the Head (such as Wizard Hats for Wizards).
 
 		public Head( string headName, Hat defaultCosmeticHat = null) {
 			this.SpriteName = "Head/" + headName + "/";
 			this.DefaultCosmeticHat = defaultCosmeticHat;
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];
 		}
 
-		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+		public static Head GetHeadBySubType(byte subType) {
 
-			// Random Hat
-			if(subType == (byte) HeadSubType.RandomHead) {
+			// Random Head
+			if(subType == (byte)HeadSubType.RandomHead) {
 				Random rand = new Random((int)Systems.timer.Frame);
-				subType = (byte)rand.Next(5, 5);
-			} else if(subType == (byte) HeadSubType.RandomStandard) {
+				subType = (byte)rand.Next(5, 7);
+			} else if(subType == (byte)HeadSubType.RandomStandard) {
 				Random rand = new Random((int)Systems.timer.Frame);
-				subType = (byte)rand.Next(5, 5);
+				subType = (byte)rand.Next(5, 7);
 			}
 
 			switch(subType) {
 
 				// Standard Heads
-				case (byte) HeadSubType.RyuHead: HeadMap.RyuHead.ApplyHead(character, resetStats); break;
+				case (byte)HeadSubType.RyuHead: return HeadMap.RyuHead;
+				case (byte)HeadSubType.PooHead: return HeadMap.PooHead;
+				case (byte)HeadSubType.CarlHead: return HeadMap.CarlHead;
 			}
+
+			return HeadMap.RyuHead;
+		}
+
+		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
+			Head head = Head.GetHeadBySubType(subType);
+			head.ApplyHead(character, resetStats);
 		}
 
 		public void ApplyHead(Character character, bool resetStats) {
@@ -64,8 +79,8 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public void Draw(Character character, int camX, int camY) {
-			Systems.mapper.atlas[(byte) AtlasGroup.Objects].Draw(this.SpriteName + (character.FaceRight ? "Right" : "Left"), character.posX - camX, character.posY - camY);
+		public void Draw(bool faceRight, int posX, int posY, int camX, int camY) {
+			this.atlas.Draw(this.SpriteName + (faceRight ? "Right" : "Left"), posX - camX, posY - camY);
 		}
 	}
 }
