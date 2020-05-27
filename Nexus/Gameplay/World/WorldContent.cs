@@ -1,6 +1,8 @@
 ﻿
 using Newtonsoft.Json;
 using Nexus.Engine;
+using System;
+using System.Security.Policy;
 
 namespace Nexus.Gameplay {
 
@@ -56,6 +58,92 @@ namespace Nexus.Gameplay {
 			// Save State
 			string json = JsonConvert.SerializeObject(this.data);
 			Systems.filesLocal.WriteFile(WorldContent.GetLocalWorldPath(this.worldId), json);
+		}
+
+		public WorldZoneFormat GetWorldZone(byte zoneId) {
+			if(this.data.zones.Length <= zoneId) { return null; }
+			return this.data.zones[zoneId];
+		}
+
+		public byte GetHeightOfZone(WorldZoneFormat zone) {
+			return (zone.tiles.Length > 0) ? (byte) zone.tiles.Length : (byte) 0;
+		}
+
+		public byte GetWidthOfZone(WorldZoneFormat zone) {
+			return (zone.tiles.Length > 0) ? (byte) zone.tiles[0].Length : (byte) 0;
+		}
+
+		public byte SetZoneWidth(WorldZoneFormat zone, byte newWidth) {
+			byte width = this.GetWidthOfZone(zone);
+			byte height = this.GetHeightOfZone(zone);
+
+			// Loop through Y Data
+			for(byte y = 0; y < height; y++) {
+				var yData = zone.tiles[y];
+
+				// If New Width is lower:
+				if(newWidth < width) {
+					var newYData = zone.tiles[y];
+					Array.Resize<byte[]>(ref newYData, newWidth);
+					zone.tiles[y] = newYData;
+					continue;
+				}
+				
+				// Loop through X Data
+				for(byte x = width; x < newWidth; x++) {
+					yData[x] = new byte[] { 0, 0, 0, 0, 0, 0 };
+				}
+			}
+
+			return newWidth;
+		}
+
+		public byte SetZoneHeight(WorldZoneFormat zone, byte newHeight) {
+			byte width = this.GetWidthOfZone(zone);
+			byte height = this.GetHeightOfZone(zone);
+			
+			// If New Height is lower:
+			if(newHeight < height) {
+				byte[][][] tiles = zone.tiles;
+				Array.Resize<byte[][]>(ref tiles, newHeight);
+				zone.tiles = tiles;
+				return newHeight;
+			}
+
+			// Loop through Y Data
+			for(byte y = height; y < newHeight; y++) {
+				zone.tiles[y] = new byte[width][];
+				
+				// Loop through X Data
+				for(byte x = 0; x < width; x++) {
+					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0 };
+				}
+			}
+
+			return newHeight;
+		}
+
+		public static byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
+			var tiles = zone.tiles;
+			if(gridY > tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
+			if(gridX > tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
+			return tiles[gridY][gridX];
+		}
+
+		public static bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, OTerrain tBase = 0, OTerrain tTop = 0, OTerrainCat tCat = 0, OLayer tLay = 0, OTerrainObjects obj = 0, byte nodeId = 0 ) {
+			var tiles = zone.tiles;
+			if(gridY > tiles.Length) { return false; }
+			if(gridX > tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX] = new byte[] { (byte) tBase, (byte) tTop, (byte) tCat, (byte) tLay, (byte) obj, nodeId };
+			return true;
+		}
+
+		public static bool DeleteTile(WorldZoneFormat zone, ushort gridX, ushort gridY) {
+			var tiles = zone.tiles;
+			if(gridY > tiles.Length) { return false; }
+			if(gridX > tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX] = new byte[] { 0, 0, 0, 0, 0, 0 };
+			return true;
 		}
 	}
 }

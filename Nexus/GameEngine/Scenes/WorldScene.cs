@@ -43,13 +43,13 @@ namespace Nexus.GameEngine {
 		public byte score = 0;
 
 		// Access to World Data
-		public WorldFormat worldData;
+		public WorldContent worldContent;
+		public WorldFormat worldData;		// worldContent.data
 
 		// Zones
 		//public Dictionary<ushort, WorldZone> zones;			// TODO: REMOVE
 
 		// Grid Limits
-		// TODO: UPDATE THESE VALUES
 		public byte xCount = 20;
 		public byte yCount = 20;
 
@@ -63,25 +63,25 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 
 			// Prepare World Content
-			this.worldData = Systems.handler.worldContent.data;
+			this.worldContent = Systems.handler.worldContent;
+			this.worldData = this.worldContent.data;
 
 			// Camera Update
 			Systems.camera.UpdateScene(this);
 		}
 
-		public WorldZoneFormat currentZone { get { return this.worldData.zones[this.campaign.zoneId]; } }
+		public WorldZoneFormat currentZone { get { return this.worldContent.GetWorldZone(this.campaign.zoneId); } }
 
 		public override void StartScene() {
 
-			// TODO: Make sure that world data is available.
-			//if(this.data) {
-			//	throw new Exception("Unable to load world. No world data available.");
-			//}
+			// Make sure that world data is available.
+			if(this.worldData is WorldFormat == false) {
+				throw new Exception("Unable to load world. No world data available.");
+			}
 
-			// Assign Default Zone
-			//if(Systems.campaign.zone != null) {
-			//	Systems.campaign.zone = 0;
-			//}
+			// Update Grid Limits
+			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
+			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
 
 			// Generate Character
 			this.character = new WorldChar(this, HeadSubType.RyuHead);
@@ -222,21 +222,15 @@ namespace Nexus.GameEngine {
 			byte startX = (byte)Math.Max((byte)0, (byte)cam.GridX);
 			byte startY = (byte)Math.Max((byte)0, (byte)cam.GridY);
 
-			byte gridX = (byte)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			byte gridY = (byte)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			byte gridX = (byte)(startX + 45 + 1); // 26 is view size. +1 is to render the edge.
+			byte gridY = (byte)(startY + 26 + 1); // 25.5 is view size. +1 is to render the edge.
 
-			if(gridX > this.xCount) { gridX = (byte)(this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = (byte)(this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = (byte)(this.xCount); } // Must limit to room size.
+			if(gridY > this.yCount) { gridY = (byte)(this.yCount); } // Must limit to room size.
 
 			// Camera Position
 			int camX = cam.posX;
 			int camY = cam.posY;
-
-			// TODO: REMOVE. THIS IS TEMPORARY.
-			// TODO: REMOVE. THIS IS TEMPORARY.
-			// TODO: REMOVE. THIS IS TEMPORARY.
-			gridX = 40;
-			gridY = 40;
 
 			// Prepare Zone Data
 			var WorldTerrain = Systems.mapper.WorldTerrain;

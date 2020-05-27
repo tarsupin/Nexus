@@ -29,6 +29,7 @@ namespace Nexus.Gameplay {
 
 		public CampaignState(GameHandler handler) {
 			this.handler = handler;
+			this.Reset();
 		}
 
 		public void Reset() {
