@@ -1,8 +1,16 @@
 ﻿
 namespace Nexus.Gameplay {
 	public class WorldState {
-		public WorldState(GameHandler handler) {
 
+		private readonly GameHandler handler;
+
+		public WorldState(GameHandler handler) {
+			this.handler = handler;
+
+		}
+
+		public void FullWorldReset() {
+			// TODO URGENT
 		}
 	}
 }

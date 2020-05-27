@@ -21,7 +21,18 @@ namespace Nexus.GameEngine {
 			// If we're already in a World Scene, verify that we're loading a different world from our current one.
 			if(Systems.scene is WorldScene && worldId == handler.worldContent.worldId) { return false; }
 
+			// Get World Path & Retrieve World Data
+			if(!handler.worldContent.LoadWorldData(worldId)) { return false; }
 
+			// Update the World State
+			handler.worldState.FullWorldReset();
+
+			// End Old World Scene
+			Systems.scene.EndScene();
+
+			// Create New World Scene
+			Systems.scene = new WorldScene();
+			Systems.scene.StartScene();
 
 			return true;
 		}

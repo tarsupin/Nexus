@@ -53,6 +53,12 @@ namespace Nexus.Gameplay {
 		public Dictionary<byte, TileObject> TileDict;
 		public Dictionary<byte, GameObjectMetaData> ObjectMetaData = new Dictionary<byte, GameObjectMetaData>();
 
+		// World Tiles
+		public Dictionary<byte, string> WorldTerrain;
+		public Dictionary<byte, string> WorldTerrainCat;
+		public Dictionary<byte, string> WorldLayers;
+		public Dictionary<byte, string> WorldObjects;
+
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
 			// Create Atlas List
@@ -276,6 +282,185 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CheckFlagCheckpoint, new CheckFlagCheckpoint() },
 				{ (byte) TileEnum.CheckFlagPass, new CheckFlagPass() },
 				{ (byte) TileEnum.CheckFlagRetry, new CheckFlagRetry() },
+			};
+
+			// World Terrain
+			this.WorldTerrain = new Dictionary<byte, string>() {
+				{ (byte) OTerrain.Grass, "Grass" },
+				{ (byte) OTerrain.Desert, "Desert" },
+				{ (byte) OTerrain.Snow, "Snow" },
+				{ (byte) OTerrain.WaterDeep, "WaterDeep" },
+				{ (byte) OTerrain.Water, "Water" },
+				{ (byte) OTerrain.Mud, "Mud" },
+				{ (byte) OTerrain.Dirt, "Dirt" },
+				{ (byte) OTerrain.Cobble, "Cobble" },
+				{ (byte) OTerrain.Road, "Road" },
+				{ (byte) OTerrain.Ice, "Ice" },
+				{ (byte) OTerrain.GrassDeep, "GrassDeep" },
+			};
+
+			// World Terrain Categories
+			this.WorldTerrainCat = new Dictionary<byte, string>() {
+				{ (byte) OTerrainCat.Trees, "Trees" },
+				{ (byte) OTerrainCat.Mountains, "Mountain" },
+				{ (byte) OTerrainCat.Field, "Field" },
+				{ (byte) OTerrainCat.Veg, "Veg" },
+				{ (byte) OTerrainCat.Water, "Water" },
+			};
+
+			// World Layers
+			this.WorldLayers = new Dictionary<byte, string>() {
+
+				// Default Value
+				{ (byte) 0, "b1" },
+
+				// Base Variations
+				{ (byte) OLayer.b1, "b1" },
+				{ (byte) OLayer.b2, "b2" },
+				{ (byte) OLayer.b3, "b3" },
+				{ (byte) OLayer.b4, "b4" },
+				{ (byte) OLayer.b5, "b5" },
+				{ (byte) OLayer.b6, "b6" },
+				{ (byte) OLayer.b7, "b7" },
+				{ (byte) OLayer.b8, "b8" },
+				{ (byte) OLayer.b9, "b9" },
+				{ (byte) OLayer.b10, "b10" },
+
+				// Paths
+				{ (byte) OLayer.c2, "c2" },
+				{ (byte) OLayer.c4, "c4" },
+				{ (byte) OLayer.c5, "c5" },
+				{ (byte) OLayer.c6, "c6" },
+				{ (byte) OLayer.c8, "c8" },
+
+				{ (byte) OLayer.e1, "e1" },
+				{ (byte) OLayer.e2, "e2" },
+				{ (byte) OLayer.e3, "e3" },
+				{ (byte) OLayer.e4, "e4" },
+				{ (byte) OLayer.e5, "e5" },
+				{ (byte) OLayer.e6, "e6" },
+				{ (byte) OLayer.e7, "e7" },
+				{ (byte) OLayer.e8, "e8" },
+				{ (byte) OLayer.e9, "e9" },
+				{ (byte) OLayer.el, "el" },
+				{ (byte) OLayer.er, "er" },
+
+				{ (byte) OLayer.l1, "l1" },
+				{ (byte) OLayer.l3, "l3" },
+				{ (byte) OLayer.l7, "l7" },
+				{ (byte) OLayer.l9, "l9" },
+
+				{ (byte) OLayer.p1, "p1" },
+				{ (byte) OLayer.p3, "p3" },
+				{ (byte) OLayer.p7, "p7" },
+				{ (byte) OLayer.p9, "p9" },
+				{ (byte) OLayer.ph, "ph" },
+				{ (byte) OLayer.pv, "pv" },
+
+				{ (byte) OLayer.r1, "r1" },
+				{ (byte) OLayer.r3, "r3" },
+				{ (byte) OLayer.r7, "r7" },
+				{ (byte) OLayer.r9, "r9" },
+
+				{ (byte) OLayer.s, "s" },
+				{ (byte) OLayer.s1, "s1" },
+				{ (byte) OLayer.s2, "s2" },
+				{ (byte) OLayer.s3, "s3" },
+				{ (byte) OLayer.s4, "s4" },
+				{ (byte) OLayer.s5, "s5" },
+				{ (byte) OLayer.s6, "s6" },
+				{ (byte) OLayer.s7, "s7" },
+				{ (byte) OLayer.s8, "s8" },
+				{ (byte) OLayer.s9, "s9" },
+
+				{ (byte) OLayer.t2, "t2" },
+				{ (byte) OLayer.t4, "t4" },
+				{ (byte) OLayer.t6, "t6" },
+				{ (byte) OLayer.t8, "t8" },
+
+				{ (byte) OLayer.v1, "v1" },
+				{ (byte) OLayer.v3, "v3" },
+				{ (byte) OLayer.v7, "v7" },
+				{ (byte) OLayer.v9, "v9" },
+			};
+
+			// World Objects
+			this.WorldObjects = new Dictionary<byte, string>() {
+
+				// Ground Objects
+				{ (byte) OTerrainObjects.Bones, "Bones" },
+				{ (byte) OTerrainObjects.Cactus, "Cactus" },
+				{ (byte) OTerrainObjects.Stump, "Stump" },
+				{ (byte) OTerrainObjects.Snowman1, "Snowman1" },
+				{ (byte) OTerrainObjects.Snowman2, "Snowman2" },
+
+				{ (byte) OTerrainObjects.Tree1, "Tree1" },
+				{ (byte) OTerrainObjects.Tree2, "Tree2" },
+				{ (byte) OTerrainObjects.Pit, "Pit" },
+				{ (byte) OTerrainObjects.Dungeon, "Dungeon" },
+
+				// Nodes
+				{ (byte) OTerrainObjects.NodeStrict, "NodeStrict" },
+				{ (byte) OTerrainObjects.NodeCasual, "NodeCasual" },
+				{ (byte) OTerrainObjects.NodePoint, "NodePoint" },
+				{ (byte) OTerrainObjects.NodeMove, "NodeMove" },
+				{ (byte) OTerrainObjects.NodeWarp, "NodeWarp" },
+				{ (byte) OTerrainObjects.NodeWon, "NodeWon" },
+				{ (byte) OTerrainObjects.NodeStart, "NodeStart" },
+
+				// Buildings, Residence
+				{ (byte) OTerrainObjects.House1, "House1" },
+				{ (byte) OTerrainObjects.House2, "House2" },
+				{ (byte) OTerrainObjects.House3, "House3" },
+				{ (byte) OTerrainObjects.House4, "House4" },
+				{ (byte) OTerrainObjects.House5, "House5" },
+				{ (byte) OTerrainObjects.House6, "House6" },
+				{ (byte) OTerrainObjects.House7, "House7" },
+				{ (byte) OTerrainObjects.House8, "House8" },
+				{ (byte) OTerrainObjects.House9, "House9" },
+				{ (byte) OTerrainObjects.House10, "House10" },
+
+				// Buildings, Defense
+				{ (byte) OTerrainObjects.Castle1, "Castle1" },
+				{ (byte) OTerrainObjects.Castle2, "Castle2" },
+				{ (byte) OTerrainObjects.Castle3, "Castle3" },
+				{ (byte) OTerrainObjects.Castle4, "Castle4" },
+				{ (byte) OTerrainObjects.Castle5, "Castle5" },
+
+				{ (byte) OTerrainObjects.Tower1, "Tower1" },
+				{ (byte) OTerrainObjects.Tower2, "Tower2" },
+				{ (byte) OTerrainObjects.Tower3, "Tower3" },
+				{ (byte) OTerrainObjects.Tower4, "Tower4" },
+
+				// Large Buildings
+				{ (byte) OTerrainObjects.Town1, "Town1" },
+				{ (byte) OTerrainObjects.Town2, "Town2" },
+				{ (byte) OTerrainObjects.Town3, "Town3" },
+
+				{ (byte) OTerrainObjects.Stadium, "Stadium" },
+
+				{ (byte) OTerrainObjects.Pyramid1, "Pyramid1" },
+				{ (byte) OTerrainObjects.Pyradmi2, "Pyradmi2" },
+				{ (byte) OTerrainObjects.Pyramid3, "Pyramid3" },
+
+				// Buildings, Misc
+				{ (byte) OTerrainObjects.Tent, "Tent" },
+
+				// Stone Bridge
+				{ (byte) OTerrainObjects.StoneBridge2, "sb2" },
+				{ (byte) OTerrainObjects.StoneBridge4, "sb4" },
+				{ (byte) OTerrainObjects.StoneBridge6, "sb6" },
+				{ (byte) OTerrainObjects.StoneBridge8, "sb8" },
+				{ (byte) OTerrainObjects.StoneBridgeH, "sbh" },
+				{ (byte) OTerrainObjects.StoneBridgeV, "sbv" },
+
+				// Wood Bridge
+				{ (byte) OTerrainObjects.WoodBridge2, "wb2" },
+				{ (byte) OTerrainObjects.WoodBridge4, "wb4" },
+				{ (byte) OTerrainObjects.WoodBridge6, "wb6" },
+				{ (byte) OTerrainObjects.WoodBridge8, "wb8" },
+				{ (byte) OTerrainObjects.WoodBridgeH, "wbh" },
+				{ (byte) OTerrainObjects.WoodBridgeV, "wbv" },
 			};
 		}
 

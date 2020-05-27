@@ -7,16 +7,16 @@ namespace Nexus.Gameplay {
 	public class WorldContent {
 
 		// World Data
-		public string worldId;          // World ID (e.g. "QCALQOD16")
+		public string worldId;          // World ID (e.g. "Astaria")
 		public WorldFormat data;		// World Data
 
-		public WorldContent(GameHandler gameHandler) {
+		public WorldContent() {
 
 			// Make sure the Worlds directory exists.
 			Systems.filesLocal.MakeDirectory("Worlds");
 		}
 
-		public bool LoadWorld(string worldId = "") {
+		public bool LoadWorldData(string worldId = "") {
 
 			// Update the World ID, or use existing World ID if applicable.
 			if(worldId.Length > 0) { this.worldId = worldId; } else { return false; }

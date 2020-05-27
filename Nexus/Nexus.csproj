@@ -170,7 +170,6 @@
     <Compile Include="GameEngine\ObjectPool.cs" />
     <Compile Include="Engine\Cursor.cs" />
     <Compile Include="GameEngine\World\WorldTileData.cs" />
-    <Compile Include="GameEngine\World\WorldZone.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WorldChar.cs" />
     <Compile Include="GameEngine\Editor\EditorTools.cs" />
@@ -236,7 +235,6 @@
     <Compile Include="Gameplay\Types\TileTypes.cs" />
     <Compile Include="Gameplay\Types\ArenaTypes.cs" />
     <Compile Include="Gameplay\Types\SocketFlagTypes.cs" />
-    <Compile Include="Gameplay\World\WorldTileFormat.cs" />
     <Compile Include="Gameplay\World\WorldZoneFormat.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
     <Compile Include="Gameplay\World\WorldContent.cs" />

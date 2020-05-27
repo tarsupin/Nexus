@@ -22,7 +22,7 @@ namespace Nexus.Gameplay {
 		public ushort version { get; set; }
 		
 		[JsonProperty("zones")]
-		public Dictionary<string, WorldZoneFormat> zones { get; set; }
+		public WorldZoneFormat[] zones { get; set; }
 	}
 
 }

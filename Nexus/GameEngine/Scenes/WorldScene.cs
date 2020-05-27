@@ -32,9 +32,7 @@ namespace Nexus.GameEngine {
 		public readonly PlayerInput playerInput;
 		public WorldChar character;
 		public CampaignState campaign;
-
-		// Zones
-		public Dictionary<ushort, WorldZone> zones;
+		public Atlas atlas;
 
 		// World Metadata
 		public string id = "";
@@ -44,6 +42,17 @@ namespace Nexus.GameEngine {
 		public ushort version = 0;
 		public byte score = 0;
 
+		// Access to World Data
+		public WorldFormat worldData;
+
+		// Zones
+		//public Dictionary<ushort, WorldZone> zones;			// TODO: REMOVE
+
+		// Grid Limits
+		// TODO: UPDATE THESE VALUES
+		public byte xCount = 20;
+		public byte yCount = 20;
+
 		public WorldScene() : base() {
 
 			// Prepare Components
@@ -51,15 +60,16 @@ namespace Nexus.GameEngine {
 			this.character = new WorldChar(this);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 
-			// Prepare Zones
-			this.zones = new Dictionary<ushort, WorldZone>();
+			// Prepare World Content
+			this.worldData = Systems.handler.worldContent.data;
 
 			// Camera Update
 			Systems.camera.UpdateScene(this);
 		}
 
-		public WorldZone currentZone { get { return this.zones[this.campaign.zoneId]; } }
+		public WorldZoneFormat currentZone { get { return this.worldData.zones[this.campaign.zoneId]; } }
 
 		public override void StartScene() {
 
@@ -136,7 +146,7 @@ namespace Nexus.GameEngine {
 			if(this.character.IsAtNode) { return; }
 
 			// Get Current Node
-			NodeData curNode = this.currentZone.GetNode(this.campaign.currentNodeId);
+			NodeData curNode = this.GetNode(this.campaign.currentNodeId);
 
 			// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
 			if(dir == DirCardinal.Center) {
@@ -167,7 +177,7 @@ namespace Nexus.GameEngine {
 			if(nextId == 0) { return; }
 
 			// Get Last Node
-			NodeData nextNode = this.currentZone.GetNode(nextId);
+			NodeData nextNode = this.GetNode(nextId);
 			if(nextNode == null) { return; }
 
 			// If the current level / node hasn't been completed, prevent movement if an open path hasn't been declared.
@@ -185,7 +195,7 @@ namespace Nexus.GameEngine {
 			byte count = 0;
 
 			// Identify the remaining travel direction(s):
-			DirCardinal lastDir = lastNodeId > 0 ? this.currentZone.FindDirToNode(node, lastNodeId) : DirCardinal.None;
+			DirCardinal lastDir = lastNodeId > 0 ? this.FindDirToNode(node, lastNodeId) : DirCardinal.None;
 
 			DirCardinal dir = DirCardinal.None;
 			if(node.Down > 0 && lastDir != DirCardinal.Down) { dir = DirCardinal.Down; count++; }
@@ -207,10 +217,166 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void Draw() {
+			Camera cam = Systems.camera;
+
+			byte startX = (byte)Math.Max((byte)0, (byte)cam.GridX);
+			byte startY = (byte)Math.Max((byte)0, (byte)cam.GridY);
+
+			byte gridX = (byte)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			byte gridY = (byte)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+
+			if(gridX > this.xCount) { gridX = (byte)(this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = (byte)(this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+
+			// Camera Position
+			int camX = cam.posX;
+			int camY = cam.posY;
+
+			// TODO: REMOVE. THIS IS TEMPORARY.
+			// TODO: REMOVE. THIS IS TEMPORARY.
+			// TODO: REMOVE. THIS IS TEMPORARY.
+			gridX = 40;
+			gridY = 40;
+
+			// Prepare Zone Data
+			var WorldTerrain = Systems.mapper.WorldTerrain;
+			var WorldTerrainCat = Systems.mapper.WorldTerrainCat;
+			var WorldLayers = Systems.mapper.WorldLayers;
+			var WorldObjects = Systems.mapper.WorldObjects;
+
+			byte[][][] curTiles = this.currentZone.tiles;
+
+			// Loop through the zone tile data:
+			for(byte y = gridY; y-- > startY;) {
+				ushort tileYPos = (ushort)(y * (byte)WorldmapEnum.TileHeight - camY);
+
+				for(byte x = gridX; x-- > startX;) {
+					byte[] wtData = curTiles[y][x];
+					
+					// Draw Base
+					if(wtData[0] != 0) {
+
+						// If there is a top layer:
+						if(wtData[1] != 0) {
+
+							// Draw a standard base tile with no varient, so that the top layer will look correct.
+							this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+
+							// Draw the Top Layer
+							this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+						}
+
+						// If there is not a top layer:
+						else {
+
+							// If there is a category:
+							if(wtData[2] != 0) {
+								this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+							} else {
+								this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+							}
+						}
+					}
+
+					// Draw Top, with no base:
+					else if(wtData[1] != 0) {
+						this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+					}
+
+					// Draw Object Layer
+					if(wtData[4] != 0) {
+						this.atlas.Draw("Objects/" + WorldObjects[wtData[4]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+					}
+				};
+			}
 
 			// Draw UI
 			this.worldUI.Draw();
 			Systems.worldConsole.Draw();
+		}
+
+
+
+
+
+
+
+		public NodeData GetNode(ushort nodeId) {
+			return null;
+			//return this.nodes.ContainsKey(nodeId) ? this.nodes[nodeId] : null;
+		}
+
+		public ushort GetNodeIdByGrid(byte gridX, byte gridY) {
+
+			// TODO: FIX THIS ONCE WORLD FORMAT IS CORRECT.
+			//if(!this.tiles.ContainsKey(gridY)) { return 0; }
+			//if(!this.tiles[gridY].ContainsKey(gridX)) { return 0; }
+
+			//return this.tiles[gridY][gridX].nodeId;
+			return 0;
+		}
+
+		public NodeData GetZoneStartNode() {
+			ushort startNodeId = this.FindZoneStartNodeId();
+			return this.GetNode(startNodeId);
+		}
+
+		public ushort FindZoneStartNodeId() {
+			//foreach(var result in this.nodes) {
+			//	if(result.Value.start) {
+			//		return result.Key;
+			//	}
+			//}
+			return 0;
+		}
+
+		public ushort FindWarpDestinationNode(byte zoneId, ushort warpId) {
+			var zones = Systems.handler.worldContent.data.zones;
+
+			// Make sure the zone contains the Zone ID assigned from the warp.
+			if(zones.Length < zoneId) { return 0; }
+
+			WorldZoneFormat zone = zones[zoneId];
+			var tiles = zone.tiles;
+
+			// TODO: REST OF THIS
+			// Loop through tiles:
+			//foreach(var result in tiles) {
+			//	var row = result.Value;
+
+			//	foreach()
+			//}
+
+			//NodeData[] nodes = zone.
+
+			//let find = zone !== null ? this.worldData.zones[zone].nodes : this.nodes;
+			//for(let id in find) {
+			//		let node = find[id];
+			//		if(node.warp === warpId) { return parseInt(id); }
+			//	}
+			//	return null;
+			return 0;
+		}
+
+		public DirCardinal FindDirToNode(NodeData startNode, ushort endId) {
+			if(startNode.Up == endId) { return DirCardinal.Up; }
+			if(startNode.Right == endId) { return DirCardinal.Right; }
+			if(startNode.Down == endId) { return DirCardinal.Down; }
+			if(startNode.Left == endId) { return DirCardinal.Left; }
+			return DirCardinal.None;
+		}
+
+
+
+		// TODO: Do these when we need to edit the world.
+		// TODO: Do these when we need to edit the world.
+
+		// ----------------------------
+		//   Editing Methods
+		// ----------------------------
+
+		public void AssignStartNode() {
+
 		}
 	}
 }

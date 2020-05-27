@@ -27,7 +27,7 @@ namespace Nexus.Gameplay {
 
 			// Content
 			this.levelContent = new LevelContent();
-			this.worldContent = new WorldContent(this);
+			this.worldContent = new WorldContent();
 
 			// State
 			this.campaignState = new CampaignState(this);
