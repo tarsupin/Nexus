@@ -89,14 +89,14 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void UpdateHelperText() {
-			if(Systems.scene is EditorScene == false) { return; }
-			EditorScene editorScene = (EditorScene) Systems.scene;
+			if(Systems.scene is WorldEditorScene == false) { return; }
+			WorldEditorScene WorldEditorScene = (WorldEditorScene) Systems.scene;
 
 			// Function Tool Helper Text
 			WorldFuncTool tool = WorldEditorTools.WorldTempTool != null ? WorldEditorTools.WorldTempTool : WorldEditorTools.WorldFuncTool;
 
 			if(tool != null) {
-				editorScene.editorUI.SetHelperText(tool.title, tool.description);
+				WorldEditorScene.worldEditorUI.SetHelperText(tool.title, tool.description);
 				return;
 			}
 
@@ -108,18 +108,18 @@ namespace Nexus.GameEngine {
 					TileObject tile = Systems.mapper.TileDict[ph.tBase];
 
 					if(tile.titles != null) {
-						editorScene.editorUI.SetHelperText(tile.titles[ph.tCat], tile.descriptions[ph.tCat]);
+						WorldEditorScene.worldEditorUI.SetHelperText(tile.titles[ph.tCat], tile.descriptions[ph.tCat]);
 						return;
 					}
 
 					else if(tile.title.Length > 0) {
-						editorScene.editorUI.SetHelperText(tile.title, tile.description);
+						WorldEditorScene.worldEditorUI.SetHelperText(tile.title, tile.description);
 						return;
 					}
 				}
 			}
 
-			editorScene.editorUI.SetHelperText("", "");
+			WorldEditorScene.worldEditorUI.SetHelperText("", "");
 		}
 	}
 }

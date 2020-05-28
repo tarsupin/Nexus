@@ -67,7 +67,7 @@ namespace Nexus.GameEngine {
 			Systems.worldEditConsole.RunTick();
 
 			// Check Input Updates
-			this.RunInputCheck();
+			this.WorldEditorInput();
 
 			// A right click will clone the current tile.
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
@@ -86,6 +86,49 @@ namespace Nexus.GameEngine {
 
 			// Camera Movement
 			//Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
+		}
+
+		public void WorldEditorInput() {
+			InputClient input = Systems.input;
+
+			// Release TempTool Control every tick:
+			if(WorldEditorTools.WorldTempTool != null) {
+				WorldEditorTools.ClearWorldTempTool();
+			}
+
+			// Get the Local Keys Held Down
+			Keys[] localKeys = input.GetAllLocalKeysDown();
+			if(localKeys.Length == 0) { return; }
+
+			// Key Presses that AREN'T using control keys:
+			if(!input.LocalKeyDown(Keys.LeftControl) && !input.LocalKeyDown(Keys.RightControl)) {
+
+				// Func Tool Key Binds
+				if(WorldFuncTool.WorldFuncToolKey.ContainsKey(localKeys[0])) {
+					WorldEditorTools.SetWorldTempTool(WorldFuncTool.WorldFuncToolMap[WorldFuncTool.WorldFuncToolKey[localKeys[0]]]);
+				}
+
+				// Tile Tool Key Binds
+				else if(WorldEditorUI.currentSlotGroup > 0) {
+					this.CheckTileToolKeyBinds(localKeys[0]);
+				}
+			}
+
+			// Open Wheel Menu
+			if(input.LocalKeyPressed(Keys.Tab)) { this.worldEditorUI.contextMenu.OpenMenu(); }
+		}
+		
+		public void CheckTileToolKeyBinds(Keys keyPressed) {
+			if(keyPressed == Keys.D1) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 0); }
+			else if(keyPressed == Keys.D2) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 1); }
+			else if(keyPressed == Keys.D3) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 2); }
+			else if(keyPressed == Keys.D4) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 3); }
+			else if(keyPressed == Keys.D5) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 4); }
+			else if(keyPressed == Keys.D6) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 5); }
+			else if(keyPressed == Keys.D7) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 6); }
+			else if(keyPressed == Keys.D8) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 7); }
+			else if(keyPressed == Keys.D9) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 8); }
+			else if(keyPressed == Keys.D0) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 9); }
 		}
 
 		public void TileToolTick(ushort gridX, ushort gridY) {
@@ -110,22 +153,6 @@ namespace Nexus.GameEngine {
 				// Place Tile
 				this.worldContent.SetTile(this.currentZone, (byte) gridX, (byte) gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
 				return;
-			}
-		}
-
-		public void RunInputCheck() {
-			InputClient input = Systems.input;
-
-			// Get the Local Keys Held Down
-			//Keys[] localKeys = input.GetAllLocalKeysDown();
-			//if(localKeys.Length == 0) { return; }
-
-			// Menu-Specific Key Presses
-			// if(this.game.menu.isOpen) { return this.game.menu.onKeyDown( key, iKeyPressed ); }
-
-			// Open Menu
-			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				// TODO: Open a context menu here.
 			}
 		}
 

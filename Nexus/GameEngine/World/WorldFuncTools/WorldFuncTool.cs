@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			{ (byte) WorldFuncToolEnum.Wand, new WorldFuncToolWand() },
 		};
 
-		public static Dictionary<Keys, byte> WorldfuncToolKey = new Dictionary<Keys, byte>() {
+		public static Dictionary<Keys, byte> WorldFuncToolKey = new Dictionary<Keys, byte>() {
 			{ Keys.X, (byte) WorldFuncToolEnum.Eraser },
 			{ Keys.C, (byte) WorldFuncToolEnum.Eyedrop },
 			{ Keys.V, (byte) WorldFuncToolEnum.Move },
