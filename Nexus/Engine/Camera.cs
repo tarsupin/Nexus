@@ -31,6 +31,9 @@ namespace Nexus.Engine {
 
 		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (ushort)TilemapEnum.TileWidth); } }
 		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (ushort)TilemapEnum.TileHeight); } }
+		
+		public ushort MiniX { get { return (ushort)Math.Floor((double)this.posX / (ushort)WorldmapEnum.TileWidth); } }
+		public ushort MiniY { get { return (ushort)Math.Floor((double)this.posY / (ushort)WorldmapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;
@@ -38,7 +41,7 @@ namespace Nexus.Engine {
 			this.posY = 0;
 			this.speedMult = 0.08f; // 0.08f;
 			this.controlSpeed = 8;
-			this.SetSize(1440, 816);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
+			this.SetSize(1440, 900);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
 			this.bounds = new BoundsCamera();
 			this.BindToScene(top, left, right, bottom);
 		}

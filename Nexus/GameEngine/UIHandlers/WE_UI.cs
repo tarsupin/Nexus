@@ -28,7 +28,7 @@ namespace Nexus.GameEngine {
 			this.worldContent = this.scene.worldContent;
 
 			// UI Components
-			this.gridUI = new GridOverlay(null, 45, 26, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
+			this.gridUI = new GridOverlay(null, 45, 28, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
 			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
@@ -94,7 +94,7 @@ namespace Nexus.GameEngine {
 					WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
 
 					// Draw Tile
-					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, (ushort) (Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX), (ushort) (Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY));
+					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 				}
 			}
 

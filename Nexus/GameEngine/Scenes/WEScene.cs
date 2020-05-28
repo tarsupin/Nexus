@@ -25,8 +25,10 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> WorldObjects;
 
 		// Grid Limits
-		public byte xCount = 45;
-		public byte yCount = 26;
+		public byte xCount = 45;		// 1400 / 32 = 45
+		public byte yCount = 29;		// 900 / 32 = 28.125
+		public int mapWidth = 0;
+		public int mapHeight = 0;
 
 		public WEScene() : base() {
 
@@ -47,7 +49,7 @@ namespace Nexus.GameEngine {
 			this.WorldObjects = Systems.mapper.WorldObjects;
 
 			// Camera Update
-			Systems.camera.UpdateScene(this);
+			Systems.camera.SetInputMoveSpeed(15);
 
 			// Add Mouse Behavior
 			Systems.SetMouseVisible(true);
@@ -55,6 +57,9 @@ namespace Nexus.GameEngine {
 		}
 
 		public WorldZoneFormat currentZone { get { return this.worldContent.GetWorldZone(this.campaign.zoneId); } }
+
+		public override int Width { get { return this.mapWidth; } }
+		public override int Height { get { return this.mapHeight; } }
 
 		public override void StartScene() {
 
@@ -66,9 +71,21 @@ namespace Nexus.GameEngine {
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
+
+			// Prepare Map Size
+			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
+			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
+
+			// Update Camera Bounds
+			Systems.camera.UpdateScene(this);
 		}
 
 		public override void RunTick() {
+
+			// Loop through every player and update inputs for this frame tick:
+			foreach(var player in Systems.localServer.players) {
+				player.Value.input.UpdateKeyStates(0);
+			}
 
 			// Update the Mouse State Every Tick
 			Cursor.UpdateMouseState();
@@ -98,7 +115,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Camera Movement
-			//Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
+			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
 		}
 
 		public void WorldEditorInput() {
@@ -180,11 +197,11 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			Camera cam = Systems.camera;
 
-			byte startX = (byte)Math.Max((byte)0, (byte)cam.GridX);
-			byte startY = (byte)Math.Max((byte)0, (byte)cam.GridY);
+			byte startX = (byte)Math.Max((byte)0, (byte)cam.MiniX - 1);
+			byte startY = (byte)Math.Max((byte)0, (byte)cam.MiniY - 1);
 
-			byte gridX = (byte)(startX + 45 + 1); // 26 is view size. +1 is to render the edge.
-			byte gridY = (byte)(startY + 26 + 1); // 25.5 is view size. +1 is to render the edge.
+			byte gridX = (byte)(startX + 45 + 1); // 45 is view size. +1 is to render the edge.
+			byte gridY = (byte)(startY + 29 + 1); // 28.125 is view size. +1 is to render the edge.
 
 			if(gridX > this.xCount) { gridX = (byte)(this.xCount); } // Must limit to room size.
 			if(gridY > this.yCount) { gridY = (byte)(this.yCount); } // Must limit to room size.
@@ -196,11 +213,11 @@ namespace Nexus.GameEngine {
 			byte[][][] curTiles = this.currentZone.tiles;
 
 			// Loop through the zone tile data:
-			for(byte y = gridY; y-- > startY;) {
-				ushort tileYPos = (ushort)(y * (byte)WorldmapEnum.TileHeight - camY);
+			for(byte y = gridY; y --> startY;) {
+				int tileYPos = y * (byte)WorldmapEnum.TileHeight - camY;
 
-				for(byte x = gridX; x-- > startX;) {
-					this.DrawWorldTile(curTiles[y][x], (ushort) (x * (byte)WorldmapEnum.TileWidth - camX), tileYPos);
+				for(byte x = gridX; x --> startX;) {
+					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
 				};
 			}
 
@@ -209,7 +226,7 @@ namespace Nexus.GameEngine {
 			Systems.worldEditConsole.Draw();
 		}
 
-		public void DrawWorldTile(byte[] wtData, ushort posX, ushort posY) {
+		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
 
 			// Draw Base
 			if(wtData[0] != 0) {

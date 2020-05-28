@@ -101,7 +101,7 @@ namespace Nexus.GameEngine {
 
 			for(byte i = 0; i < placeholders.Count; i++) {
 				WEPlaceholder ph = placeholders[i][0];
-				this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, (ushort) (this.x + i * tileWidth + 2), (ushort) this.y);
+				this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, this.x + i * tileWidth + 2, this.y);
 			}
 
 			// Draw Keybind Text
