@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 
 			// Left or Right Mouse Click
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked || Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-				scene.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				scene.CloneTile(Cursor.TileGridX, Cursor.TileGridY);
 			}
 		}
 	}

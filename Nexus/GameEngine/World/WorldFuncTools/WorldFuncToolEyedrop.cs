@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 	public class WorldFuncToolEyedrop : WorldFuncTool {
 
 		public WorldFuncToolEyedrop() : base() {
-			this.spriteName = "Icons/Eyedrop";
+			this.spriteName = "Icons/Small/Eyedrop";
 			this.title = "Eyedrop";
 			this.description = "Clones a tile - same behavior as right clicking a tile.";
 		}
@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 
 			// Left or Right Mouse Click
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked || Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-				scene.CloneTile((byte) Cursor.MouseGridX, (byte) Cursor.MouseGridY);
+				scene.CloneTile((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
 			}
 		}
 	}

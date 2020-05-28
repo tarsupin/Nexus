@@ -96,7 +96,7 @@ namespace Nexus.GameEngine {
 
 			// If left-mouse clicks, start the selection:
 			else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-				this.PasteBlueprint(scene, Cursor.MouseGridX, Cursor.MouseGridY);
+				this.PasteBlueprint(scene, Cursor.TileGridX, Cursor.TileGridY);
 				this.SwitchToSelectTool();
 			}
 		}
@@ -142,8 +142,8 @@ namespace Nexus.GameEngine {
 
 		public override void DrawFuncTool() {
 
-			ushort xStart = (ushort)(Cursor.MouseGridX + this.xOffset < 0 ? 0 : Cursor.MouseGridX + this.xOffset);
-			ushort yStart = (ushort)(Cursor.MouseGridY + this.yOffset < 0 ? 0 : Cursor.MouseGridY + this.yOffset);
+			ushort xStart = (ushort)(Cursor.TileGridX + this.xOffset < 0 ? 0 : Cursor.TileGridX + this.xOffset);
+			ushort yStart = (ushort)(Cursor.TileGridY + this.yOffset < 0 ? 0 : Cursor.TileGridY + this.yOffset);
 
 			// Loop through the blueprint:
 			for(ushort y = 0; y < this.blueprintHeight; y++) {

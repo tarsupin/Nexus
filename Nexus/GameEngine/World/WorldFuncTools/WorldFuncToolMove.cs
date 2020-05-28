@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		private ushort yEnd;		// Y-Grid that selection ends at.
 
 		public WorldFuncToolMove() : base() {
-			this.spriteName = "Icons/Move";
+			this.spriteName = "Icons/Small/Move";
 			this.title = "Move Tool";
 			this.description = "Drag and move objects.";
 		}
@@ -54,7 +54,7 @@ namespace Nexus.GameEngine {
 
 				// If left-mouse clicks, start the selection or drag an existing one:
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
+					this.StartSelection(Cursor.MiniGridX, Cursor.MiniGridY);
 				}
 			}
 		}
@@ -72,7 +72,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw Selection Icon
-			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
+			this.atlas.Draw(this.spriteName, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

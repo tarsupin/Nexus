@@ -73,12 +73,12 @@ namespace Nexus.GameEngine {
 
 				// If left-mouse is held down, update the selection:
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.HeldDown) {
-					this.UpdatePosition(Cursor.MouseGridX, Cursor.MouseGridY);
+					this.UpdatePosition(Cursor.TileGridX, Cursor.TileGridY);
 				}
 
 				// If left-mouse is released, end the selection:
 				else if(Cursor.LeftMouseState == Cursor.MouseDownState.Released) {
-					this.UpdatePosition(Cursor.MouseGridX, Cursor.MouseGridY);
+					this.UpdatePosition(Cursor.TileGridX, Cursor.TileGridY);
 					this.EndSelection();
 				}
 			}
@@ -89,10 +89,10 @@ namespace Nexus.GameEngine {
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 
 					// Check if the mouse is within a selected area (allowing it to be dragged)
-					if(this.IsTileWithinSelection(Cursor.MouseGridX, Cursor.MouseGridY)) {
+					if(this.IsTileWithinSelection(Cursor.TileGridX, Cursor.TileGridY)) {
 						this.RunCopyOrCut(scene, true);
 					} else {
-						this.StartSelection(Cursor.MouseGridX, Cursor.MouseGridY);
+						this.StartSelection(Cursor.TileGridX, Cursor.TileGridY);
 					}
 				}
 			}
@@ -134,8 +134,8 @@ namespace Nexus.GameEngine {
 			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
 			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
 
-			if(Cursor.MouseGridX >= left && Cursor.MouseGridX <= right) { xOffset = (sbyte)(left - Cursor.MouseGridX); }
-			if(Cursor.MouseGridY >= top && Cursor.MouseGridY <= bottom) { yOffset = (sbyte)(top - Cursor.MouseGridY); }
+			if(Cursor.TileGridX >= left && Cursor.TileGridX <= right) { xOffset = (sbyte)(left - Cursor.TileGridX); }
+			if(Cursor.TileGridY >= top && Cursor.TileGridY <= bottom) { yOffset = (sbyte)(top - Cursor.TileGridY); }
 			
 			// Load Blueprint Tiles
 			bpFunc.PrepareBlueprint(scene, this.xStart, this.yStart, this.xEnd, this.yEnd, xOffset, yOffset);
@@ -173,7 +173,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw Selection Icon
-			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			this.atlas.Draw(this.spriteName, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

@@ -1,15 +1,11 @@
 ﻿using Nexus.Engine;
-using Nexus.Gameplay;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
 	public class WorldFuncToolWand : WorldFuncTool {
 
 		public WorldFuncToolWand() : base() {
-			this.spriteName = "Icons/Wand";
+			this.spriteName = "Icons/Small/Wand";
 			this.title = "Wand";
 			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}
@@ -24,7 +20,7 @@ namespace Nexus.GameEngine {
 
 			// Right Mouse Button (Clone Current Tile)
 			else if(Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-				scene.CloneTile((byte) Cursor.MouseGridX, (byte) Cursor.MouseGridY);
+				scene.CloneTile((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
 			}
 		}
 	}

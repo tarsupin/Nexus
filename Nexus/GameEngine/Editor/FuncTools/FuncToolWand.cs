@@ -19,12 +19,12 @@ namespace Nexus.GameEngine {
 
 			// Left Mouse Button
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-				scene.scene.editorUI.paramMenu.LoadParamMenu(scene, Cursor.MouseGridX, Cursor.MouseGridY);
+				scene.scene.editorUI.paramMenu.LoadParamMenu(scene, Cursor.TileGridX, Cursor.TileGridY);
 			}
 
 			// Right Mouse Button (Clone Current Tile)
 			else if(Cursor.RightMouseState == Cursor.MouseDownState.Clicked) {
-				scene.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				scene.CloneTile(Cursor.TileGridX, Cursor.TileGridY);
 			}
 		}
 	}

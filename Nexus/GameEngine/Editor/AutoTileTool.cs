@@ -32,14 +32,14 @@ namespace Nexus.Gameplay {
 		public bool IsActive { get { return this.startFrame > 0 && this.tileId > 0; } }
 
 		// Identify the Grid Width and Height of the selection.
-		public ushort AutoWidth { get { return (ushort) (Cursor.MouseGridX - this.xStart); } }
-		public ushort AutoHeight { get { return (ushort) (Cursor.MouseGridY - this.yStart); } }
+		public ushort AutoWidth { get { return (ushort) (Cursor.TileGridX - this.xStart); } }
+		public ushort AutoHeight { get { return (ushort) (Cursor.TileGridY - this.yStart); } }
 
 		// Identify the Grid Positions of the selection's edges
-		public ushort LeftTile { get { return Math.Min(Cursor.MouseGridX, this.xStart); } }
-		public ushort RightTile { get { return Math.Max(Cursor.MouseGridX, this.xStart); } }
-		public ushort TopTile { get { return Math.Min(Cursor.MouseGridY, this.yStart); } }
-		public ushort BottomTile { get { return Math.Max(Cursor.MouseGridY, this.yStart); } }
+		public ushort LeftTile { get { return Math.Min(Cursor.TileGridX, this.xStart); } }
+		public ushort RightTile { get { return Math.Max(Cursor.TileGridX, this.xStart); } }
+		public ushort TopTile { get { return Math.Min(Cursor.TileGridY, this.yStart); } }
+		public ushort BottomTile { get { return Math.Max(Cursor.TileGridY, this.yStart); } }
 
 		public void StartAutoTile(byte tileId, byte subTypeId, LayerEnum layerEnum, ushort gridX, ushort gridY) {
 			this.autoGroup = AutoTileTool.IdentifyAutoGroup(tileId);

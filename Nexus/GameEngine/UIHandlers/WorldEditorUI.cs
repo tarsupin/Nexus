@@ -101,7 +101,7 @@ namespace Nexus.GameEngine {
 					//	}
 					//}
 
-					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.25f);
+					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.25f);
 				}
 			}
 
@@ -121,7 +121,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Coordinate Tracker
-			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, 12, 5, Color.White);
+			Systems.fonts.counter.Draw(Cursor.MiniGridX + ", " + Cursor.MiniGridY, 12, 5, Color.White);
 
 			// Zone Counter (Which Zone)
 			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);

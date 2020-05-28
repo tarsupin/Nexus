@@ -43,7 +43,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public virtual void DrawWorldFuncTool() {
-			this.atlas.Draw(this.spriteName, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			this.atlas.Draw(this.spriteName, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

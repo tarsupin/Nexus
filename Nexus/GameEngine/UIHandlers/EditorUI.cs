@@ -96,16 +96,16 @@ namespace Nexus.GameEngine {
 					if(ph.tileId > 0) {
 						if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
 							TileObject tgo = Systems.mapper.TileDict[ph.tileId];
-							tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+							tgo.Draw(null, ph.subType, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 						}
 					}
 
 					// Draw Object
 					else if(ph.objectId > 0) {
-						ShadowTile.Draw(ph.objectId, ph.subType, null, Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+						ShadowTile.Draw(ph.objectId, ph.subType, null, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 					}
 
-					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
+					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 				}
 			}
 
@@ -126,7 +126,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Coordinate Tracker
-			Systems.fonts.counter.Draw(Cursor.MouseGridX + ", " + Cursor.MouseGridY, 12, 5, Color.White);
+			Systems.fonts.counter.Draw(Cursor.TileGridX + ", " + Cursor.TileGridY, 12, 5, Color.White);
 
 			// Room Counter (Which Room)
 			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);

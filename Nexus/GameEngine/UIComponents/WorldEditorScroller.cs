@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.Objects;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {

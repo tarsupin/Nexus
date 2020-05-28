@@ -48,7 +48,7 @@ namespace Nexus.GameEngine {
 
 			// A right click will clone the current tile.
 			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
-				this.CloneTile(Cursor.MouseGridX, Cursor.MouseGridY);
+				this.CloneTile(Cursor.TileGridX, Cursor.TileGridY);
 				return;
 			}
 
@@ -62,7 +62,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else {
-				this.TileToolTick(Cursor.MouseGridX, Cursor.MouseGridY);
+				this.TileToolTick(Cursor.TileGridX, Cursor.TileGridY);
 			}
 
 			// Faster Camera Movement (with arrow keys)
