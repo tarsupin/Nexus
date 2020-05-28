@@ -90,13 +90,22 @@ namespace Nexus.GameEngine {
 					for(byte s = 0; s < phSubLen; s++) {
 						WEPlaceholder ph = pData[s];
 
-						// If the tile being copied can be auto-tiled.
-						if(tBase > 0) {
-							if(tTop > 0 || tCat == 0) {
-								if(ph.auto == false) { continue; }
-								if(ph.tBase != tBase) { continue; }
-								if(ph.tCat != tCat) { continue; }
-							}
+						// If the item is an object:
+						if(tObj > 0) {
+							if(ph.tObj != tObj) { continue; }
+						}
+
+						// If there is a tBase value provided:
+						else if(tBase > 0) {
+							if(ph.tBase != tBase) { continue; }
+							if(ph.tCat != tCat) { continue; }
+
+							// TODO: If there is a layer, we can check for the layer match first, and then fall-back to an auto.
+						}
+
+						// Any other results caught:
+						else {
+							throw new System.Exception("Unable to locate a potential match in WorldTileTool.");
 						}
 
 						// If the tileData[0] ID & SubType matches with the WorldTileTool placeholder, we've found a match.

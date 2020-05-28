@@ -25,7 +25,7 @@ namespace Nexus.Gameplay {
 		Cobble = 8,
 		Road = 9,
 		Ice = 10,
-		GrassDeep = 11,
+		DirtDark = 11,
 	}
 
 	public enum OTerrainCat : byte {
@@ -34,6 +34,7 @@ namespace Nexus.Gameplay {
 		Field = 3,
 		Veg = 4,
 		Water = 5,
+		Field2 = 6,
 	}
 
 	public enum OLayer : byte {

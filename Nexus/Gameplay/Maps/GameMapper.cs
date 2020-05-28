@@ -296,7 +296,7 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrain.Cobble, "Cobble" },
 				{ (byte) OTerrain.Road, "Road" },
 				{ (byte) OTerrain.Ice, "Ice" },
-				{ (byte) OTerrain.GrassDeep, "GrassDeep" },
+				{ (byte) OTerrain.DirtDark, "DirtDark" },
 			};
 
 			// World Terrain Categories
@@ -306,6 +306,7 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainCat.Field, "Field" },
 				{ (byte) OTerrainCat.Veg, "Veg" },
 				{ (byte) OTerrainCat.Water, "Water" },
+				{ (byte) OTerrainCat.Field2, "Field2" },
 			};
 
 			// World Layers

@@ -37,8 +37,6 @@ namespace Nexus.GameEngine {
 
 			byte tileHeight = (byte)WorldmapEnum.TileHeight + 2;
 
-			Camera cam = Systems.camera;
-
 			// Prepare Zone Data
 			var WorldTerrain = Systems.mapper.WorldTerrain;
 			var WorldTerrainCat = Systems.mapper.WorldTerrainCat;
