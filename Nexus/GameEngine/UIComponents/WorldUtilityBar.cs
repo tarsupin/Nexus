@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.Objects;
 using System.Collections.Generic;
-using static Nexus.GameEngine.FuncButton;
+using static Nexus.GameEngine.WorldFuncBut;
 
 namespace Nexus.GameEngine {
 
@@ -13,21 +12,21 @@ namespace Nexus.GameEngine {
 			BarTiles = 30,
 		}
 
-		private Dictionary<byte, FuncButton> buttonMap = new Dictionary<byte, FuncButton>() {
-			{ 11, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Info] },
-			{ 12, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Select] },
-			{ 13, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eraser] },
-			{ 14, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Eyedrop] },
-			{ 15, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Wand] },
-			{ 16, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Settings] },
-			{ 17, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Undo] },
-			{ 18, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Redo] },
-			{ 19, FuncButton.funcButtonMap[(byte) FuncButtonEnum.RoomLeft] },
-			{ 20, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Home] },
-			{ 21, FuncButton.funcButtonMap[(byte) FuncButtonEnum.RoomRight] },
-			{ 22, FuncButton.funcButtonMap[(byte) FuncButtonEnum.SwapRight] },
-			{ 24, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Save] },
-			{ 25, FuncButton.funcButtonMap[(byte) FuncButtonEnum.Play] },
+		private Dictionary<byte, WorldFuncBut> buttonMap = new Dictionary<byte, WorldFuncBut>() {
+			{ 11, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Info] },
+			{ 12, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Select] },
+			{ 13, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eraser] },
+			{ 14, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eyedrop] },
+			{ 15, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Wand] },
+			{ 16, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Settings] },
+			{ 17, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Undo] },
+			{ 18, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Redo] },
+			{ 19, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.RoomLeft] },
+			{ 20, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Home] },
+			{ 21, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.RoomRight] },
+			{ 22, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.SwapRight] },
+			{ 24, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Save] },
+			{ 25, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Play] },
 		};
 
 		public WorldUtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
@@ -40,18 +39,18 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 			if(this.IsMouseOver()) {
 				UIComponent.ComponentWithFocus = this;
-				FuncButton funcButton = null;
+				WorldFuncBut WorldFuncBut = null;
 
 				// Identify which Bar Number is being highlighted:
 				byte barIndex = this.GetBarIndex(Cursor.MouseX);
 
 				// Check if a Function Button is highlighted:
 				if(buttonMap.ContainsKey(barIndex)) {
-					funcButton = buttonMap[barIndex];
+					WorldFuncBut = buttonMap[barIndex];
 
 					// Draw the Helper Text associated with the Function Button
 					WorldEditorScene WorldEditorScene = (WorldEditorScene)Systems.scene;
-					WorldEditorScene.worldEditorUI.SetHelperText(funcButton.title, funcButton.description);
+					WorldEditorScene.worldEditorUI.SetHelperText(WorldFuncBut.title, WorldFuncBut.description);
 				}
 
 				// Mouse was pressed
@@ -63,8 +62,8 @@ namespace Nexus.GameEngine {
 					}
 
 					// Clicked a Function Button
-					if(funcButton != null) {
-						funcButton.ActivateFuncButton();
+					if(WorldFuncBut != null) {
+						WorldFuncBut.ActivateWorldFuncButton();
 					}
 				}
 			}
@@ -118,7 +117,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Function Icons
-			foreach(KeyValuePair<byte, FuncButton> button in this.buttonMap) {
+			foreach(KeyValuePair<byte, WorldFuncBut> button in this.buttonMap) {
 				byte barIndex = button.Key;
 				button.Value.DrawFunctionTile(this.x + barIndex * tileWidth + 2, this.y);
 			}

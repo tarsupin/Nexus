@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButRedo() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Redo";
+			this.spriteName = "Icons/Small/Redo";
 			this.title = "Redo";
 			this.description = "No behavior at this time.";
 		}

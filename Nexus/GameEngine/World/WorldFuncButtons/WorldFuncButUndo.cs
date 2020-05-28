@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButUndo() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Undo";
+			this.spriteName = "Icons/Small/Undo";
 			this.title = "Undo";
 			this.description = "No behavior at this time.";
 		}

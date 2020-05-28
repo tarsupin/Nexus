@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButHome() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Home";
+			this.spriteName = "Icons/Small/Home";
 			this.title = "Home";
 			this.description = "Switches to the 'home' room, where the level begins.";
 		}

@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButEraser() : base() {
 			this.keyChar = "x";
-			this.spriteName = "Icons/Eraser";
+			this.spriteName = "Icons/Small/Eraser";
 			this.title = "Eraser";
 			this.description = "Erases tiles.";
 		}

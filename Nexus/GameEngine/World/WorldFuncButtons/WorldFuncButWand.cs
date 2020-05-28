@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButWand() : base() {
 			this.keyChar = "e";
-			this.spriteName = "Icons/Wand";
+			this.spriteName = "Icons/Small/Wand";
 			this.title = "Wand";
 			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}

@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public WorldFuncButPlay() : base() {
 			this.keyChar = "p";
-			this.spriteName = "Icons/Play";
+			this.spriteName = "Icons/Small/Play";
 			this.title = "Play";
 			this.description = "Saves the level, then initiates a playthrough.";
 		}

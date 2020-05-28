@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 			Play,
 		}
 
-		public static Dictionary<byte, WorldFuncBut> worldFuncButMap = new Dictionary<byte, WorldFuncBut>() {
+		public static Dictionary<byte, WorldFuncBut> WorldFuncButMap = new Dictionary<byte, WorldFuncBut>() {
 			{ (byte) WorldFuncButEnum.Info, new WorldFuncButInfo() },
 			{ (byte) WorldFuncButEnum.Select, new WorldFuncButSelect() },
 			{ (byte) WorldFuncButEnum.Eraser, new WorldFuncButEraser() },
