@@ -103,13 +103,15 @@ namespace Nexus.GameEngine {
 
 				// Highlight the active color
 				short my = (short) Snap.GridFloor(tileHeight, WorldEditorTools.WorldTileTool.subIndex * tileHeight - this.y);
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);
 			}
 
 			// Hovering Visual
 			if(UIComponent.ComponentWithFocus is WorldEditorScroller) {
 				short my = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);
 			}
 		}
 	}
