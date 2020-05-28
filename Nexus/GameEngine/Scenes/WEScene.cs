@@ -307,6 +307,26 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public static DirCardinal RelativeDirectionOfTiles( sbyte relX, sbyte relY ) {
+
+			if(relX < 0) {
+				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }				// ex: -2, -3
+				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }		// ex: -2, 3
+				return DirCardinal.Left;
+			}
+
+			if(relX > 0) {
+				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }         // ex: 2, -3
+				if(relY > 0 && relY >= relX) { return DirCardinal.Down; }           // ex: 2, 3
+				return DirCardinal.Right;
+			}
+			
+			if(relY < 0) { return DirCardinal.Up; }
+			if(relY > 0) { return DirCardinal.Down; }
+
+			return DirCardinal.None;
+		}
+
 		public (byte nodeId, byte gridX, byte gridY) LocateNearestNode( WorldContent worldContent, byte gridX, byte gridY, DirCardinal dir, byte range = 6 ) {
 			(byte nodeId, byte gridX, byte gridY) tuple = (nodeId: 0, gridX: 0, gridY: 0);
 
