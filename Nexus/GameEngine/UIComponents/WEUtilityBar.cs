@@ -12,6 +12,8 @@ namespace Nexus.GameEngine {
 			BarTiles = 30,
 		}
 
+		private WEScene scene;
+
 		private Dictionary<byte, WEFuncBut> buttonMap = new Dictionary<byte, WEFuncBut>() {
 			{ 11, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Info] },
 			{ 12, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Move] },
@@ -29,7 +31,8 @@ namespace Nexus.GameEngine {
 			{ 25, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Play] },
 		};
 
-		public WEUtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
+		public WEUtilityBar( UIComponent parent, WEScene scene, short posX, short posY ) : base(parent) {
+			this.scene = scene;
 			this.x = posX;
 			this.y = posY;
 			this.width = ((byte) WorldmapEnum.TileWidth + 2) * (byte) WEUtilityBarEnum.BarTiles;
@@ -93,22 +96,12 @@ namespace Nexus.GameEngine {
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + i * tileWidth, this.y, 2, this.height), Color.DarkSlateGray);
 			}
 
-			// Tile Icons
-			if(TileTool.tileToolMap.ContainsKey(EditorUI.currentSlotGroup)) {
-				List<EditorPlaceholder[]> placeholders = TileTool.tileToolMap[EditorUI.currentSlotGroup].placeholders;
-				Dictionary<byte, TileObject> tileDict = Systems.mapper.TileDict;
+			// World Tile Icons
+			List<WEPlaceholder[]> placeholders = WETileTool.WorldTileToolMap[(byte)WorldSlotGroup.AutoTiles].placeholders;
 
-				for(byte i = 0; i < 10; i++) {
-					if(placeholders.Count <= i) { continue; }
-					EditorPlaceholder ph = placeholders[i][0];
-					byte tileId = ph.tileId;
-
-					// Draw Tile
-					if(tileId > 0) {
-						if(!tileDict.ContainsKey(tileId)) { continue; }
-						tileDict[tileId].Draw(null, ph.subType, this.x + i * tileWidth + 2, this.y);
-					}
-				}
+			for(byte i = 0; i < placeholders.Count; i++) {
+				WEPlaceholder ph = placeholders[i][0];
+				this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, (ushort) (this.x + i * tileWidth + 2), (ushort) this.y);
 			}
 
 			// Draw Keybind Text

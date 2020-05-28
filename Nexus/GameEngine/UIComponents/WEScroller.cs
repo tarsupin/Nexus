@@ -102,7 +102,7 @@ namespace Nexus.GameEngine {
 				// Highlight the active color
 				short my = (short) Snap.GridFloor(tileHeight, WETools.WETileTool.subIndex * tileHeight - this.y);
 				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
-				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);
+				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].DrawAdvanced("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2, Color.White * 0.7f);
 			}
 
 			// Hovering Visual

@@ -29,7 +29,7 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, 45, 26, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
-			this.utilityBar = new WEUtilityBar(null, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
+			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
 			// Tab Menu - WorldTileTool Listings
