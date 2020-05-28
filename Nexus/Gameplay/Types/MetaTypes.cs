@@ -120,4 +120,17 @@ namespace Nexus.Gameplay {
 		Gadgets,
 		Scripting,
 	}
+
+	// The World TIle Slot Groups
+	public enum WorldSlotGroup : byte {
+		None,
+		AutoTiles,
+		Grass,
+		Desert,
+		Snow,
+		Nodes,
+		Buildings,
+		Bridges,
+		Objects,
+	}
 }

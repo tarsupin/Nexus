@@ -50,9 +50,9 @@ namespace Nexus.GameEngine {
 			// Can only set an AutoTile tool if a WorldTileTool is also active.
 			if(WorldEditorTools.WorldTileTool == null) { return; }
 
-			WorldEditorPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
+			WEPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
 
-			WorldEditorTools.autoTool.StartAutoTile(ph.tileId, ph.subType, ph.layerEnum, gridX, gridY);
+			WorldEditorTools.autoTool.StartAutoTile(ph.tBase, ph.tCat, gridX, gridY);
 
 			// Only disable other tools if the AutoTile tool started.
 			if(WorldEditorTools.autoTool.IsActive) {
@@ -102,13 +102,13 @@ namespace Nexus.GameEngine {
 
 			// Tile Tool Helper Text
 			if(WorldEditorTools.WorldTileTool != null) {
-				WorldEditorPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
+				WEPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
 
-				if(ph.tileId > 0) {
-					TileObject tile = Systems.mapper.TileDict[ph.tileId];
+				if(ph.tBase > 0) {
+					TileObject tile = Systems.mapper.TileDict[ph.tBase];
 
 					if(tile.titles != null) {
-						editorScene.editorUI.SetHelperText(tile.titles[ph.subType], tile.descriptions[ph.subType]);
+						editorScene.editorUI.SetHelperText(tile.titles[ph.tCat], tile.descriptions[ph.tCat]);
 						return;
 					}
 

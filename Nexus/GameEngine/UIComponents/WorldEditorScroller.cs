@@ -8,6 +8,8 @@ namespace Nexus.GameEngine {
 
 	public class WorldEditorScroller : UIComponent {
 
+		public Atlas atlas;
+
 		private enum WEScrollerEnum : byte {
 			NumTiles = 24,
 		}
@@ -17,6 +19,7 @@ namespace Nexus.GameEngine {
 			this.y = posY;
 			this.width = (byte) WorldmapEnum.TileWidth + 4;
 			this.height = (short) Systems.screen.windowHeight;
+			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 		}
 
 		public void RunTick() {
@@ -35,6 +38,14 @@ namespace Nexus.GameEngine {
 
 			byte tileHeight = (byte)WorldmapEnum.TileHeight + 2;
 
+			Camera cam = Systems.camera;
+
+			// Prepare Zone Data
+			var WorldTerrain = Systems.mapper.WorldTerrain;
+			var WorldTerrainCat = Systems.mapper.WorldTerrainCat;
+			var WorldLayers = Systems.mapper.WorldLayers;
+			var WorldObjects = Systems.mapper.WorldObjects;
+
 			// Draw Editor Scroller Background
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x, this.y, this.width, this.height), Color.DarkSlateGray);
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + 2, this.y + 2, (byte) WorldmapEnum.TileWidth, this.height - 6), Color.White);
@@ -46,31 +57,48 @@ namespace Nexus.GameEngine {
 
 			// Draw WorldTileTool Subtype Buttons
 			if(WorldEditorTools.WorldTileTool is WorldTileTool) {
-				List<WorldEditorPlaceholder[]> placeholders = WorldEditorTools.WorldTileTool.placeholders;
+				List<WEPlaceholder[]> placeholders = WorldEditorTools.WorldTileTool.placeholders;
 
 				// Placeholder Loop
-				byte len = (byte) placeholders.Count;
-
-				WorldEditorPlaceholder[] pData = placeholders[WorldEditorTools.WorldTileTool.index];
+				WEPlaceholder[] pData = placeholders[WorldEditorTools.WorldTileTool.index];
 
 				byte phSubLen = (byte)pData.Length;
 				for(byte s = 0; s < phSubLen; s++) {
-					WorldEditorPlaceholder ph = pData[s];
+					WEPlaceholder ph = pData[s];
 
-					byte subType = ph.subType;
-					byte tileId = ph.tileId;
+					// Draw Base
+					if(ph.tBase != 0) {
 
-					// Draw Tiles
-					if(tileId > 0) {
-						if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-							TileObject tgo = Systems.mapper.TileDict[tileId];
-							tgo.Draw(null, subType, this.x + 2, this.y + 50 * s + 2);
+						// If there is a top layer:
+						if(ph.tTop != 0) {
+
+							// Draw a standard base tile with no varient, so that the top layer will look correct.
+							this.atlas.Draw(WorldTerrain[ph.tBase] + "/b1", this.x + 2, this.y + 50 * s + 2);
+
+							// Draw the Top Layer
+							this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+						}
+
+						// If there is not a top layer:
+						else {
+
+							// If there is a category:
+							if(ph.tCat != 0) {
+								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+							} else {
+								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+							}
 						}
 					}
 
-					// Draw Objects
-					else if(ph.objectId > 0) {
-						ShadowTile.Draw(ph.objectId, ph.subType, null, this.x + 2, this.y + 50 * s + 2);
+					// Draw Top, with no base:
+					else if(ph.tTop != 0) {
+						this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+					}
+
+					// Draw Object Layer
+					if(ph.tObj != 0) {
+						this.atlas.Draw("Objects/" + WorldObjects[ph.tObj], this.x + 2, this.y + 50 * s + 2);
 					}
 				}
 

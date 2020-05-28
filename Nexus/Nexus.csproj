@@ -175,7 +175,7 @@
     <Compile Include="GameEngine\Scenes\WorldEditorScene.cs" />
     <Compile Include="GameEngine\UIComponents\WorldUtilityBar.cs" />
     <Compile Include="GameEngine\UIHandlers\WorldEditorUI.cs" />
-    <Compile Include="GameEngine\World\EditorTools.cs" />
+    <Compile Include="GameEngine\World\WorldEditorTools.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncBut.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButEraser.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButEyedrop.cs" />
@@ -196,7 +196,7 @@
     <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncToolEyedrop.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncToolWand.cs" />
     <Compile Include="GameEngine\World\WorldTileTools\WorldTileTool.cs" />
-    <Compile Include="GameEngine\World\WorldTileTools\WorldTileToolBlocks.cs" />
+    <Compile Include="GameEngine\World\WorldTileTools\WTAutoTiles.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WorldChar.cs" />
     <Compile Include="GameEngine\Editor\EditorTools.cs" />

@@ -17,9 +17,8 @@ namespace Nexus.Gameplay {
 	public class AutoWorldTool {
 
 		public uint startFrame;			// The frame number when the auto-tile process begins. 0 if inactive.
-		public byte tileId;				// The Tile ID being used in the auto-tile process.
-		public byte subTypeId;          // The SubType index used on the tile.
-		public LayerEnum layerEnum;		// The layer to place on. Can be BG or MAIN.
+		public byte tBase;				// The Tile ID being used in the auto-tile process.
+		public byte tCat;				// The SubType index used on the tile.
 		public WorldAutoGroup WorldAutoGroup;		// The auto-group that is being applied.
 
 		public ushort xStart;			// X-Grid that the drag is starting at.
@@ -29,7 +28,7 @@ namespace Nexus.Gameplay {
 			this.startFrame = 0;
 		}
 
-		public bool IsActive { get { return this.startFrame > 0 && this.tileId > 0; } }
+		public bool IsActive { get { return this.startFrame > 0 && this.tBase > 0; } }
 
 		// Identify the Grid Width and Height of the selection.
 		public ushort AutoWidth { get { return (ushort) (Cursor.MouseGridX - this.xStart); } }
@@ -41,8 +40,8 @@ namespace Nexus.Gameplay {
 		public ushort TopTile { get { return Math.Min(Cursor.MouseGridY, this.yStart); } }
 		public ushort BottomTile { get { return Math.Max(Cursor.MouseGridY, this.yStart); } }
 
-		public void StartAutoTile(byte tileId, byte subTypeId, LayerEnum layerEnum, ushort gridX, ushort gridY) {
-			this.WorldAutoGroup = AutoWorldTool.IdentifyWorldAutoGroup(tileId);
+		public void StartAutoTile(byte tBase, byte tCat, ushort gridX, ushort gridY) {
+			this.WorldAutoGroup = AutoWorldTool.IdentifyWorldAutoGroup(tBase);
 			
 			if(this.WorldAutoGroup == WorldAutoGroup.None) {
 				this.ClearAutoTiles();
@@ -50,16 +49,15 @@ namespace Nexus.Gameplay {
 			}
 
 			this.startFrame = Systems.timer.Frame;
-			this.tileId = tileId;
-			this.subTypeId = subTypeId;
-			this.layerEnum = layerEnum;
+			this.tBase = tBase;
+			this.tCat = tCat;
 			this.xStart = gridX;
 			this.yStart = gridY;
 		}
 
 		public void ClearAutoTiles() {
 			this.startFrame = 0;
-			this.tileId = 0;
+			this.tBase = 0;
 		}
 
 		public void PlaceAutoTiles(WorldEditorScene scene) {
@@ -109,14 +107,14 @@ namespace Nexus.Gameplay {
 			for(ushort x = left; x <= right; x++) {
 				for(ushort y = top; y <= bottom; y++) {
 					byte subType = this.GetSubTypeAtPosition(x, y);
-					//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, x, y, this.tileId, subType, null);
+					//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, x, y, this.tBase, subType, null);
 				}
 			}
 		}
 		
 		// Special Ledge Placement (full axis movement). Top section will use Ledge, rest will use LedgeDecor.
 		private void PlaceAutoTilesLedge(WorldEditorScene scene, ushort left, ushort right, ushort top, ushort bottom) {
-			byte ledgeTool = this.tileId;
+			byte ledgeTool = this.tBase;
 			byte decorTool = (byte)TileEnum.LedgeDecor;
 
 			// Place Top of Ledge
@@ -139,7 +137,7 @@ namespace Nexus.Gameplay {
 		private void PlaceAutoTilesHorizontal(WorldEditorScene scene, ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
 				byte subType = this.GetSubTypeAtPosition(x, yLevel);
-				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, x, yLevel, this.tileId, subType, null);
+				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, x, yLevel, this.tBase, subType, null);
 			}
 		}
 
@@ -147,7 +145,7 @@ namespace Nexus.Gameplay {
 		private void PlaceAutoTilesVertical(WorldEditorScene scene, ushort top, ushort bottom, ushort xLevel) {
 			for(ushort y = top; y <= bottom; y++) {
 				byte subType = this.GetSubTypeAtPosition(xLevel, y);
-				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, xLevel, y, this.tileId, subType, null);
+				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, xLevel, y, this.tBase, subType, null);
 			}
 		}
 
@@ -204,7 +202,7 @@ namespace Nexus.Gameplay {
 
 					// Get the SubType assigned for that auto-tile position, then draw it.
 					byte subType = this.GetSubTypeAtPosition(x, y);
-					TileObject tgo = Systems.mapper.TileDict[this.tileId];
+					TileObject tgo = Systems.mapper.TileDict[this.tBase];
 					tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 				}
 			}
@@ -212,7 +210,7 @@ namespace Nexus.Gameplay {
 
 		// Special Ledge Draw. Top section will use Ledge, rest will use LedgeDecor.
 		private void DrawAutoTilesLedge(ushort left, ushort right, ushort top, ushort bottom) {
-			byte ledgeTool = this.tileId;
+			byte ledgeTool = this.tBase;
 			byte decorTool = (byte) TileEnum.LedgeDecor;
 
 			// Draw Top of Ledge
@@ -237,7 +235,7 @@ namespace Nexus.Gameplay {
 		private void DrawAutoTilesHorizontal(ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
 				byte subType = this.GetSubTypeAtPosition(x, yLevel);
-				TileObject tgo = Systems.mapper.TileDict[this.tileId];
+				TileObject tgo = Systems.mapper.TileDict[this.tBase];
 				tgo.Draw(null, subType, x * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yLevel * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 			}
 		}
@@ -246,7 +244,7 @@ namespace Nexus.Gameplay {
 		private void DrawAutoTilesVertical(ushort top, ushort bottom, ushort xLevel) {
 			for(ushort y = top; y <= bottom; y++) {
 				byte subType = this.GetSubTypeAtPosition(xLevel, y);
-				TileObject tgo = Systems.mapper.TileDict[this.tileId];
+				TileObject tgo = Systems.mapper.TileDict[this.tBase];
 				tgo.Draw(null, subType, xLevel * (byte)TilemapEnum.TileWidth - Systems.camera.posX, y * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 			}
 		}
@@ -260,7 +258,7 @@ namespace Nexus.Gameplay {
 			}
 
 			// If the WorldAutoGroup is Static, the subType doesn't change.
-			return this.subTypeId;
+			return this.tCat;
 		}
 
 		private byte GetGroundSubType( ushort gridX, ushort gridY ) {
@@ -306,9 +304,9 @@ namespace Nexus.Gameplay {
 			return (byte) HorizontalSubTypes.H2;
 		}
 
-		private static WorldAutoGroup IdentifyWorldAutoGroup(byte tileId) {
+		private static WorldAutoGroup IdentifyWorldAutoGroup(byte tBase) {
 			
-			switch(tileId) {
+			switch(tBase) {
 
 				// Ground Types
 				case (byte) TileEnum.GroundGrass:

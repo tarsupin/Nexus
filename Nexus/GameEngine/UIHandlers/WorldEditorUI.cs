@@ -91,15 +91,15 @@ namespace Nexus.GameEngine {
 
 				// Draw Tile Tool (if active)
 				else if(WorldEditorTools.WorldTileTool != null) {
-					WorldEditorPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
+					WEPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
 
-					// Draw Tile
-					if(ph.tileId > 0) {
-						if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
-							TileObject tgo = Systems.mapper.TileDict[ph.tileId];
-							tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
-						}
-					}
+					//// Draw Tile
+					//if(ph.tileId > 0) {
+					//	if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
+					//		TileObject tgo = Systems.mapper.TileDict[ph.tileId];
+					//		tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
+					//	}
+					//}
 
 					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.25f);
 				}
