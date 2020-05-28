@@ -16,7 +16,7 @@ namespace Nexus.GameEngine {
 		private readonly WEScroller scroller;
 		public readonly ContextMenu contextMenu;
 
-		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
+		public static byte curWESlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 
 		private string helperTitle = "";
 		private string helperText = "";

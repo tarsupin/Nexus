@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 		public byte[] subIndexSaves = new byte[10];
 
 		public static Dictionary<byte, WETileTool> WorldTileToolMap = new Dictionary<byte, WETileTool>() {
-			{ (byte) WorldSlotGroup.AutoTiles, new WEAutoTiles() },
+			{ (byte) WorldSlotGroup.Standard, new WEAutoTiles() },
 		};
 
 		public WETileTool() {

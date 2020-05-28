@@ -68,6 +68,9 @@ namespace Nexus.GameEngine {
 				throw new Exception("Unable to load world. No world data available.");
 			}
 
+			// Start the Default WETool
+			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte) WorldSlotGroup.Standard], 0);
+
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
@@ -139,7 +142,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// Tile Tool Key Binds
-				else if(WE_UI.currentSlotGroup > 0) {
+				else if(WE_UI.curWESlotGroup > 0) {
 					this.CheckTileToolKeyBinds(localKeys[0]);
 				}
 			}
@@ -149,16 +152,16 @@ namespace Nexus.GameEngine {
 		}
 		
 		public void CheckTileToolKeyBinds(Keys keyPressed) {
-			if(keyPressed == Keys.D1) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 0); }
-			else if(keyPressed == Keys.D2) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 1); }
-			else if(keyPressed == Keys.D3) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 2); }
-			else if(keyPressed == Keys.D4) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 3); }
-			else if(keyPressed == Keys.D5) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 4); }
-			else if(keyPressed == Keys.D6) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 5); }
-			else if(keyPressed == Keys.D7) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 6); }
-			else if(keyPressed == Keys.D8) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 7); }
-			else if(keyPressed == Keys.D9) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 8); }
-			else if(keyPressed == Keys.D0) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 9); }
+			if(keyPressed == Keys.D1) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 0); }
+			else if(keyPressed == Keys.D2) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 1); }
+			else if(keyPressed == Keys.D3) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 2); }
+			else if(keyPressed == Keys.D4) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 3); }
+			else if(keyPressed == Keys.D5) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 4); }
+			else if(keyPressed == Keys.D6) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 5); }
+			else if(keyPressed == Keys.D7) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 6); }
+			else if(keyPressed == Keys.D8) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 7); }
+			else if(keyPressed == Keys.D9) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 8); }
+			else if(keyPressed == Keys.D0) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 9); }
 		}
 
 		public void TileToolTick(ushort gridX, ushort gridY) {

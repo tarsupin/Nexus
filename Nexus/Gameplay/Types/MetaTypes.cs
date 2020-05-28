@@ -124,13 +124,6 @@ namespace Nexus.Gameplay {
 	// The World TIle Slot Groups
 	public enum WorldSlotGroup : byte {
 		None,
-		AutoTiles,
-		Grass,
-		Desert,
-		Snow,
-		Nodes,
-		Buildings,
-		Bridges,
-		Objects,
+		Standard,
 	}
 }

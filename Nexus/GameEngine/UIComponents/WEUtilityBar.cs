@@ -61,7 +61,7 @@ namespace Nexus.GameEngine {
 
 					// Clicked a Tile Tool
 					if(barIndex < 10) {
-						EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup, barIndex);
+						WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, barIndex);
 					}
 
 					// Clicked a Function Button
@@ -73,7 +73,7 @@ namespace Nexus.GameEngine {
 			
 			// If the Mouse just exited this component:
 			else if(this.MouseOver == UIMouseOverState.Exited) {
-				EditorTools.UpdateHelperText(); // Update the Helper Text (since it may have changed from overlaps)
+				WETools.UpdateHelperText(); // Update the Helper Text (since it may have changed from overlaps)
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// World Tile Icons
-			List<WEPlaceholder[]> placeholders = WETileTool.WorldTileToolMap[(byte)WorldSlotGroup.AutoTiles].placeholders;
+			List<WEPlaceholder[]> placeholders = WETileTool.WorldTileToolMap[(byte)WorldSlotGroup.Standard].placeholders;
 
 			for(byte i = 0; i < placeholders.Count; i++) {
 				WEPlaceholder ph = placeholders[i][0];

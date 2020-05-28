@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public WEAutoTiles() : base() {
 
-			this.slotGroup = (byte)WorldSlotGroup.AutoTiles;
+			this.slotGroup = (byte)WorldSlotGroup.Standard;
 			
 			// Bases / Terrain
 			this.placeholders.Add(new WEPlaceholder[] {
@@ -110,6 +110,7 @@ namespace Nexus.GameEngine {
 					auto = true,
 					tBase = (byte) OTerrain.Desert,
 					tCat = (byte) OTerrainCat.Water,
+					tLayer = (byte) OLayer.c5,
 				},
 			});
 

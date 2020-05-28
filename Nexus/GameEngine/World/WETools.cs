@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 			WETools.WETempTool = null;
 			WETools.autoTool.ClearAutoTiles();
 
-			EditorUI.currentSlotGroup = WETools.WETileTool.slotGroup;
+			WE_UI.curWESlotGroup = WETools.WETileTool.slotGroup;
 
 			// Assign Index and SubIndex to WorldTileTool (if applicable)
 			WETools.WETileTool.SetIndex(index);
