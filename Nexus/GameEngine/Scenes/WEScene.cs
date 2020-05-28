@@ -178,6 +178,9 @@ namespace Nexus.GameEngine {
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
 
+				// Prevent drawing when a component is selected.
+				if(UIComponent.ComponentWithFocus != null) { return; }
+
 				WEPlaceholder ph = tool.CurrentPlaceholder;
 
 				// Placing an Object

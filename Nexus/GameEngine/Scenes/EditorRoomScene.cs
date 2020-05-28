@@ -193,6 +193,9 @@ namespace Nexus.GameEngine {
 
 		public void TileToolTick(ushort gridX, ushort gridY) {
 
+			// Prevent drawing when a component is selected.
+			if(UIComponent.ComponentWithFocus != null) { return; }
+
 			// Make sure placement is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return; }
 			if(gridX < 0 || gridX > this.xCount) { return; }
