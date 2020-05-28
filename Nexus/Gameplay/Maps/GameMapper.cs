@@ -441,7 +441,7 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.Stadium, "Stadium" },
 
 				{ (byte) OTerrainObjects.Pyramid1, "Pyramid1" },
-				{ (byte) OTerrainObjects.Pyradmi2, "Pyradmi2" },
+				{ (byte) OTerrainObjects.Pyramid2, "Pyramid2" },
 				{ (byte) OTerrainObjects.Pyramid3, "Pyramid3" },
 
 				// Buildings, Misc

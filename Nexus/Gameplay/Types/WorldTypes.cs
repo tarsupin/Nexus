@@ -164,7 +164,7 @@ namespace Nexus.Gameplay {
 		Stadium = 53,
 
 		Pyramid1 = 55,
-		Pyradmi2 = 56,
+		Pyramid2 = 56,
 		Pyramid3 = 57,
 
 		// Buildings, Misc
