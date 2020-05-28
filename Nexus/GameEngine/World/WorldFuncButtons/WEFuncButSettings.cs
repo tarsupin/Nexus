@@ -1,9 +1,9 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSettings : WEFuncBut {
+	public class WEFuncButSettings : WEFuncBut {
 
-		public WorldFuncButSettings() : base() {
+		public WEFuncButSettings() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Settings";
 			this.title = "Settings";

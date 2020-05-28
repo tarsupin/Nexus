@@ -3,9 +3,9 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButHome : WEFuncBut {
+	public class WEFuncButHome : WEFuncBut {
 
-		public WorldFuncButHome() : base() {
+		public WEFuncButHome() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Home";
 			this.title = "Home";

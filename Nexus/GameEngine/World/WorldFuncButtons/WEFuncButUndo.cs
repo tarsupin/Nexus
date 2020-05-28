@@ -1,9 +1,9 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButUndo : WEFuncBut {
+	public class WEFuncButUndo : WEFuncBut {
 
-		public WorldFuncButUndo() : base() {
+		public WEFuncButUndo() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Undo";
 			this.title = "Undo";

@@ -3,9 +3,9 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSave : WEFuncBut {
+	public class WEFuncButSave : WEFuncBut {
 
-		public WorldFuncButSave() : base() {
+		public WEFuncButSave() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Save";
 			this.title = "Save";

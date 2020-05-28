@@ -13,20 +13,20 @@ namespace Nexus.GameEngine {
 		}
 
 		private Dictionary<byte, WEFuncBut> buttonMap = new Dictionary<byte, WEFuncBut>() {
-			{ 11, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Info] },
-			{ 12, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Move] },
-			{ 13, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Eraser] },
-			{ 14, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Eyedrop] },
-			{ 15, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Wand] },
-			{ 16, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Settings] },
-			{ 17, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Undo] },
-			{ 18, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Redo] },
-			{ 19, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.RoomLeft] },
-			{ 20, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Home] },
-			{ 21, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.RoomRight] },
-			{ 22, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.SwapRight] },
-			{ 24, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Save] },
-			{ 25, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Play] },
+			{ 11, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Info] },
+			{ 12, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Move] },
+			{ 13, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Eraser] },
+			{ 14, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Eyedrop] },
+			{ 15, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Wand] },
+			{ 16, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Settings] },
+			{ 17, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Undo] },
+			{ 18, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Redo] },
+			{ 19, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.RoomLeft] },
+			{ 20, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Home] },
+			{ 21, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.RoomRight] },
+			{ 22, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.SwapRight] },
+			{ 24, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Save] },
+			{ 25, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Play] },
 		};
 
 		public WEUtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {

@@ -3,9 +3,9 @@ using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButEyedrop : WEFuncBut {
+	public class WEFuncButEyedrop : WEFuncBut {
 
-		public WorldFuncButEyedrop() : base() {
+		public WEFuncButEyedrop() : base() {
 			this.keyChar = "c";
 			this.spriteName = "Icons/Small/Eyedrop";
 			this.title = "Eyedrop";

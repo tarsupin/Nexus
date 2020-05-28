@@ -2,9 +2,9 @@
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSwapRight : WEFuncBut {
+	public class WEFuncButSwapRight : WEFuncBut {
 
-		public WorldFuncButSwapRight() : base() {
+		public WEFuncButSwapRight() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/MoveRight";
 			this.title = "Swap Room Position";

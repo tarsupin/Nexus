@@ -1,9 +1,9 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButRedo : WEFuncBut {
+	public class WEFuncButRedo : WEFuncBut {
 
-		public WorldFuncButRedo() : base() {
+		public WEFuncButRedo() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Redo";
 			this.title = "Redo";

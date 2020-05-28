@@ -1,9 +1,9 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButInfo : WEFuncBut {
+	public class WEFuncButInfo : WEFuncBut {
 
-		public WorldFuncButInfo() : base() {
+		public WEFuncButInfo() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Info";
 			this.title = "Editor Help";

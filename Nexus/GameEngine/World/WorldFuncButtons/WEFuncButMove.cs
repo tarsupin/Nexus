@@ -3,9 +3,9 @@ using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButMove : WEFuncBut {
+	public class WEFuncButMove : WEFuncBut {
 
-		public WorldFuncButMove() : base() {
+		public WEFuncButMove() : base() {
 			this.keyChar = "v";
 			this.spriteName = "Icons/Small/Move";
 			this.title = "Selection Tool";

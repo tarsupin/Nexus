@@ -2,9 +2,9 @@
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButPlay : WEFuncBut {
+	public class WEFuncButPlay : WEFuncBut {
 
-		public WorldFuncButPlay() : base() {
+		public WEFuncButPlay() : base() {
 			this.keyChar = "p";
 			this.spriteName = "Icons/Small/Play";
 			this.title = "Play";

@@ -3,9 +3,9 @@ using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButWand : WEFuncBut {
+	public class WEFuncButWand : WEFuncBut {
 
-		public WorldFuncButWand() : base() {
+		public WEFuncButWand() : base() {
 			this.keyChar = "e";
 			this.spriteName = "Icons/Small/Wand";
 			this.title = "Wand";

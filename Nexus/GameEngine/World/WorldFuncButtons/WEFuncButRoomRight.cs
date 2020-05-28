@@ -3,9 +3,9 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButRoomRight : WEFuncBut {
+	public class WEFuncButRoomRight : WEFuncBut {
 
-		public WorldFuncButRoomRight() : base() {
+		public WEFuncButRoomRight() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Right";
 			this.title = "Switch Room Right";

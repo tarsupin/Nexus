@@ -3,9 +3,9 @@ using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButEraser : WEFuncBut {
+	public class WEFuncButEraser : WEFuncBut {
 
-		public WorldFuncButEraser() : base() {
+		public WEFuncButEraser() : base() {
 			this.keyChar = "x";
 			this.spriteName = "Icons/Small/Eraser";
 			this.title = "Eraser";
