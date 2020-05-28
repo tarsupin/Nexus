@@ -100,7 +100,27 @@ namespace Nexus.GameEngine {
 							if(ph.tBase != tBase) { continue; }
 							if(ph.tCat != tCat) { continue; }
 
-							// TODO: If there is a layer, we can check for the layer match first, and then fall-back to an auto.
+							// If there is a layer, apply it if it's a b# value.
+							if(tLayer > (byte) OLayer.b1 && tCat == 0 && tTop == 0) {
+								if(tLayer != ph.tLayer && tTop != ph.tTop) { continue; }
+								if(ph.tLayer != tLayer && ph.tTop == 0) { continue; }
+								if(ph.auto) { continue; }
+
+								switch(ph.tLayer) {
+									case (byte)OLayer.b2:
+									case (byte)OLayer.b3:
+									case (byte)OLayer.b4:
+									case (byte)OLayer.b5:
+									case (byte)OLayer.b6:
+									case (byte)OLayer.b7:
+									case (byte)OLayer.b8:
+									case (byte)OLayer.b9:
+									case (byte)OLayer.b10:
+										break;
+									default:
+										continue;
+								}
+							}
 						}
 
 						// Any other results caught:

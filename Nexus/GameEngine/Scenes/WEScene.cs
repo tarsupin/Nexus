@@ -116,13 +116,16 @@ namespace Nexus.GameEngine {
 			} else {
 				this.TileToolTick((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
 			}
-
-			// Camera Movement
-			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
 		}
 
 		public void WorldEditorInput() {
 			InputClient input = Systems.input;
+
+			// If holding shift down, increase camera movement speed by 3.
+			byte moveMult = (input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift)) ? (byte)3 : (byte)1;
+
+			// Camera Movement
+			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
 
 			// Release TempTool Control every tick:
 			if(WETools.WETempTool != null) {
@@ -302,6 +305,89 @@ namespace Nexus.GameEngine {
 				WETools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
 				clonedTool.SetSubIndex(subIndex);
 			}
+		}
+
+		public (byte nodeId, byte gridX, byte gridY) LocateNearestNode( WorldContent worldContent, byte gridX, byte gridY, DirCardinal dir, byte range = 6 ) {
+			(byte nodeId, byte gridX, byte gridY) tuple = (nodeId: 0, gridX: 0, gridY: 0);
+
+			// Vertical Node Scan - scans for any nodes above or below this location.
+			if(dir == DirCardinal.Down || dir == DirCardinal.Up) {
+				sbyte incY = dir == DirCardinal.Down ? (sbyte) 1 : (sbyte) -1;
+				sbyte xRange = 1;
+
+				for(int y = gridY + incY; y < gridY + range * incY; y += incY) {
+
+					for(int x = gridX - xRange; x < gridY + xRange; x++) {
+
+						// If Node is located, make sure it's more centered than any other:
+						if(true) { continue; } // TODO: IF NODE IS LOCATED HERE.
+
+						if(tuple.gridX == 0 && tuple.gridY == 0) {
+							int dist1 = Math.Abs(gridX - tuple.gridX);
+							int dist2 = Math.Abs(gridX - x);
+							
+							// Keep the smallest version:
+							if(dist1 < dist2) { continue; }
+							else { tuple.gridX = (byte) x; tuple.gridY = (byte) y; }
+
+						}
+						
+						else {
+							tuple.gridX = (byte) x;
+							tuple.gridY = (byte) y;
+						}
+					}
+
+					xRange += 1;
+
+					// If a node is located:
+					if(tuple.gridX > 0 && tuple.gridY > 0) {
+						tuple.nodeId = 0;   // TODO: Set the Node ID that applies here.
+						return tuple;
+					}
+				}
+			}
+
+			// Horizontal Node Scan - scans for any nodes above or below this location.
+			else if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+				sbyte incX = dir == DirCardinal.Left ? (sbyte) 1 : (sbyte) -1;
+				sbyte yRange = 0;
+
+				for(int x = gridX + incX; x < gridX + range * incX; x += incX) {
+
+					for(int y = gridY - yRange; y < gridY + yRange; y++) {
+
+						// If Node is located, make sure it's more centered than any other:
+						if(true) { continue; } // TODO: IF NODE IS LOCATED HERE.
+
+						if(tuple.gridY == 0 && tuple.gridX == 0) {
+							int dist1 = Math.Abs(gridY - tuple.gridY);
+							int dist2 = Math.Abs(gridY - y);
+							
+							// Keep the smallest version:
+							if(dist1 < dist2) { continue; }
+							else { tuple.gridY = (byte) y; tuple.gridX = (byte) x; }
+
+						}
+						
+						else {
+							tuple.gridX = (byte)x;
+							tuple.gridY = (byte) y;
+						}
+					}
+
+					yRange += 1;
+
+					// If a node is located:
+					if(tuple.gridX > 0 && tuple.gridY > 0) {
+						tuple.nodeId = 0;   // TODO: Set the Node ID that applies here.
+						return tuple;
+					}
+				}
+			}
+
+			// Return No Results
+			return tuple;
 		}
 	}
 }
