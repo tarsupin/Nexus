@@ -12,6 +12,9 @@ namespace Nexus.Gameplay {
 		// Tilemap Limits
 		MinWidth = 46,
 		MinHeight = 27,
+
+		MaxWidth = 120,			// <= 200, avoid crossing byte threshold for range modifiers.
+		MaxHeight = 120,		// <= 200, avoid crossing byte threshold for range modifiers.
 	}
 
 	public enum OTerrain : byte {

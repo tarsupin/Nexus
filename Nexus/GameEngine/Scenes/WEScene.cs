@@ -181,6 +181,10 @@ namespace Nexus.GameEngine {
 			// Left Mouse Button (Overwrite Current Tile)
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
+				// Prevent Placement Outside of Bounds
+				if(gridX > this.xCount) { return; }
+				if(gridY > this.yCount) { return; }
+
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
 				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
 
@@ -191,12 +195,12 @@ namespace Nexus.GameEngine {
 
 				// Placing an Object
 				if(ph.tObj > 0) {
-					this.worldContent.SetTileObject(this.currentZone, (byte)gridX, (byte)gridY, ph.tObj);
+					this.PlaceObject(ph.tObj, (byte) gridX, (byte) gridY);
 				}
 
 				// Placing a Standard Tile
 				else {
-					this.worldContent.SetTile(this.currentZone, (byte)gridX, (byte)gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+					this.PlaceTile(ph, (byte) gridX, (byte) gridY);
 				}
 
 				return;
@@ -233,6 +237,37 @@ namespace Nexus.GameEngine {
 			// Draw UI
 			this.weUI.Draw();
 			Systems.worldEditConsole.Draw();
+		}
+
+		// Place World Tile
+		public void PlaceTile(WEPlaceholder ph, byte gridX, byte gridY) {
+
+
+			// Run Tile Placement
+			this.worldContent.SetTile(this.currentZone, gridX, gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+		}
+
+		// Place World Object (Can include Nodes)
+		public void PlaceObject(byte objectId, byte gridX, byte gridY) {
+
+			// Start Node Behavior
+			if(objectId == (byte) OTerrainObjects.NodeStart) {
+
+				// TODO: SPECIAL START BEHAVIOR
+				return;
+			}
+
+			// If we're placing a node, we don't change the node mechanics.
+			// However, if we're placing an object, we need to remove the original node mechanics correctly.
+			if(!WEScene.IsObjectANode(objectId)) {
+
+				// Delete Node at Location
+				// This handles special node deletions.
+				this.DeleteNodeIfPresent((byte)gridX, (byte)gridY);
+			}
+
+
+			this.worldContent.SetTileObject(this.currentZone, gridX, gridY, objectId);
 		}
 
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
@@ -292,6 +327,40 @@ namespace Nexus.GameEngine {
 			var temp = this.currentZone;
 			this.worldData.zones[curZoneId] = this.worldData.zones[curZoneId + 1];
 			this.worldData.zones[curZoneId + 1] = temp;
+		}
+
+		public static bool IsObjectANode( byte objectId ) {
+			switch(objectId) {
+				case (byte)OTerrainObjects.NodeStrict:
+				case (byte)OTerrainObjects.NodeCasual:
+				case (byte)OTerrainObjects.NodePoint:
+				case (byte)OTerrainObjects.NodeMove:
+				case (byte)OTerrainObjects.NodeWarp:
+				case (byte)OTerrainObjects.NodeWon:
+					return true;
+			}
+
+			return false;
+		}
+
+		public void DeleteNodeIfPresent(byte gridX, byte gridY) {
+
+			// Get Object at Location
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+			byte objectId = wtData[4];
+
+			// Determine if the Object is a Node
+			bool isNode = WEScene.IsObjectANode(objectId);
+
+			// If the object is a node:
+			if(isNode) {
+
+				// TODO URGENT: Move node mechanics as required.
+
+				// Delete the Object and Node Reference on the Tile
+				this.worldContent.SetTileObject(this.currentZone, gridX, gridY, 0);
+				this.worldContent.SetTileNodeId(this.currentZone, gridX, gridY, 0);
+			}
 		}
 
 		public void CloneTile(byte gridX, byte gridY) {

@@ -75,6 +75,8 @@ namespace Nexus.Gameplay {
 			byte width = this.GetWidthOfZone(zone);
 			byte height = this.GetHeightOfZone(zone);
 
+			if(newWidth > (byte) WorldmapEnum.MaxWidth) { newWidth = (byte) WorldmapEnum.MaxWidth; }
+
 			// Loop through Y Data
 			for(byte y = 0; y < height; y++) {
 				var yData = zone.tiles[y];
@@ -99,7 +101,9 @@ namespace Nexus.Gameplay {
 		public byte SetZoneHeight(WorldZoneFormat zone, byte newHeight) {
 			byte width = this.GetWidthOfZone(zone);
 			byte height = this.GetHeightOfZone(zone);
-			
+
+			if(newHeight > (byte)WorldmapEnum.MaxHeight) { newHeight = (byte)WorldmapEnum.MaxHeight; }
+
 			// If New Height is lower:
 			if(newHeight < height) {
 				byte[][][] tiles = zone.tiles;
@@ -133,6 +137,14 @@ namespace Nexus.Gameplay {
 			if(gridY >= tiles.Length) { return false; }
 			if(gridX >= tiles[gridY].Length) { return false; }
 			tiles[gridY][gridX][4] = obj;
+			return true;
+		}
+
+		public bool SetTileNodeId(WorldZoneFormat zone, byte gridX, byte gridY, byte nodeId = 0 ) {
+			var tiles = zone.tiles;
+			if(gridY >= tiles.Length) { return false; }
+			if(gridX >= tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX][5] = nodeId;
 			return true;
 		}
 
