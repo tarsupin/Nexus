@@ -128,7 +128,7 @@ namespace Nexus.Gameplay {
 			return tiles[gridY][gridX];
 		}
 
-		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, OTerrain tBase = 0, OTerrain tTop = 0, OTerrainCat tCat = 0, OLayer tLay = 0, OTerrainObjects obj = 0, byte nodeId = 0 ) {
+		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte tTop = 0, byte tCat = 0, byte tLay = 0, byte obj = 0, byte nodeId = 0 ) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }

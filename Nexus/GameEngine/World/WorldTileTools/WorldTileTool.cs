@@ -77,7 +77,7 @@ namespace Nexus.GameEngine {
 
 			// Scan each entry in WorldTileToolMap.
 			for(byte slotGroupNum = 0; slotGroupNum < 8; slotGroupNum++) {
-				if(toolMap[slotGroupNum] is WorldTileTool == false) { continue; }
+				if(!toolMap.ContainsKey(slotGroupNum)) { continue; }
 				List<WEPlaceholder[]> placeholders = toolMap[slotGroupNum].placeholders;
 
 				// Loop through each placeholder to see if a tileData match is found.

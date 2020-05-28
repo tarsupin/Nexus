@@ -72,10 +72,10 @@ namespace Nexus.GameEngine {
 						if(ph.tTop != 0) {
 
 							// Draw a standard base tile with no varient, so that the top layer will look correct.
-							this.atlas.Draw(WorldTerrain[ph.tBase] + "/b1", this.x + 2, this.y + 50 * s + 2);
+							this.atlas.Draw(WorldTerrain[ph.tBase] + "/b1", this.x + 2, this.y + tileHeight * s + 2);
 
 							// Draw the Top Layer
-							this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+							this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 						}
 
 						// If there is not a top layer:
@@ -83,21 +83,21 @@ namespace Nexus.GameEngine {
 
 							// If there is a category:
 							if(ph.tCat != 0) {
-								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 							} else {
-								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 							}
 						}
 					}
 
 					// Draw Top, with no base:
 					else if(ph.tTop != 0) {
-						this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + 50 * s + 2);
+						this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 					}
 
 					// Draw Object Layer
 					if(ph.tObj != 0) {
-						this.atlas.Draw("Objects/" + WorldObjects[ph.tObj], this.x + 2, this.y + 50 * s + 2);
+						this.atlas.Draw("Objects/" + WorldObjects[ph.tObj], this.x + 2, this.y + tileHeight * s + 2);
 					}
 				}
 

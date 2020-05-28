@@ -68,6 +68,49 @@ namespace Nexus.GameEngine {
 
 			// Check Input Updates
 			this.RunInputCheck();
+
+			// A right click will clone the current tile.
+			if(Cursor.mouseState.RightButton == ButtonState.Pressed) {
+				this.CloneTile((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
+				return;
+			}
+
+			// Update Tools
+			if(WorldEditorTools.WorldTempTool is WorldFuncTool) {
+				WorldEditorTools.WorldTempTool.RunTick(this);
+			} else if(WorldEditorTools.WorldFuncTool is WorldFuncTool) {
+				WorldEditorTools.WorldFuncTool.RunTick(this);
+			} else {
+				this.TileToolTick((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
+			}
+
+			// Camera Movement
+			//Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input);
+		}
+
+		public void TileToolTick(ushort gridX, ushort gridY) {
+
+			// Make sure placement is in valid location:
+			if(gridY < 0 || gridY > this.yCount) { return; }
+			if(gridX < 0 || gridX > this.xCount) { return; }
+
+			WorldTileTool tool = WorldEditorTools.WorldTileTool;
+
+			// Make sure the tile tool is set, or placement cannot occur:
+			if(tool == null) { return; }
+
+			// Left Mouse Button (Overwrite Current Tile)
+			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
+
+				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
+				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
+
+				WEPlaceholder ph = tool.CurrentPlaceholder;
+
+				// Place Tile
+				this.worldContent.SetTile(this.currentZone, (byte) gridX, (byte) gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+				return;
+			}
 		}
 
 		public void RunInputCheck() {
@@ -181,9 +224,16 @@ namespace Nexus.GameEngine {
 		}
 
 		public void CloneTile(byte gridX, byte gridY) {
-			this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
-			// TODO: Update the tile being drawn with.
-		}
+			byte[] tileData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
 
+			// Identify the tile, and set it as the current editing tool (if applicable)
+			WorldTileTool clonedTool = WorldTileTool.GetWorldTileToolFromTileData(tileData);
+
+			if(clonedTool is WorldTileTool == true) {
+				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
+				WorldEditorTools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
+				clonedTool.SetSubIndex(subIndex);
+			}
+		}
 	}
 }
