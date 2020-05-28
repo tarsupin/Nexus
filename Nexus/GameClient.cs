@@ -135,7 +135,8 @@ namespace Nexus
 				//SceneTransition.ToLevel("", "QCALQOD16");
 				//Systems.camera.CenterAtPosition(1200, 0);
 
-				SceneTransition.ToWorld("Tarsupin");
+				//SceneTransition.ToWorld("Tarsupin");
+				SceneTransition.ToWorldEditor("Tarsupin");
 
 				// TODO CLEANUP: REMOVE THIS
 				ChatConsole.SendMessage("debug", "This is just a debug message.", Color.DarkSeaGreen);

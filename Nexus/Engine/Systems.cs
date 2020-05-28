@@ -28,6 +28,7 @@ namespace Nexus.Engine {
 
 		// Consoles
 		public static readonly Console worldConsole = new WorldConsole();
+		public static readonly Console worldEditConsole = new WorldEditConsole();
 		public static readonly Console levelConsole = new LevelConsole();
 		public static readonly Console editorConsole = new EditorConsole();
 

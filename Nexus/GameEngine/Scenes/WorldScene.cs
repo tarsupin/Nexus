@@ -1,31 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using Nexus.Objects;
 using System;
-using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
 	public class WorldScene : Scene {
-
-		// TODO: The IDs here match OTerrain exactly, so this whole thing seems like it's useless.
-		// TODO: Remove this when we can.
-		public static Dictionary<byte, object> OverTerrain = new Dictionary<byte, object> {
-			{ 1, new RandTypeCur(OTerrain.Grass, "g") },
-			{ 2, new RandTypeCur(OTerrain.Desert, "d") },
-			{ 3, new RandTypeCur(OTerrain.Snow, "s") },
-			{ 4, new RandTypeCur(OTerrain.Water, "w") },
-			{ 5, new RandTypeCur(OTerrain.Water, "w") },
-			{ 6, new RandTypeCur(OTerrain.Mud, "u") },
-			{ 7, new RandTypeCur(OTerrain.Dirt, "d") },
-			{ 8, new RandTypeCur(OTerrain.Cobble, "c") },
-			{ 9, new RandTypeCur(OTerrain.Road, "r") },
-			{ 10, new RandTypeCur(OTerrain.Ice, "i") },
-			{ 11, new RandTypeCur(OTerrain.GrassDeep, "x") },
-		};
 
 		// References
 		public readonly WorldUI worldUI;
@@ -34,20 +15,9 @@ namespace Nexus.GameEngine {
 		public CampaignState campaign;
 		public Atlas atlas;
 
-		// World Metadata
-		public string id = "";
-		public string name = "";
-		public string description = "";
-		public string author = "";
-		public ushort version = 0;
-		public byte score = 0;
-
 		// Access to World Data
 		public WorldContent worldContent;
 		public WorldFormat worldData;		// worldContent.data
-
-		// Zones
-		//public Dictionary<ushort, WorldZone> zones;			// TODO: REMOVE
 
 		// Grid Limits
 		public byte xCount = 20;

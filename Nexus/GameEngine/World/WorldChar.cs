@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 	public class WorldChar {
 
 		private WorldScene scene;
-
+		
 		// Appearance
 		private readonly Atlas atlas;
 		private string SpriteName;
@@ -84,7 +84,7 @@ namespace Nexus.GameEngine {
 
 				// If the WorldChar stops at a node, see if it continues automatically:
 				if(this.tryAutoMove) {
-					this.scene.TryTravel();
+					(this.scene as WorldScene).TryTravel();
 					this.tryAutoMove = false;
 				}
 

@@ -93,5 +93,38 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
+		// Go to World Editor Scene
+		public static bool ToWorldEditor( string worldId = "" ) {
+			GameHandler handler = Systems.handler;
+
+			// TODO: Limit worldId to the user's username.
+
+			// Load World to Edit (unless it's already loaded)
+			if(worldId != handler.worldContent.worldId) {
+
+				// Get World Path & Retrieve World Data
+				if(!handler.worldContent.LoadWorldData(worldId)) {
+
+					#if debug
+					throw new Exception("Unable to load world data.");
+					#endif
+
+					return false;
+				}
+			}
+
+			// Update the World State
+			handler.worldState.FullWorldReset();
+
+			// End Old World Scene
+			Systems.scene.EndScene();
+
+			// Editor Scene
+			Systems.scene = new WorldEditorScene();
+			Systems.scene.StartScene();
+
+			return true;
+		}
+
 	}
 }

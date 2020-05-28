@@ -1,8 +1,6 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Nexus.Engine;
 using System;
-using System.Security.Policy;
 
 namespace Nexus.Gameplay {
 
@@ -123,14 +121,14 @@ namespace Nexus.Gameplay {
 			return newHeight;
 		}
 
-		public static byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
+		public byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
 			if(gridX > tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
 			return tiles[gridY][gridX];
 		}
 
-		public static bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, OTerrain tBase = 0, OTerrain tTop = 0, OTerrainCat tCat = 0, OLayer tLay = 0, OTerrainObjects obj = 0, byte nodeId = 0 ) {
+		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, OTerrain tBase = 0, OTerrain tTop = 0, OTerrainCat tCat = 0, OLayer tLay = 0, OTerrainObjects obj = 0, byte nodeId = 0 ) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }
@@ -138,7 +136,7 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
-		public static bool DeleteTile(WorldZoneFormat zone, ushort gridX, ushort gridY) {
+		public bool DeleteTile(WorldZoneFormat zone, ushort gridX, ushort gridY) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }

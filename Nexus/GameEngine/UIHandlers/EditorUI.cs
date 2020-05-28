@@ -21,6 +21,8 @@ namespace Nexus.GameEngine {
 
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
+
+			// UI Components
 			this.gridUI = new GridOverlay(null);
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
