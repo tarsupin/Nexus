@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 
 		private Dictionary<byte, WorldFuncBut> buttonMap = new Dictionary<byte, WorldFuncBut>() {
 			{ 11, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Info] },
-			{ 12, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Select] },
+			{ 12, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Move] },
 			{ 13, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eraser] },
 			{ 14, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eyedrop] },
 			{ 15, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Wand] },

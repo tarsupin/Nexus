@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 
 		public enum WorldFuncButEnum : byte {
 			Info,
-			Select,
+			Move,
 			Eraser,
 			Eyedrop,
 			
@@ -36,7 +36,7 @@ namespace Nexus.GameEngine {
 
 		public static Dictionary<byte, WorldFuncBut> WorldFuncButMap = new Dictionary<byte, WorldFuncBut>() {
 			{ (byte) WorldFuncButEnum.Info, new WorldFuncButInfo() },
-			{ (byte) WorldFuncButEnum.Select, new WorldFuncButSelect() },
+			{ (byte) WorldFuncButEnum.Move, new WorldFuncButMove() },
 			{ (byte) WorldFuncButEnum.Eraser, new WorldFuncButEraser() },
 			{ (byte) WorldFuncButEnum.Eyedrop, new WorldFuncButEyedrop() },
 			{ (byte) WorldFuncButEnum.Wand, new WorldFuncButWand() },

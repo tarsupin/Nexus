@@ -186,11 +186,12 @@
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButRoomLeft.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButRoomRight.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButSave.cs" />
-    <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButSelect.cs" />
+    <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButMove.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButSettings.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButSwapRight.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButUndo.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WorldFuncButWand.cs" />
+    <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncToolMove.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncTool.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncToolEraser.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WorldFuncToolEyedrop.cs" />

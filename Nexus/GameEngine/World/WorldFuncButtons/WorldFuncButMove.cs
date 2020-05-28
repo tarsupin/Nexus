@@ -3,9 +3,9 @@ using static Nexus.GameEngine.WorldFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSelect : WorldFuncBut {
+	public class WorldFuncButMove : WorldFuncBut {
 
-		public WorldFuncButSelect() : base() {
+		public WorldFuncButMove() : base() {
 			this.keyChar = "v";
 			this.spriteName = "Icons/Small/Move";
 			this.title = "Selection Tool";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorTools.SetWorldFuncTool(WorldFuncTool.WorldFuncToolMap[(byte) WorldFuncToolEnum.Select]);
+			WorldEditorTools.SetWorldFuncTool(WorldFuncTool.WorldFuncToolMap[(byte) WorldFuncToolEnum.Move]);
 		}
 	}
 }
