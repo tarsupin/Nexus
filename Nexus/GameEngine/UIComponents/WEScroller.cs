@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class WorldEditorScroller : UIComponent {
+	public class WEScroller : UIComponent {
 
 		public Atlas atlas;
 
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 			NumTiles = 24,
 		}
 
-		public WorldEditorScroller( UIComponent parent, short posX, short posY) : base(parent) {
+		public WEScroller( UIComponent parent, short posX, short posY) : base(parent) {
 			this.x = posX;
 			this.y = posY;
 			this.width = (byte) WorldmapEnum.TileWidth + 4;
@@ -25,11 +25,11 @@ namespace Nexus.GameEngine {
 			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
 
 			// Mouse Scroll (if WorldTileTool is selected as active tool)
-			if(WorldEditorTools.WorldTileTool is WorldTileTool == true) {
+			if(WETools.WETileTool is WETileTool == true) {
 				sbyte scrollVal = Cursor.MouseScrollDelta;
 				if(scrollVal == 0) { return; }
-				WorldEditorTools.WorldTileTool.CycleSubIndex(scrollVal); // Cycles the SubIndex by -1 or +1
-				WorldEditorTools.UpdateHelperText();
+				WETools.WETileTool.CycleSubIndex(scrollVal); // Cycles the SubIndex by -1 or +1
+				WETools.UpdateHelperText();
 			}
 		}
 
@@ -53,11 +53,11 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw WorldTileTool Subtype Buttons
-			if(WorldEditorTools.WorldTileTool is WorldTileTool) {
-				List<WEPlaceholder[]> placeholders = WorldEditorTools.WorldTileTool.placeholders;
+			if(WETools.WETileTool is WETileTool) {
+				List<WEPlaceholder[]> placeholders = WETools.WETileTool.placeholders;
 
 				// Placeholder Loop
-				WEPlaceholder[] pData = placeholders[WorldEditorTools.WorldTileTool.index];
+				WEPlaceholder[] pData = placeholders[WETools.WETileTool.index];
 
 				byte phSubLen = (byte)pData.Length;
 				for(byte s = 0; s < phSubLen; s++) {
@@ -100,13 +100,13 @@ namespace Nexus.GameEngine {
 				}
 
 				// Highlight the active color
-				short my = (short) Snap.GridFloor(tileHeight, WorldEditorTools.WorldTileTool.subIndex * tileHeight - this.y);
+				short my = (short) Snap.GridFloor(tileHeight, WETools.WETileTool.subIndex * tileHeight - this.y);
 				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);
 			}
 
 			// Hovering Visual
-			if(UIComponent.ComponentWithFocus is WorldEditorScroller) {
+			if(UIComponent.ComponentWithFocus is WEScroller) {
 				short my = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
 				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);

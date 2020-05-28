@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncBut {
+	public class WEFuncBut {
 
 		public Atlas atlas;
 		public string keyChar;
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		public string title;
 		public string description;
 
-		public enum WorldFuncButEnum : byte {
+		public enum WEFuncButEnum : byte {
 			Info,
 			Move,
 			Eraser,
@@ -34,24 +34,24 @@ namespace Nexus.GameEngine {
 			Play,
 		}
 
-		public static Dictionary<byte, WorldFuncBut> WorldFuncButMap = new Dictionary<byte, WorldFuncBut>() {
-			{ (byte) WorldFuncButEnum.Info, new WorldFuncButInfo() },
-			{ (byte) WorldFuncButEnum.Move, new WorldFuncButMove() },
-			{ (byte) WorldFuncButEnum.Eraser, new WorldFuncButEraser() },
-			{ (byte) WorldFuncButEnum.Eyedrop, new WorldFuncButEyedrop() },
-			{ (byte) WorldFuncButEnum.Wand, new WorldFuncButWand() },
-			{ (byte) WorldFuncButEnum.Settings, new WorldFuncButSettings() },
-			{ (byte) WorldFuncButEnum.Undo, new WorldFuncButUndo() },
-			{ (byte) WorldFuncButEnum.Redo, new WorldFuncButRedo() },
-			{ (byte) WorldFuncButEnum.RoomLeft, new WorldFuncButRoomLeft() },
-			{ (byte) WorldFuncButEnum.Home, new WorldFuncButHome() },
-			{ (byte) WorldFuncButEnum.RoomRight, new WorldFuncButRoomRight() },
-			{ (byte) WorldFuncButEnum.SwapRight, new WorldFuncButSwapRight() },
-			{ (byte) WorldFuncButEnum.Save, new WorldFuncButSave() },
-			{ (byte) WorldFuncButEnum.Play, new WorldFuncButPlay() },
+		public static Dictionary<byte, WEFuncBut> WorldFuncButMap = new Dictionary<byte, WEFuncBut>() {
+			{ (byte) WEFuncButEnum.Info, new WorldFuncButInfo() },
+			{ (byte) WEFuncButEnum.Move, new WorldFuncButMove() },
+			{ (byte) WEFuncButEnum.Eraser, new WorldFuncButEraser() },
+			{ (byte) WEFuncButEnum.Eyedrop, new WorldFuncButEyedrop() },
+			{ (byte) WEFuncButEnum.Wand, new WorldFuncButWand() },
+			{ (byte) WEFuncButEnum.Settings, new WorldFuncButSettings() },
+			{ (byte) WEFuncButEnum.Undo, new WorldFuncButUndo() },
+			{ (byte) WEFuncButEnum.Redo, new WorldFuncButRedo() },
+			{ (byte) WEFuncButEnum.RoomLeft, new WorldFuncButRoomLeft() },
+			{ (byte) WEFuncButEnum.Home, new WorldFuncButHome() },
+			{ (byte) WEFuncButEnum.RoomRight, new WorldFuncButRoomRight() },
+			{ (byte) WEFuncButEnum.SwapRight, new WorldFuncButSwapRight() },
+			{ (byte) WEFuncButEnum.Save, new WorldFuncButSave() },
+			{ (byte) WEFuncButEnum.Play, new WorldFuncButPlay() },
 		};
 
-		public WorldFuncBut() {
+		public WEFuncBut() {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 		}
 

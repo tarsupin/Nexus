@@ -1,7 +1,7 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSettings : WorldFuncBut {
+	public class WorldFuncButSettings : WEFuncBut {
 
 		public WorldFuncButSettings() : base() {
 			this.keyChar = "";

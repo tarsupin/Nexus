@@ -4,16 +4,16 @@ using Nexus.Gameplay;
 
 namespace Nexus.GameEngine {
 
-	public class WorldEditorUI {
+	public class WE_UI {
 
-		private readonly WorldEditorScene scene;
+		private readonly WEScene scene;
 		public Atlas atlas;
 		private readonly ushort bottomRow;
 		private readonly WorldContent worldContent;
 
 		private readonly GridOverlay gridUI;
-		private readonly WorldUtilityBar utilityBar;
-		private readonly WorldEditorScroller scroller;
+		private readonly WEUtilityBar utilityBar;
+		private readonly WEScroller scroller;
 		public readonly ContextMenu contextMenu;
 
 		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
@@ -21,7 +21,7 @@ namespace Nexus.GameEngine {
 		private string helperTitle = "";
 		private string helperText = "";
 
-		public WorldEditorUI( WorldEditorScene scene ) {
+		public WE_UI( WEScene scene ) {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.World];
 			this.bottomRow = (ushort)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight);
@@ -29,8 +29,8 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, 45, 26, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
-			this.utilityBar = new WorldUtilityBar(null, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
-			this.scroller = new WorldEditorScroller(null, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
+			this.utilityBar = new WEUtilityBar(null, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
+			this.scroller = new WEScroller(null, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
 			// Tab Menu - WorldTileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
@@ -75,23 +75,23 @@ namespace Nexus.GameEngine {
 			if(UIComponent.ComponentWithFocus == null) {
 
 				// Draw Temporary Function Tool (if active)
-				if(WorldEditorTools.WorldTempTool != null) {
-					WorldEditorTools.WorldTempTool.DrawWorldFuncTool();
+				if(WETools.WETempTool != null) {
+					WETools.WETempTool.DrawWorldFuncTool();
 				}
 
 				// Draw Function Tool (if active)
-				else if(WorldEditorTools.WorldFuncTool != null) {
-					WorldEditorTools.WorldFuncTool.DrawWorldFuncTool();
+				else if(WETools.WEFuncTool != null) {
+					WETools.WEFuncTool.DrawWorldFuncTool();
 				}
 
 				// Draw AutoTile Tool (if active)
-				else if(WorldEditorTools.autoTool.IsActive) {
-					WorldEditorTools.autoTool.DrawAutoTiles();
+				else if(WETools.autoTool.IsActive) {
+					WETools.autoTool.DrawAutoTiles();
 				}
 
 				// Draw Tile Tool (if active)
-				else if(WorldEditorTools.WorldTileTool != null) {
-					WEPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
+				else if(WETools.WETileTool != null) {
+					WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
 
 					// Draw Tile
 					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, (ushort) (Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX), (ushort) (Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY));

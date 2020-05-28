@@ -3312,7 +3312,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32}
 },
-"WaterDeep/b1":
+"WaterShallow/b1":
 {
 	"frame": {"x":477,"y":477,"w":32,"h":32},
 	"rotated": false,
@@ -3327,6 +3327,6 @@
 	"format": "RGBA8888",
 	"size": {"w":922,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:c4474d49a87d37e1ca15cca261dd40ae:f028e4c83e184a97f454a7fbe8c73d21:287d380cf18dd5767a5a229d88469af1$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4bacc00556333afe904eae8f5e1bf47e:f028e4c83e184a97f454a7fbe8c73d21:287d380cf18dd5767a5a229d88469af1$"
 }
 }

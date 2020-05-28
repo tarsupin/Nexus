@@ -289,7 +289,7 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrain.Grass, "Grass" },
 				{ (byte) OTerrain.Desert, "Desert" },
 				{ (byte) OTerrain.Snow, "Snow" },
-				{ (byte) OTerrain.WaterDeep, "WaterDeep" },
+				{ (byte) OTerrain.WaterShallow, "WaterShallow" },
 				{ (byte) OTerrain.Water, "Water" },
 				{ (byte) OTerrain.Mud, "Mud" },
 				{ (byte) OTerrain.Dirt, "Dirt" },

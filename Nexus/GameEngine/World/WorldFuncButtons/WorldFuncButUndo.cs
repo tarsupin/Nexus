@@ -1,7 +1,7 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButUndo : WorldFuncBut {
+	public class WorldFuncButUndo : WEFuncBut {
 
 		public WorldFuncButUndo() : base() {
 			this.keyChar = "";

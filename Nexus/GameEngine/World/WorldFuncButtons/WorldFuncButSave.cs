@@ -3,7 +3,7 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButSave : WorldFuncBut {
+	public class WorldFuncButSave : WEFuncBut {
 
 		public WorldFuncButSave() : base() {
 			this.keyChar = "";

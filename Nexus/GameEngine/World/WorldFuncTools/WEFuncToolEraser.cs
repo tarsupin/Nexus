@@ -3,15 +3,15 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncToolEraser : WorldFuncTool {
+	public class WEFuncToolEraser : WEFuncTool {
 
-		public WorldFuncToolEraser() : base() {
+		public WEFuncToolEraser() : base() {
 			this.spriteName = "Icons/Small/Eraser";
 			this.title = "Eraser";
 			this.description = "Erases tiles.";
 		}
 
-		public override void RunTick(WorldEditorScene scene) {
+		public override void RunTick(WEScene scene) {
 			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			// Left Mouse Button Down (Delete Current Tile)

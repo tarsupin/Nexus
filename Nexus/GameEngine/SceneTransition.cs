@@ -120,7 +120,7 @@ namespace Nexus.GameEngine {
 			Systems.scene.EndScene();
 
 			// Editor Scene
-			Systems.scene = new WorldEditorScene();
+			Systems.scene = new WEScene();
 			Systems.scene.StartScene();
 
 			return true;

@@ -60,7 +60,7 @@ namespace Nexus.Gameplay {
 			this.tBase = 0;
 		}
 
-		public void PlaceAutoTiles(WorldEditorScene scene) {
+		public void PlaceAutoTiles(WEScene scene) {
 
 			// Skip this method if the auto-tile isn't in operation.
 			if(!this.IsActive) { return; }
@@ -103,7 +103,7 @@ namespace Nexus.Gameplay {
 		}
 
 		// Places a full X+Y grid.
-		private void PlaceAutoTilesFull(WorldEditorScene scene, ushort left, ushort right, ushort top, ushort bottom) {
+		private void PlaceAutoTilesFull(WEScene scene, ushort left, ushort right, ushort top, ushort bottom) {
 			for(ushort x = left; x <= right; x++) {
 				for(ushort y = top; y <= bottom; y++) {
 					byte subType = this.GetSubTypeAtPosition(x, y);
@@ -113,7 +113,7 @@ namespace Nexus.Gameplay {
 		}
 		
 		// Special Ledge Placement (full axis movement). Top section will use Ledge, rest will use LedgeDecor.
-		private void PlaceAutoTilesLedge(WorldEditorScene scene, ushort left, ushort right, ushort top, ushort bottom) {
+		private void PlaceAutoTilesLedge(WEScene scene, ushort left, ushort right, ushort top, ushort bottom) {
 			byte ledgeTool = this.tBase;
 			byte decorTool = (byte)TileEnum.LedgeDecor;
 
@@ -134,7 +134,7 @@ namespace Nexus.Gameplay {
 		}
 
 		// Restricts the dimensions of the AutoTile placement to the horizontal axis.
-		private void PlaceAutoTilesHorizontal(WorldEditorScene scene, ushort left, ushort right, ushort yLevel) {
+		private void PlaceAutoTilesHorizontal(WEScene scene, ushort left, ushort right, ushort yLevel) {
 			for(ushort x = left; x <= right; x++) {
 				byte subType = this.GetSubTypeAtPosition(x, yLevel);
 				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, x, yLevel, this.tBase, subType, null);
@@ -142,7 +142,7 @@ namespace Nexus.Gameplay {
 		}
 
 		// Restricts the dimensions of the AutoTile placement to the vertical axis.
-		private void PlaceAutoTilesVertical(WorldEditorScene scene, ushort top, ushort bottom, ushort xLevel) {
+		private void PlaceAutoTilesVertical(WEScene scene, ushort top, ushort bottom, ushort xLevel) {
 			for(ushort y = top; y <= bottom; y++) {
 				byte subType = this.GetSubTypeAtPosition(xLevel, y);
 				//scene.PlaceTile(scene.worldContent.data.zones[scene.campaign.zoneId].main, LayerEnum.main, xLevel, y, this.tBase, subType, null);

@@ -1,9 +1,9 @@
 ﻿
-using static Nexus.GameEngine.WorldFuncTool;
+using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButWand : WorldFuncBut {
+	public class WorldFuncButWand : WEFuncBut {
 
 		public WorldFuncButWand() : base() {
 			this.keyChar = "e";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorTools.SetWorldFuncTool(WorldFuncTool.WorldFuncToolMap[(byte)WorldFuncToolEnum.Wand]);
+			WETools.SetWorldFuncTool(WEFuncTool.WEFuncToolMap[(byte)WEFuncToolEnum.Wand]);
 		}
 	}
 }

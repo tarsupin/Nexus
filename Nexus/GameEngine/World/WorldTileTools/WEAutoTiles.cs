@@ -2,9 +2,9 @@
 
 namespace Nexus.GameEngine {
 
-	public class WTAutoTiles : WorldTileTool {
+	public class WEAutoTiles : WETileTool {
 
-		public WTAutoTiles() : base() {
+		public WEAutoTiles() : base() {
 
 			this.slotGroup = (byte)WorldSlotGroup.AutoTiles;
 			
@@ -12,11 +12,11 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.WaterDeep,
+					tBase = (byte) OTerrain.Water,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.Water,
+					tBase = (byte) OTerrain.WaterShallow,
 				},
 				new WEPlaceholder() {
 					auto = true,

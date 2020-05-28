@@ -5,7 +5,7 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncToolMove : WorldFuncTool {
+	public class WEFuncToolMove : WEFuncTool {
 
 		private bool activity;		// TRUE if the selection is active.
 		private ushort xStart;		// X-Grid that selection started at.
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		private ushort xEnd;		// X-Grid that selection ends at.
 		private ushort yEnd;		// Y-Grid that selection ends at.
 
-		public WorldFuncToolMove() : base() {
+		public WEFuncToolMove() : base() {
 			this.spriteName = "Icons/Small/Move";
 			this.title = "Move Tool";
 			this.description = "Drag and move objects.";
@@ -34,12 +34,12 @@ namespace Nexus.GameEngine {
 			this.activity = false;
 
 			// If we're currently using selection as a temporary tool, force it to be an active tool now that we have a selected area.
-			if(WorldEditorTools.WorldTempTool is WorldFuncToolMove) {
-				WorldEditorTools.SetWorldFuncTool(this);
+			if(WETools.WETempTool is WEFuncToolMove) {
+				WETools.SetWorldFuncTool(this);
 			}
 		}
 
-		public override void RunTick(WorldEditorScene scene) {
+		public override void RunTick(WEScene scene) {
 			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			if(this.activity == true) {

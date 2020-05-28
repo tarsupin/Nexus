@@ -1,9 +1,9 @@
 ﻿
-using static Nexus.GameEngine.WorldFuncTool;
+using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButEraser : WorldFuncBut {
+	public class WorldFuncButEraser : WEFuncBut {
 
 		public WorldFuncButEraser() : base() {
 			this.keyChar = "x";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorTools.SetWorldFuncTool(WorldFuncTool.WorldFuncToolMap[(byte)WorldFuncToolEnum.Eraser]);
+			WETools.SetWorldFuncTool(WEFuncTool.WEFuncToolMap[(byte)WEFuncToolEnum.Eraser]);
 		}
 	}
 }

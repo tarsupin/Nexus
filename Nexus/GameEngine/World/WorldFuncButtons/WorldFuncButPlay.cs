@@ -2,7 +2,7 @@
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButPlay : WorldFuncBut {
+	public class WorldFuncButPlay : WEFuncBut {
 
 		public WorldFuncButPlay() : base() {
 			this.keyChar = "p";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateWorldFuncButton() {
 			Systems.handler.worldContent.SaveWorld();
-			SceneTransition.ToLevel("", ((WorldEditorScene) Systems.scene).worldContent.worldId);
+			SceneTransition.ToLevel("", ((WEScene) Systems.scene).worldContent.worldId);
 		}
 	}
 }

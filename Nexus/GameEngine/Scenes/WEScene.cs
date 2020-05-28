@@ -6,10 +6,10 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class WorldEditorScene : Scene {
+	public class WEScene : Scene {
 
 		// References
-		public readonly WorldEditorUI worldEditorUI;
+		public readonly WE_UI weUI;
 		public readonly PlayerInput playerInput;
 		public CampaignState campaign;
 		public Atlas atlas;
@@ -28,10 +28,10 @@ namespace Nexus.GameEngine {
 		public byte xCount = 45;
 		public byte yCount = 26;
 
-		public WorldEditorScene() : base() {
+		public WEScene() : base() {
 
 			// Prepare Components
-			this.worldEditorUI = new WorldEditorUI(this);
+			this.weUI = new WE_UI(this);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -74,7 +74,7 @@ namespace Nexus.GameEngine {
 			Cursor.UpdateMouseState();
 
 			// Run World UI Updates
-			this.worldEditorUI.RunTick();
+			this.weUI.RunTick();
 
 			// Debug Console (only runs if visible)
 			Systems.worldEditConsole.RunTick();
@@ -89,10 +89,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update Tools
-			if(WorldEditorTools.WorldTempTool is WorldFuncTool) {
-				WorldEditorTools.WorldTempTool.RunTick(this);
-			} else if(WorldEditorTools.WorldFuncTool is WorldFuncTool) {
-				WorldEditorTools.WorldFuncTool.RunTick(this);
+			if(WETools.WETempTool is WEFuncTool) {
+				WETools.WETempTool.RunTick(this);
+			} else if(WETools.WEFuncTool is WEFuncTool) {
+				WETools.WEFuncTool.RunTick(this);
 			} else {
 				this.TileToolTick((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
 			}
@@ -105,8 +105,8 @@ namespace Nexus.GameEngine {
 			InputClient input = Systems.input;
 
 			// Release TempTool Control every tick:
-			if(WorldEditorTools.WorldTempTool != null) {
-				WorldEditorTools.ClearWorldTempTool();
+			if(WETools.WETempTool != null) {
+				WETools.ClearWorldTempTool();
 			}
 
 			// Get the Local Keys Held Down
@@ -117,31 +117,31 @@ namespace Nexus.GameEngine {
 			if(!input.LocalKeyDown(Keys.LeftControl) && !input.LocalKeyDown(Keys.RightControl)) {
 
 				// Func Tool Key Binds
-				if(WorldFuncTool.WorldFuncToolKey.ContainsKey(localKeys[0])) {
-					WorldEditorTools.SetWorldTempTool(WorldFuncTool.WorldFuncToolMap[WorldFuncTool.WorldFuncToolKey[localKeys[0]]]);
+				if(WEFuncTool.WEFuncToolKey.ContainsKey(localKeys[0])) {
+					WETools.SetWorldTempTool(WEFuncTool.WEFuncToolMap[WEFuncTool.WEFuncToolKey[localKeys[0]]]);
 				}
 
 				// Tile Tool Key Binds
-				else if(WorldEditorUI.currentSlotGroup > 0) {
+				else if(WE_UI.currentSlotGroup > 0) {
 					this.CheckTileToolKeyBinds(localKeys[0]);
 				}
 			}
 
 			// Open Wheel Menu
-			if(input.LocalKeyPressed(Keys.Tab)) { this.worldEditorUI.contextMenu.OpenMenu(); }
+			if(input.LocalKeyPressed(Keys.Tab)) { this.weUI.contextMenu.OpenMenu(); }
 		}
 		
 		public void CheckTileToolKeyBinds(Keys keyPressed) {
-			if(keyPressed == Keys.D1) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 0); }
-			else if(keyPressed == Keys.D2) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 1); }
-			else if(keyPressed == Keys.D3) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 2); }
-			else if(keyPressed == Keys.D4) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 3); }
-			else if(keyPressed == Keys.D5) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 4); }
-			else if(keyPressed == Keys.D6) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 5); }
-			else if(keyPressed == Keys.D7) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 6); }
-			else if(keyPressed == Keys.D8) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 7); }
-			else if(keyPressed == Keys.D9) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 8); }
-			else if(keyPressed == Keys.D0) { WorldEditorTools.SetWorldTileToolBySlotGroup(WorldEditorUI.currentSlotGroup, 9); }
+			if(keyPressed == Keys.D1) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 0); }
+			else if(keyPressed == Keys.D2) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 1); }
+			else if(keyPressed == Keys.D3) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 2); }
+			else if(keyPressed == Keys.D4) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 3); }
+			else if(keyPressed == Keys.D5) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 4); }
+			else if(keyPressed == Keys.D6) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 5); }
+			else if(keyPressed == Keys.D7) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 6); }
+			else if(keyPressed == Keys.D8) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 7); }
+			else if(keyPressed == Keys.D9) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 8); }
+			else if(keyPressed == Keys.D0) { WETools.SetWorldTileToolBySlotGroup(WE_UI.currentSlotGroup, 9); }
 		}
 
 		public void TileToolTick(ushort gridX, ushort gridY) {
@@ -150,7 +150,7 @@ namespace Nexus.GameEngine {
 			if(gridY < 0 || gridY > this.yCount) { return; }
 			if(gridX < 0 || gridX > this.xCount) { return; }
 
-			WorldTileTool tool = WorldEditorTools.WorldTileTool;
+			WETileTool tool = WETools.WETileTool;
 
 			// Make sure the tile tool is set, or placement cannot occur:
 			if(tool == null) { return; }
@@ -163,8 +163,16 @@ namespace Nexus.GameEngine {
 
 				WEPlaceholder ph = tool.CurrentPlaceholder;
 
-				// Place Tile
-				this.worldContent.SetTile(this.currentZone, (byte) gridX, (byte) gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+				// Placing an Object
+				if(ph.tObj > 0) {
+					this.worldContent.SetTileObject(this.currentZone, (byte)gridX, (byte)gridY, ph.tObj);
+				}
+
+				// Placing a Standard Tile
+				else {
+					this.worldContent.SetTile(this.currentZone, (byte)gridX, (byte)gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+				}
+
 				return;
 			}
 		}
@@ -197,7 +205,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw UI
-			this.worldEditorUI.Draw();
+			this.weUI.Draw();
 			Systems.worldEditConsole.Draw();
 		}
 
@@ -264,11 +272,11 @@ namespace Nexus.GameEngine {
 			byte[] tileData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
 
 			// Identify the tile, and set it as the current editing tool (if applicable)
-			WorldTileTool clonedTool = WorldTileTool.GetWorldTileToolFromTileData(tileData);
+			WETileTool clonedTool = WETileTool.GetWorldTileToolFromTileData(tileData);
 
-			if(clonedTool is WorldTileTool == true) {
+			if(clonedTool is WETileTool == true) {
 				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
-				WorldEditorTools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
+				WETools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
 				clonedTool.SetSubIndex(subIndex);
 			}
 		}

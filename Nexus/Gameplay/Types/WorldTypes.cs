@@ -18,7 +18,7 @@ namespace Nexus.Gameplay {
 		Grass = 1,
 		Desert = 2,
 		Snow = 3,
-		WaterDeep = 4,
+		WaterShallow = 4,
 		Water = 5,
 		Mud = 6,
 		Dirt = 7,

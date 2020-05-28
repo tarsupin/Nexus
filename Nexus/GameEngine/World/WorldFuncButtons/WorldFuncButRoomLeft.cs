@@ -2,7 +2,7 @@
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButRoomLeft : WorldFuncBut {
+	public class WorldFuncButRoomLeft : WEFuncBut {
 
 		public WorldFuncButRoomLeft() : base() {
 			this.keyChar = "";
@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorScene scene = (WorldEditorScene) Systems.scene;
+			WEScene scene = (WEScene) Systems.scene;
 			if(scene.campaign.zoneId > 0) {
 				scene.SwitchZone((byte)(scene.campaign.zoneId - 1));
 			}

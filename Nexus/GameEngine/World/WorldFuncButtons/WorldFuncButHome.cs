@@ -3,7 +3,7 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButHome : WorldFuncBut {
+	public class WorldFuncButHome : WEFuncBut {
 
 		public WorldFuncButHome() : base() {
 			this.keyChar = "";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorScene scene = (WorldEditorScene)Systems.scene;
+			WEScene scene = (WEScene)Systems.scene;
 			scene.SwitchZone(0);
 		}
 	}

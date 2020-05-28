@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		public byte tNodeId = 0;
 	}
 
-	public class WorldTileTool {
+	public class WETileTool {
 
 		public List<WEPlaceholder[]> placeholders;
 		public byte slotGroup = 0;		// Each tile tool has its own slot group metadata. Doesn't change.
@@ -22,11 +22,11 @@ namespace Nexus.GameEngine {
 		public byte subIndex = 0;
 		public byte[] subIndexSaves = new byte[10];
 
-		public static Dictionary<byte, WorldTileTool> WorldTileToolMap = new Dictionary<byte, WorldTileTool>() {
-			{ (byte) WorldSlotGroup.AutoTiles, new WTAutoTiles() },
+		public static Dictionary<byte, WETileTool> WorldTileToolMap = new Dictionary<byte, WETileTool>() {
+			{ (byte) WorldSlotGroup.AutoTiles, new WEAutoTiles() },
 		};
 
-		public WorldTileTool() {
+		public WETileTool() {
 			this.placeholders = new List<WEPlaceholder[]>();
 		}
 
@@ -64,8 +64,8 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static WorldTileTool GetWorldTileToolFromTileData(byte[] tileData) {
-			Dictionary<byte, WorldTileTool> toolMap = WorldTileTool.WorldTileToolMap;
+		public static WETileTool GetWorldTileToolFromTileData(byte[] tileData) {
+			Dictionary<byte, WETileTool> toolMap = WETileTool.WorldTileToolMap;
 
 			// Standard 
 			byte tBase = tileData[0];
@@ -109,7 +109,7 @@ namespace Nexus.GameEngine {
 						}
 
 						// If the tileData[0] ID & SubType matches with the WorldTileTool placeholder, we've found a match.
-						WorldTileTool clonedTool = toolMap[(byte) slotGroupNum];
+						WETileTool clonedTool = toolMap[(byte) slotGroupNum];
 
 						// Set the default values for the tool.
 						clonedTool.index = i;

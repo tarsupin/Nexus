@@ -2,44 +2,44 @@
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
-using static Nexus.GameEngine.WorldFuncBut;
+using static Nexus.GameEngine.WEFuncBut;
 
 namespace Nexus.GameEngine {
 
-	public class WorldUtilityBar : UIComponent {
+	public class WEUtilityBar : UIComponent {
 
-		private enum WorldUtilityBarEnum : byte {
+		private enum WEUtilityBarEnum : byte {
 			BarTiles = 30,
 		}
 
-		private Dictionary<byte, WorldFuncBut> buttonMap = new Dictionary<byte, WorldFuncBut>() {
-			{ 11, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Info] },
-			{ 12, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Move] },
-			{ 13, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eraser] },
-			{ 14, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Eyedrop] },
-			{ 15, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Wand] },
-			{ 16, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Settings] },
-			{ 17, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Undo] },
-			{ 18, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Redo] },
-			{ 19, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.RoomLeft] },
-			{ 20, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Home] },
-			{ 21, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.RoomRight] },
-			{ 22, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.SwapRight] },
-			{ 24, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Save] },
-			{ 25, WorldFuncBut.WorldFuncButMap[(byte) WorldFuncButEnum.Play] },
+		private Dictionary<byte, WEFuncBut> buttonMap = new Dictionary<byte, WEFuncBut>() {
+			{ 11, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Info] },
+			{ 12, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Move] },
+			{ 13, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Eraser] },
+			{ 14, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Eyedrop] },
+			{ 15, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Wand] },
+			{ 16, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Settings] },
+			{ 17, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Undo] },
+			{ 18, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Redo] },
+			{ 19, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.RoomLeft] },
+			{ 20, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Home] },
+			{ 21, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.RoomRight] },
+			{ 22, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.SwapRight] },
+			{ 24, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Save] },
+			{ 25, WEFuncBut.WorldFuncButMap[(byte) WEFuncButEnum.Play] },
 		};
 
-		public WorldUtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
+		public WEUtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
 			this.x = posX;
 			this.y = posY;
-			this.width = ((byte) WorldmapEnum.TileWidth + 2) * (byte) WorldUtilityBarEnum.BarTiles;
+			this.width = ((byte) WorldmapEnum.TileWidth + 2) * (byte) WEUtilityBarEnum.BarTiles;
 			this.height = (byte) WorldmapEnum.TileHeight;
 		}
 
 		public void RunTick() {
 			if(this.IsMouseOver()) {
 				UIComponent.ComponentWithFocus = this;
-				WorldFuncBut WorldFuncBut = null;
+				WEFuncBut WorldFuncBut = null;
 
 				// Identify which Bar Number is being highlighted:
 				byte barIndex = this.GetBarIndex(Cursor.MouseX);
@@ -49,8 +49,8 @@ namespace Nexus.GameEngine {
 					WorldFuncBut = buttonMap[barIndex];
 
 					// Draw the Helper Text associated with the Function Button
-					WorldEditorScene WorldEditorScene = (WorldEditorScene)Systems.scene;
-					WorldEditorScene.worldEditorUI.SetHelperText(WorldFuncBut.title, WorldFuncBut.description);
+					WEScene WEScene = (WEScene)Systems.scene;
+					WEScene.weUI.SetHelperText(WorldFuncBut.title, WorldFuncBut.description);
 				}
 
 				// Mouse was pressed
@@ -89,7 +89,7 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + 2, this.y, this.width - 2, this.height), Color.White);
 
 			// Tile Outlines
-			for(byte i = 0; i <= (byte) WorldUtilityBarEnum.BarTiles; i++) {
+			for(byte i = 0; i <= (byte) WEUtilityBarEnum.BarTiles; i++) {
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x + i * tileWidth, this.y, 2, this.height), Color.DarkSlateGray);
 			}
 
@@ -117,13 +117,13 @@ namespace Nexus.GameEngine {
 			}
 
 			// Function Icons
-			foreach(KeyValuePair<byte, WorldFuncBut> button in this.buttonMap) {
+			foreach(KeyValuePair<byte, WEFuncBut> button in this.buttonMap) {
 				byte barIndex = button.Key;
 				button.Value.DrawFunctionTile(this.x + barIndex * tileWidth + 2, this.y);
 			}
 
 			// Hovering Visual
-			if(UIComponent.ComponentWithFocus is WorldUtilityBar) {
+			if(UIComponent.ComponentWithFocus is WEUtilityBar) {
 				short mx = (short) Snap.GridFloor(tileWidth, Cursor.MouseX - this.x);
 				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x + mx * tileWidth, this.y, tileWidth, this.height), Color.White * 0.5f);
 			}

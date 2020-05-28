@@ -128,11 +128,19 @@ namespace Nexus.Gameplay {
 			return tiles[gridY][gridX];
 		}
 
+		public bool SetTileObject(WorldZoneFormat zone, byte gridX, byte gridY, byte obj = 0 ) {
+			var tiles = zone.tiles;
+			if(gridY > tiles.Length) { return false; }
+			if(gridX > tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX][4] = obj;
+			return true;
+		}
+
 		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte tTop = 0, byte tCat = 0, byte tLay = 0, byte obj = 0, byte nodeId = 0 ) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX] = new byte[] { (byte) tBase, (byte) tTop, (byte) tCat, (byte) tLay, (byte) obj, nodeId };
+			tiles[gridY][gridX] = new byte[] { tBase, tTop, tCat, tLay, obj, nodeId };
 			return true;
 		}
 

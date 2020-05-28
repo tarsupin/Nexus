@@ -2,15 +2,15 @@
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncToolWand : WorldFuncTool {
+	public class WEFuncToolWand : WEFuncTool {
 
-		public WorldFuncToolWand() : base() {
+		public WEFuncToolWand() : base() {
 			this.spriteName = "Icons/Small/Wand";
 			this.title = "Wand";
 			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}
 
-		public override void RunTick(WorldEditorScene scene) {
+		public override void RunTick(WEScene scene) {
 			if(UIComponent.ComponentWithFocus != null) { return; }
 
 			// Left Mouse Button

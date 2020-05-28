@@ -1,9 +1,9 @@
 ﻿
-using static Nexus.GameEngine.WorldFuncTool;
+using static Nexus.GameEngine.WEFuncTool;
 
 namespace Nexus.GameEngine {
 
-	public class WorldFuncButEyedrop : WorldFuncBut {
+	public class WorldFuncButEyedrop : WEFuncBut {
 
 		public WorldFuncButEyedrop() : base() {
 			this.keyChar = "c";
@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			WorldEditorTools.SetWorldFuncTool(WorldFuncTool.WorldFuncToolMap[(byte) WorldFuncToolEnum.Eyedrop]);
+			WETools.SetWorldFuncTool(WEFuncTool.WEFuncToolMap[(byte) WEFuncToolEnum.Eyedrop]);
 		}
 	}
 }
