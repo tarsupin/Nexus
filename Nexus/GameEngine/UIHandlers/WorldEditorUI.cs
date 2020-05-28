@@ -93,15 +93,8 @@ namespace Nexus.GameEngine {
 				else if(WorldEditorTools.WorldTileTool != null) {
 					WEPlaceholder ph = WorldEditorTools.WorldTileTool.CurrentPlaceholder;
 
-					//// Draw Tile
-					//if(ph.tileId > 0) {
-					//	if(Systems.mapper.TileDict.ContainsKey(ph.tileId)) {
-					//		TileObject tgo = Systems.mapper.TileDict[ph.tileId];
-					//		tgo.Draw(null, ph.subType, Cursor.MouseGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MouseGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
-					//	}
-					//}
-
-					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.25f);
+					// Draw Tile
+					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, 0 }, (ushort) (Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX), (ushort) (Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY));
 				}
 			}
 
