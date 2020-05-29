@@ -239,9 +239,26 @@ namespace Nexus.GameEngine {
 			Systems.worldEditConsole.Draw();
 		}
 
+		// Resize Map
+		public void ResizeWidth(byte newWidth = 0) {
+			this.xCount = this.worldContent.SetZoneWidth(this.currentZone, newWidth);
+			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
+			Systems.camera.UpdateScene(this);
+		}
+
+		public void ResizeHeight(byte newHeight = 0) {
+			this.yCount = this.worldContent.SetZoneHeight(this.currentZone, newHeight);
+			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
+			Systems.camera.UpdateScene(this);
+		}
+
 		// Place World Tile
 		public void PlaceTile(WEPlaceholder ph, byte gridX, byte gridY) {
 
+			// Run Auto-Tiling
+			if(ph.auto) {
+
+			}
 
 			// Run Tile Placement
 			this.worldContent.SetTile(this.currentZone, gridX, gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
@@ -379,7 +396,7 @@ namespace Nexus.GameEngine {
 		public static DirCardinal RelativeDirectionOfTiles( sbyte relX, sbyte relY ) {
 
 			if(relX < 0) {
-				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }				// ex: -2, -3
+				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }			// ex: -2, -3
 				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }		// ex: -2, 3
 				return DirCardinal.Left;
 			}

@@ -84,11 +84,6 @@ namespace Nexus.GameEngine {
 					WETools.WEFuncTool.DrawWorldFuncTool();
 				}
 
-				// Draw AutoTile Tool (if active)
-				else if(WETools.autoTool.IsActive) {
-					WETools.autoTool.DrawAutoTiles();
-				}
-
 				// Draw Tile Tool (if active)
 				else if(WETools.WETileTool != null) {
 					WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;

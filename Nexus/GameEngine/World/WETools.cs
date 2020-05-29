@@ -9,14 +9,10 @@ namespace Nexus.GameEngine {
 		public static WEFuncTool WEFuncTool;		// The active Function Tool being used. Higher priority than WorldTileTool, so it is set to null often.
 		public static WEFuncTool WETempTool;		// The highest priority tool; runs because the user is forcing a temporary tool to activate.
 
-		// The AutoTile tool. Always loaded, but can be enabled or disabled. Higher priority than WorldTileTool, but used in sync with it.
-		public static AutoWorldTool autoTool = new AutoWorldTool();
-
 		public static void SetWorldTileTool( WETileTool tool, byte index = 0 ) {
 			WETools.WETileTool = tool;
 			WETools.WEFuncTool = null;
 			WETools.WETempTool = null;
-			WETools.autoTool.ClearAutoTiles();
 
 			WE_UI.curWESlotGroup = WETools.WETileTool.slotGroup;
 
@@ -45,27 +41,10 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static void StartAutoTool(ushort gridX, ushort gridY) {
-
-			// Can only set an AutoTile tool if a WorldTileTool is also active.
-			if(WETools.WETileTool == null) { return; }
-
-			WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
-
-			WETools.autoTool.StartAutoTile(ph.tBase, ph.tCat, gridX, gridY);
-
-			// Only disable other tools if the AutoTile tool started.
-			if(WETools.autoTool.IsActive) {
-				WETools.WEFuncTool = null;
-				WETools.WETempTool = null;
-			}
-		}
-
 		public static void SetWorldFuncTool( WEFuncTool tool ) {
 			WETools.WEFuncTool = tool;
 			WETools.WETileTool = null;
 			WETools.WETempTool = null;
-			WETools.autoTool.ClearAutoTiles();
 
 			// Update Helper Text (if applicable)
 			WETools.UpdateHelperText();
@@ -73,7 +52,6 @@ namespace Nexus.GameEngine {
 
 		public static void SetWorldTempTool( WEFuncTool tool ) {
 			WETools.WETempTool = tool;
-			WETools.autoTool.ClearAutoTiles();
 
 			// Update Helper Text (if applicable)
 			WETools.UpdateHelperText();

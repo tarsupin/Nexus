@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Nexus.Engine;
+using Nexus.GameEngine;
 using System;
 
 namespace Nexus.Gameplay {
@@ -75,23 +76,22 @@ namespace Nexus.Gameplay {
 			byte width = this.GetWidthOfZone(zone);
 			byte height = this.GetHeightOfZone(zone);
 
-			if(newWidth > (byte) WorldmapEnum.MaxWidth) { newWidth = (byte) WorldmapEnum.MaxWidth; }
+			if(newWidth < (byte) WorldmapEnum.MinWidth) { newWidth = (byte) WorldmapEnum.MinWidth; }
+			else if(newWidth > (byte) WorldmapEnum.MaxWidth) { newWidth = (byte) WorldmapEnum.MaxWidth; }
 
 			// Loop through Y Data
 			for(byte y = 0; y < height; y++) {
-				var yData = zone.tiles[y];
+
+				var newYData = zone.tiles[y];
+				Array.Resize<byte[]>(ref newYData, newWidth);
+				zone.tiles[y] = newYData;
 
 				// If New Width is lower:
-				if(newWidth < width) {
-					var newYData = zone.tiles[y];
-					Array.Resize<byte[]>(ref newYData, newWidth);
-					zone.tiles[y] = newYData;
-					continue;
-				}
-				
+				if(newWidth < width) { continue; }
+
 				// Loop through X Data
 				for(byte x = width; x < newWidth; x++) {
-					yData[x] = new byte[] { 0, 0, 0, 0, 0, 0 };
+					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0 };
 				}
 			}
 
@@ -102,13 +102,15 @@ namespace Nexus.Gameplay {
 			byte width = this.GetWidthOfZone(zone);
 			byte height = this.GetHeightOfZone(zone);
 
-			if(newHeight > (byte)WorldmapEnum.MaxHeight) { newHeight = (byte)WorldmapEnum.MaxHeight; }
+			if(newHeight < (byte)WorldmapEnum.MinHeight) { newHeight = (byte)WorldmapEnum.MinHeight; }
+			else if(newHeight > (byte)WorldmapEnum.MaxHeight) { newHeight = (byte)WorldmapEnum.MaxHeight; }
+
+			byte[][][] tiles = zone.tiles;
+			Array.Resize<byte[][]>(ref tiles, newHeight);
+			zone.tiles = tiles;
 
 			// If New Height is lower:
 			if(newHeight < height) {
-				byte[][][] tiles = zone.tiles;
-				Array.Resize<byte[][]>(ref tiles, newHeight);
-				zone.tiles = tiles;
 				return newHeight;
 			}
 
