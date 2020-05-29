@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -237,6 +238,24 @@ namespace Nexus.GameEngine {
 			// Draw UI
 			this.weUI.Draw();
 			Systems.worldEditConsole.Draw();
+
+			// Draw Directional Tile Overlap when path detection is required.
+			//this.DrawDirectionTiles((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
+		}
+
+		public void DrawDirectionTiles( byte gridX, byte gridY, byte range = 5 ) {
+			for(int y = gridY - range; y < gridY + range + 1; y++) {
+				for(int x = gridX - range; x < gridX + range + 1; x++) {
+
+					DirCardinal dir = WEScene.RelativeDirectionOfTiles((sbyte) (x - gridX), (sbyte) (y - gridY));
+
+					if(dir == DirCardinal.Up || dir == DirCardinal.Down) {
+						Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
+					} else {
+						Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
+					}
+				}
+			}
 		}
 
 		// Resize Map
@@ -396,7 +415,7 @@ namespace Nexus.GameEngine {
 		public static DirCardinal RelativeDirectionOfTiles( sbyte relX, sbyte relY ) {
 
 			if(relX < 0) {
-				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }			// ex: -2, -3
+				if(relY < 0 && relY <= relX) { return DirCardinal.Up; }			// ex: -2, -3
 				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }		// ex: -2, 3
 				return DirCardinal.Left;
 			}
