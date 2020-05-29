@@ -355,8 +355,8 @@ namespace Nexus.GameEngine {
 				// If there is not a top layer:
 				else {
 
-					// If there is a category:
-					if(wtData[2] != 0) {
+					// If there is a category AND a layer (must check layer, due to auto-tiling)
+					if(wtData[2] != 0 && wtData[3] > 0) {
 						this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
 					} else {
 						this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldLayers[wtData[3]], posX, posY);
@@ -689,18 +689,63 @@ namespace Nexus.GameEngine {
 				}
 
 				// TODO: Special Rules for Water Cliffs
+				//if(tData[0] == (byte) OTerrain.Water && neighborType < (byte) OTerrain.Water) {
+				//	return;
+				//}
 
 				// Apply the Layer to the Tile
 				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], neighborType, tData[2], (byte) mapRule, tData[4], tData[5]);
 			}
 
-			// TODO: Run Tiling Based On Terrain Coverage / Category
+			// Run Tiling Based On Terrain Coverage / Category
+			// If a Terrain Category is assigned, run the TerrainCategory handler.
+			if(tData[2] > 0) {
+				this.RunAutoTileTerrainCategory(gridX, gridY, tData);
+			}
+		}
+
+		private void RunAutoTileTerrainCategory( byte gridX, byte gridY, byte[] tData ) {
+
+			byte mapSeq = this.GetAutoMap(gridX, gridY, tData[0], tData[2]);
+			bool isStandard = this.IsStandardMapSequence(mapSeq);
+			OLayer mapRule = this.mapLayerRule[mapSeq];
+
+			// Check if the map rule is a "standard" piece that may have corners.
+			if(isStandard) {
+
+				if(mapRule == OLayer.s5) {
+					bool c1 = this.TerrainCategoryMatch((byte)(gridX - 1), (byte)(gridY + 1), tData[2]);
+					bool c3 = this.TerrainCategoryMatch((byte)(gridX + 1), (byte)(gridY + 1), tData[2]);
+					bool c7 = this.TerrainCategoryMatch((byte)(gridX - 1), (byte)(gridY - 1), tData[2]);
+					bool c9 = this.TerrainCategoryMatch((byte)(gridX + 1), (byte)(gridY - 1), tData[2]);
+
+					if(c1) {
+						if(c3) {
+							if(c7 && !c9) { mapRule = OLayer.e9; }
+							else if(c9 && !c7) { mapRule = OLayer.e7; }
+						} else if(c7) {
+							if(c9) { mapRule = OLayer.e3; }
+						}
+					} else if(c3) {
+						if(c7 && c9) { mapRule = OLayer.e1; }
+					}
+				}
+			}
+
+			// Apply the Layer to the Tile
+			this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, tData[2], (byte)mapRule, tData[4], tData[5]);
 		}
 
 		// Returns TRUE if the tile at gridX, gridY has the Terrain Type (tData[0], tBase) that matches matchBase.
 		private bool TerrainMatch( byte gridX, byte gridY, byte matchBase ) {
 			byte[] tData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
 			return (tData[0] != 0 && tData[0] == matchBase);
+		}
+
+		// Returns TRUE if the tile at gridX, gridY has the Terrain Category (tData[2], tCat) that matches matchCat.
+		private bool TerrainCategoryMatch( byte gridX, byte gridY, byte matchCat ) {
+			byte[] tData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+			return (tData[2] != 0 && tData[2] == matchCat);
 		}
 
 		// Returns TRUE if the AutoMapSequence value is a "standard" map rule: s1, s2, s3, s4, etc...
@@ -763,7 +808,7 @@ namespace Nexus.GameEngine {
 
 		// Retrieves AutoMapSequence enum value (WorldTypes.cs), such as "1001" to identify what auto-tiling should occur.
 		// 'placedType' is an OTerrain value, such as OTerrain.Grass
-		private byte GetAutoMap( byte gridX, byte gridY, byte placedType ) {
+		private byte GetAutoMap( byte gridX, byte gridY, byte placedType, byte tCat = 0 ) {
 			WorldZoneFormat zone = this.currentZone;
 
 			byte[] top = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY - 1));
@@ -772,53 +817,53 @@ namespace Nexus.GameEngine {
 			byte[] bottom = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY + 1));
 
 			// Top == Placed
-			if(top[0] == placedType) {
+			if(top[0] == placedType && (tCat == 0 || top[2] == tCat)) {
 
 				// Left == Placed
-				if(left[0] == placedType) {
+				if(left[0] == placedType && (tCat == 0 || left[2] == tCat)) {
 
 					// Right == Placed
-					if(right[0] == placedType) {
-						if(bottom[0] == placedType) { return (byte) AutoMapSequence.map_1111; }
+					if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
+						if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte) AutoMapSequence.map_1111; }
 						return (byte)AutoMapSequence.map_1110;
 					}
 
-					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1101; }
+					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1101; }
 					return (byte)AutoMapSequence.map_1100;
 
 				}
 
 				// Right == Placed
-				if(right[0] == placedType) {
-					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1011; }
+				if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
+					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1011; }
 					return (byte)AutoMapSequence.map_1010;
 				}
 
-				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1001; }
+				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1001; }
 				return (byte)AutoMapSequence.map_1000;
 			}
 
 			// Left == Placed
-			if(left[0] == placedType) {
+			if(left[0] == placedType && (tCat == 0 || left[2] == tCat)) {
 
 				// Right == Placed
-				if(right[0] == placedType) {
-					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0111; }
+				if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
+					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0111; }
 					return (byte)AutoMapSequence.map_0110;
 				}
 
-				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0101; }
+				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0101; }
 				return (byte)AutoMapSequence.map_0100;
 
 			}
 
 			// Right == Placed
-			if(right[0] == placedType) {
-				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0011; }
+			if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
+				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0011; }
 				return (byte)AutoMapSequence.map_1010;
 			}
 
-			if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0001; }
+			if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0001; }
 			return (byte)AutoMapSequence.map_0000;
 		}
 	}
