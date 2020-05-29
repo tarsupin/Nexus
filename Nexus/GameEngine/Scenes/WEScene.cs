@@ -25,6 +25,28 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
 
+		// Local Mapping Rules
+		private Dictionary<byte, OLayer> mapLayerRule = new Dictionary<byte, OLayer>() {
+			{ (byte) AutoMapSequence.map_1001, OLayer.pv },
+			{ (byte) AutoMapSequence.map_0110, OLayer.ph },
+
+			{ (byte) AutoMapSequence.map_1010, OLayer.s1 },
+			{ (byte) AutoMapSequence.map_1110, OLayer.s2 },
+			{ (byte) AutoMapSequence.map_1100, OLayer.s3 },
+			{ (byte) AutoMapSequence.map_1011, OLayer.s4 },
+			{ (byte) AutoMapSequence.map_1111, OLayer.s5 },
+			{ (byte) AutoMapSequence.map_1101, OLayer.s6 },
+			{ (byte) AutoMapSequence.map_0011, OLayer.s7 },
+			{ (byte) AutoMapSequence.map_0111, OLayer.s8 },
+			{ (byte) AutoMapSequence.map_0101, OLayer.s9 },
+
+			{ (byte) AutoMapSequence.map_0000, OLayer.c5 },
+			{ (byte) AutoMapSequence.map_1000, OLayer.c2 },
+			{ (byte) AutoMapSequence.map_0010, OLayer.c4 },
+			{ (byte) AutoMapSequence.map_0100, OLayer.c6 },
+			{ (byte) AutoMapSequence.map_0001, OLayer.c8 },
+		};
+
 		// Grid Limits
 		public byte xCount = 45;		// 1400 / 32 = 45
 		public byte yCount = 29;		// 900 / 32 = 28.125
@@ -274,13 +296,22 @@ namespace Nexus.GameEngine {
 		// Place World Tile
 		public void PlaceTile(WEPlaceholder ph, byte gridX, byte gridY) {
 
-			// Run Auto-Tiling
-			if(ph.auto) {
-
-			}
-
 			// Run Tile Placement
 			this.worldContent.SetTile(this.currentZone, gridX, gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+
+			// Run Auto-Tiling
+			if(ph.auto) {
+				this.RunAutoTile((byte) (gridX - 1), (byte) (gridY - 1));
+				this.RunAutoTile((byte) (gridX), (byte) (gridY - 1));
+				this.RunAutoTile((byte) (gridX + 1), (byte) (gridY - 1));
+				this.RunAutoTile((byte) (gridX - 1), (byte) (gridY));
+				this.RunAutoTile((byte) (gridX), (byte) (gridY));
+				this.RunAutoTile((byte) (gridX + 1), (byte) (gridY));
+				this.RunAutoTile((byte) (gridX - 1), (byte) (gridY + 1));
+				this.RunAutoTile((byte) (gridX), (byte) (gridY + 1));
+				this.RunAutoTile((byte) (gridX + 1), (byte) (gridY + 1));
+				return;
+			}
 		}
 
 		// Place World Object (Can include Nodes)
@@ -364,6 +395,10 @@ namespace Nexus.GameEngine {
 			this.worldData.zones[curZoneId] = this.worldData.zones[curZoneId + 1];
 			this.worldData.zones[curZoneId + 1] = temp;
 		}
+
+		// --------------------- //
+		// --- Node Handling --- //
+		// --------------------- //
 
 		public static bool IsObjectANode( byte objectId ) {
 			switch(objectId) {
@@ -513,6 +548,278 @@ namespace Nexus.GameEngine {
 
 			// Return No Results
 			return tuple;
+		}
+
+		// -------------------------- //
+		// --- Terrain Generation --- //
+		// -------------------------- //
+
+		// Automatically updates the terrain at a given grid location.
+		private void RunAutoTile( byte gridX, byte gridY ) {
+
+			if(gridX > this.xCount) { return; }
+			if(gridY > this.yCount) { return; }
+
+			byte[] tData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+
+			// Determine which terrain tile type (e.g. OTerrain.Grass, OTerrain.Snow, etc) is most common nearby.
+			byte neighborType = this.GetNeighborType(gridX, gridY, tData[0]);
+
+			// If there is no neighbor type discovered, all types are of the placed terrain.
+			// ALSO: Make sure the order of terrain tiling is determined, otherwise both tiles will try to layer the other.
+			if(neighborType == 0 || neighborType > tData[0]) {
+
+				// Can remove the layers from this tile:
+				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, tData[2], 0, tData[4], tData[5]);
+			}
+
+			// Neighbor type was discovered. Run the AutoTiler.
+			else {
+				byte mapSeq = this.GetAutoMap(gridX, gridY, tData[0]);
+				bool isStandard = this.IsStandardMapSequence(mapSeq);
+				OLayer mapRule = this.mapLayerRule[mapSeq];
+
+				// Check if the map sequence is a "standard" piece that may have corners.
+				if(isStandard) {
+
+					// If working with 's5' sequence, it might need additional layering:
+					if(mapRule == OLayer.s5) {
+						bool c1 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY + 1), neighborType);
+						bool c3 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY + 1), neighborType);
+						bool c7 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY - 1), neighborType);
+						bool c9 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY - 1), neighborType);
+
+						if(c1) {
+							if(c3) {
+								if(c7 && c9) { mapRule = OLayer.e5; }
+								else if(c7) { mapRule = OLayer.v1; }
+								else if(c9) { mapRule = OLayer.v3; }
+								else { mapRule = OLayer.e8; }
+							}
+							else if(c7) {
+								if(c9) { mapRule = OLayer.v7; }
+								else { mapRule = OLayer.e6; }
+							}
+							else if(c9) { mapRule = OLayer.er; }
+							else { mapRule = OLayer.e1; }
+						}
+						else if(c3) {
+							if(c7 && c9) { mapRule = OLayer.v9; }
+							else if(c7) { mapRule = OLayer.el; }
+							else if(c9) { mapRule = OLayer.e4; }
+							else { mapRule = OLayer.e3; }
+						}
+						else if(c7) {
+							if(c9) { mapRule = OLayer.e2; }
+							else { mapRule = OLayer.e7; }
+						}
+						else if(c9) {
+							mapRule = OLayer.e9;
+						}
+
+						// If no rules were detected, then it's an empty square. Can remove its layer.
+						else {
+							this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, tData[2], 0, tData[4], tData[5]);
+							return;
+						}
+					}
+
+					else if(mapRule == OLayer.s1) {
+						if(this.TerrainMatch((byte)(gridX + 1), (byte)(gridY - 1), neighborType)) { mapRule = OLayer.p1; }
+					}
+
+					else if(mapRule == OLayer.s3) {
+						if(this.TerrainMatch((byte)(gridX - 1), (byte)(gridY - 1), neighborType)) { mapRule = OLayer.p3; }
+					}
+
+					else if(mapRule == OLayer.s7) {
+						if(this.TerrainMatch((byte)(gridX + 1), (byte)(gridY + 1), neighborType)) { mapRule = OLayer.p7; }
+					}
+
+					else if(mapRule == OLayer.s9) {
+						if(this.TerrainMatch((byte)(gridX - 1), (byte)(gridY + 1), neighborType)) { mapRule = OLayer.p9; }
+					}
+
+					else if(mapRule == OLayer.s2) {
+						bool c7 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY - 1), neighborType);
+						bool c9 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY - 1), neighborType);
+						if(c7 && c9) { mapRule = OLayer.t2; }
+						else if(c7) { mapRule = OLayer.r7; }
+						else if(c9) { mapRule = OLayer.l9; }
+					}
+
+					else if(mapRule == OLayer.s4) {
+						bool c3 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY + 1), neighborType);
+						bool c9 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY - 1), neighborType);
+						if(c3 && c9) { mapRule = OLayer.t4; }
+						else if(c3) { mapRule = OLayer.l3; }
+						else if(c9) { mapRule = OLayer.r9; }
+					}
+					
+					else if(mapRule == OLayer.s6) {
+						bool c1 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY + 1), neighborType);
+						bool c7 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY - 1), neighborType);
+						if(c1 && c7) { mapRule = OLayer.t6; }
+						else if(c1) { mapRule = OLayer.r1; }
+						else if(c7) { mapRule = OLayer.l7; }
+					}
+
+					else if(mapRule == OLayer.s8) {
+						bool c1 = this.TerrainMatch((byte)(gridX - 1), (byte)(gridY + 1), neighborType);
+						bool c3 = this.TerrainMatch((byte)(gridX + 1), (byte)(gridY + 1), neighborType);
+						if(c1 && c3) { mapRule = OLayer.t8; }
+						else if(c1) { mapRule = OLayer.l1; }
+						else if(c3) { mapRule = OLayer.r3; }
+					}
+				}
+
+				// Check if the map layering rule was set as a path ('ph' or 'pv'). May want to ignore nearby non-neighbor tiles.
+				else if(mapRule == OLayer.ph) {
+					bool c2 = this.TerrainMatch(gridX, (byte)(gridY + 1), neighborType);
+					bool c8 = this.TerrainMatch(gridX, (byte)(gridY - 1), neighborType);
+					if(!c2) { mapRule = OLayer.s8; }
+					else if(!c8) { mapRule = OLayer.s2; }
+				}
+				
+				else if(mapRule == OLayer.pv) {
+					bool c4 = this.TerrainMatch((byte)(gridX - 1), gridY, neighborType);
+					bool c6 = this.TerrainMatch((byte)(gridX + 1), gridY, neighborType);
+					if(!c4) { mapRule = OLayer.s6; }
+					else if(!c6) { mapRule = OLayer.s4; }
+				}
+
+				// TODO: Special Rules for Water Cliffs
+
+				// Apply the Layer to the Tile
+				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], neighborType, tData[2], (byte) mapRule, tData[4], tData[5]);
+			}
+
+			// TODO: Run Tiling Based On Terrain Coverage / Category
+		}
+
+		// Returns TRUE if the tile at gridX, gridY has the Terrain Type (tData[0], tBase) that matches matchBase.
+		private bool TerrainMatch( byte gridX, byte gridY, byte matchBase ) {
+			byte[] tData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+			return (tData[0] != 0 && tData[0] == matchBase);
+		}
+
+		// Returns TRUE if the AutoMapSequence value is a "standard" map rule: s1, s2, s3, s4, etc...
+		private bool IsStandardMapSequence( byte mapSequence ) {
+			switch(mapSequence) {
+				case (byte)AutoMapSequence.map_1010:	// s1
+				case (byte)AutoMapSequence.map_1110:	// s2
+				case (byte)AutoMapSequence.map_1100:	// s3
+				case (byte)AutoMapSequence.map_1011:	// s4
+				case (byte)AutoMapSequence.map_1111:	// s5
+				case (byte)AutoMapSequence.map_1101:	// s6
+				case (byte)AutoMapSequence.map_0011:	// s7
+				case (byte)AutoMapSequence.map_0111:	// s8
+				case (byte)AutoMapSequence.map_0101:    // s9
+					return true;
+			}
+			return false;
+		}
+
+		// Identifies neighbor tile OTerrain type (e.g. OTerrain.Grass, Oterrain.Snow, etc) with the most matches.
+		private byte GetNeighborType( byte gridX, byte gridY, byte ignoreType = 0 ) {
+			WorldZoneFormat zone = this.currentZone;
+			byte[][][] tiles = zone.tiles;
+			byte[] tTracker = new byte[20];
+
+			byte maxX = (byte)Math.Min(this.xCount, gridX + 1);
+			byte maxY = (byte)Math.Min(this.yCount, gridY + 1);
+
+			// Loop through neighboring tiles.
+			for(byte y = (byte)Math.Max(0, gridY - 1); y <= maxY; y++) {
+				if(y >= tiles.Length) { continue; }
+				byte[][] yData = tiles[y];
+				
+				for(byte x = (byte)Math.Max(0, gridX - 1); x <= maxX; x++) {
+					if(x >= yData.Length) { continue; }
+
+					// Retrieve the Terrain Data at this x, y position.
+					byte[] tData = this.worldContent.GetWorldTileData(zone, x, y);
+
+					if(tData[0] == ignoreType) { continue; }
+
+					// The terrain is valid. Add it to the tracker to determine the count.
+					tTracker[tData[0]]++;
+				}
+			}
+
+			// Identify the terrain type with the most neighbor matches:
+			byte terrainWithMost = 0;
+			byte terrainIndex = 0;
+
+			for(byte i = 0; i < tTracker.Length; i++) {
+				if(terrainWithMost < tTracker[i]) {
+					terrainIndex = i;
+					terrainWithMost = tTracker[i];
+				}
+			}
+
+			return terrainIndex;
+		}
+
+		// Retrieves AutoMapSequence enum value (WorldTypes.cs), such as "1001" to identify what auto-tiling should occur.
+		// 'placedType' is an OTerrain value, such as OTerrain.Grass
+		private byte GetAutoMap( byte gridX, byte gridY, byte placedType ) {
+			WorldZoneFormat zone = this.currentZone;
+
+			byte[] top = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY - 1));
+			byte[] left = this.worldContent.GetWorldTileData(zone, (byte)(gridX - 1), gridY);
+			byte[] right = this.worldContent.GetWorldTileData(zone, (byte)(gridX + 1), gridY);
+			byte[] bottom = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY + 1));
+
+			// Top == Placed
+			if(top[0] == placedType) {
+
+				// Left == Placed
+				if(left[0] == placedType) {
+
+					// Right == Placed
+					if(right[0] == placedType) {
+						if(bottom[0] == placedType) { return (byte) AutoMapSequence.map_1111; }
+						return (byte)AutoMapSequence.map_1110;
+					}
+
+					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1101; }
+					return (byte)AutoMapSequence.map_1100;
+
+				}
+
+				// Right == Placed
+				if(right[0] == placedType) {
+					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1011; }
+					return (byte)AutoMapSequence.map_1010;
+				}
+
+				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_1001; }
+				return (byte)AutoMapSequence.map_1000;
+			}
+
+			// Left == Placed
+			if(left[0] == placedType) {
+
+				// Right == Placed
+				if(right[0] == placedType) {
+					if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0111; }
+					return (byte)AutoMapSequence.map_0110;
+				}
+
+				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0101; }
+				return (byte)AutoMapSequence.map_0100;
+
+			}
+
+			// Right == Placed
+			if(right[0] == placedType) {
+				if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0011; }
+				return (byte)AutoMapSequence.map_1010;
+			}
+
+			if(bottom[0] == placedType) { return (byte)AutoMapSequence.map_0001; }
+			return (byte)AutoMapSequence.map_0000;
 		}
 	}
 }

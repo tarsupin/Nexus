@@ -17,6 +17,32 @@ namespace Nexus.Gameplay {
 		MaxHeight = 120,		// <= 200, avoid crossing byte threshold for range modifiers.
 	}
 
+	// Auto-Map Sequences
+	// Identifies surrounding tiles relative to what was placed, and how that affects what layer should be used.
+	// 0 = Surrounding Terrain, 1 = Placed Tile
+	// For example: map_1000 means the top is the same as the tile placed, but everything else surrounding it is ____ (some other terrain type).
+	// String Order is: Top, Left, Right, Bottom
+	public enum AutoMapSequence : byte {
+		map_1001,	// pv
+		map_0110,	// ph
+		
+		map_1010,	// s1
+		map_1110,	// s2
+		map_1100,	// s3
+		map_1011,	// s4
+		map_1111,	// s5
+		map_1101,	// s6
+		map_0011,	// s7
+		map_0111,	// s8
+		map_0101,	// s9
+
+		map_0000,	// c5
+		map_1000,	// c2
+		map_0010,	// c4
+		map_0100,	// c6
+		map_0001,	// c8
+	}
+
 	public enum OTerrain : byte {
 		Grass = 1,
 		Desert = 2,

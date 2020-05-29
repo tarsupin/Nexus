@@ -129,8 +129,8 @@ namespace Nexus.Gameplay {
 
 		public byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
 			var tiles = zone.tiles;
-			if(gridY > tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
-			if(gridX > tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
+			if(gridY >= tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
+			if(gridX >= tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
 			return tiles[gridY][gridX];
 		}
 
