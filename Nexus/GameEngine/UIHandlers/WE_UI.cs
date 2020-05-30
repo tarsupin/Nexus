@@ -89,7 +89,7 @@ namespace Nexus.GameEngine {
 					WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
 
 					// Draw Tile
-					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.cover, ph.coverLay, ph.obj, 0 }, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
+					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, 0 }, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 				}
 			}
 

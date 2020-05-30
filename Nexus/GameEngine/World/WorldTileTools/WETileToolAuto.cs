@@ -12,51 +12,63 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.Coast,
+					cover = (byte) OTerrain.Coast,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.MountainBrown,
+					cover = (byte) OTerrain.MountainBrown,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.MountainGray,
+					cover = (byte) OTerrain.MountainGray,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.MountainIce,
+					cover = (byte) OTerrain.MountainIce,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.TreesPine,
+					cover = (byte) OTerrain.TreesPine,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.TreesPineSnow,
+					cover = (byte) OTerrain.TreesPineSnow,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.TreesPalm,
+					cover = (byte) OTerrain.TreesPalm,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.TreesOak,
+					cover = (byte) OTerrain.TreesOak,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.TreesOakSnow,
+					cover = (byte) OTerrain.TreesOakSnow,
+					coverLay = (byte) OLayer.s,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.FieldGrass,
+					cover = (byte) OTerrain.FieldGrass,
+					coverLay = (byte) OLayer.s5,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.FieldHay,
+					cover = (byte) OTerrain.FieldHay,
+					coverLay = (byte) OLayer.s5,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.FieldSnow,
+					cover = (byte) OTerrain.FieldSnow,
+					coverLay = (byte) OLayer.s5,
 				},
 			});
 

@@ -249,7 +249,7 @@ namespace Nexus.GameEngine {
 
 			// Draw Object Layer [5]
 			if(wtData[5] != 0) {
-				this.atlas.Draw("Objects/" + WorldObjects[wtData[4]], posX, posY);
+				this.atlas.Draw("Objects/" + WorldObjects[wtData[5]], posX, posY);
 			}
 		}
 
