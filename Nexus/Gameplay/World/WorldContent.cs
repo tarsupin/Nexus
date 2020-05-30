@@ -134,6 +134,40 @@ namespace Nexus.Gameplay {
 			return tiles[gridY][gridX];
 		}
 
+		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte top = 0, byte topLay = 0, byte cover = 0, byte coverLay = 0, byte obj = 0, byte nodeId = 0) {
+			var tiles = zone.tiles;
+			if(gridY >= tiles.Length) { return false; }
+			if(gridX >= tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX] = new byte[] { tBase, top, topLay, cover, coverLay, obj, nodeId };
+			return true;
+		}
+
+		public bool SetTileBase(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0) {
+			var tiles = zone.tiles;
+			if(gridY >= tiles.Length) { return false; }
+			if(gridX >= tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX][0] = tBase;
+			return true;
+		}
+		
+		public bool SetTileTop(WorldZoneFormat zone, byte gridX, byte gridY, byte top = 0, byte topLay = 0) {
+			var tiles = zone.tiles;
+			if(gridY >= tiles.Length) { return false; }
+			if(gridX >= tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX][1] = top;
+			tiles[gridY][gridX][2] = topLay;
+			return true;
+		}
+
+		public bool SetTileCover(WorldZoneFormat zone, byte gridX, byte gridY, byte cover = 0, byte coverLay = 0) {
+			var tiles = zone.tiles;
+			if(gridY >= tiles.Length) { return false; }
+			if(gridX >= tiles[gridY].Length) { return false; }
+			tiles[gridY][gridX][3] = cover;
+			tiles[gridY][gridX][4] = coverLay;
+			return true;
+		}
+
 		public bool SetTileObject(WorldZoneFormat zone, byte gridX, byte gridY, byte obj = 0 ) {
 			var tiles = zone.tiles;
 			if(gridY >= tiles.Length) { return false; }
@@ -147,14 +181,6 @@ namespace Nexus.Gameplay {
 			if(gridY >= tiles.Length) { return false; }
 			if(gridX >= tiles[gridY].Length) { return false; }
 			tiles[gridY][gridX][6] = nodeId;
-			return true;
-		}
-
-		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte top = 0, byte topLay = 0, byte cover = 0, byte coverLay = 0, byte obj = 0, byte nodeId = 0 ) {
-			var tiles = zone.tiles;
-			if(gridY >= tiles.Length) { return false; }
-			if(gridX >= tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX] = new byte[] { tBase, top, topLay, cover, coverLay, obj, nodeId };
 			return true;
 		}
 

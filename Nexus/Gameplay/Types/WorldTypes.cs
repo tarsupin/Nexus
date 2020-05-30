@@ -17,6 +17,12 @@ namespace Nexus.Gameplay {
 		MaxHeight = 120,		// <= 200, avoid crossing byte threshold for range modifiers.
 	}
 
+	public enum WorldTileStack : byte {
+		Base = 0,		// Means that we're only dealing with the base tiles.
+		Top = 1,		// Means that we're only dealing with the top tiles (top, topLayer).
+		Cover = 2,		// Means that we're only dealing with the cover tiles (cover, coverLayer).
+	}
+
 	// Auto-Map Sequences
 	// Identifies surrounding tiles relative to what was placed, and how that affects what layer should be used.
 	// 0 = Surrounding Terrain, 1 = Placed Tile
