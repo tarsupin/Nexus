@@ -301,12 +301,12 @@ namespace Nexus.Gameplay {
 
 			// World Terrain Categories
 			this.WorldTerrainCat = new Dictionary<byte, string>() {
-				{ (byte) OTerrainCat.Trees, "Trees" },
-				{ (byte) OTerrainCat.Mountains, "Mountain" },
-				{ (byte) OTerrainCat.Field, "Field" },
-				{ (byte) OTerrainCat.Veg, "Veg" },
-				{ (byte) OTerrainCat.Water, "Water" },
-				{ (byte) OTerrainCat.Field2, "Field2" },
+				{ (byte) OTerrainCat.Trees, "TreesPine" },
+				{ (byte) OTerrainCat.Mountains, "MountainBrown" },
+				{ (byte) OTerrainCat.Field, "FieldGrass" },
+				{ (byte) OTerrainCat.Veg, "TreesOak" },
+				{ (byte) OTerrainCat.Water, "Coast" },
+				{ (byte) OTerrainCat.Field2, "FieldHay" },
 			};
 
 			// World Layers

@@ -357,7 +357,9 @@ namespace Nexus.GameEngine {
 
 					// If there is a category AND a layer (must check layer, due to auto-tiling)
 					if(wtData[2] != 0 && wtData[3] > 0) {
-						this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
+						this.atlas.Draw("Snow/b1", posX, posY);
+						this.atlas.Draw(WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
+						//this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
 					} else {
 						this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldLayers[wtData[3]], posX, posY);
 					}

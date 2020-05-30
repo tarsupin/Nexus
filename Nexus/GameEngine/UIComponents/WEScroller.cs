@@ -81,7 +81,8 @@ namespace Nexus.GameEngine {
 
 							// If there is a category:
 							if(ph.tCat != 0) {
-								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
+								this.atlas.Draw(WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
+								//this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 							} else {
 								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
 							}

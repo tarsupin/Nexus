@@ -216,6 +216,24 @@ namespace Nexus.Gameplay {
 		WoodBridgeV = 86,
 	}
 
+	public enum WTLayer : byte {
+
+		// Coast
+
+
+		// Mountain, Brown
+		// Mountain, Gray
+		// Mountain, Ice
+		// Trees, Oak
+		// Trees, Oak Snow
+		// Trees, Palm
+		// Trees, Pine
+		// Trees, Pine Snow
+		// Field, Grass
+		// Field, Hay
+		// Field, Snow
+	}
+
 	public class RandTypeCur {
 		public OTerrain type;
 		public string c;
