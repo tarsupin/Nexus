@@ -197,8 +197,10 @@
     <Compile Include="GameEngine\World\WorldFuncTools\WEFuncToolEraser.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WEFuncToolEyedrop.cs" />
     <Compile Include="GameEngine\World\WorldFuncTools\WEFuncToolWand.cs" />
+    <Compile Include="GameEngine\World\WorldTileTools\WETileToolObjects.cs" />
+    <Compile Include="GameEngine\World\WorldTileTools\WETileToolTerrain.cs" />
     <Compile Include="GameEngine\World\WorldTileTools\WETileTool.cs" />
-    <Compile Include="GameEngine\World\WorldTileTools\WEAutoTiles.cs" />
+    <Compile Include="GameEngine\World\WorldTileTools\WETileToolAuto.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WorldChar.cs" />
     <Compile Include="GameEngine\Editor\EditorTools.cs" />

@@ -7,10 +7,11 @@ namespace Nexus.GameEngine {
 	public class WEPlaceholder {
 		public bool auto = false;
 		public byte tBase = 0;
-		public byte tTop = 0;
-		public byte tCat = 0;
-		public byte tLayer = 0;
-		public byte tObj = 0;
+		public byte top = 0;
+		public byte topLay = 0;
+		public byte cover = 0;
+		public byte coverLay = 0;
+		public byte obj = 0;
 		public byte tNodeId = 0;
 	}
 
@@ -23,7 +24,7 @@ namespace Nexus.GameEngine {
 		public byte[] subIndexSaves = new byte[10];
 
 		public static Dictionary<byte, WETileTool> WorldTileToolMap = new Dictionary<byte, WETileTool>() {
-			{ (byte) WorldSlotGroup.Standard, new WEAutoTiles() },
+			{ (byte) WorldSlotGroup.Standard, new WETileToolAuto() },
 		};
 
 		public WETileTool() {
@@ -69,11 +70,12 @@ namespace Nexus.GameEngine {
 
 			// Standard 
 			byte tBase = tileData[0];
-			byte tTop = tileData[1];
-			byte tCat = tileData[2];
-			byte tLayer = tileData[3];
-			byte tObj = tileData[4];
-			byte tNode = tileData[5];
+			byte top = tileData[1];
+			byte topLay = tileData[2];
+			byte cover = tileData[3];
+			byte coverLay = tileData[4];
+			byte obj = tileData[5];
+			byte nodeId = tileData[6];
 
 			// Scan each entry in WorldTileToolMap.
 			for(byte slotGroupNum = 0; slotGroupNum < 8; slotGroupNum++) {
@@ -91,22 +93,22 @@ namespace Nexus.GameEngine {
 						WEPlaceholder ph = pData[s];
 
 						// If the item is an object:
-						if(tObj > 0) {
-							if(ph.tObj != tObj) { continue; }
+						if(obj > 0) {
+							if(ph.obj != obj) { continue; }
 						}
 
 						// If there is a tBase value provided:
 						else if(tBase > 0) {
 							if(ph.tBase != tBase) { continue; }
-							if(ph.tCat != tCat) { continue; }
+							if(ph.cover != cover) { continue; }
 
 							// If there is a layer, apply it if it's a b# value.
-							if(tLayer > (byte) OLayer.b1 && tCat == 0 && tTop == 0) {
-								if(tLayer != ph.tLayer && tTop != ph.tTop) { continue; }
-								if(ph.tLayer != tLayer && ph.tTop == 0) { continue; }
+							if(topLay > (byte) OLayer.b1 && cover == 0 && top == 0) {
+								if(topLay != ph.topLay && top != ph.top) { continue; }
+								if(ph.topLay != topLay && ph.top == 0) { continue; }
 								if(ph.auto) { continue; }
 
-								switch(ph.tLayer) {
+								switch(ph.topLay) {
 									case (byte)OLayer.b2:
 									case (byte)OLayer.b3:
 									case (byte)OLayer.b4:

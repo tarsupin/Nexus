@@ -21,7 +21,6 @@ namespace Nexus.GameEngine {
 
 		// Mapper Data
 		public Dictionary<byte, string> WorldTerrain;
-		public Dictionary<byte, string> WorldTerrainCat;
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
 
@@ -40,11 +39,11 @@ namespace Nexus.GameEngine {
 			{ (byte) AutoMapSequence.map_0111, OLayer.s8 },
 			{ (byte) AutoMapSequence.map_0101, OLayer.s9 },
 
-			{ (byte) AutoMapSequence.map_0000, OLayer.c5 },
-			{ (byte) AutoMapSequence.map_1000, OLayer.c2 },
-			{ (byte) AutoMapSequence.map_0010, OLayer.c4 },
-			{ (byte) AutoMapSequence.map_0100, OLayer.c6 },
-			{ (byte) AutoMapSequence.map_0001, OLayer.c8 },
+			{ (byte) AutoMapSequence.map_0000, OLayer.e5 },
+			{ (byte) AutoMapSequence.map_1000, OLayer.e2 },
+			{ (byte) AutoMapSequence.map_0010, OLayer.e4 },
+			{ (byte) AutoMapSequence.map_0100, OLayer.e6 },
+			{ (byte) AutoMapSequence.map_0001, OLayer.e8 },
 		};
 
 		// Grid Limits
@@ -67,7 +66,6 @@ namespace Nexus.GameEngine {
 
 			// Prepare Mapper Data
 			this.WorldTerrain = Systems.mapper.WorldTerrain;
-			this.WorldTerrainCat = Systems.mapper.WorldTerrainCat;
 			this.WorldLayers = Systems.mapper.WorldLayers;
 			this.WorldObjects = Systems.mapper.WorldObjects;
 
@@ -217,8 +215,8 @@ namespace Nexus.GameEngine {
 				WEPlaceholder ph = tool.CurrentPlaceholder;
 
 				// Placing an Object
-				if(ph.tObj > 0) {
-					this.PlaceObject(ph.tObj, (byte) gridX, (byte) gridY);
+				if(ph.obj > 0) {
+					this.PlaceObject(ph.obj, (byte) gridX, (byte) gridY);
 				}
 
 				// Placing a Standard Tile
@@ -297,7 +295,7 @@ namespace Nexus.GameEngine {
 		public void PlaceTile(WEPlaceholder ph, byte gridX, byte gridY) {
 
 			// Run Tile Placement
-			this.worldContent.SetTile(this.currentZone, gridX, gridY, ph.tBase, ph.tTop, ph.tCat, ph.tLayer, ph.tObj, ph.tNodeId);
+			this.worldContent.SetTile(this.currentZone, gridX, gridY, ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, ph.tNodeId);
 
 			// Run Auto-Tiling
 			if(ph.auto) {
@@ -339,40 +337,23 @@ namespace Nexus.GameEngine {
 
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
 
-			// Draw Base
-			if(wtData[0] != 0) {
-
-				// If there is a top layer:
-				if(wtData[1] != 0) {
-
-					// Draw a standard base tile with no varient, so that the top layer will look correct.
-					this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
-
-					// Draw the Top Layer
-					this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], posX, posY);
-				}
-
-				// If there is not a top layer:
-				else {
-
-					// If there is a category AND a layer (must check layer, due to auto-tiling)
-					if(wtData[2] != 0 && wtData[3] > 0) {
-						this.atlas.Draw("Snow/b1", posX, posY);
-						this.atlas.Draw(WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
-						//this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], posX, posY);
-					} else {
-						this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldLayers[wtData[3]], posX, posY);
-					}
-				}
+			// Draw Base, unless the top layer is identical.
+			if(wtData[0] != 0 && wtData[0] != wtData[1]) {
+				this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
 			}
 
-			// Draw Top, with no base:
-			else if(wtData[1] != 0) {
-				this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], posX, posY);
+			// Draw Top [1], [2]
+			if(wtData[1] != 0) {
+				this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
 			}
 
-			// Draw Object Layer
-			if(wtData[4] != 0) {
+			// Draw Cover [3], [4]
+			if(wtData[3] != 0) {
+				this.atlas.Draw(WorldTerrain[wtData[3]] + "/" + WorldLayers[wtData[4]], posX, posY);
+			}
+
+			// Draw Object Layer [5]
+			if(wtData[5] != 0) {
 				this.atlas.Draw("Objects/" + WorldObjects[wtData[4]], posX, posY);
 			}
 		}
@@ -420,7 +401,7 @@ namespace Nexus.GameEngine {
 
 			// Get Object at Location
 			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
-			byte objectId = wtData[4];
+			byte objectId = wtData[5];
 
 			// Determine if the Object is a Node
 			bool isNode = WEScene.IsObjectANode(objectId);
@@ -572,7 +553,7 @@ namespace Nexus.GameEngine {
 			if(neighborType == 0 || neighborType > tData[0]) {
 
 				// Can remove the layers from this tile:
-				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, tData[2], 0, tData[4], tData[5]);
+				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, 0, tData[3], tData[4], tData[5]);
 			}
 
 			// Neighbor type was discovered. Run the AutoTiler.
@@ -593,30 +574,30 @@ namespace Nexus.GameEngine {
 
 						if(c1) {
 							if(c3) {
-								if(c7 && c9) { mapRule = OLayer.e5; }
+								if(c7 && c9) { mapRule = OLayer.c5; }
 								else if(c7) { mapRule = OLayer.v1; }
 								else if(c9) { mapRule = OLayer.v3; }
-								else { mapRule = OLayer.e8; }
+								else { mapRule = OLayer.c8; }
 							}
 							else if(c7) {
 								if(c9) { mapRule = OLayer.v7; }
-								else { mapRule = OLayer.e6; }
+								else { mapRule = OLayer.c6; }
 							}
-							else if(c9) { mapRule = OLayer.er; }
-							else { mapRule = OLayer.e1; }
+							else if(c9) { mapRule = OLayer.cr; }
+							else { mapRule = OLayer.c1; }
 						}
 						else if(c3) {
 							if(c7 && c9) { mapRule = OLayer.v9; }
-							else if(c7) { mapRule = OLayer.el; }
-							else if(c9) { mapRule = OLayer.e4; }
-							else { mapRule = OLayer.e3; }
+							else if(c7) { mapRule = OLayer.cl; }
+							else if(c9) { mapRule = OLayer.c4; }
+							else { mapRule = OLayer.c3; }
 						}
 						else if(c7) {
-							if(c9) { mapRule = OLayer.e2; }
-							else { mapRule = OLayer.e7; }
+							if(c9) { mapRule = OLayer.c2; }
+							else { mapRule = OLayer.c7; }
 						}
 						else if(c9) {
-							mapRule = OLayer.e9;
+							mapRule = OLayer.c9;
 						}
 
 						// If no rules were detected, then it's an empty square. Can remove its layer.
@@ -702,13 +683,13 @@ namespace Nexus.GameEngine {
 			// Run Tiling Based On Terrain Coverage / Category
 			// If a Terrain Category is assigned, run the TerrainCategory handler.
 			if(tData[2] > 0) {
-				this.RunAutoTileTerrainCategory(gridX, gridY, tData);
+				this.RunAutoTileTerrainCover(gridX, gridY, tData);
 			}
 		}
 
-		private void RunAutoTileTerrainCategory( byte gridX, byte gridY, byte[] tData ) {
+		private void RunAutoTileTerrainCover( byte gridX, byte gridY, byte[] tData ) {
 
-			byte mapSeq = this.GetAutoMap(gridX, gridY, tData[0], tData[2]);
+			byte mapSeq = this.GetAutoMap(gridX, gridY, tData[0], tData[3]);
 			bool isStandard = this.IsStandardMapSequence(mapSeq);
 			OLayer mapRule = this.mapLayerRule[mapSeq];
 
@@ -716,26 +697,26 @@ namespace Nexus.GameEngine {
 			if(isStandard) {
 
 				if(mapRule == OLayer.s5) {
-					bool c1 = this.TerrainCategoryMatch((byte)(gridX - 1), (byte)(gridY + 1), tData[2]);
-					bool c3 = this.TerrainCategoryMatch((byte)(gridX + 1), (byte)(gridY + 1), tData[2]);
-					bool c7 = this.TerrainCategoryMatch((byte)(gridX - 1), (byte)(gridY - 1), tData[2]);
-					bool c9 = this.TerrainCategoryMatch((byte)(gridX + 1), (byte)(gridY - 1), tData[2]);
+					bool c1 = this.TerrainCoverMatch((byte)(gridX - 1), (byte)(gridY + 1), tData[3]);
+					bool c3 = this.TerrainCoverMatch((byte)(gridX + 1), (byte)(gridY + 1), tData[3]);
+					bool c7 = this.TerrainCoverMatch((byte)(gridX - 1), (byte)(gridY - 1), tData[3]);
+					bool c9 = this.TerrainCoverMatch((byte)(gridX + 1), (byte)(gridY - 1), tData[3]);
 
 					if(c1) {
 						if(c3) {
-							if(c7 && !c9) { mapRule = OLayer.e9; }
-							else if(c9 && !c7) { mapRule = OLayer.e7; }
+							if(c7 && !c9) { mapRule = OLayer.c9; }
+							else if(c9 && !c7) { mapRule = OLayer.c7; }
 						} else if(c7) {
-							if(c9) { mapRule = OLayer.e3; }
+							if(c9) { mapRule = OLayer.c3; }
 						}
 					} else if(c3) {
-						if(c7 && c9) { mapRule = OLayer.e1; }
+						if(c7 && c9) { mapRule = OLayer.c1; }
 					}
 				}
 			}
 
 			// Apply the Layer to the Tile
-			this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, tData[2], (byte)mapRule, tData[4], tData[5]);
+			this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], tData[1], tData[2], tData[3], (byte)mapRule, tData[5], tData[6]);
 		}
 
 		// Returns TRUE if the tile at gridX, gridY has the Terrain Type (tData[0], tBase) that matches matchBase.
@@ -744,10 +725,10 @@ namespace Nexus.GameEngine {
 			return (tData[0] != 0 && tData[0] == matchBase);
 		}
 
-		// Returns TRUE if the tile at gridX, gridY has the Terrain Category (tData[2], tCat) that matches matchCat.
-		private bool TerrainCategoryMatch( byte gridX, byte gridY, byte matchCat ) {
+		// Returns TRUE if the tile at gridX, gridY has the Terrain Cover (tData[3], Cover) that matches matchCover.
+		private bool TerrainCoverMatch( byte gridX, byte gridY, byte matchCover ) {
 			byte[] tData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
-			return (tData[2] != 0 && tData[2] == matchCat);
+			return (tData[3] != 0 && tData[3] == matchCover);
 		}
 
 		// Returns TRUE if the AutoMapSequence value is a "standard" map rule: s1, s2, s3, s4, etc...
@@ -810,7 +791,7 @@ namespace Nexus.GameEngine {
 
 		// Retrieves AutoMapSequence enum value (WorldTypes.cs), such as "1001" to identify what auto-tiling should occur.
 		// 'placedType' is an OTerrain value, such as OTerrain.Grass
-		private byte GetAutoMap( byte gridX, byte gridY, byte placedType, byte tCat = 0 ) {
+		private byte GetAutoMap( byte gridX, byte gridY, byte placedType, byte cover = 0 ) {
 			WorldZoneFormat zone = this.currentZone;
 
 			byte[] top = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY - 1));
@@ -819,53 +800,53 @@ namespace Nexus.GameEngine {
 			byte[] bottom = this.worldContent.GetWorldTileData(zone, gridX, (byte)(gridY + 1));
 
 			// Top == Placed
-			if(top[0] == placedType && (tCat == 0 || top[2] == tCat)) {
+			if(top[0] == placedType && (cover == 0 || top[3] == cover)) {
 
 				// Left == Placed
-				if(left[0] == placedType && (tCat == 0 || left[2] == tCat)) {
+				if(left[0] == placedType && (cover == 0 || left[3] == cover)) {
 
 					// Right == Placed
-					if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
-						if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte) AutoMapSequence.map_1111; }
+					if(right[0] == placedType && (cover == 0 || right[3] == cover)) {
+						if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte) AutoMapSequence.map_1111; }
 						return (byte)AutoMapSequence.map_1110;
 					}
 
-					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1101; }
+					if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_1101; }
 					return (byte)AutoMapSequence.map_1100;
 
 				}
 
 				// Right == Placed
-				if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
-					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1011; }
+				if(right[0] == placedType && (cover == 0 || right[3] == cover)) {
+					if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_1011; }
 					return (byte)AutoMapSequence.map_1010;
 				}
 
-				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_1001; }
+				if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_1001; }
 				return (byte)AutoMapSequence.map_1000;
 			}
 
 			// Left == Placed
-			if(left[0] == placedType && (tCat == 0 || left[2] == tCat)) {
+			if(left[0] == placedType && (cover == 0 || left[3] == cover)) {
 
 				// Right == Placed
-				if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
-					if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0111; }
+				if(right[0] == placedType && (cover == 0 || right[3] == cover)) {
+					if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_0111; }
 					return (byte)AutoMapSequence.map_0110;
 				}
 
-				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0101; }
+				if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_0101; }
 				return (byte)AutoMapSequence.map_0100;
 
 			}
 
 			// Right == Placed
-			if(right[0] == placedType && (tCat == 0 || right[2] == tCat)) {
-				if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0011; }
+			if(right[0] == placedType && (cover == 0 || right[3] == cover)) {
+				if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_0011; }
 				return (byte)AutoMapSequence.map_1010;
 			}
 
-			if(bottom[0] == placedType && (tCat == 0 || bottom[2] == tCat)) { return (byte)AutoMapSequence.map_0001; }
+			if(bottom[0] == placedType && (cover == 0 || bottom[3] == cover)) { return (byte)AutoMapSequence.map_0001; }
 			return (byte)AutoMapSequence.map_0000;
 		}
 	}

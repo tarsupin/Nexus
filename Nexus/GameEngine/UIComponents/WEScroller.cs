@@ -8,12 +8,14 @@ namespace Nexus.GameEngine {
 	public class WEScroller : UIComponent {
 
 		public Atlas atlas;
+		public WEScene scene;
 
 		private enum WEScrollerEnum : byte {
 			NumTiles = 24,
 		}
 
-		public WEScroller( UIComponent parent, short posX, short posY) : base(parent) {
+		public WEScroller( UIComponent parent, WEScene scene, short posX, short posY) : base(parent) {
+			this.scene = scene;
 			this.x = posX;
 			this.y = posY;
 			this.width = (byte) WorldmapEnum.TileWidth + 4;
@@ -39,7 +41,6 @@ namespace Nexus.GameEngine {
 
 			// Prepare Zone Data
 			var WorldTerrain = Systems.mapper.WorldTerrain;
-			var WorldTerrainCat = Systems.mapper.WorldTerrainCat;
 			var WorldLayers = Systems.mapper.WorldLayers;
 			var WorldObjects = Systems.mapper.WorldObjects;
 
@@ -63,41 +64,44 @@ namespace Nexus.GameEngine {
 				for(byte s = 0; s < phSubLen; s++) {
 					WEPlaceholder ph = pData[s];
 
-					// Draw Base
-					if(ph.tBase != 0) {
+					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, ph.tNodeId }, this.x + 2, this.y + tileHeight * s + 2);
 
-						// If there is a top layer:
-						if(ph.tTop != 0) {
+					// TODO CLEANUP: Remove this content once we confirm that WEScroller looks correct.
+					//// Draw Base
+					//if(ph.tBase != 0) {
 
-							// Draw a standard base tile with no varient, so that the top layer will look correct.
-							this.atlas.Draw(WorldTerrain[ph.tBase] + "/b1", this.x + 2, this.y + tileHeight * s + 2);
+					//	// If there is a top layer:
+					//	if(ph.top != 0) {
 
-							// Draw the Top Layer
-							this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
-						}
+					//		// Draw a standard base tile with no varient, so that the top layer will look correct.
+					//		this.atlas.Draw(WorldTerrain[ph.tBase] + "/b1", this.x + 2, this.y + tileHeight * s + 2);
 
-						// If there is not a top layer:
-						else {
+					//		// Draw the Top Layer
+					//		this.atlas.Draw(WorldTerrain[ph.top] + "/" + WorldLayers[ph.coverLay], this.x + 2, this.y + tileHeight * s + 2);
+					//	}
 
-							// If there is a category:
-							if(ph.tCat != 0) {
-								this.atlas.Draw(WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
-								//this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
-							} else {
-								this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
-							}
-						}
-					}
+					//	// If there is not a top layer:
+					//	else {
 
-					// Draw Top, with no base:
-					else if(ph.tTop != 0) {
-						this.atlas.Draw(WorldTerrain[ph.tTop] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
-					}
+					//		// If there is a category:
+					//		if(ph.cover != 0) {
+					//			this.atlas.Draw(WorldTerrainCat[ph.cover] + "/" + WorldLayers[ph.coverLay], this.x + 2, this.y + tileHeight * s + 2);
+					//			//this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldTerrainCat[ph.tCat] + "/" + WorldLayers[ph.tLayer], this.x + 2, this.y + tileHeight * s + 2);
+					//		} else {
+					//			this.atlas.Draw(WorldTerrain[ph.tBase] + "/" + WorldLayers[ph.coverLay], this.x + 2, this.y + tileHeight * s + 2);
+					//		}
+					//	}
+					//}
 
-					// Draw Object Layer
-					if(ph.tObj != 0) {
-						this.atlas.Draw("Objects/" + WorldObjects[ph.tObj], this.x + 2, this.y + tileHeight * s + 2);
-					}
+					//// Draw Top, with no base:
+					//else if(ph.top != 0) {
+					//	this.atlas.Draw(WorldTerrain[ph.top] + "/" + WorldLayers[ph.coverLay], this.x + 2, this.y + tileHeight * s + 2);
+					//}
+
+					//// Draw Object Layer
+					//if(ph.obj != 0) {
+					//	this.atlas.Draw("Objects/" + WorldObjects[ph.obj], this.x + 2, this.y + tileHeight * s + 2);
+					//}
 				}
 
 				// Highlight the active color

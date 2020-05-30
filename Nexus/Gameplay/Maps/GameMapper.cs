@@ -55,7 +55,6 @@ namespace Nexus.Gameplay {
 
 		// World Tiles
 		public Dictionary<byte, string> WorldTerrain;
-		public Dictionary<byte, string> WorldTerrainCat;
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
 
@@ -286,6 +285,7 @@ namespace Nexus.Gameplay {
 
 			// World Terrain
 			this.WorldTerrain = new Dictionary<byte, string>() {
+
 				{ (byte) OTerrain.Grass, "Grass" },
 				{ (byte) OTerrain.Desert, "Desert" },
 				{ (byte) OTerrain.Snow, "Snow" },
@@ -297,16 +297,23 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrain.Road, "Road" },
 				{ (byte) OTerrain.Ice, "Ice" },
 				{ (byte) OTerrain.DirtDark, "DirtDark" },
-			};
 
-			// World Terrain Categories
-			this.WorldTerrainCat = new Dictionary<byte, string>() {
-				{ (byte) OTerrainCat.Trees, "TreesPine" },
-				{ (byte) OTerrainCat.Mountains, "MountainBrown" },
-				{ (byte) OTerrainCat.Field, "FieldGrass" },
-				{ (byte) OTerrainCat.Veg, "TreesOak" },
-				{ (byte) OTerrainCat.Water, "Coast" },
-				{ (byte) OTerrainCat.Field2, "FieldHay" },
+				{ (byte) OTerrain.Coast, "Coast" },
+
+				{ (byte) OTerrain.FieldGrass, "FieldGrass" },
+				{ (byte) OTerrain.FieldHay, "FieldHay" },
+				{ (byte) OTerrain.FieldSnow, "FieldSnow" },
+
+				{ (byte) OTerrain.MountainBrown, "MountainBrown" },
+				{ (byte) OTerrain.MountainGray, "MountainGray" },
+				{ (byte) OTerrain.MountainIce, "MountainIce" },
+
+				{ (byte) OTerrain.TreesPine, "TreesPine" },
+				{ (byte) OTerrain.TreesPineSnow, "TreesPineSnow" },
+				{ (byte) OTerrain.TreesOak, "TreesOak" },
+				{ (byte) OTerrain.TreesOakSnow, "TreesOakSnow" },
+				{ (byte) OTerrain.TreesPalm, "TreesPalm" },
+
 			};
 
 			// World Layers
@@ -327,30 +334,32 @@ namespace Nexus.Gameplay {
 				{ (byte) OLayer.b9, "b9" },
 				{ (byte) OLayer.b10, "b10" },
 
-				// Paths
-				{ (byte) OLayer.c2, "c2" },
-				{ (byte) OLayer.c4, "c4" },
-				{ (byte) OLayer.c5, "c5" },
-				{ (byte) OLayer.c6, "c6" },
-				{ (byte) OLayer.c8, "c8" },
-
-				{ (byte) OLayer.e1, "e1" },
+				// Ends
 				{ (byte) OLayer.e2, "e2" },
-				{ (byte) OLayer.e3, "e3" },
 				{ (byte) OLayer.e4, "e4" },
 				{ (byte) OLayer.e5, "e5" },
 				{ (byte) OLayer.e6, "e6" },
-				{ (byte) OLayer.e7, "e7" },
 				{ (byte) OLayer.e8, "e8" },
-				{ (byte) OLayer.e9, "e9" },
-				{ (byte) OLayer.el, "el" },
-				{ (byte) OLayer.er, "er" },
+
+				// Corners
+				{ (byte) OLayer.c1, "c1" },
+				{ (byte) OLayer.c2, "c2" },
+				{ (byte) OLayer.c3, "c3" },
+				{ (byte) OLayer.c4, "c4" },
+				{ (byte) OLayer.c5, "c5" },
+				{ (byte) OLayer.c6, "c6" },
+				{ (byte) OLayer.c7, "c7" },
+				{ (byte) OLayer.c8, "c8" },
+				{ (byte) OLayer.c9, "c9" },
+				{ (byte) OLayer.cl, "cl" },
+				{ (byte) OLayer.cr, "cr" },
 
 				{ (byte) OLayer.l1, "l1" },
 				{ (byte) OLayer.l3, "l3" },
 				{ (byte) OLayer.l7, "l7" },
 				{ (byte) OLayer.l9, "l9" },
 
+				// Paths
 				{ (byte) OLayer.p1, "p1" },
 				{ (byte) OLayer.p3, "p3" },
 				{ (byte) OLayer.p7, "p7" },
@@ -362,7 +371,8 @@ namespace Nexus.Gameplay {
 				{ (byte) OLayer.r3, "r3" },
 				{ (byte) OLayer.r7, "r7" },
 				{ (byte) OLayer.r9, "r9" },
-
+				
+				// Standard
 				{ (byte) OLayer.s, "s" },
 				{ (byte) OLayer.s1, "s1" },
 				{ (byte) OLayer.s2, "s2" },

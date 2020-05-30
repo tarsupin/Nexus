@@ -55,15 +55,22 @@ namespace Nexus.Gameplay {
 		Road = 9,
 		Ice = 10,
 		DirtDark = 11,
-	}
 
-	public enum OTerrainCat : byte {
-		Trees = 1,
-		Mountains = 2,
-		Field = 3,
-		Veg = 4,
-		Water = 5,
-		Field2 = 6,
+		Coast = 20,
+
+		FieldGrass = 25,
+		FieldHay = 26,
+		FieldSnow = 27,
+
+		MountainBrown = 30,
+		MountainGray = 31,
+		MountainIce = 32,
+
+		TreesPine = 35,
+		TreesPineSnow = 36,
+		TreesOak = 37,
+		TreesOakSnow = 38,
+		TreesPalm = 39,
 	}
 
 	public enum OLayer : byte {
@@ -79,43 +86,46 @@ namespace Nexus.Gameplay {
 		b8 = 8,
 		b9 = 9,
 		b10 = 10,
-			
-		// Paths
-		c2 = 20,
-		c4 = 21,
-		c5 = 22,
-		c6 = 23,
-		c8 = 24,
-			
-		e1 = 25,
-		e2 = 26,
-		e3 = 27,
-		e4 = 28,
-		e5 = 29,
-		e6 = 30,
-		e7 = 31,
-		e8 = 32,
-		e9 = 33,
-		el = 34,
-		er = 35,
-			
+		
+		// Ends
+		e2 = 20,
+		e4 = 21,
+		e5 = 22,
+		e6 = 23,
+		e8 = 24,
+
+		// Corners
+		c1 = 25,
+		c2 = 26,
+		c3 = 27,
+		c4 = 28,
+		c5 = 29,
+		c6 = 30,
+		c7 = 31,
+		c8 = 32,
+		c9 = 33,
+		cl = 34,
+		cr = 35,
+		
 		l1 = 36,
 		l3 = 37,
 		l7 = 38,
 		l9 = 39,
-			
+
+		// Paths
 		p1 = 40,
 		p3 = 41,
 		p7 = 42,
 		p9 = 43,
 		ph = 44,
 		pv = 45,
-			
+		
 		r1 = 46,
 		r3 = 47,
 		r7 = 48,
 		r9 = 49,
-			
+		
+		// Standard
 		s = 50,
 		s1 = 51,
 		s2 = 52,
@@ -126,12 +136,12 @@ namespace Nexus.Gameplay {
 		s7 = 57,
 		s8 = 58,
 		s9 = 59,
-			
+		
 		t2 = 60,
 		t4 = 61,
 		t6 = 63,
 		t8 = 64,
-			
+		
 		v1 = 65,
 		v3 = 66,
 		v7 = 67,
@@ -214,24 +224,6 @@ namespace Nexus.Gameplay {
 		WoodBridge8 = 84,
 		WoodBridgeH = 85,
 		WoodBridgeV = 86,
-	}
-
-	public enum WTLayer : byte {
-
-		// Coast
-
-
-		// Mountain, Brown
-		// Mountain, Gray
-		// Mountain, Ice
-		// Trees, Oak
-		// Trees, Oak Snow
-		// Trees, Palm
-		// Trees, Pine
-		// Trees, Pine Snow
-		// Field, Grass
-		// Field, Hay
-		// Field, Snow
 	}
 
 	public class RandTypeCur {

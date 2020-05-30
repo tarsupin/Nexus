@@ -91,7 +91,7 @@ namespace Nexus.Gameplay {
 
 				// Loop through X Data
 				for(byte x = width; x < newWidth; x++) {
-					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0 };
+					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0, 0 };
 				}
 			}
 
@@ -120,7 +120,7 @@ namespace Nexus.Gameplay {
 				
 				// Loop through X Data
 				for(byte x = 0; x < width; x++) {
-					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0 };
+					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0, 0 };
 				}
 			}
 
@@ -129,8 +129,8 @@ namespace Nexus.Gameplay {
 
 		public byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
 			var tiles = zone.tiles;
-			if(gridY >= tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
-			if(gridX >= tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0 }; }
+			if(gridY >= tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0, 0 }; }
+			if(gridX >= tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0, 0 }; }
 			return tiles[gridY][gridX];
 		}
 
@@ -138,7 +138,7 @@ namespace Nexus.Gameplay {
 			var tiles = zone.tiles;
 			if(gridY >= tiles.Length) { return false; }
 			if(gridX >= tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX][4] = obj;
+			tiles[gridY][gridX][5] = obj;
 			return true;
 		}
 
@@ -146,15 +146,15 @@ namespace Nexus.Gameplay {
 			var tiles = zone.tiles;
 			if(gridY >= tiles.Length) { return false; }
 			if(gridX >= tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX][5] = nodeId;
+			tiles[gridY][gridX][6] = nodeId;
 			return true;
 		}
 
-		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte tTop = 0, byte tCat = 0, byte tLay = 0, byte obj = 0, byte nodeId = 0 ) {
+		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte top = 0, byte topLay = 0, byte cover = 0, byte coverLay = 0, byte obj = 0, byte nodeId = 0 ) {
 			var tiles = zone.tiles;
 			if(gridY >= tiles.Length) { return false; }
 			if(gridX >= tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX] = new byte[] { tBase, tTop, tCat, tLay, obj, nodeId };
+			tiles[gridY][gridX] = new byte[] { tBase, top, topLay, cover, coverLay, obj, nodeId };
 			return true;
 		}
 
@@ -162,7 +162,7 @@ namespace Nexus.Gameplay {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX] = new byte[] { 0, 0, 0, 0, 0, 0 };
+			tiles[gridY][gridX] = new byte[] { 0, 0, 0, 0, 0, 0, 0 };
 			return true;
 		}
 	}

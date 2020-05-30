@@ -3,6 +3,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -17,7 +18,12 @@ namespace Nexus.GameEngine {
 
 		// Access to World Data
 		public WorldContent worldContent;
-		public WorldFormat worldData;		// worldContent.data
+		public WorldFormat worldData;       // worldContent.data
+
+		// Mapper Data
+		public Dictionary<byte, string> WorldTerrain;
+		public Dictionary<byte, string> WorldLayers;
+		public Dictionary<byte, string> WorldObjects;
 
 		// Grid Limits
 		public byte xCount = 20;
@@ -31,6 +37,11 @@ namespace Nexus.GameEngine {
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
+
+			// Prepare Mapper Data
+			this.WorldTerrain = Systems.mapper.WorldTerrain;
+			this.WorldLayers = Systems.mapper.WorldLayers;
+			this.WorldObjects = Systems.mapper.WorldObjects;
 
 			// Prepare World Content
 			this.worldContent = Systems.handler.worldContent;
@@ -202,12 +213,6 @@ namespace Nexus.GameEngine {
 			int camX = cam.posX;
 			int camY = cam.posY;
 
-			// Prepare Zone Data
-			var WorldTerrain = Systems.mapper.WorldTerrain;
-			var WorldTerrainCat = Systems.mapper.WorldTerrainCat;
-			var WorldLayers = Systems.mapper.WorldLayers;
-			var WorldObjects = Systems.mapper.WorldObjects;
-
 			byte[][][] curTiles = this.currentZone.tiles;
 
 			// Loop through the zone tile data:
@@ -215,42 +220,7 @@ namespace Nexus.GameEngine {
 				ushort tileYPos = (ushort)(y * (byte)WorldmapEnum.TileHeight - camY);
 
 				for(byte x = gridX; x-- > startX;) {
-					byte[] wtData = curTiles[y][x];
-					
-					// Draw Base
-					if(wtData[0] != 0) {
-
-						// If there is a top layer:
-						if(wtData[1] != 0) {
-
-							// Draw a standard base tile with no varient, so that the top layer will look correct.
-							this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-
-							// Draw the Top Layer
-							this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-						}
-
-						// If there is not a top layer:
-						else {
-
-							// If there is a category:
-							if(wtData[2] != 0) {
-								this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldTerrainCat[wtData[2]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-							} else {
-								this.atlas.Draw(WorldTerrain[wtData[0]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-							}
-						}
-					}
-
-					// Draw Top, with no base:
-					else if(wtData[1] != 0) {
-						this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[3]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-					}
-
-					// Draw Object Layer
-					if(wtData[4] != 0) {
-						this.atlas.Draw("Objects/" + WorldObjects[wtData[4]], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
-					}
+					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
 				};
 			}
 
@@ -259,6 +229,29 @@ namespace Nexus.GameEngine {
 			Systems.worldConsole.Draw();
 		}
 
+		// NOTE: This is a duplicate of World Editor.
+		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
+
+			// Draw Base, unless the top layer is identical.
+			if(wtData[0] != 0 && wtData[0] != wtData[1]) {
+				this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
+			}
+
+			// Draw Top [1], [2]
+			if(wtData[1] != 0) {
+				this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
+			}
+
+			// Draw Cover [3], [4]
+			if(wtData[3] != 0) {
+				this.atlas.Draw(WorldTerrain[wtData[3]] + "/" + WorldLayers[wtData[4]], posX, posY);
+			}
+
+			// Draw Object Layer [5]
+			if(wtData[5] != 0) {
+				this.atlas.Draw("Objects/" + WorldObjects[wtData[4]], posX, posY);
+			}
+		}
 
 
 
