@@ -35,19 +35,7 @@ namespace Nexus.GameEngine {
 			// Tab Menu - WorldTileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
 
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Ground, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Grass/S", "Ground");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Blocks, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Brick/Brown", "Blocks");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.ColorToggles, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "ToggleOn/BoxBR", "Toggles");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Platforms, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Platform/Fixed/S", "Platforms");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.EnemiesLand, Systems.mapper.atlas[(byte)AtlasGroup.Objects], "Shroom/Red/Left2", "Enemies");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.EnemiesFly, Systems.mapper.atlas[(byte)AtlasGroup.Objects], "Buzz/Left2", "Flying");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Interactives, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "NPC/MasterNinja", "Interactives");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Upgrades, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "SuitCollect/WhiteWizard", "Upgrades");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Collectables, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Goodie/Heart", "Collectables");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Decor, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Decor/Grass2", "Decor");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Prompts, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Prompt/DPad/Right", "Prompts");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Gadgets, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Cannon/Diagonal", "Gadgets");
-			this.contextMenu.SetMenuOption((byte)SlotGroup.Scripting, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "HiddenObject/Cluster", "Scripting");
+			this.contextMenu.SetMenuOption((byte) 1, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Icons/Move", "Resize");
 		}
 
 		public void RunTick() {

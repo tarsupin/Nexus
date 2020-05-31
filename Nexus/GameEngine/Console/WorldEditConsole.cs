@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -10,7 +12,18 @@ namespace Nexus.GameEngine {
 
 			this.consoleDict = new Dictionary<string, Action>() {
 				{ "resize", ConsoleWorldMap.ResizeMap },
+				{ "setValue", ConsoleWorldMap.SetValue },
 			};
+		}
+
+		public override void OnFirstOpen() {
+			ChatConsole.Clear();
+			ChatConsole.SendMessage("Welcome to the World Edit Console.", Color.White);
+			ChatConsole.SendMessage("This console allows you to alter the settings for your world campaign.", Color.White);
+		}
+
+		public override void OnOpen() { 
+
 		}
 	}
 }

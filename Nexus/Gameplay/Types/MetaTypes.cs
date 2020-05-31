@@ -125,5 +125,7 @@ namespace Nexus.Gameplay {
 	public enum WorldSlotGroup : byte {
 		None,
 		Standard,
+		Terrain,
+		Objects,
 	}
 }

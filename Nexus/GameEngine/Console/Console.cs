@@ -13,7 +13,8 @@ namespace Nexus.GameEngine {
 		public LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
 		public sbyte lineNum = 0;
 		public uint backspaceFrame = 0;
-		public bool enabled = true;		// Set to false when you're in a live game, or where you shouldn't be allowed to use console.
+		public bool enabled = true;			// Set to false when you're in a live game, or where you shouldn't be allowed to use console.
+		public bool beenOpened = false;		// Set to true on the first open.
 
 		// Console-Specific Values
 		public Dictionary<string, Action> consoleDict;     // A dictionary of base commands for the console.
@@ -25,17 +26,30 @@ namespace Nexus.GameEngine {
 
 		public void SetEnabled(bool enabled) { this.enabled = enabled; if(!this.enabled) { this.SetVisible(false); } }
 
+
+		public virtual void OnFirstOpen() {
+			this.beenOpened = true;
+		}
+
+		public virtual void OnOpen() {
+			
+		}
+
+		public void Open() {
+			this.SetVisible(true);
+			ConsoleTrack.ResetValues();
+			ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
+			if(!this.beenOpened) { this.OnFirstOpen(); }
+			this.OnOpen();
+		}
+
 		public void RunTick() {
 			InputClient input = Systems.input;
 
 			// Determine if the console is being set to visible, or hidden (with the tilde key)
 			if(input.LocalKeyPressed(Keys.OemTilde)) {
 				this.SetVisible(!this.visible);
-
-				if(this.visible) {
-					ConsoleTrack.ResetValues();
-					ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
-				}
+				if(this.visible) { this.Open(); }
 			}
 
 			if(!this.visible) { return; }

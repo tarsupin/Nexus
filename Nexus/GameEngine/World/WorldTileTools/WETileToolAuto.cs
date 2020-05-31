@@ -8,13 +8,28 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)WorldSlotGroup.Standard;
 
-			// Miscellaneous Terrain
+			// Auto Terrain
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
-					cover = (byte) OTerrain.Coast,
-					coverLay = (byte) OLayer.s,
+					tBase = (byte) OTerrain.Grass,
 				},
+				new WEPlaceholder() {
+					auto = true,
+					tBase = (byte) OTerrain.Desert,
+				},
+				new WEPlaceholder() {
+					auto = true,
+					tBase = (byte) OTerrain.Snow,
+				},
+				new WEPlaceholder() {
+					auto = true,
+					tBase = (byte) OTerrain.Water,
+				},
+			});
+
+			// Miscellaneous Terrain
+			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
 					cover = (byte) OTerrain.MountainBrown,
@@ -71,43 +86,6 @@ namespace Nexus.GameEngine {
 					coverLay = (byte) OLayer.s5,
 				},
 			});
-
-			// Miscellaneous Terrain
-			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Water,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.WaterShallow,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Mud,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Dirt,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Cobble,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Road,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Ice,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.DirtDark,
-				},
-			});
-
 		}
 	}
 }

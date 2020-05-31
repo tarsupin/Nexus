@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
 
@@ -53,16 +52,14 @@ namespace Nexus.Gameplay {
 		Grass = 1,
 		Desert = 2,
 		Snow = 3,
-		WaterShallow = 4,
-		Water = 5,
+		Water = 4,
+		WaterShallow = 5,
 		Mud = 6,
 		Dirt = 7,
 		Cobble = 8,
 		Road = 9,
 		Ice = 10,
 		DirtDark = 11,
-
-		Coast = 20,
 
 		FieldGrass = 25,
 		FieldHay = 26,
@@ -81,17 +78,8 @@ namespace Nexus.Gameplay {
 
 	public enum OLayer : byte {
 
-		// Base Variations
+		// Base
 		b1 = 1,
-		b2 = 2,
-		b3 = 3,
-		b4 = 4,
-		b5 = 5,
-		b6 = 6,
-		b7 = 7,
-		b8 = 8,
-		b9 = 9,
-		b10 = 10,
 		
 		// Ends
 		e2 = 20,
@@ -152,30 +140,39 @@ namespace Nexus.Gameplay {
 		v3 = 66,
 		v7 = 67,
 		v9 = 68,
+
+		// Wide (Water)
+		w1 = 70,
+		w3 = 71,
+		w7 = 72,
+		w9 = 73,
 	};
 
 	public enum OTerrainObjects : byte {
 
+		// Ground Vegetation
+		Brush = 1,
+		Rose2 = 2,
+		Rose3 = 3,
+		Lily2 = 4,
+		Lily3 = 5,
+		Blur = 6,
+		Stump = 7,
+		Cactus = 8,
+		CactusSmall = 9,
+		CactusBig = 10,
+		Tree1 = 11,
+		Tree2 = 12,
+
 		// Ground Objects
-		Bones = 1,
-		Cactus = 2,
-		Stump = 3,
-		Snowman1 = 4,
-		Snowman2 = 5,
-
-		Tree1 = 6,
-		Tree2 = 7,
-		Pit = 8,
-		Dungeon = 9,
-
-		// Nodes
-		NodeStrict = 20,
-		NodeCasual = 21,
-		NodePoint = 22,
-		NodeMove = 23,
-		NodeWarp = 24,
-		NodeWon = 25,
-		NodeStart = 26,
+		DirtSpot = 15,
+		Dune = 16,
+		Drift = 17,
+		Snowman1 = 18,
+		Snowman2 = 19,
+		Bones = 20,
+		Pit = 21,
+		Dungeon = 22,
 
 		// Buildings = , Residence
 		House1 = 30,
@@ -230,6 +227,15 @@ namespace Nexus.Gameplay {
 		WoodBridge8 = 84,
 		WoodBridgeH = 85,
 		WoodBridgeV = 86,
+
+		// Nodes
+		NodeStrict = 90,
+		NodeCasual = 91,
+		NodePoint = 92,
+		NodeMove = 93,
+		NodeWarp = 94,
+		NodeWon = 95,
+		NodeStart = 96,
 	}
 
 	public class RandTypeCur {

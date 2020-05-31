@@ -44,5 +44,80 @@ namespace Nexus.GameEngine {
 			{ "width", "Change the world map's width." },
 			{ "height", "Change the world map's height." },
 		};
+
+		public static void SetValue() {
+			string currentIns = ConsoleTrack.NextArg();
+			int curVal = ConsoleTrack.NextArgAsInt();
+
+			ConsoleTrack.PrepareTabLookup(valueOpts, currentIns, "Set World Campaign Values");
+
+			// Name Option
+			if(currentIns == "name") {
+				ConsoleTrack.possibleTabs = "Example: setValue name \"My World Name\"";
+				ConsoleTrack.helpText = "Choose a name for your world.";
+			}
+
+			// Lives Option
+			else if(currentIns == "lives") {
+				ConsoleTrack.possibleTabs = "Example: setValue lives 30";
+				ConsoleTrack.helpText = "Choose the number of lives to start with. Between 1 and 99.";
+			}
+
+			// Character Option
+			else if(currentIns == "character") {
+				ConsoleTrack.possibleTabs = "Example: setValue character Ryu";
+				ConsoleTrack.helpText = ".";
+			}
+
+			if(valueOpts.ContainsKey(currentIns)) {
+				valueOpts[currentIns].Invoke();
+				return;
+			}
+		}
+
+		public static readonly Dictionary<string, System.Action> valueOpts = new Dictionary<string, System.Action>() {
+			{ "name", ConsoleWorldMap.SetName },
+			{ "lives", ConsoleWorldMap.SetLives },
+			{ "character", ConsoleWorldMap.SetCharacter },
+		};
+
+		private static void SetName() {
+			string insString = ConsoleTrack.instructionText;
+
+			if(ConsoleTrack.activate) {
+				System.Console.WriteLine(insString);
+			}
+		}
+
+		private static void SetLives() {
+			byte lives = (byte) ConsoleTrack.NextArgAsInt();
+
+			if(ConsoleTrack.activate) {
+				if(lives > 0 && lives < 100) {
+					System.Console.WriteLine("Assign Lives: " + lives);
+					return;
+				}
+			}
+		}
+
+		private static void SetCharacter() {
+			string charName = ConsoleTrack.NextArg();
+
+			ConsoleTrack.PrepareTabLookup(characterOpts, charName, "Assign a character archetype for this world campaign.");
+
+			if(ConsoleTrack.activate) {
+				if(characterOpts.ContainsKey(charName)) {
+					System.Console.WriteLine("Assign Character " + charName);
+					return;
+				}
+			}
+		}
+
+		public static readonly Dictionary<string, object> characterOpts = new Dictionary<string, object>() {
+			{ "carl", "carl" },
+			{ "poo", "poo" },
+			{ "ryu", "ryu" },
+		};
+
 	}
 }

@@ -6,68 +6,41 @@ namespace Nexus.GameEngine {
 
 		public WETileToolTerrain() : base() {
 
-			this.slotGroup = (byte)WorldSlotGroup.Standard;
+			this.slotGroup = (byte) WorldSlotGroup.Standard;
 
-			// Grass Base
+			// Miscellaneous Terrain
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
-					tBase = (byte) OTerrain.Grass,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Grass,
-					topLay = (byte) OLayer.b2,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Grass,
-					topLay = (byte) OLayer.b3,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Grass,
-					topLay = (byte) OLayer.b4,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Grass,
-					topLay = (byte) OLayer.b5,
+					auto = true,
+					tBase = (byte) OTerrain.Water,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.Desert,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Desert,
-					topLay = (byte) OLayer.b2,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Desert,
-					topLay = (byte) OLayer.b3,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Desert,
-					topLay = (byte) OLayer.b4,
-				},
-				new WEPlaceholder() {
-					top = (byte) OTerrain.Desert,
-					topLay = (byte) OLayer.b5,
+					tBase = (byte) OTerrain.WaterShallow,
 				},
 				new WEPlaceholder() {
 					auto = true,
-					tBase = (byte) OTerrain.Snow,
+					tBase = (byte) OTerrain.Mud,
 				},
 				new WEPlaceholder() {
-					top = (byte) OTerrain.Snow,
-					topLay = (byte) OLayer.b2,
+					auto = true,
+					tBase = (byte) OTerrain.Dirt,
 				},
 				new WEPlaceholder() {
-					top = (byte) OTerrain.Snow,
-					topLay = (byte) OLayer.b3,
+					auto = true,
+					tBase = (byte) OTerrain.Cobble,
 				},
 				new WEPlaceholder() {
-					top = (byte) OTerrain.Snow,
-					topLay = (byte) OLayer.b4,
+					auto = true,
+					tBase = (byte) OTerrain.Road,
 				},
 				new WEPlaceholder() {
-					top = (byte) OTerrain.Snow,
-					topLay = (byte) OLayer.b5,
+					auto = true,
+					tBase = (byte) OTerrain.Ice,
+				},
+				new WEPlaceholder() {
+					auto = true,
+					tBase = (byte) OTerrain.DirtDark,
 				},
 			});
 

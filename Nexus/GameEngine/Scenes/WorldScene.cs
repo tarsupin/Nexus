@@ -232,14 +232,29 @@ namespace Nexus.GameEngine {
 		// NOTE: This is a duplicate of World Editor.
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
 
-			// Draw Base, unless the top layer is identical.
-			if(wtData[0] != 0 && wtData[0] != wtData[1]) {
-				this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
-			}
+			// Draw Water / Coastline (special behavior)
+			if(wtData[0] == (byte)OTerrain.Water) {
 
-			// Draw Top [1], [2]
-			if(wtData[1] != 0) {
-				this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
+				// For Coastlines, we switch the "Base" and "Top" terrains, and draw the "Water/" coastline layers.
+				// We're drawing a water varient if the "Base" and "Top" are both water.
+				if(wtData[1] != 0) {
+					if(wtData[1] != (byte)OTerrain.Water) { this.atlas.Draw(WorldTerrain[wtData[1]] + "/b1", posX, posY); }
+					this.atlas.Draw("Water/" + WorldLayers[wtData[2]], posX, posY);
+				} else {
+					this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
+				}
+
+			} else {
+
+				// Draw Base, unless the top layer is identical.
+				if(wtData[0] != 0 && wtData[0] != wtData[1]) {
+					this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
+				}
+
+				// Draw Top [1], [2]
+				if(wtData[1] != 0) {
+					this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
+				}
 			}
 
 			// Draw Cover [3], [4]

@@ -46,27 +46,6 @@ namespace Nexus.GameEngine {
 			{ (byte) AutoMapSequence.map_0001, OLayer.e8 },
 		};
 
-		private Dictionary<byte, OLayer> mapCoverRule = new Dictionary<byte, OLayer>() {
-			{ (byte) AutoMapSequence.map_1001, OLayer.s },
-			{ (byte) AutoMapSequence.map_0110, OLayer.s },
-
-			{ (byte) AutoMapSequence.map_1010, OLayer.s1 },
-			{ (byte) AutoMapSequence.map_1110, OLayer.s2 },
-			{ (byte) AutoMapSequence.map_1100, OLayer.s3 },
-			{ (byte) AutoMapSequence.map_1011, OLayer.s4 },
-			{ (byte) AutoMapSequence.map_1111, OLayer.s5 },
-			{ (byte) AutoMapSequence.map_1101, OLayer.s6 },
-			{ (byte) AutoMapSequence.map_0011, OLayer.s7 },
-			{ (byte) AutoMapSequence.map_0111, OLayer.s8 },
-			{ (byte) AutoMapSequence.map_0101, OLayer.s9 },
-
-			{ (byte) AutoMapSequence.map_0000, OLayer.s },
-			{ (byte) AutoMapSequence.map_1000, OLayer.s },
-			{ (byte) AutoMapSequence.map_0010, OLayer.s },
-			{ (byte) AutoMapSequence.map_0100, OLayer.s },
-			{ (byte) AutoMapSequence.map_0001, OLayer.s },
-		};
-
 		// Grid Limits
 		public byte xCount = 45;		// 1400 / 32 = 45
 		public byte yCount = 29;		// 900 / 32 = 28.125
@@ -325,12 +304,32 @@ namespace Nexus.GameEngine {
 		// Place World Tile
 		public void PlaceTile(WEPlaceholder ph, byte gridX, byte gridY, WorldTileStack tileStack = WorldTileStack.Base) {
 
-			// Run Tile Placement
+			// Check Current Tile (might affect placement)
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+
+			// Run Tile Placement (Base)
 			if(tileStack == WorldTileStack.Base) {
+
+				// If placing base water, remove any top layers. Otherwise, it conflicts with draw behaviors.
+				if(ph.tBase == (byte) OTerrain.Water) {
+					this.worldContent.SetTileTop(this.currentZone, gridX, gridY, 0, 0);
+				}
+
 				this.worldContent.SetTileBase(this.currentZone, gridX, gridY, ph.tBase);
-			} else if(tileStack == WorldTileStack.Top) {
+			}
+			
+			// Run Tile Placement (Top)
+			else if(tileStack == WorldTileStack.Top) {
+				
+				// Don't place any top pieces on water, unless it meets the above criteria.
+				if(wtData[0] == (byte) OTerrain.Water) { return; }
+
 				this.worldContent.SetTileTop(this.currentZone, gridX, gridY, ph.top, ph.topLay);
-			} else if(tileStack == WorldTileStack.Cover) {
+			}
+			
+			// Run Tile Placemenet (Cover)
+			else if(tileStack == WorldTileStack.Cover) {
+				if(wtData[0] == (byte)OTerrain.Water) { return; } // Skip cover placements on water.
 				this.worldContent.SetTileCover(this.currentZone, gridX, gridY, ph.cover, ph.coverLay);
 			}
 
@@ -390,14 +389,29 @@ namespace Nexus.GameEngine {
 
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
 
-			// Draw Base, unless the top layer is identical.
-			if(wtData[0] != 0 && wtData[0] != wtData[1]) {
-				this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
-			}
+			// Draw Water / Coastline (special behavior)
+			if(wtData[0] == (byte) OTerrain.Water) {
 
-			// Draw Top [1], [2]
-			if(wtData[1] != 0) {
-				this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
+				// For Coastlines, we switch the "Base" and "Top" terrains, and draw the "Water/" coastline layers.
+				// We're drawing a water varient if the "Base" and "Top" are both water.
+				if(wtData[1] != 0) {
+					if(wtData[1] != (byte) OTerrain.Water) { this.atlas.Draw(WorldTerrain[wtData[1]] + "/b1", posX, posY); }
+					this.atlas.Draw("Water/" + WorldLayers[wtData[2]], posX, posY);
+				} else {
+					this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
+				}
+
+			} else {
+
+				// Draw Base, unless the top layer is identical.
+				if(wtData[0] != 0 && wtData[0] != wtData[1]) {
+					this.atlas.Draw(WorldTerrain[wtData[0]] + "/b1", posX, posY);
+				}
+
+				// Draw Top [1], [2]
+				if(wtData[1] != 0) {
+					this.atlas.Draw(WorldTerrain[wtData[1]] + "/" + WorldLayers[wtData[2]], posX, posY);
+				}
 			}
 
 			// Draw Cover [3], [4]
@@ -601,6 +615,9 @@ namespace Nexus.GameEngine {
 			// Determine which terrain tile type (e.g. OTerrain.Grass, OTerrain.Snow, etc) is most common nearby.
 			byte neighborType = this.GetNeighborType(gridX, gridY, tData[0]);
 
+			// Only Grass, Desert, Snow, and Water can be auto-tiled. Anything else must be avoided.
+			if(neighborType > (byte) OTerrain.Water) { return; }
+
 			// If there is no neighbor type discovered, all types are of the placed terrain.
 			// ALSO: Make sure the order of terrain tiling is determined, otherwise both tiles will try to layer the other.
 			if(neighborType == 0 || neighborType > tData[0]) {
@@ -724,13 +741,36 @@ namespace Nexus.GameEngine {
 				else if(!c6) { mapRule = OLayer.s4; }
 			}
 
-			// TODO: Special Rules for Water Cliffs
-			//if(tData[0] == (byte) OTerrain.Water && neighborType < (byte) OTerrain.Water) {
-			//	return;
-			//}
+			// Special Rules for Water Cliffs
+			if(tData[0] == (byte)OTerrain.Water || neighborType == (byte) OTerrain.Water) {
+				switch(mapRule) {
+					case OLayer.c1:
+					case OLayer.c3:
+					case OLayer.c7:
+					case OLayer.c9:
+					case OLayer.s:
+					case OLayer.s1:
+					case OLayer.s2:
+					case OLayer.s3:
+					case OLayer.s4:
+					case OLayer.s5:
+					case OLayer.s6:
+					case OLayer.s7:
+					case OLayer.s8:
+					case OLayer.s9:
+					case OLayer.w1:
+					case OLayer.w3:
+					case OLayer.w7:
+					case OLayer.w9:
+						break;
+					default:
+						mapRule = OLayer.s5;
+						break;
+				}
+			}
 
 			// Apply the Layer to the Tile
-			this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], neighborType, tData[2], (byte) mapRule, tData[4], tData[5]);
+			this.worldContent.SetTileTop(this.currentZone, gridX, gridY, neighborType, (byte)mapRule);
 		}
 
 		// Automatically updates terrain cover at a given grid location.
@@ -849,6 +889,9 @@ namespace Nexus.GameEngine {
 					byte[] tData = this.worldContent.GetWorldTileData(zone, x, y);
 
 					if(tData[0] == ignoreType) { continue; }
+
+					// Coastline tiles are treated as water:
+					if(tData[1] == 4 && ignoreType != 4) { tTracker[4]++; continue; }
 
 					// The terrain is valid. Add it to the tracker to determine the count.
 					tTracker[tData[0]]++;

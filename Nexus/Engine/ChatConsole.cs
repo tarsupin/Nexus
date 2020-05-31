@@ -8,10 +8,10 @@ namespace Nexus.Engine {
 		public string[] message; // The message that the user wrote, divided into new lines as needed.
 		public Color color; // The color of the text.
 
-		public ChatLine( string username, string text, Color color ) {
+		public ChatLine( string text, Color color, string username = "" ) {
 			this.color = color;
 
-			string messagePrep = "[" + username + "] " + text;
+			string messagePrep = (username.Length > 0 ? "[" + username + "] " : "") + text;
 
 			// Cut the text into segments based on width allowed (with roughly 10px padding on each side).
 			this.message = TextHelper.WrapTextSplit(Systems.fonts.console.font, messagePrep, ChatConsole.width - 18);
@@ -41,13 +41,19 @@ namespace Nexus.Engine {
 		public static void SetEnabled(bool enable) { ChatConsole.isEnabled = enable; if(!enable) { ChatConsole.isVisible = false; } }
 		public static void SetVisible(bool visible) { if(ChatConsole.isEnabled) { ChatConsole.isVisible = visible; } else { ChatConsole.isVisible = false; } }
 
-		public static void SendMessage(string username, string message, Color color) {
+		public static void SendMessage(string message, Color color, string username = "") {
 			if(!ChatConsole.isEnabled) { return; }
-			ChatConsole.chatLines.AddFirst(new ChatLine(username, message, color));
+			ChatConsole.chatLines.AddFirst(new ChatLine(message, color, username));
 
 			// If there are over 20 lines, remove the last one.
 			if(ChatConsole.chatLines.Count > 20) {
 				ChatConsole.chatLines.RemoveLast();
+			}
+		}
+
+		public static void Clear() {
+			while(ChatConsole.chatLines.Count > 0) {
+				ChatConsole.chatLines.RemoveFirst();
 			}
 		}
 

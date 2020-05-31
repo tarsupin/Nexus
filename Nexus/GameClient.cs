@@ -138,11 +138,6 @@ namespace Nexus
 				//SceneTransition.ToWorld("Tarsupin");
 				SceneTransition.ToWorldEditor("Tarsupin");
 
-				// TODO CLEANUP: REMOVE THIS
-				ChatConsole.SendMessage("debug", "This is just a debug message.", Color.DarkSeaGreen);
-				ChatConsole.SendMessage("debug", "Once upon a time there was a long message, and it was split into multiple lines across the console screen.", Color.DarkSalmon);
-				ChatConsole.SendMessage("debug", "Why do I write silly things?", Color.DarkTurquoise);
-
 				//Console.WriteLine("-----------------DATA--------------");
 				//Console.WriteLine(Systems.handler.level.data.id);
 			};

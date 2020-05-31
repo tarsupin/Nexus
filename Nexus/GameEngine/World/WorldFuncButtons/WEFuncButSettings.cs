@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class WEFuncButSettings : WEFuncBut {
@@ -11,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Settings");
+			Systems.worldEditConsole.Open();
 		}
 	}
 }

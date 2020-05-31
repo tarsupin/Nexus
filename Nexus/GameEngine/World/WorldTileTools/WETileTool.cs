@@ -25,6 +25,8 @@ namespace Nexus.GameEngine {
 
 		public static Dictionary<byte, WETileTool> WorldTileToolMap = new Dictionary<byte, WETileTool>() {
 			{ (byte) WorldSlotGroup.Standard, new WETileToolAuto() },
+			{ (byte) WorldSlotGroup.Terrain, new WETileToolTerrain() },
+			{ (byte) WorldSlotGroup.Objects, new WETileToolObjects() },
 		};
 
 		public WETileTool() {
@@ -92,37 +94,27 @@ namespace Nexus.GameEngine {
 					for(byte s = 0; s < phSubLen; s++) {
 						WEPlaceholder ph = pData[s];
 
-						// If the item is an object:
+						// If the tile is an Object:
 						if(obj > 0) {
 							if(ph.obj != obj) { continue; }
 						}
 
-						// If there is a tBase value provided:
+						// If the tile is Terrain Cover:
+						else if(cover > 0) {
+							if(ph.cover != cover) { continue; }
+							if(ph.auto == false) { continue; }
+						}
+
+						// If the tile is Top Layer:
+						else if(top > 0) {
+							if(ph.top != top) { continue; }
+							if(ph.topLay != topLay) { continue; }
+						}
+
+						// If the tile is Base Layer only:
 						else if(tBase > 0) {
 							if(ph.tBase != tBase) { continue; }
-							if(ph.cover != cover) { continue; }
-
-							// If there is a layer, apply it if it's a b# value.
-							if(topLay > (byte) OLayer.b1 && cover == 0 && top == 0) {
-								if(topLay != ph.topLay && top != ph.top) { continue; }
-								if(ph.topLay != topLay && ph.top == 0) { continue; }
-								if(ph.auto) { continue; }
-
-								switch(ph.topLay) {
-									case (byte)OLayer.b2:
-									case (byte)OLayer.b3:
-									case (byte)OLayer.b4:
-									case (byte)OLayer.b5:
-									case (byte)OLayer.b6:
-									case (byte)OLayer.b7:
-									case (byte)OLayer.b8:
-									case (byte)OLayer.b9:
-									case (byte)OLayer.b10:
-										break;
-									default:
-										continue;
-								}
-							}
+							if(!ph.auto) { continue; }
 						}
 
 						// Any other results caught:

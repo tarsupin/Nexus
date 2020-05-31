@@ -8,29 +8,32 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)WorldSlotGroup.Standard;
 
-			// Object, Nodes
+			// Objects, Vegetation
 			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStrict },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeCasual },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodePoint },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeMove },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWarp },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWon },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStart },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Brush },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Rose2 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Rose3 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Lily2 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Lily3 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Blur },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Stump },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Cactus },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.CactusSmall },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.CactusBig },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tree1 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tree2 },
 			});
 
 			// Objects, Ground
 			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Bones },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Cactus },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Stump },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.DirtSpot },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dune },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Drift },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Snowman1 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Snowman2 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tree1 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tree2 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Bones },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pit },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dungeon },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tent },
 			});
 
 			// Objects, Residence
@@ -82,7 +85,17 @@ namespace Nexus.GameEngine {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridgeH },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridgeV },
 			});
-			
+
+			// Object, Nodes
+			this.placeholders.Add(new WEPlaceholder[] {
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStrict },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeCasual },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodePoint },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeMove },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWarp },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWon },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStart },
+			});
 		}
 	}
 }

@@ -298,8 +298,6 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrain.Ice, "Ice" },
 				{ (byte) OTerrain.DirtDark, "DirtDark" },
 
-				{ (byte) OTerrain.Coast, "Coast" },
-
 				{ (byte) OTerrain.FieldGrass, "FieldGrass" },
 				{ (byte) OTerrain.FieldHay, "FieldHay" },
 				{ (byte) OTerrain.FieldSnow, "FieldSnow" },
@@ -324,15 +322,6 @@ namespace Nexus.Gameplay {
 
 				// Base Variations
 				{ (byte) OLayer.b1, "b1" },
-				{ (byte) OLayer.b2, "b2" },
-				{ (byte) OLayer.b3, "b3" },
-				{ (byte) OLayer.b4, "b4" },
-				{ (byte) OLayer.b5, "b5" },
-				{ (byte) OLayer.b6, "b6" },
-				{ (byte) OLayer.b7, "b7" },
-				{ (byte) OLayer.b8, "b8" },
-				{ (byte) OLayer.b9, "b9" },
-				{ (byte) OLayer.b10, "b10" },
 
 				// Ends
 				{ (byte) OLayer.e2, "e2" },
@@ -398,26 +387,29 @@ namespace Nexus.Gameplay {
 			// World Objects
 			this.WorldObjects = new Dictionary<byte, string>() {
 
-				// Ground Objects
-				{ (byte) OTerrainObjects.Bones, "Bones" },
-				{ (byte) OTerrainObjects.Cactus, "Cactus" },
+				// Ground Vegetation
+				{ (byte) OTerrainObjects.Brush, "Brush" },
+				{ (byte) OTerrainObjects.Rose2, "Rose2" },
+				{ (byte) OTerrainObjects.Rose3, "Rose3" },
+				{ (byte) OTerrainObjects.Lily2, "Lily2" },
+				{ (byte) OTerrainObjects.Lily3, "Lily3" },
+				{ (byte) OTerrainObjects.Blur, "Blur" },
 				{ (byte) OTerrainObjects.Stump, "Stump" },
-				{ (byte) OTerrainObjects.Snowman1, "Snowman1" },
-				{ (byte) OTerrainObjects.Snowman2, "Snowman2" },
-
+				{ (byte) OTerrainObjects.Cactus, "Cactus" },
+				{ (byte) OTerrainObjects.CactusSmall, "CactusSmall" },
+				{ (byte) OTerrainObjects.CactusBig, "CactusBig" },
 				{ (byte) OTerrainObjects.Tree1, "Tree1" },
 				{ (byte) OTerrainObjects.Tree2, "Tree2" },
+				
+				// Ground Objects
+				{ (byte) OTerrainObjects.DirtSpot, "DirtSpot" },
+				{ (byte) OTerrainObjects.Dune, "Dune" },
+				{ (byte) OTerrainObjects.Drift, "Drift" },
+				{ (byte) OTerrainObjects.Snowman1, "Snowman1" },
+				{ (byte) OTerrainObjects.Snowman2, "Snowman2" },
+				{ (byte) OTerrainObjects.Bones, "Bones" },
 				{ (byte) OTerrainObjects.Pit, "Pit" },
 				{ (byte) OTerrainObjects.Dungeon, "Dungeon" },
-
-				// Nodes
-				{ (byte) OTerrainObjects.NodeStrict, "NodeStrict" },
-				{ (byte) OTerrainObjects.NodeCasual, "NodeCasual" },
-				{ (byte) OTerrainObjects.NodePoint, "NodePoint" },
-				{ (byte) OTerrainObjects.NodeMove, "NodeMove" },
-				{ (byte) OTerrainObjects.NodeWarp, "NodeWarp" },
-				{ (byte) OTerrainObjects.NodeWon, "NodeWon" },
-				{ (byte) OTerrainObjects.NodeStart, "NodeStart" },
 
 				// Buildings, Residence
 				{ (byte) OTerrainObjects.House1, "House1" },
@@ -472,6 +464,15 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.WoodBridge8, "wb8" },
 				{ (byte) OTerrainObjects.WoodBridgeH, "wbh" },
 				{ (byte) OTerrainObjects.WoodBridgeV, "wbv" },
+				
+				// Nodes
+				{ (byte) OTerrainObjects.NodeStrict, "NodeStrict" },
+				{ (byte) OTerrainObjects.NodeCasual, "NodeCasual" },
+				{ (byte) OTerrainObjects.NodePoint, "NodePoint" },
+				{ (byte) OTerrainObjects.NodeMove, "NodeMove" },
+				{ (byte) OTerrainObjects.NodeWarp, "NodeWarp" },
+				{ (byte) OTerrainObjects.NodeWon, "NodeWon" },
+				{ (byte) OTerrainObjects.NodeStart, "NodeStart" },
 			};
 		}
 

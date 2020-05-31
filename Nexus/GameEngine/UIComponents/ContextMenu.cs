@@ -71,13 +71,17 @@ namespace Nexus.GameEngine {
 				UIComponent.ComponentWithFocus = this;
 
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					EditorUI.currentSlotGroup = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
-					EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup);
-					EditorTools.UpdateHelperText();
-					this.CloseMenu();
+					this.OnClick();
 					return;
 				}
 			}
+		}
+
+		public virtual void OnClick() {
+			EditorUI.currentSlotGroup = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
+			EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup);
+			EditorTools.UpdateHelperText();
+			this.CloseMenu();
 		}
 
 		public byte GetContextOpt( int posX, int posY ) {
