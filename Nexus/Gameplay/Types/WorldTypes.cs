@@ -52,14 +52,16 @@ namespace Nexus.Gameplay {
 		Grass = 1,
 		Desert = 2,
 		Snow = 3,
-		Water = 4,
-		WaterShallow = 5,
+
 		Mud = 6,
 		Dirt = 7,
 		Cobble = 8,
 		Road = 9,
 		Ice = 10,
 		DirtDark = 11,
+
+		Water = 20,
+		WaterShallow = 21,
 
 		FieldGrass = 25,
 		FieldHay = 26,

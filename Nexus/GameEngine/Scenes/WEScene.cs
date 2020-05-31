@@ -615,12 +615,10 @@ namespace Nexus.GameEngine {
 			// Determine which terrain tile type (e.g. OTerrain.Grass, OTerrain.Snow, etc) is most common nearby.
 			byte neighborType = this.GetNeighborType(gridX, gridY, tData[0]);
 
-			// Only Grass, Desert, Snow, and Water can be auto-tiled. Anything else must be avoided.
-			if(neighborType > (byte) OTerrain.Water) { return; }
-
 			// If there is no neighbor type discovered, all types are of the placed terrain.
 			// ALSO: Make sure the order of terrain tiling is determined, otherwise both tiles will try to layer the other.
-			if(neighborType == 0 || neighborType > tData[0]) {
+			// ALSO: Base Terrain above Snow ID can only auto-tile with water.
+			if(neighborType == 0 || neighborType > tData[0] || (neighborType > (byte) OTerrain.Snow && tData[0] != (byte)OTerrain.Water)) {
 
 				// Can remove the layers from this tile:
 				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, 0, tData[3], tData[4], tData[5], tData[6]);
@@ -872,7 +870,7 @@ namespace Nexus.GameEngine {
 		private byte GetNeighborType( byte gridX, byte gridY, byte ignoreType = 0 ) {
 			WorldZoneFormat zone = this.currentZone;
 			byte[][][] tiles = zone.tiles;
-			byte[] tTracker = new byte[20];
+			byte[] tTracker = new byte[22];
 
 			byte maxX = (byte)Math.Min(this.xCount, gridX + 1);
 			byte maxY = (byte)Math.Min(this.yCount, gridY + 1);
