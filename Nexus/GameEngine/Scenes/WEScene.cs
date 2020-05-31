@@ -257,10 +257,10 @@ namespace Nexus.GameEngine {
 			byte[][][] curTiles = this.currentZone.tiles;
 
 			// Loop through the zone tile data:
-			for(byte y = gridY; y --> startY;) {
+			for(byte y = gridY; y-- > startY;) {
 				int tileYPos = y * (byte)WorldmapEnum.TileHeight - camY;
 
-				for(byte x = gridX; x --> startX;) {
+				for(byte x = gridX; x-- > startX;) {
 					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
 				};
 			}
@@ -270,19 +270,46 @@ namespace Nexus.GameEngine {
 			Systems.worldEditConsole.Draw();
 
 			// Draw Directional Tile Overlap when path detection is required.
-			//this.DrawDirectionTiles((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
-		}
+			if(WETools.WETileTool.slotGroup == (byte)WorldSlotGroup.Nodes) {
+				WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
+				(bool up, bool left, bool right, bool down) dotDirs = WEScene.GetDotDirections(ph.obj);
 
-		public void DrawDirectionTiles( byte gridX, byte gridY, byte range = 5 ) {
-			for(int y = gridY - range; y < gridY + range + 1; y++) {
-				for(int x = gridX - range; x < gridX + range + 1; x++) {
+				byte gX = (byte) Cursor.MiniGridX;
+				byte gY = (byte) Cursor.MiniGridY;
 
-					DirCardinal dir = WEScene.RelativeDirectionOfTiles((sbyte) (x - gridX), (sbyte) (y - gridY));
+				byte tw = (byte)WorldmapEnum.TileWidth;
+				byte th = (byte)WorldmapEnum.TileHeight;
 
-					if(dir == DirCardinal.Up || dir == DirCardinal.Down) {
-						Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
-					} else {
-						Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
+				int gxPos = (int)(gX * tw + (tw * 0.5));
+				int gyPos = (int)(gY * th + (th * 0.5));
+
+				//this.DrawDirectionTiles(gX, gY, 6, dotDirs.up, dotDirs.left, dotDirs.right, dotDirs.down);
+
+				if(dotDirs.up) {
+					var upNode = this.LocateNearestNode(this.worldContent, gX, gY, DirCardinal.Up);
+					if(upNode.hasNode) {
+						this.atlas.DrawLine(gxPos, gyPos, (int)(upNode.gridX * tw + (tw * 0.5)), (int)(upNode.gridY * th + (th * 0.5)));
+					}
+				}
+
+				if(dotDirs.left) {
+					var leftNode = this.LocateNearestNode(this.worldContent, gX, gY, DirCardinal.Left);
+					if(leftNode.hasNode) {
+						this.atlas.DrawLine(gxPos, gyPos, (int)(leftNode.gridX * tw + (tw * 0.5)), (int)(leftNode.gridY * th + (th * 0.5)));
+					}
+				}
+				
+				if(dotDirs.right) {
+					var rightNode = this.LocateNearestNode(this.worldContent, gX, gY, DirCardinal.Right);
+					if(rightNode.hasNode) {
+						this.atlas.DrawLine(gxPos, gyPos, (int)(rightNode.gridX * tw + (tw * 0.5)), (int)(rightNode.gridY * th + (th * 0.5)));
+					}
+				}
+
+				if(dotDirs.down) {
+					var downNode = this.LocateNearestNode(this.worldContent, gX, gY, DirCardinal.Down);
+					if(downNode.hasNode) {
+						this.atlas.DrawLine(gxPos, gyPos, (int)(downNode.gridX * tw + (tw * 0.5)), (int)(downNode.gridY * th + (th * 0.5)));
 					}
 				}
 			}
@@ -521,7 +548,7 @@ namespace Nexus.GameEngine {
 		public static DirCardinal RelativeDirectionOfTiles( sbyte relX, sbyte relY ) {
 
 			if(relX < 0) {
-				if(relY < 0 && relY <= relX) { return DirCardinal.Up; }			// ex: -2, -3
+				if(relY < 0 && relY <= relX) { return DirCardinal.Up; }				// ex: -2, -3
 				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }		// ex: -2, 3
 				return DirCardinal.Left;
 			}
@@ -538,87 +565,148 @@ namespace Nexus.GameEngine {
 			return DirCardinal.None;
 		}
 
-		public (byte nodeId, byte gridX, byte gridY) LocateNearestNode( WorldContent worldContent, byte gridX, byte gridY, DirCardinal dir, byte range = 6 ) {
-			(byte nodeId, byte gridX, byte gridY) tuple = (nodeId: 0, gridX: 0, gridY: 0);
+		public (bool hasNode, byte gridX, byte gridY) LocateNearestNode( WorldContent worldContent, byte gridX, byte gridY, DirCardinal dir, byte range = 4 ) {
+			(bool hasNode, byte gridX, byte gridY) tuple = (hasNode: false, gridX: 0, gridY: 0);
 
-			// Vertical Node Scan - scans for any nodes above or below this location.
-			if(dir == DirCardinal.Down || dir == DirCardinal.Up) {
-				sbyte incY = dir == DirCardinal.Down ? (sbyte) 1 : (sbyte) -1;
-				sbyte xRange = 1;
+			// Vertical UP Node Scan - Scans for any nodes above this location.
+			if(dir == DirCardinal.Up) {
+				byte xRange = 1;
 
-				for(int y = gridY + incY; y < gridY + range * incY; y += incY) {
+				for(int y = gridY - 1; y >= gridY - range; y--) {
+					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
 
-					for(int x = gridX - xRange; x < gridY + xRange; x++) {
+						// If a node is located, track it, and make sure it's more centered than any other by looping through X values again.
+						if(!this.IsNodeAtLocation((byte)x, (byte)y)) { continue; }
 
-						// If Node is located, make sure it's more centered than any other:
-						if(true) { continue; } // TODO: IF NODE IS LOCATED HERE.
-
-						if(tuple.gridX == 0 && tuple.gridY == 0) {
+						// Keep the node closest to center:
+						if(tuple.hasNode) {
 							int dist1 = Math.Abs(gridX - tuple.gridX);
 							int dist2 = Math.Abs(gridX - x);
-							
-							// Keep the smallest version:
-							if(dist1 < dist2) { continue; }
-							else { tuple.gridX = (byte) x; tuple.gridY = (byte) y; }
-
-						}
-						
-						else {
-							tuple.gridX = (byte) x;
-							tuple.gridY = (byte) y;
+							if(dist1 < dist2) { continue; } else { tuple.gridX = (byte)x; tuple.gridY = (byte)y; }
+						} else {
+							tuple.hasNode = true;
+							tuple.gridX = (byte)x;
+							tuple.gridY = (byte)y;
 						}
 					}
+					xRange++;
 
-					xRange += 1;
+					// If a node is located, end test.
+					if(tuple.hasNode) { return tuple; }
+				}
+			}
+			
+			// Vertical DOWN Node Scan - Scans for any nodes below this location.
+			else if(dir == DirCardinal.Down) {
+				byte xRange = 1;
 
-					// If a node is located:
-					if(tuple.gridX > 0 && tuple.gridY > 0) {
-						tuple.nodeId = 0;   // TODO: Set the Node ID that applies here.
-						return tuple;
+				for(int y = gridY + 1; y <= gridY + range; y++) {
+					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
+
+						// If a node is located, track it, and make sure it's more centered than any other by looping through X values again.
+						if(!this.IsNodeAtLocation((byte)x, (byte)y)) { continue; }
+
+						// Keep the node closest to center:
+						if(tuple.hasNode) {
+							int dist1 = Math.Abs(gridX - tuple.gridX);
+							int dist2 = Math.Abs(gridX - x);
+							if(dist1 < dist2) { continue; } else { tuple.gridX = (byte)x; tuple.gridY = (byte)y; }
+						} else {
+							tuple.hasNode = true;
+							tuple.gridX = (byte)x;
+							tuple.gridY = (byte)y;
+						}
 					}
+					xRange++;
+
+					// If a node is located, end test.
+					if(tuple.hasNode) { return tuple; }
 				}
 			}
 
-			// Horizontal Node Scan - scans for any nodes above or below this location.
-			else if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
-				sbyte incX = dir == DirCardinal.Left ? (sbyte) 1 : (sbyte) -1;
-				sbyte yRange = 0;
+			// Horizontal LEFT Node Scan - scans for any nodes left of this location.
+			else if(dir == DirCardinal.Left) {
+				byte yRange = 0;
 
-				for(int x = gridX + incX; x < gridX + range * incX; x += incX) {
+				for(int x = gridX - 1; x >= gridX - range; x--) {
+					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
 
-					for(int y = gridY - yRange; y < gridY + yRange; y++) {
+						// If a node was located, track it, then make sure it's more centered than any other by looping through Y values again.
+						if(!this.IsNodeAtLocation((byte)x, (byte)y)) { continue; }
 
-						// If Node is located, make sure it's more centered than any other:
-						if(true) { continue; } // TODO: IF NODE IS LOCATED HERE.
-
-						if(tuple.gridY == 0 && tuple.gridX == 0) {
+						// Keep the node closest to center:
+						if(tuple.hasNode) {
 							int dist1 = Math.Abs(gridY - tuple.gridY);
 							int dist2 = Math.Abs(gridY - y);
-							
-							// Keep the smallest version:
-							if(dist1 < dist2) { continue; }
-							else { tuple.gridY = (byte) y; tuple.gridX = (byte) x; }
-
+							if(dist1 < dist2) { continue; } else { tuple.gridY = (byte) y; tuple.gridX = (byte) x; }
 						}
-						
 						else {
+							tuple.hasNode = true;
 							tuple.gridX = (byte)x;
 							tuple.gridY = (byte) y;
 						}
 					}
+					yRange++;
 
-					yRange += 1;
+					// If a node is located, end test.
+					if(tuple.hasNode) { return tuple; }
+				}
+			}
 
-					// If a node is located:
-					if(tuple.gridX > 0 && tuple.gridY > 0) {
-						tuple.nodeId = 0;   // TODO: Set the Node ID that applies here.
-						return tuple;
+			// Horizontal RIGHT Node Scan - scans for any nodes right of this location.
+			else if(dir == DirCardinal.Right) {
+				byte yRange = 0;
+
+				for(int x = gridX + 1; x <= gridX + range; x++) {
+					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
+
+						// If a node was located, track it, then make sure it's more centered than any other by looping through Y values again.
+						if(!this.IsNodeAtLocation((byte)x, (byte)y)) { continue; }
+
+						// Keep the node closest to center:
+						if(tuple.hasNode) {
+							int dist1 = Math.Abs(gridY - tuple.gridY);
+							int dist2 = Math.Abs(gridY - y);
+							if(dist1 < dist2) { continue; } else { tuple.gridY = (byte)y; tuple.gridX = (byte)x; }
+						} else {
+							tuple.hasNode = true;
+							tuple.gridX = (byte)x;
+							tuple.gridY = (byte)y;
+						}
 					}
+					yRange++;
+
+					// If a node is located, end test.
+					if(tuple.hasNode) { return tuple; }
 				}
 			}
 
 			// Return No Results
 			return tuple;
+		}
+
+		private bool IsNodeAtLocation(byte gridX, byte gridY) {
+
+			// Check if a node is located here:
+			byte[] wtData = worldContent.GetWorldTileData(this.currentZone, (byte)gridX, (byte)gridY);
+
+			// If a node is not located here, continue.
+			return WEScene.IsObjectANode(wtData[5]);
+		}
+
+		public void DrawDirectionTiles(byte gridX, byte gridY, byte range = 6, bool up = false, bool left = false, bool right = false, bool down = false) {
+			for(int y = gridY - range; y < gridY + range + 1; y++) {
+				for(int x = gridX - range; x < gridX + range + 1; x++) {
+
+					DirCardinal dir = WEScene.RelativeDirectionOfTiles((sbyte)(x - gridX), (sbyte)(y - gridY));
+
+					if((dir == DirCardinal.Up && up) || (dir == DirCardinal.Down && down)) {
+						Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
+					} else if((dir == DirCardinal.Left && left) || (dir == DirCardinal.Right && right)) {
+						Systems.spriteBatch.Draw(Systems.tex2dDarkGreen, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);
+					}
+				}
+			}
 		}
 
 		// -------------------------- //

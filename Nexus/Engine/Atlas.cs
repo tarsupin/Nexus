@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -108,6 +109,26 @@ namespace Nexus.Engine {
 		
 		public void DrawFaceDown(string spriteName, int posX, int posY) {
 			this.DrawRotation(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
+		}
+
+		public void DrawLine(int startX, int startY, int endX, int endY) {
+			Vector2 edge = new Vector2(endX - startX, endY - startY);
+
+			// calculate angle to rotate line
+			float angle = (float) Math.Atan2(edge.Y, edge.X);
+
+			spriteBatch.Draw(Systems.tex2dWhite,
+				new Rectangle(// rectangle defines shape of line and position of start of line
+					(int)startX,
+					(int)startY,
+					(int)edge.Length(), //sb will strech the texture to fill this rectangle
+					1), //width of line, change this to make thicker line
+				null,
+				Color.Red, //colour of line
+				angle,     //angle of line (calulated above)
+				new Vector2(0, 0), // point in line about which to rotate
+				SpriteEffects.None,
+			0);
 		}
 
 		private void LoadAtlasData(GameClient game, string imageResource) {
