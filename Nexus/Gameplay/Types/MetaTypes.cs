@@ -124,8 +124,10 @@ namespace Nexus.Gameplay {
 	// The World TIle Slot Groups
 	public enum WorldSlotGroup : byte {
 		None,
-		Standard,
 		Terrain,
+		Detail,
+		Coverage,
 		Objects,
+		Nodes,
 	}
 }

@@ -27,10 +27,10 @@ namespace Nexus.Engine {
 		public static readonly LocalServer localServer = new LocalServer();
 
 		// Consoles
-		public static readonly Console worldConsole = new WorldConsole();
-		public static readonly Console worldEditConsole = new WorldEditConsole();
-		public static readonly Console levelConsole = new LevelConsole();
-		public static readonly Console editorConsole = new EditorConsole();
+		public static readonly WorldConsole worldConsole = new WorldConsole();
+		public static readonly WorldEditConsole worldEditConsole = new WorldEditConsole();
+		public static readonly LevelConsole levelConsole = new LevelConsole();
+		public static readonly EditorConsole editorConsole = new EditorConsole();
 
 		// Graphics, Audio, and Assets
 		public static ScreenSys screen;

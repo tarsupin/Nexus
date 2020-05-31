@@ -175,6 +175,7 @@ namespace Nexus.Gameplay {
 		Bones = 20,
 		Pit = 21,
 		Dungeon = 22,
+		Tent = 23,
 
 		// Buildings = , Residence
 		House1 = 30,
@@ -211,33 +212,45 @@ namespace Nexus.Gameplay {
 		Pyramid2 = 56,
 		Pyramid3 = 57,
 
-		// Buildings, Misc
-		Tent = 60,
-
-		// Stone Bridge
-		StoneBridge2 = 70,
-		StoneBridge4 = 71,
-		StoneBridge6 = 72,
-		StoneBridge8 = 73,
-		StoneBridgeH = 74,
-		StoneBridgeV = 75,
-
-		// Wood Bridge
-		WoodBridge2 = 81,
-		WoodBridge4 = 82,
-		WoodBridge6 = 83,
-		WoodBridge8 = 84,
-		WoodBridgeH = 85,
-		WoodBridgeV = 86,
+		// Dots
+		Dot_All = 60,
+		Dot_ULR = 61,
+		Dot_ULD = 62,
+		Dot_URD = 63,
+		Dot_LRD = 64,
+		Dot_UL = 65,
+		Dot_UR = 66,
+		Dot_UD = 67,
+		Dot_LR = 68,
+		Dot_LD = 69,
+		Dot_RD = 70,
 
 		// Nodes
-		NodeStrict = 90,
-		NodeCasual = 91,
-		NodePoint = 92,
-		NodeMove = 93,
-		NodeWarp = 94,
-		NodeWon = 95,
-		NodeStart = 96,
+		NodePoint = 71,
+		NodeMove = 72,
+
+		NodeStrict = 75,
+		NodeCasual = 76,
+		NodeWarp = 77,
+		NodeWon = 78,
+		NodeStart = 79,
+
+		// Stone Bridge
+		StoneBridge2 = 100,
+		StoneBridge4 = 101,
+		StoneBridge6 = 102,
+		StoneBridge8 = 103,
+		StoneBridgeH = 104,
+		StoneBridgeV = 105,
+
+		// Wood Bridge
+		WoodBridge2 = 111,
+		WoodBridge4 = 112,
+		WoodBridge6 = 113,
+		WoodBridge8 = 114,
+		WoodBridgeH = 115,
+		WoodBridgeV = 116,
+
 	}
 
 	public class RandTypeCur {

@@ -20,9 +20,9 @@ namespace Nexus.GameEngine {
 	}
 
 	public class ContextMenu : UIComponent {
-		private readonly byte size;
 		private readonly byte xCount;
 		private readonly byte yCount;
+		private readonly byte size;
 		private readonly int count;
 		private static FontClass font;
 		private static byte iconOffset = (byte)((byte)ContextMenuEnum.HalfSize - (byte)Math.Floor((byte)TilemapEnum.TileWidth * 0.5f));
@@ -38,15 +38,16 @@ namespace Nexus.GameEngine {
 
 			this.xCount = xCount;
 			this.yCount = yCount;
+
 			this.count = xCount * yCount;
-			this.size = (byte) ContextMenuEnum.Size;
-			this.width = (short) (this.size * this.xCount);
-			this.height = (short) (this.size * this.yCount);
+			this.size = (byte)ContextMenuEnum.Size;
+			this.width = (short)(this.size * this.xCount);
+			this.height = (short)(this.size * this.yCount);
 
 			// posX, posY describes the center of the context menu.
 			// x, y describes the top-left corner of the context menu.
-			this.x = (short) (posX - (byte) ContextMenuEnum.HalfSize * this.xCount);
-			this.y = (short) (posY - (byte) ContextMenuEnum.HalfSize * this.yCount);
+			this.x = (short)(posX - (byte)ContextMenuEnum.HalfSize * this.xCount);
+			this.y = (short)(posY - (byte)ContextMenuEnum.HalfSize * this.yCount);
 
 			// Prepare Menu Options
 			this.menuOptions = new Dictionary<byte, ContextMenuOpt>();

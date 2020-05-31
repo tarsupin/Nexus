@@ -19,7 +19,10 @@ namespace Nexus.GameEngine {
 		public override void OnFirstOpen() {
 			ChatConsole.Clear();
 			ChatConsole.SendMessage("Welcome to the World Edit Console.", Color.White);
+			ChatConsole.SendMessage("----------------------------------", Color.White);
 			ChatConsole.SendMessage("This console allows you to alter the settings for your world campaign.", Color.White);
+			ChatConsole.SendMessage("To open or close this console, press the tilde (~) key.", Color.OrangeRed);
+			ChatConsole.SendMessage("This console can also be accessed from the tab menu.", Color.OrangeRed);
 		}
 
 		public override void OnOpen() { 

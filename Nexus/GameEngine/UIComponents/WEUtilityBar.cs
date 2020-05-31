@@ -97,11 +97,13 @@ namespace Nexus.GameEngine {
 			}
 
 			// World Tile Icons
-			List<WEPlaceholder[]> placeholders = WETileTool.WorldTileToolMap[(byte)WorldSlotGroup.Standard].placeholders;
+			if(WETileTool.WorldTileToolMap.ContainsKey(WE_UI.curWESlotGroup)) {
+				List<WEPlaceholder[]> placeholders = WETileTool.WorldTileToolMap[(byte)WE_UI.curWESlotGroup].placeholders;
 
-			for(byte i = 0; i < placeholders.Count; i++) {
-				WEPlaceholder ph = placeholders[i][0];
-				this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, 0 }, this.x + i * tileWidth + 2, this.y);
+				for(byte i = 0; i < placeholders.Count; i++) {
+					WEPlaceholder ph = placeholders[i][0];
+					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, 0 }, this.x + i * tileWidth + 2, this.y);
+				}
 			}
 
 			// Draw Keybind Text

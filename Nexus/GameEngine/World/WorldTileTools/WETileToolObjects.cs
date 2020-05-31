@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public WETileToolObjects() : base() {
 
-			this.slotGroup = (byte)WorldSlotGroup.Standard;
+			this.slotGroup = (byte) WorldSlotGroup.Objects;
 
 			// Objects, Vegetation
 			this.placeholders.Add(new WEPlaceholder[] {
@@ -34,6 +34,7 @@ namespace Nexus.GameEngine {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Bones },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pit },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dungeon },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tent },
 			});
 
 			// Objects, Residence
@@ -48,13 +49,21 @@ namespace Nexus.GameEngine {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.House8 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.House9 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.House10 },
+			});
+
+			// Objects, Residence
+			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Town1 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Town2 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Town3 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Stadium },
 			});
 
 			// Objects, Structure
 			this.placeholders.Add(new WEPlaceholder[] {
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid1 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid2 },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid3 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Castle1 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Castle2 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Castle3 },
@@ -64,13 +73,9 @@ namespace Nexus.GameEngine {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tower2 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tower3 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Tower4 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid1 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid2 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Pyramid3 },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Stadium },
 			});
 
-			// Object, Bridges
+			// Stone Bridges
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StoneBridge2 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StoneBridge4 },
@@ -78,23 +83,16 @@ namespace Nexus.GameEngine {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StoneBridge8 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StoneBridgeH },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StoneBridgeV },
+			});
+
+			// Wood Bridges
+			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridge2 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridge4 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridge6 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridge8 },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridgeH },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.WoodBridgeV },
-			});
-
-			// Object, Nodes
-			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStrict },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeCasual },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodePoint },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeMove },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWarp },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeWon },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.NodeStart },
 			});
 		}
 	}

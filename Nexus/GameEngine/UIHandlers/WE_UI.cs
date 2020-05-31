@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		private readonly GridOverlay gridUI;
 		private readonly WEUtilityBar utilityBar;
 		private readonly WEScroller scroller;
-		public readonly ContextMenu contextMenu;
+		public readonly WEMenu weMenu;
 
 		public static byte curWESlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 
@@ -33,16 +33,21 @@ namespace Nexus.GameEngine {
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
 			// Tab Menu - WorldTileTool Listings
-			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
+			this.weMenu = new WEMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f), 4, 2);
 
-			this.contextMenu.SetMenuOption((byte) 1, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Icons/Move", "Resize");
+			this.weMenu.SetMenuOption((byte) 1, Systems.mapper.atlas[(byte)AtlasGroup.World], "Mud/b1", "Terrain");
+			this.weMenu.SetMenuOption((byte) 2, Systems.mapper.atlas[(byte)AtlasGroup.World], "Desert/p7", "Detail");
+			this.weMenu.SetMenuOption((byte) 3, Systems.mapper.atlas[(byte)AtlasGroup.World], "MountainBrown/s", "Coverage");
+			this.weMenu.SetMenuOption((byte) 4, Systems.mapper.atlas[(byte)AtlasGroup.World], "Objects/Pyramid1", "Objects");
+			this.weMenu.SetMenuOption((byte) 5, Systems.mapper.atlas[(byte)AtlasGroup.World], "Objects/NodeStrict", "Nodes");
+			this.weMenu.SetMenuOption((byte) 6, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Icons/Move", "Resize");
 		}
 
 		public void RunTick() {
 			UIComponent.ComponentWithFocus = null;
 			this.utilityBar.RunTick();
 			this.scroller.RunTick();
-			this.contextMenu.RunTick();
+			this.weMenu.RunTick();
 		}
 
 		public void SetHelperText(string title, string text) {
@@ -83,7 +88,7 @@ namespace Nexus.GameEngine {
 
 			this.utilityBar.Draw();
 			this.scroller.Draw();
-			this.contextMenu.Draw();
+			this.weMenu.Draw();
 
 			// Helper Text
 			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {

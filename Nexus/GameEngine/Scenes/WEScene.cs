@@ -90,7 +90,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Start the Default WETool
-			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte) WorldSlotGroup.Standard], 0);
+			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte) WorldSlotGroup.Terrain], 0);
 
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
@@ -172,7 +172,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Open Wheel Menu
-			if(input.LocalKeyPressed(Keys.Tab)) { this.weUI.contextMenu.OpenMenu(); }
+			if(input.LocalKeyPressed(Keys.Tab)) { this.weUI.weMenu.OpenMenu(); }
 		}
 		
 		public void CheckTileToolKeyBinds(Keys keyPressed) {
@@ -446,11 +446,26 @@ namespace Nexus.GameEngine {
 			this.worldData.zones[curZoneId + 1] = temp;
 		}
 
+		public void CloneTile(byte gridX, byte gridY) {
+			byte[] tileData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+
+			// Identify the tile, and set it as the current editing tool (if applicable)
+			WETileTool clonedTool = WETileTool.GetWorldTileToolFromTileData(tileData);
+
+			if(clonedTool is WETileTool == true) {
+				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
+				WETools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
+				clonedTool.SetSubIndex(subIndex);
+			}
+		}
+
 		// --------------------- //
 		// --- Node Handling --- //
 		// --------------------- //
 
 		public static bool IsObjectANode( byte objectId ) {
+			if(WEScene.IsObjectADot(objectId)) { return true; }
+
 			switch(objectId) {
 				case (byte)OTerrainObjects.NodeStrict:
 				case (byte)OTerrainObjects.NodeCasual:
@@ -462,6 +477,25 @@ namespace Nexus.GameEngine {
 			}
 
 			return false;
+		}
+
+		public static bool IsObjectADot( byte objectId ) {
+			return objectId >= (byte)OTerrainObjects.Dot_All && objectId <= (byte)OTerrainObjects.Dot_RD;
+		}
+
+		public static (bool up, bool left, bool right, bool down) GetDotDirections( byte objectId ) {
+			if(objectId == (byte)OTerrainObjects.Dot_All) { return (up: true, left: true, right: true, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_ULR) { return (up: true, left: true, right: true, down: false); }
+			if(objectId == (byte)OTerrainObjects.Dot_ULD) { return (up: true, left: true, right: false, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_URD) { return (up: true, left: false, right: true, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_LRD) { return (up: false, left: true, right: true, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_UL) { return (up: true, left: true, right: false, down: false); }
+			if(objectId == (byte)OTerrainObjects.Dot_UR) { return (up: true, left: false, right: true, down: false); }
+			if(objectId == (byte)OTerrainObjects.Dot_UD) { return (up: true, left: false, right: false, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_LR) { return (up: false, left: true, right: true, down: false); }
+			if(objectId == (byte)OTerrainObjects.Dot_LD) { return (up: false, left: true, right: false, down: true); }
+			if(objectId == (byte)OTerrainObjects.Dot_RD) { return (up: false, left: false, right: true, down: true); }
+			return (up: true, left: true, right: true, down: true);
 		}
 
 		public void DeleteNodeIfPresent(byte gridX, byte gridY) {
@@ -481,19 +515,6 @@ namespace Nexus.GameEngine {
 				// Delete the Object and Node Reference on the Tile
 				this.worldContent.SetTileObject(this.currentZone, gridX, gridY, 0);
 				this.worldContent.SetTileNodeId(this.currentZone, gridX, gridY, 0);
-			}
-		}
-
-		public void CloneTile(byte gridX, byte gridY) {
-			byte[] tileData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
-
-			// Identify the tile, and set it as the current editing tool (if applicable)
-			WETileTool clonedTool = WETileTool.GetWorldTileToolFromTileData(tileData);
-
-			if(clonedTool is WETileTool == true) {
-				byte subIndex = clonedTool.subIndex; // Need to save this value to avoid subIndexSaves[] tracking.
-				WETools.SetWorldTileTool(clonedTool, (byte)clonedTool.index);
-				clonedTool.SetSubIndex(subIndex);
 			}
 		}
 

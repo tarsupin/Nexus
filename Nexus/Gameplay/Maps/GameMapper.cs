@@ -473,6 +473,19 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.NodeWarp, "NodeWarp" },
 				{ (byte) OTerrainObjects.NodeWon, "NodeWon" },
 				{ (byte) OTerrainObjects.NodeStart, "NodeStart" },
+
+				// Dots
+				{ (byte) OTerrainObjects.Dot_All, "Dot_All" },
+				{ (byte) OTerrainObjects.Dot_ULR, "Dot_ULR" },
+				{ (byte) OTerrainObjects.Dot_ULD, "Dot_ULD" },
+				{ (byte) OTerrainObjects.Dot_URD, "Dot_URD" },
+				{ (byte) OTerrainObjects.Dot_LRD, "Dot_LRD" },
+				{ (byte) OTerrainObjects.Dot_UL, "Dot_UL" },
+				{ (byte) OTerrainObjects.Dot_UR, "Dot_UR" },
+				{ (byte) OTerrainObjects.Dot_UD, "Dot_UD" },
+				{ (byte) OTerrainObjects.Dot_LR, "Dot_LR" },
+				{ (byte) OTerrainObjects.Dot_LD, "Dot_LD" },
+				{ (byte) OTerrainObjects.Dot_RD, "Dot_RD" },
 			};
 		}
 

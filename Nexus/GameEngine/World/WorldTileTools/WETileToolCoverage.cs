@@ -2,33 +2,13 @@
 
 namespace Nexus.GameEngine {
 
-	public class WETileToolAuto : WETileTool {
+	public class WETileToolCoverage : WETileTool {
 
-		public WETileToolAuto() : base() {
+		public WETileToolCoverage() : base() {
 
-			this.slotGroup = (byte)WorldSlotGroup.Standard;
+			this.slotGroup = (byte)WorldSlotGroup.Coverage;
 
-			// Auto Terrain
-			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Grass,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Desert,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Snow,
-				},
-				new WEPlaceholder() {
-					auto = true,
-					tBase = (byte) OTerrain.Water,
-				},
-			});
-
-			// Miscellaneous Terrain
+			// Mountains
 			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
@@ -45,6 +25,10 @@ namespace Nexus.GameEngine {
 					cover = (byte) OTerrain.MountainIce,
 					coverLay = (byte) OLayer.s,
 				},
+			});
+
+			// Trees
+			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
 					cover = (byte) OTerrain.TreesPine,
@@ -70,6 +54,10 @@ namespace Nexus.GameEngine {
 					cover = (byte) OTerrain.TreesOakSnow,
 					coverLay = (byte) OLayer.s,
 				},
+			});
+
+			// Fields
+			this.placeholders.Add(new WEPlaceholder[] {
 				new WEPlaceholder() {
 					auto = true,
 					cover = (byte) OTerrain.FieldGrass,

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 
 namespace Nexus.GameEngine {
@@ -6,13 +7,28 @@ namespace Nexus.GameEngine {
 	public class WEMenu : ContextMenu {
 
 		public WEMenu( UIComponent parent, short posX, short posY, byte xCount = 4, byte yCount = 4 ) : base(parent, posX, posY, xCount, yCount) {
-
+			
 		}
 
 		public override void OnClick() {
-			EditorUI.currentSlotGroup = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
-			EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup);
-			EditorTools.UpdateHelperText();
+			byte menuOpt = this.GetContextOpt(Cursor.MouseX, Cursor.MouseY);
+
+			// World Tile Tool Options
+			if(menuOpt <= 5) {
+				WE_UI.curWESlotGroup = menuOpt;
+				WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup);
+				WETools.UpdateHelperText();
+			}
+
+			// Resize Option
+			else if(menuOpt == 6) {
+				Systems.worldEditConsole.Open();
+				Systems.worldEditConsole.SetInstructionText("resize ");
+				ChatConsole.SendMessage("--------------------", Color.White);
+				ChatConsole.SendMessage("Resize the World Map", Color.Red);
+				ChatConsole.SendMessage("--------------------", Color.White);
+			}
+
 			this.CloseMenu();
 		}
 	}
