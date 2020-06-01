@@ -54,6 +54,11 @@ namespace Nexus.GameEngine {
 
 			if(!this.visible) { return; }
 
+			// Determine if the console needs to be closed with Escape key.
+			if(input.LocalKeyPressed(Keys.Escape)) {
+				this.SetVisible(false);
+			}
+
 			// Get Characters Pressed (doesn't assist with order)
 			string charsPressed = input.GetCharactersPressed();
 

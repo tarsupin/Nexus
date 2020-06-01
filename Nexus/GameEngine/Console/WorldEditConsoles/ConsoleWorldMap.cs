@@ -119,5 +119,51 @@ namespace Nexus.GameEngine {
 			{ "ryu", "ryu" },
 		};
 
+		public static void SetLevel() {
+			byte gridX = (byte) ConsoleTrack.NextArgAsInt();
+			ConsoleTrack.possibleTabs = "Example: setLevel 10 10 MyLevelID";
+
+			// If gridX is assigned:
+			if(ConsoleTrack.instructionList.Count >= 2) {
+				byte gridY = (byte)ConsoleTrack.NextArgAsInt();
+
+				// If gridY is assigned:
+				if(ConsoleTrack.instructionList.Count >= 3) {
+
+					// Check if this X, Y grid is valid (has a node at it).
+					WEScene scene = (WEScene) Systems.scene;
+					WorldZoneFormat zone = scene.currentZone;
+					byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
+
+					// If the location is a valid node, we can attempt to add a level ID.
+					if(NodePath.IsObjectANode(wtData[5])) {
+						string levelId = ConsoleTrack.NextArg();
+						ConsoleTrack.helpText = "Assign a level ID to the specified node. Enter the Level ID.";
+
+						// If the console was activated:
+						if(ConsoleTrack.activate) {
+							uint coordInt = Coords.MapToInt((uint)gridX, (uint)gridY);
+							zone.nodes[coordInt.ToString()] = levelId;
+							return;
+						}
+					}
+
+					// If the location is invalid:
+					else {
+						ConsoleTrack.helpText = "WARNING! There is not a level node at " + gridX.ToString() + ", " + gridY.ToString();
+					}
+				}
+
+				// If gridY has not been assigned:
+				else {
+					ConsoleTrack.helpText = "Assign a level ID to a node at the specified X, Y coordinate. Enter the Y position.";
+				}
+			}
+			
+			// If gridX has not been assigned:
+			else {
+				ConsoleTrack.helpText = "Assign a level ID to a node at the specified X, Y coordinate. Enter the X position.";
+			}
+		}
 	}
 }
