@@ -295,28 +295,28 @@ namespace Nexus.GameEngine {
 			//this.DrawDirectionTiles(gX, gY, 4, dotDirs.up, dotDirs.left, dotDirs.right, dotDirs.down);
 
 			if(dotDirs.up) {
-				var upNode = NodePath.LocateNearestNode(this.worldContent, this.currentZone, gX, gY, DirCardinal.Up);
+				var upNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Up);
 				if(upNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(upNode.gridX * tw + (tw * 0.5)) - camX, (int)(upNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.left) {
-				var leftNode = NodePath.LocateNearestNode(this.worldContent, this.currentZone, gX, gY, DirCardinal.Left);
+				var leftNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Left);
 				if(leftNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(leftNode.gridX * tw + (tw * 0.5)) - camX, (int)(leftNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.right) {
-				var rightNode = NodePath.LocateNearestNode(this.worldContent, this.currentZone, gX, gY, DirCardinal.Right);
+				var rightNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Right);
 				if(rightNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(rightNode.gridX * tw + (tw * 0.5)) - camX, (int)(rightNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.down) {
-				var downNode = NodePath.LocateNearestNode(this.worldContent, this.currentZone, gX, gY, DirCardinal.Down);
+				var downNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Down);
 				if(downNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(downNode.gridX * tw + (tw * 0.5)) - camX, (int)(downNode.gridY * th + (th * 0.5)) - camY);
 				}

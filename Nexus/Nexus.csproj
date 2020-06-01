@@ -77,6 +77,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Config\DebugConfig.cs" />
+    <Compile Include="Engine\Calc\Coords.cs" />
     <Compile Include="Engine\Helpers\TextHelper.cs" />
     <Compile Include="Engine\ChatConsole.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />

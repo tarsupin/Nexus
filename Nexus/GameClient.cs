@@ -98,7 +98,7 @@ namespace Nexus
 			//byte[] byteVals = new byte[] { 0, 0, 1, 10, 1, 0, 0 };
 			//int frameIndex = 0;
 			//int frame;
-			
+
 			//// Some architectures reverse the BitConverter.ToInt32() method.
 			//if(BitConverter.IsLittleEndian) {
 			//	byte[] frameSlice = new byte[] { byteVals[frameIndex + 3], byteVals[frameIndex + 2], byteVals[frameIndex + 1], byteVals[frameIndex] };

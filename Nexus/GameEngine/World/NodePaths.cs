@@ -62,6 +62,75 @@ namespace Nexus.GameEngine {
 			return DirCardinal.None;
 		}
 
+		public static (bool hasNode, byte gridX, byte gridY) LocateNodeConnection(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir) {
+
+			if(dir == DirCardinal.Up) {
+				var upNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Up);
+				if(upNode.hasNode) {
+					var revNode = NodePath.LocateNearestNode(worldContent, zone, upNode.gridX, upNode.gridY, DirCardinal.Down);
+
+					// If the discovered node has no alternative to connect to, it matches with this one.
+					if(!revNode.hasNode) { return upNode; }
+
+					// If alternative node is on the same X level, it matches this one.
+					if(upNode.gridX == gridX) { return upNode; }
+
+					// If alternative node is further away than this one, it matches this one.
+					if(revNode.gridY > gridY) { return upNode; }
+				}
+			}
+
+			else if(dir == DirCardinal.Left) {
+				var leftNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Left);
+				if(leftNode.hasNode) {
+					var revNode = NodePath.LocateNearestNode(worldContent, zone, leftNode.gridX, leftNode.gridY, DirCardinal.Right);
+
+					// If the discovered node has no alternative to connect to, it matches with this one.
+					if(!revNode.hasNode) { return leftNode; }
+
+					// If alternative node is on the same Y level, it matches this one.
+					if(leftNode.gridY == gridY) { return leftNode; }
+
+					// If alternative node is further away than this one, it matches this one.
+					if(revNode.gridX > gridX) { return leftNode; }
+				}
+			}
+
+			else if(dir == DirCardinal.Right) {
+				var rightNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Right);
+				if(rightNode.hasNode) {
+					var revNode = NodePath.LocateNearestNode(worldContent, zone, rightNode.gridX, rightNode.gridY, DirCardinal.Left);
+
+					// If the discovered node has no alternative to connect to, it matches with this one.
+					if(!revNode.hasNode) { return rightNode; }
+
+					// If alternative node is on the same Y level, it matches this one.
+					if(rightNode.gridY == gridY) { return rightNode; }
+
+					// If alternative node is further away than this one, it matches this one.
+					if(revNode.gridX < gridX) { return rightNode; }
+				}
+			}
+
+			else if(dir == DirCardinal.Down) {
+				var downNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Down);
+				if(downNode.hasNode) {
+					var revNode = NodePath.LocateNearestNode(worldContent, zone, downNode.gridX, downNode.gridY, DirCardinal.Up);
+
+					// If the discovered node has no alternative to connect to, it matches with this one.
+					if(!revNode.hasNode) { return downNode; }
+
+					// If alternative node is on the same X level, it matches this one.
+					if(downNode.gridX == gridX) { return downNode; }
+
+					// If alternative node is further away than this one, it matches this one.
+					if(revNode.gridY < gridY) { return downNode; }
+				}
+			}
+
+			return (false, 0, 0);
+		}
+
 		public static (bool hasNode, byte gridX, byte gridY) LocateNearestNode(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir, byte range = 4) {
 			(bool hasNode, byte gridX, byte gridY) tuple = (hasNode: false, gridX: 0, gridY: 0);
 
