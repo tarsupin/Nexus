@@ -69,8 +69,36 @@ namespace Nexus.GameEngine {
 			// Draw Editor UI Components
 			this.gridUI.Draw(offsetX, offsetY);
 
-			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
+			// Disability visibility of certain UI components if the console is visible.
+			if(!Systems.editorConsole.visible) {
+				this.DrawCurrentGridSquare();
+				this.utilityBar.Draw();
+				this.scroller.Draw();
+				this.contextMenu.Draw();
+				this.paramMenu.Draw();
+			}
 
+			// Helper Text
+			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
+				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
+				Systems.fonts.baseText.Draw(this.helperTitle, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureTitle.X / 2), 5, Color.White);
+
+				if(this.helperText.Length > 0) {
+					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
+					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
+				}
+			}
+
+			// Coordinate Tracker
+			Systems.fonts.counter.Draw(Cursor.TileGridX + ", " + Cursor.TileGridY, 12, 5, Color.White);
+
+			// Room Counter (Which Room)
+			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
+		}
+
+		public void DrawCurrentGridSquare() {
+
+			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
 			if(UIComponent.ComponentWithFocus == null) {
 
 				// Draw Temporary Function Tool (if active)
@@ -108,28 +136,6 @@ namespace Nexus.GameEngine {
 					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 				}
 			}
-
-			this.utilityBar.Draw();
-			this.scroller.Draw();
-			this.contextMenu.Draw();
-			this.paramMenu.Draw();
-
-			// Helper Text
-			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
-				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
-				Systems.fonts.baseText.Draw(this.helperTitle, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureTitle.X / 2), 5, Color.White);
-
-				if(this.helperText.Length > 0) {
-					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
-					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
-				}
-			}
-
-			// Coordinate Tracker
-			Systems.fonts.counter.Draw(Cursor.TileGridX + ", " + Cursor.TileGridY, 12, 5, Color.White);
-
-			// Room Counter (Which Room)
-			Systems.fonts.counter.Draw("Room #" + this.scene.roomNum.ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
 		}
 	}
 }
