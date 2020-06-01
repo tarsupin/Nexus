@@ -63,8 +63,35 @@ namespace Nexus.GameEngine {
 			// Draw Editor UI Components
 			this.gridUI.Draw(offsetX, offsetY);
 
-			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
+			// Disability visibility of certain UI components if the console is visible.
+			if(!Systems.worldEditConsole.visible) {
+				this.DrawCurrentGridSquare();
+				this.utilityBar.Draw();
+				this.scroller.Draw();
+				this.weMenu.Draw();
+			}
 
+			// Helper Text
+			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
+				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
+				Systems.fonts.baseText.Draw(this.helperTitle, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureTitle.X / 2), 5, Color.White);
+
+				if(this.helperText.Length > 0) {
+					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
+					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
+				}
+			}
+
+			// Coordinate Tracker
+			Systems.fonts.counter.Draw(Cursor.MiniGridX + ", " + Cursor.MiniGridY, 12, 5, Color.White);
+
+			// Zone Counter (Which Zone)
+			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);
+		}
+
+		public void DrawCurrentGridSquare() {
+
+			// Draw Currently Slotted Item & Highlighted Grid Square (if not overlapping a UI component)
 			if(UIComponent.ComponentWithFocus == null) {
 
 				// Draw Temporary Function Tool (if active)
@@ -85,27 +112,7 @@ namespace Nexus.GameEngine {
 					this.scene.DrawWorldTile(new byte[] { ph.tBase, ph.top, ph.topLay, ph.cover, ph.coverLay, ph.obj, 0 }, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 				}
 			}
-
-			this.utilityBar.Draw();
-			this.scroller.Draw();
-			this.weMenu.Draw();
-
-			// Helper Text
-			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
-				Vector2 measureTitle = Systems.fonts.console.font.MeasureString(this.helperTitle);
-				Systems.fonts.baseText.Draw(this.helperTitle, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureTitle.X / 2), 5, Color.White);
-
-				if(this.helperText.Length > 0) {
-					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
-					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
-				}
-			}
-
-			// Coordinate Tracker
-			Systems.fonts.counter.Draw(Cursor.MiniGridX + ", " + Cursor.MiniGridY, 12, 5, Color.White);
-
-			// Zone Counter (Which Zone)
-			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);
 		}
+
 	}
 }

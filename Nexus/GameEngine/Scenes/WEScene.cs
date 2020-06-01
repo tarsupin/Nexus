@@ -119,6 +119,9 @@ namespace Nexus.GameEngine {
 			// Debug Console (only runs if visible)
 			Systems.worldEditConsole.RunTick();
 
+			// Prevent other interactions if the console is visible.
+			if(Systems.worldEditConsole.visible) { return; }
+
 			// Check Input Updates
 			this.WorldEditorInput();
 
@@ -274,7 +277,7 @@ namespace Nexus.GameEngine {
 		private void DrawNodePaths(Camera cam) {
 
 			// Draw Directional Tile Overlap when path detection is required.
-			if(WETools.WETileTool.slotGroup != (byte)WorldSlotGroup.Nodes) { return; }
+			if(WETools.WETileTool == null || WETools.WETileTool.slotGroup != (byte)WorldSlotGroup.Nodes) { return; }
 
 			WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
 			(bool up, bool left, bool right, bool down) dotDirs = NodePath.GetDotDirections(ph.obj);
@@ -498,7 +501,7 @@ namespace Nexus.GameEngine {
 		// --- Node Handling --- //
 		// --------------------- //
 
-		public void DeleteNodeIfPresent(byte gridX, byte gridY) {
+		public bool DeleteNodeIfPresent(byte gridX, byte gridY) {
 
 			// Get Object at Location
 			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
@@ -513,9 +516,12 @@ namespace Nexus.GameEngine {
 				// TODO URGENT: Move node mechanics as required.
 
 				// Delete the Object and Node Reference on the Tile
-				this.worldContent.SetTileObject(this.currentZone, gridX, gridY, 0);
-				this.worldContent.SetTileNodeId(this.currentZone, gridX, gridY, 0);
+				this.worldContent.DeleteTileObject(this.currentZone, gridX, gridY);
+
+				return true;
 			}
+
+			return false;
 		}
 
 		// -------------------------- //
@@ -538,8 +544,8 @@ namespace Nexus.GameEngine {
 			// ALSO: Base Terrain above Snow ID can only auto-tile with water.
 			if(neighborType == 0 || neighborType > tData[0] || (neighborType > (byte) OTerrain.Snow && tData[0] != (byte)OTerrain.Water)) {
 
-				// Can remove the layers from this tile:
-				this.worldContent.SetTile(this.currentZone, gridX, gridY, tData[0], 0, 0, tData[3], tData[4], tData[5], tData[6]);
+				// Can remove the top layers from this tile:
+				this.worldContent.DeleteTileTop(this.currentZone, gridX, gridY);
 				return;
 			}
 

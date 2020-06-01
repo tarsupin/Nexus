@@ -14,8 +14,7 @@ namespace Nexus.Engine {
 
 		// Converts Integer to X,Y Coordinate (Dynamic Size, No Collisions)
 		public static (uint x, uint y) GetFromInt( uint num ) {
-			double bluh = Math.Sqrt(num - 1);
-			uint max = (uint) Math.Floor(bluh);
+			uint max = (uint) Math.Floor(Math.Sqrt(num - 1));
 			uint diagHigh = (uint) Math.Pow(max + 1, 2);
 			if(diagHigh == num) { return (max, max); }
 			uint dist = diagHigh - num;

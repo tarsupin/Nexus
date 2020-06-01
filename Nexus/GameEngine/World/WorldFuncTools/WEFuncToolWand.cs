@@ -1,4 +1,6 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
+using Nexus.Gameplay;
 
 namespace Nexus.GameEngine {
 
@@ -15,7 +17,22 @@ namespace Nexus.GameEngine {
 
 			// Left Mouse Button
 			if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-				
+				WorldZoneFormat zone = scene.currentZone;
+				byte gridX = (byte)Cursor.MiniGridX;
+				byte gridY = (byte)Cursor.MiniGridY;
+
+				byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
+
+				// If the wand clicked on a node, then we can attempt to assign a level.
+				if(NodePath.IsObjectANode(wtData[5])) {
+					Systems.worldEditConsole.Open();
+					Systems.worldEditConsole.SetInstructionText("setLevel " + gridX.ToString() + " " + gridY.ToString() + " ");
+					ChatConsole.SendMessage("--------------------", Color.White);
+					ChatConsole.SendMessage("Assign a Level ID to this Node. It can be any valid level, including official levels or levels created by other players. The original author will be credited with the level design.", Color.Red);
+					ChatConsole.SendMessage("--------------------", Color.White);
+					ChatConsole.SendMessage("Example: setLevel " + gridX.ToString() + " " + gridY.ToString() + " TUTORIAL_1", Color.Green);
+					ChatConsole.SendMessage("--------------------", Color.White);
+				}
 			}
 
 			// Right Mouse Button (Clone Current Tile)

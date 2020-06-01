@@ -127,6 +127,8 @@ namespace Nexus.Gameplay {
 			return newHeight;
 		}
 
+		// byte[]:  { Base, Top, Top Layer, Cover, Cover Layer, Object }
+		// example: { Dirt, Grass, s4, MountainBrown, s2, NodeCasual }
 		public byte[] GetWorldTileData(WorldZoneFormat zone, byte gridX, byte gridY) {
 			var tiles = zone.tiles;
 			if(gridY >= tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0, 0 }; }
@@ -176,15 +178,19 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
-		public bool SetTileNodeId(WorldZoneFormat zone, byte gridX, byte gridY, byte nodeId = 0 ) {
-			var tiles = zone.tiles;
-			if(gridY >= tiles.Length) { return false; }
-			if(gridX >= tiles[gridY].Length) { return false; }
-			tiles[gridY][gridX][6] = nodeId;
-			return true;
+		public bool DeleteTileTop(WorldZoneFormat zone, byte gridX, byte gridY) {
+			return this.SetTileTop(zone, gridX, gridY);
 		}
 
-		public bool DeleteTile(WorldZoneFormat zone, ushort gridX, ushort gridY) {
+		public bool DeleteTileCover(WorldZoneFormat zone, byte gridX, byte gridY) {
+			return this.SetTileCover(zone, gridX, gridY);
+		}
+		
+		public bool DeleteTileObject(WorldZoneFormat zone, byte gridX, byte gridY) {
+			return this.SetTileObject(zone, gridX, gridY);
+		}
+
+		public bool DeleteTile(WorldZoneFormat zone, byte gridX, byte gridY) {
 			var tiles = zone.tiles;
 			if(gridY > tiles.Length) { return false; }
 			if(gridX > tiles[gridY].Length) { return false; }

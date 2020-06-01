@@ -17,7 +17,7 @@ namespace Nexus.Gameplay {
 		[JsonProperty("tiles")]
 		public byte[][][] tiles { get; set; }
 
-		//[JsonProperty("nodes")]
-		//public WorldNodeFormat[][] nodes { get; set; }
+		[JsonProperty("nodes")]
+		public Dictionary<string, string> nodes { get; set; }
 	}
 }

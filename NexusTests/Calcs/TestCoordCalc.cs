@@ -28,6 +28,11 @@ namespace NexusTests {
 			Debug.Assert(Coords.MapToInt(6, 5) == 42);
 			Debug.Assert(Coords.MapToInt(6, 6) == 49);
 
+			// Testing Typescript's Results
+			Debug.Assert(Coords.MapToInt(53, 21) == 2831);
+			Debug.Assert(Coords.MapToInt(18, 44) == 1999);
+			Debug.Assert(Coords.MapToInt(27, 10) == 740);
+
 			var val = Coords.GetFromInt(47);
 			Debug.Assert(val.x == 4 && val.y == 6);
 
@@ -60,6 +65,13 @@ namespace NexusTests {
 
 			val = Coords.GetFromInt(1);
 			Debug.Assert(val.x == 0 && val.y == 0);
+			
+			// Testing Typescript's Results
+			val = Coords.GetFromInt(1037);
+			Debug.Assert(val.x == 32 && val.y == 12);
+			
+			val = Coords.GetFromInt(247);
+			Debug.Assert(val.x == 6 && val.y == 15);
 		}
 	}
 }

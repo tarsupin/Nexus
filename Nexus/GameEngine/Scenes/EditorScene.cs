@@ -66,6 +66,9 @@ namespace Nexus.GameEngine {
 			// Debug Console (only runs if visible)
 			Systems.editorConsole.RunTick();
 
+			// Prevent other interactions if the console is visible.
+			if(Systems.editorConsole.visible) { return; }
+
 			// Run Input for Full Editor and Current Room
 			this.EditorInput();
 			this.CurrentRoom.RunTick();
