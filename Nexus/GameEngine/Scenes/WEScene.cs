@@ -412,16 +412,10 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			// If we're placing a node, we don't change the node mechanics.
-			// However, if we're placing an object, we need to remove the original node mechanics correctly.
-			if(!NodePath.IsObjectANode(objectId)) {
+			// If we're overwriting a node, we need to remove the original node level, if applicable.
+			this.DeleteNodeIfPresent((byte)gridX, (byte)gridY);
 
-				// Delete Node at Location
-				// This handles special node deletions.
-				this.DeleteNodeIfPresent((byte)gridX, (byte)gridY);
-			}
-
-
+			// Place the Object
 			this.worldContent.SetTileObject(this.currentZone, gridX, gridY, objectId);
 		}
 

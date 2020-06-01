@@ -81,19 +81,15 @@ namespace Nexus.GameEngine {
 			if(WETools.WETileTool != null) {
 				WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
 
-				//if(ph.tBase > 0) {
-				//	TileObject tile = Systems.mapper.TileDict[ph.tBase];
+				if(ph.obj > 0) {
 
-				//	if(tile.titles != null) {
-				//		WorldEditorScene.worldEditorUI.SetHelperText(tile.titles[ph.tCat], tile.descriptions[ph.tCat]);
-				//		return;
-				//	}
-
-				//	else if(tile.title.Length > 0) {
-				//		WorldEditorScene.worldEditorUI.SetHelperText(tile.title, tile.description);
-				//		return;
-				//	}
-				//}
+					// Object ID
+					if(WEShadowTile.HelpText.ContainsKey(ph.obj)) {
+						string[] help = WEShadowTile.HelpText[ph.obj];
+						WEScene.weUI.SetHelperText(help[0], help[1]);
+						return;
+					}
+				}
 			}
 
 			WEScene.weUI.SetHelperText("", "");
