@@ -513,9 +513,14 @@ namespace Nexus.GameEngine {
 			// If the object is a node:
 			if(isNode) {
 
-				// TODO URGENT: Move node mechanics as required.
+				// Remove the Node Level Reference, if applicable:
+				uint coordInt = Coords.MapToInt(gridX, gridY);
 
-				// Delete the Object and Node Reference on the Tile
+				if(this.currentZone.nodes.ContainsKey(coordInt.ToString())) {
+					this.currentZone.nodes.Remove(coordInt.ToString());
+				}
+
+				// Delete the Tile Object
 				this.worldContent.DeleteTileObject(this.currentZone, gridX, gridY);
 
 				return true;
