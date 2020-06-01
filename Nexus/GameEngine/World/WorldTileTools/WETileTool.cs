@@ -79,7 +79,6 @@ namespace Nexus.GameEngine {
 			byte cover = tileData[3];
 			byte coverLay = tileData[4];
 			byte obj = tileData[5];
-			byte nodeId = tileData[6];
 
 			// Scan each entry in WorldTileToolMap.
 			for(byte slotGroupNum = 0; slotGroupNum < 8; slotGroupNum++) {

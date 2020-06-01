@@ -5,10 +5,6 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	// --------------------- //
-	// --- Node Handling --- //
-	// --------------------- //
-
 	public static class NodePath {
 
 		public static bool IsObjectANode(byte objectId) {
@@ -73,6 +69,13 @@ namespace Nexus.GameEngine {
 			if(dir == DirCardinal.Up) {
 				byte xRange = 1;
 
+				// Do a first scan for vertical line:
+				for(int y = gridY - 1; y >= gridY - range; y--) {
+					if(!NodePath.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
+					return (true, gridX, (byte) y);
+				}
+
+				// Do a scan for angled versions:
 				for(int y = gridY - 1; y >= gridY - range; y--) {
 					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
 
@@ -101,6 +104,13 @@ namespace Nexus.GameEngine {
 			else if(dir == DirCardinal.Down) {
 				byte xRange = 1;
 
+				// Do a first scan for vertical line:
+				for(int y = gridY + 1; y <= gridY + range; y++) {
+					if(!NodePath.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
+					return (true, gridX, (byte) y);
+				}
+
+				// Do a scan for angled versions:
 				for(int y = gridY + 1; y <= gridY + range; y++) {
 					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
 
@@ -129,6 +139,13 @@ namespace Nexus.GameEngine {
 			else if(dir == DirCardinal.Left) {
 				byte yRange = 0;
 
+				// Do a first scan for horizontal line:
+				for(int x = gridX - 1; x >= gridX - range; x--) {
+					if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
+					return (true, (byte) x, gridY);
+				}
+
+				// Do a scan for angled versions:
 				for(int x = gridX - 1; x >= gridX - range; x--) {
 					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
 
@@ -157,6 +174,13 @@ namespace Nexus.GameEngine {
 			else if(dir == DirCardinal.Right) {
 				byte yRange = 0;
 
+				// Do a first scan for horizontal line:
+				for(int x = gridX + 1; x <= gridX + range; x++) {
+					if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
+					return (true, (byte) x, gridY);
+				}
+
+				// Do a scan for angled versions:
 				for(int x = gridX + 1; x <= gridX + range; x++) {
 					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
 
