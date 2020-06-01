@@ -34,12 +34,12 @@ namespace Nexus.GameEngine {
 
 			// Dots, Two Directions
 			this.placeholders.Add(new WEPlaceholder[] {
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_UL },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_UR },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_UD },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_LR },
-				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_LD },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_UR },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_RD },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_LD },
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.Dot_UL },
 			});
 		}
 	}

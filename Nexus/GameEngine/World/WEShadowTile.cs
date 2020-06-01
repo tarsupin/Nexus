@@ -1,7 +1,7 @@
 ﻿using Nexus.Gameplay;
 using System.Collections.Generic;
 
-namespace Nexus.Objects {
+namespace Nexus.GameEngine {
 
 	// This class is designed to data about World Tiles.
 	public static class WEShadowTile {
