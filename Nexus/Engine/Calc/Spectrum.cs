@@ -13,7 +13,7 @@ namespace Nexus.Engine {
 		}
 
 		public static float GetValueFromPercent( float percent, float min, float max ) {
-			return (max - min) * percent + (max - min);
+			return (max - min) * percent + min;
 		}
 	}
 }

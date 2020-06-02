@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 		// Appearance
 		private readonly Atlas atlas;
 		private string SpriteName;
-		private bool useRunSpeed = true;
+		private bool useRunSpeed = false;
 		private bool faceRight = true;
 		private Suit suit;
 		private Head head;
@@ -30,6 +30,8 @@ namespace Nexus.GameEngine {
 		private int startY = 0;
 		private int endX = 0;
 		private int endY = 0;
+		private byte willArriveX = 0;
+		private byte willArriveY = 0;
 
 		public WorldChar(WorldScene scene) {
 			this.scene = scene;
@@ -63,25 +65,30 @@ namespace Nexus.GameEngine {
 			this.posY = gridY * (byte)WorldmapEnum.TileHeight - 20;
 		}
 
-		public void TravelPath( NodeData endNode ) {
+		public void TravelPath( byte toGridX, byte toGridY ) {
 
 			// Assign Travel Data
 			this.startTime = Systems.timer.Frame;
 			this.startX = this.posX;
 			this.startY = this.posY;
-			this.endX = endNode.gridX * (byte) WorldmapEnum.TileWidth - 4;
-			this.endY = endNode.gridY * (byte) WorldmapEnum.TileHeight - 20;
+			this.endX = toGridX * (byte) WorldmapEnum.TileWidth - 4;
+			this.endY = toGridY * (byte) WorldmapEnum.TileHeight - 20;
 
 			// Determine the standard walk duration.
 			int dist = TrigCalc.GetDistance(this.startX, this.startY, this.endX, this.endY);
-			this.duration = dist * 6;
+			this.duration = dist;
 
 			// Update Face Direction
-			if(this.startX < this.endX) { this.faceRight = false; }
-			else { this.faceRight = true; }
+			if(this.endX > this.startX) { this.faceRight = true; }
+			else { this.faceRight = false; }
 
 			// Update Speed (Walk or Run)
-			this.useRunSpeed = (this.duration > 400);
+			if(this.duration > 90) {
+				this.duration = (int)(this.duration * 0.4);
+				this.useRunSpeed = true;
+			} else {
+				this.useRunSpeed = false;
+			}
 		}
 
 		public void RunTick() {
@@ -111,11 +118,13 @@ namespace Nexus.GameEngine {
 			// Set Position
 			this.posX = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startX, this.endX));
 			this.posY = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startY, this.endY));
+
+			// Update Sprite
+			this.SpriteTick();
 		}
 
 		// Update Animations and Sprite Changes for Characters.
-		// This is done after collisions, since collisions have critical impacts on how Characters are drawn.
-		public void SpriteTick() {
+		private void SpriteTick() {
 
 			// If Not Traveling
 			if(this.IsAtNode) {
@@ -123,15 +132,22 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
+			// Run Cycle
+			if(this.useRunSpeed) {
+				var walkCycle = (Systems.timer.Frame / 7) % 2;
+				this.SpriteName = this.faceRight ? AnimCycleMap.CharacterRunRight[walkCycle] : AnimCycleMap.CharacterRunLeft[walkCycle];
+			}
+
 			// Walk Cycle
-			var walkCycle = (Systems.timer.Frame / 11) % 2;
-			this.SpriteName = this.faceRight ? AnimCycleMap.CharacterWalkRight[walkCycle] : AnimCycleMap.CharacterWalkLeft[walkCycle];
+			else {
+				var walkCycle = (Systems.timer.Frame / 11) % 2;
+				this.SpriteName = this.faceRight ? AnimCycleMap.CharacterWalkRight[walkCycle] : AnimCycleMap.CharacterWalkLeft[walkCycle];
+			}
 		}
 
 		public void Draw(int camX, int camY) {
 
 			// TODO: DRAW WITH ANIMATIONS
-			// TODO: SpriteName, , etc.
 			// TODO: Atlas
 
 			// Draw Character's Body

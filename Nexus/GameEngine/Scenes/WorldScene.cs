@@ -91,6 +91,15 @@ namespace Nexus.GameEngine {
 			// Update Timer
 			Systems.timer.RunTick();
 
+			// Loop through every player and update inputs for this frame tick:
+			foreach(var player in Systems.localServer.players) {
+				//player.Value.input.UpdateKeyStates(Systems.timer.Frame);
+				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
+			}
+
+			// Update Character
+			this.character.RunTick();
+
 			// Run World UI Updates
 			this.worldUI.RunTick();
 
@@ -131,10 +140,42 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void TryTravel( DirCardinal dir = DirCardinal.Center, bool leaveSpot = false ) {
+		public void TryTravel( DirCardinal dir = DirCardinal.Center ) {
 
 			// Can only move if the character is at a Node.
-			if(this.character.IsAtNode) { return; }
+			if(!this.character.IsAtNode) { return; }
+
+			// Get Current Tile Data
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.campaign.curX, this.campaign.curY);
+
+			bool isNode = NodePath.IsObjectANode(wtData[5]);
+			bool isBlocking = NodePath.IsObjectABlockingNode(wtData[5]);
+
+			// If a node is not located here, continue.
+			if(!isNode) { return; }
+
+			// Make sure that direction is allowed from current Node.
+			if(!NodePath.IsDirectionAllowed(wtData[5], dir)) { return; }
+
+			// Check for a connecting Node (one with a return connection).
+			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.campaign.curX, this.campaign.curY, dir);
+
+			// Verify that a connection node exists:
+			if(!connectNode.hasNode) { return; }
+
+			// Perform Movement
+			this.character.TravelPath(connectNode.gridX, connectNode.gridY);
+
+			// Save Last Direction
+
+
+
+			// On Arrival:
+			// Check for Auto-Warps
+			// Check if Node type is Automatic Travel Dot.
+			// If so, continue in next available direction immediately.
+
+			// Update Campaign Location
 
 			//// Get Current Node
 			//NodeData curNode = this.GetNode(this.campaign.currentNodeId_DEP);

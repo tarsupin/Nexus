@@ -39,13 +39,13 @@ namespace Nexus.GameEngine {
 
 		public override void RunTick() {
 
-			// TODO: LEVEL RUN TICK
-			// TODO: LEVEL RUN TICK
-			// TODO: LEVEL RUN TICK
+			// Update Timer
+			Systems.timer.RunTick();
 
 			// Loop through every player and update inputs for this frame tick:
 			foreach(var player in Systems.localServer.players) {
-				player.Value.input.UpdateKeyStates(0);
+				//player.Value.input.UpdateKeyStates(Systems.timer.Frame);
+				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
 			// Debug Console (only runs if visible)
@@ -91,9 +91,6 @@ namespace Nexus.GameEngine {
 					}
 				}
 			}
-
-			// Update Timer
-			Systems.timer.RunTick();
 
 			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
 			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
