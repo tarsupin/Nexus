@@ -24,6 +24,7 @@ namespace Nexus.Gameplay {
 
 			// Make sure the Saves directory exists.
 			Systems.filesLocal.MakeDirectory("Saves/" + saveId);
+			Systems.filesLocal.MakeDirectory("Saves/" + saveId + "/Campaign");
 
 			// Content
 			this.levelContent = new LevelContent();

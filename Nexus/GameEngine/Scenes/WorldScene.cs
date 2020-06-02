@@ -34,7 +34,6 @@ namespace Nexus.GameEngine {
 
 			// Prepare Components
 			this.worldUI = new WorldUI(this);
-			this.character = new WorldChar(this);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -50,7 +49,10 @@ namespace Nexus.GameEngine {
 			this.worldData = this.worldContent.data;
 
 			// Prepare Campaign Details
-			this.campaign.LoadCampaign();
+			this.campaign.LoadCampaign(Systems.handler.worldContent.worldId, this.worldData.start);
+
+			// Load World Character
+			this.character = new WorldChar(this);
 
 			// Camera Update
 			Systems.camera.UpdateScene(this);
@@ -69,11 +71,8 @@ namespace Nexus.GameEngine {
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
 
-			// Determine Character Type
-			var charHead = this.worldData.start.character;
-
-			// Generate Character
-			this.character = new WorldChar(this, HeadSubType.RyuHead);
+			// Update Character
+			this.character.SetCharacter(this.campaign);
 
 			// Reset Timer
 			Systems.timer.ResetTimer();
@@ -137,50 +136,50 @@ namespace Nexus.GameEngine {
 			// Can only move if the character is at a Node.
 			if(this.character.IsAtNode) { return; }
 
-			// Get Current Node
-			NodeData curNode = this.GetNode(this.campaign.currentNodeId_DEP);
+			//// Get Current Node
+			//NodeData curNode = this.GetNode(this.campaign.currentNodeId_DEP);
 
-			// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
-			if(dir == DirCardinal.Center) {
+			//// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
+			//if(dir == DirCardinal.Center) {
 
-				// Check for Auto-Warps (to new World Zones)
-				if(curNode.type >= NodeType.Warp && curNode.warp > 0) {
+			//	// Check for Auto-Warps (to new World Zones)
+			//	if(curNode.type >= NodeType.Warp && curNode.warp > 0) {
 
-					// If we're supposed to leave the warp (after an arrival)
-					if(!leaveSpot) {
-						dir = this.GetAutoDir(curNode, 0);
-					} else {
-						this.ActivateWarp(curNode.zone, curNode.warp);
-						return;
-					}
-				}
+			//		// If we're supposed to leave the warp (after an arrival)
+			//		if(!leaveSpot) {
+			//			dir = this.GetAutoDir(curNode, 0);
+			//		} else {
+			//			this.ActivateWarp(curNode.zone, curNode.warp);
+			//			return;
+			//		}
+			//	}
 
-				// Check for auto-move travel nodes:
-				else {
-					if(curNode.type != NodeType.TravelMove && curNode.type != NodeType.TravelPoint) { return; }
+			//	// Check for auto-move travel nodes:
+			//	else {
+			//		if(curNode.type != NodeType.TravelMove && curNode.type != NodeType.TravelPoint) { return; }
 
-					// Identify the Remaining Travel Direction(s):
-					dir = this.GetAutoDir(curNode, this.campaign.lastNodeId);
-				}
-			}
+			//		// Identify the Remaining Travel Direction(s):
+			//		dir = this.GetAutoDir(curNode, this.campaign.lastNodeId);
+			//	}
+			//}
 
-			// Make sure the direction indicated is a valid option:
-			ushort nextId = curNode.GetIdOfNodeDir(dir);
-			if(nextId == 0) { return; }
+			//// Make sure the direction indicated is a valid option:
+			//ushort nextId = curNode.GetIdOfNodeDir(dir);
+			//if(nextId == 0) { return; }
 
-			// Get Last Node
-			NodeData nextNode = this.GetNode(nextId);
-			if(nextNode == null) { return; }
+			//// Get Last Node
+			//NodeData nextNode = this.GetNode(nextId);
+			//if(nextNode == null) { return; }
 
-			// If the current level / node hasn't been completed, prevent movement if an open path hasn't been declared.
-			// However, you can always move to the last node ID you came from.
-			if(curNode.type < NodeType.TravelPoint && !this.campaign.IsLevelWon(this.campaign.currentNodeId_DEP)) {
-				if(nextId != campaign.lastNodeId) { return; }
-			}
+			//// If the current level / node hasn't been completed, prevent movement if an open path hasn't been declared.
+			//// However, you can always move to the last node ID you came from.
+			//if(curNode.type < NodeType.TravelPoint && !this.campaign.IsLevelWon(this.campaign.currentNodeId_DEP)) {
+			//	if(nextId != campaign.lastNodeId) { return; }
+			//}
 
-			// Have Character Travel Path
-			this.campaign.SetNode(nextId, this.campaign.currentNodeId_DEP);
-			this.character.TravelPath(nextNode);
+			//// Have Character Travel Path
+			//this.campaign.SetNode(nextId, this.campaign.currentNodeId_DEP);
+			//this.character.TravelPath(nextNode);
 		}
 
 		public DirCardinal GetAutoDir( NodeData node, ushort lastNodeId = 0, byte countReq = 1 ) {
@@ -234,6 +233,9 @@ namespace Nexus.GameEngine {
 					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
 				};
 			}
+
+			// Draw World Character
+			this.character.Draw(camX, camY);
 
 			// Draw UI
 			this.worldUI.Draw();
@@ -296,20 +298,6 @@ namespace Nexus.GameEngine {
 			//if(!this.tiles[gridY].ContainsKey(gridX)) { return 0; }
 
 			//return this.tiles[gridY][gridX].nodeId;
-			return 0;
-		}
-
-		public NodeData GetZoneStartNode() {
-			ushort startNodeId = this.FindZoneStartNodeId();
-			return this.GetNode(startNodeId);
-		}
-
-		public ushort FindZoneStartNodeId() {
-			//foreach(var result in this.nodes) {
-			//	if(result.Value.start) {
-			//		return result.Key;
-			//	}
-			//}
 			return 0;
 		}
 

@@ -47,7 +47,7 @@ namespace Nexus.Engine {
 
 		// Settings & States
 		public static readonly Settings settings = new Settings();
-		public static readonly GameHandler handler = new GameHandler("Current");
+		public static readonly GameHandler handler = new GameHandler("Main");
 
 		public static void AddGame( GameClient game ) {
 			Systems.game = game;

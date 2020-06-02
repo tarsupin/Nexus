@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Nexus.Engine;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
@@ -150,15 +151,25 @@ namespace Nexus.Gameplay {
 
 			// Save State
 			string json = JsonConvert.SerializeObject(campaignJson);
-			this.handler.GameStateWrite("Campaign", json);
+			this.handler.GameStateWrite("Campaign/" + this.worldId, json);
 		}
 
-		public void LoadCampaign() {
-			string json = this.handler.GameStateRead("Campaign");
+		public void LoadCampaign( string worldId, StartNodeFormat start ) {
+
+			string json = this.handler.GameStateRead("Campaign/" + worldId);
 
 			// If there is no JSON content, load an empty state:
 			if(json == "") {
+
 				this.Reset();
+				this.worldId = worldId;
+
+				// Starting Details
+				this.head = start.character;
+				this.curX = start.x;
+				this.curY = start.y;
+				this.zoneId = start.zoneId;
+
 				return;
 			}
 

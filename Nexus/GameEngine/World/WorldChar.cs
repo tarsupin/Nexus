@@ -31,29 +31,34 @@ namespace Nexus.GameEngine {
 		private int endX = 0;
 		private int endY = 0;
 
-		public WorldChar(WorldScene scene, HeadSubType headSubType = HeadSubType.RyuHead) {
-			this.SetDefaults();
+		public WorldChar(WorldScene scene) {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];
-			this.suit = SuitMap.BasicRedSuit;
-			this.head = Head.GetHeadBySubType((byte) headSubType);
+
+			// Assign Character Details based on Campaign State
+			this.faceRight = true;
+			this.head = Head.GetHeadBySubType((byte) HeadSubType.RyuHead);
+			this.hat = Hat.GetHatBySubType(0);
+			this.suit = Suit.GetSuitBySubType((byte) SuitSubType.RedBasic);
 		}
 
 		public bool IsAtNode { get { return this.startTime == 0; } }
-		
-		public void SetDefaults() {
-			this.faceRight = true;
 
-			// Determine Starting Position
-			//let curNode = this.world.getNode(this.campaign.curNodeId);
-			//if(!curNode) { curNode = this.world.getStartNode(); }
-			//this.placeAtNode(curNode);
+		public void SetCharacter( CampaignState campaign ) {
+
+			// Assign Character Details based on Campaign State
+			this.faceRight = true;
+			this.head = Head.GetHeadBySubType(campaign.head);
+			this.hat = Hat.GetHatBySubType(campaign.hat);
+			this.suit = Suit.GetSuitBySubType(campaign.suit);
+
+			// Position Character
+			this.PlaceAtPosition(campaign.curX, campaign.curY);
 		}
 
-		public void PlaceAtNode( NodeData node ) {
-			//if(!node) { return; }
-			//this.posX = node.x * (byte) WorldmapEnum.TileWidth - 4;
-			//this.posY = node.y * (byte) WorldmapEnum.TileHeight - 20;
+		public void PlaceAtPosition( byte gridX, byte gridY ) {
+			this.posX = gridX * (byte)WorldmapEnum.TileWidth - 4;
+			this.posY = gridY * (byte)WorldmapEnum.TileHeight - 20;
 		}
 
 		public void TravelPath( NodeData endNode ) {
@@ -113,11 +118,11 @@ namespace Nexus.GameEngine {
 			// TODO: Atlas
 
 			// Draw Character's Body
-			this.atlas.Draw(this.SpriteName, this.posX - camX, this.posY - camY);
+			//this.atlas.Draw(this.SpriteName, this.posX - camX, this.posY - camY);
 
 			// Draw Character's Head and Hat
-			this.head.Draw(this.faceRight, posX, posY, camX, camY);
-			if(this.hat is Hat) { this.hat.Draw(this.faceRight, posX, posY, camX, camY); }
+			this.head.Draw(this.faceRight, this.posX, this.posY, camX, camY);
+			if(this.hat is Hat) { this.hat.Draw(this.faceRight, this.posX, this.posY, camX, camY); }
 		}
 	}
 }
