@@ -19,8 +19,8 @@ namespace Nexus.GameEngine {
 		private Hat hat;
 
 		// Position
-		private int posX = 0;
-		private int posY = 0;
+		public int posX = 0;
+		public int posY = 0;
 
 		// Travel Position Tracking
 		private uint startTime = 0;

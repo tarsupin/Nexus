@@ -55,7 +55,7 @@ namespace Nexus.GameEngine {
 			this.character = new WorldChar(this);
 
 			// Camera Update
-			Systems.camera.UpdateScene(this);
+			//Systems.camera.UpdateScene(this, 0, 0, xCount * (byte) WorldmapEnum.TileWidth, yCount * (byte)WorldmapEnum.TileHeight);
 		}
 
 		public WorldZoneFormat currentZone { get { return this.worldContent.GetWorldZone(this.campaign.zoneId); } }
@@ -70,6 +70,9 @@ namespace Nexus.GameEngine {
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
+
+			// Camera Update
+			Systems.camera.UpdateScene(this, 0, 0, this.xCount * (byte)WorldmapEnum.TileWidth, this.yCount * (byte)WorldmapEnum.TileHeight);
 
 			// Update Character
 			this.character.SetCharacter(this.campaign);
@@ -102,6 +105,9 @@ namespace Nexus.GameEngine {
 
 			// Run World UI Updates
 			this.worldUI.RunTick();
+
+			// Update Camera
+			Systems.camera.Follow(this.character.posX, this.character.posY, 100);
 
 			// Debug Console (only runs if visible)
 			Systems.worldConsole.RunTick();
