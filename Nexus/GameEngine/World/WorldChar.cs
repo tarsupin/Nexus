@@ -40,6 +40,8 @@ namespace Nexus.GameEngine {
 			this.head = Head.GetHeadBySubType((byte) HeadSubType.RyuHead);
 			this.hat = Hat.GetHatBySubType(0);
 			this.suit = Suit.GetSuitBySubType((byte) SuitSubType.RedBasic);
+
+			this.SpriteName = "Stand";
 		}
 
 		public bool IsAtNode { get { return this.startTime == 0; } }
@@ -111,6 +113,21 @@ namespace Nexus.GameEngine {
 			this.posY = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startY, this.endY));
 		}
 
+		// Update Animations and Sprite Changes for Characters.
+		// This is done after collisions, since collisions have critical impacts on how Characters are drawn.
+		public void SpriteTick() {
+
+			// If Not Traveling
+			if(this.IsAtNode) {
+				this.SpriteName = "Stand" + (this.faceRight ? "" : "Left");
+				return;
+			}
+
+			// Walk Cycle
+			var walkCycle = (Systems.timer.Frame / 11) % 2;
+			this.SpriteName = this.faceRight ? AnimCycleMap.CharacterWalkRight[walkCycle] : AnimCycleMap.CharacterWalkLeft[walkCycle];
+		}
+
 		public void Draw(int camX, int camY) {
 
 			// TODO: DRAW WITH ANIMATIONS
@@ -118,7 +135,7 @@ namespace Nexus.GameEngine {
 			// TODO: Atlas
 
 			// Draw Character's Body
-			//this.atlas.Draw(this.SpriteName, this.posX - camX, this.posY - camY);
+			this.suit.Draw(this.SpriteName, posX, posY, camX, camY);
 
 			// Draw Character's Head and Hat
 			this.head.Draw(this.faceRight, this.posX, this.posY, camX, camY);

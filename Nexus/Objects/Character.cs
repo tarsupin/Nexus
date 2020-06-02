@@ -312,15 +312,15 @@ namespace Nexus.Objects {
 
 					// If Facing Left
 					if(!this.FaceRight) {
-						this.SetSpriteName(this.suit.texture + "/TurnLeft");
+						this.SetSpriteName("TurnLeft");
 						//if(heldItem) { xShift = 74; }
 					}
 
 					// If Facing Right
 					else {
-						if(heldItem) { this.SetSpriteName(this.suit.texture + "/RunHold"); }
-						else if(velX > 5) { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterRunRight, 8, 1); }
-						else { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterWalkRight, 11); }
+						if(heldItem) { this.SetSpriteName("RunHold"); }
+						else if(velX > 5) { this.animate.SetAnimation("", AnimCycleMap.CharacterRunRight, 8, 1); }
+						else { this.animate.SetAnimation("", AnimCycleMap.CharacterWalkRight, 11); }
 					}
 				}
 
@@ -329,21 +329,21 @@ namespace Nexus.Objects {
 
 					// If Facing Right
 					if(this.FaceRight) {
-						this.SetSpriteName(this.suit.texture + "/Turn");
+						this.SetSpriteName("Turn");
 						//if(heldItem) { xShift = -14; }
 					}
 
 					// If Facing Left
 					else {
-						if(heldItem) { this.SetSpriteName(this.suit.texture + "/RunHoldLeft"); }
-						else if(velX < -5) { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterRunLeft, 8, 1); }
-						else { this.animate.SetAnimation(this.suit.texture + "/", AnimCycleMap.CharacterWalkLeft, 11); }
+						if(heldItem) { this.SetSpriteName("RunHoldLeft"); }
+						else if(velX < -5) { this.animate.SetAnimation("", AnimCycleMap.CharacterRunLeft, 8, 1); }
+						else { this.animate.SetAnimation("", AnimCycleMap.CharacterWalkLeft, 11); }
 					}
 				}
 
 				// If Not Moving
 				else {
-					this.SetSpriteName(this.suit.texture + "/Stand" + (heldItem ? "Hold" : "") + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName("Stand" + (heldItem ? "Hold" : "") + (this.FaceRight ? "" : "Left"));
 				}
 			}
 
@@ -352,17 +352,17 @@ namespace Nexus.Objects {
 
 				// If Holding Item
 				if(heldItem) {
-					this.SetSpriteName(this.suit.texture + "/RunHold" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName("RunHold" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Falling
 				else if(this.physics.velocity.Y.RoundInt > 3) {
-					this.SetSpriteName(this.suit.texture + "/Fall" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName("Fall" + (this.FaceRight ? "" : "Left"));
 				}
 
 				// Jumping (Moving Up)
 				else {
-					this.SetSpriteName(this.suit.texture + "/Jump" + (this.FaceRight ? "" : "Left"));
+					this.SetSpriteName("Jump" + (this.FaceRight ? "" : "Left"));
 				}
 			}
 		}
@@ -385,7 +385,7 @@ namespace Nexus.Objects {
 			// TODO: Invincibility Coloration
 
 			// Draw Character's Body
-			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
+			this.suit.Draw(this.SpriteName, posX, posY, camX, camY);
 
 			// Draw Character's Head and Hat
 			this.head.Draw(this.FaceRight, posX, posY, camX, camY);

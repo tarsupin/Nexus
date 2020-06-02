@@ -64,7 +64,7 @@ namespace Nexus.ObjectComponents {
 
 		public Suit(SuitRank suitRank, string texture, Hat defaultCosmeticHat = null) {
 			this.suitRank = suitRank;
-			this.texture = texture;
+			this.texture = texture + "/";
 			this.DefaultCosmeticHat = defaultCosmeticHat;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];
 		}
@@ -146,6 +146,11 @@ namespace Nexus.ObjectComponents {
 			if(this.DefaultCosmeticHat != null) {
 				this.DefaultCosmeticHat.ApplyHat(character, false);
 			}
+		}
+
+		// posX and posY should be set to character.posX and .posY respectively.
+		public void Draw(string sprite, int posX, int posY, int camX, int camY) {
+			this.atlas.Draw(this.texture + sprite, posX - camX, posY - camY);
 		}
 	}
 }
