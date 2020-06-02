@@ -135,8 +135,8 @@ namespace Nexus
 				//SceneTransition.ToLevel("", "QCALQOD16");
 				//Systems.camera.CenterAtPosition(1200, 0);
 
-				//SceneTransition.ToWorld("Tarsupin");
-				SceneTransition.ToWorldEditor("Tarsupin");
+				SceneTransition.ToWorld("Tarsupin");
+				//SceneTransition.ToWorldEditor("Tarsupin");
 
 				//Console.WriteLine("-----------------DATA--------------");
 				//Console.WriteLine(Systems.handler.level.data.id);

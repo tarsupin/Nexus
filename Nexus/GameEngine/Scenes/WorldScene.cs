@@ -24,10 +24,11 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> WorldTerrain;
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
+		public Dictionary<byte, string> WorldCharacters;
 
 		// Grid Limits
-		public byte xCount = 20;
-		public byte yCount = 20;
+		public byte xCount = 45;
+		public byte yCount = 28;
 
 		public WorldScene() : base() {
 
@@ -42,10 +43,14 @@ namespace Nexus.GameEngine {
 			this.WorldTerrain = Systems.mapper.WorldTerrain;
 			this.WorldLayers = Systems.mapper.WorldLayers;
 			this.WorldObjects = Systems.mapper.WorldObjects;
+			this.WorldCharacters = Systems.mapper.WorldCharacters;
 
 			// Prepare World Content
 			this.worldContent = Systems.handler.worldContent;
 			this.worldData = this.worldContent.data;
+
+			// Prepare Campaign Details
+			this.campaign.LoadCampaign();
 
 			// Camera Update
 			Systems.camera.UpdateScene(this);
@@ -63,6 +68,9 @@ namespace Nexus.GameEngine {
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
+
+			// Determine Character Type
+			var charHead = this.worldData.start.character;
 
 			// Generate Character
 			this.character = new WorldChar(this, HeadSubType.RyuHead);
@@ -89,6 +97,9 @@ namespace Nexus.GameEngine {
 
 			// Debug Console (only runs if visible)
 			Systems.worldConsole.RunTick();
+
+			// Prevent other interactions if the console is visible.
+			if(Systems.worldConsole.visible) { return; }
 
 			// Check Input Updates
 			this.RunInputCheck();
@@ -127,7 +138,7 @@ namespace Nexus.GameEngine {
 			if(this.character.IsAtNode) { return; }
 
 			// Get Current Node
-			NodeData curNode = this.GetNode(this.campaign.currentNodeId);
+			NodeData curNode = this.GetNode(this.campaign.currentNodeId_DEP);
 
 			// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
 			if(dir == DirCardinal.Center) {
@@ -163,12 +174,12 @@ namespace Nexus.GameEngine {
 
 			// If the current level / node hasn't been completed, prevent movement if an open path hasn't been declared.
 			// However, you can always move to the last node ID you came from.
-			if(curNode.type < NodeType.TravelPoint && !this.campaign.IsLevelWon(this.campaign.currentNodeId)) {
+			if(curNode.type < NodeType.TravelPoint && !this.campaign.IsLevelWon(this.campaign.currentNodeId_DEP)) {
 				if(nextId != campaign.lastNodeId) { return; }
 			}
 
 			// Have Character Travel Path
-			this.campaign.SetNode(nextId, this.campaign.currentNodeId);
+			this.campaign.SetNode(nextId, this.campaign.currentNodeId_DEP);
 			this.character.TravelPath(nextNode);
 		}
 
@@ -200,11 +211,11 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			Camera cam = Systems.camera;
 
-			byte startX = (byte)Math.Max((byte)0, (byte)cam.GridX);
-			byte startY = (byte)Math.Max((byte)0, (byte)cam.GridY);
+			byte startX = (byte)Math.Max((byte)0, (byte)cam.MiniX - 1);
+			byte startY = (byte)Math.Max((byte)0, (byte)cam.MiniY - 1);
 
-			byte gridX = (byte)(startX + 45 + 1); // 26 is view size. +1 is to render the edge.
-			byte gridY = (byte)(startY + 26 + 1); // 25.5 is view size. +1 is to render the edge.
+			byte gridX = (byte)(startX + 45 + 1); // 45 is view size. +1 is to render the edge.
+			byte gridY = (byte)(startY + 29 + 1); // 28.125 is view size. +1 is to render the edge.
 
 			if(gridX > this.xCount) { gridX = (byte)(this.xCount); } // Must limit to room size.
 			if(gridY > this.yCount) { gridY = (byte)(this.yCount); } // Must limit to room size.
@@ -217,7 +228,7 @@ namespace Nexus.GameEngine {
 
 			// Loop through the zone tile data:
 			for(byte y = gridY; y-- > startY;) {
-				ushort tileYPos = (ushort)(y * (byte)WorldmapEnum.TileHeight - camY);
+				int tileYPos = y * (byte)WorldmapEnum.TileHeight - camY;
 
 				for(byte x = gridX; x-- > startX;) {
 					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
