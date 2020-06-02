@@ -7,6 +7,10 @@ namespace Nexus.GameEngine {
 
 	public static class NodePath {
 
+		// ---------------------- //
+		// --- Node Detection --- //
+		// ---------------------- //
+
 		public static bool IsNodeAtLocation(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, bool dotsCount = true, bool invisibleDotsCount = true) {
 
 			// Check if a node is located here:
@@ -32,12 +36,18 @@ namespace Nexus.GameEngine {
 			return false;
 		}
 
+		public static bool IsObjectABlockingNode( byte objectId ) {
+			return objectId == (byte)OTerrainObjects.NodeStrict || objectId == (byte)OTerrainObjects.NodeCasual;
+		}
+
+		public static bool IsObjectAnAutoTravelDot( byte objectId ) {
+			return objectId >= (byte)OTerrainObjects.Dot_UL && objectId <= (byte)OTerrainObjects.Dot_RD;
+		}
+
 		public static bool IsObjectADot(byte objectId, bool invisibleDotsCount = true) {
 			
 			if(invisibleDotsCount) {
-				if(objectId >= (byte)OTerrainObjects.Dot_UL && objectId <= (byte)OTerrainObjects.Dot_RD) {
-					return true;
-				}
+				if(IsObjectAnAutoTravelDot(objectId)) { return true; }
 			}
 
 			return objectId >= (byte)OTerrainObjects.Dot_All && objectId <= (byte)OTerrainObjects.Dot_LRD;
@@ -58,24 +68,23 @@ namespace Nexus.GameEngine {
 			return (up: true, left: true, right: true, down: true);
 		}
 
-		public static DirCardinal RelativeDirectionOfTiles(sbyte relX, sbyte relY) {
+		public static bool IsDirectionAllowed(byte objectId, DirCardinal dir) {
 
-			if(relX < 0) {
-				if(relY < 0 && relY <= relX) { return DirCardinal.Up; }             // ex: -2, -3
-				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }       // ex: -2, 3
-				return DirCardinal.Left;
+			// All Level Nodes can move in all directions.
+			if(NodePath.IsObjectANode(objectId, false)) { return true; }
+
+			// Dots may or may not have direction allowance:
+			if(NodePath.IsObjectADot(objectId)) {
+
+				var dirsAllowed = NodePath.GetDotDirections(objectId);
+
+				if(dir == DirCardinal.Up) { return dirsAllowed.up; }
+				if(dir == DirCardinal.Down) { return dirsAllowed.down; }
+				if(dir == DirCardinal.Left) { return dirsAllowed.left; }
+				if(dir == DirCardinal.Right) { return dirsAllowed.right; }
 			}
 
-			if(relX > 0) {
-				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }         // ex: 2, -3
-				if(relY > 0 && relY >= relX) { return DirCardinal.Down; }           // ex: 2, 3
-				return DirCardinal.Right;
-			}
-
-			if(relY < 0) { return DirCardinal.Up; }
-			if(relY > 0) { return DirCardinal.Down; }
-
-			return DirCardinal.None;
+			return false;
 		}
 
 		public static (bool hasNode, byte gridX, byte gridY) LocateNodeConnection(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir) {
@@ -294,6 +303,30 @@ namespace Nexus.GameEngine {
 			return tuple;
 		}
 
+		// ---------------------- //
+		// --- Tile Detection --- //
+		// ---------------------- //
+
+		public static DirCardinal RelativeDirectionOfTiles(sbyte relX, sbyte relY) {
+
+			if(relX < 0) {
+				if(relY < 0 && relY <= relX) { return DirCardinal.Up; }             // ex: -2, -3
+				if(relY > 0 && relY >= 0 - relX) { return DirCardinal.Down; }       // ex: -2, 3
+				return DirCardinal.Left;
+			}
+
+			if(relX > 0) {
+				if(relY < 0 && 0 - relY >= relX) { return DirCardinal.Up; }         // ex: 2, -3
+				if(relY > 0 && relY >= relX) { return DirCardinal.Down; }           // ex: 2, 3
+				return DirCardinal.Right;
+			}
+
+			if(relY < 0) { return DirCardinal.Up; }
+			if(relY > 0) { return DirCardinal.Down; }
+
+			return DirCardinal.None;
+		}
+
 		public static void DrawDirectionTiles(byte gridX, byte gridY, byte range = 6, bool up = false, bool left = false, bool right = false, bool down = false) {
 			for(int y = gridY - range; y < gridY + range + 1; y++) {
 				for(int x = gridX - range; x < gridX + range + 1; x++) {
@@ -308,5 +341,6 @@ namespace Nexus.GameEngine {
 				}
 			}
 		}
+
 	}
 }
