@@ -23,15 +23,18 @@ namespace Nexus.GameEngine {
 		private int posY = 0;
 
 		// Travel Position Tracking
-		private bool tryAutoMove = false;
 		private uint startTime = 0;
 		private int duration = 0;
 		private int startX = 0;
 		private int startY = 0;
 		private int endX = 0;
 		private int endY = 0;
+
+		public byte curX = 0;
+		public byte curY = 0;
 		private byte willArriveX = 0;
 		private byte willArriveY = 0;
+		public DirCardinal lastDir = DirCardinal.Center;
 
 		public WorldChar(WorldScene scene) {
 			this.scene = scene;
@@ -60,14 +63,25 @@ namespace Nexus.GameEngine {
 			this.PlaceAtPosition(campaign.curX, campaign.curY);
 		}
 
-		public void PlaceAtPosition( byte gridX, byte gridY ) {
-			this.posX = gridX * (byte)WorldmapEnum.TileWidth - 4;
-			this.posY = gridY * (byte)WorldmapEnum.TileHeight - 20;
+		private void PlaceAtPosition( byte gridX, byte gridY ) {
+
+			// Reset Character Arrival Stats
+			this.willArriveX = 0;
+			this.willArriveY = 0;
+
+			// Assign Position
+			this.curX = gridX;
+			this.curY = gridY;
+			this.posX = this.curX * (byte)WorldmapEnum.TileWidth - 4;
+			this.posY = this.curY * (byte)WorldmapEnum.TileHeight - 20;
 		}
 
-		public void TravelPath( byte toGridX, byte toGridY ) {
+		public void TravelPath( byte toGridX, byte toGridY, DirCardinal dirMoved ) {
 
 			// Assign Travel Data
+			this.willArriveX = toGridX;
+			this.willArriveY = toGridY;
+			this.lastDir = dirMoved;
 			this.startTime = Systems.timer.Frame;
 			this.startX = this.posX;
 			this.startY = this.posY;
@@ -96,10 +110,10 @@ namespace Nexus.GameEngine {
 			// WorldChar travel updates don't run when stopped at a node.
 			if(this.IsAtNode) {
 
-				// If the WorldChar stops at a node, see if it continues automatically:
-				if(this.tryAutoMove) {
-					(this.scene as WorldScene).TryTravel();
-					this.tryAutoMove = false;
+				// If Arrival Was Designated
+				if(this.willArriveX != 0 || this.willArriveY != 0) {
+					this.PlaceAtPosition(this.willArriveX, this.willArriveY);
+					this.scene.ArriveAtLocation(this.curX, this.curY);
 				}
 
 				return;
@@ -112,7 +126,6 @@ namespace Nexus.GameEngine {
 			if(weight >= 1) {
 				weight = 1;
 				this.startTime = 0;
-				this.tryAutoMove = true;
 			}
 
 			// Set Position

@@ -140,45 +140,47 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void TryTravel( DirCardinal dir = DirCardinal.Center ) {
-
-			// Can only move if the character is at a Node.
-			if(!this.character.IsAtNode) { return; }
+		// Run this method when the character has arrived at a new location:
+		public void ArriveAtLocation( byte gridX, byte gridY ) {
 
 			// Get Current Tile Data
-			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.campaign.curX, this.campaign.curY);
-
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+			
 			bool isNode = NodePath.IsObjectANode(wtData[5]);
-			bool isBlocking = NodePath.IsObjectABlockingNode(wtData[5]);
+			bool isAutoDot = NodePath.IsObjectAnAutoTravelDot(wtData[5]);
 
-			// If a node is not located here, continue.
-			if(!isNode) { return; }
+			// If a node is not located here, something is wrong.
+			if(!isNode) { throw new Exception("Arrived at a destination that was not indicated as a node. That should not be possible."); }
 
-			// Make sure that direction is allowed from current Node.
-			if(!NodePath.IsDirectionAllowed(wtData[5], dir)) { return; }
-
-			// Check for a connecting Node (one with a return connection).
-			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.campaign.curX, this.campaign.curY, dir);
-
-			// Verify that a connection node exists:
-			if(!connectNode.hasNode) { return; }
-
-			// Perform Movement
-			this.character.TravelPath(connectNode.gridX, connectNode.gridY);
-
-			// Save Last Direction
-
-
-
-			// On Arrival:
-			// Check for Auto-Warps
 			// Check if Node type is Automatic Travel Dot.
-			// If so, continue in next available direction immediately.
+			if(isAutoDot) {
 
-			// Update Campaign Location
+				// We need to automatically travel. Take the route that wasn't taken last time:
+				DirCardinal lastDir = this.character.lastDir;
+				DirCardinal nextDir = DirCardinal.None;
 
-			//// Get Current Node
-			//NodeData curNode = this.GetNode(this.campaign.currentNodeId_DEP);
+				// Determine the next intended route:
+				var nodeDirs = NodePath.GetDotDirections(wtData[5]);
+
+				if(nodeDirs.up && lastDir != DirCardinal.Up) { nextDir = DirCardinal.Up; }
+				else if(nodeDirs.down && lastDir != DirCardinal.Down) { nextDir = DirCardinal.Down; }
+				else if(nodeDirs.right && lastDir != DirCardinal.Right) { nextDir = DirCardinal.Right; }
+				else if(nodeDirs.left && lastDir != DirCardinal.Left) { nextDir = DirCardinal.Left; }
+
+				// Attempt to travel in that direction:
+				bool success = this.TryTravel(nextDir);
+
+				// If the Auto-Travel fails, we need to return back.
+				if(!success) {
+					this.TryTravel(lastDir);
+				}
+
+				return;
+			}
+
+			// Check for Auto-Warps
+
+
 
 			//// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
 			//if(dir == DirCardinal.Center) {
@@ -195,32 +197,45 @@ namespace Nexus.GameEngine {
 			//		}
 			//	}
 
-			//	// Check for auto-move travel nodes:
-			//	else {
-			//		if(curNode.type != NodeType.TravelMove && curNode.type != NodeType.TravelPoint) { return; }
+		}
 
-			//		// Identify the Remaining Travel Direction(s):
-			//		dir = this.GetAutoDir(curNode, this.campaign.lastNodeId);
-			//	}
-			//}
+		public bool TryTravel( DirCardinal dir = DirCardinal.Center ) {
 
-			//// Make sure the direction indicated is a valid option:
-			//ushort nextId = curNode.GetIdOfNodeDir(dir);
-			//if(nextId == 0) { return; }
+			// Can only move if the character is at a Node.
+			if(!this.character.IsAtNode) { return false; }
 
-			//// Get Last Node
-			//NodeData nextNode = this.GetNode(nextId);
-			//if(nextNode == null) { return; }
+			// Get Current Tile Data
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.campaign.curX, this.campaign.curY);
 
-			//// If the current level / node hasn't been completed, prevent movement if an open path hasn't been declared.
-			//// However, you can always move to the last node ID you came from.
-			//if(curNode.type < NodeType.TravelPoint && !this.campaign.IsLevelWon(this.campaign.currentNodeId_DEP)) {
-			//	if(nextId != campaign.lastNodeId) { return; }
-			//}
+			bool isNode = NodePath.IsObjectANode(wtData[5]);
+			bool isBlocking = NodePath.IsObjectABlockingNode(wtData[5]);
 
-			//// Have Character Travel Path
-			//this.campaign.SetNode(nextId, this.campaign.currentNodeId_DEP);
-			//this.character.TravelPath(nextNode);
+			// If a node is not located here, continue.
+			if(!isNode) { return false; }
+
+			// If the node is blocking (level unfinished), only the path back is allowed:
+			if(isBlocking) {
+				var lastDir = this.character.lastDir;
+
+				if(lastDir == DirCardinal.Left && dir != DirCardinal.Right) { return false; }
+				if(lastDir == DirCardinal.Right && dir != DirCardinal.Left) { return false; }
+				if(lastDir == DirCardinal.Up && dir != DirCardinal.Down) { return false; }
+				if(lastDir == DirCardinal.Down && dir != DirCardinal.Up) { return false; }
+			}
+
+			// Make sure that direction is allowed from current Node.
+			if(!NodePath.IsDirectionAllowed(wtData[5], dir)) { return false; }
+
+			// Check for a connecting Node (one with a return connection).
+			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.campaign.curX, this.campaign.curY, dir);
+
+			// Verify that a connection node exists:
+			if(!connectNode.hasNode) { return false; }
+
+			// Perform Movement
+			this.character.TravelPath(connectNode.gridX, connectNode.gridY, dir);
+
+			return true;
 		}
 
 		public DirCardinal GetAutoDir( NodeData node, ushort lastNodeId = 0, byte countReq = 1 ) {
