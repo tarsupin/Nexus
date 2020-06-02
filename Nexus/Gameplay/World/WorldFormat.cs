@@ -42,6 +42,8 @@ namespace Nexus.Gameplay {
 		[JsonProperty("tiles")]
 		public byte[][][] tiles { get; set; }
 
+		// Stores a dictionary of CoordinateIDs (as strings) mapped to Level IDs.
+		// e.g. "nodes":{"1664":"TUTORIAL_1","1676":"TUTORIAL_2","1977":"TUTORIAL_3","2162":"TUTORIAL_4","2610":"TUTORIAL_5"}
 		[JsonProperty("nodes")]
 		public Dictionary<string, string> nodes { get; set; }
 	}

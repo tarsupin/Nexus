@@ -111,7 +111,7 @@ namespace Nexus.GameEngine {
 			if(this.IsAtNode) {
 
 				// If Arrival Was Designated
-				if(this.willArriveX != 0 || this.willArriveY != 0) {
+				if(this.willArriveX != 0 && this.willArriveY != 0) {
 					this.PlaceAtPosition(this.willArriveX, this.willArriveY);
 					this.scene.ArriveAtLocation(this.curX, this.curY);
 				}

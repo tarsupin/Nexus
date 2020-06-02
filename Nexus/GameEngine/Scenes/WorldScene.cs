@@ -162,17 +162,20 @@ namespace Nexus.GameEngine {
 				// Determine the next intended route:
 				var nodeDirs = NodePath.GetDotDirections(wtData[5]);
 
-				if(nodeDirs.up && lastDir != DirCardinal.Up) { nextDir = DirCardinal.Up; }
-				else if(nodeDirs.down && lastDir != DirCardinal.Down) { nextDir = DirCardinal.Down; }
-				else if(nodeDirs.right && lastDir != DirCardinal.Right) { nextDir = DirCardinal.Right; }
-				else if(nodeDirs.left && lastDir != DirCardinal.Left) { nextDir = DirCardinal.Left; }
+				if(nodeDirs.up && lastDir != DirCardinal.Down) { nextDir = DirCardinal.Up; }
+				else if(nodeDirs.down && lastDir != DirCardinal.Up) { nextDir = DirCardinal.Down; }
+				else if(nodeDirs.right && lastDir != DirCardinal.Left) { nextDir = DirCardinal.Right; }
+				else if(nodeDirs.left && lastDir != DirCardinal.Right) { nextDir = DirCardinal.Left; }
 
 				// Attempt to travel in that direction:
 				bool success = this.TryTravel(nextDir);
 
 				// If the Auto-Travel fails, we need to return back.
 				if(!success) {
-					this.TryTravel(lastDir);
+					if(lastDir == DirCardinal.Left) { this.TryTravel(DirCardinal.Right); }
+					else if(lastDir == DirCardinal.Right) { this.TryTravel(DirCardinal.Left); }
+					else if(lastDir == DirCardinal.Up) { this.TryTravel(DirCardinal.Down); }
+					else if(lastDir == DirCardinal.Down) { this.TryTravel(DirCardinal.Up); }
 				}
 
 				return;
@@ -205,7 +208,7 @@ namespace Nexus.GameEngine {
 			if(!this.character.IsAtNode) { return false; }
 
 			// Get Current Tile Data
-			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.campaign.curX, this.campaign.curY);
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.character.curX, this.character.curY);
 
 			bool isNode = NodePath.IsObjectANode(wtData[5]);
 			bool isBlocking = NodePath.IsObjectABlockingNode(wtData[5]);
@@ -215,19 +218,31 @@ namespace Nexus.GameEngine {
 
 			// If the node is blocking (level unfinished), only the path back is allowed:
 			if(isBlocking) {
-				var lastDir = this.character.lastDir;
 
-				if(lastDir == DirCardinal.Left && dir != DirCardinal.Right) { return false; }
-				if(lastDir == DirCardinal.Right && dir != DirCardinal.Left) { return false; }
-				if(lastDir == DirCardinal.Up && dir != DirCardinal.Down) { return false; }
-				if(lastDir == DirCardinal.Down && dir != DirCardinal.Up) { return false; }
+				// Identify Level Data at this node:
+				uint coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+				string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
+
+				// TODO: REMOVE
+				System.Console.WriteLine("Level ID: " + levelId);
+
+				// Check if this level has been completed (or isn't marked as one)
+				if(levelId != "" && !this.campaign.IsLevelWon(this.campaign.zoneId, levelId)) {
+
+					// The level hasn't been completed, so it is restricted in all directions except from where you came.
+					var lastDir = this.character.lastDir;
+					if(lastDir == DirCardinal.Left && dir != DirCardinal.Right) { return false; }
+					if(lastDir == DirCardinal.Right && dir != DirCardinal.Left) { return false; }
+					if(lastDir == DirCardinal.Up && dir != DirCardinal.Down) { return false; }
+					if(lastDir == DirCardinal.Down && dir != DirCardinal.Up) { return false; }
+				}
 			}
 
 			// Make sure that direction is allowed from current Node.
 			if(!NodePath.IsDirectionAllowed(wtData[5], dir)) { return false; }
 
 			// Check for a connecting Node (one with a return connection).
-			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.campaign.curX, this.campaign.curY, dir);
+			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.character.curX, this.character.curY, dir);
 
 			// Verify that a connection node exists:
 			if(!connectNode.hasNode) { return false; }
