@@ -15,11 +15,9 @@ namespace Nexus.GameEngine {
 			{ (byte) OTerrainObjects.NodeMove, new string[2] { "Movement Node", "Can travel along this node, and connect it to levels." } },
 			{ (byte) OTerrainObjects.NodeWarp, new string[2] { "Warp Node", "Will move the player to a new zone when touched." } },
 			{ (byte) OTerrainObjects.NodeWon, new string[2] { "Optional Level", "A level that is considered beaten. Won't obstruct movement." } },
-			{ (byte) OTerrainObjects.NodeStart, new string[2] { "Starting Position", "The location the player starts. Can place on any level." } },
 
 			// Movement Nodes
 			{ (byte) OTerrainObjects.Dot_All, new string[2] { "Fork Node, All", "This node is for movement only. It forks in all four directions." } },
-
 			{ (byte) OTerrainObjects.Dot_ULR, new string[2] { "Fork Node, Up-Left-Right", "This node is for movement only. It forks up, left, and right." } },
 			{ (byte) OTerrainObjects.Dot_ULD, new string[2] { "Fork Node, Up-Left-Down", "This node is for movement only. It forks up, left, and down." } },
 			{ (byte) OTerrainObjects.Dot_URD, new string[2] { "Fork Node, Up-Right-Down", "This node is for movement only. It forks up, right, and down." } },
@@ -32,6 +30,11 @@ namespace Nexus.GameEngine {
 			{ (byte) OTerrainObjects.Dot_UR, new string[2] { "Auto-Travel Dot", "This node is invisible and auto-travels. Travel is up and right." } },
 			{ (byte) OTerrainObjects.Dot_RD, new string[2] { "Auto-Travel Dot", "This node is invisible and auto-travels. Travel is right and down." } },
 			{ (byte) OTerrainObjects.Dot_LD, new string[2] { "Auto-Travel Dot", "This node is invisible and auto-travels. Travel is left and down." } },
+
+			// Character Starting Positions
+			{ (byte) OTerrainObjects.StartRyu, new string[2] { "Ryu Start Position", "Place on any level node. This assigns Ryu as the world's play-through character." } },
+			{ (byte) OTerrainObjects.StartPoo, new string[2] { "Poo Start Position", "Place on any level node. This assigns Poo as the world's play-through character." } },
+			{ (byte) OTerrainObjects.StartCarl, new string[2] { "Carl Start Position", "Place on any level node. This assigns Carl as the world's play-through character." } },
 		};
 	}
 }

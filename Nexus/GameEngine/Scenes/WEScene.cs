@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 
@@ -22,6 +23,7 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> WorldTerrain;
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
+		public Dictionary<byte, string> WorldCharacters;
 
 		// Local Mapping Rules
 		private Dictionary<byte, OLayer> mapLayerRule = new Dictionary<byte, OLayer>() {
@@ -67,6 +69,7 @@ namespace Nexus.GameEngine {
 			this.WorldTerrain = Systems.mapper.WorldTerrain;
 			this.WorldLayers = Systems.mapper.WorldLayers;
 			this.WorldObjects = Systems.mapper.WorldObjects;
+			this.WorldCharacters = Systems.mapper.WorldCharacters;
 
 			// Camera Update
 			Systems.camera.SetInputMoveSpeed(15);
@@ -267,11 +270,17 @@ namespace Nexus.GameEngine {
 				};
 			}
 
+			// Draw Start Node (if on screen)
+			StartNodeFormat start = this.worldData.start;
+
+			if(start != null && start.zoneId == this.campaign.zoneId && start.x >= startX && start.x <= gridX && start.y >= startY && start.y <= gridY) {
+				this.atlas.Draw("Objects/" + WorldCharacters[(byte) start.character], start.x * (byte)WorldmapEnum.TileWidth - camX, start.y * (byte)WorldmapEnum.TileHeight - camY);
+			}
+
 			// Draw UI
 			this.weUI.Draw();
 			this.DrawNodePaths(cam);
 			Systems.worldEditConsole.Draw();
-
 		}
 
 		private void DrawNodePaths(Camera cam) {
@@ -406,9 +415,8 @@ namespace Nexus.GameEngine {
 		public void PlaceObject(byte objectId, byte gridX, byte gridY) {
 
 			// Start Node Behavior
-			if(objectId == (byte) OTerrainObjects.NodeStart) {
-
-				// TODO: SPECIAL START BEHAVIOR
+			if(objectId >= (byte) OTerrainObjects.StartRyu) {
+				this.AssignStartData(objectId, gridX, gridY);
 				return;
 			}
 
@@ -417,6 +425,25 @@ namespace Nexus.GameEngine {
 
 			// Place the Object
 			this.worldContent.SetTileObject(this.currentZone, gridX, gridY, objectId);
+		}
+
+		private void AssignStartData(byte objectId, byte gridX, byte gridY) {
+
+			// Make sure there is a visible node present:
+			bool isVisibleNode = NodePath.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY, true, false);
+			if(!isVisibleNode) { return; }
+
+			// Prepare Character
+			byte character = (byte)HeadSubType.RyuHead;
+
+			switch(objectId) {
+				case (byte)OTerrainObjects.StartRyu: character = (byte)HeadSubType.RyuHead; break;
+				case (byte)OTerrainObjects.StartPoo: character = (byte)HeadSubType.PooHead; break;
+				case (byte)OTerrainObjects.StartCarl: character = (byte)HeadSubType.CarlHead; break;
+			}
+
+			// Update Start Data
+			this.worldContent.SetStartData(this.campaign.zoneId, gridX, gridY, character);
 		}
 
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
@@ -497,12 +524,8 @@ namespace Nexus.GameEngine {
 
 		public bool DeleteNodeIfPresent(byte gridX, byte gridY) {
 
-			// Get Object at Location
-			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
-			byte objectId = wtData[5];
-
 			// Determine if the Object is a Node
-			bool isNode = NodePath.IsObjectANode(objectId);
+			bool isNode = NodePath.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY);
 
 			// If the object is a node:
 			if(isNode) {

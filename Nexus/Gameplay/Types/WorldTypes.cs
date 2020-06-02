@@ -233,7 +233,6 @@ namespace Nexus.Gameplay {
 		NodeCasual = 76,
 		NodeWarp = 77,
 		NodeWon = 78,
-		NodeStart = 79,
 
 		// Stone Bridge
 		StoneBridge2 = 100,
@@ -251,6 +250,10 @@ namespace Nexus.Gameplay {
 		WoodBridgeH = 115,
 		WoodBridgeV = 116,
 
+		// Characters (Reserve 200-230)
+		StartRyu = 200,
+		StartPoo = 201,
+		StartCarl = 202,
 	}
 
 	public class RandTypeCur {

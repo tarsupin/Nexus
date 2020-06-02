@@ -57,6 +57,7 @@ namespace Nexus.Gameplay {
 		public Dictionary<byte, string> WorldTerrain;
 		public Dictionary<byte, string> WorldLayers;
 		public Dictionary<byte, string> WorldObjects;
+		public Dictionary<byte, string> WorldCharacters;
 
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
@@ -472,7 +473,6 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.NodeMove, "NodeMove" },
 				{ (byte) OTerrainObjects.NodeWarp, "NodeWarp" },
 				{ (byte) OTerrainObjects.NodeWon, "NodeWon" },
-				{ (byte) OTerrainObjects.NodeStart, "NodeStart" },
 
 				// Dots
 				{ (byte) OTerrainObjects.Dot_All, "Dot_All" },
@@ -486,6 +486,18 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.Dot_LR, "Dot_LR" },
 				{ (byte) OTerrainObjects.Dot_LD, "Dot_LD" },
 				{ (byte) OTerrainObjects.Dot_RD, "Dot_RD" },
+				
+				// Character Starting Points
+				{ (byte) OTerrainObjects.StartRyu, "StartRyu" },
+				{ (byte) OTerrainObjects.StartPoo, "StartPoo" },
+				{ (byte) OTerrainObjects.StartCarl, "StartCarl" },
+			};
+
+			// World Characters
+			this.WorldCharacters = new Dictionary<byte, string>() {
+				{ (byte) HeadSubType.RyuHead, "StartRyu" },
+				{ (byte) HeadSubType.PooHead, "StartPoo" },
+				{ (byte) HeadSubType.CarlHead, "StartCarl" },
 			};
 		}
 

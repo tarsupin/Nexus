@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Nexus.Engine;
-using Nexus.GameEngine;
+using Nexus.ObjectComponents;
 using System;
+using System.IO;
 
 namespace Nexus.Gameplay {
 
@@ -50,13 +51,18 @@ namespace Nexus.Gameplay {
 		public void SaveWorld() {
 
 			// Can only save a world state if the world ID is assigned correctly.
-			if(this.worldId.Length == 0) { return; }
+			if(this.worldId == null || this.worldId.Length == 0) { return; }
 
-			// TODO LOW PRIORITY: Verify that the worldId exists; not just that an ID is present.
+			// Determine the Destination Path and Destination Level ID
+			string localFile = WorldContent.GetLocalWorldPath(this.worldId);
+
+			// Make sure the directory exists:
+			string localDir = Path.GetDirectoryName(localFile);
+			Systems.filesLocal.MakeDirectory(localDir, true);
 
 			// Save State
 			string json = JsonConvert.SerializeObject(this.data);
-			Systems.filesLocal.WriteFile(WorldContent.GetLocalWorldPath(this.worldId), json);
+			Systems.filesLocal.WriteFile(localFile, json);
 		}
 
 		public WorldZoneFormat GetWorldZone(byte zoneId) {
@@ -134,6 +140,16 @@ namespace Nexus.Gameplay {
 			if(gridY >= tiles.Length) { return new byte[] { 0, 0, 0, 0, 0, 0, 0 }; }
 			if(gridX >= tiles[gridY].Length) { return new byte[] { 0, 0, 0, 0, 0, 0, 0 }; }
 			return tiles[gridY][gridX];
+		}
+
+		public bool SetStartData(byte zoneId, byte gridX, byte gridY, byte character = (byte) HeadSubType.RyuHead) {
+			this.data.start = new StartNodeFormat() {
+				x = gridX,
+				y = gridY,
+				zoneId = zoneId,
+				character = character,
+			};
+			return true;
 		}
 
 		public bool SetTile(WorldZoneFormat zone, byte gridX, byte gridY, byte tBase = 0, byte top = 0, byte topLay = 0, byte cover = 0, byte coverLay = 0, byte obj = 0, byte nodeId = 0) {

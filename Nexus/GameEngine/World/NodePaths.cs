@@ -7,8 +7,17 @@ namespace Nexus.GameEngine {
 
 	public static class NodePath {
 
-		public static bool IsObjectANode(byte objectId) {
-			if(NodePath.IsObjectADot(objectId)) { return true; }
+		public static bool IsNodeAtLocation(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, bool dotsCount = true, bool invisibleDotsCount = true) {
+
+			// Check if a node is located here:
+			byte[] wtData = worldContent.GetWorldTileData(zone, (byte)gridX, (byte)gridY);
+
+			// If a node is not located here, continue.
+			return NodePath.IsObjectANode(wtData[5]);
+		}
+
+		public static bool IsObjectANode(byte objectId, bool dotsCount = true, bool invisibleDotsCount = true) {
+			if(dotsCount && NodePath.IsObjectADot(objectId, invisibleDotsCount)) { return true; }
 
 			switch(objectId) {
 				case (byte)OTerrainObjects.NodeStrict:
@@ -23,8 +32,15 @@ namespace Nexus.GameEngine {
 			return false;
 		}
 
-		public static bool IsObjectADot(byte objectId) {
-			return objectId >= (byte)OTerrainObjects.Dot_All && objectId <= (byte)OTerrainObjects.Dot_RD;
+		public static bool IsObjectADot(byte objectId, bool invisibleDotsCount = true) {
+			
+			if(invisibleDotsCount) {
+				if(objectId >= (byte)OTerrainObjects.Dot_UL && objectId <= (byte)OTerrainObjects.Dot_RD) {
+					return true;
+				}
+			}
+
+			return objectId >= (byte)OTerrainObjects.Dot_All && objectId <= (byte)OTerrainObjects.Dot_LRD;
 		}
 
 		public static (bool up, bool left, bool right, bool down) GetDotDirections(byte objectId) {
@@ -276,15 +292,6 @@ namespace Nexus.GameEngine {
 
 			// Return No Results
 			return tuple;
-		}
-
-		private static bool IsNodeAtLocation(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY) {
-
-			// Check if a node is located here:
-			byte[] wtData = worldContent.GetWorldTileData(zone, (byte)gridX, (byte)gridY);
-
-			// If a node is not located here, continue.
-			return NodePath.IsObjectANode(wtData[5]);
 		}
 
 		public static void DrawDirectionTiles(byte gridX, byte gridY, byte range = 6, bool up = false, bool left = false, bool right = false, bool down = false) {

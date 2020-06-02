@@ -271,7 +271,6 @@
     <Compile Include="Gameplay\Types\TileTypes.cs" />
     <Compile Include="Gameplay\Types\ArenaTypes.cs" />
     <Compile Include="Gameplay\Types\SocketFlagTypes.cs" />
-    <Compile Include="Gameplay\World\WorldZoneFormat.cs" />
     <Compile Include="Gameplay\World\WorldFormat.cs" />
     <Compile Include="Gameplay\World\WorldContent.cs" />
     <Compile Include="Gameplay\Level\LevelFormat.cs" />
