@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public static class WCToEditor {
@@ -8,9 +10,9 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.helpText = "Load the world editor for this world. No additional parameters required.";
 
 			if(ConsoleTrack.activate) {
-
+				
 				// Transition to an Editor Scene
-				SceneTransition.ToWorldEditor();
+				SceneTransition.ToWorldEditor(Systems.handler.worldContent.worldId);
 			}
 		}
 	}

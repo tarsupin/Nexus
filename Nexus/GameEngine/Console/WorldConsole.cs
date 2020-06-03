@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 			this.baseHelperText = "The world console can provide special assistance within a world.";
 
 			this.consoleDict = new Dictionary<string, Action>() {
-			
+				
 				// Editor
 				{ "editor", WCToEditor.ToEditor },
 

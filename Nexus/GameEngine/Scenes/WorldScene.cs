@@ -166,10 +166,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Movement
-			else if(playerInput.isPressed(IKey.Up)) { this.TryTravel(DirCardinal.Up); }
-			else if(playerInput.isPressed(IKey.Down)) { this.TryTravel(DirCardinal.Down); }
-			else if(playerInput.isPressed(IKey.Left)) { this.TryTravel(DirCardinal.Left); }
-			else if(playerInput.isPressed(IKey.Right)) { this.TryTravel(DirCardinal.Right); }
+			else if(playerInput.isDown(IKey.Up)) { this.TryTravel(DirCardinal.Up); }
+			else if(playerInput.isDown(IKey.Down)) { this.TryTravel(DirCardinal.Down); }
+			else if(playerInput.isDown(IKey.Left)) { this.TryTravel(DirCardinal.Left); }
+			else if(playerInput.isDown(IKey.Right)) { this.TryTravel(DirCardinal.Right); }
 
 			// Activate Node
 			else if(playerInput.isPressed(IKey.AButton) == true) {
