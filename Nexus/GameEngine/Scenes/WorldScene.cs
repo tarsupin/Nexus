@@ -229,9 +229,6 @@ namespace Nexus.GameEngine {
 				uint coordId = Coords.MapToInt(this.character.curX, this.character.curY);
 				string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
 
-				// TODO: REMOVE
-				System.Console.WriteLine("Level ID: " + levelId);
-
 				// Check if this level has been completed (or isn't marked as one)
 				if(levelId != "" && !this.campaign.IsLevelWon(this.campaign.zoneId, levelId)) {
 
@@ -257,21 +254,6 @@ namespace Nexus.GameEngine {
 			this.character.TravelPath(connectNode.gridX, connectNode.gridY, dir);
 
 			return true;
-		}
-
-		public DirCardinal GetAutoDir( NodeData node, ushort lastNodeId = 0, byte countReq = 1 ) {
-			byte count = 0;
-
-			// Identify the remaining travel direction(s):
-			DirCardinal lastDir = lastNodeId > 0 ? this.FindDirToNode(node, lastNodeId) : DirCardinal.None;
-
-			DirCardinal dir = DirCardinal.None;
-			if(node.Down > 0 && lastDir != DirCardinal.Down) { dir = DirCardinal.Down; count++; }
-			if(node.Left > 0 && lastDir != DirCardinal.Left) { dir = DirCardinal.Left; count++; }
-			if(node.Right > 0 && lastDir != DirCardinal.Right) { dir = DirCardinal.Right; count++; }
-			if(node.Up > 0 && lastDir != DirCardinal.Up) { dir = DirCardinal.Up; count++; }
-
-			return count != countReq ? DirCardinal.None : dir;
 		}
 
 		public void ActivateWarp( byte zoneId, ushort warpId ) {
@@ -356,75 +338,6 @@ namespace Nexus.GameEngine {
 			if(wtData[5] != 0) {
 				this.atlas.Draw("Objects/" + WorldObjects[wtData[5]], posX, posY);
 			}
-		}
-
-
-
-
-
-
-		public NodeData GetNode(ushort nodeId) {
-			return null;
-			//return this.nodes.ContainsKey(nodeId) ? this.nodes[nodeId] : null;
-		}
-
-		public ushort GetNodeIdByGrid(byte gridX, byte gridY) {
-
-			// TODO: FIX THIS ONCE WORLD FORMAT IS CORRECT.
-			//if(!this.tiles.ContainsKey(gridY)) { return 0; }
-			//if(!this.tiles[gridY].ContainsKey(gridX)) { return 0; }
-
-			//return this.tiles[gridY][gridX].nodeId;
-			return 0;
-		}
-
-		public ushort FindWarpDestinationNode(byte zoneId, ushort warpId) {
-			var zones = Systems.handler.worldContent.data.zones;
-
-			// Make sure the zone contains the Zone ID assigned from the warp.
-			if(zones.Length < zoneId) { return 0; }
-
-			WorldZoneFormat zone = zones[zoneId];
-			var tiles = zone.tiles;
-
-			// TODO: REST OF THIS
-			// Loop through tiles:
-			//foreach(var result in tiles) {
-			//	var row = result.Value;
-
-			//	foreach()
-			//}
-
-			//NodeData[] nodes = zone.
-
-			//let find = zone !== null ? this.worldData.zones[zone].nodes : this.nodes;
-			//for(let id in find) {
-			//		let node = find[id];
-			//		if(node.warp === warpId) { return parseInt(id); }
-			//	}
-			//	return null;
-			return 0;
-		}
-
-		public DirCardinal FindDirToNode(NodeData startNode, ushort endId) {
-			if(startNode.Up == endId) { return DirCardinal.Up; }
-			if(startNode.Right == endId) { return DirCardinal.Right; }
-			if(startNode.Down == endId) { return DirCardinal.Down; }
-			if(startNode.Left == endId) { return DirCardinal.Left; }
-			return DirCardinal.None;
-		}
-
-
-
-		// TODO: Do these when we need to edit the world.
-		// TODO: Do these when we need to edit the world.
-
-		// ----------------------------
-		//   Editing Methods
-		// ----------------------------
-
-		public void AssignStartNode() {
-
 		}
 	}
 }

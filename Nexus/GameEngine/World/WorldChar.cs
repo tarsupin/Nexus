@@ -107,6 +107,32 @@ namespace Nexus.GameEngine {
 
 		public void RunTick() {
 
+			if(CheckForArrival()) { return; }
+
+			// WorldChar is Moving
+			// Identify Position based on Global Timing
+			float weight = (float) (Systems.timer.Frame - this.startTime) / this.duration;
+
+			if(weight >= 1) {
+				weight = 1;
+				this.startTime = 0;
+
+				if(CheckForArrival()) {
+					this.SpriteTick();
+					return;
+				}
+			}
+
+			// Set Position
+			this.posX = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startX, this.endX));
+			this.posY = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startY, this.endY));
+
+			// Update Sprite
+			this.SpriteTick();
+		}
+
+		private bool CheckForArrival() {
+
 			// WorldChar travel updates don't run when stopped at a node.
 			if(this.IsAtNode) {
 
@@ -116,24 +142,10 @@ namespace Nexus.GameEngine {
 					this.scene.ArriveAtLocation(this.curX, this.curY);
 				}
 
-				return;
+				return true;
 			}
 
-			// WorldChar is Moving
-			// Identify Position based on Global Timing
-			float weight = (float) (Systems.timer.Frame - this.startTime) / this.duration;
-
-			if(weight >= 1) {
-				weight = 1;
-				this.startTime = 0;
-			}
-
-			// Set Position
-			this.posX = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startX, this.endX));
-			this.posY = (int) Math.Floor(Spectrum.GetValueFromPercent(weight, this.startY, this.endY));
-
-			// Update Sprite
-			this.SpriteTick();
+			return false;
 		}
 
 		// Update Animations and Sprite Changes for Characters.
