@@ -4,6 +4,7 @@ using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -41,8 +42,10 @@ namespace Nexus.GameEngine {
 			// Prepare Mapper Data
 			this.WorldTerrain = Systems.mapper.WorldTerrain;
 			this.WorldLayers = Systems.mapper.WorldLayers;
-			this.WorldObjects = Systems.mapper.WorldObjects;
+			this.WorldObjects = new Dictionary<byte, string>();
 			this.WorldCharacters = Systems.mapper.WorldCharacters;
+
+			this.PrepareWorldObjects();
 
 			// Prepare World Content
 			this.worldContent = Systems.handler.worldContent;
@@ -87,6 +90,36 @@ namespace Nexus.GameEngine {
 
 		public override void EndScene() {
 			//if(Systems.music.whatever) { Systems.music.SomeTrack.Stop(); }
+		}
+
+		// In the World Scene, World Objects needs to draw certain objects differently.
+		// The Auto-Travel Dots, for example, need to be invisible.
+		// Therefore, we must rebuild the WorldObjects property to be a clone, and then update appropriately.
+		private void PrepareWorldObjects() {
+
+			// Clone WorldObjects
+			foreach(KeyValuePair<byte, string> entry in Systems.mapper.WorldObjects) {
+				this.WorldObjects.Add(entry.Key, (string)entry.Value.Clone());
+			}
+
+			// Update Values that must be changed from the original Mapper version:
+
+			// Nodes
+			//this.WorldObjects[(byte)OTerrainObjects.NodePoint] = "NodePoint";
+			//this.WorldObjects[(byte)OTerrainObjects.NodeMove] = "NodeMove";
+
+			// Dots
+			this.WorldObjects[(byte)OTerrainObjects.Dot_All] = "NodePoint";
+			this.WorldObjects[(byte)OTerrainObjects.Dot_ULR] = "NodePoint";
+			this.WorldObjects[(byte)OTerrainObjects.Dot_ULD] = "NodePoint";
+			this.WorldObjects[(byte)OTerrainObjects.Dot_URD] = "NodePoint";
+			this.WorldObjects[(byte)OTerrainObjects.Dot_LRD] = "NodePoint";
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_UL);
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_UR);
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_UD);
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_LR);
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_LD);
+			this.WorldObjects.Remove((byte)OTerrainObjects.Dot_RD);
 		}
 
 		public override void RunTick() {
@@ -336,7 +369,9 @@ namespace Nexus.GameEngine {
 
 			// Draw Object Layer [5]
 			if(wtData[5] != 0) {
-				this.atlas.Draw("Objects/" + WorldObjects[wtData[5]], posX, posY);
+				if(WorldObjects.ContainsKey(wtData[5])) {
+					this.atlas.Draw("Objects/" + WorldObjects[wtData[5]], posX, posY);
+				}
 			}
 		}
 	}
