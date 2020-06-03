@@ -12,7 +12,6 @@ namespace Nexus.GameEngine {
 		// Appearance
 		private readonly Atlas atlas;
 		private string SpriteName;
-		private bool useRunSpeed = false;
 		private bool faceRight = true;
 		private Suit suit;
 		private Head head;
@@ -90,19 +89,11 @@ namespace Nexus.GameEngine {
 
 			// Determine the standard walk duration.
 			int dist = TrigCalc.GetDistance(this.startX, this.startY, this.endX, this.endY);
-			this.duration = dist;
+			this.duration = (int) (dist * 0.4);
 
 			// Update Face Direction
 			if(this.endX > this.startX) { this.faceRight = true; }
 			else { this.faceRight = false; }
-
-			// Update Speed (Walk or Run)
-			if(this.duration > 90) {
-				this.duration = (int)(this.duration * 0.4);
-				this.useRunSpeed = true;
-			} else {
-				this.useRunSpeed = false;
-			}
 		}
 
 		public void RunTick() {
@@ -158,16 +149,12 @@ namespace Nexus.GameEngine {
 			}
 
 			// Run Cycle
-			if(this.useRunSpeed) {
-				var walkCycle = (Systems.timer.Frame / 7) % 2;
-				this.SpriteName = this.faceRight ? AnimCycleMap.CharacterRunRight[walkCycle] : AnimCycleMap.CharacterRunLeft[walkCycle];
-			}
+			var walkCycle = (Systems.timer.Frame / 7) % 2;
+			this.SpriteName = this.faceRight ? AnimCycleMap.CharacterRunRight[walkCycle] : AnimCycleMap.CharacterRunLeft[walkCycle];
 
 			// Walk Cycle
-			else {
-				var walkCycle = (Systems.timer.Frame / 11) % 2;
-				this.SpriteName = this.faceRight ? AnimCycleMap.CharacterWalkRight[walkCycle] : AnimCycleMap.CharacterWalkLeft[walkCycle];
-			}
+			//var walkCycle = (Systems.timer.Frame / 11) % 2;
+			//this.SpriteName = this.faceRight ? AnimCycleMap.CharacterWalkRight[walkCycle] : AnimCycleMap.CharacterWalkLeft[walkCycle];
 		}
 
 		public void Draw(int camX, int camY) {
