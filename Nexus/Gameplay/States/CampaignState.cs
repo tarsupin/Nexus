@@ -34,7 +34,7 @@ namespace Nexus.Gameplay {
 		public byte powerMob;           // Mobility Power (e.g. MobilityPowerType.Levitate)
 
 		// Nodes Completed / Status
-		protected Dictionary<byte, Dictionary<string, CampaignLevelStatus>> levelStatus = new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>();
+		public Dictionary<byte, Dictionary<string, CampaignLevelStatus>> levelStatus = new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>();
 	}
 
 	public class CampaignState : CampaignJson {
@@ -54,6 +54,7 @@ namespace Nexus.Gameplay {
 			this.SetLives();
 			this.SetWounds();
 			this.SetEquipment();
+			this.SetLevelStatus(new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>());
 		}
 
 		public void SetWorld(string worldId = "") {
@@ -88,6 +89,10 @@ namespace Nexus.Gameplay {
 			this.hat = hat;
 			this.powerAtt = powerAtt;
 			this.powerMob = powerMob;
+		}
+
+		public void SetLevelStatus(Dictionary<byte, Dictionary<string, CampaignLevelStatus>> levelStatus) {
+			this.levelStatus = levelStatus;
 		}
 
 		// Return TRUE if the level has been completed in this campaign.
@@ -182,6 +187,7 @@ namespace Nexus.Gameplay {
 			this.SetWounds(camp.health, camp.armor);
 			this.SetHead(camp.head);
 			this.SetEquipment(camp.suit, camp.hat, camp.powerAtt, camp.powerMob);
+			this.SetLevelStatus(camp.levelStatus);
 		}
 	}
 }

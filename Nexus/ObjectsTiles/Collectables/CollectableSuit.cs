@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			this.paramSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
-			this.titles = new string[12];
+			this.titles = new string[13];
 			this.titles[(byte)SuitSubType.RandomSuit] = "Random Suit";
 			this.titles[(byte)SuitSubType.RandomNinja] = "Random Ninja Suit";
 			this.titles[(byte)SuitSubType.RandomWizard] = "Random Wizard Suit";
@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 			this.titles[(byte)SuitSubType.RedWizard] = "Red Wizard Suit";
 			this.titles[(byte)SuitSubType.WhiteWizard] = "White Wizard Suit";
 
-			this.descriptions = new string[12];
+			this.descriptions = new string[13];
 			this.descriptions[(byte)SuitSubType.RandomSuit] = "Grants a random suit.";
 			this.descriptions[(byte)SuitSubType.RandomNinja] = "Grants one of the ninja suits at random.";
 			this.descriptions[(byte)SuitSubType.RandomWizard] = "Grants one of the wizard suits at random.";
@@ -56,7 +56,7 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[12];
+			this.Texture = new string[13];
 			
 			this.Texture[(byte)SuitSubType.RandomSuit] = "SuitCollect/RandomSuit";
 			this.Texture[(byte)SuitSubType.RandomNinja] = "SuitCollect/RandomNinja";

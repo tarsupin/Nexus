@@ -34,7 +34,7 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public enum HatSubType : byte {
-		RandomHat = 0,
+		None = 0,
 
 		// Power Hats
 		AngelHat = 1,
@@ -46,6 +46,9 @@ namespace Nexus.ObjectComponents {
 		RangerHat = 7,
 		SpikeyHat = 8,
 		TopHat = 9,
+
+		// Random Hat
+		RandomHat = 10,
 
 		// Cosmetic Hats
 		WizardBlueHat = 51,

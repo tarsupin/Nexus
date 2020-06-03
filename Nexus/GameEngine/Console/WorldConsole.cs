@@ -9,7 +9,12 @@ namespace Nexus.GameEngine {
 			this.baseHelperText = "The world console can provide special assistance within a world.";
 
 			this.consoleDict = new Dictionary<string, Action>() {
-				//{ "macro", ConsoleMacro.DebugMacro },	// Convert this to EditorMacros. They should be separate from Macros (which are for levels).
+			
+				// Editor
+				{ "editor", WCToEditor.ToEditor },
+
+				// Reset Position (in case of getting stuck)
+				{ "reset", WCReset.ResetOptions },
 			};
 		}
 	}

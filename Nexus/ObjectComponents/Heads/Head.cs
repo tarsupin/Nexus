@@ -6,13 +6,16 @@ using System;
 namespace Nexus.ObjectComponents {
 
 	public enum HeadSubType : byte {
-		RandomHead = 0,
-		RandomStandard = 1,
+		None = 0,
 
 		// Standard Heads
 		RyuHead = 5,
 		PooHead = 6,
 		CarlHead = 7,
+
+		// Random Heads
+		RandomHead = 90,
+		RandomStandard = 91,
 	}
 
 	public static class HeadMap {

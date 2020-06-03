@@ -14,6 +14,9 @@ namespace Nexus.GameEngine {
 				{ "debug", ConsoleDebug.DebugBase },
 				{ "macro", ConsoleMacro.DebugMacro },
 
+				// Editor
+				{ "editor", ConsoleToEditor.ToEditor },
+
 				// Level
 				{ "level", ConsoleLevel.CheatCodeLevel },
 

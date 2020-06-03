@@ -12,12 +12,11 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public enum SuitSubType : byte {
+		None = 0,
 
 		// Random Suits
-		RandomSuit = 0,
-		RandomNinja = 1,
-		RandomWizard = 2,
-		RandomBasic = 50,
+		RandomSuit = 1,
+		RandomNinja = 2,
 
 		// Ninja Suits
 		BlackNinja = 3,
@@ -31,8 +30,10 @@ namespace Nexus.ObjectComponents {
 		GreenWizard = 9,
 		RedWizard = 10,
 		WhiteWizard = 11,
+		RandomWizard = 12,	// Random
 
 		// Basic Suits
+		RandomBasic = 50,
 		RedBasic = 51,
 	}
 

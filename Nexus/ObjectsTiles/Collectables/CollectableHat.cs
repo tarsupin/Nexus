@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			this.paramSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
-			this.titles = new string[10];
+			this.titles = new string[11];
 			this.titles[(byte)HatSubType.AngelHat] = "Angel Hat";
 			this.titles[(byte)HatSubType.BambooHat] = "Bamboo Hat";
 			this.titles[(byte)HatSubType.CowboyHat] = "Cowboy Hat";
@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			this.titles[(byte)HatSubType.TopHat] = "Top Hat";
 			this.titles[(byte)HatSubType.RandomHat] = "Random Hat";
 
-			this.descriptions = new string[10];
+			this.descriptions = new string[11];
 			this.descriptions[(byte)HatSubType.AngelHat] = "Grants +1 air jump and increases jump height.";
 			this.descriptions[(byte)HatSubType.BambooHat] = "Grants protection from shells. Can grab shells while they're moving.";
 			this.descriptions[(byte)HatSubType.CowboyHat] = "Grants wall jump and wall slide.";
@@ -48,7 +48,7 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[10];
+			this.Texture = new string[11];
 			this.Texture[(byte)HatSubType.AngelHat] = "HatCollect/AngelHat";
 			this.Texture[(byte)HatSubType.BambooHat] = "HatCollect/BambooHat";
 			this.Texture[(byte)HatSubType.CowboyHat] = "HatCollect/CowboyHat";
