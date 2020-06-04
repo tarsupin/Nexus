@@ -15,21 +15,15 @@ namespace Nexus.GameEngine {
 	}
 
 	public enum CommonState : byte {
-		Undefined,                  // No current state.
-		Move,                       // Standard movement for the actor.
-		Wait,                       // Waiting motion; often occurs after a reaction (e.g. brief pause while charging up).
-		MotionStart,                // An active motion caused by a creature's decision to act (e.g. jumping), even if that decision is based on a cycle (such as hopping).
-		Motion,                     // Indicates sustained movement, such as jumping.
-		MotionEnd,                  // Signals ending a motion, such as landing after a jump.
-		SpecialStart,               // The start of a special movement or action.
-		Special,                    // Special movement, decision, or action.
-		SpecialEnd,                 // The end of a special action.
-		SpecialWait,                // A wait or stall that is associated with the special action.
-		OtherStart,                 // The start of a secondary special action.
-		Other,                      // Secondary movement, decision, or action.
-		OtherEnd,                   // The end of a secondary action.
-		OtherWait,                  // A wait or stall that is associated with the secondary action.
-		Death,                      // In the death state; the process of dying.
+		Undefined,			// No current state.
+		Move,				// Standard movement for the actor.
+		Wait,				// Waiting motion; often occurs after a reaction (e.g. brief pause while charging up).
+		MotionStart,		// An active motion caused by a creature's decision to act (e.g. jumping), even if that decision is based on a cycle (such as hopping).
+		Motion,				// Indicates sustained movement, such as jumping.
+		MotionEnd,			// Signals ending a motion, such as landing after a jump.
+		Special,			// Special movement, decision, or action.
+		SpecialWait,		// A wait or stall that is associated with the special action.
+		Death,				// In the death state; the process of dying.
 	}
 
 	public class DynamicObject {
@@ -100,10 +94,8 @@ namespace Nexus.GameEngine {
 		
 		// Run this method to change an actor's facing direction.
 		public void SetDirection( bool faceRight ) {
-			if(this.FaceRight != faceRight) {
-				this.FaceRight = faceRight;
-				this.OnDirectionChange();
-			}
+			this.FaceRight = faceRight;
+			this.OnDirectionChange();
 		}
 
 		// Run this method when the actor's direction has changed.
@@ -118,13 +110,13 @@ namespace Nexus.GameEngine {
 		public ushort GridX2 { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Right -1) / (byte)TilemapEnum.TileWidth)); } }
 		public ushort GridY2 { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Bottom -1) / (byte)TilemapEnum.TileHeight)); } }
 
-		public virtual void SetSpriteName(string spriteName) {
+		public void SetSpriteName(string spriteName) {
 			this.SpriteName = spriteName;
+			if(this.animate is Animate) { this.animate.DisableAnimation(); }
 		}
 
-		public void SetSpriteName(string spriteName, bool isAnimation = false) {
+		public void SetAnimationSprite(string spriteName) {
 			this.SpriteName = spriteName;
-			if(!isAnimation && this.animate is Animate) { this.animate.DisableAnimation(); }
 		}
 
 		public virtual void SetSubType(byte subType) {

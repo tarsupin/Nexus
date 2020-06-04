@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum GooSubType : byte {
-		Green,
-		Orange,
-		Blue,
+		Green = 0,
+		Orange = 1,
+		Blue = 2,
 	}
 
 	public class Goo : EnemyLand {

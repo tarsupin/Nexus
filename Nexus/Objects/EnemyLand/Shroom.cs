@@ -16,36 +16,71 @@ namespace Nexus.Objects {
 
 		public Shroom(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Shroom].meta;
-			this.AssignSubType(subType);
-
-			// Movement
-			this.speed = FInt.Create(1.40);
 
 			// Physics, Collisions, etc.
-			this.AssignBoundsByAtlas(4, 6, -6);
 			this.physics = new Physics(this);
-			this.physics.SetGravity(FInt.Create(0.35));
-			this.physics.velocity.X = (FInt)(0-this.speed);
+			this.physics.SetGravity(FInt.Create(0.45));
 
+			// Sub-Types
+			this.AssignSubType(subType);
 
-			// TODO: Basically everything in "Shroom"
-			// TODO: Basically everything in "Shroom"
-			// TODO: Basically everything in "Shroom"
+			// Speed Handling
+			this.speed = FInt.Create(0);
+
+			if(this.subType == (byte)ShroomSubType.Red) {
+				this.speed = FInt.Create(0.4);
+			}
+
+			this.physics.velocity.X = (FInt)(0 - this.speed);
+
+			// Bounds
+			this.AssignBoundsByAtlas(4, 6, -6);
 		}
 
 		private void AssignSubType( byte subType ) {
-			if(subType == (byte) ShroomSubType.Black) {
-				this.SetSpriteName("Shroom/Black/Left2");
-			} else if(subType == (byte) ShroomSubType.Red) {
-				this.SetSpriteName("Shroom/Red/Left2");
-			} else if(subType == (byte) ShroomSubType.Purple) {
-				//this.behavior = new PrepareCharge(this, 1, 9, 30, 15);
-				this.SetSpriteName("Shroom/Purple/Left2");
+
+			if(subType == (byte)ShroomSubType.Black) {
+				this.behavior = new HopConstantBehavior(this, 8, 0);
+				this.SetState((byte)CommonState.Wait);
+			}
+			
+			else if(subType == (byte) ShroomSubType.Red) {
+				this.OnDirectionChange();
+			}
+			
+			else if(subType == (byte) ShroomSubType.Purple) {
+				this.behavior = new ChargeBehavior(this, 0, 13, false, 144, 64);
+				((ChargeBehavior)this.behavior).SetBehavePassives(60, 20, 30, 7);
+				this.SetState((byte)CommonState.Wait);
+			}
+		}
+
+		public override void OnStateChange() {
+
+			// White Moosh
+			if(this.subType != (byte)ShroomSubType.Red) {
+				if(this.State == (byte)CommonState.Wait) {
+					this.SetSpriteName("Shroom/" + (this.subType == (byte)ShroomSubType.Black ? "Black" : "Purple") + "/" + (this.FaceRight ? "Right1" : "Left1"));
+				}
+
+				// States: MoveAir, MoveStandard
+				else if(this.State == (byte)CommonState.Move) {
+					this.SetSpriteName("Shroom/" + (this.subType == (byte)ShroomSubType.Black ? "Black" : "Purple") + "/" + (this.FaceRight ? "Right3" : "Left3"));
+				}
+			}
+		}
+
+		public override void OnDirectionChange() {
+			if(this.subType == (byte)ShroomSubType.Red) {
+				this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
+				this.animate = new Animate(this, "Shroom/Red/");
+				this.animate.SetAnimation("Shroom/Red/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 			}
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 6) {
-			return base.GetJumpedOn(character, 6);
+			character.BounceUp(this, bounceStrength);
+			return this.ReceiveWound(); // TODO: Some Shrooms should be protected above; cannot be damaged by jumping on them.
 		}
 	}
 }

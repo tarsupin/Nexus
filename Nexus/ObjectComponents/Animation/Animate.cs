@@ -40,7 +40,7 @@ namespace Nexus.ObjectComponents {
 			this.NextFrame = timer.Frame + this.AnimSpeed;
 
 			// Update the actor's sprite name according to the next animation cycle.
-			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);
+			this.actor.SetAnimationSprite(this.BaseName + this.AnimCycles[this.CycleId]);
 		}
 
 		// Returns TRUE if we're on an animation update cycle.
@@ -69,7 +69,7 @@ namespace Nexus.ObjectComponents {
 			this.NextFrame = Systems.timer.Frame + animSpeed;
 
 			// Update the actor's sprite name according to the next animation cycle.
-			this.actor.SetSpriteName(this.BaseName + this.AnimCycles[this.CycleId], true);
+			this.actor.SetAnimationSprite(this.BaseName + this.AnimCycles[this.CycleId]);
 		}
 
 		// Disables Animation

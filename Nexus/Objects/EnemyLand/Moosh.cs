@@ -17,15 +17,24 @@ namespace Nexus.Objects {
 		public Moosh(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Moosh].meta;
 
-			// Movement
-			this.speed = FInt.Create(0.4);
-
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.7));
+			
+
+			// Sub-Type
+			this.AssignSubType(subType);
+
+			// Speed Handling
+			this.speed = FInt.Create(0.4);
+
+			if(this.subType == (byte)MooshSubType.Purple) {
+				this.speed = FInt.Create(0.2);
+			}
+
 			this.physics.velocity.X = 0 - this.speed;
 
-			this.AssignSubType(subType);
+			// Bounds
 			this.AssignBoundsByAtlas(4, 4, -4);
 		}
 
@@ -45,19 +54,29 @@ namespace Nexus.Objects {
 			
 			// Brown & Purple Moosh
 			else {
-
-				if(this.State == (byte) CommonState.Move || this.State == (byte) CommonState.MotionEnd || this.State == (byte) CommonState.Wait) {
-					if(this.FaceRight) { this.WalkRight(); } else { this.WalkLeft(); }
+				
+				if(this.State == (byte)CommonState.Move || this.State == (byte)CommonState.MotionEnd) {
 
 					// TODO FIX: This apparently broke (this.animate was set to null, and subtype was set to 0 (brown). shouldn't have occurred; can't recreate bug)
-					this.animate.SetAnimation("Moosh/" + (this.subType == (byte) MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+					this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 				}
 
-				// States: ReactionCharacter, ReactionStall, RestStunned
+				// Special State is in waiting mode for Character.
 				else if(this.State == (byte) CommonState.Special) {
 					string frameNum = this.State == (byte) CommonState.Special ? "3" : "1";
 					this.SetSpriteName("Moosh/" + (this.subType == (byte) MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left") + frameNum);
 				}
+
+				else if(this.State == (byte)CommonState.Wait) {
+					this.SetSpriteName("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right1" : "Left1"));
+				}
+			}
+		}
+
+		public override void OnDirectionChange() {
+			if(this.subType != (byte)MooshSubType.White) {
+				this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
+				this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 			}
 		}
 
@@ -65,8 +84,8 @@ namespace Nexus.Objects {
 
 			if(subType == (byte) MooshSubType.Brown) {
 				this.animate = new Animate(this, "Moosh/Brown/");
-				this.behavior = new ChargeBehavior(this, 3, 11);
-				((ChargeBehavior) this.behavior).SetBehavePassives(120, 35, 30, 9);
+				this.behavior = new ChargeBehavior(this, 3, 11, true);
+				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 9);
 				this.SetState((byte) CommonState.Move);
 
 			} else if(subType == (byte) MooshSubType.White) {
@@ -76,14 +95,14 @@ namespace Nexus.Objects {
 
 			} else if(subType == (byte) MooshSubType.Purple) {
 				this.animate = new Animate(this, "Moosh/Purple/");
-				this.behavior = new ChargeBehavior(this, 1, 9, 30, 15);
-				((ChargeBehavior) this.behavior).SetBehavePassives(120, 35, 30, 11);
+				this.behavior = new ChargeBehavior(this, 1, 13, true, 96, 15);
+				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 11);
 				this.SetState((byte) CommonState.Move);
 			}
 		}
 
 		public override bool GetJumpedOn( Character character, sbyte bounceStrength = 3 ) {
-			return base.GetJumpedOn(character, 3);
+			return base.GetJumpedOn(character, bounceStrength);
 		}
 	}
 }
