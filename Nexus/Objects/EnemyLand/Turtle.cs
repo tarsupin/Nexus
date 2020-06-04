@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum TurtleSubType : byte {
-		Red,
+		Red = 0,
 	}
 
 	public class Turtle : EnemyLand {
@@ -15,15 +15,19 @@ namespace Nexus.Objects {
 		public Turtle(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Turtle].meta;
 
-			// Movement
-			this.speed = FInt.Create(1.0);
-
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.5));
+
+			// Sub-Types
+			this.AssignSubType(subType);
+
+			// Speed Handling
+			this.speed = FInt.Create(1.0);
+
 			this.physics.velocity.X = (FInt)(0 - this.speed);
 
-			this.AssignSubType(subType);
+			// Bounds
 			this.AssignBoundsByAtlas(15, 2, -2);
 		}
 
@@ -35,12 +39,23 @@ namespace Nexus.Objects {
 		}
 
 		public override void OnDirectionChange() {
-			this.animate.SetAnimation("Turtle/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle2, 15);
+			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
+			this.animate.SetAnimation("Turtle/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle2, 12);
+		}
+
+		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 3) {
+			Systems.sounds.shellBoop.Play(0.3f, 0f, 0f);
+			character.BounceUp(this, bounceStrength);
+			return this.ReceiveWound();
+		}
+
+		public override bool ReceiveWound() {
+			return this.Die(DeathResult.Squish);
 		}
 
 		public override bool Die( DeathResult deathType ) {
 
-			// Knockouts still create standard effect:
+			// Knockouts and TNT can still occur, but squishing will cause other behaviors.
 			if(deathType == DeathResult.Knockout) {
 				return base.Die(deathType);
 			}

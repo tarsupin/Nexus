@@ -103,6 +103,9 @@ namespace Nexus.Objects {
 				physics.velocity.Y = FInt.Create(0);
 			}
 
+			// Disappear - No Additional Behaviors Needed
+			//else if(deathResult == DeathResult.Disappear) {}
+
 			return true;
 		}
 
