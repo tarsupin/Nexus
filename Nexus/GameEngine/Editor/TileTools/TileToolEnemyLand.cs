@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.Wurm,
+					objectId = (byte) ObjectEnum.Snek,
 					subType = (byte) SnekSubType.Wurm,
 					layerEnum = LayerEnum.obj,
 				},

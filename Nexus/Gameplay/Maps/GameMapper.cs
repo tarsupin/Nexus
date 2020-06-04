@@ -125,7 +125,6 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.Goo] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Liz] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Snek] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
-			this.ObjectMetaData[(byte)ObjectEnum.Wurm] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Octo] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Bones] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 
@@ -517,7 +516,6 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.Goo, Type.GetType("Nexus.Objects.Goo") },
 			{ (byte) ObjectEnum.Liz, Type.GetType("Nexus.Objects.Liz") },
 			{ (byte) ObjectEnum.Snek, Type.GetType("Nexus.Objects.Snek") },
-			{ (byte) ObjectEnum.Wurm, Type.GetType("Nexus.Objects.Wurm") },
 			{ (byte) ObjectEnum.Octo, Type.GetType("Nexus.Objects.Octo") },
 			{ (byte) ObjectEnum.Bones, Type.GetType("Nexus.Objects.Bones") },
 

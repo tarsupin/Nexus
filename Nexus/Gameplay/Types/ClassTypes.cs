@@ -139,7 +139,6 @@ namespace Nexus.Gameplay {
 		Goo = 13,
 		Liz = 14,
 		Snek = 15,
-		Wurm = 16,
 		Octo = 17,
 		Bones = 18,
 

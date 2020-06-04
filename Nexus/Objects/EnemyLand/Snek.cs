@@ -24,7 +24,8 @@ namespace Nexus.Objects {
 			this.AssignSubType(subType);
 
 			// Speed Handling
-			this.speed = FInt.Create(0.8);
+			this.speed = FInt.Create((this.subType == (byte)SnekSubType.Wurm) ? 0.3 : 0.8);
+
 			this.physics.velocity.X = (FInt)(0 - this.speed);
 
 			// Bounds
@@ -43,7 +44,7 @@ namespace Nexus.Objects {
 
 		public override void OnDirectionChange() {
 			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-			this.animate.SetAnimation((this.subType == (byte) SnekSubType.Snek ? "Snek/" : "Wurm/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
+			this.animate.SetAnimation((this.subType == (byte) SnekSubType.Snek ? "Snek/" : "Wurm/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 		}
 	}
 }
