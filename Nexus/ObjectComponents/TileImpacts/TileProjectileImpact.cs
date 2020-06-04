@@ -19,7 +19,7 @@ namespace Nexus.ObjectComponents {
 			if(projectile.CollisionType == ProjectileCollisionType.BounceOnFloor) {
 
 				if(dir == DirCardinal.Down) {
-					CollideTile.CollideDown(projectile, gridY * (byte)TilemapEnum.TileHeight - projectile.bounds.Bottom);
+					projectile.CollideTileDown(gridY * (byte)TilemapEnum.TileHeight - projectile.bounds.Bottom);
 					projectile.BounceOnGround();
 				}
 

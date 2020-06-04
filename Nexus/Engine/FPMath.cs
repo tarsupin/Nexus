@@ -33,8 +33,9 @@ namespace Nexus.Engine {
 		public int RoundInt {
 			get { return (int) Math.Round((double) this.RawValue / (double) One); }
 		}
-
-		public int IntValue {
+		
+		// Don't use this value, it will give inaccurate results. Use RoundInt instead.
+		private int IntValue {
 			get { return (int)(this.RawValue >> SHIFT_AMOUNT); }
 		}
 

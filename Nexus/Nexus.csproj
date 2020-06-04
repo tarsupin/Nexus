@@ -363,7 +363,7 @@
     <Compile Include="ObjectComponents\Suits\BlueNinja.cs" />
     <Compile Include="ObjectComponents\Suits\BlackNinja.cs" />
     <Compile Include="ObjectComponents\Suits\Suit.cs" />
-    <Compile Include="ObjectComponents\TileImpacts\TileFacingImpact.cs" />
+    <Compile Include="ObjectComponents\TileImpacts\CollideTileFacing.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileCharWallImpact.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileProjectileImpact.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileSolidImpact.cs" />

@@ -11,17 +11,25 @@ namespace Nexus.Objects {
 		public EnemyLand(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}
+		
+		public override void CollideTileLeft(int posX) {
+			base.CollideTileLeft(posX);
+			this.WalkRight();
+		}
+
+		public override void CollideTileRight(int posX) {
+			base.CollideTileRight(posX);
+			this.WalkLeft();
+		}
 
 		public void WalkLeft() {
-			if(!this.physics.touch.toFloor) { return; }
+			if(this.physics.touch.toFloor > 2) { return; }
 			this.SetDirection(false);
-			this.physics.velocity.X = this.speed.Inverse;
 		}
 
 		public void WalkRight() {
-			if(!this.physics.touch.toFloor) { return; }
+			if(this.physics.touch.toFloor > 2) { return; }
 			this.SetDirection(true);
-			this.physics.velocity.X = this.speed;
 		}
 	}
 }

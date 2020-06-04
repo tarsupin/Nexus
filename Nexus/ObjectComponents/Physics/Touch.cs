@@ -12,15 +12,13 @@ namespace Nexus.ObjectComponents {
 		public bool toTop = false;
 		public bool toBottom = false;
 
-		public bool toFloor = false;			// True if touching the floor; lasts for extra round beyond touchBottom.
+		public byte toFloor = 0;					// Number of frames since touched the floor (up to ten)
 
 		public DynamicObject touchObj = null;		// Touching Floor
 
 		public void ResetTouch() {
 			if(!this.isTouching) { return; }
 			this.isTouching = false;
-
-			if(this.toFloor) { this.toFloor = false; }
 
 			// TODO HIGH PRIOIRTY: Affected by Platforms
 			//if(this.touchObj != null) {
@@ -31,10 +29,10 @@ namespace Nexus.ObjectComponents {
 
 			if(toBottom) {
 				toBottom = false;
-				toFloor = true;
 				isTouching = true;
+				toFloor = 0;
 			} else {
-				isTouching = false;
+				if(toFloor < 11) { toFloor++; }
 			}
 
 			toTop = false;
@@ -59,7 +57,7 @@ namespace Nexus.ObjectComponents {
 
 		public void TouchDown() {
 			this.toBottom = true;
-			this.toFloor = true;
+			this.toFloor = 0;
 			if(this.isTouching == false) { this.isTouching = true; }
 		}
 

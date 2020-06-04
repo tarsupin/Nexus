@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			// Actor must cross the UP threshold for this ledge; otherwise, it shouldn't compute any collision.
 			if(!actor.physics.CrossedThresholdUp(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight)) { return false; }
 
-			bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
+			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
 
 			if(collided && actor is Character) {
 

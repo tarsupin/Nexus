@@ -59,7 +59,7 @@ namespace Nexus.ObjectComponents {
 		public void SetAnimation( string baseName, string[] animCycles, byte animSpeed, byte cycleId = 0 ) {
 
 			// Don't update the animation if you're using the same animation.
-			if(this.AnimCycles == animCycles) { return; }
+			if(this.BaseName == baseName && this.AnimCycles == animCycles) { return; }
 
 			if(baseName != null) { this.BaseName = baseName; }
 

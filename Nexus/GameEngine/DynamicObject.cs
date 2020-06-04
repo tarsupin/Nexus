@@ -127,10 +127,89 @@ namespace Nexus.GameEngine {
 			if(!isAnimation && this.animate is Animate) { this.animate.DisableAnimation(); }
 		}
 
-		public virtual void SetnSubType(byte subType) {
+		public virtual void SetSubType(byte subType) {
 			//this.Texture = "BaseTexture/" + System.Enum.GetName(typeof(GroundSubTypes), subType);
 		}
 
+		// Tile Collisions
+		public virtual void CollideTileUp(int posY) {
+			this.physics.touch.TouchUp();
+			this.physics.StopY();
+			this.physics.MoveToPosY(posY + (byte)TilemapEnum.TileHeight);
+		}
+
+		public virtual void CollideTileDown(int posY) {
+			this.physics.touch.TouchDown();
+			this.physics.StopY();
+			this.physics.MoveToPosY(posY);
+		}
+
+		public virtual void CollideTileLeft(int posX) {
+			this.physics.touch.TouchLeft();
+			this.physics.StopX();
+			this.physics.MoveToPosX(posX + (byte)TilemapEnum.TileWidth);
+		}
+
+		public virtual void CollideTileRight(int posX) {
+			this.physics.touch.TouchRight();
+			this.physics.StopX();
+			this.physics.MoveToPosX(posX);
+		}
+
+		// Dynamic Object Collisions
+		public bool CollideUp(DynamicObject obj) {
+
+			// Verify the object is moving Up. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.Y >= 0) { return false; }
+
+			this.physics.touch.TouchUp();
+			this.physics.AlignDown(obj);
+			this.physics.StopY();
+
+			return true;
+		}
+
+		public bool CollideDown(DynamicObject obj) {
+
+			// Verify the object is moving Down. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.Y <= 0) { return false; }
+
+			this.physics.touch.TouchDown();
+			this.physics.AlignUp(obj);
+			this.physics.StopY();
+
+			return true;
+		}
+
+		public bool CollideLeft(DynamicObject obj) {
+
+			// Verify the object is moving Left. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.X >= 0) { return false; }
+
+			this.physics.touch.TouchLeft();
+			this.physics.AlignRight(obj);
+			this.physics.StopX();
+
+			return true;
+		}
+
+		public bool CollideRight(DynamicObject obj) {
+
+			// Verify the object is moving Right. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.X <= 0) { return false; }
+
+			this.physics.touch.TouchRight();
+			this.physics.AlignLeft(obj);
+			this.physics.StopX();
+
+			return true;
+		}
+
+		// Render Object
 		public virtual void Draw(int camX, int camY) {
 			this.Meta.Atlas.Draw(this.SpriteName, posX - camX, posY - camY);
 		}
@@ -144,15 +223,6 @@ namespace Nexus.GameEngine {
 		public void AssignBoundsByAtlas(sbyte top = 0, sbyte left = 0, sbyte right = 0, sbyte bottom = 0) {
 			AtlasBounds quickBounds = this.Meta.Atlas.GetBounds(this.SpriteName);
 			this.bounds = new Bounds((byte)(quickBounds.Top + top), (byte)(quickBounds.Left + left), (byte)(quickBounds.Right + right), (byte)(quickBounds.Bottom + bottom));
-		}
-
-		// Run Standard Impact
-		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
-		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
-		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
-		// TODO HIGH PRIORITY: IMPLEMENT IMPACTS LIKE THIS
-		public virtual bool RunImpact(DynamicObject actor, DirCardinal dir) {
-			return true;
 		}
 
 		// Destroys the instance of this object.

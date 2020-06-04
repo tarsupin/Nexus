@@ -104,7 +104,7 @@ namespace Nexus.Objects {
 		public override void RunTick() {
 
 			// Ground Movement & Actions
-			if(this.physics.touch.toFloor) { this.OnFloorUpdate(); }
+			if(this.physics.touch.toFloor == 0) { this.OnFloorUpdate(); }
 			
 			// In Air Update
 			else { this.InAirUpdate(); }
@@ -305,7 +305,7 @@ namespace Nexus.Objects {
 			bool heldItem = false;
 
 			// Ground Movement & Actions
-			if(this.physics.touch.toFloor) {
+			if(this.physics.touch.toFloor == 0) {
 
 				// If Moving Right
 				if(velX > 0) {

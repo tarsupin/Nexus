@@ -32,7 +32,7 @@ namespace Nexus.Objects {
 
 				// TODO HIGH PRIORITY: Need to send subtype to RunImpact();
 				// TODO HIGH PRIORITY: Change DirCardinal.Up to the direction this tile is facing (based on the subtype)
-				bool collided = TileFacingImpact.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
+				bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
 				if(collided && actor is Character) {
 
