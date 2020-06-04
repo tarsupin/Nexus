@@ -57,10 +57,6 @@ namespace Nexus.Objects {
 		public override void OnDirectionChange() {
 			if(this.subType != (byte) GooSubType.Blue) {
 				this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-				if(this.subType == 1) {
-					var a = this.physics.velocity.X.RoundInt;
-					System.Console.WriteLine(a + ", " + this.FaceRight);
-				}
 				this.animate.SetAnimation("Goo/" + subTypeStr + (this.FaceRight ? "/Right" : "/Left"), AnimCycleMap.Cycle2, 15);
 			}
 		}

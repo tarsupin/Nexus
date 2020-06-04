@@ -19,16 +19,6 @@ namespace Nexus.GameEngine {
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(en, obj);
 
-			// Enemy should turn if colliding with a side.
-			if(dir == DirCardinal.Left) {
-				if(enemy is EnemyLand) { HitCompareEnemy.LandEnemyHitsSide((EnemyLand) enemy, false); }
-				if(obj is EnemyLand) { HitCompareEnemy.LandEnemyHitsSide((EnemyLand) obj, true); }
-
-			} else if(dir == DirCardinal.Right) {
-				if(enemy is EnemyLand) { HitCompareEnemy.LandEnemyHitsSide((EnemyLand) enemy, true); }
-				if(obj is EnemyLand) { HitCompareEnemy.LandEnemyHitsSide((EnemyLand) obj, false); }
-			}
-
 			// Specific Impact Types
 			if(obj is Enemy) { return this.EnemyHitsEnemy(en, (Enemy) obj, dir); }
 			if(obj is Item) { return this.EnemyHitsItem(en, (Item) obj, dir); }
@@ -36,11 +26,6 @@ namespace Nexus.GameEngine {
 
 			// Standard Collision
 			return Impact.StandardImpact(en, obj, dir);
-		}
-
-		public static void LandEnemyHitsSide( EnemyLand enemy, bool hitRight ) {
-			if(hitRight) { enemy.WalkLeft(); }
-			else { enemy.WalkRight(); }
 		}
 
 		public bool EnemyHitsItem(Enemy enemy, Item item, DirCardinal dir) {

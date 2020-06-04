@@ -12,6 +12,18 @@ namespace Nexus.Objects {
 
 		}
 		
+		public override bool CollideLeft(DynamicObject obj) {
+			if(!base.CollideLeft(obj)) { return false; }
+			this.WalkRight();
+			return true;
+		}
+
+		public override bool CollideRight(DynamicObject obj) {
+			if(!base.CollideRight(obj)) { return false; }
+			this.WalkLeft();
+			return true;
+		}
+		
 		public override void CollideTileLeft(int posX) {
 			base.CollideTileLeft(posX);
 			this.WalkRight();
