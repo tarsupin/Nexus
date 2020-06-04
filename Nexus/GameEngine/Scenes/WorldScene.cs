@@ -221,7 +221,6 @@ namespace Nexus.GameEngine {
 			// Check for Auto-Warps
 
 
-
 			//// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
 			//if(dir == DirCardinal.Center) {
 

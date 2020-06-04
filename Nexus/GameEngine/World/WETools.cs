@@ -73,7 +73,7 @@ namespace Nexus.GameEngine {
 			WEFuncTool tool = WETools.WETempTool != null ? WETools.WETempTool : WETools.WEFuncTool;
 
 			if(tool != null) {
-				WEScene.weUI.SetHelperText(tool.title, tool.description);
+				WEScene.weUI.alertText.SetAlert(tool.title, tool.description);
 				return;
 			}
 
@@ -86,13 +86,13 @@ namespace Nexus.GameEngine {
 					// Object ID
 					if(WEShadowTile.HelpText.ContainsKey(ph.obj)) {
 						string[] help = WEShadowTile.HelpText[ph.obj];
-						WEScene.weUI.SetHelperText(help[0], help[1]);
+						WEScene.weUI.alertText.SetAlert(help[0], help[1]);
 						return;
 					}
 				}
 			}
 
-			WEScene.weUI.SetHelperText("", "");
+			WEScene.weUI.alertText.ClearAlert();
 		}
 	}
 }

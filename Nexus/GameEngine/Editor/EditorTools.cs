@@ -96,7 +96,7 @@ namespace Nexus.GameEngine {
 			FuncTool tool = EditorTools.tempTool != null ? EditorTools.tempTool : EditorTools.funcTool;
 
 			if(tool != null) {
-				editorScene.editorUI.SetHelperText(tool.title, tool.description);
+				editorScene.editorUI.alertText.SetAlert(tool.title, tool.description);
 				return;
 			}
 
@@ -108,18 +108,18 @@ namespace Nexus.GameEngine {
 					TileObject tile = Systems.mapper.TileDict[ph.tileId];
 
 					if(tile.titles != null) {
-						editorScene.editorUI.SetHelperText(tile.titles[ph.subType], tile.descriptions[ph.subType]);
+						editorScene.editorUI.alertText.SetAlert(tile.titles[ph.subType], tile.descriptions[ph.subType]);
 						return;
 					}
 
 					else if(tile.title.Length > 0) {
-						editorScene.editorUI.SetHelperText(tile.title, tile.description);
+						editorScene.editorUI.alertText.SetAlert(tile.title, tile.description);
 						return;
 					}
 				}
 			}
 
-			editorScene.editorUI.SetHelperText("", "");
+			editorScene.editorUI.alertText.ClearAlert();
 		}
 	}
 }

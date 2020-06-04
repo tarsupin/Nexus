@@ -11,19 +11,18 @@ namespace Nexus.GameEngine {
 		private readonly GridOverlay gridUI;
 		private readonly UtilityBar utilityBar;
 		private readonly EditorScroller scroller;
+		public readonly AlertText alertText;
 		public readonly ContextMenu contextMenu;
 		public readonly ParamMenu paramMenu;
 
 		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 		
-		private string helperTitle = "";
-		private string helperText = "";
-
 		public EditorUI( EditorScene scene ) {
 			this.scene = scene;
 
 			// UI Components
 			this.gridUI = new GridOverlay(null);
+			this.alertText = new AlertText(null);
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
 
@@ -46,11 +45,6 @@ namespace Nexus.GameEngine {
 
 			// Param Menu - Wand Tool
 			this.paramMenu = new ParamMenu(null);
-		}
-
-		public void SetHelperText( string title, string text ) {
-			this.helperTitle = title;
-			this.helperText = text;
 		}
 
 		public void RunTick() {
@@ -78,17 +72,9 @@ namespace Nexus.GameEngine {
 				this.paramMenu.Draw();
 			}
 
-			// Helper Text
-			if(Cursor.MouseY > 75 && this.helperTitle.Length > 0) {
-				Vector2 measureTitle = Systems.fonts.baseText.font.MeasureString(this.helperTitle);
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle((ushort)Systems.screen.windowHalfWidth - ((ushort)measureTitle.X / 2) - 2, 5 - 2, (int)(measureTitle.X + 4), (int)(measureTitle.Y + 4)), Color.DarkSlateGray);
-				Systems.fonts.baseText.Draw(this.helperTitle, (ushort) Systems.screen.windowHalfWidth - ((ushort) measureTitle.X / 2), 5, Color.White);
-
-				if(this.helperText.Length > 0) {
-					Vector2 measureStr = Systems.fonts.console.font.MeasureString(this.helperText);
-					Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle((ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2) - 2, 30 - 2, (int)measureStr.X + 4, (int)measureStr.Y + 4), Color.DarkSlateGray);
-					Systems.fonts.console.Draw(this.helperText, (ushort)Systems.screen.windowHalfWidth - ((ushort)measureStr.X / 2), 30, Color.White);
-				}
+			// Alert Text
+			if(Cursor.MouseY > 75) {
+				this.alertText.Draw(Systems.timer.Frame);
 			}
 
 			// Coordinate Tracker

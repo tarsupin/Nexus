@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Nexus.Engine;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
@@ -25,7 +24,7 @@ namespace Nexus.Gameplay {
 		// Character Survival
 		public byte lives;				// The number of lives you possess.
 		public byte health;				// Health Wounds Available.
-		public byte armor;				// Armorw Wounds Available.
+		public byte armor;				// Armor Wounds Available.
 		
 		// Character Equipment
 		public byte suit;				// Suit Equipped (e.g. SuitType.BlackNinja)
