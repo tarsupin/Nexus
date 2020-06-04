@@ -30,7 +30,7 @@ namespace Nexus.Objects {
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
-			this.SetSpriteName("BasicChar/Stand");
+			this.SetSpriteName("Stand");
 
 			// Physics, Collisions, etc.
 			this.AssignBounds(8, 12, 28, 44);
@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 			this.wounds = new CharacterWounds(this, Systems.timer);
 
 			// Images and Animations
-			this.animate = new Animate(this, "BasicChar/");
+			this.animate = new Animate(this, "/");
 
 			// Reset Character, Set Default Values
 			this.ResetCharacter();

@@ -89,7 +89,9 @@ namespace Nexus.Engine {
 			this.trueY = (short) (this.y + (this.hasParent ? this.Parent.trueY : 0));
 
 			// Children Must Update Their Positions
-			foreach(UIComponent child in this.Children) { child.UpdateTruePosition(); }
+			if(this.Children is List<UIComponent>) {
+				foreach(UIComponent child in this.Children) { child.UpdateTruePosition(); }
+			}
 		}
 
 		// Sizing

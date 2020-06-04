@@ -40,6 +40,9 @@ namespace Nexus.Scripts {
 			this.levelContent = new LevelContent(this.originalPath);
 
 			this.RunAllLevels();
+
+			// Return Level Path to Correct Destination:
+			LevelContent.SetLevelPath();
 		}
 
 		protected void ProcessLevel( string levelId ) {
@@ -123,8 +126,10 @@ namespace Nexus.Scripts {
 
 			if(roomLayer != null) {
 				if(paramList == null) {
+					if(!roomLayer.ContainsKey(curGridY.ToString())) { roomLayer.Add(curGridY.ToString(), new Dictionary<string, ArrayList>()); }
 					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId };
 				} else {
+					if(!roomLayer.ContainsKey(curGridY.ToString())) { roomLayer.Add(curGridY.ToString(), new Dictionary<string, ArrayList>()); }
 					roomLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId, paramList };
 				}
 			}
@@ -150,8 +155,10 @@ namespace Nexus.Scripts {
 			var newLayer = LevelContent.GetLayerData(roomData, newLayerEnum);
 
 			if(paramList == null) {
+				if(!newLayer.ContainsKey(curGridY.ToString())) { newLayer.Add(curGridY.ToString(), new Dictionary<string, ArrayList>()); }
 				newLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId };
 			} else {
+				if(!newLayer.ContainsKey(curGridY.ToString())) { newLayer.Add(curGridY.ToString(), new Dictionary<string, ArrayList>()); }
 				newLayer[curGridY.ToString()][curGridX.ToString()] = new ArrayList { tileId, subTypeId, paramList };
 			}
 		}
@@ -180,7 +187,7 @@ namespace Nexus.Scripts {
 					string levelId = Path.GetFileNameWithoutExtension(file.Name);
 
 					// Specific Level Allowance
-					if(levelId != "QCALQOD16") { continue; } else { System.Console.WriteLine("WARNING: RESTRICTED level conversions to ID " + levelId); }
+					//if(levelId != "QCALQOD16") { continue; } else { System.Console.WriteLine("WARNING: RESTRICTED level conversions to ID " + levelId); }
 
 					this.ProcessLevel(levelId);
 				}

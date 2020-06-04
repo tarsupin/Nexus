@@ -24,7 +24,7 @@ namespace Nexus.GameEngine {
 				byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
 
 				// If the wand clicked on a node, then we can attempt to assign a level.
-				if(NodePath.IsObjectANode(wtData[5])) {
+				if(NodeData.IsObjectANode(wtData[5])) {
 					Systems.worldEditConsole.Open();
 					Systems.worldEditConsole.SetInstructionText("setLevel " + gridX.ToString() + " " + gridY.ToString() + " ");
 					ChatConsole.SendMessage("--------------------", Color.White);

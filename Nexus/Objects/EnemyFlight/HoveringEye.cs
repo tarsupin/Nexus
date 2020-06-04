@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType( byte subType ) {
-			this.SpriteName = "Elemental/Eye/Eye";
+			this.SpriteName = "Eye/Eye";
 		}
 	}
 }

@@ -5,7 +5,25 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public static class NodePath {
+	public static class NodeData {
+
+		// ----------------------- //
+		// --- Level Detection --- //
+		// ----------------------- //
+		
+		public static bool IsLevelValid( string levelId ) {
+
+			// Make sure a Level ID is provided.
+			if(levelId.Length == 0) { return false; }
+
+			// Check if Level exists in file system.
+			if(LevelContent.LevelExists(levelId)) { return true; }
+
+			// If it doesn't exist in the file system, check if it's online:
+			// TODO URGENT: Download Levels from Online.
+
+			return false;
+		}
 
 		// ---------------------- //
 		// --- Node Detection --- //
@@ -17,19 +35,28 @@ namespace Nexus.GameEngine {
 			byte[] wtData = worldContent.GetWorldTileData(zone, (byte)gridX, (byte)gridY);
 
 			// If a node is not located here, continue.
-			return NodePath.IsObjectANode(wtData[5]);
+			return NodeData.IsObjectANode(wtData[5]);
 		}
 
-		public static bool IsObjectANode(byte objectId, bool dotsCount = true, bool invisibleDotsCount = true) {
-			if(dotsCount && NodePath.IsObjectADot(objectId, invisibleDotsCount)) { return true; }
+		public static bool IsObjectANode(byte objectId, bool dotsCount = true, bool invisibleDotsCount = true, bool playableOnly = false) {
 
+			// Check for Playable Nodes
 			switch(objectId) {
 				case (byte)OTerrainObjects.NodeStrict:
 				case (byte)OTerrainObjects.NodeCasual:
+				case (byte)OTerrainObjects.NodeWon:
+					return true;
+			}
+
+			if(playableOnly) { return false; }
+			
+			if(dotsCount && NodeData.IsObjectADot(objectId, invisibleDotsCount)) { return true; }
+
+			// Check for Non-Playable Nodes
+			switch(objectId) {
 				case (byte)OTerrainObjects.NodePoint:
 				case (byte)OTerrainObjects.NodeMove:
 				case (byte)OTerrainObjects.NodeWarp:
-				case (byte)OTerrainObjects.NodeWon:
 					return true;
 			}
 
@@ -71,12 +98,12 @@ namespace Nexus.GameEngine {
 		public static bool IsDirectionAllowed(byte objectId, DirCardinal dir) {
 
 			// All Level Nodes can move in all directions.
-			if(NodePath.IsObjectANode(objectId, false)) { return true; }
+			if(NodeData.IsObjectANode(objectId, false)) { return true; }
 
 			// Dots may or may not have direction allowance:
-			if(NodePath.IsObjectADot(objectId)) {
+			if(NodeData.IsObjectADot(objectId)) {
 
-				var dirsAllowed = NodePath.GetDotDirections(objectId);
+				var dirsAllowed = NodeData.GetDotDirections(objectId);
 
 				if(dir == DirCardinal.Up) { return dirsAllowed.up; }
 				if(dir == DirCardinal.Down) { return dirsAllowed.down; }
@@ -90,9 +117,9 @@ namespace Nexus.GameEngine {
 		public static (bool hasNode, byte gridX, byte gridY) LocateNodeConnection(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir) {
 
 			if(dir == DirCardinal.Up) {
-				var upNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Up);
+				var upNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Up);
 				if(upNode.hasNode) {
-					var revNode = NodePath.LocateNearestNode(worldContent, zone, upNode.gridX, upNode.gridY, DirCardinal.Down);
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, upNode.gridX, upNode.gridY, DirCardinal.Down);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(!revNode.hasNode) { return upNode; }
@@ -106,9 +133,9 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(dir == DirCardinal.Left) {
-				var leftNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Left);
+				var leftNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Left);
 				if(leftNode.hasNode) {
-					var revNode = NodePath.LocateNearestNode(worldContent, zone, leftNode.gridX, leftNode.gridY, DirCardinal.Right);
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, leftNode.gridX, leftNode.gridY, DirCardinal.Right);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(!revNode.hasNode) { return leftNode; }
@@ -122,9 +149,9 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(dir == DirCardinal.Right) {
-				var rightNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Right);
+				var rightNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Right);
 				if(rightNode.hasNode) {
-					var revNode = NodePath.LocateNearestNode(worldContent, zone, rightNode.gridX, rightNode.gridY, DirCardinal.Left);
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, rightNode.gridX, rightNode.gridY, DirCardinal.Left);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(!revNode.hasNode) { return rightNode; }
@@ -138,9 +165,9 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(dir == DirCardinal.Down) {
-				var downNode = NodePath.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Down);
+				var downNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, DirCardinal.Down);
 				if(downNode.hasNode) {
-					var revNode = NodePath.LocateNearestNode(worldContent, zone, downNode.gridX, downNode.gridY, DirCardinal.Up);
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, downNode.gridX, downNode.gridY, DirCardinal.Up);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(!revNode.hasNode) { return downNode; }
@@ -165,7 +192,7 @@ namespace Nexus.GameEngine {
 
 				// Do a first scan for vertical line:
 				for(int y = gridY - 1; y >= gridY - range; y--) {
-					if(!NodePath.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
+					if(!NodeData.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
 					return (true, gridX, (byte) y);
 				}
 
@@ -174,7 +201,7 @@ namespace Nexus.GameEngine {
 					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
 
 						// If a node is located, track it, and make sure it's more centered than any other by looping through X values again.
-						if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
+						if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
 
 						// Keep the node closest to center:
 						if(tuple.hasNode) {
@@ -200,7 +227,7 @@ namespace Nexus.GameEngine {
 
 				// Do a first scan for vertical line:
 				for(int y = gridY + 1; y <= gridY + range; y++) {
-					if(!NodePath.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
+					if(!NodeData.IsNodeAtLocation(worldContent, zone, gridX, (byte)y)) { continue; }
 					return (true, gridX, (byte) y);
 				}
 
@@ -209,7 +236,7 @@ namespace Nexus.GameEngine {
 					for(int x = gridX - xRange; x <= gridX + xRange; x++) {
 
 						// If a node is located, track it, and make sure it's more centered than any other by looping through X values again.
-						if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
+						if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
 
 						// Keep the node closest to center:
 						if(tuple.hasNode) {
@@ -235,7 +262,7 @@ namespace Nexus.GameEngine {
 
 				// Do a first scan for horizontal line:
 				for(int x = gridX - 1; x >= gridX - range; x--) {
-					if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
+					if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
 					return (true, (byte) x, gridY);
 				}
 
@@ -244,7 +271,7 @@ namespace Nexus.GameEngine {
 					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
 
 						// If a node was located, track it, then make sure it's more centered than any other by looping through Y values again.
-						if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
+						if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
 
 						// Keep the node closest to center:
 						if(tuple.hasNode) {
@@ -270,7 +297,7 @@ namespace Nexus.GameEngine {
 
 				// Do a first scan for horizontal line:
 				for(int x = gridX + 1; x <= gridX + range; x++) {
-					if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
+					if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte) x, gridY)) { continue; }
 					return (true, (byte) x, gridY);
 				}
 
@@ -279,7 +306,7 @@ namespace Nexus.GameEngine {
 					for(int y = gridY - yRange; y <= gridY + yRange; y++) {
 
 						// If a node was located, track it, then make sure it's more centered than any other by looping through Y values again.
-						if(!NodePath.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
+						if(!NodeData.IsNodeAtLocation(worldContent, zone, (byte)x, (byte)y)) { continue; }
 
 						// Keep the node closest to center:
 						if(tuple.hasNode) {
@@ -331,7 +358,7 @@ namespace Nexus.GameEngine {
 			for(int y = gridY - range; y < gridY + range + 1; y++) {
 				for(int x = gridX - range; x < gridX + range + 1; x++) {
 
-					DirCardinal dir = NodePath.RelativeDirectionOfTiles((sbyte)(x - gridX), (sbyte)(y - gridY));
+					DirCardinal dir = NodeData.RelativeDirectionOfTiles((sbyte)(x - gridX), (sbyte)(y - gridY));
 
 					if((dir == DirCardinal.Up && up) || (dir == DirCardinal.Down && down)) {
 						Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(x * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, y * (byte)WorldmapEnum.TileHeight - Systems.camera.posY, (byte)WorldmapEnum.TileWidth, (byte)WorldmapEnum.TileHeight), Color.White * 0.35f);

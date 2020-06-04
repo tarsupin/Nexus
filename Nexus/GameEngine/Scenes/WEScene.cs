@@ -289,7 +289,7 @@ namespace Nexus.GameEngine {
 			if(WETools.WETileTool == null || WETools.WETileTool.slotGroup != (byte)WorldSlotGroup.Nodes) { return; }
 
 			WEPlaceholder ph = WETools.WETileTool.CurrentPlaceholder;
-			(bool up, bool left, bool right, bool down) dotDirs = NodePath.GetDotDirections(ph.obj);
+			(bool up, bool left, bool right, bool down) dotDirs = NodeData.GetDotDirections(ph.obj);
 
 			byte gX = (byte)Cursor.MiniGridX;
 			byte gY = (byte)Cursor.MiniGridY;
@@ -307,28 +307,28 @@ namespace Nexus.GameEngine {
 			//this.DrawDirectionTiles(gX, gY, 4, dotDirs.up, dotDirs.left, dotDirs.right, dotDirs.down);
 
 			if(dotDirs.up) {
-				var upNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Up);
+				var upNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Up);
 				if(upNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(upNode.gridX * tw + (tw * 0.5)) - camX, (int)(upNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.left) {
-				var leftNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Left);
+				var leftNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Left);
 				if(leftNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(leftNode.gridX * tw + (tw * 0.5)) - camX, (int)(leftNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.right) {
-				var rightNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Right);
+				var rightNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Right);
 				if(rightNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(rightNode.gridX * tw + (tw * 0.5)) - camX, (int)(rightNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.down) {
-				var downNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Down);
+				var downNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Down);
 				if(downNode.hasNode) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(downNode.gridX * tw + (tw * 0.5)) - camX, (int)(downNode.gridY * th + (th * 0.5)) - camY);
 				}
@@ -430,7 +430,7 @@ namespace Nexus.GameEngine {
 		private void AssignStartData(byte objectId, byte gridX, byte gridY) {
 
 			// Make sure there is a visible node present:
-			bool isVisibleNode = NodePath.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY, true, false);
+			bool isVisibleNode = NodeData.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY, true, false);
 			if(!isVisibleNode) { return; }
 
 			// Prepare Character
@@ -525,7 +525,7 @@ namespace Nexus.GameEngine {
 		public bool DeleteNodeIfPresent(byte gridX, byte gridY) {
 
 			// Determine if the Object is a Node
-			bool isNode = NodePath.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY);
+			bool isNode = NodeData.IsNodeAtLocation(this.worldContent, this.currentZone, gridX, gridY);
 
 			// If the object is a node:
 			if(isNode) {

@@ -132,53 +132,45 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			// TODO LOW PRIORITY: Fix all the facing options with the arrows.
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
+					subType = (byte) ArrowSubType.ArrowUp,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.UpRight,
+					subType = (byte) ArrowSubType.ArrowUpRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.Right,
+					subType = (byte) ArrowSubType.ArrowRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.DownRight,
+					subType = (byte) ArrowSubType.ArrowDownRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.Down,
+					subType = (byte) ArrowSubType.ArrowDown,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.DownLeft,
+					subType = (byte) ArrowSubType.ArrowDownLeft,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.Left,
+					subType = (byte) ArrowSubType.ArrowLeft,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Arrow,
-					//face: DirRotate.UpLeft,
+					subType = (byte) ArrowSubType.ArrowUpLeft,
 					layerEnum = LayerEnum.fg,
 				},
 			});
@@ -186,49 +178,42 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
+					subType = (byte) ArrowSubType.FingerUp,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.UpRight,
+					subType = (byte) ArrowSubType.FingerUpRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.Right,
+					subType = (byte) ArrowSubType.FingerRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.DownRight,
+					subType = (byte) ArrowSubType.FingerDownRight,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.Down,
+					subType = (byte) ArrowSubType.FingerDown,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.DownLeft,
+					subType = (byte) ArrowSubType.FingerDownLeft,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.Left,
+					subType = (byte) ArrowSubType.FingerLeft,
 					layerEnum = LayerEnum.fg,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PromptArrow,
-					subType = (byte) ArrowSubType.Finger,
-					//face: DirRotate.UpLeft,
+					subType = (byte) ArrowSubType.FingerUpLeft,
 					layerEnum = LayerEnum.fg,
 				},
 			});

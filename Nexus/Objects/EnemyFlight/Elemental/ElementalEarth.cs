@@ -12,6 +12,7 @@ namespace Nexus.Objects {
 		public ElementalEarth(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ElementalEarth].meta;
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 4, -4, -12);
 		}
 
 		private void AssignSubType( byte subType ) {

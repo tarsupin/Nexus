@@ -148,6 +148,11 @@ namespace Nexus.Scripts {
 					}
 				}
 
+				else if(param.Key == "tile") {
+					changed = true;
+					newValue = 0;
+				}
+
 				// Looking for "ms" settings, regardless of tileId type
 				if(changed == false && (param.Key == "duration" || param.Key == "offset" || param.Key == "durationOffset" || param.Key == "delay" || param.Key == "retDelay" || param.Key == "cycle")) {
 					changed = true;

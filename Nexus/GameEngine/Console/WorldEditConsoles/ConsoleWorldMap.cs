@@ -136,7 +136,7 @@ namespace Nexus.GameEngine {
 					byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
 
 					// If the location is a valid node, we can attempt to add a level ID.
-					if(NodePath.IsObjectANode(wtData[5])) {
+					if(NodeData.IsObjectANode(wtData[5])) {
 						string levelId = ConsoleTrack.NextArg();
 						ConsoleTrack.helpText = "Assign a level ID to the specified node. Enter the Level ID.";
 

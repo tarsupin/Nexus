@@ -16,18 +16,18 @@ namespace NexusTests {
 
 		[TestMethod]
 		public void RelativeDirectionOfTiles() {
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-2, -2) == DirCardinal.Up);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-2, -3) == DirCardinal.Up);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-2, 3) == DirCardinal.Down);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(2, -3) == DirCardinal.Up);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(4, -3) == DirCardinal.Right);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(4, 4) == DirCardinal.Down);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-4, 4) == DirCardinal.Down);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-4, 3) == DirCardinal.Left);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(-4, 5) == DirCardinal.Down);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(4, 0) == DirCardinal.Right);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(0, 4) == DirCardinal.Down);
-			Debug.Assert(NodePath.RelativeDirectionOfTiles(0, -4) == DirCardinal.Up);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-2, -2) == DirCardinal.Up);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-2, -3) == DirCardinal.Up);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-2, 3) == DirCardinal.Down);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(2, -3) == DirCardinal.Up);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(4, -3) == DirCardinal.Right);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(4, 4) == DirCardinal.Down);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-4, 4) == DirCardinal.Down);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-4, 3) == DirCardinal.Left);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(-4, 5) == DirCardinal.Down);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(4, 0) == DirCardinal.Right);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(0, 4) == DirCardinal.Down);
+			Debug.Assert(NodeData.RelativeDirectionOfTiles(0, -4) == DirCardinal.Up);
 		}
 	}
 }

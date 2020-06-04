@@ -173,7 +173,7 @@ namespace Nexus.GameEngine {
 
 			// Activate Node
 			else if(playerInput.isPressed(IKey.AButton) == true) {
-				// TODO: ACTIVATE NODE HERE
+				this.ActivateNode();
 			}
 		}
 
@@ -183,8 +183,8 @@ namespace Nexus.GameEngine {
 			// Get Current Tile Data
 			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
 			
-			bool isNode = NodePath.IsObjectANode(wtData[5]);
-			bool isAutoDot = NodePath.IsObjectAnAutoTravelDot(wtData[5]);
+			bool isNode = NodeData.IsObjectANode(wtData[5]);
+			bool isAutoDot = NodeData.IsObjectAnAutoTravelDot(wtData[5]);
 
 			// If a node is not located here, something is wrong.
 			if(!isNode) { throw new Exception("Arrived at a destination that was not indicated as a node. That should not be possible."); }
@@ -197,7 +197,7 @@ namespace Nexus.GameEngine {
 				DirCardinal nextDir = DirCardinal.None;
 
 				// Determine the next intended route:
-				var nodeDirs = NodePath.GetDotDirections(wtData[5]);
+				var nodeDirs = NodeData.GetDotDirections(wtData[5]);
 
 				if(nodeDirs.up && lastDir != DirCardinal.Down) { nextDir = DirCardinal.Up; }
 				else if(nodeDirs.down && lastDir != DirCardinal.Up) { nextDir = DirCardinal.Down; }
@@ -246,8 +246,8 @@ namespace Nexus.GameEngine {
 			// Get Current Tile Data
 			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.character.curX, this.character.curY);
 
-			bool isNode = NodePath.IsObjectANode(wtData[5]);
-			bool isBlocking = NodePath.IsObjectABlockingNode(wtData[5]);
+			bool isNode = NodeData.IsObjectANode(wtData[5]);
+			bool isBlocking = NodeData.IsObjectABlockingNode(wtData[5]);
 
 			// If a node is not located here, continue.
 			if(!isNode) { return false; }
@@ -272,10 +272,10 @@ namespace Nexus.GameEngine {
 			}
 
 			// Make sure that direction is allowed from current Node.
-			if(!NodePath.IsDirectionAllowed(wtData[5], dir)) { return false; }
+			if(!NodeData.IsDirectionAllowed(wtData[5], dir)) { return false; }
 
 			// Check for a connecting Node (one with a return connection).
-			var connectNode = NodePath.LocateNodeConnection(this.worldContent, this.currentZone, this.character.curX, this.character.curY, dir);
+			var connectNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, this.character.curX, this.character.curY, dir);
 
 			// Verify that a connection node exists:
 			if(!connectNode.hasNode) { return false; }
@@ -294,6 +294,32 @@ namespace Nexus.GameEngine {
 			// TODO: FINISH
 			// Find the warp in the designated zone:
 			//ushort nodeId = this.zones.();
+		}
+
+		public bool ActivateNode() {
+
+			// Can only activate if the character is at a Node.
+			if(!this.character.IsAtNode) { return false; }
+
+			// Get Current Tile Data
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.character.curX, this.character.curY);
+
+			bool isPlayableNode = NodeData.IsObjectANode(wtData[5], false, false, true);
+
+			// If a node is not playable, continue.
+			if(!isPlayableNode) { return false; }
+
+			// Identify Level Data at this node:
+			uint coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+			string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
+
+			// If the level is valid, we can enter the level.
+			if(NodeData.IsLevelValid(levelId)) {
+				SceneTransition.ToLevel(this.worldData.id, levelId);
+				return true;
+			}
+
+			return false;
 		}
 
 		public override void Draw() {

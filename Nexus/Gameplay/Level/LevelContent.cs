@@ -13,10 +13,10 @@ namespace Nexus.Gameplay {
 		public LevelFormat data;        // Level Data
 
 		// Path
-		public string levelPath;
+		public static string levelPath;
 
 		public LevelContent(string levelPath = null, string levelId = null) {
-			this.SetLevelPath(levelPath);
+			LevelContent.SetLevelPath(levelPath);
 
 			// Attempt to load Level Data
 			if(levelId != null) {
@@ -24,17 +24,23 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		public void SetLevelPath(string levelPath = null) {
+		// Verify that the level exists in the level directory.
+		public static bool LevelExists(string levelId) {
+			string fullLevelPath = LevelContent.GetFullLevelPath(levelId);
+			return File.Exists(fullLevelPath);
+		}
+
+		public static void SetLevelPath(string levelPath = null) {
 
 			// If a level directory is not provided, use the default local directory.
 			if(levelPath == null) {
 				Systems.filesLocal.MakeDirectory("Levels"); // Make sure the Levels directory exists.
-				this.levelPath = Path.Combine(Systems.filesLocal.localDir, "Levels");
+				LevelContent.levelPath = Path.Combine(Systems.filesLocal.localDir, "Levels");
 			}
 
 			// Make sure the level directory provided exists.
 			else {
-				this.levelPath = Directory.Exists(levelPath) ? levelPath : null;
+				LevelContent.levelPath = Directory.Exists(levelPath) ? levelPath : null;
 			}
 		}
 
@@ -42,8 +48,8 @@ namespace Nexus.Gameplay {
 			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
 		}
 
-		public string GetFullLevelPath(string levelId) {
-			return Path.Combine(this.levelPath, LevelContent.GetLocalLevelPath(levelId));
+		public static string GetFullLevelPath(string levelId) {
+			return Path.Combine(LevelContent.levelPath, LevelContent.GetLocalLevelPath(levelId));
 		}
 
 		public string GetFullDestinationPath(string destPath, string levelId) {
@@ -55,7 +61,7 @@ namespace Nexus.Gameplay {
 			// Update the Level ID, or use existing Level ID if applicable.
 			if(levelId.Length > 0) { this.levelId = levelId; } else { return false; }
 
-			string fullLevelPath = this.GetFullLevelPath(this.levelId);
+			string fullLevelPath = LevelContent.GetFullLevelPath(this.levelId);
 			
 			// Make sure the level exists:
 			if(!File.Exists(fullLevelPath)) { return false; }
@@ -97,7 +103,7 @@ namespace Nexus.Gameplay {
 		public void SaveLevel( string destDir = null, string destLevelId = null ) {
 
 			// Determine the Destination Path and Destination Level ID
-			if(destDir == null) { destDir = this.levelPath; }
+			if(destDir == null) { destDir = LevelContent.levelPath; }
 			if(destLevelId == null) { destLevelId = this.levelId; }
 
 			// Make sure the directory exists:
