@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum OctoSubType : byte {
-		Octo,
+		Octo = 0,
 	}
 
 	public class Octo : EnemyLand {
@@ -15,15 +15,19 @@ namespace Nexus.Objects {
 		public Octo(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Octo].meta;
 
-			// Movement
-			this.speed = FInt.Create(0.6);
-
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.5));
 			this.physics.velocity.X = (FInt)(0 - this.speed);
 
+			// Sub-Types
 			this.AssignSubType(subType);
+
+			// Speed Handling
+			this.speed = FInt.Create(0.6);
+			this.physics.velocity.X = (FInt)(0 - this.speed);
+
+			// Bounds
 			this.AssignBoundsByAtlas(4, 6, -4, -4);
 		}
 
@@ -35,6 +39,7 @@ namespace Nexus.Objects {
 		}
 
 		public override void OnDirectionChange() {
+			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
 			this.animate.SetAnimation("Octo/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
 		}
 	}
