@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum SnekSubType : byte {
-		Snek,
-		Wurm,
+		Snek = 0,
+		Wurm = 1,
 	}
 
 	public class Snek : EnemyLand {
@@ -16,15 +16,18 @@ namespace Nexus.Objects {
 		public Snek(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Snek].meta;
 
-			// Movement
-			this.speed = FInt.Create(0.8);
-
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.5));
+
+			// Sub-Types
+			this.AssignSubType(subType);
+
+			// Speed Handling
+			this.speed = FInt.Create(0.8);
 			this.physics.velocity.X = (FInt)(0 - this.speed);
 
-			this.AssignSubType(subType);
+			// Bounds
 			this.AssignBoundsByAtlas(10, 4, -4);
 		}
 
@@ -39,6 +42,7 @@ namespace Nexus.Objects {
 		}
 
 		public override void OnDirectionChange() {
+			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
 			this.animate.SetAnimation((this.subType == (byte) SnekSubType.Snek ? "Snek/" : "Wurm/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
 		}
 	}
