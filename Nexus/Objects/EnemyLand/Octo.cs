@@ -18,7 +18,6 @@ namespace Nexus.Objects {
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.5));
-			this.physics.velocity.X = (FInt)(0 - this.speed);
 
 			// Sub-Types
 			this.AssignSubType(subType);
