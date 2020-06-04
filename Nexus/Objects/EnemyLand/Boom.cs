@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum BoomSubType : byte {
-		Boom,
+		Boom = 0,
 	}
 
 	public class Boom : EnemyLand {
@@ -15,15 +15,19 @@ namespace Nexus.Objects {
 		public Boom(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Boom].meta;
 
-			// Movement
-			this.speed = FInt.Create(1.2);
-
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.5));
+
+			// Sub-Types
+			this.AssignSubType(subType);
+
+			// Speed Handling
+			this.speed = FInt.Create(1.2);
+
 			this.physics.velocity.X = (FInt)(0 - this.speed);
 
-			this.AssignSubType(subType);
+			// Bounds
 			this.AssignBoundsByAtlas(8, 4, -4);
 		}
 
@@ -35,6 +39,7 @@ namespace Nexus.Objects {
 		}
 
 		public override void OnDirectionChange() {
+			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
 			this.animate.SetAnimation("Boom/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
 		}
 
