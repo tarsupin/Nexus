@@ -61,14 +61,9 @@ namespace Nexus.Objects {
 					this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 				}
 
-				// Special State is in waiting mode for Character.
-				else if(this.State == (byte) CommonState.Special) {
-					string frameNum = this.State == (byte) CommonState.Special ? "3" : "1";
-					this.SetSpriteName("Moosh/" + (this.subType == (byte) MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left") + frameNum);
-				}
-
-				else if(this.State == (byte)CommonState.Wait) {
-					this.SetSpriteName("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right1" : "Left1"));
+				else {
+					string frameNum = this.State == (byte)CommonState.SpecialWait ? "1" : "3";
+					this.SetSpriteName("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left") + frameNum);
 				}
 			}
 		}

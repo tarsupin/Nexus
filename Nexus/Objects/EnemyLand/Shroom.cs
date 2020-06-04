@@ -50,23 +50,27 @@ namespace Nexus.Objects {
 			
 			else if(subType == (byte) ShroomSubType.Purple) {
 				this.behavior = new ChargeBehavior(this, 0, 13, false, 144, 64);
-				((ChargeBehavior)this.behavior).SetBehavePassives(60, 20, 30, 7);
+				((ChargeBehavior)this.behavior).SetBehavePassives(45, 25, 30, 7);
 				this.SetState((byte)CommonState.Wait);
 			}
 		}
 
 		public override void OnStateChange() {
 
-			// White Moosh
-			if(this.subType != (byte)ShroomSubType.Red) {
+			// Shrooms
+			if(this.subType == (byte)ShroomSubType.Black) {
 				if(this.State == (byte)CommonState.Wait) {
-					this.SetSpriteName("Shroom/" + (this.subType == (byte)ShroomSubType.Black ? "Black" : "Purple") + "/" + (this.FaceRight ? "Right1" : "Left1"));
+					this.SetSpriteName("Shroom/Black/" + (this.FaceRight ? "Right1" : "Left1"));
 				}
 
 				// States: MoveAir, MoveStandard
 				else if(this.State == (byte)CommonState.Move) {
-					this.SetSpriteName("Shroom/" + (this.subType == (byte)ShroomSubType.Black ? "Black" : "Purple") + "/" + (this.FaceRight ? "Right3" : "Left3"));
+					this.SetSpriteName("Shroom/Black/" + (this.FaceRight ? "Right3" : "Left3"));
 				}
+			}
+
+			else if(this.subType == (byte)ShroomSubType.Purple) {
+				this.SetSpriteName("Shroom/Purple/" + (this.FaceRight ? "Right" : "Left") + (this.State == (byte)CommonState.SpecialWait ? "1" : "3"));
 			}
 		}
 
