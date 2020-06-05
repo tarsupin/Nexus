@@ -21,19 +21,20 @@ namespace Nexus.Objects {
 
 		//attack( time: Timer ): boolean {
 		//	const lastFire = Math.floor((time.elapsed + this.att.offset) / this.att.cycle);
-		
+
 		//	if(this.trackProjectile >= lastFire) { return false; }
-		
+
 		//	// Prevent repeat firing.
 		//	if(this.trackProjectile < lastFire - 1) { this.trackProjectile = lastFire; return false; }
-		
+
 		//	this.trackProjectile = lastFire;
 
 		//	return true;
 		//};
 
-		//collideWithCharacter( character: Character, dir: DirCardinal ): void {
-		//	character.wound();
-		//}
+		public override bool RunCharacterImpact(Character character) {
+			character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			return true;
+		}
 	}
 }

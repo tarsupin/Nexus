@@ -15,19 +15,23 @@ namespace Nexus.Objects {
 			this.AssignBoundsByAtlas(2, 4, -4, -12);
 		}
 
-		private void AssignSubType( byte subType ) {
+		private void AssignSubType(byte subType) {
 			this.SpriteName = "Elemental/Fire/Left";
 		}
-		
+
+		public override void OnDirectionChange() {
+			this.SpriteName = "Elemental/Fire/" + (this.FaceRight ? "Right" : "Left");
+		}
+
 		//attack( time: Timer ): boolean {
 		//	if(!super.attack( time )) { return false; }
-		
+
 		//	// Create the projectile
 		//	let projectile = Projectile.fire( this.scene, ProjectileBall, "Fire", this.pos.x + 12, this.pos.y + 12, this.att.x, 0, "EnemyFire" );
-		
+
 		//	// Set the projectile to rotate
 		//	projectile.render = projectile.renderBallRotation;
-		
+
 		//	this.scene.soundList.flame.addToSoundPool(); // Track Sound
 		//	return true;
 		//}

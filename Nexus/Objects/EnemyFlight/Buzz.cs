@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum BuzzSubType : byte {
-		Buzz
+		Buzz = 0
 	}
 
 	public class Buzz : EnemyFlight {
@@ -25,8 +25,13 @@ namespace Nexus.Objects {
 			this.AssignBoundsByAtlas(2, 2, -2, -2);
 		}
 
-		private void AssignSubType( byte subType ) {
-			this.SpriteName = "Buzz/Left2";
+		private void AssignSubType(byte subType) {
+			this.animate = new Animate(this, "Buzz/");
+			this.animate.SetAnimation("Buzz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+		}
+
+		public override void OnDirectionChange() {
+			this.animate.SetAnimation("Buzz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 				this.SpriteName = "Ghost/Hat/Left";
 			}
 		}
-		
+
 		//update( time: Timer ) {
 		//	super.update( time );
 
@@ -60,5 +60,10 @@ namespace Nexus.Objects {
 		//		character.wound();
 		//	}
 		//}
+
+		public override bool RunCharacterImpact(Character character) {
+			character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			return true;
+		}
 	}
 }

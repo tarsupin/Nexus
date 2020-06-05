@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace Nexus.Objects {
 
 	public enum MooshSubType : byte {
-		Brown,
-		Purple,
-		White,
+		Brown = 0,
+		Purple = 1,
+		White = 2,
 	}
 
 	public class Moosh : EnemyLand {

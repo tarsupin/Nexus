@@ -15,8 +15,12 @@ namespace Nexus.Objects {
 			this.AssignBoundsByAtlas(2, 4, -4, -12);
 		}
 
-		private void AssignSubType( byte subType ) {
+		private void AssignSubType(byte subType) {
 			this.SpriteName = "Elemental/Air/Left";
+		}
+
+		public override void OnDirectionChange() {
+			this.SpriteName = "Elemental/Air/" + (this.FaceRight ? "Right" : "Left");
 		}
 	}
 }

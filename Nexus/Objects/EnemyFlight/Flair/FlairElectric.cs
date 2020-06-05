@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -15,7 +16,12 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType( byte subType ) {
-			this.SpriteName = "Flair/Electric/Left2";
+			this.animate = new Animate(this, "Flair/Electric/");
+			this.animate.SetAnimation("Flair/Electric/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+		}
+
+		public override void OnDirectionChange() {
+			this.animate.SetAnimation("Flair/Electric/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 		}
 	}
 }

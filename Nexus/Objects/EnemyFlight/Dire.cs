@@ -28,5 +28,10 @@ namespace Nexus.Objects {
 		private void AssignSubType( byte subType ) {
 			this.SpriteName = "Dire/Left2";
 		}
+
+		public override bool RunCharacterImpact(Character character) {
+			character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			return true;
+		}
 	}
 }
