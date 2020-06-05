@@ -11,19 +11,67 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PlatformFixed,
+					tileId = (byte) TileEnum.PlatformFixedUp,
 					subType = (byte) HorizontalSubTypes.S,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PlatformFixed,
+					tileId = (byte) TileEnum.PlatformFixedUp,
 					subType = (byte) HorizontalSubTypes.H1,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PlatformFixed,
+					tileId = (byte) TileEnum.PlatformFixedUp,
 					subType = (byte) HorizontalSubTypes.H2,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.PlatformFixed,
+					tileId = (byte) TileEnum.PlatformFixedUp,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedRight,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedRight,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedRight,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedRight,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedDown,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedDown,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedDown,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedDown,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedLeft,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedLeft,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedLeft,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformFixedLeft,
 					subType = (byte) HorizontalSubTypes.H3,
 				},
 			});

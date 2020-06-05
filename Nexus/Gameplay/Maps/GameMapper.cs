@@ -194,8 +194,10 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
 				{ (byte) TileEnum.LedgeDecor, new LedgeDecor() },
 				{ (byte) TileEnum.LedgeSnow, new LedgeSnow() },
-				{ (byte) TileEnum.PlatformFixed, new PlatformFixed() },
-				//{ (byte) TileEnum.PlatformItem, new PlatformItem() },
+				{ (byte) TileEnum.PlatformFixedUp, new PlatformFixedUp() },
+				{ (byte) TileEnum.PlatformFixedDown, new PlatformFixedDown() },
+				{ (byte) TileEnum.PlatformFixedLeft, new PlatformFixedLeft() },
+				{ (byte) TileEnum.PlatformFixedRight, new PlatformFixedRight() },
 				
 				// Decor, Prompts (30 - 39)
 				{ (byte) TileEnum.DecorVeg, new DecorVeg() },

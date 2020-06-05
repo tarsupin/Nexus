@@ -5,13 +5,17 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class PlatformUp : TileObject {
+	public class PlatformFixedUp : TileObject {
 
-		protected string Texture;
+		protected string[] Texture;
 
-		protected PlatformUp() : base() {
+		public PlatformFixedUp() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
+			this.BuildTexture("Platform/Fixed/");
+			this.tileId = (byte)TileEnum.PlatformFixedUp;
+			this.title = "Fixed Platform";
+			this.description = "A platform that never moves.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -30,7 +34,15 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture, posX, posY);
+			this.atlas.Draw(this.Texture[subType], posX, posY);
+		}
+
+		protected void BuildTexture(string baseName) {
+			this.Texture = new string[4];
+			this.Texture[(byte) HorizontalSubTypes.S] = baseName + "S";
+			this.Texture[(byte) HorizontalSubTypes.H1] = baseName + "H1";
+			this.Texture[(byte) HorizontalSubTypes.H2] = baseName + "H2";
+			this.Texture[(byte) HorizontalSubTypes.H3] = baseName + "H3";
 		}
 	}
 }

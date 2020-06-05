@@ -37,7 +37,7 @@ namespace Nexus.Scripts {
 			// Objects to Move to Tiles
 			if(isObject) {
 				if(
-					tileId == (byte)TileEnum.PlatformFixed ||
+					tileId == (byte)TileEnum.PlatformFixedUp ||
 					tileId == (byte)TileEnum.PlatformItem
 				) {
 					this.MoveTileDataToLayer(LayerEnum.main, tileId, subTypeId, paramList);
@@ -198,7 +198,7 @@ namespace Nexus.Scripts {
 		protected void ConvertGroundSubTypesToHorizontal(byte tileId, byte subTypeId) {
 
 			if(
-				tileId == (byte) TileEnum.PlatformFixed ||
+				tileId == (byte) TileEnum.PlatformFixedUp ||
 				tileId == (byte) TileEnum.PlatformItem ||
 				tileId == (byte) TileEnum.Log ||
 				tileId == (byte) TileEnum.SlabGray
@@ -242,7 +242,7 @@ namespace Nexus.Scripts {
 		protected void ConvertTilePlatformSubTypes(byte tileId, byte subTypeId) {
 
 			if(
-				tileId == (byte)TileEnum.PlatformFixed ||
+				tileId == (byte)TileEnum.PlatformFixedUp ||
 				tileId == (byte)TileEnum.PlatformItem ||
 				tileId == (byte)TileEnum.SlabGray ||
 				tileId == (byte)TileEnum.Log

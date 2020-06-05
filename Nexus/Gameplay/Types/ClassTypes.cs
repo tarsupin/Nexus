@@ -29,8 +29,12 @@ namespace Nexus.Gameplay {
 		LedgeGrass = 20,
 		LedgeDecor = 21,
 		LedgeSnow = 22,
-		PlatformFixed = 25,
-		PlatformItem = 26,
+
+		// Fixed Platforms
+		PlatformFixedUp = 25,
+		PlatformFixedDown = 26,
+		PlatformFixedLeft = 27,
+		PlatformFixedRight = 28,
 
 		// Decor, Prompts (30 - 39)
 		DecorVeg = 30,
@@ -91,6 +95,9 @@ namespace Nexus.Gameplay {
 		ButtonTimed = 81,
 		SpringFixed = 82,
 		SpringSide = 83,
+
+		// Misc Platforms (130 - 139)
+		PlatformItem = 130,
 
 		// Anything below can only be interacted with by a character:
 		// These will have Passive Collision by Character Only.

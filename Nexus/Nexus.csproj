@@ -384,6 +384,9 @@
     <Compile Include="ObjectsTiles\Blocks\Lock.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\SlabBrown.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeSnow.cs" />
+    <Compile Include="ObjectsTiles\Platforms\PlatformFixedRight.cs" />
+    <Compile Include="ObjectsTiles\Platforms\PlatformFixedLeft.cs" />
+    <Compile Include="ObjectsTiles\Platforms\PlatformFixedDown.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringSide.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />
@@ -442,10 +445,6 @@
     <Compile Include="ObjectsTiles\Ground\GroundCloud.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundDirt.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeDecor.cs" />
-    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformDown.cs" />
-    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformRight.cs" />
-    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformLeft.cs" />
-    <Compile Include="ObjectsTiles\Platforms\BasePlatforms\PlatformUp.cs" />
     <Compile Include="Objects\Character.cs" />
     <Compile Include="Objects\Blocks\Block.cs" />
     <Compile Include="Objects\EnemyFlight\Buzz.cs" />
@@ -505,7 +504,7 @@
     <Compile Include="ObjectsTiles\Decor\PromptIcon.cs" />
     <Compile Include="ObjectsTiles\Decor\DecorVeg.cs" />
     <Compile Include="ObjectsTiles\Decor\Decor.cs" />
-    <Compile Include="ObjectsTiles\Platforms\PlatformFixed.cs" />
+    <Compile Include="ObjectsTiles\Platforms\PlatformFixedUp.cs" />
     <Compile Include="ObjectsTiles\Ledges\Ledge.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeGrass.cs" />
     <Compile Include="ObjectsTiles\Ground\GroundStone.cs" />

@@ -5,31 +5,28 @@ using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class PlatformFixed : TileObject {
+	public class PlatformFixedDown : TileObject {
 
 		protected string[] Texture;
-		protected DirCardinal facing;
 
-		public PlatformFixed() : base() {
+		public PlatformFixedDown() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Platform];
-			this.facing = DirCardinal.Up;
 			this.BuildTexture("Platform/Fixed/");
-			this.tileId = (byte)TileEnum.PlatformFixed;
+			this.tileId = (byte)TileEnum.PlatformFixedDown;
 			this.title = "Fixed Platform";
 			this.description = "A platform that never moves.";
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			// Actor must cross the DOWN threshold for this ledge; otherwise, it shouldn't compute any collision.
-			if(!actor.physics.CrossedThresholdDown(gridY * (byte)TilemapEnum.TileHeight)) { return false; }
+			// Actor must cross the UP threshold for this ledge; otherwise, it shouldn't compute any collision.
+			if(!actor.physics.CrossedThresholdUp(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight)) { return false; }
 
-			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, this.facing);
+			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
 
+			// Additional Character Collisions (such as Wall Jumps)
 			if(collided && actor is Character) {
-
-				// Standard Character Tile Collisions
 				TileCharBasicImpact.RunImpact((Character)actor, dir);
 			}
 
@@ -37,7 +34,7 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			this.atlas.Draw(this.Texture[subType], posX, posY);
+			this.atlas.DrawFaceDown(this.Texture[subType], posX, posY);
 		}
 
 		protected void BuildTexture(string baseName) {
