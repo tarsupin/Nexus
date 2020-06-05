@@ -11,6 +11,7 @@ namespace Nexus.Objects {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)
+		protected bool isOn = false;
 
 		public TogglePlat() : base() {
 			this.collides = true;
@@ -26,17 +27,21 @@ namespace Nexus.Objects {
 			return room.flags.toggleGY;
 		}
 
+		public bool TogCollides(RoomScene room, bool toggleBR) {
+			if(this.Toggled(room, toggleBR)) { return this.isOn; }
+			return !this.isOn;
+		}
+
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			if(this.Toggled(room, this.toggleBR)) {
+			if(this.TogCollides(room, this.toggleBR)) {
 
 				// TODO HIGH PRIORITY: Need to send subtype to RunImpact();
 				// TODO HIGH PRIORITY: Change DirCardinal.Up to the direction this tile is facing (based on the subtype)
 				bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
+				// Additional Character Collisions (such as Wall Jumps)
 				if(collided && actor is Character) {
-
-					// Standard Character Tile Collisions
 					TileCharBasicImpact.RunImpact((Character)actor, dir);
 				}
 

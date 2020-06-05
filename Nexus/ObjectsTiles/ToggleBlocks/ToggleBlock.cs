@@ -9,6 +9,8 @@ namespace Nexus.Objects {
 
 		public string Texture;
 		protected bool toggleBR;    // TRUE if this tile toggles BR (blue-red), FALSE if toggles GY (green-yellow)
+		protected bool isOn = false;
+		protected bool isToggleBox = false;
 
 		public ToggleBlock() : base() {
 			this.collides = true;
@@ -24,14 +26,24 @@ namespace Nexus.Objects {
 			return room.flags.toggleGY;
 		}
 
+		public bool TogCollides(RoomScene room, bool toggleBR) {
+			if(this.isToggleBox) { return true; }
+			if(this.Toggled(room, toggleBR)) { return this.isOn; }
+			return !this.isOn;
+		}
+
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			if(this.Toggled(room, this.toggleBR)) {
+			if(this.TogCollides(room, this.toggleBR)) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
-				if(actor is Character) {
+				// If a ToggleBox was hit from below:
+				if(this.isToggleBox && dir == DirCardinal.Up) {
+					room.ToggleColor(this.toggleBR);
+				}
 
-					// Standard Character Tile Collisions
+				// Additional Character Collisions (such as Wall Jumps)
+				if(actor is Character) {
 					TileCharBasicImpact.RunImpact((Character)actor, dir);
 				}
 

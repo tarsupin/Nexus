@@ -21,9 +21,8 @@ namespace Nexus.Objects {
 
 			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
 
+			// Additional Character Collisions (such as Wall Jumps)
 			if(collided && actor is Character) {
-
-				// Standard Character Tile Collisions
 				TileCharBasicImpact.RunImpact((Character)actor, dir);
 			}
 

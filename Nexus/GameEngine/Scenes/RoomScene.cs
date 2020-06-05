@@ -303,6 +303,7 @@ namespace Nexus.GameEngine {
 		public void ToggleColor( bool isBR ) {
 			if(isBR) { this.flags.toggleBR = !this.flags.toggleBR; }
 			else { this.flags.toggleGY = !this.flags.toggleGY; }
+			Systems.sounds.toggle.Play();
 		}
 
 		public void RestartRoom() {
