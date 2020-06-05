@@ -30,7 +30,10 @@ namespace Nexus.Objects {
 
 			// Characters Receive Spike Damage
 			if(actor is Character) {
-				(actor as Character).wounds.ReceiveWoundDamage(DamageStrength.Standard);
+
+				// Lethal Spikes will force-kill, even if you're currently invincible.
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+				(actor as Character).wounds.ReceiveWoundDamage(subType == (byte)SpikeSubType.Lethal ? DamageStrength.Forced : DamageStrength.Standard);
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);

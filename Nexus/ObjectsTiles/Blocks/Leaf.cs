@@ -28,7 +28,9 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			
+
+			// byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+
 			// Destroy Leaf
 			if(dir == DirCardinal.Up) {
 				BlockTile.BreakApart(room, gridX, gridY);

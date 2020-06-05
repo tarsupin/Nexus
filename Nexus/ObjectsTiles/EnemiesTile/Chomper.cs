@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 				(actor as Projectile).Destroy(dir);
 
 				// TODO: Check that projectile deals enough damage.
-				this.DestroyFull(room, gridX, gridY);
+				room.tilemap.RemoveTile(gridX, gridY);
 				DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte) TilemapEnum.TileWidth, gridY * (byte) TilemapEnum.TileHeight);
 				Systems.sounds.splat1.Play();
 

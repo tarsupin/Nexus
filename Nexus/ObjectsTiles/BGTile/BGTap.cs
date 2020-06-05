@@ -30,22 +30,30 @@ namespace Nexus.Objects {
 				// Toggle the color-toggle that matches this tap type.
 				room.ToggleColor(subType == (byte)BGTapSubType.TapBR);
 
-				// Destroy This BGTap
-				this.DestroyMainLayer(room, gridX, gridY);
-
-				// Destroy all Neighbor BGTaps detected:
-				this.DestroyNeighborTap(room, gridX, gridY);
+				// Destroy This BGTap (and any nearby)
+				this.RemoveTap(room, gridX, gridY, subType);
 			}
 
 			return false;
 		}
 
-		public void DestroyNeighborTap(RoomScene room, ushort gridX, ushort gridY) {
-			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+		private void RemoveTap(RoomScene room, ushort gridX, ushort gridY, byte subType) {
 
-			if(subType == (byte) TileEnum.BGTap) {
-				room.tilemap.ClearMainLayer(gridX, gridY);
-			}
+			// Check if the tile exists:
+			byte[] td = room.tilemap.GetTileDataAtGrid(gridX, gridY);
+			if(td == null) { return; }
+
+			// If the tile is a BGTap, destroy it, and then run DestroyNeighborTap on it.
+			if(td[0] != this.tileId || td[1] != subType) { return; }
+
+			// Destroy This BGTap
+			room.tilemap.ClearMainLayer(gridX, gridY);
+
+			// Destroy all Neighbor BGTaps of the same subtype:
+			this.RemoveTap(room, (ushort)(gridX - 1), gridY, subType);
+			this.RemoveTap(room, (ushort)(gridX + 1), gridY, subType);
+			this.RemoveTap(room, gridX, (ushort)(gridY - 1), subType);
+			this.RemoveTap(room, gridX, (ushort)(gridY + 1), subType);
 		}
 
 		private void CreateTextures() {

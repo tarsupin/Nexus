@@ -140,6 +140,7 @@ namespace Nexus.GameEngine {
 		public void RunCharacterDeath( Character character ) {
 			// TODO HIGH PRIORITY:
 			//this.RestartLevel();        // true if all players are just self. for multiplayer, this changes... maybe a new scene for multiplayer?
+			character.ResetCharacter();
 		}
 
 		public void RestartLevel() {

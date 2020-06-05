@@ -41,8 +41,6 @@ namespace Nexus.ObjectComponents {
 			ArmorAfterDeath = 0;
 
 			// TODO LOW PRIORITY: Add wound settings from: Suit, Hat, Cheats, Game Mode, Character Archetype, etc...
-
-			this.WoundsDeathReset();
 		}
 
 		public void WoundsDeathReset() {

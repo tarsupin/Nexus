@@ -59,7 +59,7 @@ namespace Nexus.Objects {
 			// TODO HIGH PRIORITY: Character Archetype
 			// Character Archetype
 
-			// Status Reset
+			// Status Reset (NOT "STATS")
 			this.status.ResetCharacterStatus();
 
 			// TODO HIGH PRIORITY: Add item, attachments
@@ -74,7 +74,11 @@ namespace Nexus.Objects {
 			Suit.AssignToCharacter(this, (byte) SuitSubType.RedBasic, false);
 			HeadMap.RyuHead.ApplyHead(this, false);
 
+			// Reset Stats (NOT "STATUS")
 			this.stats.ResetCharacterStats();
+
+			// Reset Wounds
+			this.wounds.WoundsDeathReset();
 
 			// Attachments
 			// this.attachments.Reset();		// ???? TODO

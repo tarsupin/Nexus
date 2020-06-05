@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 			// Plants die when hit by projectiles of sufficient damage.
 			 if(actor is Projectile) {
 				(actor as Projectile).Destroy(dir);
-				this.DestroyFull(room, gridX, gridY);
+				room.tilemap.RemoveTile(gridX, gridY);
 
 				// TODO: Get gridID and determine subType. Otherwise, it always shows Plant here.
 				DeathEmitter.Knockout(room, "Particles/Chomp/Plant", gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);

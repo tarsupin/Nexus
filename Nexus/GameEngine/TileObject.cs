@@ -49,13 +49,5 @@ namespace Nexus.GameEngine {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			return true;
 		}
-
-		public void DestroyFull( RoomScene room, ushort gridX, ushort gridY ) {
-			room.tilemap.RemoveTile(gridX, gridY);
-		}
-
-		public void DestroyMainLayer( RoomScene room, ushort gridX, ushort gridY ) {
-			room.tilemap.ClearMainLayer(gridX, gridY);
-		}
 	}
 }
