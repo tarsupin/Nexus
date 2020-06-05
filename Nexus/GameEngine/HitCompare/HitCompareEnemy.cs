@@ -17,6 +17,9 @@ namespace Nexus.GameEngine {
 			// For projectiles, direction may be unnecessary.
 			if(obj is Projectile) { return en.RunProjectileImpact(obj as Projectile); }
 
+			// Don't collide with Flight Enemies
+			if(obj is EnemyFlight) { return false; }
+
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(en, obj);
 
 			// Specific Impact Types

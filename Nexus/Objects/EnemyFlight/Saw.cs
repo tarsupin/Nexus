@@ -40,13 +40,18 @@ namespace Nexus.Objects {
 				this.AssignBoundsByAtlas(12, 12, -12, -12);
 			} else if(subType == (byte) SawSubType.LethalSmall) {
 				this.Damage = DamageStrength.Lethal;
-				this.SpriteName = "Saw/LethalLarge";
+				this.SpriteName = "Saw/Lethal";
 				this.AssignBoundsByAtlas(6, 6, -6, -6);
 			} else if(subType == (byte) SawSubType.LethalLarge) {
 				this.Damage = DamageStrength.Lethal;
-				this.SpriteName = "Saw/Lethal";
+				this.SpriteName = "Saw/LethalLarge";
 				this.AssignBoundsByAtlas(12, 12, -12, -12);
 			}
+		}
+
+		public override bool RunCharacterImpact(Character character) {
+			character.wounds.ReceiveWoundDamage(this.Damage);
+			return true;
 		}
 	}
 }

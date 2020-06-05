@@ -85,7 +85,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		// Run this method to change an actor's facing direction.
+		// Run this method to change an actor's current activity.
 		public void SetActivity( Activity activity ) {
 			if(this.Activity != Activity.ForceActive) {
 				this.Activity = activity;

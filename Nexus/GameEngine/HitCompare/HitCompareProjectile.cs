@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 			// Specific Impact Types
 			if(obj is Projectile) { return false; }
 
-			Projectile proj = (Projectile)projectile;
+			Projectile proj = (Projectile) projectile;
 
 			// TODO: Right now, nothing happening here.
 

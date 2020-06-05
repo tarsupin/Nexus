@@ -142,7 +142,7 @@ namespace Nexus.Objects {
 			{ (byte) ObjectEnum.Saw, new Dictionary<byte, string> {
 				{  (byte) SawSubType.Small, "Saw/Small" },
 				{  (byte) SawSubType.Large, "Saw/Large" },
-				{  (byte) SawSubType.LethalSmall, "Saw/LethalSmall" },
+				{  (byte) SawSubType.LethalSmall, "Saw/Lethal" },
 				{  (byte) SawSubType.LethalLarge, "Saw/LethalLarge" },
 			}},
 			
