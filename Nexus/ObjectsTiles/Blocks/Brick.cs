@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
@@ -37,11 +38,17 @@ namespace Nexus.Objects {
 						// Display Particle Effect
 						byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-						ExplodeEmitter.BoxExplosion(room, "Particles/Brick" + (subType == (byte)BrickSubType.Gray ? "Gray" : ""), gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+						ExplodeEmitter.BoxExplosion(room, this.Texture[subType], gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
 
 						return base.RunImpact(room, actor, gridX, gridY, dir);
 					}
 				}
+
+				// Nudge. Damages enemies above.
+				byte sub = room.tilemap.GetMainSubType(gridX, gridY);
+				NudgeEmitter.BoxNudge(room, this.Texture[sub], gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+				BlockTile.DamageAbove(room, gridX, gridY);
+				Systems.sounds.thudHit.Play(0.7f, 0f, 0f);
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);

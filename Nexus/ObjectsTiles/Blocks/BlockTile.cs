@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 		}
 
-		public static void BreakApart(RoomScene room, ushort gridX, ushort gridY) {
+		public static void DamageAbove(RoomScene room, ushort gridX, ushort gridY) {
 
 			// Damage Creatures Above (if applicable)
 			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea(room.objects[(byte)LoadOrder.Enemy], (uint)gridX * (byte)TilemapEnum.TileWidth + 16, (uint)gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4);
@@ -35,6 +35,12 @@ namespace Nexus.Objects {
 				Enemy enemy = (Enemy)room.objects[(byte)LoadOrder.Enemy][enemyFoundId];
 				enemy.Die(DeathResult.Knockout);
 			}
+		}
+
+		public static void BreakApart(RoomScene room, ushort gridX, ushort gridY) {
+
+			// Damage Creatures Above (if applicable)
+			BlockTile.DamageAbove(room, gridX, gridY);
 
 			// Destroy Brick Tile
 			room.tilemap.RemoveTile(gridX, gridY);
