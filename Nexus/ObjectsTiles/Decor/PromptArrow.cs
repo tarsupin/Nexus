@@ -1,5 +1,4 @@
 ﻿using Nexus.Engine;
-using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Objects {
@@ -35,40 +34,23 @@ namespace Nexus.Objects {
 
 		public void BuildTextures() {
 			this.Texture = new string[17];
-			this.Texture[0] = "Prompt/ArrowUp";
-			this.Texture[(byte)ArrowSubType.ArrowUp] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowUpRight] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowRight] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowDownRight] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowDown] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowDownLeft] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowLeft] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.ArrowUpLeft] = "Prompt/Arrow";
-			this.Texture[(byte)ArrowSubType.FingerUp] = "Prompt/FingerUp";
-			this.Texture[(byte)ArrowSubType.FingerUpRight] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerRight] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerDownRight] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerDown] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerDownLeft] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerLeft] = "Prompt/Finger";
-			this.Texture[(byte)ArrowSubType.FingerUpLeft] = "Prompt/Finger";
-
-			//this.Texture[(byte)ArrowSubType.ArrowUp] = "Prompt/ArrowUp";
-			//this.Texture[(byte)ArrowSubType.ArrowUpRight] = "Prompt/ArrowUpRight";
-			//this.Texture[(byte)ArrowSubType.ArrowRight] = "Prompt/ArrowRight";
-			//this.Texture[(byte)ArrowSubType.ArrowDownRight] = "Prompt/ArrowDownRight";
-			//this.Texture[(byte)ArrowSubType.ArrowDown] = "Prompt/ArrowDown";
-			//this.Texture[(byte)ArrowSubType.ArrowDownLeft] = "Prompt/ArrowDownLeft";
-			//this.Texture[(byte)ArrowSubType.ArrowLeft] = "Prompt/ArrowLeft";
-			//this.Texture[(byte)ArrowSubType.ArrowUpLeft] = "Prompt/ArrowUpLeft";
-			//this.Texture[(byte)ArrowSubType.FingerUp] = "Prompt/FingerUp";
-			//this.Texture[(byte)ArrowSubType.FingerUpRight] = "Prompt/FingerUpRight";
-			//this.Texture[(byte)ArrowSubType.FingerRight] = "Prompt/FingerRight";
-			//this.Texture[(byte)ArrowSubType.FingerDownRight] = "Prompt/FingerDownRight";
-			//this.Texture[(byte)ArrowSubType.FingerDown] = "Prompt/FingerDown";
-			//this.Texture[(byte)ArrowSubType.FingerDownLeft] = "Prompt/FingerDownLeft";
-			//this.Texture[(byte)ArrowSubType.FingerLeft] = "Prompt/FingerLeft";
-			//this.Texture[(byte)ArrowSubType.FingerUpLeft] = "Prompt/FingerUpLeft";
+			this.Texture[0] = "Arrow/Up";
+			this.Texture[(byte)ArrowSubType.ArrowUp] = "Arrow/Up";
+			this.Texture[(byte)ArrowSubType.ArrowUpRight] = "Arrow/UpRight";
+			this.Texture[(byte)ArrowSubType.ArrowRight] = "Arrow/Right";
+			this.Texture[(byte)ArrowSubType.ArrowDownRight] = "Arrow/DownRight";
+			this.Texture[(byte)ArrowSubType.ArrowDown] = "Arrow/Down";
+			this.Texture[(byte)ArrowSubType.ArrowDownLeft] = "Arrow/DownLeft";
+			this.Texture[(byte)ArrowSubType.ArrowLeft] = "Arrow/Left";
+			this.Texture[(byte)ArrowSubType.ArrowUpLeft] = "Arrow/UpLeft";
+			this.Texture[(byte)ArrowSubType.FingerUp] = "Finger/Up";
+			this.Texture[(byte)ArrowSubType.FingerUpRight] = "Finger/UpRight";
+			this.Texture[(byte)ArrowSubType.FingerRight] = "Finger/Right";
+			this.Texture[(byte)ArrowSubType.FingerDownRight] = "Finger/DownRight";
+			this.Texture[(byte)ArrowSubType.FingerDown] = "Finger/Down";
+			this.Texture[(byte)ArrowSubType.FingerDownLeft] = "Finger/DownLeft";
+			this.Texture[(byte)ArrowSubType.FingerLeft] = "Finger/Left";
+			this.Texture[(byte)ArrowSubType.FingerUpLeft] = "Finger/UpLeft";
 		}
 	}
 }

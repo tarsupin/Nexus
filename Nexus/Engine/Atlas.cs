@@ -16,9 +16,14 @@ namespace Nexus.Engine {
 
 	public class Atlas {
 
-		private const float Rot90Deg = 1.5707963267949f;
-		private const float Rot180Deg = 3.14159265358979f;
-		private const float Rot270Deg = 4.71238898038469f;
+		public const float Rot90Deg = 1.5707963267949f;
+		public const float Rot180Deg = 3.14159265358979f;
+		public const float Rot270Deg = 4.71238898038469f;
+
+		public const float Rot45Deg = 0.785398163f;
+		public const float Rot135Deg = 2.35619449f;
+		public const float Rot225Deg = 3.92699082f;
+		public const float Rot315Deg = 5.49778714f;
 
 		// References
 		private readonly SpriteBatch spriteBatch;
@@ -100,15 +105,28 @@ namespace Nexus.Engine {
 		}
 
 		public void DrawFaceLeft(string spriteName, int posX, int posY) {
-			this.DrawRotation(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
+			this.DrawRotationWithOffset(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
 		}
 
 		public void DrawFaceRight(string spriteName, int posX, int posY) {
-			this.DrawRotation(spriteName, posX, posY, Rot90Deg, new Vector2(0, 48));
+			this.DrawRotationWithOffset(spriteName, posX, posY, Rot90Deg, new Vector2(0, 48));
 		}
 		
 		public void DrawFaceDown(string spriteName, int posX, int posY) {
-			this.DrawRotation(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
+			this.DrawRotationWithOffset(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
+		}
+
+		public void DrawRotationWithOffset(string spriteName, int posX, int posY, float rotation, Vector2 origin) {
+			SpriteFrame sprite = this.spriteList[spriteName];
+
+			spriteBatch.Draw(
+				texture: this.Texture,
+				//position: new Vector2(posX + sprite.Origin.X, posY + sprite.Origin.Y),
+				position: new Vector2(posX + sprite.XOffset, posY + sprite.YOffset),
+				sourceRectangle: sprite.TextureRect,
+				rotation: rotation,
+				origin: origin
+			);
 		}
 
 		public void DrawLine(int startX, int startY, int endX, int endY) {
