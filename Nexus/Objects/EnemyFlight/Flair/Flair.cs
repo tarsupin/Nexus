@@ -15,8 +15,6 @@ namespace Nexus.Objects {
 
 			// Assign Flight Behavior
 			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
-
-			this.AssignBoundsByAtlas(2, 4, -4, -10);
 		}
 
 		//attack( time: Timer ): boolean {

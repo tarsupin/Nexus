@@ -10,6 +10,19 @@ namespace Nexus.Objects {
 
 		}
 
+		public override void RunTick() {
+			base.RunTick();
+			if(this.FaceRight) {
+				if(this.physics.velocity.X <= 1) {
+					this.SetDirection(false);
+				}
+			} else {
+				if(this.physics.velocity.X >= 1) {
+					this.SetDirection(true);
+				}
+			}
+		}
+
 		public override bool DamageByTNT() { return false; }
 	}
 }

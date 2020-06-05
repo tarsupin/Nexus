@@ -8,11 +8,12 @@ namespace Nexus.Objects {
 
 	public enum FlairFireSubType : byte { Normal };
 
-	public class FlairFire : Elemental {
+	public class FlairFire : Flair {
 
 		public FlairFire(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.FlairFire].meta;
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 4, -4, -10);
 		}
 
 		private void AssignSubType(byte subType) {
