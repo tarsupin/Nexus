@@ -83,6 +83,7 @@
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Sanitize.cs" />
+    <Compile Include="GameEngine\Collision\CollideRect.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleToEditor.cs" />
     <Compile Include="GameEngine\Console\WorldConsoles\WCReset.cs" />
     <Compile Include="GameEngine\Console\WorldConsoles\WCToEditor.cs" />

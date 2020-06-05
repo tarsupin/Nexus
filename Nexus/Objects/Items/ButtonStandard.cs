@@ -17,6 +17,7 @@ namespace Nexus.Objects {
 			this.gripLift = -38;
 
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(12, 0, 0, 0);
 		}
 
 		private void AssignSubType(byte subType) {

@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 		public static void DamageAbove(RoomScene room, ushort gridX, ushort gridY) {
 
 			// Damage Creatures Above (if applicable)
-			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea(room.objects[(byte)LoadOrder.Enemy], (uint)gridX * (byte)TilemapEnum.TileWidth + 16, (uint)gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4);
+			uint enemyFoundId = CollideRect.FindObjectsTouchingArea(room.objects[(byte)LoadOrder.Enemy], (uint)gridX * (byte)TilemapEnum.TileWidth + 16, (uint)gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4);
 
 			if(enemyFoundId > 0) {
 				Enemy enemy = (Enemy)room.objects[(byte)LoadOrder.Enemy][enemyFoundId];

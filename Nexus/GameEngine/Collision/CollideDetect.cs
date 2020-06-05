@@ -14,54 +14,6 @@ namespace Nexus.GameEngine {
 
 	public class CollideDetect {
 
-		/************************
-		*** Generic Detection ***
-		************************/
-
-		// Retrieve the object ID of a GameObject that is within the area designated.
-		// You can supply an existing ID to scan for IDs above a previous value.
-		// For example, if you retrieved ID 10 from this, you could search again with ID 10 as a minimum, and it will only return newer objects.
-		// uint enemyFoundId = CollideDetect.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectWithinArea(Dictionary<uint, DynamicObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
-			uint right = posX + width;
-			uint bottom = posY + height;
-
-			foreach(KeyValuePair<uint, DynamicObject> actorEntry in objectList) {
-				DynamicObject actor = actorEntry.Value;
-
-				// If the Actor is within the bounds described.
-				if(actor.posX >= posX && actor.posX + actor.bounds.Right <= right && actor.posY >= posY && actor.posY + actor.bounds.Bottom <= bottom) {
-
-					// It is possible to skip over IDs, in case you're looking for multiple objects somewhere.
-					if(actor.id > minId) { return actor.id; }
-				}
-			}
-
-			// No GameObject was located in the list provided. Return 0, which is an invalid GameObject ID.
-			return 0;
-		}
-
-		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
-		// uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectsTouchingArea(Dictionary<uint, DynamicObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
-			uint right = posX + width;
-			uint bottom = posY + height;
-
-			foreach(KeyValuePair<uint, DynamicObject> actorEntry in objectList) {
-				DynamicObject actor = actorEntry.Value;
-
-				// If the Actor is within the bounds described.
-				if(actor.posX < right && actor.posX + actor.bounds.Right >= posX && actor.posY <= bottom && actor.posY + actor.bounds.Bottom >= posY) {
-
-					// It is possible to skip over IDs, in case you're looking for multiple objects somewhere.
-					if(actor.id > minId) { return actor.id; }
-				}
-			}
-
-			// No GameObject was located in the list provided. Return 0, which is an invalid GameObject ID.
-			return 0;
-		}
-
 		/***************
 		*** Overlaps ***
 		***************/
@@ -128,7 +80,7 @@ namespace Nexus.GameEngine {
 		// Collisions that exceed this will cause false positives.
 		// TODO LOW PRIORITY: Test how/why this causes false positive? Does it anymore? We changed a lot. Could be useful to remove this if possible.
 		// TODO LOW PRIORITY: Eliminate this test if possible. Adds overhead (though it might be necessary overhead).
-		public static int GetMaxOverlapX( Physics obj1Phys, Physics obj2Phys = null ) {
+		private static int GetMaxOverlapX( Physics obj1Phys, Physics obj2Phys = null ) {
 			int obj2Move = obj2Phys != null ? obj2Phys.AmountMovedX : 0;
 
 			// If object #2 is stationary (didn't move):
@@ -147,7 +99,7 @@ namespace Nexus.GameEngine {
 
 		// GetMaxOverlapY provides the amount of total Y-Overlap that should occur between two objects based on relative movement.
 		// Collisions that exceed this will cause false positives.
-		public static int GetMaxOverlapY( Physics obj1Phys, Physics obj2Phys = null ) {
+		private static int GetMaxOverlapY( Physics obj1Phys, Physics obj2Phys = null ) {
 			int obj2Move = obj2Phys != null ? obj2Phys.AmountMovedY : 0;
 
 			// If Object 2 did not move:
@@ -169,7 +121,7 @@ namespace Nexus.GameEngine {
 		*************************/
 
 		public static short GetRelativeX(DynamicObject obj, DynamicObject obj2) {
-			return (short) ((obj.posX + obj.bounds.MidX) - (obj2.posX + obj.bounds.MidX));
+			return (short)(obj.bounds.MidX - obj.bounds.MidX);
 		}
 
 		private static int GetRelativeDX(Physics phys1, Physics phys2) {
@@ -184,16 +136,12 @@ namespace Nexus.GameEngine {
 		*** Directional Detection ***
 		****************************/
 
-		// TODO HIGH PRIORITY: Rebuild GetDirectionOfCollision; not using floats, much is useless now. Also, heavy cost to use original.
-
 		// Identifies the direction of a collision.
 		// WARNING: Heavy use. Only run this AFTER you've tested for if the objects overlap.
 		public static DirCardinal GetDirectionOfCollision( DynamicObject obj, DynamicObject obj2 ) {
 
 			// If the movement between the objects > the amount overlapped, ignore the overlap.
 			// This prevents problems like inaccurate hitboxes from the wrong side.
-			// TODO HIGH PRIORITY: Is this still accurate? Haven't tested for months, and may have changed in that time.
-			// TODO: Also, would this not also explain why we phase through items on platforms? The extra movement would skip it?
 			int maxOverlapY = CollideDetect.GetMaxOverlapY(obj.physics, obj2.physics);
 			int relativeY = CollideDetect.GetRelativeDY(obj.physics, obj2.physics);
 			int overlapY = CollideDetect.GetOverlapY(obj, obj2, relativeY <= 0);

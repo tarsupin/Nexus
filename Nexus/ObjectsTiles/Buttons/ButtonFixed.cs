@@ -15,7 +15,29 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			return base.RunImpact(room, actor, gridX, gridY, dir);
+
+			int x1 = gridX * (byte)TilemapEnum.TileWidth;
+			int x2 = gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth;
+			int y1 = gridY * (byte)TilemapEnum.TileHeight + 32;
+			int y2 = gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight;
+
+			// Check Overlap with Altered Border
+			if(!CollideRect.IsOverlapping(actor, x1, x2, y1, y2)) { return false; }
+
+			DirCardinal newDir = CollideRect.GetDirectionOfCollision(actor, x1, x2, y1, y2);
+
+			if(newDir == DirCardinal.Down) {
+				actor.CollideTileDown(y1 - actor.bounds.Bottom);
+			} else if(newDir == DirCardinal.Right) {
+				actor.CollideTileRight(x2 - actor.bounds.Right);
+			} else if(newDir == DirCardinal.Left) {
+				actor.CollideTileLeft(x1 - actor.bounds.Left);
+			} else if(newDir == DirCardinal.Up) {
+				actor.CollideTileUp(y2 - actor.bounds.Top);
+			}
+
+			return true;
+			//return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 
 		private void CreateTextures() {

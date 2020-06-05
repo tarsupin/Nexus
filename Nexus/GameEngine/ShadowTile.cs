@@ -231,7 +231,7 @@ namespace Nexus.Objects {
 			
 			// Spring - Standard
 			{ (byte) ObjectEnum.SpringStandard, new Dictionary<byte, string> {
-				{  (byte) SpringStandardSubType.Norm, "Spring/Standard/Up" },
+				{  (byte) SpringStandardSubType.Norm, "Spring/Up" },
 			}},
 
 			// Button - Standard
