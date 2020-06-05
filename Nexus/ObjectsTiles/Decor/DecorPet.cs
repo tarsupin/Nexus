@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System;
 
 namespace Nexus.Objects {
 
@@ -37,6 +38,18 @@ namespace Nexus.Objects {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.BuildTextures();
 			this.tileId = (byte)TileEnum.DecorPet;
+		}
+
+		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
+
+			byte jumpTrack = (byte) (Systems.timer.Frame + subType * 47);
+
+			if(jumpTrack > 145 && jumpTrack <= 185) {
+				byte offSet = (byte)(5 * Math.Sin(jumpTrack * 0.3) + 5);
+				this.atlas.Draw(this.Texture[subType], posX, posY - offSet);
+			} else {
+				this.atlas.Draw(this.Texture[subType], posX, posY);
+			}
 		}
 
 		public void BuildTextures() {
