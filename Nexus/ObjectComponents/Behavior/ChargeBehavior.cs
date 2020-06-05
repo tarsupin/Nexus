@@ -28,7 +28,6 @@ namespace Nexus.ObjectComponents {
 		}
 
 		protected override void RunAction() {
-
 			Touch touch = this.actor.physics.touch;
 
 			// End charge when touching ground and action has expired.

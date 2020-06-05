@@ -62,8 +62,7 @@ namespace Nexus.Objects {
 				}
 
 				else {
-					string frameNum = this.State == (byte)CommonState.SpecialWait ? "1" : "3";
-					this.SetSpriteName("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left") + frameNum);
+					this.SetSpriteName("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left") + (this.State == (byte)CommonState.SpecialWait ? "1" : "3"));
 				}
 			}
 		}
