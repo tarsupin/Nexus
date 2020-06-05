@@ -405,6 +405,26 @@
     <Compile Include="ObjectsTiles\Special\Cannons\CannonHor.cs" />
     <Compile Include="ObjectsTiles\Special\NPC.cs" />
     <Compile Include="ObjectsTiles\Special\Chest.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatGreenDown.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatGreenLeft.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatGreenRight.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatBlueRight.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatBlueLeft.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatBlueDown.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatGreenUp.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatYellowDown.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatYellowLeft.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatYellowRight.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatRedRight.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatRedLeft.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatRedDown.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatYellowUp.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatRedUp.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatBlueUp.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatRight.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatLeft.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatDown.cs" />
+    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatUp.cs" />
     <Compile Include="Objects\EnemyFlight\Slammer.cs" />
     <Compile Include="Objects\EnemyFlight\Dire.cs" />
     <Compile Include="Objects\EnemyFlight\Bouncer.cs" />
@@ -482,10 +502,6 @@
     <Compile Include="Objects\EnemyLand\Moosh.cs" />
     <Compile Include="Objects\EnemyLand\EnemyLand.cs" />
     <Compile Include="Objects\Enemy.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatYellow.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatGreen.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatRed.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlatBlue.cs" />
     <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBoxGY.cs" />
     <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBoxBR.cs" />
     <Compile Include="ObjectsTiles\ToggleBlocks\ToggleBlockYellow.cs" />
@@ -533,7 +549,6 @@
     <Compile Include="Gameplay\Types\ClassTypes.cs" />
     <Compile Include="Gameplay\Types\MetaTypes.cs" />
     <Compile Include="Gameplay\Types\ObjectTypes.cs" />
-    <Compile Include="ObjectsTiles\TogglePlats\TogglePlat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

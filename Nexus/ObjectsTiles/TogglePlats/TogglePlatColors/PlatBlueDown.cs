@@ -2,13 +2,13 @@
 
 namespace Nexus.Objects {
 
-	public class TogglePlatBlue : TogglePlat {
+	public class PlatBlueDown : TogglePlatDown {
 
-		public TogglePlatBlue() : base() {
+		public PlatBlueDown() : base() {
 			this.Texture = "/Blue/Plat";
 			this.toggleBR = true;
 			this.isOn = true;
-			this.tileId = (byte)TileEnum.TogglePlatBlue;
+			this.tileId = (byte)TileEnum.PlatBlueDown;
 			this.title = "Blue Toggle Platform";
 			this.description = "Acts like a platform when Blue-Toggles are ON.";
 		}

@@ -33,71 +33,55 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatBlue,
-					subType = (byte) FacingSubType.FaceUp,
+					tileId = (byte) TileEnum.PlatBlueUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatRed,
-					subType = (byte) FacingSubType.FaceUp,
+					tileId = (byte) TileEnum.PlatRedUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatBlue,
-					subType = (byte) FacingSubType.FaceLeft,
+					tileId = (byte) TileEnum.PlatBlueRight,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatRed,
-					subType = (byte) FacingSubType.FaceLeft,
+					tileId = (byte) TileEnum.PlatRedRight,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatBlue,
-					subType = (byte) FacingSubType.FaceDown,
+					tileId = (byte) TileEnum.PlatBlueDown,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatRed,
-					subType = (byte) FacingSubType.FaceDown,
+					tileId = (byte) TileEnum.PlatRedDown,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatBlue,
-					subType = (byte) FacingSubType.FaceRight,
+					tileId = (byte) TileEnum.PlatBlueLeft,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatRed,
-					subType = (byte) FacingSubType.FaceRight,
+					tileId = (byte) TileEnum.PlatRedLeft,
 				},
 			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatGreen,
-					subType = (byte) FacingSubType.FaceUp,
+					tileId = (byte) TileEnum.PlatGreenUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatYellow,
-					subType = (byte) FacingSubType.FaceUp,
+					tileId = (byte) TileEnum.PlatYellowUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatGreen,
-					subType = (byte) FacingSubType.FaceLeft,
+					tileId = (byte) TileEnum.PlatGreenRight,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatYellow,
-					subType = (byte) FacingSubType.FaceLeft,
+					tileId = (byte) TileEnum.PlatYellowRight,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatGreen,
-					subType = (byte) FacingSubType.FaceDown,
+					tileId = (byte) TileEnum.PlatGreenDown,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatYellow,
-					subType = (byte) FacingSubType.FaceDown,
+					tileId = (byte) TileEnum.PlatYellowDown,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatGreen,
-					subType = (byte) FacingSubType.FaceRight,
+					tileId = (byte) TileEnum.PlatGreenLeft,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.TogglePlatYellow,
-					subType = (byte) FacingSubType.FaceRight,
+					tileId = (byte) TileEnum.PlatYellowLeft,
 				},
 			});
 

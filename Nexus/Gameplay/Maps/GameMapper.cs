@@ -229,10 +229,10 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ToggleBlockYellow, new ToggleBlockYellow() },
 				
 				// Solid, Toggled Platforms (56 - 59)
-				{ (byte) TileEnum.TogglePlatBlue, new TogglePlatBlue() },
-				{ (byte) TileEnum.TogglePlatRed, new TogglePlatRed() },
-				{ (byte) TileEnum.TogglePlatGreen, new TogglePlatGreen() },
-				{ (byte) TileEnum.TogglePlatYellow, new TogglePlatYellow() },
+				{ (byte) TileEnum.PlatBlueUp, new PlatBlueUp() },
+				{ (byte) TileEnum.PlatRedUp, new PlatRedUp() },
+				{ (byte) TileEnum.PlatGreenUp, new PlatGreenUp() },
+				{ (byte) TileEnum.PlatYellowUp, new PlatYellowUp() },
 
 				// Generators (60 - 64)
 				{ (byte) TileEnum.CannonHorizontal, new CannonHor() },
@@ -254,6 +254,20 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ButtonTimed, new ButtonTimed() },
 				{ (byte) TileEnum.SpringFixed, new SpringFixed() },
 				{ (byte) TileEnum.SpringSide, new SpringSide() },
+				
+				// Side-Facing Toggled Platforms (120 - 134)
+				{ (byte) TileEnum.PlatBlueDown, new PlatBlueDown() },
+				{ (byte) TileEnum.PlatRedDown, new PlatRedDown() },
+				{ (byte) TileEnum.PlatGreenDown, new PlatGreenDown() },
+				{ (byte) TileEnum.PlatYellowDown, new PlatYellowDown() },
+				{ (byte) TileEnum.PlatBlueLeft, new PlatBlueLeft() },
+				{ (byte) TileEnum.PlatRedLeft, new PlatRedLeft() },
+				{ (byte) TileEnum.PlatGreenLeft, new PlatGreenLeft() },
+				{ (byte) TileEnum.PlatYellowLeft, new PlatYellowLeft() },
+				{ (byte) TileEnum.PlatBlueRight, new PlatBlueRight() },
+				{ (byte) TileEnum.PlatRedRight, new PlatRedRight() },
+				{ (byte) TileEnum.PlatGreenRight, new PlatGreenRight() },
+				{ (byte) TileEnum.PlatYellowRight, new PlatYellowRight() },
 
 				// Anything below can only be interacted with by a character:
 				// These will have Passive Collision by Character Only.

@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.ToggleBlock];
 		}
 
-		public bool Toggled(RoomScene room, bool toggleBR) {
+		public static bool Toggled(RoomScene room, bool toggleBR) {
 
 			// Utility Bar (Editor) does not provide a room scene. Show default texture.
 			if(room == null) { return true; }
@@ -26,15 +26,14 @@ namespace Nexus.Objects {
 			return room.flags.toggleGY;
 		}
 
-		public bool TogCollides(RoomScene room, bool toggleBR) {
-			if(this.isToggleBox) { return true; }
-			if(this.Toggled(room, toggleBR)) { return this.isOn; }
-			return !this.isOn;
+		public static bool TogCollides(RoomScene room, bool toggleBR, bool isOn) {
+			if(ToggleBlock.Toggled(room, toggleBR)) { return isOn; }
+			return !isOn;
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			if(this.TogCollides(room, this.toggleBR)) {
+			if(this.isToggleBox || ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 				// If a ToggleBox was hit from below:
@@ -56,7 +55,7 @@ namespace Nexus.Objects {
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
 
 			// If Global Toggle is ON for Blue/Red, draw accordingly:
-			this.atlas.Draw((this.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
+			this.atlas.Draw((ToggleBlock.Toggled(room, this.toggleBR) ? "ToggleOn" : "ToggleOff") + this.Texture, posX, posY);
 		}
 	}
 }

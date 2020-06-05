@@ -332,10 +332,10 @@ namespace Nexus.Gameplay {
 				case (byte) TileEnum.ChomperFire:
 				case (byte) TileEnum.ChomperGrass:
 				case (byte) TileEnum.ChomperMetal:
-				case (byte) TileEnum.TogglePlatBlue:
-				case (byte) TileEnum.TogglePlatGreen:
-				case (byte) TileEnum.TogglePlatRed:
-				case (byte) TileEnum.TogglePlatYellow:
+				case (byte) TileEnum.PlatBlueUp:
+				case (byte) TileEnum.PlatGreenUp:
+				case (byte) TileEnum.PlatRedUp:
+				case (byte) TileEnum.PlatYellowUp:
 					return AutoGroup.StaticCross;
 
 				// Ledges

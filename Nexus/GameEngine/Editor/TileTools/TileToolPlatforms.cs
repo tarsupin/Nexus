@@ -40,6 +40,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixedRight,
+
 					subType = (byte) HorizontalSubTypes.H3,
 				},
 				new EditorPlaceholder() {

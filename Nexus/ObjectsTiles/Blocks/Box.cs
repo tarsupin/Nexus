@@ -24,30 +24,11 @@ namespace Nexus.Objects {
 			
 			// Destroy Box
 			if(dir == DirCardinal.Up) {
-				this.BreakApart(room, gridX, gridY);
+				BlockTile.BreakApart(room, gridX, gridY);
+				ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);
-		}
-
-		private void BreakApart(RoomScene room, ushort gridX, ushort gridY) {
-
-			// Damage Creatures Above (if applicable)
-			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( room.objects[(byte)LoadOrder.Enemy], (uint) gridX * (byte) TilemapEnum.TileWidth + 16, (uint) gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4 );
-
-			if(enemyFoundId > 0) {
-				Enemy enemy = (Enemy) room.objects[(byte)LoadOrder.Enemy][enemyFoundId];
-				enemy.Die(DeathResult.Knockout);
-			}
-
-			// Destroy Box Tile
-			room.tilemap.RemoveTile(gridX, gridY);
-
-			// Display Particle Effect
-			ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
-
-			// Box Breaking Sound
-			Systems.sounds.brickBreak.Play();
 		}
 
 		private void CreateTextures() {

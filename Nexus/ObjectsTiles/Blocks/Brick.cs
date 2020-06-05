@@ -1,11 +1,8 @@
-﻿using Nexus.Engine;
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
-
-	// TODO: Nudging is going to be complicated. Maybe hide the tile, create a particle effect.
 
 	public class Brick : BlockTile {
 
@@ -33,35 +30,21 @@ namespace Nexus.Objects {
 					
 					// Only Spikey Hats destroy Bricks
 					if(character.hat is SpikeyHat) {
-						this.BreakApart(room, gridX, gridY);
+
+						// Destroy Brick
+						BlockTile.BreakApart(room, gridX, gridY);
+
+						// Display Particle Effect
+						byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+
+						ExplodeEmitter.BoxExplosion(room, "Particles/Brick" + (subType == (byte)BrickSubType.Gray ? "Gray" : ""), gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+
 						return base.RunImpact(room, actor, gridX, gridY, dir);
 					}
 				}
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);
-		}
-
-		private void BreakApart(RoomScene room, ushort gridX, ushort gridY) {
-
-			// Damage Creatures Above (if applicable)
-			uint enemyFoundId = CollideDetect.FindObjectsTouchingArea( room.objects[(byte)LoadOrder.Enemy], (uint) gridX * (byte) TilemapEnum.TileWidth + 16, (uint) gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4 );
-
-			if(enemyFoundId > 0) {
-				Enemy enemy = (Enemy) room.objects[(byte)LoadOrder.Enemy][enemyFoundId];
-				enemy.Die(DeathResult.Knockout);
-			}
-
-			// Destroy Brick Tile
-			room.tilemap.RemoveTile(gridX, gridY);
-
-			// Display Particle Effect
-			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
-
-			ExplodeEmitter.BoxExplosion(room, "Particles/Brick" + (subType == (byte) BrickSubType.Gray ? "Gray" : ""), gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
-
-			// Brick Breaking Sound
-			Systems.sounds.brickBreak.Play();
 		}
 
 		private void CreateTextures() {

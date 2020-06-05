@@ -105,28 +105,15 @@ namespace Nexus.Engine {
 		}
 
 		public void DrawFaceLeft(string spriteName, int posX, int posY) {
-			this.DrawRotationWithOffset(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
+			this.DrawRotation(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
 		}
 
 		public void DrawFaceRight(string spriteName, int posX, int posY) {
-			this.DrawRotationWithOffset(spriteName, posX, posY, Rot90Deg, new Vector2(0, 48));
+			this.DrawRotation(spriteName, posX, posY, Rot90Deg, new Vector2(0, 48));
 		}
 		
 		public void DrawFaceDown(string spriteName, int posX, int posY) {
-			this.DrawRotationWithOffset(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
-		}
-
-		public void DrawRotationWithOffset(string spriteName, int posX, int posY, float rotation, Vector2 origin) {
-			SpriteFrame sprite = this.spriteList[spriteName];
-
-			spriteBatch.Draw(
-				texture: this.Texture,
-				//position: new Vector2(posX + sprite.Origin.X, posY + sprite.Origin.Y),
-				position: new Vector2(posX + sprite.XOffset, posY + sprite.YOffset),
-				sourceRectangle: sprite.TextureRect,
-				rotation: rotation,
-				origin: origin
-			);
+			this.DrawRotation(spriteName, posX, posY, Rot180Deg, new Vector2(48, 48));
 		}
 
 		public void DrawLine(int startX, int startY, int endX, int endY) {

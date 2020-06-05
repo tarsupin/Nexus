@@ -67,11 +67,11 @@ namespace Nexus.Gameplay {
 		ToggleBlockGreen = 54,
 		ToggleBlockYellow = 55,
 
-		// Solid, Toggled Platforms (56 - 59)
-		TogglePlatBlue = 56,
-		TogglePlatRed = 57,
-		TogglePlatGreen = 58,
-		TogglePlatYellow = 59,
+		// Up-Facing Toggled Platforms (56 - 59)
+		PlatBlueUp = 56,
+		PlatRedUp = 57,
+		PlatGreenUp = 58,
+		PlatYellowUp = 59,
 
 		// Generators (60 - 64)
 		CannonHorizontal = 60,
@@ -96,8 +96,22 @@ namespace Nexus.Gameplay {
 		SpringFixed = 82,
 		SpringSide = 83,
 
-		// Misc Platforms (130 - 139)
-		PlatformItem = 130,
+		// Side-Facing Toggled Platforms (120 - 134)
+		PlatBlueDown = 120,
+		PlatRedDown = 121,
+		PlatGreenDown = 122,
+		PlatYellowDown = 123,
+		PlatBlueLeft = 124,
+		PlatRedLeft = 125,
+		PlatGreenLeft = 126,
+		PlatYellowLeft = 127,
+		PlatBlueRight = 128,
+		PlatRedRight = 129,
+		PlatGreenRight = 130,
+		PlatYellowRight = 131,
+
+		// Misc Platforms (135 - 139)
+		PlatformItem = 135,
 
 		// Anything below can only be interacted with by a character:
 		// These will have Passive Collision by Character Only.
