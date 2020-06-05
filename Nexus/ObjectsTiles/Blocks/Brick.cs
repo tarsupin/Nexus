@@ -37,8 +37,8 @@ namespace Nexus.Objects {
 
 						// Display Particle Effect
 						byte subType = room.tilemap.GetMainSubType(gridX, gridY);
-
 						ExplodeEmitter.BoxExplosion(room, this.Texture[subType], gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+						Systems.sounds.brickBreak.Play();
 
 						return base.RunImpact(room, actor, gridX, gridY, dir);
 					}

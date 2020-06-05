@@ -26,6 +26,7 @@ namespace Nexus.Objects {
 			if(dir == DirCardinal.Up) {
 				BlockTile.BreakApart(room, gridX, gridY);
 				ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+				Systems.sounds.brickBreak.Play();
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);

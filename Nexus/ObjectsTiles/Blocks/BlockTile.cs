@@ -44,9 +44,6 @@ namespace Nexus.Objects {
 
 			// Destroy Brick Tile
 			room.tilemap.RemoveTile(gridX, gridY);
-
-			// Brick Breaking Sound
-			Systems.sounds.brickBreak.Play();
 		}
 	}
 }
