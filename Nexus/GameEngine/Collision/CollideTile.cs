@@ -28,6 +28,33 @@ namespace Nexus.GameEngine {
 			return (dynamicObj.posX + dynamicObj.bounds.Left >= xStart - left && dynamicObj.posX + dynamicObj.bounds.Right <= xStart + w + right && dynamicObj.posY + dynamicObj.bounds.Top >= yStart - top && dynamicObj.posY + dynamicObj.bounds.Bottom <= yStart + h + bottom);
 		}
 
+		// Check if Grid Square is a Blocking Square (Ground, BlockTile, HorizontalWall, etc.)
+		public static bool IsBlockingSquare(TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
+
+			// Verify that a tile exists at the given location:
+			byte[] tileData = tilemap.GetTileDataAtGrid(gridX, gridY);
+
+			// If the tile was removed, never existed, or the main layer has no content:
+			if(tileData == null || tileData[0] == 0) { return false; }
+
+			TileObject tileObj = Systems.mapper.TileDict[tileData[0]];
+
+			// Make sure the tile exists and collides, otherwise there's no point in testing any further:
+			if(tileObj == null || !tileObj.collides) { return false; }
+
+			// Check if the Tile is Blocking:
+			if(tileObj is Ground || tileObj is BlockTile || tileObj is HorizontalWall || tileObj is ButtonFixed || tileObj is SpringFixed || tileObj is Cannon || tileObj is Placer) {
+				return true;
+			}
+
+			// Tile may be blocking against specific directions:
+			if(dir == DirCardinal.Up) {
+				if(tileObj is PlatformFixedDown) { return true; }
+			}
+
+			return false;
+		}
+
 		// Perform Collision Detection against a designated Grid Square
 		public static bool RunGridTest(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 

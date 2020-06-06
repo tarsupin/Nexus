@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -43,6 +44,31 @@ namespace Nexus.Objects {
 			} else if(subType == (byte) ShellSubType.Red) {
 				this.SpriteName = "Shell/Red/Side";
 			}
+		}
+
+		public override void CollidePosDown(int posY) {
+			base.CollidePosDown(posY);
+			if(releasedMomentum != 0) {
+				this.physics.velocity.X -= releasedMomentum;
+				if(Math.Abs(this.physics.velocity.X.RoundInt) <= 1) {
+					this.physics.StopX();
+				}
+				releasedMomentum = 0;
+			}
+		}
+
+		public override bool CollideObjDown(DynamicObject obj) {
+			if(base.CollideObjDown(obj)) {
+				if(releasedMomentum != 0) {
+					this.physics.velocity.X -= releasedMomentum;
+					if(Math.Abs(this.physics.velocity.X.RoundInt) <= 1) {
+						this.physics.StopX();
+					}
+					releasedMomentum = 0;
+				}
+				return true;
+			}
+			return false;
 		}
 	}
 }

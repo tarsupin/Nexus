@@ -2,6 +2,7 @@
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using System;
 using System.Collections.Generic;
 
 // Items are considered objects that Characters can pick up.
@@ -22,7 +23,7 @@ namespace Nexus.Objects {
 
 		// Status
 		public bool isHeld;					// TRUE if the object is currently being held.
-		public byte releasedMomentum;       // The amount of momentum (X-Axis) the item has when thrown (used to determine how it lands).
+		public sbyte releasedMomentum;       // The amount of momentum (X-Axis) the item has when thrown (used to determine how it lands).
 		public uint intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
 
 		public Item(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
@@ -56,6 +57,19 @@ namespace Nexus.Objects {
 			if(this.animate is Animate) {
 				this.animate.RunAnimationTick(Systems.timer);
 			}
+		}
+
+		public override void CollidePosDown(int posY) {
+			base.CollidePosDown(posY);
+			this.physics.StopX();
+		}
+
+		public override bool CollideObjDown(DynamicObject obj) {
+			if(base.CollideObjDown(obj)) {
+				this.physics.StopX();
+				return true;
+			}
+			return false;
 		}
 	}
 }
