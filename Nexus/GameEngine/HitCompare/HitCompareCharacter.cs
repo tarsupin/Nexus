@@ -29,13 +29,33 @@ namespace Nexus.GameEngine {
 
 		public bool CharHitsItem( Character character, Item item ) {
 
+			// If this item is being held, skip.
+			if(item.isHeld) { return false; }
+
 			// If the entity is intangible, don't collide with the Character.
 			if(item.intangible > Systems.timer.Frame) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, item);
 
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: GRABBING, HOLDING, PICK UP ITEMS, ETC.
+			// If item is hit from side:
+			if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+				
+				// Check if Grabbing Item
+				if(character.heldItem.WillPickupAttemptWork(item, dir)) {
+					character.heldItem.PickUpItem(item);
+					return true;
+				}
+			}
+
+			// If item is hit from above:
+			else if(dir == DirCardinal.Up) {
+
+				// Check if Grabbing Item
+				if(character.heldItem.WillPickupAttemptWork(item, character.FaceRight ? DirCardinal.Right : DirCardinal.Left)) {
+					character.heldItem.PickUpItem(item);
+					return true;
+				}
+			}
 
 			// If we've made it this far, run standard collision with item:
 			return Impact.StandardImpact(character, item, dir);

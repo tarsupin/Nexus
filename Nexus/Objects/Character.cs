@@ -30,6 +30,7 @@ namespace Nexus.Objects {
 
 		// Attachments
 		public TrailingKeys trailKeys;
+		public HeldItem heldItem;
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
@@ -47,6 +48,7 @@ namespace Nexus.Objects {
 
 			// Attachments
 			this.trailKeys = new TrailingKeys(this);
+			this.heldItem = new HeldItem(this);
 
 			// Images and Animations
 			this.animate = new Animate(this, "/");
@@ -88,6 +90,7 @@ namespace Nexus.Objects {
 
 			// Attachments
 			this.trailKeys.ResetTrailingKeys();
+			this.heldItem.ResetHeldItem();
 
 			// TODO: REMOVE. TEMPORARY.
 			this.trailKeys.AddKey(); // REMOVE
@@ -157,6 +160,7 @@ namespace Nexus.Objects {
 
 			// Update Attachments
 			this.trailKeys.RunKeyTick();
+			this.heldItem.RunHeldItemTick();
 		}
 
 		private void OnFloorUpdate() {
@@ -409,7 +413,6 @@ namespace Nexus.Objects {
 			// Draw Character's Head and Hat
 			this.head.Draw(this.FaceRight, posX, posY, camX, camY);
 			if(this.hat is Hat) { this.hat.Draw(this.FaceRight, posX, posY, camX, camY); }
-
 		}
 
 		private void CheckFallOfWorld() {

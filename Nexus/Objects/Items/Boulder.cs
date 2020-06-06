@@ -16,14 +16,14 @@ namespace Nexus.Objects {
 			this.ThrowStrength = 10;
 
 			// Grip Points (When Held)
-			this.gripLeft = -40;
-			this.gripRight = 5;
-			this.gripLift = -22;
+			this.gripLeft = -35;
+			this.gripRight = 25;
+			this.gripLift = -8;
 
 			this.physics.SetGravity(FInt.Create(0.6));
 
 			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(16, 10, -10, 0);
+			this.AssignBoundsByAtlas(4, 2, -2, 0);
 		}
 
 		private void AssignSubType(byte subType) {
