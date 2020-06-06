@@ -309,6 +309,7 @@
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardRedHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardGreenHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardBlueHat.cs" />
+    <Compile Include="ObjectComponents\Attachments\TrailingKeys.cs" />
     <Compile Include="ObjectComponents\Heads\PooHead.cs" />
     <Compile Include="ObjectComponents\Heads\CarlHead.cs" />
     <Compile Include="ObjectComponents\Heads\RyuHead.cs" />
@@ -697,9 +698,7 @@
     </Content>
     <Content Include="Notes\Terminology.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ObjectComponents\Attachments\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>

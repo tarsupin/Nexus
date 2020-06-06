@@ -28,6 +28,9 @@ namespace Nexus.Objects {
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
+		// Attachments
+		public TrailingKeys trailKeys;
+
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
 			this.SetSpriteName("Stand");
@@ -41,6 +44,9 @@ namespace Nexus.Objects {
 			this.stats = new CharacterStats(this);
 			this.status = new CharacterStatus();
 			this.wounds = new CharacterWounds(this, Systems.timer);
+
+			// Attachments
+			this.trailKeys = new TrailingKeys(this);
 
 			// Images and Animations
 			this.animate = new Animate(this, "/");
@@ -81,7 +87,11 @@ namespace Nexus.Objects {
 			this.wounds.WoundsDeathReset();
 
 			// Attachments
-			// this.attachments.Reset();		// ???? TODO
+			this.trailKeys.ResetTrailingKeys();
+
+			// TODO: REMOVE. TEMPORARY.
+			this.trailKeys.AddKey(); // REMOVE
+			this.trailKeys.AddKey(); // REMOVE
 
 			// Reset Physics to ensure it doesn't maintain knowledge from previous state.
 			this.physics.touch.ResetTouch();
@@ -139,15 +149,14 @@ namespace Nexus.Objects {
 				this.mobilityPower.Activate();
 			}
 
-			// Update Animations
-			// TODO HIGH PRIORITY: Animation
-			// this.animation.run(timer);
-
 			// Restrict to World Bounds (except below, for falling deaths)
 			this.CheckFallOfWorld();
 			
 			// Run Physics
 			base.RunTick();
+
+			// Update Attachments
+			this.trailKeys.RunKeyTick();
 		}
 
 		private void OnFloorUpdate() {
@@ -388,6 +397,9 @@ namespace Nexus.Objects {
 
 		public override void Draw(int camX, int camY) {
 
+			// Render Attachments (Behind Character)
+			this.trailKeys.Draw(camX, camY);
+
 			// Handle Invincibility Coloration, if applicable:
 			// TODO: Invincibility Coloration
 
@@ -398,8 +410,6 @@ namespace Nexus.Objects {
 			this.head.Draw(this.FaceRight, posX, posY, camX, camY);
 			if(this.hat is Hat) { this.hat.Draw(this.FaceRight, posX, posY, camX, camY); }
 
-			// Render Attachments, if applicable.
-			// TODO HIGH PRIORITY: Render Attachments, such as Y prompt
 		}
 
 		private void CheckFallOfWorld() {
