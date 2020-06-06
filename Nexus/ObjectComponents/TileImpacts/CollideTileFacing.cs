@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 		// A Facing Tile Impact only collides if the actor is colliding against the faced direction.
 		public static bool RunImpact(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir, DirCardinal facing) {
 
-			if(dir == DirCardinal.Center) { return false; }
+			if(dir == DirCardinal.None) { return false; }
 
 			// The Tile Faces Up. Collide if the Actor is moving is Down.
 			if(facing == DirCardinal.Up) {

@@ -54,7 +54,7 @@ namespace Nexus.Objects {
 			this.physics.velocity = velocity;
 		}
 
-		public virtual void Destroy( DirCardinal dir = DirCardinal.Center, DynamicObject obj = null ) {
+		public virtual void Destroy( DirCardinal dir = DirCardinal.None, DynamicObject obj = null ) {
 			this.ReturnToPool();
 		}
 

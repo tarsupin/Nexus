@@ -250,8 +250,16 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.ChomperFire, new ChomperFire() },
 
 				// Fixed Items (80 - 90)
-				{ (byte) TileEnum.ButtonFixed, new ButtonFixed() },
-				{ (byte) TileEnum.ButtonTimed, new ButtonTimed() },
+				{ (byte) TileEnum.ButtonFixedBRUp, new ButtonFixedBRUp() },
+				{ (byte) TileEnum.ButtonFixedBRDown, new ButtonFixedBRDown() },
+				{ (byte) TileEnum.ButtonFixedGYUp, new ButtonFixedGYUp() },
+				{ (byte) TileEnum.ButtonFixedGYDown, new ButtonFixedGYDown() },
+				{ (byte) TileEnum.ButtonTimedBRUp, new ButtonTimedBRUp() },
+				{ (byte) TileEnum.ButtonTimedBRDown, new ButtonTimedBRDown() },
+				{ (byte) TileEnum.ButtonTimedGYUp, new ButtonTimedGYUp() },
+				{ (byte) TileEnum.ButtonTimedGYDown, new ButtonTimedGYDown() },
+				
+				// Fixed Springs (90 - 99)
 				{ (byte) TileEnum.SpringFixed, new SpringFixed() },
 				{ (byte) TileEnum.SpringSide, new SpringSide() },
 				

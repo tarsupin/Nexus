@@ -45,10 +45,28 @@ namespace Nexus.Scripts {
 				}
 
 				// Fixed Button ID - from object ID 71 to tile ID 80
-				if(tileId == 71) { this.MoveTileDataToLayer(LayerEnum.main, 80, subTypeId, paramList); return; }
+				if(tileId == 71) {
+					this.MoveTileDataToLayer(LayerEnum.main, 80, subTypeId, paramList);
+					return;
+				}
 
-				// Timed Button ID - from object ID 92 to tile ID 81
-				if(tileId == 71) { this.MoveTileDataToLayer(LayerEnum.main, 81, subTypeId, paramList); return; }
+				// Timed Button ID - from object ID 92 to tile ID 84
+				if(tileId == 92) {
+					this.MoveTileDataToLayer(LayerEnum.main, 84, subTypeId, paramList);
+					return;
+				}
+
+				// Fixed Spring ID - from object ID 82 to 90
+				if(tileId == 82) {
+					this.MoveTileDataToLayer(LayerEnum.main, 90, subTypeId, paramList);
+					return;
+				}
+
+				// Fixed Side-Spring ID - from object ID 83 to 91
+				if(tileId == 83) {
+					this.MoveTileDataToLayer(LayerEnum.main, 91, subTypeId, paramList);
+					return;
+				}
 			}
 
 			// Param Conversions

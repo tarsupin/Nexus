@@ -106,6 +106,14 @@ namespace Nexus.GameEngine {
 			return y2 - (obj.posY + obj.bounds.Top);
 		}
 
+		/*************************
+		*** Relative Positions ***
+		*************************/
+
+		public static short GetRelativeX(DynamicObject obj, int midX) {
+			return (short)(midX - obj.bounds.MidX);
+		}
+
 		/****************************
 		*** Directional Detection ***
 		****************************/
@@ -131,7 +139,7 @@ namespace Nexus.GameEngine {
 
 			// If we've made it this far, the object is overlapping, but already passed the edge.
 			// We return false to avoid unusual behavior, such as 'popping' up on a platform when you're slightly beneath it.
-			return DirCardinal.Center;
+			return DirCardinal.None;
 		}
 	}
 }

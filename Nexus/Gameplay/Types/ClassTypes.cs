@@ -90,11 +90,19 @@ namespace Nexus.Gameplay {
 		ChomperMetal = 72,
 		ChomperFire = 73,
 
-		// Fixed Items (80 - 90)
-		ButtonFixed = 80,
-		ButtonTimed = 81,
-		SpringFixed = 82,
-		SpringSide = 83,
+		// Fixed Buttons (80 - 89)
+		ButtonFixedBRUp = 80,
+		ButtonFixedBRDown = 81,
+		ButtonFixedGYUp = 82,
+		ButtonFixedGYDown = 83,
+		ButtonTimedBRUp = 84,
+		ButtonTimedBRDown = 85,
+		ButtonTimedGYUp = 86,
+		ButtonTimedGYDown = 87,
+
+		// Fixed Springs (90 - 99)
+		SpringFixed = 90,
+		SpringSide = 91,
 
 		// Side-Facing Toggled Platforms (120 - 134)
 		PlatBlueDown = 120,

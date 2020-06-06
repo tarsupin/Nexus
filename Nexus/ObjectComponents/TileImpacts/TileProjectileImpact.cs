@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	public static class TileProjectileImpact {
 
 		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool RunImpact(Projectile projectile, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.Center) {
+		public static bool RunImpact(Projectile projectile, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.None) {
 
 			// Some Projectiles get destroyed on collision:
 			if(projectile.CollisionType == ProjectileCollisionType.DestroyOnCollide) {

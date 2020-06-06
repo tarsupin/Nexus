@@ -71,7 +71,7 @@ namespace Nexus.Objects {
 		}
 
 		public virtual bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
-			character.BounceUp( this, bounceStrength );
+			character.BounceUp( 0, bounceStrength );
 			return this.ReceiveWound();
 		}
 

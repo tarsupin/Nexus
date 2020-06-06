@@ -121,7 +121,7 @@ namespace Nexus.GameEngine {
 		*************************/
 
 		public static short GetRelativeX(DynamicObject obj, DynamicObject obj2) {
-			return (short)(obj.bounds.MidX - obj.bounds.MidX);
+			return (short)(obj2.bounds.MidX - obj.bounds.MidX);
 		}
 
 		private static int GetRelativeDX(Physics phys1, Physics phys2) {
@@ -157,7 +157,7 @@ namespace Nexus.GameEngine {
 
 			// If we've made it this far, the object is overlapping, but already passed the edge.
 			// We return false to avoid unusual behavior, such as 'popping' up on a platform when you're slightly beneath it.
-			return DirCardinal.Center;
+			return DirCardinal.None;
 		}
 
 		// TODO HIGH PRIORITY: Might not need this if we rebuild GetDirectionOfCollision, due to no longer needing floats, etc.

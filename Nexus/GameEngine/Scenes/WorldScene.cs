@@ -222,7 +222,7 @@ namespace Nexus.GameEngine {
 
 
 			//// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
-			//if(dir == DirCardinal.Center) {
+			//if(dir == DirCardinal.None) {
 
 			//	// Check for Auto-Warps (to new World Zones)
 			//	if(curNode.type >= NodeType.Warp && curNode.warp > 0) {
@@ -238,7 +238,7 @@ namespace Nexus.GameEngine {
 
 		}
 
-		public bool TryTravel( DirCardinal dir = DirCardinal.Center ) {
+		public bool TryTravel( DirCardinal dir = DirCardinal.None) {
 
 			// Can only move if the character is at a Node.
 			if(!this.character.IsAtNode) { return false; }

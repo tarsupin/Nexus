@@ -49,7 +49,7 @@ namespace Nexus.Objects {
 			this.Meta.Atlas.DrawRotation(this.SpriteName, this.posX + 16 - camX, this.posY + 16 - camY, this.rotation, new Vector2(16, 16));
 		}
 
-		public override void Destroy(DirCardinal dir = DirCardinal.Center, DynamicObject obj = null) {
+		public override void Destroy(DirCardinal dir = DirCardinal.None, DynamicObject obj = null) {
 			if(this.State == (byte) CommonState.Death) { return; }
 
 			this.SetState((byte) CommonState.Death);

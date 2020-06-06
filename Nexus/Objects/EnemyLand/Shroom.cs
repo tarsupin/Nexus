@@ -83,7 +83,7 @@ namespace Nexus.Objects {
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 6) {
-			character.BounceUp(this, bounceStrength);
+			character.BounceUp(0, 6);
 			return this.ReceiveWound(); // TODO: Some Shrooms should be protected above; cannot be damaged by jumping on them.
 		}
 	}

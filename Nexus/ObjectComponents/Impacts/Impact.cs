@@ -7,11 +7,8 @@ namespace Nexus.ObjectComponents {
 	public static class Impact {
 
 		// A Standard Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool StandardImpact( DynamicObject actor, DynamicObject obj, DirCardinal dir = DirCardinal.Center) {
-
-			if(dir == DirCardinal.Center) {
-				return false;
-			}
+		public static bool StandardImpact( DynamicObject actor, DynamicObject obj, DirCardinal dir = DirCardinal.None) {
+			if(dir == DirCardinal.None) { return false; }
 
 			if(dir == DirCardinal.Down) {
 				actor.CollideObjDown(obj);

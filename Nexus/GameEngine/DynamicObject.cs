@@ -222,15 +222,13 @@ namespace Nexus.GameEngine {
 			this.room.RemoveFromScene(this);
 		}
 
-		// TODO: Does this get used? Character.BounceUp() does.
-		// As of 11/3/2019, I don't think so.
-		public virtual void BounceUp(DynamicObject obj, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 3) {
+		public virtual void BounceUp(int midX, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 3) {
 
 			// Some dynamic archetypes shouldn't bounce.
 			if(this.Meta.Archetype == Arch.Platform) { return; }
 
 			this.physics.velocity.Y = FInt.Create(-strengthMod);
-			short xDiff = CollideDetect.GetRelativeX(this, obj);
+			short xDiff = CollideRect.GetRelativeX(this, midX);
 
 			if(xDiff < 0) {
 				this.physics.velocity.X = FInt.Create(Math.Min(maxX, Math.Abs(xDiff / relativeMult)));

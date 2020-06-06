@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 		public byte curY = 0;
 		private byte willArriveX = 0;
 		private byte willArriveY = 0;
-		public DirCardinal lastDir = DirCardinal.Center;
+		public DirCardinal lastDir = DirCardinal.None;
 
 		public WorldChar(WorldScene scene) {
 			this.scene = scene;

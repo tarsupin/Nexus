@@ -248,6 +248,9 @@ namespace Nexus.Objects {
 			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt)1 : this.stats.SlowSpeedMult);
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
 
+			// Maximum Fall Speed
+			if(this.physics.velocity.Y > 14) { this.physics.velocity.Y = FInt.Create(14); }
+
 			// Movement Right
 			if(this.input.isDown(IKey.Right)) {
 				this.FaceRight = true;
@@ -407,7 +410,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public override void BounceUp( DynamicObject obj, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
+		public override void BounceUp( int midX, sbyte strengthMod, byte durationMod = 0, sbyte durationMin = 4 ) {
 			ActionMap.Jump.StartAction(this, strengthMod, durationMod, durationMin);
 		}
 

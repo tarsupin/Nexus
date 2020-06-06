@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 3) {
-			character.BounceUp(this, bounceStrength);
+			character.BounceUp(0, bounceStrength);
 			return false;
 		}
 	}

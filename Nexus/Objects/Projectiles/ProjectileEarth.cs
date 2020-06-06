@@ -55,7 +55,7 @@ namespace Nexus.Objects {
 			base.RunTick();
 		}
 
-		public override void Destroy( DirCardinal dir = DirCardinal.Center, DynamicObject obj = null ) {
+		public override void Destroy( DirCardinal dir = DirCardinal.None, DynamicObject obj = null ) {
 			
 			// Can't be destroyed if already being destroyed:
 			if(this.DeathSequence > 0) { return; }

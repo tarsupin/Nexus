@@ -88,20 +88,16 @@ namespace Nexus.GameEngine {
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ButtonFixed,
-					subType = (byte) ButtonSubTypes.BR,
+					tileId = (byte) TileEnum.ButtonFixedBRUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ButtonFixed,
-					subType = (byte) ButtonSubTypes.GY,
+					tileId = (byte) TileEnum.ButtonFixedGYUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ButtonTimed,
-					subType = (byte) ButtonSubTypes.BR,
+					tileId = (byte) TileEnum.ButtonTimedBRUp,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.ButtonTimed,
-					subType = (byte) ButtonSubTypes.GY,
+					tileId = (byte) TileEnum.ButtonTimedGYUp,
 				},
 			});
 

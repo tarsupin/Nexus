@@ -27,7 +27,7 @@ namespace Nexus.ObjectComponents {
 			this.jumpsUsed = 0;
 			this.nextSlide = 0;
 			this.leaveWall = 0;
-			this.grabDir = DirCardinal.Center;
+			this.grabDir = DirCardinal.None;
 		}
 	}
 }
