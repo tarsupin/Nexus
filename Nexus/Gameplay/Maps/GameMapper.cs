@@ -32,6 +32,8 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterRunRight = new string[2] { "Run", "StandRun" };
 		public static readonly string[] CharacterWalkLeft = new string[2] { "WalkLeft", "StandLeft" };
 		public static readonly string[] CharacterWalkRight = new string[2] { "Walk", "Stand" };
+		public static readonly string[] CharacterMoveHoldLeft = new string[2] { "RunHoldLeft", "StandHoldLeft" };
+		public static readonly string[] CharacterMoveHoldRight = new string[2] { "RunHold", "StandHold" };
 	}
 
 	// GameObjectMetaData exists because Game Objects need a reference to their metadata outside of the individual classes (and preferably without reflection).

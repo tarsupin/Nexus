@@ -322,7 +322,7 @@ namespace Nexus.Objects {
 
 			// Animations & Drawing
 			int velX = this.physics.velocity.X.RoundInt;
-			bool heldItem = false;
+			bool heldItem = this.heldItem.IsHeld;
 
 			// Ground Movement & Actions
 			if(this.physics.touch.toFloor == 0) {
@@ -338,7 +338,10 @@ namespace Nexus.Objects {
 
 					// If Facing Right
 					else {
-						if(heldItem) { this.SetSpriteName("RunHold"); }
+						if(heldItem) {
+							if(velX > 5) { this.animate.SetAnimation("", AnimCycleMap.CharacterMoveHoldRight, 8, 1); }
+							else { this.animate.SetAnimation("", AnimCycleMap.CharacterMoveHoldRight, 11); }
+						}
 						else if(velX > 5) { this.animate.SetAnimation("", AnimCycleMap.CharacterRunRight, 8, 1); }
 						else { this.animate.SetAnimation("", AnimCycleMap.CharacterWalkRight, 11); }
 					}
@@ -355,7 +358,10 @@ namespace Nexus.Objects {
 
 					// If Facing Left
 					else {
-						if(heldItem) { this.SetSpriteName("RunHoldLeft"); }
+						if(heldItem) {
+							if(velX > 5) { this.animate.SetAnimation("", AnimCycleMap.CharacterMoveHoldLeft, 8, 1); }
+							else { this.animate.SetAnimation("", AnimCycleMap.CharacterMoveHoldLeft, 11); }
+						}
 						else if(velX < -5) { this.animate.SetAnimation("", AnimCycleMap.CharacterRunLeft, 8, 1); }
 						else { this.animate.SetAnimation("", AnimCycleMap.CharacterWalkLeft, 11); }
 					}

@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -16,6 +17,8 @@ namespace Nexus.ObjectComponents {
 			this.character = character;
 			this.ResetHeldItem();
 		}
+
+		public bool IsHeld { get { return this.objHeld != null; } }
 
 		public void RunHeldItemTick() {
 			if(this.objHeld == null) { return; }
@@ -105,7 +108,7 @@ namespace Nexus.ObjectComponents {
 			item.intangible = Systems.timer.Frame + 7;
 			item.releasedMomentum = useXMomentum ? (sbyte) Math.Round(this.character.physics.velocity.X.RoundInt / 2.5) : (sbyte) 0;
 			item.physics.velocity.X = FInt.Create(item.releasedMomentum);
-			item.physics.velocity.Y = FInt.Create(0 - item.ThrowStrength);
+			item.physics.velocity.Y = FInt.Create(-item.ThrowStrength);
 
 			// No longer holding object:
 			this.ResetHeldItem();
@@ -113,6 +116,13 @@ namespace Nexus.ObjectComponents {
 
 		public void KickItem() {
 			if(this.objHeld == null) { return; }
+
+			Item item = this.objHeld;
+			item.intangible = Systems.timer.Frame + 7;
+
+			item.physics.velocity.X = FInt.Create(this.character.FaceRight ? item.KickStrength : -item.KickStrength);
+			item.physics.velocity.Y = FInt.Create(-1.5);
+
 			this.ResetHeldItem();
 		}
 
@@ -122,6 +132,40 @@ namespace Nexus.ObjectComponents {
 			Item item = this.objHeld;
 			item.intangible = Systems.timer.Frame + 7;
 
+			// Check what Main Layer has present at the throw-release tile:
+			TilemapLevel tilemap = this.character.room.tilemap;
+
+			bool isBlocked = false;
+			bool faceRight = this.character.FaceRight;
+
+			isBlocked = CollideTile.IsBlockingSquare(tilemap, faceRight ? item.GridX2 : item.GridX, item.GridY, DirCardinal.Up);
+
+			// If the drop tiles are blocked, see if we can drop it in the tile below.
+			if(isBlocked) {
+				int limitY = item.GridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight;
+				int dist = limitY - (item.posY + item.bounds.Top);
+
+				// If we only have to drop it 24 pixels (or less), we can just lower the item slightly.
+				if(dist < 24) {
+					item.physics.MoveToPosY(limitY - item.bounds.Top);
+					isBlocked = CollideTile.IsBlockingSquare(tilemap, faceRight ? item.GridX2 : item.GridX, item.GridY, DirCardinal.Up);
+				}
+			}
+
+			// If the tile is still blocked, then a Y-reposition didn't work. We'll have to move it to character's tile.
+			if(isBlocked) {
+				int limitX;
+
+				// NOTE: MUST have it like this. I don't understand the nuanced difference here, but it works.
+				if(faceRight) {
+					limitX = item.GridX2 * (byte)TilemapEnum.TileWidth;
+				} else {
+					limitX = item.GridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth;
+				}
+
+				item.physics.MoveToPosX(limitX - (faceRight ? item.bounds.Right : item.bounds.Left));
+			}
+			
 			// Assign Minimal Drop Physics (to smooth natural look)
 			item.physics.velocity.X = FInt.Create(this.character.physics.velocity.X.RoundInt / 3);
 			item.physics.velocity.Y = FInt.Create(-1.5);

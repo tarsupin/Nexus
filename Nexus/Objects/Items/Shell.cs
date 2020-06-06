@@ -21,8 +21,8 @@ namespace Nexus.Objects {
 			this.KickStrength = 7;
 
 			// Grip Points (When Held)
-			this.gripLeft = -35;
-			this.gripRight = 25;
+			this.gripLeft = -31;
+			this.gripRight = 21;
 			this.gripLift = -8;
 
 			this.physics.SetGravity(FInt.Create(0.4));
