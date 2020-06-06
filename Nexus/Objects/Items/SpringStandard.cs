@@ -16,9 +16,9 @@ namespace Nexus.Objects {
 			this.ThrowStrength = 14;
 
 			// Grip Points (When Held)
-			this.gripLeft = -45;
-			this.gripRight = 3;
-			this.gripLift = -38;
+			this.gripLeft = -35;
+			this.gripRight = 25;
+			this.gripLift = -8;
 
 			this.AssignSubType(subType);
 		}

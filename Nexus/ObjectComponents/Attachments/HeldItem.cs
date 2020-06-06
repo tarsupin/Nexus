@@ -118,6 +118,14 @@ namespace Nexus.ObjectComponents {
 
 		public void DropItem() {
 			if(this.objHeld == null) { return; }
+
+			Item item = this.objHeld;
+			item.intangible = Systems.timer.Frame + 7;
+
+			// Assign Minimal Drop Physics (to smooth natural look)
+			item.physics.velocity.X = FInt.Create(this.character.physics.velocity.X.RoundInt / 3);
+			item.physics.velocity.Y = FInt.Create(-1.5);
+
 			this.ResetHeldItem();
 		}
 
