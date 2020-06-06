@@ -154,7 +154,7 @@ namespace Nexus.Objects {
 
 			// Restrict to World Bounds (except below, for falling deaths)
 			this.CheckFallOfWorld();
-			
+
 			// Run Physics
 			base.RunTick();
 

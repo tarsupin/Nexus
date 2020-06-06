@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 			this.physics.SetGravity(FInt.Create(0.4));
 
 			this.AssignSubType(subType);
-			this.AssignBoundsByAtlas(30, 0, 0, 0);
+			this.AssignBoundsByAtlas(10, 2, -2, 0);
 		}
 
 		private void AssignSubType(byte subType) {
@@ -47,28 +47,34 @@ namespace Nexus.Objects {
 		}
 
 		public override void CollidePosDown(int posY) {
-			base.CollidePosDown(posY);
-			if(releasedMomentum != 0) {
-				this.physics.velocity.X -= releasedMomentum;
-				if(Math.Abs(this.physics.velocity.X.RoundInt) <= 1) {
-					this.physics.StopX();
-				}
+			this.physics.touch.TouchUp();
+			this.physics.StopY();
+			this.physics.MoveToPosY(posY);
+
+			// Only stop the shell's X momentum if it was equal to released momentum during a throw.
+			if(releasedMomentum > 0 && this.physics.velocity.X.RoundInt == releasedMomentum) {
+				this.physics.StopX();
 				releasedMomentum = 0;
 			}
 		}
 
 		public override bool CollideObjDown(DynamicObject obj) {
-			if(base.CollideObjDown(obj)) {
-				if(releasedMomentum != 0) {
-					this.physics.velocity.X -= releasedMomentum;
-					if(Math.Abs(this.physics.velocity.X.RoundInt) <= 1) {
-						this.physics.StopX();
-					}
-					releasedMomentum = 0;
-				}
-				return true;
+
+			// Verify the object is moving Up. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.Y >= 0) { return false; }
+
+			this.physics.touch.TouchUp();
+			this.physics.AlignDown(obj);
+			this.physics.StopY();
+
+			// Only stop the shell's X momentum if it was equal to released momentum during a throw.
+			if(releasedMomentum > 0 && this.physics.velocity.X.RoundInt == releasedMomentum) {
+				this.physics.StopX();
+				releasedMomentum = 0;
 			}
-			return false;
+
+			return true;
 		}
 	}
 }
