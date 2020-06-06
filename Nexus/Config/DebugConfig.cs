@@ -1,5 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Nexus.Engine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Nexus.Config {
 
@@ -65,6 +69,32 @@ namespace Nexus.Config {
 		public static void ResetDebugValues() {
 			DrawDebugFrames = false;
 			TickSpeed = DebugTickSpeed.StandardSpeed;
+		}
+
+		// Debug Notes (Display on Screen)
+		public static List<string> debugNotesByFrame = new List<string>();
+
+		public static void AddDebugNote(string note) {
+			if(!DebugConfig.Debug) { return; }
+			DebugConfig.debugNotesByFrame.Add(Systems.timer.frame60Modulus + ": " + note);
+		}
+
+		public static void ClearDebugNotes(byte count = 35) {
+			for(byte i = 0; i < 100; i++) {
+				if(DebugConfig.debugNotesByFrame.Count <= count) { return; }
+				DebugConfig.debugNotesByFrame.RemoveAt(0);
+			}
+		}
+
+		public static void DrawDebugNotes() {
+			if(!DebugConfig.Debug) { return; }
+			if(DebugConfig.debugNotesByFrame.Count > 35) { DebugConfig.ClearDebugNotes(); }
+
+			byte count = (byte) DebugConfig.debugNotesByFrame.Count;
+
+			for(byte i = 0; i < count;i++) {
+				Systems.fonts.console.Draw(DebugConfig.debugNotesByFrame[i], 20, 20 + (i * 15), Color.Black);
+			}
 		}
 	}
 }

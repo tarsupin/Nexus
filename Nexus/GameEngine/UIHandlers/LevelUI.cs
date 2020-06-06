@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -45,6 +46,11 @@ namespace Nexus.GameEngine {
 					this.atlas.Draw("Icon/Armor", 10 + 48 * i, this.bottomRow);
 					i++;
 				}
+			}
+
+			// Debug Render
+			if(DebugConfig.Debug) {
+				DebugConfig.DrawDebugNotes();
 			}
 		}
 	}

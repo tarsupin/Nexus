@@ -14,26 +14,26 @@ namespace Nexus.ObjectComponents {
 			}
 
 			if(dir == DirCardinal.Down) {
-				actor.CollideDown(obj);
-				obj.CollideUp(actor);
+				actor.CollideObjDown(obj);
+				obj.CollideObjUp(actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Right) {
-				actor.CollideRight(obj);
-				obj.CollideLeft(actor);
+				actor.CollideObjRight(obj);
+				obj.CollideObjLeft(actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Left) {
-				actor.CollideLeft(obj);
-				obj.CollideRight(actor);
+				actor.CollideObjLeft(obj);
+				obj.CollideObjRight(actor);
 				return true;
 			}
 
 			if(dir == DirCardinal.Up) {
-				actor.CollideUp(obj);
-				obj.CollideDown(actor);
+				actor.CollideObjUp(obj);
+				obj.CollideObjDown(actor);
 				return true;
 			}
 

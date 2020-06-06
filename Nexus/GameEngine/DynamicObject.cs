@@ -124,32 +124,32 @@ namespace Nexus.GameEngine {
 		}
 
 		// Tile Collisions
-		public virtual void CollideTileUp(int posY) {
+		public virtual void CollidePosUp(int posY) {
 			this.physics.touch.TouchUp();
 			this.physics.StopY();
-			this.physics.MoveToPosY(posY + (byte)TilemapEnum.TileHeight);
+			this.physics.MoveToPosY(posY);
 		}
 
-		public virtual void CollideTileDown(int posY) {
+		public virtual void CollidePosDown(int posY) {
 			this.physics.touch.TouchDown();
 			this.physics.StopY();
 			this.physics.MoveToPosY(posY);
 		}
 
-		public virtual void CollideTileLeft(int posX) {
+		public virtual void CollidePosLeft(int posX) {
 			this.physics.touch.TouchLeft();
 			this.physics.StopX();
-			this.physics.MoveToPosX(posX + (byte)TilemapEnum.TileWidth);
+			this.physics.MoveToPosX(posX);
 		}
 
-		public virtual void CollideTileRight(int posX) {
+		public virtual void CollidePosRight(int posX) {
 			this.physics.touch.TouchRight();
 			this.physics.StopX();
 			this.physics.MoveToPosX(posX);
 		}
 
 		// Dynamic Object Collisions
-		public virtual bool CollideUp(DynamicObject obj) {
+		public virtual bool CollideObjUp(DynamicObject obj) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -162,7 +162,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideDown(DynamicObject obj) {
+		public virtual bool CollideObjDown(DynamicObject obj) {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -175,7 +175,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideLeft(DynamicObject obj) {
+		public virtual bool CollideObjLeft(DynamicObject obj) {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -188,7 +188,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideRight(DynamicObject obj) {
+		public virtual bool CollideObjRight(DynamicObject obj) {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.

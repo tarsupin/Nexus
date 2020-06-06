@@ -13,7 +13,7 @@ namespace Nexus.ObjectComponents {
 			// The Tile Faces Up. Collide if the Actor is moving is Down.
 			if(facing == DirCardinal.Up) {
 				if(dir == DirCardinal.Down) {
-					actor.CollideTileDown(gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
+					actor.CollidePosDown(gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
 					return true;
 				}
 			}
@@ -21,7 +21,7 @@ namespace Nexus.ObjectComponents {
 			// The Tile Faces Down. Collide if the Actor is moving is Up.
 			else if(facing == DirCardinal.Down) {
 				if(dir == DirCardinal.Up) {
-					actor.CollideTileUp(gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Top);
+					actor.CollidePosUp(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight - actor.bounds.Top);
 					return true;
 				}
 			}
@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 			// The Tile Faces Left. Collide if the Actor is moving Right.
 			else if(facing == DirCardinal.Left) {
 				if(dir == DirCardinal.Right) {
-					actor.CollideTileRight(gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Right);
+					actor.CollidePosRight(gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Right);
 					return true;
 				}
 			}
@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 			// The Tile Faces Right. Collide if the Actor is moving is Left.
 			else if(facing == DirCardinal.Right) {
 				if(dir == DirCardinal.Left) {
-					actor.CollideTileLeft(gridX * (byte)TilemapEnum.TileWidth - actor.bounds.Left);
+					actor.CollidePosLeft(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - actor.bounds.Left);
 					return true;
 				}
 			}

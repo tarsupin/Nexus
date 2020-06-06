@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -58,125 +59,114 @@ namespace Nexus.GameEngine {
 			ushort gridY2 = actor.GridY2;
 
 			bool vertOnly = gridX == gridX2;
-			bool horOnly = gridY == gridY2;
 
 			// If the object is only interacting with vertical squares:
 			if(vertOnly) {
-
-				// If the object is only interacting with a single square (the one it's on), no need to run collisions.
-				if(horOnly) { return; }
-
-				FInt velY = actor.physics.velocity.Y;
-
-				if(velY >= 0) {
-					CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
-				}
-
-				else if(velY < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
+				if(actor.physics.velocity.Y < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
+				else { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down); }
+				return;
 			}
 
+			bool horOnly = gridY == gridY2;
+
 			// If the object is only interacting between two tiles (left and right).
-			else if(horOnly) {
-				FInt velX = actor.physics.velocity.X;
-				if(velX >= 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right); }
-				else if(velX < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left); }
+			if(horOnly) {
+				if(actor.physics.velocity.X >= 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right); }
+				else { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left); }
+				return;
 			}
 
 			// If the object is interacting with all four tiles (Top-Left to Bottom-Right).
-			else {
+			FInt velX = actor.physics.velocity.X;
+			FInt velY = actor.physics.velocity.Y;
 
-				FInt velX = actor.physics.velocity.X;
-				FInt velY = actor.physics.velocity.Y;
+			// If moving downward:
+			if(velY > 0) {
 
-				// If moving downward:
-				if(velY > 0) {
+				// If moving DOWN-RIGHT.
+				if(velX > 0) {
 
-					// If moving DOWN-RIGHT.
-					if(velX > 0) {
+					// Compare against BOTTOM-LEFT (vs. up) and TOP-RIGHT (vs. left)
+					bool right = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right);
+					bool down = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
 
-						// Compare against BOTTOM-LEFT (vs. up) and TOP-RIGHT (vs. left)
-						bool right = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right);
-						bool down = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
-
-						// Test against corner if neither of the above collided. Direction of collision based on momentum.
-						if(!down && !right) {
-							int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
-							CollideTile.RunGridTest(actor, gridX2, gridY2, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Right);
-						}
-					}
-
-					// If moving DOWN-LEFT:
-					else if(velX < 0) {
-
-						// Compare against BOTTOM-RIGHT (vs.up) and TOP-LEFT (vs. right)
-						bool left = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left);
-						bool down = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down);
-
-						// Test against corner if neither of the above collided. Direction of collision based on momentum.
-						if(!down && !left) {
-							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
-							CollideTile.RunGridTest(actor, gridX, gridY2, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Left);
-						}
-					}
-
-					// If moving DOWN:
-					else {
-
-						// Get Overlaps
-						int xOverlapLeft = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-						int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
-
-						// Compare against BOTTOM HALF (vs. up). No corner test.
-						if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down); }
-						if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down); }
+					// Test against corner if neither of the above collided. Direction of collision based on momentum.
+					if(!down && !right) {
+						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
+						CollideTile.RunGridTest(actor, gridX2, gridY2, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Right);
 					}
 				}
 
-				// If moving upward:
+				// If moving DOWN-LEFT:
+				else if(velX < 0) {
+
+					// Compare against BOTTOM-RIGHT (vs.up) and TOP-LEFT (vs. right)
+					bool left = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left);
+					bool down = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down);
+
+					// Test against corner if neither of the above collided. Direction of collision based on momentum.
+					if(!down && !left) {
+						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
+						CollideTile.RunGridTest(actor, gridX, gridY2, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Left);
+					}
+				}
+
+				// If moving DOWN:
 				else {
 
-					// If moving UP-RIGHT:
-					if(velX > 0) {
+					// Get Overlaps
+					int xOverlapLeft = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
+					int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
-						// Compare against TOP-LEFT (vs. down) and BOTTOM-RIGHT (vs. left) 
-						bool up = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up);
-						bool right = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Right);
+					// Compare against BOTTOM HALF (vs. up). No corner test.
+					if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down); }
+					if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down); }
+				}
+			}
 
-						// Test against corner if neither of the above collided. Direction of collision based on momentum.
-						if(!up && !right) {
-							int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth); // Returns positive value, e.g. 5
-							CollideTile.RunGridTest(actor, gridX2, gridY, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Right);
-						}
+			// If moving upward:
+			else {
+
+				// If moving UP-RIGHT:
+				if(velX > 0) {
+
+					// Compare against TOP-LEFT (vs. down) and BOTTOM-RIGHT (vs. left) 
+					bool up = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up);
+					bool right = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Right);
+
+					// Test against corner if neither of the above collided. Direction of collision based on momentum.
+					if(!up && !right) {
+						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth); // Returns positive value, e.g. 5
+						CollideTile.RunGridTest(actor, gridX2, gridY, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Right);
 					}
+				}
 
-					// If moving UP-LEFT:
-					else if(velX < 0) {
+				// If moving UP-LEFT:
+				else if(velX < 0) {
 
-						// Compare against TOP-RIGHT (vs. down) and BOTTOM-LEFT (vs. right)
-						bool up = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up);
-						bool left = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Left);
+					// Compare against TOP-RIGHT (vs. down) and BOTTOM-LEFT (vs. right)
+					bool up = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up);
+					bool left = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Left);
 
-						// Test against corner if neither of the above collided. Direction of collision based on momentum.
-						if(!up && !left) {
-							int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
-							CollideTile.RunGridTest(actor, gridX, gridY, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Left);
-						}
+					// Test against corner if neither of the above collided. Direction of collision based on momentum.
+					if(!up && !left) {
+						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
+						CollideTile.RunGridTest(actor, gridX, gridY, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Left);
 					}
+				}
 
-					// If moving UP:
-					else {
+				// If moving UP:
+				else {
 
-						// Get Overlaps
-						int xOverlapLeft = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
-						int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
+					// Get Overlaps
+					int xOverlapLeft = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth);
+					int xOverlapRight = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth);
 
-						// Compare against TOP HALF (vs. down). No corner test.
-						if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
-						if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up); }
-					}
+					// Compare against TOP HALF (vs. down). No corner test.
+					if(xOverlapLeft < 0) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
+					if(xOverlapRight > 0) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up); }
 				}
 			}
 		}
-
 	}
 }
