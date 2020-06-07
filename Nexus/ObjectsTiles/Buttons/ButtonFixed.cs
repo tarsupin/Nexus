@@ -29,11 +29,11 @@ namespace Nexus.Objects {
 			// Hit Button
 			if(newDir == DirCardinal.Down) {
 				if(actor is Character) {
-					((Character)actor).BounceUp(0, 5);
+					ActionMap.Jump.StartAction((Character)actor, 5, 0, 4);
 				}
 
 				else if(actor is EnemyLand || actor is Item) {
-					actor.BounceUp(gridX * (byte)TilemapEnum.TileWidth + 24, 5);
+					actor.BounceUp(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, 5);
 				}
 
 				else { return false; }

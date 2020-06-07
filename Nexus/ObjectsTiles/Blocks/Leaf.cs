@@ -34,14 +34,14 @@ namespace Nexus.Objects {
 			// Destroy Leaf
 			if(dir == DirCardinal.Up) {
 				BlockTile.BreakApart(room, gridX, gridY);
-				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
 				Systems.sounds.thudTap.Play();
 
 			} else if(dir == DirCardinal.Down) {
 
 				// TODO: Add a delay to the leaf at this gridId.
 				BlockTile.BreakApart(room, gridX, gridY);
-				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
 				Systems.sounds.thudTap.Play();
 			}
 

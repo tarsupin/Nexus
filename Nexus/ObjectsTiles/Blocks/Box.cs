@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			// Destroy Box
 			if(dir == DirCardinal.Up) {
 				BlockTile.BreakApart(room, gridX, gridY);
-				ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + 24, gridY * (byte)TilemapEnum.TileHeight + 24);
+				ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
 				Systems.sounds.brickBreak.Play();
 			}
 

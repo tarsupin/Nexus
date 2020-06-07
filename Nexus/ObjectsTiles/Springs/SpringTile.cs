@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 
 		public SpringTile() : base() {
 			this.collides = true;
-			this.Meta = Systems.mapper.MetaList[MetaGroup.ButtonFixed];
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Block];
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -22,7 +22,13 @@ namespace Nexus.Objects {
 			}
 			
 			if(actor is Projectile) {
-				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+				TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+				return false;
+			}
+
+			// Objects that shouldn't interact with Spring.
+			if(actor is EnemyFlight || actor is Platform) {
+				return false;
 			}
 
 			return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);

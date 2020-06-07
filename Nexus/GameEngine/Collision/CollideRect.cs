@@ -111,7 +111,11 @@ namespace Nexus.GameEngine {
 		*************************/
 
 		public static short GetRelativeX(DynamicObject obj, int midX) {
-			return (short)(midX - obj.bounds.MidX);
+			return (short)(obj.posX + obj.bounds.MidX - midX);
+		}
+		
+		public static short GetRelativeY(DynamicObject obj, int midY) {
+			return (short)(obj.posY + obj.bounds.MidY - midY);
 		}
 
 		/****************************

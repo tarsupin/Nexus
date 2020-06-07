@@ -6,6 +6,10 @@ namespace Nexus.Gameplay {
 		// Grid Sizes
 		TileWidth = 48,
 		TileHeight = 48,
+		
+		// Half Width - Used to determine midpoints.
+		HalfWidth = 24,
+		HalfHeight = 24,
 
 		// World Gaps - the amount of grid tiles above and below the world lines.
 		WorldGapLeft = 1,

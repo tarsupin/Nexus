@@ -109,15 +109,19 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.SpringFixed,
-					subType = (byte) SpringFixedSubType.Fixed,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.SpringSide,
-					subType = (byte) SpringSideSubType.Left,
+					subType = (byte) SpringFixedSubType.Up,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.SpringSide,
 					subType = (byte) SpringSideSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SpringFixed,
+					subType = (byte) SpringFixedSubType.Rev,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.SpringSide,
+					subType = (byte) SpringSideSubType.Left,
 				},
 			});
 

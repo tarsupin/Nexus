@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = true;
 		}
 
-		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0 ) {
+		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0, bool playSound = true ) {
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
@@ -34,7 +34,7 @@ namespace Nexus.ObjectComponents {
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
 
 			// Jump Sound
-			Systems.sounds.jump.Play();
+			if(playSound) { Systems.sounds.jump.Play(); }
 		}
 
 		public static bool MinimumTimePassed( CharacterStatus status ) {

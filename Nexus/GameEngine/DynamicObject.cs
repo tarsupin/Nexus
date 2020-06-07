@@ -222,20 +222,19 @@ namespace Nexus.GameEngine {
 			this.room.RemoveFromScene(this);
 		}
 
-		public virtual void BounceUp(int midX, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 3) {
-
-			// Some dynamic archetypes shouldn't bounce.
-			if(this.Meta.Archetype == Arch.Platform) { return; }
+		public virtual void BounceUp(int midX, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 5) {
 
 			this.physics.velocity.Y = FInt.Create(-strengthMod);
-			short xDiff = CollideRect.GetRelativeX(this, midX);
-
-			if(xDiff < 0) {
-				this.physics.velocity.X = FInt.Create(Math.Min(maxX, Math.Abs(xDiff / relativeMult)));
-			}
 			
-			else {
-				this.physics.velocity.X = FInt.Create(-Math.Min(maxX, xDiff / relativeMult));
+			if(maxX > 0) {
+				short xDiff = CollideRect.GetRelativeX(this, midX);
+				FInt xAdjust = FInt.Create(Math.Min(maxX, Math.Abs(xDiff / relativeMult)));
+
+				if(xDiff > 0) {
+					this.physics.velocity.X += xAdjust;
+				} else {
+					this.physics.velocity.X -= xAdjust;
+				}
 			}
 		}
 	}

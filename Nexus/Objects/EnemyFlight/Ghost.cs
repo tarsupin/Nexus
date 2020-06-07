@@ -55,7 +55,7 @@ namespace Nexus.Objects {
 		//getJumpedOn( character: Character, bounceStrength: number = 0 ): void {
 		//	if(this.status.inDeathSequence) { return; }
 		//	if(this.subType === "Hat") {
-		//		character.bounceUp( this, bounceStrength );
+		//		ActionMap.Jump.StartAction(character, bounceStrength, 0, 4);
 		//	} else {
 		//		character.wound();
 		//	}

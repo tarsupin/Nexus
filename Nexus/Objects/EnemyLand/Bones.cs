@@ -47,10 +47,10 @@ namespace Nexus.Objects {
 		public override bool ReceiveWound() {
 			Systems.sounds.crack.Play();
 			this.Destroy(); // Can automatically destroy Bones, since it just disappears while bones are left behind.
-							//this.Die(DeathResult.Special);
+			//this.Die(DeathResult.Special);
 
 			// Particle Effect (bones exploding)
-			ExplodeEmitter.BoxExplosion(this.room, "Particles/Bone", this.posX + 24, this.posY + 24);
+			ExplodeEmitter.BoxExplosion(this.room, "Particles/Bone", this.posX + (byte)TilemapEnum.HalfWidth, this.posY + (byte)TilemapEnum.HalfHeight);
 
 			return true;
 		}
