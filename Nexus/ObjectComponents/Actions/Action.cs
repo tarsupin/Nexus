@@ -26,6 +26,12 @@ namespace Nexus.ObjectComponents {
 			if(this.endsOnLanding) { this.EndAction(character); }
 		}
 
+		public void EndLastActionIfActive(Character character) {
+			if(character.status.action != null) {
+				character.status.action.EndAction(character);
+			}
+		}
+
 		public virtual void EndAction(Character character) {
 			character.status.action = null;
 		}

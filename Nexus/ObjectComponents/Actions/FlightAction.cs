@@ -12,6 +12,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character ) {
+			this.EndLastActionIfActive(character);
 			character.status.action = ActionMap.Flight;
 			character.physics.SetGravity((FInt) 0);
 		}

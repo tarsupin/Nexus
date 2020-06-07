@@ -78,7 +78,7 @@ namespace Nexus.ObjectComponents {
 			SlideDuration = 12;
 			SlideStrength = FInt.Create(12);
 
-			BaseGravity = FInt.Create(-0.7);
+			BaseGravity = FInt.Create(0.7);
 
 			// Reset Wound Settings
 			if(this.character.wounds is CharacterWounds) {

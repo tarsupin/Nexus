@@ -25,7 +25,7 @@ namespace Nexus.ObjectComponents {
 		public static DirCardinal RunInnerImpact(DynamicObject actor, int x1, int x2, int y1, int y2) {
 
 			// Check Overlap with Altered Border
-			if(!CollideRect.IsOverlappingStrict(actor, x1, x2, y1, y2)) { return DirCardinal.None; }
+			if(!CollideRect.IsTouchingRect(actor, x1, x2, y1, y2)) { return DirCardinal.None; }
 
 			DirCardinal newDir = CollideRect.GetDirectionOfCollision(actor, x1, x2, y1, y2);
 
@@ -40,6 +40,12 @@ namespace Nexus.ObjectComponents {
 			}
 
 			return newDir;
+		}
+
+		// Identical to RunInnerImpact, except it doesn't collide.
+		public static DirCardinal RunOverlapTest(DynamicObject actor, int x1, int x2, int y1, int y2) {
+			if(!CollideRect.IsTouchingRect(actor, x1, x2, y1, y2)) { return DirCardinal.None; }
+			return CollideRect.GetDirectionOfCollision(actor, x1, x2, y1, y2);
 		}
 	}
 }

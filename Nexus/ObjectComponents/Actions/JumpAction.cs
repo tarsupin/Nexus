@@ -17,6 +17,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0, bool playSound = true ) {
+			this.EndLastActionIfActive(character);
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 

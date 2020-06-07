@@ -16,6 +16,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, DirCardinal dir, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0 ) {
+			this.EndLastActionIfActive(character);
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 

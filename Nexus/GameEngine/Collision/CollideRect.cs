@@ -62,8 +62,8 @@ namespace Nexus.GameEngine {
 		// --- Rectangle Overlaps --- //
 		// -------------------------- //
 
-		// Check if an object overlaps a given rectangle in a strict test.
-		public static bool IsOverlappingStrict(DynamicObject obj, int x1, int x2, int y1, int y2) {
+		// Check if an object is overlapping / touching a rectangle.
+		public static bool IsTouchingRect(DynamicObject obj, int x1, int x2, int y1, int y2) {
 
 			// Test for Y-Overlap.
 			// Note the use of ||, which is different from && for X-Overlap return.

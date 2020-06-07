@@ -14,6 +14,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, bool slideRight ) {
+			this.EndLastActionIfActive(character);
 			CharacterStatus status = character.status;
 
 			status.action = ActionMap.Slide;

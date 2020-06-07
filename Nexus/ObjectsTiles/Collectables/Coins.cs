@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -26,7 +27,13 @@ namespace Nexus.Objects {
 		}
 
 		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
-			Systems.sounds.coin.Play();
+
+			// Get the Direction of an Inner Boundary
+			DirCardinal newDir = TileSolidImpact.RunOverlapTest(character, gridX * (byte)TilemapEnum.TileWidth + 10, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 10, gridY * (byte)TilemapEnum.TileHeight + 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight - 10);
+
+			if(newDir == DirCardinal.None) { return; }
+
+			Systems.sounds.coin.Play(0.6f, 0, 0);
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			if(subType == (byte)CoinsSubType.Coin) {

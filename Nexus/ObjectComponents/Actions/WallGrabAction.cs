@@ -13,9 +13,10 @@ namespace Nexus.ObjectComponents {
 
 		// ActionMap.WallGrab.StartAction( character, dir );
 		public void StartAction( Character character, DirCardinal dir ) {
+			this.EndLastActionIfActive(character);
 
-			// TODO: If the Character is holding an item, there is no opportunity for wall jumping:
-			//if(character.heldItem) { return false; }
+			// If the Character is holding an item, there is no opportunity for wall jumping:
+			if(character.heldItem.IsHeld) { return; }
 
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;

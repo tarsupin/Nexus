@@ -1,6 +1,8 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -26,36 +28,42 @@ namespace Nexus.Objects {
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			if(actor is Character) {
-				Character character = (Character) actor;
+			// Only run this test for Characters.
+			if(!(actor is Character)) { return false; }
 
-				// Make sure the character is fully within the chest tile.
-				if(!CollideTile.IsWithinPaddedTile(character, gridX, gridY, 6, 6, 6, 6)) { return false; }
+			Character character = (Character) actor;
 
-				// Get the SubType
-				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			// Don't run this test if the character is already in an air-burst action.
+			if(character.status.action is AirBurst) { return false; }
 
-				// Determine Movement Pattern
-				sbyte hor = 0;
-				sbyte vert = 0;
+			// Test against an Inner Boundary so that it doesn't touch so easily.
+			DirCardinal newDir = TileSolidImpact.RunOverlapTest(actor, gridX * (byte)TilemapEnum.TileWidth + 6, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 6, gridY * (byte)TilemapEnum.TileHeight + 6, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight - 6);
 
-				if(subType == (byte)PuffBlockSubType.Up) {
-					vert = -1;
-				} else if(subType == (byte)PuffBlockSubType.Right) {
-					hor = 1;
-				} else if(subType == (byte)PuffBlockSubType.Down) {
-					hor = -1;
-				} else if(subType == (byte)PuffBlockSubType.Left) {
-					vert = 1;
-				}
+			if(newDir == DirCardinal.None) { return false; }
 
-				// Character is sent into an "Air Burst" action.
-				ActionMap.AirBurst.StartAction(character, hor, vert);
+			// Get the SubType
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-				Systems.sounds.air.Play();
+			// Determine Movement Pattern
+			sbyte hor = 0;
+			sbyte vert = 0;
+
+			if(subType == (byte)PuffBlockSubType.Up) {
+				vert = -1;
+			} else if(subType == (byte)PuffBlockSubType.Right) {
+				hor = 1;
+			} else if(subType == (byte)PuffBlockSubType.Down) {
+				hor = -1;
+			} else if(subType == (byte)PuffBlockSubType.Left) {
+				vert = 1;
 			}
 
-			return base.RunImpact(room, actor, gridX, gridY, dir);
+			// Character is sent into an "Air Burst" action.
+			ActionMap.AirBurst.StartAction(character, hor, vert, true, 4);
+
+			Systems.sounds.air.Play();
+
+			return true;
 		}
 		
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
