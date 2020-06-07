@@ -1,12 +1,17 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
 	public class TilemapLevel {
 
 		// Tile Array
-		private byte[,][] tiles;      // ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType
+		private byte[,][] tiles;		// ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType
+
+		// Param Dictionary
+		private Dictionary<uint, Dictionary<string, short>> paramList;       // Key is the Coords.MapToInt(x, y)
 
 		// Width and Height of the Tilemap:
 		public int Width { get; protected set; }
@@ -27,6 +32,7 @@ namespace Nexus.GameEngine {
 
 			// Create Empty Tilemap Data
 			this.tiles = new byte[fullYCount, fullXCount][];
+			this.paramList = new Dictionary<uint, Dictionary<string, short>>();
 		}
 
 		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
@@ -37,6 +43,7 @@ namespace Nexus.GameEngine {
 		public byte GetBGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][3]; }
 		public byte GetFGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][5]; }
 
+		// Setting Tile Data
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void SetMainTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0) {
 
@@ -72,6 +79,28 @@ namespace Nexus.GameEngine {
 			this.tiles[gridY, gridX][1] = subType;
 		}
 
+		// Param Tracking
+		public Dictionary<string, short> GetParamList(ushort gridX, ushort gridY) {
+			return this.paramList[Coords.MapToInt(gridX, gridY)];
+		}
+
+		public void SetParamList(ushort gridX, ushort gridY, Dictionary<string, short> paramList) {
+			this.paramList[Coords.MapToInt(gridX, gridY)] = paramList;
+		}
+
+		public void SetParam(ushort gridX, ushort gridY, string paramKey, short paramVal) {
+			uint coordVal = Coords.MapToInt(gridX, gridY);
+			if(!this.paramList.ContainsKey(coordVal)) {
+				this.paramList.Add(coordVal, new Dictionary<string, short>());
+			}
+			this.paramList[coordVal][paramKey] = paramVal;
+		}
+
+		public void ClearParams(ushort gridX, ushort gridY) {
+			this.paramList.Remove(Coords.MapToInt(gridX, gridY));
+		}
+
+		// Removing Tiles
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
 		public void RemoveTile(ushort gridX, ushort gridY) {
 			this.tiles[gridY, gridX] = null;

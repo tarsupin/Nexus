@@ -29,6 +29,15 @@ namespace Nexus.Objects {
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(10, 2, -2, 0);
+
+			// Handle Params
+			if(paramList.ContainsKey("x")) {
+				this.physics.velocity.X = FInt.Create(paramList["x"]);
+			}
+
+			if(paramList.ContainsKey("y")) {
+				this.physics.velocity.Y = FInt.Create(paramList["y"]);
+			}
 		}
 
 		private void AssignSubType(byte subType) {

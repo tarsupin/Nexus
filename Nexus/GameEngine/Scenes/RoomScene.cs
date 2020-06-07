@@ -116,7 +116,7 @@ namespace Nexus.GameEngine {
 				CollideTile.RunTileCollision(obj.Value);
 			}
 		}
-
+		
 		public void RunCharacterSpriteTick(Dictionary<uint, DynamicObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:

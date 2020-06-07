@@ -28,6 +28,7 @@ namespace Nexus.Objects {
 			// Can only activate cannon when there's a beat frame.
 			if(Systems.timer.IsBeatFrame) {
 
+
 				// TODO: Track the activations for this cannon.
 				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
