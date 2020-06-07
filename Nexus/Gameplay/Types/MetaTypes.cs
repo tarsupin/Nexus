@@ -3,18 +3,20 @@
 namespace Nexus.Gameplay {
 
 	public class IMetaData {
-		public Arch Archetype { get; }
-		public LoadOrder LoadOrder { get; }
-		public Atlas Atlas { get; }
-		public LayerEnum Layer { get; }
-		public SlotGroup SlotGroup { get; }
+		public readonly Arch Archetype;
+		public readonly LoadOrder LoadOrder;
+		public readonly Atlas Atlas;
+		public readonly LayerEnum Layer;
+		public readonly SlotGroup SlotGroup;
+		public readonly bool HasBeatTick;
 
-		public IMetaData( Arch arch, Atlas atlas, SlotGroup slotGroup, LayerEnum layer, LoadOrder loadOrder ) {
+		public IMetaData( Arch arch, Atlas atlas, SlotGroup slotGroup, LayerEnum layer, LoadOrder loadOrder, bool hasBeatTick = false ) {
 			this.Archetype = arch;
 			this.LoadOrder = loadOrder;
 			this.Atlas = atlas;
 			this.SlotGroup = slotGroup;
 			this.Layer = layer;
+			this.HasBeatTick = hasBeatTick;
 		}
 	}
 

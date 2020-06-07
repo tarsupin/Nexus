@@ -4,9 +4,9 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Placer : TileObject {
+	public class Placer : BlockTile {
 
-		protected PlacerSubType subType;
+		public string[] Texture;
 
 		public enum PlacerSubType : byte {
 			Up = 0,
@@ -25,10 +25,7 @@ namespace Nexus.Objects {
 			this.title = "Placer";
 			this.description = "Can place objects, items, collectables, etc.";
 			this.paramSet =  Params.ParamMap["Placer"];
-		}
-
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			return true;
+			this.CreateTextures();
 		}
 
 		// TODO: Run Placer RunTick()
@@ -133,15 +130,15 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			if(subType == (byte) PlacerSubType.Up) {
-				this.atlas.Draw("Placer/Vertical", posX, posY);
-			} else if(subType == (byte) PlacerSubType.Down) {
-				this.atlas.DrawFaceDown("Placer/Vertical", posX, posY);
-			} else if(subType == (byte) PlacerSubType.Left) {
-				this.atlas.DrawFaceDown("Placer/Horizontal", posX, posY);
-			} else if(subType == (byte) PlacerSubType.Right) {
-				this.atlas.Draw("Placer/Horizontal", posX, posY);
-			}
+			this.atlas.Draw(this.Texture[subType], posX, posY);
+		}
+
+		private void CreateTextures() {
+			this.Texture = new string[4];
+			this.Texture[(byte)PlacerSubType.Up] = "Placer/Up";
+			this.Texture[(byte)PlacerSubType.Down] = "Placer/Down";
+			this.Texture[(byte)PlacerSubType.Left] = "Placer/Left";
+			this.Texture[(byte)PlacerSubType.Right] = "Placer/Right";
 		}
 	}
 }

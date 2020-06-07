@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class CannonHor : Cannon {
 
-		protected CannonHorSubType subType;
+		public string[] Texture;
 
 		public enum CannonHorSubType : byte {
 			Left = 0,
@@ -14,8 +14,8 @@ namespace Nexus.Objects {
 		}
 
 		public CannonHor() : base() {
-			this.Texture = "Cannon/Horizontal";
 			this.tileId = (byte)TileEnum.CannonHorizontal;
+			this.CreateTextures();
 		}
 
 		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY) {
@@ -34,11 +34,13 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-				if(subType == (byte) CannonHorSubType.Left) {
-				this.atlas.Draw(this.Texture, posX, posY);
-			} else {
-				this.atlas.DrawFaceDown(this.Texture, posX, posY);
-			}
+			this.atlas.Draw(this.Texture[subType], posX, posY);
+		}
+
+		private void CreateTextures() {
+			this.Texture = new string[2];
+			this.Texture[(byte)CannonHorSubType.Left] = "Cannon/Left";
+			this.Texture[(byte)CannonHorSubType.Right] = "Cannon/Right";
 		}
 	}
 }

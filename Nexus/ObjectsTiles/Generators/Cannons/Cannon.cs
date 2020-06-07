@@ -4,10 +4,8 @@ using Nexus.Gameplay;
 
 namespace Nexus.Objects {
 
-	public class Cannon : TileObject {
+	public class Cannon : BlockTile {
 
-		public string Texture;
-		
 		// TODO: Integrate params into Cannon
 
 		public Cannon() : base() {
@@ -16,10 +14,6 @@ namespace Nexus.Objects {
 			this.title = "Cannon";
 			this.description = "Fires cannonballs at instructed times.";
 			this.paramSet = Params.ParamMap["Beats"];
-		}
-
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			return true;
 		}
 
 		// TODO: Run Cannon RunTick()

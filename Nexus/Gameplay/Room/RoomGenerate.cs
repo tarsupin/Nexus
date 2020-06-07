@@ -38,7 +38,8 @@ namespace Nexus.Gameplay {
 		}
 
 		private static void GenerateTileLayer(RoomScene room, Dictionary<string, Dictionary<string, ArrayList>> layer, LayerEnum layerEnum) {
-			
+			var TileDict = Systems.mapper.TileDict;
+
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				ushort gridY = ushort.Parse(yData.Key);
@@ -47,14 +48,23 @@ namespace Nexus.Gameplay {
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					ushort gridX = ushort.Parse(xData.Key);
 
+					byte tileId = Convert.ToByte(xData.Value[0]);
+
+					// Check the TileDict to see if it's MetaData has a BeatTick requirement.
+					if(TileDict[tileId].Meta.HasBeatTick) {
+						// Add an instruction to the BeatTickRegistrar.
+						// List<[gridX, gridY]> >> Runs the tile at that x,y
+						// List<[gridX, gridY]>[8]
+					}
+
 					if(xData.Value.Count == 2) {
-						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
+						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]));
 					} else if(xData.Value.Count > 2) {
 
 						// ERRORS HERE MEAN: The json data saved a string instead of a short; e.g. {"Suit", "WhiteNinja"} instead of {"Suit", 2}
 							// To fix it, we need to run LevelConvert updates that make the appropriate changes.
 						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
-						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]), paramList);
+						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]), paramList);
 					}
 				}
 			}

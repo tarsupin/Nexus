@@ -6,7 +6,7 @@ namespace Nexus.Objects {
 
 	public class CannonDiag : Cannon {
 
-		protected CannonDiagSubType subType;
+		public string[] Texture;
 
 		public enum CannonDiagSubType : byte {
 			UpRight = 0,
@@ -16,8 +16,8 @@ namespace Nexus.Objects {
 		}
 
 		public CannonDiag() : base() {
-			this.Texture = "Cannon/Diagonal";
 			this.tileId = (byte)TileEnum.CannonDiagonal;
+			this.CreateTextures();
 		}
 
 		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY) {
@@ -46,15 +46,15 @@ namespace Nexus.Objects {
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
-			if(subType == (byte)CannonDiagSubType.UpRight) {
-				this.atlas.Draw(this.Texture, posX, posY);
-			} else if(subType == (byte)CannonDiagSubType.DownRight) {
-				this.atlas.DrawFaceDown(this.Texture, posX, posY);
-			} else if(subType == (byte)CannonDiagSubType.DownLeft) {
-				this.atlas.DrawFaceLeft(this.Texture, posX, posY);
-			} else if(subType == (byte)CannonDiagSubType.UpLeft) {
-				this.atlas.DrawFaceRight(this.Texture, posX, posY);
-			}
+			this.atlas.Draw(this.Texture[subType], posX, posY);
+		}
+
+		private void CreateTextures() {
+			this.Texture = new string[4];
+			this.Texture[(byte)CannonDiagSubType.UpRight] = "Cannon/UpRight";
+			this.Texture[(byte)CannonDiagSubType.DownRight] = "Cannon/DownRight";
+			this.Texture[(byte)CannonDiagSubType.DownLeft] = "Cannon/DownLeft";
+			this.Texture[(byte)CannonDiagSubType.UpLeft] = "Cannon/UpLeft";
 		}
 	}
 }

@@ -406,6 +406,11 @@
     <Compile Include="ObjectsTiles\Platforms\PlatformFixed\PlatformFixedRight.cs" />
     <Compile Include="ObjectsTiles\Platforms\PlatformFixed\PlatformFixedLeft.cs" />
     <Compile Include="ObjectsTiles\Platforms\PlatformFixed\PlatformFixedDown.cs" />
+    <Compile Include="ObjectsTiles\Generators\Cannons\Cannon.cs" />
+    <Compile Include="ObjectsTiles\Generators\Cannons\CannonDiag.cs" />
+    <Compile Include="ObjectsTiles\Generators\Cannons\CannonHor.cs" />
+    <Compile Include="ObjectsTiles\Generators\Cannons\CannonVert.cs" />
+    <Compile Include="ObjectsTiles\Generators\Placer.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringSide.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />
@@ -415,11 +420,6 @@
     <Compile Include="ObjectsTiles\Portals\Door.cs" />
     <Compile Include="GameEngine\ShadowTile.cs" />
     <Compile Include="ObjectsTiles\Special\TrackDot.cs" />
-    <Compile Include="ObjectsTiles\Special\Placer.cs" />
-    <Compile Include="ObjectsTiles\Special\Cannons\Cannon.cs" />
-    <Compile Include="ObjectsTiles\Special\Cannons\CannonDiag.cs" />
-    <Compile Include="ObjectsTiles\Special\Cannons\CannonVert.cs" />
-    <Compile Include="ObjectsTiles\Special\Cannons\CannonHor.cs" />
     <Compile Include="ObjectsTiles\Special\NPC.cs" />
     <Compile Include="ObjectsTiles\Special\Chest.cs" />
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatColors\PlatGreenDown.cs" />
