@@ -74,7 +74,7 @@ namespace Nexus.GameEngine {
 			// Ranged Weapons
 			{ "axe", (byte) PowerSubType.Axe },
 			{ "hammer", (byte) PowerSubType.Hammer },
-			{ "shuriken", (byte) PowerSubType.Shuriken },
+			{ "shuriken", (byte) PowerSubType.ShurikenGreen },
 			
 			// Stacked Ranged Weapons
 			{ "chakram", (byte) PowerSubType.Chakram },

@@ -6,8 +6,7 @@ namespace Nexus.Objects {
 	public class DecorItems : Decor {
 
 		public enum CrysSubType : byte {
-			Pot = 0,
-			Tomb = 1,
+			Sign = 1,
 			Gem1 = 2,
 			Gem2 = 3,
 			Gem3 = 4,
@@ -21,8 +20,7 @@ namespace Nexus.Objects {
 
 		public void BuildTextures() {
 			this.Texture = new string[6];
-			this.Texture[(byte)CrysSubType.Pot] = "Decor/Pot";
-			this.Texture[(byte)CrysSubType.Tomb] = "Decor/Tomb";
+			this.Texture[(byte)CrysSubType.Sign] = "Decor/Sign";
 			this.Texture[(byte)CrysSubType.Gem1] = "Decor/Gem1";
 			this.Texture[(byte)CrysSubType.Gem2] = "Decor/Gem2";
 			this.Texture[(byte)CrysSubType.Gem3] = "Decor/Gem3";

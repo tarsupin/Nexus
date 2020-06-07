@@ -6,6 +6,13 @@ namespace Nexus.ObjectComponents {
 
 	public class Shuriken : PowerThrown {
 
+		public enum ShurikenSubType : byte {
+			Green = 0,
+			Red = 1,
+			Blue = 2,
+			Yellow = 3,
+		}
+
 		public Shuriken( Character character, byte subType ) : base( character ) {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;

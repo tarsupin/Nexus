@@ -203,9 +203,9 @@ namespace Nexus.Gameplay {
 				
 				// Decor, Prompts (30 - 39)
 				{ (byte) TileEnum.DecorVeg, new DecorVeg() },
-				//{ (byte) TileEnum.DecorDesert, new DecorDesert() },
+				{ (byte) TileEnum.DecorDesert, new DecorDesert() },
 				{ (byte) TileEnum.DecorCave, new DecorCave() },
-				//{ (byte) TileEnum.DecorWater, new DecorWater() },
+				{ (byte) TileEnum.DecorSnow, new DecorSnow() },
 				{ (byte) TileEnum.DecorPet, new DecorPet() },
 				{ (byte) TileEnum.DecorItems, new DecorItems() },
 				{ (byte) TileEnum.PromptArrow, new PromptArrow() },
@@ -265,6 +265,12 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.SpringFixed, new SpringFixed() },
 				{ (byte) TileEnum.SpringSide, new SpringSide() },
 				
+				// Rock Platforms (110 - 114)
+				{ (byte) TileEnum.PlatformRockUp, new PlatformRockUp() },
+				{ (byte) TileEnum.PlatformRockDown, new PlatformRockDown() },
+				{ (byte) TileEnum.PlatformRockLeft, new PlatformRockLeft() },
+				{ (byte) TileEnum.PlatformRockRight, new PlatformRockRight() },
+
 				// Side-Facing Toggled Platforms (120 - 134)
 				{ (byte) TileEnum.PlatBlueDown, new PlatBlueDown() },
 				{ (byte) TileEnum.PlatRedDown, new PlatRedDown() },

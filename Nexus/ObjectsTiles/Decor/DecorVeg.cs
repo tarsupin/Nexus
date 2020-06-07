@@ -22,6 +22,15 @@ namespace Nexus.Objects {
 			Fung5 = 13,
 			Tree1 = 14,
 			Tree2 = 15,
+			Tree3 = 16,
+			Tree4 = 17,
+			Tree5 = 18,
+			Tree6 = 19,
+			Flower1 = 20,
+			Flower2 = 21,
+			Flower3 = 22,
+			Flower4 = 23,
+			Flower5 = 24,
 		}
 
 		public DecorVeg() : base() {
@@ -30,7 +39,7 @@ namespace Nexus.Objects {
 		}
 
 		public void BuildTextures() {
-			this.Texture = new string[16];
+			this.Texture = new string[25];
 			this.Texture[(byte)VegSubType.Grass1] = "Decor/Grass1";
 			this.Texture[(byte)VegSubType.Grass2] = "Decor/Grass2";
 			this.Texture[(byte)VegSubType.Plant1] = "Decor/Plant1";
@@ -47,6 +56,15 @@ namespace Nexus.Objects {
 			this.Texture[(byte)VegSubType.Fung5] = "Decor/Fung5";
 			this.Texture[(byte)VegSubType.Tree1] = "Decor/Tree1";
 			this.Texture[(byte)VegSubType.Tree2] = "Decor/Tree2";
+			this.Texture[(byte)VegSubType.Tree3] = "Decor/Tree3";
+			this.Texture[(byte)VegSubType.Tree4] = "Decor/Tree4";
+			this.Texture[(byte)VegSubType.Tree5] = "Decor/Tree5";
+			this.Texture[(byte)VegSubType.Tree6] = "Decor/Tree6";
+			this.Texture[(byte)VegSubType.Flower1] = "Decor/Flower1";
+			this.Texture[(byte)VegSubType.Flower2] = "Decor/Flower2";
+			this.Texture[(byte)VegSubType.Flower3] = "Decor/Flower3";
+			this.Texture[(byte)VegSubType.Flower4] = "Decor/Flower4";
+			this.Texture[(byte)VegSubType.Flower5] = "Decor/Flower5";
 		}
 	}
 }

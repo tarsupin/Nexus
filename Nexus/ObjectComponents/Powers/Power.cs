@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.Objects;
 using System;
+using static Nexus.ObjectComponents.Shuriken;
 
 namespace Nexus.ObjectComponents {
 
@@ -43,7 +44,10 @@ namespace Nexus.ObjectComponents {
 		RandomThrown = 40,
 		Axe = 41,
 		Hammer = 42,
-		Shuriken = 43,
+		ShurikenGreen = 43,
+		ShurikenRed = 44,
+		ShurikenBlue = 45,
+		ShurikenYellow = 46,
 
 		// Power Collectable - Bolts
 		RandomBolt = 50,
@@ -84,6 +88,11 @@ namespace Nexus.ObjectComponents {
 			if(subType == (byte) PowerSubType.RandomThrown) {
 				Random rand = new Random((int) Systems.timer.Frame);
 				subType = (byte)rand.Next(41, 43);
+
+				// If it randomizes the Shuriken (Green), randomize between all of them.
+				if(subType == (byte)PowerSubType.ShurikenGreen) {
+					subType = (byte)rand.Next((byte)PowerSubType.ShurikenGreen, (byte)PowerSubType.ShurikenYellow);
+				}
 			}
 
 			// Random Potion (Mobility Powers)
@@ -144,7 +153,10 @@ namespace Nexus.ObjectComponents {
 				// Collectable Powers - Thrown
 				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
 				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, 0); break;
-				case (byte) PowerSubType.Shuriken: character.attackPower = new Shuriken(character, 0); break;
+				case (byte) PowerSubType.ShurikenGreen: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Green); break;
+				case (byte) PowerSubType.ShurikenRed: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Red); break;
+				case (byte) PowerSubType.ShurikenBlue: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Blue); break;
+				case (byte) PowerSubType.ShurikenYellow: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Yellow); break;
 
 				// Power Collectable - Bolts
 				case (byte) PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;

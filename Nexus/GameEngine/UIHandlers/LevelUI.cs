@@ -38,12 +38,12 @@ namespace Nexus.GameEngine {
 				byte i = 0;
 
 				while(i < wounds.Health) {
-					this.atlas.Draw("Icon/Heart", 10 + 48 * i, this.bottomRow);
+					this.atlas.Draw("Icon/HP", 10 + 48 * i, this.bottomRow);
 					i++;
 				}
 
 				while(i < wounds.Health + wounds.Armor) {
-					this.atlas.Draw("Icon/Armor", 10 + 48 * i, this.bottomRow);
+					this.atlas.Draw("Icon/Shield", 10 + 48 * i, this.bottomRow);
 					i++;
 				}
 			}

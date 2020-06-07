@@ -8,15 +8,16 @@ namespace Nexus.Objects {
 	class Goodie : Collectable {
 
 		public enum GoodieSubType : byte {
+
 			Apple = 0,
 			Pear = 1,
-			Heart = 2,
+			Pack1 = 2,
 
-			Shield = 3,
-			ShieldPlus = 4,
+			ShieldWood = 3,
+			ShieldBlue = 4,
 			
-			Guard = 5,
-			GuardPlus = 6,
+			RingMagic = 5,		// Magi
+			AmuletMagic = 6,	// Magi 2
 			
 			Shiny = 7,
 			Stars = 8,
@@ -33,6 +34,22 @@ namespace Nexus.Objects {
 			Explosive = 17,
 			Key = 18,
 			Blood = 19,
+
+			Melon = 20,
+			Soup = 21,
+			Pack2 = 22,
+
+			ShieldWhite = 23,
+
+			RingFire = 24,			// Fire
+			NeckFire = 25,			// Fire
+			RingPoison = 26,		// Poison
+			NeckElectric = 27,		// Fire/Frost
+			RingElements = 28,		// Fire/Frost
+			NeckHeart = 29,			// Reserved
+			RingHawk = 30,          // Reserved
+			RingDruid = 31,         // Reserved
+			RingEye = 32,           // Reserved
 		}
 
 		public Goodie() : base() {
@@ -41,16 +58,30 @@ namespace Nexus.Objects {
 			this.paramSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
-			this.titles = new string[20];
+			this.titles = new string[33];
 			this.titles[(byte)GoodieSubType.Apple] = "Apple";
 			this.titles[(byte)GoodieSubType.Pear] = "Pear";
-			this.titles[(byte)GoodieSubType.Heart] = "Heart Potion";
-			this.titles[(byte)GoodieSubType.Shield] = "Shield";
-			this.titles[(byte)GoodieSubType.ShieldPlus] = "Large Shield";
+			this.titles[(byte)GoodieSubType.Melon] = "Melon";
+			this.titles[(byte)GoodieSubType.Soup] = "Soup";
+			this.titles[(byte)GoodieSubType.Pack1] = "Health Pack";
+			this.titles[(byte)GoodieSubType.Pack2] = "Health Pack";
 
-			this.titles[(byte)GoodieSubType.Guard] = "Amulet";
-			this.titles[(byte)GoodieSubType.GuardPlus] = "Power Amulet";
+			this.titles[(byte)GoodieSubType.ShieldWood] = "Wood Shield";
+			this.titles[(byte)GoodieSubType.ShieldWhite] = "White Shield";
+			this.titles[(byte)GoodieSubType.ShieldBlue] = "Power Shield";
 
+			this.titles[(byte)GoodieSubType.RingMagic] = "Magic Ring";
+			this.titles[(byte)GoodieSubType.AmuletMagic] = "Magic Amulet";
+			this.titles[(byte)GoodieSubType.RingFire] = "Fire Ring";
+			this.titles[(byte)GoodieSubType.NeckFire] = "Fire Amulet";
+			this.titles[(byte)GoodieSubType.RingPoison] = "Poison Charm";
+			this.titles[(byte)GoodieSubType.NeckElectric] = "Electric Amulet";
+			this.titles[(byte)GoodieSubType.RingElements] = "Elemental Ring";
+			//this.titles[(byte)GoodieSubType.NeckHeart] = "Heart Ring";
+			//this.titles[(byte)GoodieSubType.RingHawk] = "Hawk Ring";
+			//this.titles[(byte)GoodieSubType.RingDruid] = "Ring";
+			//this.titles[(byte)GoodieSubType.RingEye] = "Ring";
+			
 			this.titles[(byte)GoodieSubType.Shiny] = "Shiny Potion";
 			this.titles[(byte)GoodieSubType.Stars] = "Star Potion";
 			this.titles[(byte)GoodieSubType.GodMode] = "God Mode Collectable";
@@ -67,15 +98,29 @@ namespace Nexus.Objects {
 			this.titles[(byte)GoodieSubType.Key] = "Key";
 			this.titles[(byte)GoodieSubType.Blood] = "Blood Potion";
 
-			this.descriptions = new string[20];
+			this.descriptions = new string[33];
 			this.descriptions[(byte)GoodieSubType.Apple] = "Grants +1 Health";
 			this.descriptions[(byte)GoodieSubType.Pear] = "Grants +1 Health";
-			this.descriptions[(byte)GoodieSubType.Heart] = "Grants Full Health";
-			this.descriptions[(byte)GoodieSubType.Shield] = "Grants +1 Shield";
-			this.descriptions[(byte)GoodieSubType.ShieldPlus] = "Grants Full Shields";
+			this.descriptions[(byte)GoodieSubType.Melon] = "Grants +2 Health";
+			this.descriptions[(byte)GoodieSubType.Soup] = "Grants +2 Health";
+			this.descriptions[(byte)GoodieSubType.Pack1] = "Grants Full Health";
+			this.descriptions[(byte)GoodieSubType.Pack2] = "Grants Full Health";
 
-			this.descriptions[(byte)GoodieSubType.Guard] = "Grants a minor shield attachment that protects the character.";
-			this.descriptions[(byte)GoodieSubType.GuardPlus] = "Grants a major shield attachment that protects the character.";
+			this.descriptions[(byte)GoodieSubType.ShieldWood] = "Grants +1 Shield";
+			this.descriptions[(byte)GoodieSubType.ShieldWhite] = "Grants +2 Shields";
+			this.descriptions[(byte)GoodieSubType.ShieldBlue] = "Grants Full Shields";
+
+			this.descriptions[(byte)GoodieSubType.RingMagic] = "Grants a magical shield.";
+			this.descriptions[(byte)GoodieSubType.AmuletMagic] = "Grants a powerful magical shield.";
+			this.descriptions[(byte)GoodieSubType.RingFire] = "Grants a magical fire shield.";
+			this.descriptions[(byte)GoodieSubType.NeckFire] = "Grants a powerful magical fire shield.";
+			this.descriptions[(byte)GoodieSubType.RingPoison] = "Grants a magical poison shield.";
+			this.descriptions[(byte)GoodieSubType.NeckElectric] = "Grants a magical electric shield.";
+			this.descriptions[(byte)GoodieSubType.RingElements] = "Grants a magical elemental shield.";
+			//this.descriptions[(byte)GoodieSubType.NeckHeart] = ".";
+			//this.descriptions[(byte)GoodieSubType.RingHawk] = ".";
+			//this.descriptions[(byte)GoodieSubType.RingDruid] = ".";
+			//this.descriptions[(byte)GoodieSubType.RingEye] = ".";
 
 			this.descriptions[(byte)GoodieSubType.Shiny] = "Makes the character invulnerable for ten seconds.";
 			this.descriptions[(byte)GoodieSubType.Stars] = "Makes the character invulnerable and deadly on contact for ten seconds.";
@@ -102,16 +147,29 @@ namespace Nexus.Objects {
 				// Health
 				case (byte)GoodieSubType.Apple: this.GetHealth(character, 1); break;
 				case (byte)GoodieSubType.Pear: this.GetHealth(character, 1); break;
-				case (byte)GoodieSubType.Heart: this.GetHealth(character, 3); break;
+				case (byte)GoodieSubType.Melon: this.GetHealth(character, 2); break;
+				case (byte)GoodieSubType.Soup: this.GetHealth(character, 2); break;
+				case (byte)GoodieSubType.Pack1: this.GetHealth(character, 99); break;
+				case (byte)GoodieSubType.Pack2: this.GetHealth(character, 99); break;
 
 				// Armor
-				case (byte)GoodieSubType.Shield: this.GetArmor(character, 1); break;
-				case (byte)GoodieSubType.ShieldPlus: this.GetArmor(character, 3); break;
+				case (byte)GoodieSubType.ShieldWood: this.GetArmor(character, 1); break;
+				case (byte)GoodieSubType.ShieldWhite: this.GetArmor(character, 3); break;
+				case (byte)GoodieSubType.ShieldBlue: this.GetArmor(character, 3); break;
 
 				// Guard Shield
-				case (byte)GoodieSubType.Guard: this.GetGuardShield(character, 5); break;
-				case (byte)GoodieSubType.GuardPlus: this.GetGuardShield(character, 8); break;
-
+				case (byte)GoodieSubType.RingMagic: this.GetGuardShield(character, 5); break;
+				case (byte)GoodieSubType.AmuletMagic: this.GetGuardShield(character, 7); break;
+				case (byte)GoodieSubType.RingFire: this.GetGuardShield(character, 7); break;
+				case (byte)GoodieSubType.NeckFire: this.GetGuardShield(character, 7); break;
+				case (byte)GoodieSubType.RingPoison: this.GetGuardShield(character, 7); break;
+				case (byte)GoodieSubType.NeckElectric: this.GetGuardShield(character, 7); break;
+				case (byte)GoodieSubType.RingElements: this.GetGuardShield(character, 7); break;
+				//case (byte)GoodieSubType.NeckHeart: this.GetGuardShield(character, 7); break;
+				//case (byte)GoodieSubType.RingHawk: this.GetGuardShield(character, 7); break;
+				//case (byte)GoodieSubType.RingDruid: this.GetGuardShield(character, 7); break;
+				//case (byte)GoodieSubType.RingEye: this.GetGuardShield(character, 7); break;
+				
 				// Invincibility
 				case (byte)GoodieSubType.Shiny: this.GetInvincible(character, 10000); break;
 				case (byte)GoodieSubType.Stars: this.GetInvincible(character, 10000); break;
@@ -140,13 +198,7 @@ namespace Nexus.Objects {
 
 		private void GetHealth(Character character, byte health) {
 			character.wounds.AddHealth(health);
-
-			// Apply Sound
-			if(health == 1) {
-				Systems.sounds.food.Play();
-			} else {
-				Systems.sounds.potion.Play();
-			}
+			Systems.sounds.food.Play();
 		}
 
 		private void GetArmor(Character character, byte armor) {
@@ -161,7 +213,8 @@ namespace Nexus.Objects {
 
 		private void GetInvincible(Character character, uint frames) {
 			character.wounds.SetInvincible(frames);
-			Systems.sounds.collectSubtle.Play();
+			//Systems.sounds.collectSubtle.Play();
+			Systems.sounds.potion.Play();
 		}
 
 		private void SetTime(Character character, bool isAdditive, byte timeVal) {
@@ -206,21 +259,40 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[20];
+			this.Texture = new string[33];
 			
-			this.Texture[(byte) GoodieSubType.Apple] = "Goodie/Apple";
-			this.Texture[(byte) GoodieSubType.Pear] = "Goodie/Pear";
-			this.Texture[(byte) GoodieSubType.Heart] = "Goodie/Heart";
-			this.Texture[(byte) GoodieSubType.Shield] = "Goodie/Shield";
-			this.Texture[(byte) GoodieSubType.ShieldPlus] = "Goodie/ShieldPlus";
+			// Health Goodies
+			this.Texture[(byte) GoodieSubType.Apple] = "Health/Apple";
+			this.Texture[(byte) GoodieSubType.Pear] = "Health/Pear";
+			this.Texture[(byte) GoodieSubType.Melon] = "Health/Melon";
+			this.Texture[(byte) GoodieSubType.Soup] = "Health/Soup";
+			this.Texture[(byte) GoodieSubType.Pack1] = "Health/Pack1";
+			this.Texture[(byte) GoodieSubType.Pack2] = "Health/Pack2";
 
-			this.Texture[(byte) GoodieSubType.Guard] = "Goodie/Guard";
-			this.Texture[(byte) GoodieSubType.GuardPlus] = "Goodie/GuardPlus";
+			// Shield Goodies
+			this.Texture[(byte) GoodieSubType.ShieldWood] = "Shield/Wood";
+			this.Texture[(byte) GoodieSubType.ShieldWhite] = "Shield/White";
+			this.Texture[(byte) GoodieSubType.ShieldBlue] = "Shield/Blue";
 
+			// Jewelry Goodies
+			this.Texture[(byte) GoodieSubType.RingMagic] = "Jewelry/Magic";
+			this.Texture[(byte) GoodieSubType.AmuletMagic] = "Jewelry/NeckMagic";
+			this.Texture[(byte) GoodieSubType.RingFire] = "Jewelry/Fire";
+			this.Texture[(byte) GoodieSubType.NeckFire] = "Jewelry/NeckFire";
+			this.Texture[(byte) GoodieSubType.RingPoison] = "Jewelry/Poison";
+			this.Texture[(byte) GoodieSubType.NeckElectric] = "Jewelry/NeckElectric";
+			this.Texture[(byte) GoodieSubType.RingElements] = "Jewelry/Elements";
+			this.Texture[(byte) GoodieSubType.NeckHeart] = "Jewelry/NeckHeart";
+			this.Texture[(byte) GoodieSubType.RingHawk] = "Jewelry/Hawk";
+			this.Texture[(byte) GoodieSubType.RingDruid] = "Jewelry/Druid";
+			this.Texture[(byte) GoodieSubType.RingEye] = "Jewelry/Eye";
+
+			// Invincibility Goodies
 			this.Texture[(byte) GoodieSubType.Shiny] = "Goodie/Shiny";
 			this.Texture[(byte) GoodieSubType.Stars] = "Goodie/Stars";
 			this.Texture[(byte) GoodieSubType.GodMode] = "Goodie/GodMode";
 
+			// Timer Goodies
 			this.Texture[(byte) GoodieSubType.Plus5] = "Timer/Plus5";
 			this.Texture[(byte) GoodieSubType.Plus10] = "Timer/Plus10";
 			this.Texture[(byte) GoodieSubType.Plus20] = "Timer/Plus20";
@@ -228,6 +300,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte) GoodieSubType.Set10] = "Timer/Set10";
 			this.Texture[(byte) GoodieSubType.Set20] = "Timer/Set20";
 
+			// Misc Goodies
 			this.Texture[(byte) GoodieSubType.Disrupt] = "Goodie/Disrupt";
 			this.Texture[(byte) GoodieSubType.Explosive] = "Goodie/Explosive";
 			this.Texture[(byte) GoodieSubType.Key] = "Goodie/Key";

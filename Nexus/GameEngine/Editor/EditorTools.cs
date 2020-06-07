@@ -105,6 +105,8 @@ namespace Nexus.GameEngine {
 				EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
 				if(ph.tileId > 0) {
+
+					// If there's an error here, we need to add the value to TileDict.
 					TileObject tile = Systems.mapper.TileDict[ph.tileId];
 
 					if(tile.titles != null) {

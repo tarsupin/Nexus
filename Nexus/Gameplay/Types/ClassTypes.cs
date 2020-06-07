@@ -40,7 +40,7 @@ namespace Nexus.Gameplay {
 		DecorVeg = 30,
 		DecorDesert = 31,
 		DecorCave = 32,
-		DecorWater = 33,
+		DecorSnow = 33,
 		DecorPet = 34,
 		DecorItems = 35,
 		// ...
@@ -103,6 +103,12 @@ namespace Nexus.Gameplay {
 		// Fixed Springs (90 - 99)
 		SpringFixed = 90,
 		SpringSide = 91,
+
+		// Rock Platforms (110 - 114)
+		PlatformRockUp = 110,
+		PlatformRockDown = 111,
+		PlatformRockLeft = 112,
+		PlatformRockRight = 113,
 
 		// Side-Facing Toggled Platforms (120 - 134)
 		PlatBlueDown = 120,

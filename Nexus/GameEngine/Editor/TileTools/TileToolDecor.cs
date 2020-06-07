@@ -1,7 +1,9 @@
 ﻿using Nexus.Gameplay;
 using static Nexus.Objects.DecorCave;
+using static Nexus.Objects.DecorDesert;
 using static Nexus.Objects.DecorItems;
 using static Nexus.Objects.DecorPet;
+using static Nexus.Objects.DecorSnow;
 using static Nexus.Objects.DecorVeg;
 
 namespace Nexus.GameEngine {
@@ -39,11 +41,47 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Flower1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Flower2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Flower3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Flower4,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Flower5,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
 					subType = (byte) VegSubType.Tree1,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorVeg,
 					subType = (byte) VegSubType.Tree2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Tree3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Tree4,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Tree5,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Tree6,
 				},
 			});
 
@@ -72,16 +110,44 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine1,
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Desert1,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine2,
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Desert2,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.DecorVeg,
-					subType = (byte) VegSubType.Vine3,
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Desert3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Desert4,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Bones1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Bones2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Bones3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Cacti1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Cacti2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorDesert,
+					subType = (byte) DesertSubType.Cacti3,
 				},
 			});
 
@@ -122,6 +188,18 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Vine1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Vine2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorVeg,
+					subType = (byte) VegSubType.Vine3,
+				},
+				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorCave,
 					subType = (byte) CaveSubType.Top1,
 				},
@@ -159,6 +237,29 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.DecorItems,
 					subType = (byte) CrysSubType.Gem4,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorItems,
+					subType = (byte) CrysSubType.Sign,
+				},
+			});
+			
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorSnow,
+					subType = (byte) SnowSubType.Bank1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorSnow,
+					subType = (byte) SnowSubType.Bank2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorSnow,
+					subType = (byte) SnowSubType.Bush1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.DecorSnow,
+					subType = (byte) SnowSubType.Log1,
 				},
 			});
 

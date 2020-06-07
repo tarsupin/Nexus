@@ -40,12 +40,26 @@ namespace Nexus.GameEngine {
 		public static Dictionary<byte, string> Goodies = new Dictionary<byte, string>() {
 			{ (byte) GoodieSubType.Apple, "Apple" },
 			{ (byte) GoodieSubType.Pear, "Pear" },
-			{ (byte) GoodieSubType.Heart, "Heart" },
-			{ (byte) GoodieSubType.Shield, "Shield" },
-			{ (byte) GoodieSubType.ShieldPlus, "Power Shield" },
+			{ (byte) GoodieSubType.Melon, "Melon" },
+			{ (byte) GoodieSubType.Soup, "Soup" },
+			{ (byte) GoodieSubType.Pack1, "Medical Pack" },
+			{ (byte) GoodieSubType.Pack2, "Red Medical Pack" },
 
-			{ (byte) GoodieSubType.Guard, "Shield Amulet" },
-			{ (byte) GoodieSubType.GuardPlus, "Powerful Shield Amulet" },
+			{ (byte) GoodieSubType.ShieldWood, "Wood Shield" },
+			{ (byte) GoodieSubType.ShieldWhite, "White Shield" },
+			{ (byte) GoodieSubType.ShieldBlue, "Power Shield" },
+
+			{ (byte) GoodieSubType.RingMagic, "Magic Ring" },
+			{ (byte) GoodieSubType.AmuletMagic, "Magic Amulet" },
+			{ (byte) GoodieSubType.RingFire, "Fire Ring" },
+			{ (byte) GoodieSubType.NeckFire, "Fire Amulet" },
+			{ (byte) GoodieSubType.RingPoison, "Poison Ring" },
+			{ (byte) GoodieSubType.NeckElectric, "Electric Amulet" },
+			{ (byte) GoodieSubType.RingElements, "Elemental Ring" },
+			//{ (byte) GoodieSubType.NeckHeart, "" },
+			//{ (byte) GoodieSubType.RingHawk, "" },
+			//{ (byte) GoodieSubType.RingDruid, "" },
+			//{ (byte) GoodieSubType.RingEye, "" },
 
 			{ (byte) GoodieSubType.Shiny, "Shiny" },
 			{ (byte) GoodieSubType.Stars, "Stars" },
@@ -110,7 +124,10 @@ namespace Nexus.GameEngine {
 			{ (byte) PowerSubType.RandomThrown, "Random Throwing Weapon" },
 			{ (byte) PowerSubType.Axe, "Axe" },
 			{ (byte) PowerSubType.Hammer, "Hammer" },
-			{ (byte) PowerSubType.Shuriken, "Shuriken" },
+			{ (byte) PowerSubType.ShurikenGreen, "Green Shuriken" },
+			{ (byte) PowerSubType.ShurikenRed, "Red Shuriken" },
+			{ (byte) PowerSubType.ShurikenBlue, "Blue Shuriken" },
+			{ (byte) PowerSubType.ShurikenYellow, "Yellow Shuriken" },
 		};
 
 		// Collectable Powers - Bolts

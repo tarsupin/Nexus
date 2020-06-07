@@ -9,6 +9,7 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Platforms;
 
+			// Fixed Platforms
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixedUp,
@@ -73,6 +74,75 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PlatformFixedLeft,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+			});
+			
+			// Rock Platform
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockUp,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockUp,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockUp,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockUp,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockRight,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockRight,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockRight,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockRight,
+
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockDown,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockDown,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockDown,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockDown,
+					subType = (byte) HorizontalSubTypes.H3,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockLeft,
+					subType = (byte) HorizontalSubTypes.S,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockLeft,
+					subType = (byte) HorizontalSubTypes.H1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockLeft,
+					subType = (byte) HorizontalSubTypes.H2,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PlatformRockLeft,
 					subType = (byte) HorizontalSubTypes.H3,
 				},
 			});

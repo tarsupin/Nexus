@@ -42,7 +42,19 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Heart,
+					subType = (byte) GoodieSubType.Melon,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Soup,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Pack1,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.Pack2,
 				},
 			});
 
@@ -50,11 +62,15 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Shield,
+					subType = (byte) GoodieSubType.ShieldWood,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.ShieldPlus,
+					subType = (byte) GoodieSubType.ShieldWhite,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.ShieldBlue,
 				},
 			});
 
@@ -62,12 +78,52 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.Guard,
+					subType = (byte) GoodieSubType.RingMagic,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
-					subType = (byte) GoodieSubType.GuardPlus,
+					subType = (byte) GoodieSubType.AmuletMagic,
 				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.RingFire,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.NeckFire,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.RingPoison,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.NeckElectric,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.RingElements,
+				},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.Goodie,
+				//	subType = (byte) GoodieSubType.NeckHeart,
+				//},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.Goodie,
+				//	subType = (byte) GoodieSubType.RingHawk,
+				//},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.Goodie,
+				//	subType = (byte) GoodieSubType.RingDruid,
+				//},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.Goodie,
+				//	subType = (byte) GoodieSubType.RingEye,
+				//},
+			});
+
+			// Goodies (Invincibility)
+			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Goodie,
 					subType = (byte) GoodieSubType.Shiny,

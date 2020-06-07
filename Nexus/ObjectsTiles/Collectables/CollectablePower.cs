@@ -52,7 +52,10 @@ namespace Nexus.Objects {
 			this.titles[(byte)PowerSubType.RandomThrown] = "Random Thrown Collectable";
 			this.titles[(byte)PowerSubType.Axe] = "Throwing Axe";
 			this.titles[(byte)PowerSubType.Hammer] = "Throwing Hammer";
-			this.titles[(byte)PowerSubType.Shuriken] = "Shuriken";
+			this.titles[(byte)PowerSubType.ShurikenGreen] = "Shuriken";
+			this.titles[(byte)PowerSubType.ShurikenRed] = "ShurikenRed";
+			this.titles[(byte)PowerSubType.ShurikenBlue] = "ShurikenBlue";
+			this.titles[(byte)PowerSubType.ShurikenYellow] = "ShurikenYellow";
 
 			// Power Collectable - Bolts
 			this.titles[(byte)PowerSubType.RandomBolt] = "Random Staff Collectable";
@@ -109,7 +112,10 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)PowerSubType.RandomThrown] = "Acquire a random throwing weapon.";
 			this.descriptions[(byte)PowerSubType.Axe] = "A large arcing weapon. Very deadly. Slow recharge.";
 			this.descriptions[(byte)PowerSubType.Hammer] = "Throws multiple attacks with random arcs.";
-			this.descriptions[(byte)PowerSubType.Shuriken] = "Throws a fast attack in chosen direction.";
+			this.descriptions[(byte)PowerSubType.ShurikenGreen] = "Throws a fast shuriken in chosen direction.";
+			this.descriptions[(byte)PowerSubType.ShurikenRed] = "Throws a fast shuriken in chosen direction.";
+			this.descriptions[(byte)PowerSubType.ShurikenBlue] = "Throws a fast shuriken in chosen direction.";
+			this.descriptions[(byte)PowerSubType.ShurikenYellow] = "Throws a fast shuriken in chosen direction.";
 
 			// Power Collectable - Bolts
 			this.descriptions[(byte)PowerSubType.RandomBolt] = "Acquire a random staff collectable.";
@@ -154,13 +160,13 @@ namespace Nexus.Objects {
 			this.Texture[(byte)PowerSubType.Teleport] = "Power/Teleport";
 
 			// Collectable Powers - Weapon
-			this.Texture[(byte)PowerSubType.RandomWeapon] = "Power/RandWeapon";
-			this.Texture[(byte)PowerSubType.BoxingRed] = "Power/BoxingRed";
-			this.Texture[(byte)PowerSubType.BoxingWhite] = "Power/BoxingWhite";
-			this.Texture[(byte)PowerSubType.Dagger] = "Power/Dagger";
-			this.Texture[(byte)PowerSubType.DaggerGreen] = "Power/DaggerGreen";
-			this.Texture[(byte)PowerSubType.Spear] = "Power/Spear";
-			this.Texture[(byte)PowerSubType.Sword] = "Power/Sword";
+			this.Texture[(byte)PowerSubType.RandomWeapon] = "Weapon/RandWeapon";
+			this.Texture[(byte)PowerSubType.BoxingRed] = "Weapon/BoxingRed";
+			this.Texture[(byte)PowerSubType.BoxingWhite] = "Weapon/BoxingWhite";
+			this.Texture[(byte)PowerSubType.Dagger] = "Weapon/Dagger";
+			this.Texture[(byte)PowerSubType.DaggerGreen] = "Weapon/DaggerGreen";
+			this.Texture[(byte)PowerSubType.Spear] = "Weapon/Spear";
+			this.Texture[(byte)PowerSubType.Sword] = "Weapon/Sword";
 
 			// Collectable Powers - Potion
 			this.Texture[(byte)PowerSubType.RandomBook] = "Power/RandPot";
@@ -173,25 +179,28 @@ namespace Nexus.Objects {
 			//this.Texture[(byte)PowerSubType.Ball] = "Power/Ball";
 
 			// Collectable Powers - Thrown
-			this.Texture[(byte)PowerSubType.RandomThrown] = "Power/RandThrown";
-			this.Texture[(byte)PowerSubType.Axe] = "Power/Axe";
-			this.Texture[(byte)PowerSubType.Hammer] = "Power/Hammer";
-			this.Texture[(byte)PowerSubType.Shuriken] = "Power/Shuriken";
+			this.Texture[(byte)PowerSubType.RandomThrown] = "Weapon/RandThrown";
+			this.Texture[(byte)PowerSubType.Axe] = "Weapon/Axe";
+			this.Texture[(byte)PowerSubType.Hammer] = "Weapon/Hammer";
+			this.Texture[(byte)PowerSubType.ShurikenGreen] = "Weapon/ShurikenGreen";
+			this.Texture[(byte)PowerSubType.ShurikenRed] = "Weapon/ShurikenRed";
+			this.Texture[(byte)PowerSubType.ShurikenBlue] = "Weapon/ShurikenBlue";
+			this.Texture[(byte)PowerSubType.ShurikenYellow] = "Weapon/ShurikenYellow";
 
 			// Power Collectable - Bolts
-			this.Texture[(byte)PowerSubType.RandomBolt] = "Power/RandBolt";
-			this.Texture[(byte)PowerSubType.BoltBlue] = "Power/Bolt";
-			this.Texture[(byte)PowerSubType.BoltGold] = "Power/BoltGold";
-			this.Texture[(byte)PowerSubType.BoltGreen] = "Power/BoltGreen";
-			//this.Texture[(byte)PowerSubType.BoltNecro] = "Power/BoltNecro";
-			//this.Texture[(byte)PowerSubType.Necro1] = "Power/Necro1";
-			//this.Texture[(byte)PowerSubType.Necro2] = "Power/Necro2";
+			this.Texture[(byte)PowerSubType.RandomBolt] = "Weapon/RandBolt";
+			this.Texture[(byte)PowerSubType.BoltBlue] = "Weapon/Bolt";
+			this.Texture[(byte)PowerSubType.BoltGold] = "Weapon/BoltGold";
+			this.Texture[(byte)PowerSubType.BoltGreen] = "Weapon/BoltGreen";
+			//this.Texture[(byte)PowerSubType.BoltNecro] = "Weapon/BoltNecro";
+			//this.Texture[(byte)PowerSubType.Necro1] = "Weapon/Necro1";
+			//this.Texture[(byte)PowerSubType.Necro2] = "Weapon/Necro2";
 
 			// Collectable Powers - Stack
-			this.Texture[(byte)PowerSubType.Chakram] = "Power/Chakram";
-			this.Texture[(byte)PowerSubType.ChakramPack] = "Power/ChakramPack";
-			this.Texture[(byte)PowerSubType.Grenade] = "Power/Grenade";
-			this.Texture[(byte)PowerSubType.GrenadePack] = "Power/GrenadePack";
+			this.Texture[(byte)PowerSubType.Chakram] = "Weapon/Chakram";
+			this.Texture[(byte)PowerSubType.ChakramPack] = "Weapon/ChakramPack";
+			this.Texture[(byte)PowerSubType.Grenade] = "Weapon/Grenade";
+			this.Texture[(byte)PowerSubType.GrenadePack] = "Weapon/GrenadePack";
 		}
 	}
 }

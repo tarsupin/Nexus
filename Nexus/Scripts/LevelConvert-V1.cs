@@ -144,7 +144,7 @@ namespace Nexus.Scripts {
 
 				else if(param.Key == "powerAtt") {
 					switch(paramVal) {
-						case "Shuriken": changed = true; newValue = (byte) PowerSubType.Shuriken; break;
+						case "Shuriken": changed = true; newValue = (byte) PowerSubType.ShurikenGreen; break;
 						case "BoxingRed": changed = true; newValue = (byte) PowerSubType.BoxingRed; break;
 					}
 				}

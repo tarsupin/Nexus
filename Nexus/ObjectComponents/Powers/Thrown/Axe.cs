@@ -28,7 +28,7 @@ namespace Nexus.ObjectComponents {
 			this.subType = (byte) subType;
 
 			if(subType == WeaponAxeSubType.Axe) {
-				this.IconTexture = "Power/Axe";
+				this.IconTexture = "Weapon/Axe";
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings
@@ -41,7 +41,7 @@ namespace Nexus.ObjectComponents {
 			
 			// TODO: Right now, Axe2 is identical to Axe. Change it's behavior, at least slightly.
 			else if(subType == WeaponAxeSubType.Axe2) {
-				this.IconTexture = "Power/Axe2";
+				this.IconTexture = "Weapon/Axe2";
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings
@@ -54,7 +54,7 @@ namespace Nexus.ObjectComponents {
 
 			// TODO: Right now, Axe3 is identical to Axe. Change it's behavior, at least slightly.
 			else if(subType == WeaponAxeSubType.Axe3) {
-				this.IconTexture = "Power/Axe3";
+				this.IconTexture = "Weapon/Axe3";
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings

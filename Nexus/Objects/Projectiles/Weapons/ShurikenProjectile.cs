@@ -3,6 +3,7 @@ using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using static Nexus.ObjectComponents.Shuriken;
 
 namespace Nexus.Objects {
 
@@ -30,7 +31,14 @@ namespace Nexus.Objects {
 				projectile = new ShurikenProjectile(room, subType, pos, velocity);
 			}
 
-			projectile.SetSpriteName("Weapon/Shuriken");
+			// Assign Projectile Appearance
+			switch(subType) {
+				case (byte)ShurikenSubType.Green: projectile.SetSpriteName("Weapon/ShurikenGreen"); break;
+				case (byte)ShurikenSubType.Red: projectile.SetSpriteName("Weapon/ShurikenRed"); break;
+				case (byte)ShurikenSubType.Blue: projectile.SetSpriteName("Weapon/ShurikenBlue"); break;
+				case (byte)ShurikenSubType.Yellow: projectile.SetSpriteName("Weapon/ShurikenYellow"); break;
+			}
+
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Assign the beginning of the shuriken attack:

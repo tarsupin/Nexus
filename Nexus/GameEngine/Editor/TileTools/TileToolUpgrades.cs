@@ -117,7 +117,19 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectablePower,
-					subType = (byte)PowerSubType.Shuriken,
+					subType = (byte)PowerSubType.ShurikenGreen,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.CollectablePower,
+					subType = (byte)PowerSubType.ShurikenRed,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.CollectablePower,
+					subType = (byte)PowerSubType.ShurikenBlue,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.CollectablePower,
+					subType = (byte)PowerSubType.ShurikenYellow,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectablePower,
