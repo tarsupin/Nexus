@@ -17,8 +17,6 @@ namespace Nexus.Objects {
 			Left = 3,
 		}
 
-		// TODO: PuffBlock needs a particle to appear that makes it turn "on" after use.
-
 		public PuffBlock() : base() {
 			this.tileId = (byte) TileEnum.PuffBlock;
 			this.Texture = "Puff/Off";
@@ -53,13 +51,16 @@ namespace Nexus.Objects {
 			} else if(subType == (byte)PuffBlockSubType.Right) {
 				hor = 1;
 			} else if(subType == (byte)PuffBlockSubType.Down) {
-				hor = -1;
-			} else if(subType == (byte)PuffBlockSubType.Left) {
 				vert = 1;
+			} else if(subType == (byte)PuffBlockSubType.Left) {
+				hor = -1;
 			}
 
 			// Character is sent into an "Air Burst" action.
 			ActionMap.AirBurst.StartAction(character, hor, vert, true, 4);
+
+			// Draw Overlap Particle
+			BurstEmitter.AirPuff(room, character.posX + character.bounds.MidX, character.posY + character.bounds.MidY, hor, vert, 18);
 
 			Systems.sounds.air.Play();
 

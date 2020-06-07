@@ -46,7 +46,7 @@ namespace Nexus.Objects {
 
 				// Nudge. Damages enemies above.
 				byte sub = room.tilemap.GetMainSubType(gridX, gridY);
-				NudgeEmitter.BoxNudge(room, this.Texture[sub], gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+				SimpleEmitter.GravityParticle(room, this.Texture[sub], gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				BlockTile.DamageAbove(room, gridX, gridY);
 				Systems.sounds.thudHit.Play(0.7f, 0f, 0f);
 			}

@@ -3,7 +3,28 @@
 namespace Nexus.Engine {
 
 	public static class Radians {
-		
+
+		public const float Up = -1.57079637f;
+		public const float Down = 1.57079637f;
+		public const float Right = 0f;
+		public const float Left = 3.14159274f;
+
+		public const float UpLeft = -2.3561945f;
+		public const float UpRight = -0.7853982f;
+		public const float DownRight = 0.7853982f;
+		public const float DownLeft = 2.3561945f;
+
+		public static float[] CardinalSteps = {
+			Radians.Up,
+			Radians.UpRight,
+			Radians.Right,
+			Radians.DownRight,
+			Radians.Down,
+			Radians.DownLeft,
+			Radians.Left,
+			Radians.UpLeft,
+		};
+
 		// Convert between degrees and percent
 		public static float ConvertToDegrees( float radian ) { return radian * 180 / (float) Math.PI; }
 		public static float ConvertToPercent( float radian ) { return Spectrum.GetPercentFromValue( Radians.Wrap(radian), (0 - (float) Math.PI), (float) Math.PI) ; }
@@ -22,6 +43,37 @@ namespace Nexus.Engine {
 	
 		// Find the radians between two coordinates
 		public static float GetRadiansBetweenCoords( int x1, int y1, int x2, int y2 ) { return (float) Math.Atan2(y2 - y1, x2 - x1); }
+		
+		// Find Radians by Cardinal Direction
+		public static float GetRadiansByCardinalDir( sbyte hor, sbyte vert ) {
+			if(hor < 0) {
+				if(vert == 0) { return Radians.Left; }
+				return vert < 0 ? Radians.UpLeft : Radians.DownLeft;
+			} else if(hor > 0) {
+				if(vert == 0) { return Radians.Right; }
+				return vert < 0 ? Radians.UpRight : Radians.DownRight;
+			}
+			return vert < 0 ? Radians.Up : Radians.Down;
+		}
+
+		// Returns Radians by Cardinal Direction based on a direction and "Steps" in a chosen direction.
+		// For example, "Up" with one step right is Up-Right, but "Up" with two steps back is Left.
+		public static float GetRadiansByCardinalDir(sbyte hor, sbyte vert, sbyte steps) {
+			byte radDir;
+
+			if(hor < 0) {
+				if(vert == 0) { radDir = 6; }
+				else { radDir = vert < 0 ? (byte)7 : (byte)5; }
+			} else if(hor > 0) {
+				if(vert == 0) { radDir = 2; }
+				else { radDir = vert < 0 ? (byte)1 : (byte)3; }
+			} else {
+				radDir = vert < 0 ? (byte)0 : (byte)4;
+			}
+
+			radDir = (byte)((radDir + 8 + steps) % 8);
+			return Radians.CardinalSteps[radDir];
+		}
 
 		// Get the X, Y from a rotation
 		public static float GetXFromRotation( float radian, float distance ) { return distance * (float) Math.Cos(radian); }
