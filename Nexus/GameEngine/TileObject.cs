@@ -41,6 +41,10 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 		}
 
+		public virtual void TriggerEvent( short gridX, short gridY, short val1 = 0, short val2 = 0 ) {
+
+		}
+
 		public virtual void Draw( RoomScene room, byte subType, int posX, int posY ) {
 			//this.atlas.Draw(texture, posX, posY);
 		}

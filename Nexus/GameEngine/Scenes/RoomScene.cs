@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
@@ -22,6 +20,7 @@ namespace Nexus.GameEngine {
 		protected readonly CollideSequence collideSequence;
 
 		// Components
+		public QueueEvent queueEvents;
 		private ParallaxHandler parallax;
 		public ParticleHandler particles;
 
@@ -65,6 +64,7 @@ namespace Nexus.GameEngine {
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
 
 			// Additional Components
+			this.queueEvents = new QueueEvent();
 			this.parallax = ParallaxOcean.CreateOceanParallax(this);
 			this.particles = new ParticleHandler(this);
 		}
@@ -81,6 +81,9 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.TrailingItem]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
+
+			// Run Tile Events via Queue Events
+			this.queueEvents.RunEventSequence();
 
 			// Object Coordination & Cleanup
 			this.AddObjectsMarkedForAddition();

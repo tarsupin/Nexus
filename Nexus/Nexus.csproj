@@ -104,6 +104,7 @@
     <Compile Include="Engine\UI\AlertText.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
+    <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WEShadowTile.cs" />
