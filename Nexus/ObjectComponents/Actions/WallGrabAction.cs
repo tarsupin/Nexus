@@ -13,16 +13,20 @@ namespace Nexus.ObjectComponents {
 
 		// ActionMap.WallGrab.StartAction( character, dir );
 		public void StartAction( Character character, DirCardinal dir ) {
-			this.EndLastActionIfActive(character);
 
 			// If the Character is holding an item, there is no opportunity for wall jumping:
 			if(character.heldItem.IsHeld) { return; }
 
 			CharacterStatus status = character.status;
+
+			// If the character is already grabbing the wall, end here.
+			if(character.status.action is WallGrabAction) { return; }
+
 			CharacterStats stats = character.stats;
 
 			// If Able To Grab Walls
 			if(stats.CanWallGrab) {
+				this.EndLastActionIfActive(character);
 				status.action = ActionMap.WallGrab;
 				status.grabDir = dir; // Saves the direction of the grab for consistency in leap direction.
 			}
@@ -33,6 +37,7 @@ namespace Nexus.ObjectComponents {
 
 				// Only begin sliding if you're moving downward:
 				if(character.physics.velocity.Y > 0) {
+					this.EndLastActionIfActive(character);
 					status.action = ActionMap.WallGrab;
 				}
 				

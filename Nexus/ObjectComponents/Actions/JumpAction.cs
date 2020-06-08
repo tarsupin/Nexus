@@ -17,7 +17,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0, bool playSound = true ) {
-			this.EndLastActionIfActive(character);
+
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
@@ -26,6 +26,8 @@ namespace Nexus.ObjectComponents {
 
 			// If you've spent more jumps than you have available, cannot jump again.
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
+
+			this.EndLastActionIfActive(character);
 
 			status.action = ActionMap.Jump;
 			status.actionEnds = Systems.timer.Frame + stats.JumpDuration + extraDuration;

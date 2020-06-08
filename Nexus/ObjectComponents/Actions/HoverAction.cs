@@ -15,11 +15,12 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, bool horizontalOnly = false ) {
-			this.EndLastActionIfActive(character);
 			CharacterStatus status = character.status;
 
 			// Don't start hovering if there is already a hover action in place.
 			if(status.action is HoverAction && !this.HasTimeElapsed(character)) { return; }
+
+			this.EndLastActionIfActive(character);
 
 			status.action = ActionMap.Hover;
 			status.actionEnds = Systems.timer.Frame + this.duration;

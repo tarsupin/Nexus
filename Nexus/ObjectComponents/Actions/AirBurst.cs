@@ -16,6 +16,7 @@ namespace Nexus.ObjectComponents {
 
 		public void StartAction( Character character, sbyte directionHor, sbyte directionVert, bool endMomentum = false, byte extraDuration = 0 ) {
 			this.EndLastActionIfActive(character);
+
 			CharacterStatus status = character.status;
 
 			status.action = ActionMap.AirBurst;

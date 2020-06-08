@@ -17,6 +17,7 @@ namespace Nexus.ObjectComponents {
 
 		public void StartAction( Character character, DirCardinal dir, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0 ) {
 			this.EndLastActionIfActive(character);
+
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
@@ -34,7 +35,7 @@ namespace Nexus.ObjectComponents {
 			character.physics.velocity.X += ((stats.WallJumpXStrength + extraStrength) * (dir == DirCardinal.Right ? -1 : 1));
 			character.physics.velocity.Y -= stats.WallJumpYStrength;
 
-			// TODO SOUND: Wall Jump Sound
+			Systems.sounds.jump.Play(0.7f, 0, 0);
 		}
 
 		public override void RunAction( Character character ) {
