@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 
 		public PuffBlock() : base() {
 			this.tileId = (byte) TileEnum.PuffBlock;
-			this.Texture = "Puff/Off";
+			this.Texture = "Puff/Puff";
 			this.title = "Puff Block";
 			this.description = "Touching it causes the character to burst quickly in the designated direction.";
 		}

@@ -57,11 +57,11 @@ namespace Nexus.Objects {
 
 		protected virtual void CreateTextures() {
 			this.Texture = new string[5];
-			this.Texture[(byte)DoorSubType.Open] = "Door/Standard/Open";
-			this.Texture[(byte)DoorSubType.Blue] = "Door/Standard/Blue";
-			this.Texture[(byte)DoorSubType.Green] = "Door/Standard/Green";
-			this.Texture[(byte)DoorSubType.Red] = "Door/Standard/Red";
-			this.Texture[(byte)DoorSubType.Yellow] = "Door/Standard/Yellow";
+			this.Texture[(byte)DoorSubType.Open] = "Door/Open";
+			this.Texture[(byte)DoorSubType.Blue] = "Door/Blue";
+			this.Texture[(byte)DoorSubType.Green] = "Door/Green";
+			this.Texture[(byte)DoorSubType.Red] = "Door/Red";
+			this.Texture[(byte)DoorSubType.Yellow] = "Door/Yellow";
 		}
 	}
 }

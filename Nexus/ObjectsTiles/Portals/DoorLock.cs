@@ -16,10 +16,10 @@ namespace Nexus.Objects {
 
 		protected override void CreateTextures() {
 			this.Texture = new string[4];
-			this.Texture[(byte)DoorSubType.Blue] = "Door/Locked/Blue";
-			this.Texture[(byte)DoorSubType.Green] = "Door/Locked/Green";
-			this.Texture[(byte)DoorSubType.Red] = "Door/Locked/Red";
-			this.Texture[(byte)DoorSubType.Yellow] = "Door/Locked/Yellow";
+			this.Texture[(byte)DoorSubType.Blue] = "Door/Lock/Blue";
+			this.Texture[(byte)DoorSubType.Green] = "Door/Lock/Green";
+			this.Texture[(byte)DoorSubType.Red] = "Door/Lock/Red";
+			this.Texture[(byte)DoorSubType.Yellow] = "Door/Lock/Yellow";
 		}
 	}
 }

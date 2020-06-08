@@ -50,12 +50,12 @@ namespace Nexus.Gameplay {
 
 					byte tileId = Convert.ToByte(xData.Value[0]);
 
-					// Check the TileDict to see if it's MetaData has a BeatTick requirement.
-					if(TileDict[tileId].Meta.HasBeatTick) {
-						// Add an instruction to the BeatTickRegistrar.
-						// List<[gridX, gridY]> >> Runs the tile at that x,y
-						// List<[gridX, gridY]>[8]
-					}
+					//// Check the TileDict to see if it's MetaData has a BeatTick requirement.
+					//if(TileDict[tileId].Meta.HasBeatTick) {
+					//	// Add an instruction to the BeatTickRegistrar.
+					//	// List<[gridX, gridY]> >> Runs the tile at that x,y
+					//	// List<[gridX, gridY]>[8]
+					//}
 
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]));

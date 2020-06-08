@@ -288,6 +288,8 @@
     <Compile Include="Gameplay\Types\SubTypes.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
+    <Compile Include="ObjectComponents\Attachments\HealthBits.cs" />
+    <Compile Include="ObjectComponents\Attachments\Nameplate.cs" />
     <Compile Include="ObjectComponents\Attachments\HeldItem.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightTo.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightQuadratic.cs" />
