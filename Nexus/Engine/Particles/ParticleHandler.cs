@@ -1,7 +1,7 @@
 ﻿using Nexus.GameEngine;
 using System.Collections.Generic;
 
-// This Handler tracks any Emitters or Loose Particles in the scene, and will draw them accordingly.
+// This Handler tracks any Emitters or Free Particles in the scene, and will draw them accordingly.
 
 namespace Nexus.Engine {
 
@@ -9,42 +9,66 @@ namespace Nexus.Engine {
 
 		// Particle Pools
 		public static ObjectPool<ParticleStandard> standardPool = new ObjectPool<ParticleStandard>(() => new ParticleStandard());
+		public static ObjectPool<ParticleFree> freePool = new ObjectPool<ParticleFree>(() => new ParticleFree());
 
 		// Handler Values
 		private readonly RoomScene room;
-		private List<EmitterSimple> emitterList;			// Current Emitters
+		private List<IEmitter> emitterList;			// Current Emitters
+		private List<ParticleFree> freeParticles;	// Free Particles (not attached to emitters)
 
 		public ParticleHandler( RoomScene room ) {
 			this.room = room;
-			this.emitterList = new List<EmitterSimple>();
+			this.emitterList = new List<IEmitter>();
+			this.freeParticles = new List<ParticleFree>();
 		}
 
-		public void AddEmitter(EmitterSimple emitter) {
+		public void AddEmitter(IEmitter emitter) {
 			this.emitterList.Add(emitter);
+		}
+
+		public void AddParticle(ParticleFree particle) {
+			this.freeParticles.Add(particle);
 		}
 
 		public void RunParticleTick() {
 
 			// Loop through all the emitters and update accordingly:
 			for( int i = 0; i < this.emitterList.Count; i++ ) {
-				EmitterSimple emitter = this.emitterList[i];
+				IEmitter emitter = this.emitterList[i];
 
 				// Remove the emitter when it's time has expired.
 				// NOTE: The Emitter removes itself from the pool on this frame in RunEmitterTick();
-				if(emitter.frameEnd < Systems.timer.Frame) {
+				if(emitter.HasExpired) {
 					this.emitterList.Remove(emitter);
 					i--;
 				}
 
 				emitter.RunEmitterTick();
 			}
+
+			// Loop through all free particles (ones that aren't attached to emitters)
+			short len = (short) this.freeParticles.Count;
+			for( int i = 0; i < len; i++ ) {
+				this.freeParticles[i].RunParticleTick();
+			}
 		}
 
 		public void Draw() {
-			
+
+			Camera camera = Systems.camera;
+			int camX = camera.posX;
+			int camY = camera.posY;
+
 			// Loop through all the emitters and render:
-			foreach(EmitterSimple emitter in this.emitterList) {
-				emitter.Draw(); // Emitter's draw method checks if it's within camera view.
+			foreach(IEmitter emitter in this.emitterList) {
+				if(!emitter.IsOnScreen(camera)) { continue; }
+				emitter.Draw(camX, camY); // Emitter's draw method checks if it's within camera view.
+			}
+
+			// Loop through all free particles and render:
+			foreach(ParticleFree particle in this.freeParticles) {
+				if(!particle.IsOnScreen(camera)) { continue; }
+				particle.Draw(camX, camY);
 			}
 		}
 

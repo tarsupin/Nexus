@@ -2,8 +2,10 @@
 namespace Nexus.Engine {
 
 	public interface IEmitter {
+		bool HasExpired { get; }
 		void ReturnEmitter();
 		void RunEmitterTick();
-		void Draw();
+		bool IsOnScreen(Camera camera);
+		void Draw(int camX, int camY);
 	}
 }

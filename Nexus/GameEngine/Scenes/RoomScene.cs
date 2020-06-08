@@ -5,13 +5,9 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Nexus.GameEngine {
-
-	public class RoomFlags {
-		public bool toggleBR = true;
-		public bool toggleGY = true;
-	}
 
 	public class RoomScene : Scene {
 
@@ -20,15 +16,14 @@ namespace Nexus.GameEngine {
 		protected readonly CollideSequence collideSequence;
 
 		// Components
+		public ColorToggles colors;
 		public QueueEvent queueEvents;
 		private ParallaxHandler parallax;
-		public ParticleHandler particles;
+		public ParticleHandler particleHandler;
 
 		// Level Data
 		public TilemapLevel tilemap;
 		public Dictionary<byte, Dictionary<uint, DynamicObject>> objects;       // objects[LoadOrder][ObjectID] = DynamicObject
-
-		public RoomFlags flags = new RoomFlags();
 
 		// Object Coordination and Cleanup
 		private readonly List<DynamicObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
@@ -61,9 +56,10 @@ namespace Nexus.GameEngine {
 			this.tilemap = new TilemapLevel(xCount, yCount);
 
 			// Additional Components
+			this.colors = new ColorToggles();
 			this.queueEvents = new QueueEvent(this);
 			this.parallax = ParallaxOcean.CreateOceanParallax(this);
-			this.particles = new ParticleHandler(this);
+			this.particleHandler = new ParticleHandler(this);
 
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
@@ -82,16 +78,15 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
 
-			// Run Tile Events via Queue Events
+			// Update Components
 			this.queueEvents.RunEventSequence();
+			this.colors.RunColorTimers();
+			this.parallax.RunParallaxTick();
+			this.particleHandler.RunParticleTick();
 
 			// Object Coordination & Cleanup
 			this.AddObjectsMarkedForAddition();
 			this.DestroyObjectsMarkedForRemoval();
-
-			// Update Components
-			this.parallax.RunParallaxTick();
-			this.particles.RunParticleTick();
 
 			// Camera Movement
 			Character MyCharacter = Systems.localServer.MyCharacter;
@@ -108,7 +103,7 @@ namespace Nexus.GameEngine {
 			this.RunCharacterSpriteTick(this.objects[(byte)LoadOrder.Character]);
 		}
 
-		public void RunTickForObjectGroup(Dictionary<uint, DynamicObject> objectGroup) {
+		private void RunTickForObjectGroup(Dictionary<uint, DynamicObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -120,7 +115,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 		
-		public void RunCharacterSpriteTick(Dictionary<uint, DynamicObject> objectGroup) {
+		private void RunCharacterSpriteTick(Dictionary<uint, DynamicObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -214,7 +209,7 @@ namespace Nexus.GameEngine {
 			this.DrawObjectGroup( this.objects[(byte) LoadOrder.Projectile], camX, camY, camRight, camBottom );
 
 			// Draw Particles
-			this.particles.Draw();
+			this.particleHandler.Draw();
 
 			// Draw Frame Debugging Aid
 			if(DebugConfig.DrawDebugFrames) { this.DrawDebug(camX, camY, camRight, camBottom); }
@@ -302,18 +297,10 @@ namespace Nexus.GameEngine {
 			this.markedForRemoval.Clear();
 		}
 
-		// Toggle Colored Toggles. Used to be toggleWorldObjects()
-		public void ToggleColor( bool isBR ) {
-			if(isBR) { this.flags.toggleBR = !this.flags.toggleBR; }
-			else { this.flags.toggleGY = !this.flags.toggleGY; }
-			Systems.sounds.toggle.Play();
-		}
-
 		public void RestartRoom() {
 
 			// Toggle Resets
-			this.flags.toggleBR = true;
-			this.flags.toggleGY = true;
+			this.colors.ResetColorToggles();
 
 			// Regenerate Room
 			// this.SpawnRoom(posX, posY, roomId);

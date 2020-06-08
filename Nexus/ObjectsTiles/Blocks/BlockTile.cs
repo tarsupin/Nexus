@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 			BlockTile.DamageAbove(room, gridX, gridY);
 
 			// Destroy Brick Tile
-			room.tilemap.RemoveTile(gridX, gridY);
+			room.tilemap.SetMainTile(gridX, gridY, 0, 0);
 		}
 	}
 }

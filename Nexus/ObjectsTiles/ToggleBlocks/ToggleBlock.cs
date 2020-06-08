@@ -22,8 +22,8 @@ namespace Nexus.Objects {
 			// Utility Bar (Editor) does not provide a room scene. Show default texture.
 			if(room == null) { return true; }
 
-			if(toggleBR) { return room.flags.toggleBR; }
-			return room.flags.toggleGY;
+			if(toggleBR) { return room.colors.toggleBR; }
+			return room.colors.toggleGY;
 		}
 
 		public static bool TogCollides(RoomScene room, bool toggleBR, bool isOn) {
@@ -38,7 +38,7 @@ namespace Nexus.Objects {
 
 				// If a ToggleBox was hit from below:
 				if(this.isToggleBox && dir == DirCardinal.Up) {
-					room.ToggleColor(this.toggleBR);
+					room.colors.ToggleColor(this.toggleBR);
 				}
 
 				// Additional Character Collisions (such as Wall Jumps)

@@ -24,6 +24,8 @@ namespace Nexus.Engine {
 		public uint fadeStart;		// The frame # that indicates the emitter's particles should begin to fade.
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
+		
+		public bool HasExpired { get { return this.frameEnd < Systems.timer.Frame; } }
 
 		public static EmitterSimple NewEmitter( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
@@ -43,7 +45,7 @@ namespace Nexus.Engine {
 			emitter.particles = new List<ParticleStandard>();
 
 			// Add the Emitter to the Particle Handler
-			room.particles.AddEmitter(emitter);
+			room.particleHandler.AddEmitter(emitter);
 
 			return emitter;
 		}
@@ -71,7 +73,7 @@ namespace Nexus.Engine {
 		public void RunEmitterTick() {
 
 			// End the Emitter once it's duration has ended.
-			if(this.frameEnd < Systems.timer.Frame) {
+			if(this.HasExpired) {
 				this.ReturnEmitter();
 				return;
 			}
@@ -85,16 +87,17 @@ namespace Nexus.Engine {
 			}
 		}
 
-		public void Draw() {
-
-			Camera camera = Systems.camera;
-			int camX = camera.posX;
-			int camY = camera.posY;
+		public bool IsOnScreen(Camera camera) {
 
 			// Only draw the emitter if it's on the camera.
-			if(this.pos.X < camX - 250 || this.pos.X > camX + camera.width + 250 || this.pos.Y < camY - 250 || this.pos.Y > camY + camera.height + 250) {
-				return;
+			if(this.pos.X < camera.posX - 250 || this.pos.X > camera.posX + camera.width + 250 || this.pos.Y < camera.posY - 250 || this.pos.Y > camera.posY + camera.height + 250) {
+				return false;
 			}
+
+			return true;
+		}
+
+		public void Draw(int camX, int camY) {
 
 			// Determine Alpha of Particle (can be affected by fading)
 			uint frame = Systems.timer.Frame;

@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 				// Toggle the color-toggle that matches this tap type.
-				room.ToggleColor(subType == (byte)BGTapSubType.TapBR);
+				room.colors.ToggleColor(subType == (byte)BGTapSubType.TapBR);
 
 				// Destroy This BGTap (and any nearby)
 				this.RemoveTap(room, gridX, gridY, subType);
