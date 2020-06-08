@@ -102,6 +102,7 @@ namespace Nexus.Gameplay {
 
 			if(layerEnum == LayerEnum.main) {
 				room.tilemap.SetMainTile(gridX, gridY, type, subType);
+				if(paramList != null) { room.tilemap.SetParamList(gridX, gridY, paramList); }
 			} else if(layerEnum == LayerEnum.bg) {
 				room.tilemap.SetBGTile(gridX, gridY, type, subType);
 			} else if(layerEnum == LayerEnum.fg) {
