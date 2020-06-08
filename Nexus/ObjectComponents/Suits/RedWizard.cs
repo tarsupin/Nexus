@@ -12,7 +12,7 @@ namespace Nexus.ObjectComponents {
 		public override void UpdateCharacterStats(Character character) {
 			CharacterStats stats = character.stats;
 			stats.CanFastCast = true;
-			stats.JumpMaxTimes += 1;
+			stats.JumpMaxTimes++;
 		}
 	}
 }

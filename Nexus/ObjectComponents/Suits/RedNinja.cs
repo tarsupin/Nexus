@@ -14,11 +14,12 @@ namespace Nexus.ObjectComponents {
 			stats.CanWallJump = true;
 			stats.CanWallSlide = true;
 
-			stats.JumpMaxTimes = 2;
+			stats.JumpMaxTimes++;
 			stats.JumpStrength = 9; // 11
 
-			stats.WallJumpXStrength = 6;
-			stats.WallJumpYStrength = 9;
+			stats.WallJumpDuration = 7;
+			stats.WallJumpXStrength = 7;
+			stats.WallJumpYStrength = 5;
 		}
 	}
 }
