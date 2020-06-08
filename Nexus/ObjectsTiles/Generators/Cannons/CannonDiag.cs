@@ -1,6 +1,8 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -20,26 +22,37 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY) {
+		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY, byte cannonSpeed) {
+
+			FVector pos = FVector.Create(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+			FInt angleSpeed = FInt.Create(cannonSpeed * 0.707);
 
 			// Up Right
 			if(subType == (byte) CannonDiagSubType.UpRight) {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x + 18, this.pos.y - 18, this.angleSpeed, -this.angleSpeed );
+				pos.X += 18;
+				pos.Y -= 18;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(angleSpeed, 0-angleSpeed));
 			}
 
 			// Down Right
 			else if(subType == (byte) CannonDiagSubType.DownRight) {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x + 16, this.pos.y + 19, this.angleSpeed, this.angleSpeed );
+				pos.X += 16;
+				pos.Y += 19;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(angleSpeed, angleSpeed));
 			}
 
 			// Down Left
 			else if(subType == (byte) CannonDiagSubType.DownLeft) {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x - 17, this.pos.y + 19, -this.angleSpeed, this.angleSpeed );
+				pos.X -= 17;
+				pos.Y += 19;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(0-angleSpeed, angleSpeed));
 			}
 
 			// Up Left
 			else {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x - 17, this.pos.y - 20, -this.angleSpeed, -this.angleSpeed );
+				pos.X -= 17;
+				pos.Y -= 20;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(0 - angleSpeed, 0 - angleSpeed));
 			}
 
 			Systems.sounds.cannonFire.Play();

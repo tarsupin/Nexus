@@ -12,6 +12,7 @@ namespace Nexus.Objects {
 
 		protected Chomper() : base() {
 			this.collides = true;
+			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
 		}
 
 		// TODO HIGH PRIORITY: Chomper Impacts (projectiles, character, etc.)

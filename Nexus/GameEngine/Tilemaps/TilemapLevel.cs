@@ -8,9 +8,10 @@ namespace Nexus.GameEngine {
 	public class TilemapLevel {
 
 		// Tile Array
-		private byte[,][] tiles;		// ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType
+		private byte[,][] tiles;        // ID, SubType, Background ID, Background SubType, Foreground ID, Foreground SubType
 
 		// Param Dictionary
+		private readonly Dictionary<string, short> emptyParam;
 		private Dictionary<uint, Dictionary<string, short>> paramList;       // Key is the Coords.MapToInt(x, y)
 
 		// Width and Height of the Tilemap:
@@ -33,6 +34,7 @@ namespace Nexus.GameEngine {
 			// Create Empty Tilemap Data
 			this.tiles = new byte[fullYCount, fullXCount][];
 			this.paramList = new Dictionary<uint, Dictionary<string, short>>();
+			this.emptyParam = new Dictionary<string, short>();
 		}
 
 		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
@@ -81,7 +83,8 @@ namespace Nexus.GameEngine {
 
 		// Param Tracking
 		public Dictionary<string, short> GetParamList(ushort gridX, ushort gridY) {
-			return this.paramList[Coords.MapToInt(gridX, gridY)];
+			uint coords = Coords.MapToInt(gridX, gridY);
+			return this.paramList.ContainsKey(coords) ? this.paramList[coords] : this.emptyParam;
 		}
 
 		public void SetParamList(ushort gridX, ushort gridY, Dictionary<string, short> paramList) {

@@ -16,6 +16,7 @@ namespace Nexus.Objects {
 
 		public Plant() : base() {
 			this.collides = true;
+			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Plant;
 			this.title = "Plant";

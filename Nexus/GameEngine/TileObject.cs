@@ -41,8 +41,9 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 		}
 
-		public virtual void TriggerEvent( short gridX, short gridY, short val1 = 0, short val2 = 0 ) {
-
+		// Return false if (and/or when) the event should no longer be looped in the QueueEvent class for a given beatMod.
+		public virtual bool TriggerEvent( RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0 ) {
+			return false;
 		}
 
 		public virtual void Draw( RoomScene room, byte subType, int posX, int posY ) {

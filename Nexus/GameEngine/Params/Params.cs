@@ -135,11 +135,12 @@ namespace Nexus.GameEngine {
 
 		// Every second has four beats. This indicates which it should trigger at, for two seconds worth of beats.
 		public ParamsBeats() {
-			this.rules = new ParamGroup[4];
+			this.rules = new ParamGroup[5];
 			this.rules[0] = new IntParam("beat1", "Beat #1", 0, 7, 1, 0);
 			this.rules[1] = new IntParam("beat2", "Beat #2", 0, 7, 1, 0);
 			this.rules[2] = new IntParam("beat3", "Beat #3", 0, 7, 1, 0);
 			this.rules[3] = new IntParam("beat4", "Beat #4", 0, 7, 1, 0);
+			this.rules[4] = new IntParam("speed", "Action Speed", 2, 12, 1, 4);
 		}
 	}
 
@@ -162,7 +163,7 @@ namespace Nexus.GameEngine {
 			this.rules = new ParamGroup[2];
 
 			// The Collectable Rule governs how the collectable behaves after collection; this can affect multiplayer, reuse, etc.
-			this.rules[0] = new LabeledParam("beat1", "Collectable Rule", new string[4] { "One Use Only", "One Per Player", "Always Available", "Regenerates After Use" }, (byte)CollectableRule.OneUseOnly);
+			this.rules[0] = new LabeledParam("collect", "Collectable Rule", new string[4] { "One Use Only", "One Per Player", "Always Available", "Regenerates After Use" }, (byte)CollectableRule.OneUseOnly);
 
 			// Regen only applies if the rule is set to "Regenerates After Use"
 			this.rules[1] = new IntParam("regen", "Regeneration Time", 0, 60, 1, 0, " seconds");

@@ -18,7 +18,7 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY) {
+		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY, byte cannonSpeed) {
 
 			// Left
 			if(subType == (byte) CannonHorSubType.Left) {

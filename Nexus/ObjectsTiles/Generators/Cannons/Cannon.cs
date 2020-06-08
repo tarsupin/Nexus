@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -16,25 +17,24 @@ namespace Nexus.Objects {
 			this.paramSet = Params.ParamMap["Beats"];
 		}
 
-		// TODO: Run Cannon RunTick()
-		public void RunTick(RoomScene room, ushort gridX, ushort gridY) {
+		// Return false if (and/or when) the event should no longer be looped in the QueueEvent class for a given beatMod.
+		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short beatMod, short val2 = 0) {
 
-			// Can only activate cannon when there's a beat frame.
-			if(Systems.timer.IsBeatFrame) {
+			// Track the activations for this cannon.
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
 
+			// Reject this Cycle if the cannon isn't triggered on this beat.
+			if(!paramList.ContainsKey("beat" + (beatMod + 1).ToString())) { return false; }
 
-				// TODO: Track the activations for this cannon.
-				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			byte cannonSpeed = paramList.ContainsKey("speed") ? (byte)paramList["speed"] : (byte)0;
 
-				// TODO: Use the gridId as part of a dictionary or KVP that activates the cannonballs.
+			// Run Cannon Activation
+			this.ActivateCannon(room, subType, gridX, gridY, cannonSpeed);
 
-				// Run Cannon Activation
-				this.ActivateCannon(room, subType, gridX, gridY);
-			}
+			return true;
 		}
 
-		public virtual void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY) {
-			
-		}
+		public virtual void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY, byte cannonSpeed) { }
 	}
 }

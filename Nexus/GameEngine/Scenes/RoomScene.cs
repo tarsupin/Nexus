@@ -60,13 +60,13 @@ namespace Nexus.GameEngine {
 
 			this.tilemap = new TilemapLevel(xCount, yCount);
 
-			// Generate Room Content (Tiles, Objects)
-			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
-
 			// Additional Components
-			this.queueEvents = new QueueEvent();
+			this.queueEvents = new QueueEvent(this);
 			this.parallax = ParallaxOcean.CreateOceanParallax(this);
 			this.particles = new ParticleHandler(this);
+
+			// Generate Room Content (Tiles, Objects)
+			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }

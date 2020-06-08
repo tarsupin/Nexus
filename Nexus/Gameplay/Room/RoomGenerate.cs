@@ -50,21 +50,22 @@ namespace Nexus.Gameplay {
 
 					byte tileId = Convert.ToByte(xData.Value[0]);
 
-					//// Check the TileDict to see if it's MetaData has a BeatTick requirement.
-					//if(TileDict[tileId].Meta.HasBeatTick) {
-					//	// Add an instruction to the BeatTickRegistrar.
-					//	// List<[gridX, gridY]> >> Runs the tile at that x,y
-					//	// List<[gridX, gridY]>[8]
-					//}
 
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]));
+
 					} else if(xData.Value.Count > 2) {
 
 						// ERRORS HERE MEAN: The json data saved a string instead of a short; e.g. {"Suit", "WhiteNinja"} instead of {"Suit", 2}
 							// To fix it, we need to run LevelConvert updates that make the appropriate changes.
 						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]), paramList);
+					}
+
+					// Check the TileDict to see if it's MetaData has a BeatTick requirement.
+					// If it does, add a repeating instruction to the QueueEvent.
+					if(TileDict[tileId].Meta.HasBeatTick) {
+						room.queueEvents.AddBeatEvent(tileId, (short)(gridX + (byte)TilemapEnum.WorldGapLeft), (short)(gridY + (byte)TilemapEnum.WorldGapUp));
 					}
 				}
 			}
