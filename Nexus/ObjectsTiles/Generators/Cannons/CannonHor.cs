@@ -20,14 +20,19 @@ namespace Nexus.Objects {
 
 		public override void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY, byte cannonSpeed) {
 
+			FVector pos = FVector.Create(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+			FInt angleSpeed = FInt.Create(cannonSpeed * 0.707);
+
 			// Left
 			if(subType == (byte) CannonHorSubType.Left) {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x - 30, this.pos.y + 0, -this.beats.speed, 0 );
+				pos.X -= 30;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(0-angleSpeed, FInt.Create(0)));
 			}
 			
 			// Right
 			else {
-				// projectile = Projectile.fire( this.scene, ProjectileBullet, "Bullet", this.pos.x + 30, this.pos.y + 0, this.beats.speed, 0 );
+				pos.X += 30;
+				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(angleSpeed, FInt.Create(0)));
 			}
 
 			Systems.sounds.cannonFire.Play();
