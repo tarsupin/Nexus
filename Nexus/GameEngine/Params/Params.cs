@@ -133,14 +133,16 @@ namespace Nexus.GameEngine {
 
 	public class ParamsBeats : Params {
 
+		public const byte DefaultSpeed = 4;
+
 		// Every second has four beats. This indicates which it should trigger at, for two seconds worth of beats.
 		public ParamsBeats() {
 			this.rules = new ParamGroup[5];
-			this.rules[0] = new IntParam("beat1", "Beat #1", 0, 7, 1, 0);
-			this.rules[1] = new IntParam("beat2", "Beat #2", 0, 7, 1, 0);
-			this.rules[2] = new IntParam("beat3", "Beat #3", 0, 7, 1, 0);
-			this.rules[3] = new IntParam("beat4", "Beat #4", 0, 7, 1, 0);
-			this.rules[4] = new IntParam("speed", "Action Speed", 2, 12, 1, 4);
+			this.rules[0] = new IntParam("beat1", "Beat #1", 0, 8, 1, 0);
+			this.rules[1] = new IntParam("beat2", "Beat #2", 0, 8, 1, 0);
+			this.rules[2] = new IntParam("beat3", "Beat #3", 0, 8, 1, 0);
+			this.rules[3] = new IntParam("beat4", "Beat #4", 0, 8, 1, 0);
+			this.rules[4] = new IntParam("speed", "Action Speed", 2, 12, 1, ParamsBeats.DefaultSpeed);
 		}
 	}
 

@@ -43,7 +43,7 @@ namespace Nexus.GameEngine {
 
 		// Return false if (and/or when) the event should no longer be looped in the QueueEvent class for a given beatMod.
 		public virtual bool TriggerEvent( RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0 ) {
-			return false;
+			return false; // Removes from QueueEventClass
 		}
 
 		public virtual void Draw( RoomScene room, byte subType, int posX, int posY ) {

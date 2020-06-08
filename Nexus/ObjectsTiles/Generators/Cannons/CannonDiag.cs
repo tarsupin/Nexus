@@ -1,8 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using System;
-using System.Collections.Generic;
 
 namespace Nexus.Objects {
 

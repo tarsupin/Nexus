@@ -50,7 +50,6 @@ namespace Nexus.Gameplay {
 
 					byte tileId = Convert.ToByte(xData.Value[0]);
 
-
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]));
 
@@ -64,8 +63,10 @@ namespace Nexus.Gameplay {
 
 					// Check the TileDict to see if it's MetaData has a BeatTick requirement.
 					// If it does, add a repeating instruction to the QueueEvent.
-					if(TileDict[tileId].Meta.HasBeatTick) {
-						room.queueEvents.AddBeatEvent(tileId, (short)(gridX + (byte)TilemapEnum.WorldGapLeft), (short)(gridY + (byte)TilemapEnum.WorldGapUp));
+					TileObject tile = TileDict[tileId];
+
+					if(tile.Meta.HasBeatTick) {
+						(tile as dynamic).SetupBeatEvent(room, (ushort)(gridX + (byte)TilemapEnum.WorldGapLeft), (ushort)(gridY + (byte)TilemapEnum.WorldGapUp));
 					}
 				}
 			}

@@ -26,7 +26,8 @@ namespace Nexus.Objects {
 		// Projectile Status
 		public uint Intangible;         // The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
 
-		// Rendering
+		// Essentials
+		protected uint EndLife;
 		public float rotation;
 
 		public Projectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos) {
@@ -35,12 +36,23 @@ namespace Nexus.Objects {
 			this.physics.velocity = velocity;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
+			this.SetEndLife(Systems.timer.Frame + 600);
 		}
 
 		public override void RunTick() {
 
+			// If the Projectile's life has expired.
+			if(this.EndLife < Systems.timer.Frame) {
+				this.ReturnToPool();
+				return;
+			}
+
 			// Standard Physics
 			this.physics.RunPhysicsTick();
+		}
+
+		public void SetEndLife( uint endFrame ) {
+			this.EndLife = endFrame;
 		}
 
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
@@ -48,6 +60,7 @@ namespace Nexus.Objects {
 			this.posX = pos.X.RoundInt;
 			this.posY = pos.Y.RoundInt;
 			this.physics.velocity = velocity;
+			this.SetEndLife(Systems.timer.Frame + 600);
 		}
 
 		public void SetVelocity( FVector velocity ) {

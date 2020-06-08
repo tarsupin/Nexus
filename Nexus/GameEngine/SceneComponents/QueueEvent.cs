@@ -30,15 +30,9 @@ namespace Nexus.Engine {
 			this.events[frame].Add(new short[5] { tileId, gridX, gridY, val1, val2 });
 		}
 
-		public void AddBeatEvent( byte tileId, short gridX, short gridY, byte beatMod = 99 ) {
-			if(beatMod <= 3) {
-				this.beatEvents[beatMod].Add(new short[3] { tileId, gridX, gridY });
-			} else {
-				this.beatEvents[0].Add(new short[3] { tileId, gridX, gridY });
-				this.beatEvents[1].Add(new short[3] { tileId, gridX, gridY });
-				this.beatEvents[2].Add(new short[3] { tileId, gridX, gridY });
-				this.beatEvents[3].Add(new short[3] { tileId, gridX, gridY });
-			}
+		public void AddBeatEvent( byte tileId, short gridX, short gridY, byte beatMod ) {
+			if(beatMod > 3) { return; }
+			this.beatEvents[beatMod].Add(new short[3] { tileId, gridX, gridY });
 		}
 
 		public void RunEventSequence() {
@@ -77,7 +71,7 @@ namespace Nexus.Engine {
 				short[] eventData = beatList[i];
 				
 				// If the Beat Event returns false, we can dispose of the event from this beat loop.
-				if(!this.RunBeatEvent(eventData[0], eventData[1], eventData[2], beatMod)) {
+				if(!this.RunBeatEvent(eventData[0], eventData[1], eventData[2])) {
 					beatList.RemoveAt(i);
 					count--;
 					i--;
@@ -92,10 +86,10 @@ namespace Nexus.Engine {
 		}
 
 		// Return FALSE if the Trigger Event wants to dispose of the event.
-		private bool RunBeatEvent( short tileId, short gridX, short gridY, byte beatMod ) {
+		private bool RunBeatEvent( short tileId, short gridX, short gridY ) {
 			var tileDict = Systems.mapper.TileDict;
 			TileObject tile = tileDict[(byte) tileId];
-			return tile.TriggerEvent(this.room, (ushort) gridX, (ushort) gridY, beatMod);
+			return tile.TriggerEvent(this.room, (ushort) gridX, (ushort) gridY);
 		}
 	}
 }

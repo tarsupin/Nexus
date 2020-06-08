@@ -10,7 +10,7 @@ namespace Nexus.GameEngine {
 
 	public class HitCompareCharacter : IHitCompare {
 
-		public virtual bool RunImpact( DynamicObject character, DynamicObject obj ) {
+		public bool RunImpact( DynamicObject character, DynamicObject obj ) {
 
 			Character ch = (Character) character;
 

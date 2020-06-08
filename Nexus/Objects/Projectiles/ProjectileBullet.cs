@@ -6,6 +6,7 @@ namespace Nexus.Objects {
 	public class ProjectileBullet : Projectile {
 
 		private ProjectileBullet(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
+			this.SetActivity(Activity.NoTileCollide);
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.SafelyJumpOnTop = true;
 		}
@@ -23,6 +24,8 @@ namespace Nexus.Objects {
 			else {
 				projectile = new ProjectileBullet(room, subType, pos, velocity);
 			}
+
+			projectile.SetEndLife(Systems.timer.Frame + 620); // TEMPORARY, REMOVE
 
 			projectile.SetSpriteName("Projectiles/Bullet");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
