@@ -25,6 +25,8 @@ namespace Nexus.Gameplay {
 		Log = 11,
 		SlabBrown = 12,
 
+		BarrierWall = 19,
+
 		// Ledges (20 - 29)
 		LedgeGrass = 20,
 		LedgeDecor = 21,

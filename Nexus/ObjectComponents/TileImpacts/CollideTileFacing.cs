@@ -44,5 +44,14 @@ namespace Nexus.ObjectComponents {
 
 			return false;
 		}
+
+		// Identical to Impact, but only checks if it would be an impact. Doesn't affect physics.
+		public static bool RunImpactTest(DirCardinal dir, DirCardinal facing) {
+			if(facing == DirCardinal.Up) { return dir == DirCardinal.Down; }
+			else if(facing == DirCardinal.Down) { return dir == DirCardinal.Up; }
+			else if(facing == DirCardinal.Left) { return dir == DirCardinal.Right; }
+			else if(facing == DirCardinal.Right) { return dir == DirCardinal.Left; }
+			return false;
+		}
 	}
 }

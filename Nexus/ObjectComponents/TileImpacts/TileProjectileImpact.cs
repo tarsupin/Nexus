@@ -1,5 +1,4 @@
-﻿using Nexus.GameEngine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -8,6 +7,11 @@ namespace Nexus.ObjectComponents {
 
 		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
 		public static bool RunImpact(Projectile projectile, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.None) {
+
+			// Some Projectiles get to ignore walls.
+			if(projectile.CollisionType == ProjectileCollisionType.IgnoreWalls) {
+				return false;
+			}
 
 			// Some Projectiles get destroyed on collision:
 			if(projectile.CollisionType == ProjectileCollisionType.DestroyOnCollide) {

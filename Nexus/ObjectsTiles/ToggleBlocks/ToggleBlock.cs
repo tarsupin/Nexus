@@ -34,6 +34,11 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.isToggleBox || ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) {
+
+				if(actor is Projectile) {
+					return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+				}
+
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 				// If a ToggleBox was hit from below:

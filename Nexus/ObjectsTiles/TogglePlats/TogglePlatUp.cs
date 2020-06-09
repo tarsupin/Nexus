@@ -22,6 +22,11 @@ namespace Nexus.Objects {
 			// Actor must cross the DOWN threshold for this ledge; otherwise, it shouldn't compute any collision.
 			if(!actor.physics.CrossedThresholdDown(gridY * (byte)TilemapEnum.TileHeight)) { return false; }
 
+			if(actor is Projectile) {
+				if(!CollideTileFacing.RunImpactTest(dir, DirCardinal.Up)) { return false; }
+				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+			}
+
 			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
 			// Additional Character Collisions (such as Wall Jumps)

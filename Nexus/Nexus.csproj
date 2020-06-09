@@ -417,6 +417,7 @@
     <Compile Include="ObjectsTiles\Generators\Cannons\CannonHor.cs" />
     <Compile Include="ObjectsTiles\Generators\Cannons\CannonVert.cs" />
     <Compile Include="ObjectsTiles\Generators\Placer.cs" />
+    <Compile Include="ObjectsTiles\Special\BarrierWall.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringSide.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />

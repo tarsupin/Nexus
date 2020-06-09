@@ -15,14 +15,15 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+			
+			if(actor is Projectile) {
+				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
+			}
+
 			bool collided = base.RunImpact(room, actor, gridX, gridY, dir);
 
 			if(actor is Character) {
 				TileCharBasicImpact.RunImpact((Character)actor, dir); // Standard Character Tile Collisions
-			}
-
-			else if(actor is Projectile) {
-				TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 
 			return collided;

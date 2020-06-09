@@ -192,6 +192,8 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.Log, new Log() },
 				{ (byte) TileEnum.SlabBrown, new SlabBrown() },
 
+				{ (byte) TileEnum.BarrierWall, new BarrierWall() },
+
 				// Ledges (20 - 29)
 				{ (byte) TileEnum.LedgeGrass, new LedgeGrass() },
 				{ (byte) TileEnum.LedgeDecor, new LedgeDecor() },
