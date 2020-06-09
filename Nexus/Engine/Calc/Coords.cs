@@ -4,6 +4,32 @@ namespace Nexus.Engine {
 
 	public static class Coords {
 
+		// Maps X,Y Coordinate to Single Integer
+		public static uint MapToInt(uint x, uint y) {
+			return x * 2048 + y;
+		}
+
+		// Converts Integer to X,Y Coordinate (Dynamic Size, No Collisions)
+		public static (uint x, uint y) GetFromInt( uint num ) {
+			return (num / 2048, num % 2048);
+		}
+
+		// Test Coordinate Mapping
+		public static void TestCoordIntMap(uint lenX = 50, uint lenY = 50) {
+			for(uint x = 0; x < lenX; x++) {
+				for(uint y = 0; y < lenY; y++) {
+					uint mapNum = Coords.MapToInt(x, y);
+					(uint x, uint y) coords = Coords.GetFromInt(mapNum);
+					if(coords.x != x || coords.y != y) {
+						throw new Exception("Coordinate Conversion Broke at " + x.ToString() + ", " + y.ToString());
+					}
+				}
+			}
+		}
+	}
+
+	public static class CoordsDiag {
+
 		// Maps X,Y Coordinate to Single Integer (Dynamic Size, No Collisions)
 		public static uint MapToInt( uint x, uint y ) {
 			if(y == x) { return (uint) Math.Pow(x + 1, 2); }

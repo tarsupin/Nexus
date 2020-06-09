@@ -9,7 +9,6 @@ namespace Nexus.Engine {
 
 		// Particle Pools
 		public static ObjectPool<ParticleStandard> standardPool = new ObjectPool<ParticleStandard>(() => new ParticleStandard());
-		public static ObjectPool<ParticleFree> freePool = new ObjectPool<ParticleFree>(() => new ParticleFree());
 
 		// Handler Values
 		private readonly RoomScene room;
@@ -47,9 +46,16 @@ namespace Nexus.Engine {
 			}
 
 			// Loop through all free particles (ones that aren't attached to emitters)
-			short len = (short) this.freeParticles.Count;
-			for( int i = 0; i < len; i++ ) {
-				this.freeParticles[i].RunParticleTick();
+			for( int i = 0; i < this.freeParticles.Count; i++ ) {
+				ParticleFree particle = this.freeParticles[i];
+
+				// Remove Free Particles as applicable:
+				if(particle.HasExpired) {
+					this.freeParticles.Remove(particle);
+					i--;
+				}
+
+				particle.RunParticleTick();
 			}
 		}
 

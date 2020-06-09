@@ -8,6 +8,8 @@ namespace Nexus.Engine {
 	// Examples include Brick Nudges, Leaf Shaking, etc.
 	public class ParticleFree {
 
+		public static ObjectPool<ParticleFree> pool = new ObjectPool<ParticleFree>(() => new ParticleFree());
+
 		public Atlas atlas;         // Reference to the atlas used (for texturing particles).
 		public string spriteName;   // Name of the sprite to draw all particles with.
 		public float gravity;       // Gravity to apply to particles each tick.
@@ -29,7 +31,7 @@ namespace Nexus.Engine {
 		public static ParticleFree SetParticle( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0, float rotation = 0, float rotationSpeed = 0, float gravity = 0 ) {
 
 			// Retrieve an free particle from the pool.
-			ParticleFree particle = ParticleFree.GetParticleFromPool();
+			ParticleFree particle = ParticleFree.pool.GetObject();
 
 			particle.atlas = atlas;
 			particle.spriteName = spriteName;
@@ -49,20 +51,12 @@ namespace Nexus.Engine {
 			return particle;
 		}
 
-		public static ParticleFree GetParticleFromPool() {
-			return ParticleHandler.freePool.GetObject();
-		}
-
-		public void ReturnParticleToPool() {
-			ParticleHandler.freePool.ReturnObject(this);
-		}
-
 		public virtual void RunParticleTick() {
 			this.pos += this.vel;
 			this.rotation += this.rotationSpeed;
 
 			// Expires
-			if(this.HasExpired) { this.ReturnParticleToPool(); }
+			if(this.HasExpired) { ParticleFree.pool.ReturnObject(this); }
 		}
 
 		public bool IsOnScreen(Camera camera) {
@@ -75,13 +69,12 @@ namespace Nexus.Engine {
 			return true;
 		}
 
-		public void Draw(int camX, int camY) {
+		public virtual void Draw(int camX, int camY) {
 
 			// Determine Alpha of Particle (can be affected by fading)
 			uint frame = Systems.timer.Frame;
 			float alpha = this.fadeStart < frame ? ParticleHandler.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
-
-			// Loop Through Particles, Draw:
+			
 			this.atlas.DrawAdvanced(this.spriteName, (int)this.pos.X - camX, (int)this.pos.Y - camY, Color.White * alpha, this.rotation);
 		}
 	}

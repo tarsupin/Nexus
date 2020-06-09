@@ -83,7 +83,6 @@
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Particles\ParticleFree.cs" />
-    <Compile Include="Engine\Particles\ParticleTrack.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleToEditor.cs" />
@@ -105,7 +104,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
     <Compile Include="Engine\UI\AlertText.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
-    <Compile Include="GameEngine\ParticleSets\ShakeParticle.cs" />
+    <Compile Include="GameEngine\ParticleFreeClasses\LeafShakeParticle.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />

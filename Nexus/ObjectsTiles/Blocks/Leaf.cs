@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 
@@ -25,6 +26,8 @@ namespace Nexus.Objects {
 			Reform = 1,
 		}
 
+		private const byte LeafShakeDuration = 60;
+
 		public Leaf() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Leaf;
@@ -50,15 +53,20 @@ namespace Nexus.Objects {
 
 				// Destroy Leaf
 				if(dir == DirCardinal.Up) {
-					BlockTile.BreakApart(room, gridX, gridY);
-					ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
-					Systems.sounds.thudTap.Play();
+
+					// Damage Creatures Above (if applicable)
+					BlockTile.DamageAbove(room, gridX, gridY);
+
+					this.TriggerEvent(room, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
 				}
 
 				// Begin Shaking. Add a Queue for 1 second that will break the leaf block.
 				else if(dir == DirCardinal.Down) {
 					room.tilemap.SetTileSubType(gridX, gridY, (byte)(subType + 10));
-					room.queueEvents.AddEvent(Systems.timer.Frame + 60, this.tileId, (short)gridX, (short)gridY, (byte)LeafTriggerEvent.BreakApart);
+					room.queueEvents.AddEvent(Systems.timer.Frame + Leaf.LeafShakeDuration, this.tileId, (short)gridX, (short)gridY, (byte)LeafTriggerEvent.BreakApart);
+
+					// Create Visible Shaking Particle
+					LeafShakeParticle.SetParticle(room, this.atlas, this.Texture[subType], new Vector2(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight), Systems.timer.Frame + Leaf.LeafShakeDuration);
 				}
 			}
 
@@ -70,25 +78,29 @@ namespace Nexus.Objects {
 
 			// Break Apart Event
 			if(triggerType == (byte) LeafTriggerEvent.BreakApart) {
-				BlockTile.BreakApart(room, gridX, gridY);
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+
+				// Display Leaf Breaking
 				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
+
+				// Reforming Leafs will be reformed.
+				if(subType == (byte)LeafSubType.InvisibleReform || subType == (byte)LeafSubType.Reform) {
+					room.tilemap.SetTileSubType(gridX, gridY, (byte)LeafSubType.UntouchableReform);
+					room.queueEvents.AddEvent(Systems.timer.Frame + 60, this.tileId, (short)gridX, (short)gridY, (byte)LeafTriggerEvent.Reform);
+				}
+				
+				// Basic Leaf gets destroyed.
+				else {
+					room.tilemap.SetMainTile(gridX, gridY, 0, 0);
+				}
+
 				Systems.sounds.thudTap.Play();
 			}
 
-			//// Shake Event
-			//else if(triggerType == (byte) LeafTriggerEvent.BeginShake) {
-
-			//}
-
-			//// If Button is Blue-Red Switch
-			//if(this.toggleBR) {
-			//	room.tilemap.SetMainTile(gridX, gridY, (byte)TileEnum.ButtonTimedBRUp, 0);
-			//} else {
-			//	room.tilemap.SetMainTile(gridX, gridY, (byte)TileEnum.ButtonTimedGYUp, 0);
-			//}
-
-			//// Toggle the color-toggle that matches this tap type.
-			//room.colors.ToggleColor(this.toggleBR);
+			// Reform Event
+			else if(triggerType == (byte)LeafTriggerEvent.Reform) {
+				room.tilemap.SetTileSubType(gridX, gridY, (byte)LeafSubType.Reform);
+			}
 
 			return true;
 		}
