@@ -188,8 +188,7 @@ namespace Nexus.ObjectComponents {
 		public bool CanActivate() {
 
 			// Cannot activate this power while holding an item:
-			// TODO HIGH PRIORITY: When we have items, uncomment:
-			//if(this.character.item != null) { return false; }
+			if(this.character.heldItem.IsHeld) { return false; }
 
 			TimerGlobal timer = Systems.timer;
 

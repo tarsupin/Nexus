@@ -17,6 +17,13 @@ namespace Nexus.Objects {
 
 	public class ProjectileBall : Projectile {
 
+		// ProjectileBall Object Pools
+		//public static ObjectPool<ProjectileBall> ballPool = new ObjectPool<ProjectileBall>(() => new ProjectileBall());
+		//public static Stack<ProjectileBolt> ProjectileBolt = new Stack<ProjectileBolt>();
+		//public static Stack<ProjectileBullet> ProjectileBullet = new Stack<ProjectileBullet>();
+		//public static Stack<ProjectileEarth> ProjectileEarth = new Stack<ProjectileEarth>();
+		//public static Stack<ProjectileMagi> ProjectileMagi = new Stack<ProjectileMagi>();
+
 		private ProjectileBall(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
 			
 		}

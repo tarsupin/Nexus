@@ -28,6 +28,13 @@ namespace Nexus.GameEngine {
 			return (dynamicObj.posX + dynamicObj.bounds.Left >= xStart - left && dynamicObj.posX + dynamicObj.bounds.Right <= xStart + w + right && dynamicObj.posY + dynamicObj.bounds.Top >= yStart - top && dynamicObj.posY + dynamicObj.bounds.Bottom <= yStart + h + bottom);
 		}
 
+		// Check if an exact coordinate has a Blocking Square (Ground, BlockTile, HorizontalWall, etc.)
+		public static bool IsBlockingCoord(TilemapLevel tilemap, int posX, int posY, DirCardinal dir) {
+			ushort gridX = (ushort)(posX / (byte)TilemapEnum.TileWidth);
+			ushort gridY = (ushort)(posY / (byte)TilemapEnum.TileHeight);
+			return CollideTile.IsBlockingSquare(tilemap, gridX, gridY, dir);
+		}
+
 		// Check if Grid Square is a Blocking Square (Ground, BlockTile, HorizontalWall, etc.)
 		public static bool IsBlockingSquare(TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
 
