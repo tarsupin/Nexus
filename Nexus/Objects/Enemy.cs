@@ -83,7 +83,7 @@ namespace Nexus.Objects {
 		public virtual bool Die( DeathResult deathResult ) {
 
 			// Delete the Enemy
-			if(this.animate is Animate) { this.animate = null; }
+			if(this.animate is Animate) { this.animate.DisableAnimation(); }
 			this.Destroy();
 
 			// Replace with Particle

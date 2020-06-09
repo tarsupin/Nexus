@@ -28,13 +28,16 @@ namespace Nexus.Objects {
 
 		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
 
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			byte border = subType == (byte)CoinsSubType.Coin ? (byte)10 : (byte)2;
+
 			// Get the Direction of an Inner Boundary
-			DirCardinal newDir = TileSolidImpact.RunOverlapTest(character, gridX * (byte)TilemapEnum.TileWidth + 10, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 10, gridY * (byte)TilemapEnum.TileHeight + 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight - 10);
+			DirCardinal newDir = TileSolidImpact.RunOverlapTest(character, gridX * (byte)TilemapEnum.TileWidth + border, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - border, gridY * (byte)TilemapEnum.TileHeight + border, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight - border);
 
 			if(newDir == DirCardinal.None) { return; }
 
+			// Collect Coins
 			Systems.sounds.coin.Play(0.6f, 0, 0);
-			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			if(subType == (byte)CoinsSubType.Coin) {
 				Systems.handler.levelState.AddCoins(character, 1);
