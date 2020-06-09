@@ -21,6 +21,7 @@ namespace Nexus.ObjectComponents {
 				if(dir == DirCardinal.Down) {
 					projectile.CollidePosDown(gridY * (byte)TilemapEnum.TileHeight - projectile.bounds.Bottom);
 					projectile.BounceOnGround();
+					return true;
 				}
 
 				projectile.Destroy(dir);

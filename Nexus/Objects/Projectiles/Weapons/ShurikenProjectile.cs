@@ -20,8 +20,8 @@ namespace Nexus.Objects {
 			ShurikenProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.WeaponShuriken.Count > 0) {
-				projectile = ObjectPool.WeaponShuriken.Pop();
+			if(ProjectilePool.WeaponShuriken.Count > 0) {
+				projectile = ProjectilePool.WeaponShuriken.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 				projectile.Damage = DamageStrength.Standard;    // Needs to be reset, because death action sets to trivial.
 			}

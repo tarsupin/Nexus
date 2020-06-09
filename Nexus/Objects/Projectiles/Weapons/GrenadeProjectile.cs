@@ -16,8 +16,8 @@ namespace Nexus.Objects {
 			GrenadeProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.WeaponGrenade.Count > 0) {
-				projectile = ObjectPool.WeaponGrenade.Pop();
+			if(ProjectilePool.WeaponGrenade.Count > 0) {
+				projectile = ProjectilePool.WeaponGrenade.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 

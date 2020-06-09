@@ -17,23 +17,14 @@ namespace Nexus.Objects {
 
 	public class ProjectileBall : Projectile {
 
-		// ProjectileBall Object Pools
-		//public static ObjectPool<ProjectileBall> ballPool = new ObjectPool<ProjectileBall>(() => new ProjectileBall());
-		//public static Stack<ProjectileBolt> ProjectileBolt = new Stack<ProjectileBolt>();
-		//public static Stack<ProjectileBullet> ProjectileBullet = new Stack<ProjectileBullet>();
-		//public static Stack<ProjectileEarth> ProjectileEarth = new Stack<ProjectileEarth>();
-		//public static Stack<ProjectileMagi> ProjectileMagi = new Stack<ProjectileMagi>();
-
-		private ProjectileBall(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			
-		}
+		public ProjectileBall(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {}
 
 		public static ProjectileBall Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileBall projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.ProjectileBall.Count > 0) {
-				projectile = ObjectPool.ProjectileBall.Pop();
+			if(ProjectilePool.ProjectileBall.Count > 0) {
+				projectile = ProjectilePool.ProjectileBall.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 			
@@ -55,7 +46,7 @@ namespace Nexus.Objects {
 		public override void ReturnToPool() {
 			this.room.RemoveFromScene(this);
 			// TODO LOW PRIORITY: Is there any possible chance this could cause a ball to return to pool on same frame it's marked for delete?
-			ObjectPool.ProjectileBall.Push(this);
+			ProjectilePool.ProjectileBall.Push(this);
 		}
 
 		private void AssignSubType(byte subType) {

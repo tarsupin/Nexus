@@ -22,8 +22,8 @@ namespace Nexus.Objects {
 			ProjectileEarth projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.ProjectileEarth.Count > 0) {
-				projectile = ObjectPool.ProjectileEarth.Pop();
+			if(ProjectilePool.ProjectileEarth.Count > 0) {
+				projectile = ProjectilePool.ProjectileEarth.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 

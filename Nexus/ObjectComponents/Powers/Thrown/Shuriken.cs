@@ -75,7 +75,9 @@ namespace Nexus.ObjectComponents {
 
 			this.sound.Play();
 
-			return ShurikenProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			var projectile = ShurikenProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			projectile.SetActorID(this.character);
+			return projectile;
 		}
 	}
 }

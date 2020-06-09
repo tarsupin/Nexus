@@ -57,6 +57,8 @@ namespace Nexus.ObjectComponents {
 
 		public virtual Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
 			throw new System.Exception("Method must be overwritten. See WeaponShuriken.");
+			//projectile.SetActorID(this.character);
+			//return projectile;
 		}
 	}
 }

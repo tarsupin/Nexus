@@ -19,6 +19,7 @@ namespace Nexus.Objects {
 		public DamageStrength Damage { get; protected set; }
 		public ProjectileCollisionType CollisionType { get; protected set; }
 		public bool SafelyJumpOnTop { get; protected set; }
+		public uint ByActorID { get; protected set; }
 
 		// References
 		public Power power;				// Reference to the power used for this projectile.
@@ -36,6 +37,7 @@ namespace Nexus.Objects {
 			this.physics.velocity = velocity;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
+			this.ByActorID = 0;
 			this.SetEndLife(Systems.timer.Frame + 600);
 		}
 
@@ -51,15 +53,19 @@ namespace Nexus.Objects {
 			this.physics.RunPhysicsTick();
 		}
 
+		public void SetActorID(DynamicObject actor) {
+			this.ByActorID = actor.id;
+		}
+
 		public void SetEndLife( uint endFrame ) {
 			this.EndLife = endFrame;
 		}
 
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
 			this.subType = subType;
-			this.posX = pos.X.RoundInt;
-			this.posY = pos.Y.RoundInt;
+			this.physics.MoveToPos(pos.X.RoundInt, pos.Y.RoundInt);
 			this.physics.velocity = velocity;
+			this.ByActorID = 0;
 			this.SetEndLife(Systems.timer.Frame + 600);
 		}
 

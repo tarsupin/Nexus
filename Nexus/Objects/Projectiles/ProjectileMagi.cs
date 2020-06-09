@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 
 	public class ProjectileMagi : Projectile {
 
-		private DynamicObject actor;    // The game object that the magi ball is circling around.
+		private DynamicObject actor;		// The game object that the magi ball is circling around.
 		private byte radius;                // The radius from the actor this rotates at.
 		private FInt elapsedOffset;         // The elapsed offset / weight that this ball rotates with, comparative to others in the set.
 		private FInt sustained;             // If set above 0, this ball doesn't get destroyed on contact (e.g. White Wizard). It recharges from 0 to 1 (also transparency).
@@ -31,8 +31,8 @@ namespace Nexus.Objects {
 			ProjectileMagi projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.ProjectileMagi.Count > 0) {
-				projectile = ObjectPool.ProjectileMagi.Pop();
+			if(ProjectilePool.ProjectileMagi.Count > 0) {
+				projectile = ProjectilePool.ProjectileMagi.Pop();
 			}
 
 			// Create a New Projectile Ball
@@ -71,8 +71,7 @@ namespace Nexus.Objects {
 			FInt getX = this.actor.posX + 8 + (radius * FInt.Cos(radian));
 			FInt getY = this.actor.posY + 14 + (radius * FInt.Sin(radian));
 
-			this.posX = getX.RoundInt;
-			this.posY = getY.RoundInt;
+			this.physics.MoveToPos(getX.RoundInt, getY.RoundInt);
 
 			// Update Energy
 			if(this.sustained > 0 && this.sustained < 1) {

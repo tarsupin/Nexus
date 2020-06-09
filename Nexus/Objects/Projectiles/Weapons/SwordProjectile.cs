@@ -15,8 +15,8 @@ namespace Nexus.Objects {
 			SwordProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.WeaponSword.Count > 0) {
-				projectile = ObjectPool.WeaponSword.Pop();
+			if(ProjectilePool.WeaponSword.Count > 0) {
+				projectile = ProjectilePool.WeaponSword.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 

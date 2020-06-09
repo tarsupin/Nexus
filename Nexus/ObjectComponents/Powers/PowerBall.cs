@@ -28,13 +28,13 @@ namespace Nexus.ObjectComponents {
 			Character character = this.character;
 
 			// Determine Starting Position of Projectile relative to Character
-			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -10);
+			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -30);
 			int posY = character.posY + character.bounds.Top + 5;
 
 			// Check if the tile placement is blocked:
 			TilemapLevel tilemap = this.character.room.tilemap;
 
-			bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + (character.FaceRight ? 10 : -10), posY, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
+			bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + (character.FaceRight ? 10 : -30), posY, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
 
 			// Prevent Throw
 			if(isBlocked) { return false; }
@@ -54,7 +54,8 @@ namespace Nexus.ObjectComponents {
 
 		public virtual void AffectByInput(ref FInt velX, ref FInt velY) {
 			PlayerInput input = this.character.input;
-			if(input.isDown(IKey.Up)) { velY = this.yVelUp; } else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
+			if(input.isDown(IKey.Up)) { velY = this.yVelUp; }
+			else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
 		}
 
 		public virtual ProjectileBall Launch(int posX, int posY, FInt velX, FInt velY) {
@@ -65,7 +66,9 @@ namespace Nexus.ObjectComponents {
 				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
 			}
 
-			return ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX.RoundInt, velY.RoundInt));
+			ProjectileBall projectile = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX.RoundInt, velY.RoundInt));
+			projectile.SetActorID(this.character);
+			return projectile;
 		}
 	}
 }

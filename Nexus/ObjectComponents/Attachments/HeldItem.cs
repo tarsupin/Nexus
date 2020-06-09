@@ -184,10 +184,7 @@ namespace Nexus.ObjectComponents {
 
 		public void MoveToHeldPosition() {
 			if(this.objHeld == null) { return; }
-			this.objHeld.physics.physPos.X = FInt.Create(this.character.posX + (this.character.FaceRight ? this.objHeld.gripRight : this.objHeld.gripLeft));
-			this.objHeld.physics.physPos.Y = FInt.Create(this.character.posY + this.objHeld.gripLift);
-			this.objHeld.posX = this.character.posX + (this.character.FaceRight ? this.objHeld.gripRight : this.objHeld.gripLeft);
-			this.objHeld.posY = this.character.posY + this.objHeld.gripLift;
+			this.objHeld.physics.MoveToPos(this.character.posX + (this.character.FaceRight ? this.objHeld.gripRight : this.objHeld.gripLeft), this.character.posY + this.objHeld.gripLift);
 		}
 
 		public void ResetHeldItem() {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public static class ObjectPool {
+	public static class ProjectilePool {
 
 		// Projectiles, Standard
 		public static Stack<ProjectileBall> ProjectileBall = new Stack<ProjectileBall>();

@@ -186,7 +186,7 @@
     <Compile Include="GameEngine\ParticleGenerator\ParticleGen.cs" />
     <Compile Include="Engine\ObjectPool.cs" />
     <Compile Include="GameEngine\Params\Params.cs" />
-    <Compile Include="GameEngine\ObjectPool.cs" />
+    <Compile Include="GameEngine\ProjectilePool.cs" />
     <Compile Include="Engine\Cursor.cs" />
     <Compile Include="GameEngine\Scenes\WEScene.cs" />
     <Compile Include="GameEngine\UIComponents\WEUtilityBar.cs" />

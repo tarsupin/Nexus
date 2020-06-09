@@ -19,8 +19,8 @@ namespace Nexus.Objects {
 			ChakramProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ObjectPool.WeaponChakram.Count > 0) {
-				projectile = ObjectPool.WeaponChakram.Pop();
+			if(ProjectilePool.WeaponChakram.Count > 0) {
+				projectile = ProjectilePool.WeaponChakram.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 			}
 
