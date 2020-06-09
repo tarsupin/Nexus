@@ -7,9 +7,9 @@ namespace Nexus.ObjectComponents {
 
 	public class Behavior {
 
-		protected DynamicObject actor;
+		protected GameObject actor;
 
-		public Behavior( DynamicObject actor ) {
+		public Behavior( GameObject actor ) {
 			this.actor = actor;
 		}
 

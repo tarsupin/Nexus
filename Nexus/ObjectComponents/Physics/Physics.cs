@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class Physics {
 
 		// Object Reference
-		protected DynamicObject actor;
+		protected GameObject actor;
 
 		// Physics Values
 		public FVector physPos;         // The "physics" tracks "true" positions with Fixed-Point math, but is separate from "position" on the Game Object, which uses ints.
@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 		public FVector extraMovement;   // Added values, such as for conveyor belts, platforms, etc.
 		public FInt gravity;
 
-		public Physics(DynamicObject actor) {
+		public Physics(GameObject actor) {
 			this.actor = actor;
 
 			this.physPos = FVector.Create(this.actor.posX, this.actor.posY);
@@ -94,22 +94,22 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// --- Align Relative to Object --- //
-		public void AlignLeft(DynamicObject obj) {
+		public void AlignLeft(GameObject obj) {
 			this.actor.posX = obj.posX + obj.bounds.Left - this.actor.bounds.Right;
 			this.physPos.X = FInt.Create(this.actor.posX);
 		}
 
-		public void AlignRight(DynamicObject obj) {
+		public void AlignRight(GameObject obj) {
 			this.actor.posX = obj.posX + obj.bounds.Right - this.actor.bounds.Left;
 			this.physPos.X = FInt.Create(this.actor.posX);
 		}
 
-		public void AlignUp(DynamicObject obj) {
+		public void AlignUp(GameObject obj) {
 			this.actor.posY = obj.posY + obj.bounds.Top - this.actor.bounds.Bottom;
 			this.physPos.Y = FInt.Create(this.actor.posY);
 		}
 
-		public void AlignDown(DynamicObject obj) {
+		public void AlignDown(GameObject obj) {
 			this.actor.posY = obj.posY + obj.bounds.Bottom - this.actor.bounds.Top;
 			this.physPos.Y = FInt.Create(this.actor.posY);
 		}

@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public static class TileSolidImpact {
 
 		// A Standard Tile Impact just triggers the collision methods that are commonly overridden (collideLeft(), collideRight(), etc).
-		public static bool RunImpact(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.None) {
+		public static bool RunImpact(GameObject actor, ushort gridX, ushort gridY, DirCardinal dir = DirCardinal.None) {
 
 			if(dir == DirCardinal.Down) {
 				actor.CollidePosDown(gridY * (byte)TilemapEnum.TileHeight - actor.bounds.Bottom);
@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// An Inner Tile Impact checks for an additional, inner collision based on a designated rectangle.
-		public static DirCardinal RunInnerImpact(DynamicObject actor, int x1, int x2, int y1, int y2) {
+		public static DirCardinal RunInnerImpact(GameObject actor, int x1, int x2, int y1, int y2) {
 
 			// Check Overlap with Altered Border
 			if(!CollideRect.IsTouchingRect(actor, x1, x2, y1, y2)) { return DirCardinal.None; }
@@ -43,7 +43,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		// Identical to RunInnerImpact, except it doesn't collide.
-		public static DirCardinal RunOverlapTest(DynamicObject actor, int x1, int x2, int y1, int y2) {
+		public static DirCardinal RunOverlapTest(GameObject actor, int x1, int x2, int y1, int y2) {
 			if(!CollideRect.IsTouchingRect(actor, x1, x2, y1, y2)) { return DirCardinal.None; }
 			return CollideRect.GetDirectionOfCollision(actor, x1, x2, y1, y2);
 		}

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Character : DynamicObject {
+	public class Character : GameObject {
 
 		// References
 		public Player player;       // The player that controls this character.

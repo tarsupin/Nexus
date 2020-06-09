@@ -42,7 +42,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)LeafSubType.Reform] = "Shatters a short duration after standing on it, but reforms seconds later.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 

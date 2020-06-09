@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class HitCompareItem : IHitCompare {
 
-		public bool RunImpact( DynamicObject item, DynamicObject obj ) {
+		public bool RunImpact( GameObject item, GameObject obj ) {
 
 			// TODO: ALL OF THIS HAS TO BE BUILT. NEED DYNAMIC OBJECTS IN PLACE FIRST.
 			// TODO: ALL OF THIS HAS TO BE BUILT. NEED DYNAMIC OBJECTS IN PLACE FIRST.

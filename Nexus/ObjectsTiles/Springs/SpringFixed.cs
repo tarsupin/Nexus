@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			if(!base.RunImpact(room, actor, gridX, gridY, dir)) { return false; }
 
 			// Get the SubType

@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 		}
 
 		// Plant Impacts
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Plants die when hit by projectiles of sufficient damage.

@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 		// 2. Send to CollideBroad component to be sorted.
 		public void RunCollisionSequence() {
 
-			Dictionary<byte, Dictionary<uint, DynamicObject>> objects = this.room.objects;
+			Dictionary<byte, Dictionary<uint, GameObject>> objects = this.room.objects;
 
 			// Run the Broad Sequence to build our array.
 			this.broad.RunBroadSequence( 0, objects );

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Platform : DynamicObject {
+	public class Platform : GameObject {
 
 		public static readonly FInt MaxFallVelocity = FInt.Create(5);
 

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Enemy : DynamicObject {
+	public class Enemy : GameObject {
 
 		public DamageStrength ProjectileResist { get; protected set; }
 		public Behavior behavior;

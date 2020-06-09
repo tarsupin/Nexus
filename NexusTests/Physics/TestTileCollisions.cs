@@ -152,7 +152,7 @@ namespace NexusTests {
 
 		}
 
-		private void VerifyGridPos(DynamicObject obj, ushort gridX, ushort gridY, ushort gridX2, ushort gridY2) {
+		private void VerifyGridPos(GameObject obj, ushort gridX, ushort gridY, ushort gridX2, ushort gridY2) {
 			Debug.Assert(gridX == obj.GridX, "Object's GridX should be " + gridX + ". Is actually " + obj.GridX);
 			Debug.Assert(gridY == obj.GridY, "Object's GridY should be " + gridY + ". Is actually " + obj.GridY);
 			Debug.Assert(gridX2 == obj.GridX2, "Object's GridX2 should be " + gridX2 + ". Is actually " + obj.GridX2);

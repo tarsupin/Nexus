@@ -18,7 +18,7 @@ namespace Nexus.ObjectComponents {
 		protected bool isFalling;		// TRUE means the motion is falling (e.g. like falling platforms).
 		protected FInt fallAccel;		// The acceleration at which the attached object will fall.
 
-		public FlightTo(DynamicObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
+		public FlightTo(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 
 			this.countdown = paramList.ContainsKey("countdown") ? (byte) paramList["countdown"] : (byte) 0;

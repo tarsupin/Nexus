@@ -31,7 +31,7 @@ namespace Nexus.Objects {
 			return !isOn;
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(this.isToggleBox || ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) {
 

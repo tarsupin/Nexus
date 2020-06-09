@@ -13,12 +13,12 @@ namespace Nexus.GameEngine {
 	public class CollideTile {
 
 		// Tests if object is completely within a tile square.
-		public static bool IsWithinTile(DynamicObject dynamicObj, ushort gridX, ushort gridY) {
+		public static bool IsWithinTile(GameObject dynamicObj, ushort gridX, ushort gridY) {
 			return (dynamicObj.GridX == gridX && dynamicObj.GridX2 == gridX && dynamicObj.GridY == gridY && dynamicObj.GridY2 == gridY);
 		}
 
 		// Tests if object is within a tile with padded borders. Note: Many tests can't use this, since they're probably already touching the tile.
-		public static bool IsWithinPaddedTile(DynamicObject dynamicObj, ushort gridX, ushort gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
+		public static bool IsWithinPaddedTile(GameObject dynamicObj, ushort gridX, ushort gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
 
 			byte w = (byte) TilemapEnum.TileWidth;
 			byte h = (byte) TilemapEnum.TileHeight;
@@ -63,7 +63,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Perform Collision Detection against a designated Grid Square
-		public static bool RunGridTest(DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool RunGridTest(GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Verify that a tile exists at the given location:
 			byte[] tileData = actor.room.tilemap.GetTileDataAtGrid(gridX, gridY);
@@ -81,7 +81,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Detect interactions with 4 Grid Squares, with object's X,Y in the Top-Left square.
-		public static void RunTileCollision(DynamicObject actor) {
+		public static void RunTileCollision(GameObject actor) {
 
 			// Don't run collision if the actor is designated not to collide.
 			if(actor.Activity <= Activity.NoTileCollide) { return; }

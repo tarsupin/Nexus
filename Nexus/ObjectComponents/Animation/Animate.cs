@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 
 	public class Animate {
 
-		public DynamicObject actor;
+		public GameObject actor;
 
 		public string name;
 		public string BaseName { get; private set; }		// The base of the animation name (e.g. "Moosh/")
@@ -17,7 +17,7 @@ namespace Nexus.ObjectComponents {
 		public byte AnimSpeed { get; private set; }			// The number of frames that each animation takes place.
 		public uint NextFrame { get; private set; }			// The frame # that the texture will next update.
 
-		public Animate( DynamicObject actor, string baseName = "" ) {
+		public Animate( GameObject actor, string baseName = "" ) {
 			this.actor = actor;
 			this.BaseName = baseName;
 			this.AnimCycles = new string[0];

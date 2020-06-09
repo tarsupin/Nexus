@@ -339,6 +339,9 @@
     <Compile Include="ObjectComponents\Powers\Mobility\PhaseMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LeapMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerThrust.cs" />
+    <Compile Include="ObjectComponents\Powers\Thrust\Dagger.cs" />
+    <Compile Include="ObjectComponents\Powers\Thrust\BoxingGlove.cs" />
+    <Compile Include="ObjectComponents\Powers\Thrust\Spear.cs" />
     <Compile Include="ObjectComponents\Powers\Thrust\Sword.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Shuriken.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Hammer.cs" />
@@ -472,6 +475,7 @@
     <Compile Include="Objects\Items\Shell.cs" />
     <Compile Include="Objects\Items\ButtonStandard.cs" />
     <Compile Include="Objects\Items\SpringStandard.cs" />
+    <Compile Include="Objects\Projectiles\Weapons\ThrustProjectile.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />
     <Compile Include="Scripts\LevelConvert.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />

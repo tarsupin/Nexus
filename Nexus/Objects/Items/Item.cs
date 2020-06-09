@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Item : DynamicObject {
+	public class Item : GameObject {
 
 		// Item Traits
 		public byte KickStrength { get; protected set; }		// The X-Axis Force that an item is kicked with. 0 means it cannot be kicked.
@@ -64,7 +64,7 @@ namespace Nexus.Objects {
 			this.physics.StopX();
 		}
 
-		public override bool CollideObjDown(DynamicObject obj) {
+		public override bool CollideObjDown(GameObject obj) {
 			if(base.CollideObjDown(obj)) {
 				this.physics.StopX();
 				return true;

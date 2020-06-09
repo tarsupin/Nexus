@@ -19,14 +19,14 @@ namespace Nexus.Objects {
 		public static ShurikenProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ShurikenProjectile projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
+			// Retrieve asset from the ProjectilePool, if one is available:
 			if(ProjectilePool.WeaponShuriken.Count > 0) {
 				projectile = ProjectilePool.WeaponShuriken.Pop();
 				projectile.ResetProjectile(subType, pos, velocity);
 				projectile.Damage = DamageStrength.Standard;    // Needs to be reset, because death action sets to trivial.
 			}
 
-			// Create a New Projectile Ball
+			// Create a New Projectile
 			else {
 				projectile = new ShurikenProjectile(room, subType, pos, velocity);
 			}
@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 			this.Meta.Atlas.DrawRotation(this.SpriteName, this.posX + 16 - camX, this.posY + 16 - camY, this.rotation, new Vector2(16, 16));
 		}
 
-		public override void Destroy(DirCardinal dir = DirCardinal.None, DynamicObject obj = null) {
+		public override void Destroy(DirCardinal dir = DirCardinal.None, GameObject obj = null) {
 			if(this.State == (byte) CommonState.Death) { return; }
 
 			this.SetState((byte) CommonState.Death);

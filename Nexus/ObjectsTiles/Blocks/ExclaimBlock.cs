@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 			this.description = "Hit from beneath to activate.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Get the SubType
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);

@@ -14,7 +14,7 @@ namespace Nexus.ObjectComponents {
 
 		public byte toFloor = 0;					// Number of frames since touched the floor (up to ten)
 
-		public DynamicObject touchObj = null;		// Touching Floor
+		public GameObject touchObj = null;		// Touching Floor
 
 		public void ResetTouch() {
 			if(!this.isTouching) { return; }
@@ -61,7 +61,7 @@ namespace Nexus.ObjectComponents {
 			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
-		public void TouchPlatform( DynamicObject platform ) {
+		public void TouchPlatform( GameObject platform ) {
 			if(this.isTouching == false) { this.isTouching = true; }
 			this.touchObj = platform;
 		}

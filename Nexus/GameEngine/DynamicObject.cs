@@ -26,7 +26,7 @@ namespace Nexus.GameEngine {
 		Death,				// In the death state; the process of dying.
 	}
 
-	public class DynamicObject {
+	public class GameObject {
 
 		public Activity Activity { get; protected set; }
 
@@ -55,7 +55,7 @@ namespace Nexus.GameEngine {
 		public byte State { get; protected set; }			// Tracks the object's current state.
 		public bool FaceRight { get; protected set; }		// TRUE if the actor is facing right.
 
-		public DynamicObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) {
+		public GameObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) {
 			
 			this.id = room.nextId;
 			this.room = room;
@@ -149,7 +149,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Dynamic Object Collisions
-		public virtual bool CollideObjUp(DynamicObject obj) {
+		public virtual bool CollideObjUp(GameObject obj) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -162,7 +162,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideObjDown(DynamicObject obj) {
+		public virtual bool CollideObjDown(GameObject obj) {
 
 			// Verify the object is moving Down. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -175,7 +175,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideObjLeft(DynamicObject obj) {
+		public virtual bool CollideObjLeft(GameObject obj) {
 
 			// Verify the object is moving Left. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
@@ -188,7 +188,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public virtual bool CollideObjRight(DynamicObject obj) {
+		public virtual bool CollideObjRight(GameObject obj) {
 
 			// Verify the object is moving Right. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.

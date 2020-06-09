@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 	public class HitCompareEnemy : IHitCompare {
 
-		public bool RunImpact( DynamicObject enemy, DynamicObject obj ) {
+		public bool RunImpact( GameObject enemy, GameObject obj ) {
 
 			Enemy en = (Enemy) enemy;
 			

@@ -7,13 +7,13 @@ namespace Nexus.ObjectComponents {
 
 	public class Nameplate {
 
-		private readonly DynamicObject actor;
+		private readonly GameObject actor;
 		private string nameplate;
 		private bool visible = false;
 		private sbyte xOffset = 0;
 		private sbyte yOffset = -10;
 
-		public Nameplate(DynamicObject actor, string nameplate, DirCardinal position = DirCardinal.Center, bool setVisible = true) {
+		public Nameplate(GameObject actor, string nameplate, DirCardinal position = DirCardinal.Center, bool setVisible = true) {
 			this.actor = actor;
 			this.SetVisible(setVisible);
 			this.SetNameplate(nameplate);

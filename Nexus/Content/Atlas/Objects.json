@@ -4540,9 +4540,9 @@
 {
 	"frame": {"x":269,"y":161,"w":81,"h":27},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":6,"y":2,"w":81,"h":27},
-	"sourceSize": {"w":90,"h":30},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":81,"h":27},
+	"sourceSize": {"w":81,"h":27},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "WhiteNinja/Dance":
@@ -5002,6 +5002,6 @@
 	"format": "RGBA8888",
 	"size": {"w":498,"h":1632},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3d983c0fd0fafee6d3cf9e360d9c555f:cd771190805b5e9854cfd65ab6999dd5:a3b4fbb1ebfc4051c9b289d315fb7fea$"
+	"smartupdate": "$TexturePacker:SmartUpdate:b34b12a51cecef69aadb29cd379fd468:251dce1ffb8f26990d1f69c5e2735538:a3b4fbb1ebfc4051c9b289d315fb7fea$"
 }
 }

@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		Physics physics;		// Reference to the actor's physics.
 
-		public FlightChase(DynamicObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
+		public FlightChase(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 
 			// TODO: MUST ADD THIS

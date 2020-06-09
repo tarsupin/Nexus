@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Ground];
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			
 			if(actor is Projectile) {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);

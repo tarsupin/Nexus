@@ -143,11 +143,11 @@ namespace Nexus.Gameplay {
 
 			// Create Object
 			} else {
-				DynamicObject gameObj = (DynamicObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
+				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
 
 				// Add the Object to the Scene
-				if(gameObj is DynamicObject) {
-					room.AddToScene((DynamicObject) gameObj, true);
+				if(gameObj is GameObject) {
+					room.AddToScene((GameObject) gameObj, true);
 				}
 			}
 		}

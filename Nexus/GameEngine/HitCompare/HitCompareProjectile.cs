@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class HitCompareProjectile : IHitCompare {
 
-		public bool RunImpact( DynamicObject projectile, DynamicObject obj ) {
+		public bool RunImpact( GameObject projectile, GameObject obj ) {
 
 			// Specific Impact Types
 			if(obj is Projectile) { return false; }

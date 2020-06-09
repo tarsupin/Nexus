@@ -50,7 +50,7 @@ namespace Nexus.GameEngine {
 			//this.atlas.Draw(texture, posX, posY);
 		}
 
-		public virtual bool RunImpact( RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
+		public virtual bool RunImpact( RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			return true;
 		}

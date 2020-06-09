@@ -4,6 +4,12 @@ namespace Nexus.Engine {
 
 	public static class Radians {
 
+		// By Rotation
+		public const float Rotate45 = 0.7853982f;
+		public const float Rotate90 = 1.57079637f;
+		public const float Rotate180 = 3.14159274f;
+
+		// By Official Standards
 		public const float Up = -1.57079637f;
 		public const float Down = 1.57079637f;
 		public const float Right = 0f;

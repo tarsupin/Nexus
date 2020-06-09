@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			this.description = "Toggles colors.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			// Get the Direction of an Inner Boundary
 			DirCardinal newDir = TileSolidImpact.RunInnerImpact(actor, gridX * (byte)TilemapEnum.TileWidth, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight + 32, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);

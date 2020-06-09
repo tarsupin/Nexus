@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			this.description = "Toggles color blocks, then disappears along with its neighbors.";
 		}
 
-		public override bool RunImpact(RoomScene room, DynamicObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 

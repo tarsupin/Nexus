@@ -19,7 +19,7 @@ namespace Nexus.GameEngine {
 		***************/
 
 		// Check if two objects overlap each other:
-		public static bool IsOverlapping(DynamicObject obj, DynamicObject obj2) {
+		public static bool IsOverlapping(GameObject obj, GameObject obj2) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
 			int y1 = obj.posY;
@@ -36,7 +36,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// This tests if the first object completely overlaps the smaller object.
-		public static bool IsOverlappingTotal(DynamicObject largeObject, DynamicObject smallObject) {
+		public static bool IsOverlappingTotal(GameObject largeObject, GameObject smallObject) {
 
 			// Since our Broad-Phase tracked by X-Position, quickly eliminate Y as an option first:
 			int y1 = largeObject.posY;
@@ -53,7 +53,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// GetOverlapX retrieves the current X overlap. Negative means not overlapping.
-		public static int GetOverlapX(DynamicObject obj, DynamicObject obj2, bool obj1IsLeft) {
+		public static int GetOverlapX(GameObject obj, GameObject obj2, bool obj1IsLeft) {
 
 			// Object 1 is to the left of Object 2
 			if(obj1IsLeft) {
@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// GetOverlapX retrieves the current Y overlap. Negative means not overlapping.
-		public static int GetOverlapY(DynamicObject obj, DynamicObject obj2, bool obj1IsAbove) {
+		public static int GetOverlapY(GameObject obj, GameObject obj2, bool obj1IsAbove) {
 
 			// Object 1 is below Object 2
 			if(obj1IsAbove) {
@@ -120,7 +120,7 @@ namespace Nexus.GameEngine {
 		*** Relative Positions ***
 		*************************/
 
-		public static short GetRelativeX(DynamicObject obj, DynamicObject obj2) {
+		public static short GetRelativeX(GameObject obj, GameObject obj2) {
 			return (short)(obj2.bounds.MidX - obj.bounds.MidX);
 		}
 
@@ -138,7 +138,7 @@ namespace Nexus.GameEngine {
 
 		// Identifies the direction of a collision.
 		// WARNING: Heavy use. Only run this AFTER you've tested for if the objects overlap.
-		public static DirCardinal GetDirectionOfCollision( DynamicObject obj, DynamicObject obj2 ) {
+		public static DirCardinal GetDirectionOfCollision( GameObject obj, GameObject obj2 ) {
 
 			// If the movement between the objects > the amount overlapped, ignore the overlap.
 			// This prevents problems like inaccurate hitboxes from the wrong side.

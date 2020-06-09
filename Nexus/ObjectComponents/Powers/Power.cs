@@ -72,9 +72,9 @@ namespace Nexus.ObjectComponents {
 
 		public string IconTexture { get; protected set; }	// The texture path for the Power Icon (e.g. "Power/" + this.pool)
 
-		protected byte cooldown;
+		protected byte cooldown;			// In Frames
 		protected byte numberOfUses;
-		protected byte delayBetweenUses;
+		protected byte delayBetweenUses;	// In Frames
 		protected uint lastActivation;
 		protected uint[] lastUseTracker;
 
@@ -135,12 +135,12 @@ namespace Nexus.ObjectComponents {
 				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
 
 				// Collectable Powers - Weapon
-				case (byte) PowerSubType.BoxingRed: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.BoxingWhite: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Dagger: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.DaggerGreen: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Spear: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Sword: character.attackPower = new ElectricBall(character); break;
+				case (byte) PowerSubType.BoxingRed: character.attackPower = new BoxingGlove(character); break;
+				case (byte) PowerSubType.BoxingWhite: character.attackPower = new BoxingGlove(character); break;
+				case (byte) PowerSubType.Dagger: character.attackPower = new Dagger(character); break;
+				case (byte) PowerSubType.DaggerGreen: character.attackPower = new Dagger(character); break;
+				case (byte) PowerSubType.Spear: character.attackPower = new Spear(character); break;
+				case (byte) PowerSubType.Sword: character.attackPower = new Sword(character); break;
 
 				// Collectable Powers - Book
 				case (byte) PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;

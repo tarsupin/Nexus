@@ -67,7 +67,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public override bool CollideObjDown(DynamicObject obj) {
+		public override bool CollideObjDown(GameObject obj) {
 
 			// Verify the object is moving Up. If not, don't collide.
 			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
