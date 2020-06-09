@@ -28,6 +28,8 @@ namespace Nexus.Objects {
 
 			projectile.SetSpriteName("Weapon/Hammer");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.rotation = Radians.UpRight + (projectile.physics.velocity.X > 0 ? 0.3f : -0.3f);
+			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.10f : -0.10f;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);

@@ -148,7 +148,7 @@ namespace Nexus.ObjectComponents {
 				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
 				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); break;
 				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); break;
-				case (byte) PowerSubType.Slime: character.attackPower = new SlimeBall(character); break;
+				case (byte) PowerSubType.Slime: character.attackPower = new PoisonBall(character); break;
 
 				// Collectable Powers - Thrown
 				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;

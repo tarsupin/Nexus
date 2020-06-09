@@ -27,20 +27,7 @@ namespace Nexus.ObjectComponents {
 			this.yVelDown = FInt.Create(18);
 		}
 
-		public override bool Activate() {
-
-			// Make sure the power can be activated
-			if(!this.CanActivate()) { return false; }
-
-			// References
-			Character character = this.character;
-
-			// Determine Starting Position of Projectile relative to Character
-			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -10) - 17;
-			int posY = character.posY + character.bounds.Top;
-
-			FInt velX = character.FaceRight ? this.xVel : this.xVel.Inverse;
-			FInt velY = this.yVel;
+		public override void AffectByInput(ref FInt velX, ref FInt velY, ref int posX, ref int posY) {
 
 			// Affect the Y-Velocity of the projectile if holding UP or DOWN
 			PlayerInput input = this.character.input;
@@ -58,23 +45,9 @@ namespace Nexus.ObjectComponents {
 				posX = this.character.posX + 2;
 				posY = this.character.posY + 26;
 			}
-
-			// Launch Projectile
-			this.LaunchShuriken(posX, posY, velX, velY);
-
-			return true;
 		}
 
-		public ShurikenProjectile LaunchShuriken(int posX, int posY, FInt velX, FInt velY) {
-
-			// Apply Character's Momentum (if applicable)
-			if(this.multMomentum > 0) {
-				velX += character.physics.velocity.X * this.multMomentum;
-				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
-			}
-
-			this.sound.Play();
-
+		public override Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
 			var projectile = ShurikenProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
 			return projectile;

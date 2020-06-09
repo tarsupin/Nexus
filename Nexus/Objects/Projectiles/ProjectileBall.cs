@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 		Fire,
 		Frost,
 		Rock,
-		Slime,
+		Poison,
 		Water,
 	}
 
@@ -49,12 +49,17 @@ namespace Nexus.Objects {
 			ProjectilePool.ProjectileBall.Push(this);
 		}
 
+		public override void BounceOnGround() {
+			this.physics.velocity.Y = this.subType == (byte) ProjectileBallSubType.Fire ? FInt.Create(-6) : FInt.Create(-8);
+		}
+
 		private void AssignSubType(byte subType) {
 
 			// Behaviors
 			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
 				this.Damage = DamageStrength.Trivial;
-				this.physics.SetGravity(FInt.Create(0.35));
+				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
+				this.physics.SetGravity(FInt.Create(0.45));
 				this.CollisionType = ProjectileCollisionType.BounceOnFloor;
 			}
 
@@ -66,6 +71,7 @@ namespace Nexus.Objects {
 
 			else {
 				this.Damage = DamageStrength.Trivial;
+				this.spinRate = this.physics.velocity.X > 0 ? 0.09f : -0.09f;
 				this.physics.SetGravity(FInt.Create(0.4));
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			}
@@ -79,7 +85,7 @@ namespace Nexus.Objects {
 				this.SetSpriteName("Projectiles/Frost");
 			} else if(subType == (byte)ProjectileBallSubType.Rock) {
 				this.SetSpriteName("Projectiles/Earth1");
-			} else if(subType == (byte)ProjectileBallSubType.Slime) {
+			} else if(subType == (byte)ProjectileBallSubType.Poison) {
 				this.SetSpriteName("Projectiles/Slime");
 			} else if(subType == (byte)ProjectileBallSubType.Water) {
 				this.SetSpriteName("Projectiles/Water");

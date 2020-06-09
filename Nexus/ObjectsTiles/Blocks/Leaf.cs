@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			Reform = 1,
 		}
 
-		private const byte LeafShakeDuration = 60;
+		private const byte LeafShakeDuration = 90;
 
 		public Leaf() : base() {
 			this.CreateTextures();

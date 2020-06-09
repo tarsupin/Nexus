@@ -345,7 +345,7 @@
     <Compile Include="ObjectComponents\Powers\Thrown\Axe.cs" />
     <Compile Include="ObjectComponents\Powers\Bolts\Bolt.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\WaterBall.cs" />
-    <Compile Include="ObjectComponents\Powers\Balls\SlimeBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Balls\PoisonBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\FrostBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\FireBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\ElectricBall.cs" />

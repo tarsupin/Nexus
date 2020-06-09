@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 
 		public static LeafShakeParticle SetParticle(RoomScene room, Atlas atlas, string spriteName, Vector2 pos, uint frameEnd) {
 
-			// Retrieve an free particle from the pool.
+			// Retrieve an available particle from the pool.
 			LeafShakeParticle particle = LeafShakeParticle.leafPool.GetObject();
 
 			particle.atlas = atlas;
@@ -17,7 +17,7 @@ namespace Nexus.GameEngine {
 			particle.pos = pos;
 			particle.frameEnd = frameEnd;
 
-			// Add the Emitter to the Particle Handler
+			// Add the Particle to the Particle Handler
 			room.particleHandler.AddParticle(particle);
 
 			return particle;

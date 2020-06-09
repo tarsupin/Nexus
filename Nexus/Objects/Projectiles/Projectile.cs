@@ -22,6 +22,7 @@ namespace Nexus.Objects {
 		public uint ByActorID { get; protected set; }
 
 		// References
+		protected Atlas atlas;
 		public Power power;				// Reference to the power used for this projectile.
 
 		// Projectile Status
@@ -29,16 +30,15 @@ namespace Nexus.Objects {
 
 		// Essentials
 		protected uint EndLife;
+		public float spinRate;			// The rate of rotation, if applicable.
 		public float rotation;
 
 		public Projectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Projectile];
 			this.physics = new Physics(this);
-			this.physics.velocity = velocity;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
-			this.ByActorID = 0;
-			this.SetEndLife(Systems.timer.Frame + 600);
+			this.ResetProjectile(subType, pos, velocity);
 		}
 
 		public override void RunTick() {
@@ -48,6 +48,9 @@ namespace Nexus.Objects {
 				this.ReturnToPool();
 				return;
 			}
+
+			// Spin Rate
+			if(this.spinRate != 0) { this.rotation += this.spinRate; }
 
 			// Standard Physics
 			this.physics.RunPhysicsTick();
@@ -63,6 +66,7 @@ namespace Nexus.Objects {
 
 		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
 			this.subType = subType;
+			this.spinRate = 0;
 			this.physics.MoveToPos(pos.X.RoundInt, pos.Y.RoundInt);
 			this.physics.velocity = velocity;
 			this.ByActorID = 0;
@@ -85,5 +89,9 @@ namespace Nexus.Objects {
 
 		// If set, this activates when the projectile bounces on the ground. Can set physics.velocity.Y here to a designated amount.
 		public virtual void BounceOnGround() {}
+
+		public override void Draw(int camX, int camY) {
+			this.Meta.Atlas.DrawAdvanced(this.SpriteName, this.posX - camX, this.posY - camY, null, this.rotation);
+		}
 	}
 }

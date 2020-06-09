@@ -30,7 +30,7 @@ namespace Nexus.Engine {
 
 		public static ParticleFree SetParticle( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0, float rotation = 0, float rotationSpeed = 0, float gravity = 0 ) {
 
-			// Retrieve an free particle from the pool.
+			// Retrieve an available particle from the pool.
 			ParticleFree particle = ParticleFree.pool.GetObject();
 
 			particle.atlas = atlas;
@@ -45,7 +45,7 @@ namespace Nexus.Engine {
 			particle.rotation = rotation;
 			particle.rotationSpeed = rotationSpeed;
 
-			// Add the Emitter to the Particle Handler
+			// Add the Particle to the Particle Handler
 			room.particleHandler.AddParticle(particle);
 
 			return particle;

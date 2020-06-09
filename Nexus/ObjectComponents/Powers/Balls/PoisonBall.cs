@@ -4,10 +4,10 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	public class SlimeBall : PowerBall {
+	public class PoisonBall : PowerBall {
 
-		public SlimeBall( Character character ) : base( character ) {
-			this.subType = (byte) ProjectileBallSubType.Slime;
+		public PoisonBall( Character character ) : base( character ) {
+			this.subType = (byte) ProjectileBallSubType.Poison;
 			this.IconTexture = "Power/Slime";
 			this.SetActivationSettings(96, 2, 30);
 

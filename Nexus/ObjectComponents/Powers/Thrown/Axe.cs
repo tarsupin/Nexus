@@ -11,8 +11,10 @@ namespace Nexus.ObjectComponents {
 			this.sound = Systems.sounds.axe;
 		}
 
-		public override void AffectByInput(ref FInt velX, ref FInt velY) {
+		public override void AffectByInput(ref FInt velX, ref FInt velY, ref int posX, ref int posY) {
 			PlayerInput input = this.character.input;
+
+			if(velX > 0) { posX += 7; }
 
 			if(input.isDown(IKey.Up)) {
 				velX = this.character.FaceRight ? FInt.Create(2.5) : FInt.Create(-2.5); // Axe
@@ -32,7 +34,7 @@ namespace Nexus.ObjectComponents {
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings
-				this.multMomentum = FInt.Create(0.8);
+				this.multMomentum = FInt.Create(0.65);
 				this.xVel = FInt.Create(5);
 				this.yVel = FInt.Create(-12);
 				this.yVelUp = FInt.Create(-18);
@@ -45,7 +47,7 @@ namespace Nexus.ObjectComponents {
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings
-				this.multMomentum = FInt.Create(0.8);
+				this.multMomentum = FInt.Create(0.65);
 				this.xVel = FInt.Create(5);
 				this.yVel = FInt.Create(-12);
 				this.yVelUp = FInt.Create(-18);
@@ -58,12 +60,18 @@ namespace Nexus.ObjectComponents {
 				this.SetActivationSettings(72, 1, 36);
 
 				// Power Settings
-				this.multMomentum = FInt.Create(0.8);
+				this.multMomentum = FInt.Create(0.65);
 				this.xVel = FInt.Create(5);
 				this.yVel = FInt.Create(-12);
 				this.yVelUp = FInt.Create(-18);
 				this.yVelDown = FInt.Create(1);
 			}
+		}
+
+		public override Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
+			var projectile = AxeProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			projectile.SetActorID(this.character);
+			return projectile;
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace Nexus.ObjectComponents {
 
 			// Power Settings
 			this.multMomentum = FInt.Create(0.4);
-			this.xVel = FInt.Create(10);
+			this.xVel = FInt.Create(8);
 			this.yVel = FInt.Create(-3);
 			this.yVelUp = FInt.Create(-3);
 			this.yVelDown = FInt.Create(-3);

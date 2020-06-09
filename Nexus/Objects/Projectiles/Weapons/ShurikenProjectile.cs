@@ -46,6 +46,7 @@ namespace Nexus.Objects {
 			projectile.SetState((byte) CommonState.MotionStart);
 			projectile.endFrame = Systems.timer.Frame + 8;
 			projectile.rotation = 2;
+			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.14f : -0.14f;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
@@ -91,7 +92,7 @@ namespace Nexus.Objects {
 			// TODO HIGH PRIORITY: End Tick if the activity isn't present.
 			// if(this.activity == (byte) Activity.Inactive) { return; }
 
-			this.rotation += 0.14f;
+			this.rotation += this.spinRate;
 
 			// Standard Motion for Shuriken
 			if(this.State == (byte) CommonState.MotionStart) {
@@ -103,7 +104,7 @@ namespace Nexus.Objects {
 			
 			// Death Motion for Shuriken
 			else if(this.State == (byte) CommonState.Death) {
-				this.rotation -= 0.08f;
+				this.rotation += this.spinRate > 0 ? -0.08f : 0.08f;
 				if(this.endFrame == Systems.timer.Frame) {
 					this.ReturnToPool();
 				}

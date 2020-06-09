@@ -28,6 +28,7 @@ namespace Nexus.Objects {
 
 			projectile.SetSpriteName("Weapon/Grenade");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.07f : -0.07f;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
