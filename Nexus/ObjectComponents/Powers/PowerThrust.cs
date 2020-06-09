@@ -7,7 +7,6 @@ namespace Nexus.ObjectComponents {
 	public class PowerThrust : PowerAttack {
 
 		// Weapon Stats
-		protected short cycleDuration;		// The duration of the weapon's attack.
 		protected short range;				// The range of the weapon's attack.
 		protected byte weaponWidth;			// The width of the weapon, in pixels.
 		protected byte offsetY;				// Height to offset the starting position. (Usually Half Weapon Height)
@@ -40,12 +39,12 @@ namespace Nexus.ObjectComponents {
 			this.sound.Play();
 
 			// Launch Projectile
-			this.Launch(character, startX, startY, endX, endY, Systems.timer.Frame, (uint)(Systems.timer.Frame + this.cycleDuration));
+			this.Launch(character, startX, startY, endX, endY);
 
 			return true;
 		}
 
 		public virtual void AffectByInput() {}
-		public virtual void Launch(GameObject actor, int startX, int startY, int endX, int endY, uint startFrame, uint endFrame) {}
+		public virtual void Launch(GameObject actor, int startX, int startY, int endX, int endY) {}
 	}
 }

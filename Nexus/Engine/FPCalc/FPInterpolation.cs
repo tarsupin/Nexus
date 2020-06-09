@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Nexus.Engine {
 
 	public static class FPInterpolation {
@@ -8,7 +10,6 @@ namespace Nexus.Engine {
 			return (1 - weight) * val1 + weight * val2;
 		}
 
-		
 		//// Calculate a smooth interpolation percent between the `min` and `max`
 		//static getSmoothStepPercent( value: number, min: number, max: number ): number {
 		//	value = (value - min) / (max - min);
@@ -23,6 +24,23 @@ namespace Nexus.Engine {
 		// Ease a value back and forth between two values.
 		public static FInt EaseBothDir( FInt val1, FInt val2, FInt weight )  {
 			return val1 + FInt.Abs(FInt.Sin((weight + FInt.Create(0.75)) * FInt.PI * 2) / 2 + FInt.Create(0.5)) * (val2 - val1);
+		}
+
+		// http://gizma.com/easing/
+		// elapsed: from 0 to duration
+		public static FInt EaseOut(FInt elapsed, FInt startValue, FInt change, FInt duration) {
+			elapsed /= duration;
+			return change.Inverse * elapsed * (elapsed - 2) + startValue;
+		}
+
+		// elapsed: from 0 to duration
+		public static FInt EaseInAndOut(FInt elapsed, FInt startValue, FInt change, FInt duration) {
+			elapsed /= duration / 2;
+			if(elapsed < 1) {
+				return change / 2 * elapsed * elapsed + startValue;
+			}
+			elapsed -= 1;
+			return change.Inverse / 2 * (elapsed * (elapsed - 2) - 1) + startValue;
 		}
 
 		// Quadratic Bezier Interpolation with Smooth Ease

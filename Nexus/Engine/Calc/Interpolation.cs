@@ -14,6 +14,23 @@ namespace Nexus.Engine {
 		public static float EaseBothDir( float val1, float val2, float weight )  {
 			return (float) (val1 + Math.Abs(Math.Sin((weight + 0.75) * Math.PI * 2) / 2 + 0.5) * (val2 - val1));
 		}
+		
+		// http://gizma.com/easing/
+		// elapsed: from 0 to duration
+		public static float EaseOut( float elapsed, float startValue, float change, float duration ) {
+			elapsed /= duration;
+			return -change * elapsed * (elapsed - 2) + startValue;
+		}
+
+		// elapsed: from 0 to duration
+		public static float EaseInAndOut(float elapsed, float startValue, float change, float duration) {
+			elapsed /= duration / 2;
+			if(elapsed < 1) {
+				return change / 2 * elapsed * elapsed + startValue;
+			}
+			elapsed--;
+			return -change / 2 * (elapsed * (elapsed - 2) - 1) + startValue;
+		}
 
 		// Quadratic Bezier Interpolation with Smooth Ease
 		// p0, p1, p2 are Start Point, Control Point, End Point

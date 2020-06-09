@@ -11,26 +11,27 @@ namespace Nexus.Objects {
 
 	public class GloveProjectile : ThrustProjectile {
 
-		private GloveProjectile(RoomScene room, byte subType, FVector pos, FVector endPos, uint startFrame, uint endFrame) : base(room, subType, pos, endPos, startFrame, endFrame) {
+		private GloveProjectile(RoomScene room, byte subType, FVector pos, FVector endPos) : base(room, subType, pos, endPos) {
 			this.Damage = DamageStrength.Standard;
 			this.CollisionType = ProjectileCollisionType.BreakObjects;
+			this.cycleDuration = 24;
 		}
 
-		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos, uint startFrame, uint endFrame) {
+		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos) {
 			GloveProjectile projectile;
 
 			// Retrieve a Projectile from the ObjectPool, if one is available:
 			if(ProjectilePool.WeaponGlove.Count > 0) {
 				projectile = ProjectilePool.WeaponGlove.Pop();
 				projectile.ResetProjectile(subType, pos, FVector.Create(0, 0));
-				projectile.ResetThrustProjectile(startFrame, endFrame);
 			}
 
 			// Create a New Projectile
 			else {
-				projectile = new GloveProjectile(room, subType, pos, endPos, startFrame, endFrame);
+				projectile = new GloveProjectile(room, subType, pos, endPos);
 			}
 
+			projectile.ResetThrustProjectile();
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(5, 5, -5, -5); // Reduce Bounds (otherwise it appears to hit too much, too quickly)
 			projectile.rotation = projectile.endPos.X > projectile.posX ? 0 : Radians.Rotate180;
