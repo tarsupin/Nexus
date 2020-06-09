@@ -60,13 +60,13 @@ namespace Nexus.ObjectComponents {
 			InflictDamageAbove = false;
 
 			RunAcceleration = FInt.Create(0.3);
-			RunDeceleration = 0 - FInt.Create(0.2);
+			RunDeceleration = FInt.Create(-0.2);
 			RunMaxSpeed = 7;
 			SlowSpeedMult = FInt.Create(0.65);
 
 			JumpMaxTimes = 1;
 			AirAcceleration = FInt.Create(0.45);
-			AirDeceleration = 0 - FInt.Create(0.2);
+			AirDeceleration = FInt.Create(-0.2);
 			JumpDuration = 10;
 			JumpStrength = 11;
 
