@@ -33,10 +33,11 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public void SetInnerShield( byte subType, byte ballCount, byte radius, short regenFrames = 0) {
+		public void SetInnerShield(byte subType, byte ballCount, byte radius, short regenFrames = 0, bool clearBoth = true) {
 
 			// Clear Existing Shield
 			this.DestroyInnerShield();
+			if(clearBoth) { this.DestroyOuterShield(); }
 
 			// Create First Layer of MagiBall Shield
 			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {
@@ -47,11 +48,12 @@ namespace Nexus.ObjectComponents {
 				this.innerBalls[ballNum] = projectile;
 			}
 		}
-		
-		public void SetOuterShield( byte subType, byte ballCount, byte radius, short regenFrames = 0) {
+
+		public void SetOuterShield(byte subType, byte ballCount, byte radius, short regenFrames = 0, bool clearBoth = true) {
 
 			// Clear Existing Shield
 			this.DestroyOuterShield();
+			if(clearBoth) { this.DestroyInnerShield(); }
 
 			// Create First Layer of MagiBall Shield
 			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {

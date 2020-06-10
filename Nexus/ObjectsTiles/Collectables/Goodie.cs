@@ -161,15 +161,18 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.RingMagic: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 480); break;
 				case (byte)GoodieSubType.RingFire: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3); break;
 				case (byte)GoodieSubType.RingPoison: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4); break;
-				case (byte)GoodieSubType.RingElements: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 5); break;
+				case (byte)GoodieSubType.RingElements:
+					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 3, 0, false);
+					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 4, 0, false);
+					break;
 				//case (byte)GoodieSubType.RingHawk: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 				//case (byte)GoodieSubType.RingDruid: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 				//case (byte)GoodieSubType.RingEye: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 
 				// Outer Magi Shields
-				case (byte)GoodieSubType.AmuletMagic: this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 4, 720); break;
-				case (byte)GoodieSubType.NeckElectric: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 5); break;
-				case (byte)GoodieSubType.NeckFire: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3); break;
+				case (byte)GoodieSubType.AmuletMagic: this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 5, 720); break;
+				case (byte)GoodieSubType.NeckElectric: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 8); break;
+				case (byte)GoodieSubType.NeckFire: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 6); break;
 				//case (byte)GoodieSubType.NeckHeart: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 
 				// Invincibility
@@ -208,13 +211,13 @@ namespace Nexus.Objects {
 			Systems.sounds.collectSubtle.Play();
 		}
 
-		private void GetInnerMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0) {
-			character.magiShield.SetInnerShield(subType, ballCount, 60, regenFrames);
+		private void GetInnerMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0, bool clearBoth = true) {
+			character.magiShield.SetInnerShield(subType, ballCount, 60, regenFrames, clearBoth);
 			Systems.sounds.shield.Play();
 		}
 		
-		private void GetOuterMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0) {
-			character.magiShield.SetOuterShield(subType, ballCount, 90, regenFrames);
+		private void GetOuterMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0, bool clearBoth = true) {
+			character.magiShield.SetOuterShield(subType, ballCount, 90, regenFrames, clearBoth);
 			Systems.sounds.shield.Play();
 		}
 

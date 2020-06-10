@@ -48,11 +48,12 @@ namespace Nexus.Objects {
 				if(!magi.CanDamage) { return false; }
 			}
 
-			// If the enemy is resistant to the projectile, destroy the projectile.
-			if(this.CanResistDamage(projectile.Damage)) {
+			// Check if the enemy is resistant to the projectile. In most cases, destroy the projectile without harming the enemy.
+			bool canResist = this.CanResistDamage(projectile.Damage);
 
-				// If the projectile typicallly passes through walls, allow it to pass through indestructable enemies.
-				return projectile.CollisionType != ProjectileCollisionType.IgnoreWalls;
+			// If the projectile typicallly passes through walls, allow it to pass through indestructable enemies.
+			if(canResist && projectile.CollisionType == ProjectileCollisionType.IgnoreWalls) {
+				return false;
 			}
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);
@@ -61,7 +62,7 @@ namespace Nexus.Objects {
 			projectile.Destroy(dir);
 
 			// Wound the Enemy
-			this.ReceiveWound();
+			if(!canResist) { this.ReceiveWound(); }
 
 			return true;
 		}

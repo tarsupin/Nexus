@@ -36,9 +36,9 @@ namespace Nexus.Objects {
 					room.tilemap.ClearMainLayer(gridX, gridY);
 					DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 					Systems.sounds.splat1.Play();
-				} else {
-					Systems.sounds.thudThump.Play(0.2f, 0, 0);
 				}
+				
+				//else { Systems.sounds.thudThump.Play(0.2f, 0, 0); }
 
 				return true;
 			}
