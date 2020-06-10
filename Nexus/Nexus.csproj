@@ -340,6 +340,10 @@
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightBehavior.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\RockBall.cs" />
+    <Compile Include="ObjectComponents\Powers\Bolts\BoltNecro.cs" />
+    <Compile Include="ObjectComponents\Powers\Bolts\BoltGold.cs" />
+    <Compile Include="ObjectComponents\Powers\Bolts\BoltGreen.cs" />
+    <Compile Include="ObjectComponents\Powers\Bolts\BoltBlue.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\TeleportMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\PhaseMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LeapMobility.cs" />
@@ -351,7 +355,7 @@
     <Compile Include="ObjectComponents\Powers\Thrown\Shuriken.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Hammer.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Axe.cs" />
-    <Compile Include="ObjectComponents\Powers\Bolts\Bolt.cs" />
+    <Compile Include="ObjectComponents\Powers\PowerBolt.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\WaterBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\PoisonBall.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\FrostBall.cs" />

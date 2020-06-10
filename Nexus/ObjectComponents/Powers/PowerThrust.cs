@@ -44,7 +44,6 @@ namespace Nexus.ObjectComponents {
 			return true;
 		}
 
-		public virtual void AffectByInput() {}
 		public virtual void Launch(GameObject actor, int startX, int startY, int endX, int endY) {}
 	}
 }

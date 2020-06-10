@@ -160,10 +160,10 @@ namespace Nexus.ObjectComponents {
 				case (byte) PowerSubType.ShurikenYellow: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Yellow); break;
 
 				// Power Collectable - Bolts
-				case (byte) PowerSubType.BoltBlue: character.attackPower = new Bolt(character, ProjectileBoltSubType.Blue); break;
-				case (byte) PowerSubType.BoltGold: character.attackPower = new Bolt(character, ProjectileBoltSubType.Gold); break;
-				case (byte) PowerSubType.BoltGreen: character.attackPower = new Bolt(character, ProjectileBoltSubType.Green); break;
-				//case (byte)  PowerSubType.BoltNecro: this.Something(); break;
+				case (byte) PowerSubType.BoltBlue: character.attackPower = new BoltBlue(character); break;
+				case (byte) PowerSubType.BoltGold: character.attackPower = new BoltGold(character); break;
+				case (byte) PowerSubType.BoltGreen: character.attackPower = new BoltGreen(character); break;
+				case (byte) PowerSubType.BoltNecro: character.attackPower = new BoltNecro(character); break;
 				//case (byte)  PowerSubType.Necro1: this.Something(); break;
 				//case (byte)  PowerSubType.Necro2: this.Something(); break;
 

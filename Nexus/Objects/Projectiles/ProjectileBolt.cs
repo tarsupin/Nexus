@@ -7,6 +7,7 @@ namespace Nexus.Objects {
 		Blue,
 		Green,
 		Gold,
+		Necro,
 	}
 
 	public class ProjectileBolt : Projectile {
@@ -15,6 +16,7 @@ namespace Nexus.Objects {
 
 		}
 
+		// TODO: Need to render directional rotation for Bolts:
 		public static ProjectileBolt Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileBolt projectile;
 
@@ -28,6 +30,9 @@ namespace Nexus.Objects {
 			else {
 				projectile = new ProjectileBolt(room, subType, pos, velocity);
 			}
+
+			// Rotation
+			projectile.rotation = Radians.GetRadiansBetweenCoords(0, 0, velocity.X.RoundInt, velocity.Y.RoundInt);
 
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
@@ -67,11 +72,6 @@ namespace Nexus.Objects {
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 
 			} else if(subType == (byte) ProjectileBoltSubType.Green) {
-
-				// TODO RENDER: Need to draw render rotation for projectile:
-				// NOTE: See how this.physics.update is different than others? Maybe use a behavior? Or an action? Or something else? RunTick?
-				// this.physics.update = BoltGreenSwimMovement;
-				// this.render = this.renderRotation;		// still how I want to do this? maybe? or override Draw()?
 				this.SetSpriteName("Projectiles/BoltGreen");
 				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 

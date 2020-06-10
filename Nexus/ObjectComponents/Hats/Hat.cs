@@ -2,7 +2,6 @@
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
-using static Nexus.ObjectComponents.CosmeticHat;
 
 /*
 	Powered Hats:
