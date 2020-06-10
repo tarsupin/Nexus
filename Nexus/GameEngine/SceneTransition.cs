@@ -1,6 +1,5 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
-using System;
 
 /*
  * The purpose of SceneTransition is to:

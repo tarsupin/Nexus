@@ -144,7 +144,7 @@ namespace Nexus.Engine {
 			this.AssignDefaultButtonMap();
 		}
 
-		public void PreProcess(bool sendToServer = true) {
+		public void PreProcess() {
 
 			// Reset Array Cursors/Positions
 			this.pressedNum = 0;
@@ -157,10 +157,6 @@ namespace Nexus.Engine {
 			// Save Current Input States
 			this.curKeyState = Keyboard.GetState();
 			this.curPadState = GamePad.GetState(PlayerIndex.One);
-
-			// The param `sendToServer` indicates if we want to send the keys to the server.
-			// This applies, for example, if the console is open.
-			if(!sendToServer) { return; }
 
 			this.ProcessIKeys();
 

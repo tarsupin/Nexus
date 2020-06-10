@@ -76,6 +76,7 @@ namespace Nexus.GameEngine {
 							if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
 							break;
 
+
 						case DebugTickSpeed.WhileYHeld:
 							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
 							break;

@@ -1,15 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Gameplay;
-using Nexus.Scripts;
 using System;
 
-namespace Nexus
-{
-    public class GameClient : Game
+namespace Nexus {
+	public class GameClient : Game
     {
 		// XNA Graphics
         public GraphicsDeviceManager graphics;
@@ -57,7 +53,7 @@ namespace Nexus
 			//Window.Position = new Point(0, 24);
 
 			// Process Extra Loading Instructions
-			if(loadInstructions != null) { loadInstructions(); }
+			loadInstructions();
 		}
 
 		/// UnloadContent will be called once per game and is the place to unload game-specific content.
@@ -67,7 +63,7 @@ namespace Nexus
         protected override void Update(GameTime gameTime) {
 			//Systems.timer.stopwatch.Start();
 
-			Systems.input.PreProcess(!Systems.levelConsole.visible);
+			Systems.input.PreProcess();
 			Systems.scene.RunTick();
 
 			base.Update(gameTime);
