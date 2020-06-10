@@ -2,6 +2,7 @@
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
+using static Nexus.ObjectComponents.CosmeticHat;
 
 /*
 	Powered Hats:
@@ -51,10 +52,26 @@ namespace Nexus.ObjectComponents {
 		RandomHat = 10,
 
 		// Cosmetic Hats
-		WizardBlueHat = 51,
-		WizardGreenHat = 52,
-		WizardRedHat = 53,
-		WizardWhiteHat = 54,
+
+		// Wizard Hats
+		WizBlack = 51,
+		WizBlue = 52,
+		WizGreen = 53,
+		WizRed = 54,
+		WizWhite = 55,
+
+		// Mage Hats
+		MageBlack = 56,
+		MageBlue = 57,
+		MageGreen = 58,
+		MageRed = 59,
+		MageWhite = 60,
+
+		// Base Cosmetic Hats
+		PooHat = 61,
+
+		// Miscellaneous Hats
+		BaseballHat = 91,
 	}
 
 	public static class HatMap {
@@ -71,10 +88,22 @@ namespace Nexus.ObjectComponents {
 		public static readonly TopHat TopHat = new TopHat();
 
 		// Cosmetic Hats
-		public static readonly WizardBlueHat WizardBlueHat = new WizardBlueHat();
-		public static readonly WizardGreenHat WizardGreenHat = new WizardGreenHat();
-		public static readonly WizardRedHat WizardRedHat = new WizardRedHat();
-		public static readonly WizardWhiteHat WizardWhiteHat = new WizardWhiteHat();
+		public static readonly CosmeticHat WizBlue = new CosmeticHat((byte)HatSubType.WizBlue);
+		public static readonly CosmeticHat WizGreen = new CosmeticHat((byte)HatSubType.WizGreen);
+		public static readonly CosmeticHat WizRed = new CosmeticHat((byte)HatSubType.WizRed);
+		public static readonly CosmeticHat WizWhite = new CosmeticHat((byte)HatSubType.WizWhite);
+
+		public static readonly CosmeticHat MageBlack = new CosmeticHat((byte)HatSubType.MageBlack);
+		public static readonly CosmeticHat MageBlue = new CosmeticHat((byte)HatSubType.MageBlue);
+		public static readonly CosmeticHat MageGreen = new CosmeticHat((byte)HatSubType.MageGreen);
+		public static readonly CosmeticHat MageRed = new CosmeticHat((byte)HatSubType.MageRed);
+		public static readonly CosmeticHat MageWhite = new CosmeticHat((byte)HatSubType.MageWhite);
+
+		// Base Cosmetic Hats
+		public static readonly CosmeticHat PooHat = new CosmeticHat((byte)HatSubType.PooHat);
+		
+		// Miscellaneous Cosmetic Hats
+		public static readonly CosmeticHat BaseballHat = new CosmeticHat((byte)HatSubType.MageWhite);
 	}
 
 	public class Hat {
@@ -112,10 +141,16 @@ namespace Nexus.ObjectComponents {
 				case (byte)HatSubType.TopHat: return HatMap.TopHat;
 
 				// Cosmetic Hats
-				case (byte)HatSubType.WizardBlueHat: return HatMap.WizardBlueHat;
-				case (byte)HatSubType.WizardGreenHat: return HatMap.WizardGreenHat;
-				case (byte)HatSubType.WizardRedHat: return HatMap.WizardRedHat;
-				case (byte)HatSubType.WizardWhiteHat: return HatMap.WizardWhiteHat;
+				case (byte)HatSubType.WizBlue: return HatMap.WizBlue;
+				case (byte)HatSubType.WizGreen: return HatMap.WizGreen;
+				case (byte)HatSubType.WizRed: return HatMap.WizRed;
+				case (byte)HatSubType.WizWhite: return HatMap.WizWhite;
+
+				case (byte)HatSubType.MageBlack: return HatMap.MageBlack;
+				case (byte)HatSubType.MageBlue: return HatMap.MageBlue;
+				case (byte)HatSubType.MageGreen: return HatMap.MageGreen;
+				case (byte)HatSubType.MageRed: return HatMap.MageRed;
+				case (byte)HatSubType.MageWhite: return HatMap.MageWhite;
 			}
 
 			return null;
@@ -134,11 +169,11 @@ namespace Nexus.ObjectComponents {
 			if(resetStats && character.stats != null) { character.stats.ResetCharacterStats(); }
 		}
 
-		public virtual void DestroyHat(Character character, bool resetStats) {
+		public virtual void DestroyHat(Character character, bool resetStats, bool removeCosmetic = false) {
 			character.hat = null;
 
 			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
-			if(character.suit.DefaultCosmeticHat is Hat) {
+			if(!removeCosmetic && character.suit.DefaultCosmeticHat is Hat) {
 				character.suit.DefaultCosmeticHat.ApplyHat(character, false);
 			}
 

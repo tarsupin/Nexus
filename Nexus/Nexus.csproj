@@ -318,6 +318,7 @@
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardGreenHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardBlueHat.cs" />
     <Compile Include="ObjectComponents\Attachments\TrailingKeys.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHat.cs" />
     <Compile Include="ObjectComponents\Heads\PooHead.cs" />
     <Compile Include="ObjectComponents\Heads\CarlHead.cs" />
     <Compile Include="ObjectComponents\Heads\RyuHead.cs" />

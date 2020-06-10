@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 
 	public class BlueWizard : Suit {
 
-		public BlueWizard() : base(SuitRank.PowerSuit, "BlueWizard", HatMap.WizardBlueHat) {
+		public BlueWizard() : base(SuitRank.PowerSuit, "BlueWizard", HatMap.WizBlue) {
 
 		}
 

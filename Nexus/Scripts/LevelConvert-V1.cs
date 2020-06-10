@@ -133,10 +133,10 @@ namespace Nexus.Scripts {
 				
 				else if(param.Key == "hat") {
 					switch(paramVal) {
-						case "WizBlueHat": changed = true; newValue = (byte)HatSubType.WizardBlueHat; break;
-						case "WizGreenHat": changed = true; newValue = (byte)HatSubType.WizardGreenHat; break;
-						case "WizRedHat": changed = true; newValue = (byte)HatSubType.WizardRedHat; break;
-						case "WizWhiteHat": changed = true; newValue = (byte)HatSubType.WizardWhiteHat; break;
+						case "WizBlueHat": changed = true; newValue = (byte)HatSubType.WizBlue; break;
+						case "WizGreenHat": changed = true; newValue = (byte)HatSubType.WizGreen; break;
+						case "WizRedHat": changed = true; newValue = (byte)HatSubType.WizRed; break;
+						case "WizWhiteHat": changed = true; newValue = (byte)HatSubType.WizWhite; break;
 						case "FeatheredHat": changed = true; newValue = (byte)HatSubType.FeatheredHat; break;
 						case "TopHat": changed = true; newValue = (byte)HatSubType.TopHat; break;
 					}

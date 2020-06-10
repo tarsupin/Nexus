@@ -5,7 +5,7 @@ namespace Nexus.ObjectComponents {
 
 	public class WhiteWizard : Suit {
 
-		public WhiteWizard() : base(SuitRank.PowerSuit, "WhiteWizard", HatMap.WizardWhiteHat) {
+		public WhiteWizard() : base(SuitRank.PowerSuit, "WhiteWizard", HatMap.WizWhite) {
 
 		}
 
