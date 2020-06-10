@@ -17,17 +17,15 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
-			// Characters Receive Chomper Damage
-			if(actor is Character) {
-				Character character = (Character) actor;
-				character.wounds.ReceiveWoundDamage(this is Plant ? DamageStrength.None : DamageStrength.Standard);
-			}
-			
 			// Chompers die when hit by projectiles of sufficient damage.
-			else if(actor is Projectile) {
+			if(actor is Projectile) {
 				Projectile proj = (Projectile)actor;
+
+				if(proj is ProjectileMagi) {
+					if(proj.Damage < this.DamageSurvive) { return false; }
+					if(!((ProjectileMagi) proj).CanDamage) { return false; }
+				}
 
 				proj.Destroy(dir);
 
@@ -41,8 +39,18 @@ namespace Nexus.Objects {
 				} else {
 					Systems.sounds.thudThump.Play(0.2f, 0, 0);
 				}
-			}
 
+				return true;
+			}
+			
+			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
+
+			// Characters Receive Chomper Damage
+			if(actor is Character) {
+				Character character = (Character) actor;
+				character.wounds.ReceiveWoundDamage(this is Plant ? DamageStrength.None : DamageStrength.Standard);
+			}
+			
 			return true;
 		}
 

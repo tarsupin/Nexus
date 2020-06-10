@@ -158,7 +158,7 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.ShieldBlue: this.GetArmor(character, 3); break;
 
 				// Inner Magi Shields
-				case (byte)GoodieSubType.RingMagic: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 240); break;
+				case (byte)GoodieSubType.RingMagic: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 480); break;
 				case (byte)GoodieSubType.RingFire: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3); break;
 				case (byte)GoodieSubType.RingPoison: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4); break;
 				case (byte)GoodieSubType.RingElements: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 5); break;
@@ -167,7 +167,7 @@ namespace Nexus.Objects {
 				//case (byte)GoodieSubType.RingEye: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 
 				// Outer Magi Shields
-				case (byte)GoodieSubType.AmuletMagic: this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 4, 360); break;
+				case (byte)GoodieSubType.AmuletMagic: this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 4, 720); break;
 				case (byte)GoodieSubType.NeckElectric: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 5); break;
 				case (byte)GoodieSubType.NeckFire: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3); break;
 				//case (byte)GoodieSubType.NeckHeart: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;

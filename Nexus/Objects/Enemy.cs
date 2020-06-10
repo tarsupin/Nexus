@@ -42,11 +42,11 @@ namespace Nexus.Objects {
 			// If the enemy ignores projectiles, they should pass through without being destroyed.
 			// if(enemy.collision.ignores.projectiles) { return false; }
 
-			// TODO: 
 			// Special behavior for Magi-Balls. Projectiles faded out don't function.
-			// if(projectile instanceof ProjectileMagi && projectile.sustained > 0) {
-			// if(projectile.sustained < 1) { return false; }
-			// }
+			if(projectile is ProjectileMagi) {
+				ProjectileMagi magi = (ProjectileMagi)projectile;
+				if(!magi.CanDamage) { return false; }
+			}
 
 			// If the enemy is resistant to the projectile, destroy the projectile.
 			if(this.CanResistDamage(projectile.Damage)) {

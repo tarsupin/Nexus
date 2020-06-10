@@ -27,10 +27,12 @@ namespace Nexus.Objects {
 		private short regenEnergy;      // The amount of energy stored in the magiball. If less than regenFrames, it's deactivated and is regenerating.
 		private float regenAlpha;		// The alpha percent of visibility of the ball, based on its current energy / regeneration status.
 
+		public bool CanDamage { get { return this.regenEnergy >= this.regenFrames; } }
+
 		private ProjectileMagi(GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) : base(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.SafelyJumpOnTop = false;
-			this.Damage = DamageStrength.Trivial;
+			this.Damage = DamageStrength.Standard;
 		}
 
 		public static ProjectileMagi Create(GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
