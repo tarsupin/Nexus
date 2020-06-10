@@ -31,6 +31,7 @@ namespace Nexus.Objects {
 		// Attachments
 		public TrailingKeys trailKeys;
 		public HeldItem heldItem;
+		public MagiShield magiShield;
 		//public Nameplate nameplate;
 		//public HealthBits healthBits;
 
@@ -51,6 +52,7 @@ namespace Nexus.Objects {
 			// Attachments
 			this.trailKeys = new TrailingKeys(this);
 			this.heldItem = new HeldItem(this);
+			this.magiShield = new MagiShield(this);
 			//this.nameplate = new Nameplate(this, "Ryu", DirCardinal.Up);
 			//this.healthBits = new HealthBits(this);
 
