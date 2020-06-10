@@ -5,7 +5,6 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace Nexus.GameEngine {
 

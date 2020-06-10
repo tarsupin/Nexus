@@ -5,7 +5,6 @@ using Nexus.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static Nexus.GameEngine.FuncTool;
 
 namespace Nexus.GameEngine {
@@ -64,15 +63,6 @@ namespace Nexus.GameEngine {
 			else {
 				this.TileToolTick(Cursor.TileGridX, Cursor.TileGridY);
 			}
-
-			// Faster Camera Movement (with arrow keys)
-			InputClient input = Systems.input;
-
-			// If holding shift down, increase camera movement speed by 3.
-			byte moveMult = (input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift)) ? (byte) 3 : (byte) 1;
-
-			// Camera Movement
-			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
 		}
 
 		public override void Draw() {

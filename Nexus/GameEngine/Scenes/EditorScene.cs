@@ -102,6 +102,12 @@ namespace Nexus.GameEngine {
 
 			// Open Wheel Menu
 			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.contextMenu.OpenMenu(); }
+
+			// If holding shift down, increase camera movement speed by 3.
+			byte moveMult = (input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift)) ? (byte)3 : (byte)1;
+
+			// Camera Movement
+			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
 		}
 
 		public void CheckTileToolKeyBinds(Keys keyPressed) {
