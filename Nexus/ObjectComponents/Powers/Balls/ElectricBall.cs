@@ -8,6 +8,8 @@ namespace Nexus.ObjectComponents {
 		public ElectricBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Electric;
 			this.IconTexture = "Power/Electric";
+			this.baseStr = "magic";
+			this.subStr = "electric";
 			this.SetActivationSettings(60, 2, 15);
 
 			// Power Settings

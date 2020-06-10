@@ -22,10 +22,16 @@ namespace Nexus.GameEngine {
 				// Get Macro Strings
 				string headStr = character.head is Head ? "head " + character.head.subStr + " " + character.head.subStr + " | " : "";
 				string suitStr = character.suit is Suit ? "suit " + character.suit.baseStr + " " + character.suit.subStr + " | " : "";
+				string hatStr = character.hat is Hat ? "hat " + character.hat.subStr + " | " : "";
+				string mobStr = character.mobilityPower is PowerMobility ? "power mobility " + character.mobilityPower.subStr + " | " : "";
+				string attStr = character.attackPower is PowerAttack ? "power " + character.attackPower.baseStr + " " + character.attackPower.subStr + " | " : "";
+
+				string healthStr = character.wounds.Health > 0 ? "heal " + character.wounds.Health + " | " : "";
+				string armorStr = character.wounds.Armor > 0 ? "armor " + character.wounds.Armor + " | " : "";
 
 				// Get the macro substring:
-				string macroStr = headStr + suitStr + " hat ";
-				DebugConfig.AddDebugNote(macroStr);
+				string macroStr = headStr + suitStr + hatStr + mobStr + attStr + healthStr + armorStr + " level teleport-coords " + character.posX + " " + character.posY;
+
 				// Apply the macro to the appropriate function:
 				if(currentIns == "f1") { Systems.settings.input.macroF1 = macroStr; }
 				else if(currentIns == "f2") { Systems.settings.input.macroF2 = macroStr; }

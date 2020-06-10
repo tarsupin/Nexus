@@ -8,6 +8,8 @@ namespace Nexus.ObjectComponents {
 		public WaterBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Water;
 			this.IconTexture = "Power/Water";
+			this.baseStr = "magic";
+			this.subStr = "water";
 			this.SetActivationSettings(144, 2, 39);
 
 			// Power Settings

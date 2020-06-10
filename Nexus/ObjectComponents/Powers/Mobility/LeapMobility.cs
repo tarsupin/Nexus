@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public LeapMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Leap";
+			this.subStr = "leap";
 			this.SetActivationSettings(15, 1, 15);
 		}
 

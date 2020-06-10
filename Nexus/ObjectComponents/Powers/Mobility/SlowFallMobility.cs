@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		public SlowFallMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/SlowFall";
+			this.subStr = "slowfall";
 		}
 
 		public override bool Activate() {

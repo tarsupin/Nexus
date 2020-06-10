@@ -10,6 +10,8 @@ namespace Nexus.ObjectComponents {
 			this.subType = (byte) ProjectileBallSubType.Rock;
 			this.sound = Systems.sounds.rock;
 			this.IconTexture = "Power/Rock";
+			this.baseStr = "magic";
+			this.subStr = "rock";
 			this.SetActivationSettings(60, 1, 30);
 
 			// Power Settings

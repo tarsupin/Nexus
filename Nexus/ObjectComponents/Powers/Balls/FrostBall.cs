@@ -8,6 +8,8 @@ namespace Nexus.ObjectComponents {
 		public FrostBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Frost;
 			this.IconTexture = "Power/Frost";
+			this.baseStr = "magic";
+			this.subStr = "frost";
 			this.SetActivationSettings(60, 3, 12);
 
 			// Power Settings

@@ -11,6 +11,8 @@ namespace Nexus.ObjectComponents {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;
 			this.IconTexture = "Power/Hammer";
+			this.baseStr = "ranged";
+			this.subStr = "hammer";
 			this.SetActivationSettings(210, 7, 9);
 
 			// Power Settings

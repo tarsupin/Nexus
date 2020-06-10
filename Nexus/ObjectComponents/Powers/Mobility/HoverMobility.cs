@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		public HoverMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Hover";
+			this.subStr = "hover";
 			this.SetActivationSettings(105, 1, 105);
 		}
 

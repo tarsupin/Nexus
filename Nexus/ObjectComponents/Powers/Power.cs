@@ -71,6 +71,7 @@ namespace Nexus.ObjectComponents {
 		protected readonly Character character;
 
 		public string IconTexture { get; protected set; }	// The texture path for the Power Icon (e.g. "Power/" + this.pool)
+		public string subStr { get; protected set; }
 
 		protected byte cooldown;			// In Frames
 		protected byte numberOfUses;

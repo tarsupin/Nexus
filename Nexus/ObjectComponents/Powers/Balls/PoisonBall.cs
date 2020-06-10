@@ -9,6 +9,8 @@ namespace Nexus.ObjectComponents {
 		public PoisonBall( Character character ) : base( character ) {
 			this.subType = (byte) ProjectileBallSubType.Poison;
 			this.IconTexture = "Power/Slime";
+			this.baseStr = "magic";
+			this.subStr = "poison";
 			this.SetActivationSettings(96, 2, 30);
 
 			// Power Settings

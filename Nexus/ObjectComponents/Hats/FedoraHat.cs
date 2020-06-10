@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public FedoraHat() : base(HatRank.PowerHat) {
 			this.SpriteName = "Hat/FedoraHat";
+			this.subStr = "fedora";
 		}
 
 		public override void UpdateCharacterStats(Character character) {

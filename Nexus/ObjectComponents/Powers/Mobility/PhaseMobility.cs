@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public PhaseMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Phase";
+			this.subStr = "phase";
 			this.SetActivationSettings(15, 1, 15);
 		}
 

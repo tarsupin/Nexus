@@ -112,6 +112,7 @@ namespace Nexus.ObjectComponents {
 		protected Atlas atlas;
 		protected sbyte yOffset;        // The Y-Offset for placing the hat on the character's head.
 		protected string SpriteName;	// Name of the base sprite to draw.
+		public string subStr { get; protected set; }
 
 		public Hat( HatRank hatRank = HatRank.BaseHat ) {
 			this.hatRank = hatRank;

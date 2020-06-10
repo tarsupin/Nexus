@@ -17,6 +17,8 @@ namespace Nexus.ObjectComponents {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;
 			this.IconTexture = "Power/Shuriken";
+			this.baseStr = "ranged";
+			this.subStr = "shuriken";
 			this.SetActivationSettings(132, 3, 15);
 
 			// Power Settings

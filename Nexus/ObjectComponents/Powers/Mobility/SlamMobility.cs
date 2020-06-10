@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public SlamMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Slam";
+			this.subStr = "slam";
 			this.SetActivationSettings(15, 1, 15);
 		}
 

@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public FeatheredHat() : base(HatRank.PowerHat) {
 			this.SpriteName = "Hat/FeatheredHat";
+			this.subStr = "feathered";
 		}
 
 		public override void UpdateCharacterStats(Character character) {

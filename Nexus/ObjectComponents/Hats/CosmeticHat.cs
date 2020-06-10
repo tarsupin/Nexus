@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		public CosmeticHat( byte subType ) : base (HatRank.CosmeticHat ) {
 			this.ApplySubTypes(subType);
+			this.subStr = "";
 		}
 
 		private void ApplySubTypes(byte subType) {

@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public AthleteMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Athlete";
+			this.subStr = "athlete";
 			this.SetActivationSettings(15, 1, 15);
 		}
 

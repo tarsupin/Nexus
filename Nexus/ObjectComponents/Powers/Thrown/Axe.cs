@@ -8,6 +8,8 @@ namespace Nexus.ObjectComponents {
 
 		public Axe( Character character, WeaponAxeSubType subType ) : base( character ) {
 			this.ApplySubType(subType);
+			this.baseStr = "ranged";
+			this.subStr = "axe";
 			this.sound = Systems.sounds.axe;
 		}
 

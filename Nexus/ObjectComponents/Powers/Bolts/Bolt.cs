@@ -15,6 +15,7 @@ namespace Nexus.ObjectComponents {
 			this.ApplySubType(subType);
 			this.sound = Systems.sounds.bolt;
 			this.multMomentum = FInt.Create(0);
+			this.baseStr = "wand";
 		}
 
 		public void ApplySubType(ProjectileBoltSubType subType ) {
@@ -22,6 +23,7 @@ namespace Nexus.ObjectComponents {
 
 			if(subType == ProjectileBoltSubType.Blue) {
 				this.IconTexture = "Power/Bolt";
+				this.subStr = "blue";
 				this.SetActivationSettings(72, 2, 21);
 
 				// Power Settings
@@ -33,6 +35,7 @@ namespace Nexus.ObjectComponents {
 
 			else if(subType == ProjectileBoltSubType.Gold) {
 				this.IconTexture = "Power/Gold";
+				this.subStr = "gold";
 				this.SetActivationSettings(90, 2, 24);
 
 				// Power Settings
@@ -44,6 +47,7 @@ namespace Nexus.ObjectComponents {
 
 			else if(subType == ProjectileBoltSubType.Green) {
 				this.IconTexture = "Power/Green";
+				this.subStr = "green";
 				this.SetActivationSettings(96, 2, 21);
 
 				// TODO LOW PRIORITY: Green Bolts originally used random positioning and wave-like movement. MUST UPDATE. Right now, no unique feature.

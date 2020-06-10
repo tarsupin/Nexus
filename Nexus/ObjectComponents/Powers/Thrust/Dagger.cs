@@ -12,6 +12,8 @@ namespace Nexus.ObjectComponents {
 			this.weaponWidth = 54;
 			this.offsetY = 11;
 			this.sound = Systems.sounds.dagger;
+			this.baseStr = "weapon";
+			this.subStr = "dagger";
 		}
 
 		public override void Launch(GameObject actor, int startX, int startY, int endX, int endY) {

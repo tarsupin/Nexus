@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		public FlightMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Flight";
+			this.subStr = "flight";
 			this.SetActivationSettings(15, 1, 15);
 		}
 

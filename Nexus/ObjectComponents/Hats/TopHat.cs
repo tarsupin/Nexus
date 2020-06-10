@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 		public TopHat() : base(HatRank.PowerHat) {
 			this.SpriteName = "Hat/TopHat";
+			this.subStr = "top";
 		}
 
 		public override void UpdateCharacterStats(Character character) {

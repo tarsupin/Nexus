@@ -5,6 +5,7 @@ namespace Nexus.ObjectComponents {
 
 	public class PowerAttack : Power {
 
+		public string baseStr { get; protected set; }
 		protected byte subType;
 		protected SoundEffect sound;
 
