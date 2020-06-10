@@ -88,10 +88,6 @@ namespace Nexus.Objects {
 
 		public override void RunTick() {
 
-			// Activity
-			// TODO HIGH PRIORITY: End Tick if the activity isn't present.
-			// if(this.activity == (byte) Activity.Inactive) { return; }
-
 			this.rotation += this.spinRate;
 
 			// Standard Motion for Shuriken

@@ -7,35 +7,40 @@ namespace Nexus.Objects {
 
 	public class Chomper : TileObject {
 
-		public string SpriteName;       // The default name for the Sprite.
-		protected string KnockoutName;	// The particle texture string to use when it's knocked out.
+		public string SpriteName;				// The default name for the Sprite.
+		protected string KnockoutName;			// The particle texture string to use when it's knocked out
+		protected DamageStrength DamageSurvive;	// The amount of damage something can take before dying.
 
 		protected Chomper() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
 		}
 
-		// TODO HIGH PRIORITY: Chomper Impacts (projectiles, character, etc.)
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 
 			// Characters Receive Chomper Damage
 			if(actor is Character) {
 				Character character = (Character) actor;
-				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+				character.wounds.ReceiveWoundDamage(this is Plant ? DamageStrength.None : DamageStrength.Standard);
 			}
 			
 			// Chompers die when hit by projectiles of sufficient damage.
 			else if(actor is Projectile) {
-				(actor as Projectile).Destroy(dir);
+				Projectile proj = (Projectile)actor;
 
-				// TODO: Check that projectile deals enough damage.
-				room.tilemap.RemoveTile(gridX, gridY);
-				DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte) TilemapEnum.TileWidth, gridY * (byte) TilemapEnum.TileHeight);
-				Systems.sounds.splat1.Play();
+				proj.Destroy(dir);
 
-				// Otherwise, a sound to indicate failure.
-				// Systems.sounds.blah.Play();
+				// Verify the projectile does enough damage:
+				if(proj.Damage >= this.DamageSurvive || this is Plant) {
+
+					// Remove the Chomper and Display it's knockout effect.
+					room.tilemap.ClearMainLayer(gridX, gridY);
+					DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+					Systems.sounds.splat1.Play();
+				} else {
+					Systems.sounds.thudThump.Play(0.2f, 0, 0);
+				}
 			}
 
 			return true;

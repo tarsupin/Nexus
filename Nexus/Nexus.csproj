@@ -348,6 +348,7 @@
     <Compile Include="ObjectComponents\Powers\Mobility\PhaseMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LeapMobility.cs" />
     <Compile Include="ObjectComponents\Powers\PowerThrust.cs" />
+    <Compile Include="ObjectComponents\Powers\Thrown\Grenade.cs" />
     <Compile Include="ObjectComponents\Powers\Thrust\Dagger.cs" />
     <Compile Include="ObjectComponents\Powers\Thrust\BoxingGlove.cs" />
     <Compile Include="ObjectComponents\Powers\Thrust\Spear.cs" />

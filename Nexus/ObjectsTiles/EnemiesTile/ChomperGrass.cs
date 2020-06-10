@@ -8,6 +8,7 @@ namespace Nexus.Objects {
 		public ChomperGrass() : base() {
 			this.SpriteName = "Chomper/Grass/Chomp";
 			this.KnockoutName = "Particles/Chomp/Grass";
+			this.DamageSurvive = DamageStrength.Standard;
 			this.tileId = (byte)TileEnum.ChomperGrass;
 			this.title = "Chomper";
 			this.description = "Stationary enemy. Most projectiles destroy it.";

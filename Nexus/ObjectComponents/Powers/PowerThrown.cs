@@ -62,13 +62,12 @@ namespace Nexus.ObjectComponents {
 
 		public virtual void AffectByInput(ref FInt velX, ref FInt velY, ref int posX, ref int posY) {
 			PlayerInput input = this.character.input;
-			if(input.isDown(IKey.Up)) { velY = this.yVelUp; } else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
+			if(input.isDown(IKey.Up)) { velY = this.yVelUp; }
+			else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
 		}
 
-		public virtual Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
+		public virtual void Launch(int posX, int posY, FInt velX, FInt velY) {
 			throw new System.Exception("Method must be overwritten. See WeaponShuriken.");
-			//projectile.SetActorID(this.character);
-			//return projectile;
 		}
 	}
 }

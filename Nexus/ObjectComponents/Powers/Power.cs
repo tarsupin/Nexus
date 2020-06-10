@@ -123,55 +123,58 @@ namespace Nexus.ObjectComponents {
 			switch(subType) {
 
 				// Collectable Powers - Mobility (Potion)
-				case (byte) PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); break;
-				case (byte) PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); break;
-				case (byte) PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); break;
-				case (byte) PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); break;
-				case (byte) PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); break;
-				case (byte) PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); break;
-				case (byte) PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); break;
-				case (byte) PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); break;
-				case (byte) PowerSubType.Air: character.mobilityPower = new AirMobility(character); break;
-				case (byte) PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); break;
-				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); break;
+				case (byte) PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); return;
+				case (byte) PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); return;
+				case (byte) PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); return;
+				case (byte) PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); return;
+				case (byte) PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); return;
+				case (byte) PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); return;
+				case (byte) PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); return;
+				case (byte) PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); return;
+				case (byte) PowerSubType.Air: character.mobilityPower = new AirMobility(character); return;
+				case (byte) PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); return;
+				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); return;
 
 				// Collectable Powers - Weapon
-				case (byte) PowerSubType.BoxingRed: character.attackPower = new BoxingGlove(character); break;
-				case (byte) PowerSubType.BoxingWhite: character.attackPower = new BoxingGlove(character); break;
-				case (byte) PowerSubType.Dagger: character.attackPower = new Dagger(character); break;
-				case (byte) PowerSubType.DaggerGreen: character.attackPower = new Dagger(character); break;
-				case (byte) PowerSubType.Spear: character.attackPower = new Spear(character); break;
-				case (byte) PowerSubType.Sword: character.attackPower = new Sword(character); break;
+				case (byte) PowerSubType.BoxingRed: character.attackPower = new BoxingGlove(character); return;
+				case (byte) PowerSubType.BoxingWhite: character.attackPower = new BoxingGlove(character); return;
+				case (byte) PowerSubType.Dagger: character.attackPower = new Dagger(character); return;
+				case (byte) PowerSubType.DaggerGreen: character.attackPower = new Dagger(character); return;
+				case (byte) PowerSubType.Spear: character.attackPower = new Spear(character); return;
+				case (byte) PowerSubType.Sword: character.attackPower = new Sword(character); return;
 
 				// Collectable Powers - Book
-				case (byte) PowerSubType.Electric: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Fire: character.attackPower = new FireBall(character); break;
-				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); break;
-				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); break;
-				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); break;
-				case (byte) PowerSubType.Slime: character.attackPower = new PoisonBall(character); break;
+				case (byte) PowerSubType.Electric: character.attackPower = new ElectricBall(character); return;
+				case (byte) PowerSubType.Fire: character.attackPower = new FireBall(character); return;
+				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); return;
+				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); return;
+				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); return;
+				case (byte) PowerSubType.Slime: character.attackPower = new PoisonBall(character); return;
 
 				// Collectable Powers - Thrown
-				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); break;
-				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, 0); break;
-				case (byte) PowerSubType.ShurikenGreen: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Green); break;
-				case (byte) PowerSubType.ShurikenRed: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Red); break;
-				case (byte) PowerSubType.ShurikenBlue: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Blue); break;
-				case (byte) PowerSubType.ShurikenYellow: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Yellow); break;
+				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); return;
+				case (byte) PowerSubType.Hammer: character.attackPower = new Hammer(character, 0); return;
+				case (byte) PowerSubType.ShurikenGreen: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Green); return;
+				case (byte) PowerSubType.ShurikenRed: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Red); return;
+				case (byte) PowerSubType.ShurikenBlue: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Blue); return;
+				case (byte) PowerSubType.ShurikenYellow: character.attackPower = new Shuriken(character, (byte)ShurikenSubType.Yellow); return;
 
 				// Power Collectable - Bolts
-				case (byte) PowerSubType.BoltBlue: character.attackPower = new BoltBlue(character); break;
-				case (byte) PowerSubType.BoltGold: character.attackPower = new BoltGold(character); break;
-				case (byte) PowerSubType.BoltGreen: character.attackPower = new BoltGreen(character); break;
-				case (byte) PowerSubType.BoltNecro: character.attackPower = new BoltNecro(character); break;
-				//case (byte)  PowerSubType.Necro1: this.Something(); break;
-				//case (byte)  PowerSubType.Necro2: this.Something(); break;
+				case (byte) PowerSubType.BoltBlue: character.attackPower = new BoltBlue(character); return;
+				case (byte) PowerSubType.BoltGold: character.attackPower = new BoltGold(character); return;
+				case (byte) PowerSubType.BoltGreen: character.attackPower = new BoltGreen(character); return;
+				case (byte) PowerSubType.BoltNecro: character.attackPower = new BoltNecro(character); return;
+				//case (byte)  PowerSubType.Necro1: this.Something(); return;
+				//case (byte)  PowerSubType.Necro2: this.Something(); return;
+			}
 
-				// Collectable Powers - Stack
-				case (byte) PowerSubType.Chakram: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.ChakramPack: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.Grenade: character.attackPower = new ElectricBall(character); break;
-				case (byte) PowerSubType.GrenadePack: character.attackPower = new ElectricBall(character); break;
+			// Grenade Packs
+			// TODO: ADD PACK COUNTS
+			if(subType == (byte)PowerSubType.Grenade || subType == (byte)PowerSubType.GrenadePack) {
+				byte count = subType == (byte)PowerSubType.Grenade ? (byte)1 : (byte)3;
+				if(character.attackPower is Grenade == false) {
+					character.attackPower = new Grenade(character);
+				}
 			}
 		}
 

@@ -1,11 +1,10 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
-	public class Plant : TileObject {
+	public class Plant : Chomper {
 
 		public string[] Texture;
 
@@ -17,27 +16,12 @@ namespace Nexus.Objects {
 		public Plant() : base() {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
+			this.KnockoutName = "Particles/Chomp/Plant";
+			this.DamageSurvive = DamageStrength.Forced;
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Plant;
 			this.title = "Plant";
 			this.description = "Stationary. Doesn't hurt the character, but can be destroyed.";
-		}
-
-		// Plant Impacts
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-
-			// Plants die when hit by projectiles of sufficient damage.
-			 if(actor is Projectile) {
-				(actor as Projectile).Destroy(dir);
-				room.tilemap.RemoveTile(gridX, gridY);
-
-				// TODO: Get gridID and determine subType. Otherwise, it always shows Plant here.
-				DeathEmitter.Knockout(room, "Particles/Chomp/Plant", gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
-				Systems.sounds.splat1.Play();
-			}
-
-			return true;
 		}
 
 		private void CreateTextures() {

@@ -16,7 +16,6 @@ namespace Nexus.Objects {
 
 		}
 
-		// TODO: Need to render directional rotation for Bolts:
 		public static ProjectileBolt Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 			ProjectileBolt projectile;
 
@@ -42,28 +41,6 @@ namespace Nexus.Objects {
 
 			return projectile;
 		}
-
-		// TODO RENDER: UpdateRotation()
-		//public void UpdateRotation() {
-		//	this.rotRadian = Radians.getRadiansBetween(0, 0, this.physics.velocity.x, this.physics.velocity.y);
-		//}
-
-
-		// Instance Behavior (Green Bolt Only)
-		//this.startY = this.pos.y;
-		//this.elapsedOffset = scene.time.elapsed;
-		// TODO UPDATE MOVEMENT (applies to Green Bolts only)
-		//function BoltGreenSwimMovement( time: Timer ): void {
-		//	let obj = this.obj;
-		//	let vel = this.velocity;
-
-		//	this.pos.y = Calc.lerpEaseBothDir( obj.startY + 50, obj.startY - 50, ((time.elapsed - obj.elapsedOffset) % 500) / 500 );
-
-		//	vel.x = Calc.precisionRound(vel.x, 3);
-		//	vel.y = Calc.precisionRound(vel.y, 3);
-
-		//	this.trackPhysics( time.dt );
-		//}
 
 		private void AssignSubType(byte subType) {
 

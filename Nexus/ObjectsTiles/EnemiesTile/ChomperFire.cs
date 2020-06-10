@@ -8,6 +8,7 @@ namespace Nexus.Objects {
 		public ChomperFire() : base() {
 			this.SpriteName = "Chomper/Fire/Chomp";
 			this.KnockoutName = "Particles/Chomp/Fire";
+			this.DamageSurvive = DamageStrength.Standard;
 			this.tileId = (byte)TileEnum.ChomperFire;
 			this.title = "Fire Chomper";
 			this.description = "Stationary enemy. Can shoot fireballs.";

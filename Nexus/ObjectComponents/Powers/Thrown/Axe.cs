@@ -7,10 +7,31 @@ namespace Nexus.ObjectComponents {
 	public class Axe : PowerThrown {
 
 		public Axe( Character character, WeaponAxeSubType subType ) : base( character ) {
-			this.ApplySubType(subType);
 			this.baseStr = "ranged";
 			this.subStr = "axe";
 			this.sound = Systems.sounds.axe;
+			this.SetActivationSettings(72, 1, 36);
+
+			// Power Settings
+			this.multMomentum = FInt.Create(0.65);
+			this.xVel = FInt.Create(5);
+			this.yVel = FInt.Create(-12);
+			this.yVelUp = FInt.Create(-18);
+			this.yVelDown = FInt.Create(1);
+
+			this.ApplySubType(subType);
+		}
+
+		public void ApplySubType(WeaponAxeSubType subType) {
+			this.subType = (byte)subType;
+
+			if(subType == WeaponAxeSubType.Axe) {
+				this.IconTexture = "Weapon/Axe";
+			} else if(subType == WeaponAxeSubType.Axe2) {
+				this.IconTexture = "Weapon/Axe2";
+			} else if(subType == WeaponAxeSubType.Axe3) {
+				this.IconTexture = "Weapon/Axe3";
+			}
 		}
 
 		public override void AffectByInput(ref FInt velX, ref FInt velY, ref int posX, ref int posY) {
@@ -28,52 +49,9 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public void ApplySubType(WeaponAxeSubType subType) {
-			this.subType = (byte) subType;
-
-			if(subType == WeaponAxeSubType.Axe) {
-				this.IconTexture = "Weapon/Axe";
-				this.SetActivationSettings(72, 1, 36);
-
-				// Power Settings
-				this.multMomentum = FInt.Create(0.65);
-				this.xVel = FInt.Create(5);
-				this.yVel = FInt.Create(-12);
-				this.yVelUp = FInt.Create(-18);
-				this.yVelDown = FInt.Create(1);
-			}
-			
-			// TODO: Right now, Axe2 is identical to Axe. Change it's behavior, at least slightly.
-			else if(subType == WeaponAxeSubType.Axe2) {
-				this.IconTexture = "Weapon/Axe2";
-				this.SetActivationSettings(72, 1, 36);
-
-				// Power Settings
-				this.multMomentum = FInt.Create(0.65);
-				this.xVel = FInt.Create(5);
-				this.yVel = FInt.Create(-12);
-				this.yVelUp = FInt.Create(-18);
-				this.yVelDown = FInt.Create(1);
-			}
-
-			// TODO: Right now, Axe3 is identical to Axe. Change it's behavior, at least slightly.
-			else if(subType == WeaponAxeSubType.Axe3) {
-				this.IconTexture = "Weapon/Axe3";
-				this.SetActivationSettings(72, 1, 36);
-
-				// Power Settings
-				this.multMomentum = FInt.Create(0.65);
-				this.xVel = FInt.Create(5);
-				this.yVel = FInt.Create(-12);
-				this.yVelUp = FInt.Create(-18);
-				this.yVelDown = FInt.Create(1);
-			}
-		}
-
-		public override Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
+		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
 			var projectile = AxeProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
-			return projectile;
 		}
 	}
 }

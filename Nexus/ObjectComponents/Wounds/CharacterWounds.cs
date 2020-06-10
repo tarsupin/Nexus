@@ -66,6 +66,9 @@ namespace Nexus.ObjectComponents {
 
 		public bool ReceiveWoundDamage( DamageStrength damageStrength ) {
 
+			// If insufficient damage was created.
+			if(damageStrength < DamageStrength.Trivial) { return false; }
+
 			// If the Character took Instant-Kill Wounds:
 			if((byte) damageStrength > (byte) DamageStrength.Lethal) { return this.Death(); }
 

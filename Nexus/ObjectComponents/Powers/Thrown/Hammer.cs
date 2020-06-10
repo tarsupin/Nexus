@@ -40,10 +40,9 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public override Projectile Launch(int posX, int posY, FInt velX, FInt velY) {
+		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
 			var projectile = HammerProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
-			return projectile;
 		}
 	}
 }
