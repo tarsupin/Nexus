@@ -169,6 +169,11 @@ namespace Nexus.GameEngine {
 
 			// Standard Heads
 			{ "ryu", HeadSubType.RyuHead },
+			{ "poo", HeadSubType.PooHead },
+			{ "carl", HeadSubType.CarlHead },
+			{ "kirbs", HeadSubType.KirbsHead },
+			{ "panda", HeadSubType.PandaHead },
+			{ "neo", HeadSubType.NeoHead },
 		};
 	}
 }

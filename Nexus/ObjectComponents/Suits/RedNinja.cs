@@ -5,7 +5,8 @@ namespace Nexus.ObjectComponents {
 	public class RedNinja : Suit {
 
 		public RedNinja() : base(SuitRank.PowerSuit, "RedNinja") {
-
+			this.baseStr = "ninja";
+			this.subStr = "red";
 		}
 
 		public override void UpdateCharacterStats(Character character) {

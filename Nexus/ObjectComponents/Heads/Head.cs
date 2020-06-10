@@ -12,6 +12,11 @@ namespace Nexus.ObjectComponents {
 		RyuHead = 5,
 		PooHead = 6,
 		CarlHead = 7,
+		KirbsHead = 8,
+		PandaHead = 9,
+
+		// Fun Heads
+		NeoHead = 50,
 
 		// Random Heads
 		RandomHead = 90,
@@ -22,12 +27,16 @@ namespace Nexus.ObjectComponents {
 		public static readonly RyuHead RyuHead = new RyuHead();
 		public static readonly PooHead PooHead = new PooHead();
 		public static readonly CarlHead CarlHead = new CarlHead();
+		public static readonly KirbsHead KirbsHead = new KirbsHead();
+		public static readonly PandaHead PandaHead = new PandaHead();
+		public static readonly NeoHead NeoHead = new NeoHead();
 	}
 
 	public class Head {
 
 		protected readonly Atlas atlas;
-		protected readonly string SpriteName;		// Name of the base sprite to draw.
+		protected readonly string SpriteName;       // Name of the base sprite to draw.
+		public string subStr { get; protected set; }
 		public readonly Hat DefaultCosmeticHat;		// A default, Cosmetic Hat associated with the Head (such as Wizard Hats for Wizards).
 
 		public Head( string headName, Hat defaultCosmeticHat = null) {

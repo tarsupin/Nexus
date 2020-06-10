@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 			this.baseHelperText = "The debug console is used to access helpful diagnostic tools, cheat codes, level design options, etc.";
 
 			this.consoleDict = new Dictionary<string, Action>() {
-			
+				
 				// Debug
 				{ "debug", ConsoleDebug.DebugBase },
 				{ "macro", ConsoleMacro.DebugMacro },
@@ -19,6 +19,7 @@ namespace Nexus.GameEngine {
 
 				// Level
 				{ "level", ConsoleLevel.CheatCodeLevel },
+				{ "save", ConsoleSave.SaveState },
 
 				// Character Stats
 				{ "stats", ConsoleStats.CheatCodeStats },

@@ -6,7 +6,8 @@ namespace Nexus.ObjectComponents {
 	public class RedWizard : Suit {
 
 		public RedWizard() : base(SuitRank.PowerSuit, "RedWizard", HatMap.WizRed) {
-
+			this.baseStr = "wizard";
+			this.subStr = "red";
 		}
 
 		public override void UpdateCharacterStats(Character character) {

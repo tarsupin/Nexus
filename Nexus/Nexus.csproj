@@ -85,6 +85,7 @@
     <Compile Include="Engine\Particles\ParticleFree.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
+    <Compile Include="GameEngine\Console\LevelConsoles\ConsoleSave.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleToEditor.cs" />
     <Compile Include="GameEngine\Console\WorldConsoles\WCReset.cs" />
     <Compile Include="GameEngine\Console\WorldConsoles\WCToEditor.cs" />
@@ -319,6 +320,9 @@
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardBlueHat.cs" />
     <Compile Include="ObjectComponents\Attachments\TrailingKeys.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHat.cs" />
+    <Compile Include="ObjectComponents\Heads\NeoHead.cs" />
+    <Compile Include="ObjectComponents\Heads\PandaHead.cs" />
+    <Compile Include="ObjectComponents\Heads\KirbsHead.cs" />
     <Compile Include="ObjectComponents\Heads\PooHead.cs" />
     <Compile Include="ObjectComponents\Heads\CarlHead.cs" />
     <Compile Include="ObjectComponents\Heads\RyuHead.cs" />
