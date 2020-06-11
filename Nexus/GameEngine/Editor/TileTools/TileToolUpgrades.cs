@@ -81,7 +81,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectableHat,
-					subType = (byte)HatSubType.FedoraHat,
+					subType = (byte)HatSubType.Fedora,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectableHat,
@@ -101,7 +101,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte)TileEnum.CollectableHat,
-					subType = (byte)HatSubType.RandomHat,
+					subType = (byte)HatSubType.RandomPowerHat,
 				},
 			});
 

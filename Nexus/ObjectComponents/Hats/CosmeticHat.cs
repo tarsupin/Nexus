@@ -14,17 +14,10 @@ namespace Nexus.ObjectComponents {
 		private void ApplySubTypes(byte subType) {
 
 			// Wizard Hats
-			if(subType == (byte) HatSubType.WizBlue) { this.SpriteName = "Hat/WizBlueHat"; }
-			if(subType == (byte) HatSubType.WizGreen) { this.SpriteName = "Hat/WizGreenHat"; }
-			if(subType == (byte) HatSubType.WizRed) { this.SpriteName = "Hat/WizRedHat"; }
-			if(subType == (byte) HatSubType.WizWhite) { this.SpriteName = "Hat/WizWhiteHat"; }
-
-			// Mage Hats
-			if(subType == (byte) HatSubType.MageBlack) { this.SpriteName = "Hat/MageBlackHat"; }
-			if(subType == (byte) HatSubType.MageBlue) { this.SpriteName = "Hat/MageBlueHat"; }
-			if(subType == (byte) HatSubType.MageGreen) { this.SpriteName = "Hat/MageGreenHat"; }
-			if(subType == (byte) HatSubType.MageRed) { this.SpriteName = "Hat/MageRedHat"; }
-			if(subType == (byte) HatSubType.MageWhite) { this.SpriteName = "Hat/MageWhiteHat"; }
+			if(subType == (byte) HatSubType.WizBlue) { this.SpriteName = "Hat/WizBlue"; }
+			if(subType == (byte) HatSubType.WizGreen) { this.SpriteName = "Hat/WizGreen"; }
+			if(subType == (byte) HatSubType.WizRed) { this.SpriteName = "Hat/WizRed"; }
+			if(subType == (byte) HatSubType.WizWhite) { this.SpriteName = "Hat/WizWhite"; }
 
 			// Important Cosmetic Hats
 			if(subType == (byte) HatSubType.PooHat) { this.SpriteName = "Hat/PooHat"; }

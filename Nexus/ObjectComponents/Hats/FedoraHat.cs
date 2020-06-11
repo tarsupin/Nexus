@@ -3,10 +3,10 @@
 namespace Nexus.ObjectComponents {
 
 	// TODO: Undecided Power
-	public class FedoraHat : Hat {
+	public class Fedora : Hat {
 
-		public FedoraHat() : base(HatRank.PowerHat) {
-			this.SpriteName = "Hat/FedoraHat";
+		public Fedora() : base(HatRank.PowerHat) {
+			this.SpriteName = "Hat/Fedora";
 			this.subStr = "fedora";
 		}
 

@@ -130,17 +130,18 @@ namespace Nexus.GameEngine {
 				}
 
 				// "hat" was the final valid instruction. Give a random hat to the character.
-				Hat.AssignToCharacter(ConsoleTrack.character, (byte) HatSubType.RandomHat, true);
+				Hat.AssignToCharacter(ConsoleTrack.character, (byte) HatSubType.RandomPowerHat, true);
 			}
 		}
 
 		public static readonly Dictionary<string, object> hatCodes = new Dictionary<string, object>() {
 			{ "none", (byte) HatSubType.None },
+			{ "cosmetic", (byte) HatSubType.RandomMagicHat },
 			{ "angel", (byte) HatSubType.AngelHat },
 			{ "bamboo", (byte) HatSubType.BambooHat },
 			{ "cowboy", (byte) HatSubType.CowboyHat },
 			{ "feather", (byte) HatSubType.FeatheredHat },
-			{ "fedora", (byte) HatSubType.FedoraHat },
+			{ "fedora", (byte) HatSubType.Fedora },
 			{ "hard", (byte) HatSubType.HardHat },
 			{ "ranger", (byte) HatSubType.RangerHat },
 			{ "spikey", (byte) HatSubType.SpikeyHat },

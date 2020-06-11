@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 			this.rules[0] = new LabeledParam("content", "Content Type", this.contentGroup, (byte)0);
 			this.rules[1] = new DictParam("id", "Goodie", ParamDict.Goodies, (byte)GoodieSubType.Apple);
 			this.rules[2] = new DictParam("id", "Suit", ParamDict.Suits, (byte)SuitSubType.RandomSuit);
-			this.rules[3] = new DictParam("id", "Hat", ParamDict.Hats, (byte)HatSubType.RandomHat);
+			this.rules[3] = new DictParam("id", "Hat", ParamDict.Hats, (byte)HatSubType.RandomPowerHat);
 			this.rules[4] = new DictParam("id", "Timers", ParamDict.Timers, (byte)GoodieSubType.Plus5);
 			this.rules[5] = new DictParam("id", "Mobility Power", ParamDict.MobPowers, (byte)PowerSubType.RandomPotion);
 			this.rules[6] = new DictParam("id", "Weapon", ParamDict.Weapons, (byte)PowerSubType.RandomWeapon);

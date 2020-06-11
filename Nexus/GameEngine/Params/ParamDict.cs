@@ -24,12 +24,12 @@ namespace Nexus.GameEngine {
 
 		// Hats
 		public static Dictionary<byte, string> Hats = new Dictionary<byte, string>() {
-			{ (byte) HatSubType.RandomHat, "Random Hat" },
+			{ (byte) HatSubType.RandomPowerHat, "Random Hat" },
 			{ (byte) HatSubType.AngelHat, "Angel Hat" },
 			{ (byte) HatSubType.BambooHat, "Bamboo Hat" },
 			{ (byte) HatSubType.CowboyHat, "Cowboy Hat" },
 			{ (byte) HatSubType.FeatheredHat, "Feathered Hat" },
-			{ (byte) HatSubType.FedoraHat, "Fedora" },
+			{ (byte) HatSubType.Fedora, "Fedora" },
 			{ (byte) HatSubType.HardHat, "Hard Hat" },
 			{ (byte) HatSubType.RangerHat, "Ranger Hat" },
 			{ (byte) HatSubType.SpikeyHat, "Spikey Hat" },

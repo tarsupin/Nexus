@@ -41,16 +41,17 @@ namespace Nexus.ObjectComponents {
 		BambooHat = 2,
 		CowboyHat = 3,
 		FeatheredHat = 4,
-		FedoraHat = 5,
+		Fedora = 5,
 		HardHat = 6,
 		RangerHat = 7,
 		SpikeyHat = 8,
 		TopHat = 9,
 
 		// Random Hat
-		RandomHat = 10,
+		RandomPowerHat = 10,
 
 		// Cosmetic Hats
+		RandomMagicHat = 50,
 
 		// Wizard Hats
 		WizBlack = 51,
@@ -58,13 +59,6 @@ namespace Nexus.ObjectComponents {
 		WizGreen = 53,
 		WizRed = 54,
 		WizWhite = 55,
-
-		// Mage Hats
-		MageBlack = 56,
-		MageBlue = 57,
-		MageGreen = 58,
-		MageRed = 59,
-		MageWhite = 60,
 
 		// Base Cosmetic Hats
 		PooHat = 61,
@@ -80,7 +74,7 @@ namespace Nexus.ObjectComponents {
 		public static readonly BambooHat BambooHat = new BambooHat();
 		public static readonly CowboyHat CowboyHat = new CowboyHat();
 		public static readonly FeatheredHat FeatheredHat = new FeatheredHat();
-		public static readonly FedoraHat FedoraHat = new FedoraHat();
+		public static readonly Fedora Fedora = new Fedora();
 		public static readonly HardHat HardHat = new HardHat();
 		public static readonly RangerHat RangerHat = new RangerHat();
 		public static readonly SpikeyHat SpikeyHat = new SpikeyHat();
@@ -92,17 +86,11 @@ namespace Nexus.ObjectComponents {
 		public static readonly CosmeticHat WizRed = new CosmeticHat((byte)HatSubType.WizRed);
 		public static readonly CosmeticHat WizWhite = new CosmeticHat((byte)HatSubType.WizWhite);
 
-		public static readonly CosmeticHat MageBlack = new CosmeticHat((byte)HatSubType.MageBlack);
-		public static readonly CosmeticHat MageBlue = new CosmeticHat((byte)HatSubType.MageBlue);
-		public static readonly CosmeticHat MageGreen = new CosmeticHat((byte)HatSubType.MageGreen);
-		public static readonly CosmeticHat MageRed = new CosmeticHat((byte)HatSubType.MageRed);
-		public static readonly CosmeticHat MageWhite = new CosmeticHat((byte)HatSubType.MageWhite);
-
 		// Base Cosmetic Hats
 		public static readonly CosmeticHat PooHat = new CosmeticHat((byte)HatSubType.PooHat);
 		
 		// Miscellaneous Cosmetic Hats
-		public static readonly CosmeticHat BaseballHat = new CosmeticHat((byte)HatSubType.MageWhite);
+		public static readonly CosmeticHat BaseballHat = new CosmeticHat((byte)HatSubType.BaseballHat);
 	}
 
 	public class Hat {
@@ -121,10 +109,16 @@ namespace Nexus.ObjectComponents {
 
 		public static Hat GetHatBySubType(byte subType) {
 
-			// Random Hat
-			if(subType == (byte)HatSubType.RandomHat) {
+			// Random Power Hat
+			if(subType == (byte)HatSubType.RandomPowerHat) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(1, 9);
+			}
+
+			// Random Magic Hat
+			else if(subType == (byte)HatSubType.RandomMagicHat) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next((byte)HatSubType.WizBlack, (byte)HatSubType.WizWhite);
 			}
 
 			switch(subType) {
@@ -134,7 +128,7 @@ namespace Nexus.ObjectComponents {
 				case (byte)HatSubType.BambooHat: return HatMap.BambooHat;
 				case (byte)HatSubType.CowboyHat: return HatMap.CowboyHat;
 				case (byte)HatSubType.FeatheredHat: return HatMap.FeatheredHat;
-				case (byte)HatSubType.FedoraHat: return HatMap.FedoraHat;
+				case (byte)HatSubType.Fedora: return HatMap.Fedora;
 				case (byte)HatSubType.HardHat: return HatMap.HardHat;
 				case (byte)HatSubType.RangerHat: return HatMap.RangerHat;
 				case (byte)HatSubType.SpikeyHat: return HatMap.SpikeyHat;
@@ -145,12 +139,6 @@ namespace Nexus.ObjectComponents {
 				case (byte)HatSubType.WizGreen: return HatMap.WizGreen;
 				case (byte)HatSubType.WizRed: return HatMap.WizRed;
 				case (byte)HatSubType.WizWhite: return HatMap.WizWhite;
-
-				case (byte)HatSubType.MageBlack: return HatMap.MageBlack;
-				case (byte)HatSubType.MageBlue: return HatMap.MageBlue;
-				case (byte)HatSubType.MageGreen: return HatMap.MageGreen;
-				case (byte)HatSubType.MageRed: return HatMap.MageRed;
-				case (byte)HatSubType.MageWhite: return HatMap.MageWhite;
 			}
 
 			return null;
