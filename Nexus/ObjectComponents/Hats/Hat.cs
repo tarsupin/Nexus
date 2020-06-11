@@ -158,7 +158,12 @@ namespace Nexus.ObjectComponents {
 
 		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
 			Hat hat = Hat.GetHatBySubType(subType);
-			if(hat == null) { return; }
+			
+			if(hat == null) {
+				character.hat = null;
+				return;
+			}
+
 			hat.ApplyHat(character, resetStats);
 		}
 

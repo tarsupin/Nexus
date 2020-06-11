@@ -150,6 +150,9 @@ namespace Nexus.GameEngine {
 		public static void CheatCodeHead() {
 			string currentIns = ConsoleTrack.GetArgAsString();
 
+			// Update the tab lookup.
+			ConsoleTrack.PrepareTabLookup(headCodes, currentIns, "Assign the character's head.");
+
 			// If "head" is the only instruction, give a random head to the character.
 			if(currentIns == string.Empty) {
 				Head.AssignToCharacter(ConsoleTrack.character, (byte)HeadSubType.RandomStandard, true);
@@ -158,25 +161,24 @@ namespace Nexus.GameEngine {
 
 			// Get the Head Type by instruction:
 			if(headCodes.ContainsKey(currentIns)) {
-				HeadSubType subType = headCodes[currentIns];
+				byte subType = byte.Parse(headCodes[currentIns].ToString());
 				Head.AssignToCharacter(ConsoleTrack.character, (byte)subType, true);
 			}
 		}
 
-		public static readonly Dictionary<string, HeadSubType> headCodes = new Dictionary<string, HeadSubType>() {
-
-			{ "none", HeadSubType.None },
+		public static readonly Dictionary<string, object> headCodes = new Dictionary<string, object>() {
+			{ "none", (byte) HeadSubType.None },
 
 			// Random Options
-			{ "any", HeadSubType.RandomStandard },
+			{ "any", (byte) HeadSubType.RandomStandard },
 
 			// Standard Heads
-			{ "ryu", HeadSubType.RyuHead },
-			{ "poo", HeadSubType.PooHead },
-			{ "carl", HeadSubType.CarlHead },
-			{ "kirbs", HeadSubType.KirbsHead },
-			{ "panda", HeadSubType.PandaHead },
-			{ "neo", HeadSubType.NeoHead },
+			{ "ryu", (byte) HeadSubType.RyuHead },
+			{ "poo", (byte) HeadSubType.PooHead },
+			{ "carl", (byte) HeadSubType.CarlHead },
+			{ "kirbs", (byte) HeadSubType.KirbsHead },
+			{ "panda", (byte) HeadSubType.PandaHead },
+			{ "neo", (byte) HeadSubType.NeoHead },
 		};
 	}
 }
