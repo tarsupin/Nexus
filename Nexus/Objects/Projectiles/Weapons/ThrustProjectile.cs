@@ -40,14 +40,18 @@ namespace Nexus.Objects {
 		}
 
 		public void Thrust() {
+
+			// If the Scene gets reset, this prevents posX from going negative (which would cause bugs).
+			if(Systems.timer.Frame < this.startFrame) { return; }
+
 			FInt elapsed = FInt.Create(Systems.timer.Frame - this.startFrame);
 			var newX = FPInterpolation.EaseInAndOut(elapsed, FInt.Create(this.posX), this.endPos.X.RoundInt - FInt.Create(this.posX), FInt.Create(this.cycleDuration));
 			this.physics.MoveToPosX(newX.RoundInt);
 
 			// Non-FP Version
 			//float elapsed = (float)(Systems.timer.Frame - this.startFrame);
-			//var x = Interpolation.EaseOut(elapsed, this.posX, (this.endPos.X.RoundInt - this.posX), this.cycleDuration);
-			//this.physics.MoveToPosX((int)Math.Round(x));
+			//float newX = Interpolation.EaseOut(elapsed, this.posX, (this.endPos.X.RoundInt - this.posX), this.cycleDuration);
+			//this.physics.MoveToPosX((int)Math.Round(newX));
 		}
 
 		// Prevent collision destruction of Weapon; it can go through multiple objects.

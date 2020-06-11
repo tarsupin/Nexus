@@ -146,6 +146,8 @@ namespace Nexus.Gameplay {
 
 			// Convert the parameter list from JObject to Dictionary<string, short>
 			if(tileObj.Count > 2) {
+				// TODO REMOVE: 
+				var test = tileObj[2].ToString();
 				tileObj[2] = JsonConvert.DeserializeObject<Dictionary<string, short>>(tileObj[2].ToString());
 			}
 

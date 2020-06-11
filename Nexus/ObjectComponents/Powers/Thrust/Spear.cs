@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	public class Spear : PowerThrust {
 
 		public Spear( Character character ) : base( character ) {
-			this.SetActivationSettings(72, 1, 72);
+			this.SetActivationSettings(120, 1, 120);
 			this.range = 260; // Range of weapon's attack.
 			this.weaponWidth = 90;
 			this.offsetY = 10;

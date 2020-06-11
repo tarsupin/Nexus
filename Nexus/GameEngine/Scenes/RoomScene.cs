@@ -223,9 +223,9 @@ namespace Nexus.GameEngine {
 			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
 				GameObject oVal = obj.Value;
-
+				
 				// Make sure the frame is visible:
-				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + (byte)TilemapEnum.TileWidth > camX && oVal.posY + (byte)TilemapEnum.TileHeight > camY) {
+				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + oVal.bounds.Right > camX && oVal.posY + oVal.bounds.Bottom > camY) {
 					oVal.Draw( camX, camY );
 				}
 			}
@@ -248,7 +248,7 @@ namespace Nexus.GameEngine {
 				GameObject oVal = obj.Value;
 
 				// Make sure the object is visible, then draw a debug rectangle over it.
-				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + 48 > camX && oVal.posY > camY) {
+				if(oVal.posX < camRight && oVal.posY < camBottom && oVal.posX + (byte)TilemapEnum.TileWidth > camX && oVal.posY + (byte)TilemapEnum.TileHeight > camY) {
 					Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(oVal.posX + oVal.bounds.Left - camX, oVal.posY + oVal.bounds.Top - camY, oVal.bounds.Width, oVal.bounds.Height), Color.White * 0.5f);
 				}
 			}
