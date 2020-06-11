@@ -52,7 +52,7 @@ namespace Nexus.Objects {
 			this.trailKeys = new TrailingKeys(this);
 			this.heldItem = new HeldItem(this);
 			this.magiShield = new MagiShield(this);
-			this.nameplate = new Nameplate(this, "Ryu", true, true);
+			this.nameplate = new Nameplate(this, "Ryu", false, false);
 
 			// Images and Animations
 			this.animate = new Animate(this, "/");

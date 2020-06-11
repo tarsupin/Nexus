@@ -53,10 +53,7 @@ namespace Nexus.Objects {
 
 				// Destroy Leaf
 				if(dir == DirCardinal.Up) {
-
-					// Damage Creatures Above (if applicable)
 					BlockTile.DamageAbove(room, gridX, gridY);
-
 					this.TriggerEvent(room, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
 				}
 

@@ -29,11 +29,7 @@ namespace Nexus.Objects {
 
 				// Verify the projectile does enough damage:
 				if(proj.Damage >= this.DamageSurvive || this is Plant) {
-
-					// Remove the Chomper and Display it's knockout effect.
-					room.tilemap.ClearMainLayer(gridX, gridY);
-					DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
-					Systems.sounds.splat1.Play();
+					this.DestroyChomper(room, gridX, gridY);
 				}
 
 				// Have to destroy projectile afterward, since it can affect projectile strength if it has unique death properties.
@@ -51,6 +47,13 @@ namespace Nexus.Objects {
 			}
 			
 			return true;
+		}
+
+		// Remove the Chomper and Display it's knockout effect.
+		public void DestroyChomper(RoomScene room, ushort gridX, ushort gridY) {
+			room.tilemap.ClearMainLayer(gridX, gridY);
+			DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+			Systems.sounds.splat1.Play();
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

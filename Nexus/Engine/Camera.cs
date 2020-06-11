@@ -154,11 +154,11 @@ namespace Nexus.Engine {
 		}
 
 		public int GetCameraShakeOffsetX() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (Systems.timer.Frame % 15) / 15);
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (float)(Systems.timer.Frame % 15) / (float)15);
 		}
 
 		public int GetCameraShakeOffsetY() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (Systems.timer.Frame - this.shakeStart) / (this.shakeEnd - this.shakeStart));
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength, this.shakeStrength, (float)(Systems.timer.Frame - this.shakeStart) / (float)(this.shakeEnd - this.shakeStart));
 		}
 	}
 }

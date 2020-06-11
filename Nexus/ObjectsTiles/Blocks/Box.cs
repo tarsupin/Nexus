@@ -30,12 +30,21 @@ namespace Nexus.Objects {
 
 			// Destroy Box
 			if(dir == DirCardinal.Up) {
-				BlockTile.BreakApart(room, gridX, gridY);
-				ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
-				Systems.sounds.brickBreak.Play();
+				BlockTile.DamageAbove(room, gridX, gridY);
+				this.DestroyBox(room, gridX, gridY);
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);
+		}
+
+		public void DestroyBox(RoomScene room, ushort gridX, ushort gridY) {
+
+			// Display Particle Effect
+			ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
+			Systems.sounds.brickBreak.Play();
+
+			// Destroy Brick Tile
+			room.tilemap.SetMainTile(gridX, gridY, 0, 0);
 		}
 
 		private void CreateTextures() {

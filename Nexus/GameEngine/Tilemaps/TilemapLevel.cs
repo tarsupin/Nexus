@@ -2,6 +2,7 @@
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -116,6 +117,21 @@ namespace Nexus.GameEngine {
 			if(x[0] == 0 && x[2] == 0 && x[4] == 0) {
 				this.RemoveTile(gridX, gridY);
 			}
+		}
+
+		// Area Of Effect Check: Search for specific Tile IDs (Main Layer) within an area.
+		public List<(byte tileId, ushort gridX, ushort gridY)> GetTilesByMainIDsWithinArea(byte[] tileIds, ushort startX, ushort startY, ushort endX, ushort endY) {
+			List<(byte tileId, ushort gridX, ushort gridY)> gridList = new List<(byte tileId, ushort gridX, ushort gridY)>();
+			for(var y = startY; y <= endY; y++) {
+				for(var x = startX; x <= endX; x++) {
+					byte[] tileData = this.tiles[y, x];
+					if(tileData == null) { continue; }
+					if(Array.Exists(tileIds, element => element == tileData[0])) {
+						gridList.Add((tileData[0], x, y));
+					}
+				}
+			}
+			return gridList;
 		}
 
 		// Clear the Main Layer

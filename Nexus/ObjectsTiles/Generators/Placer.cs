@@ -128,11 +128,11 @@ namespace Nexus.Objects {
 			// TODO: Add Placer Placement
 
 			//// Confirm that there are no items blocking the placer.
-			//let items = findObjectsTouchingArea(this.scene.activeObjects[LoadOrder.Item], posX + 16, posY + 16, 16, 16);
+			//let items = FindObjectTouchingArea(this.scene.activeObjects[LoadOrder.Item], posX + 16, posY + 16, 16, 16);
 			//if(items.length > 0) { return; }
 
 			//// Check if there are any creatures by the placer; and if so, either kill them (if item), or prevent creation.
-			//let enemies = findObjectsTouchingArea(this.scene.activeObjects[LoadOrder.Enemy], posX + 16, posY + 16, 16, 16);
+			//let enemies = FindObjectTouchingArea(this.scene.activeObjects[LoadOrder.Enemy], posX + 16, posY + 16, 16, 16);
 			//if(enemies.length > 0) {
 			//for(let i in enemies) {
 			//		if(this.place.archetype === Arch.Item) {
@@ -145,7 +145,7 @@ namespace Nexus.Objects {
 			//}
 
 			//// Confirm that the character isn't blocking the placer.
-			//let charBlock = findObjectsTouchingArea(this.scene.activeObjects[LoadOrder.Character], posX, posY - 8, 48, 56);
+			//let charBlock = FindObjectTouchingArea(this.scene.activeObjects[LoadOrder.Character], posX, posY - 8, 48, 56);
 			//if(charBlock.length > 0) { return; }
 
 			//// Place New Entity

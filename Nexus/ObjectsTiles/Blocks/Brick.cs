@@ -31,15 +31,8 @@ namespace Nexus.Objects {
 					
 					// Only Spikey Hats destroy Bricks
 					if(character.hat is SpikeyHat) {
-
-						// Destroy Brick
-						BlockTile.BreakApart(room, gridX, gridY);
-
-						// Display Particle Effect
-						byte subType = room.tilemap.GetMainSubType(gridX, gridY);
-						ExplodeEmitter.BoxExplosion(room, this.Texture[subType], gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
-						Systems.sounds.brickBreak.Play();
-
+						BlockTile.DamageAbove(room, gridX, gridY);
+						this.DestroyBrick(room, gridX, gridY);
 						return base.RunImpact(room, actor, gridX, gridY, dir);
 					}
 				}
@@ -52,6 +45,17 @@ namespace Nexus.Objects {
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);
+		}
+
+		public void DestroyBrick(RoomScene room, ushort gridX, ushort gridY) {
+
+			// Display Particle Effect
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			ExplodeEmitter.BoxExplosion(room, this.Texture[subType], gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
+			Systems.sounds.brickBreak.Play();
+
+			// Destroy Brick Tile
+			room.tilemap.SetMainTile(gridX, gridY, 0, 0);
 		}
 
 		private void CreateTextures() {
