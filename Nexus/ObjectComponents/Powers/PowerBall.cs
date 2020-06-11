@@ -46,6 +46,12 @@ namespace Nexus.ObjectComponents {
 			// Affect the Y-Velocity of the projectile if holding UP or DOWN
 			this.AffectByInput(ref velX, ref velY);
 
+			// Apply Character's Momentum (if applicable)
+			if(this.multMomentum > 0) {
+				velX += character.physics.velocity.X * this.multMomentum;
+				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
+			}
+
 			// Launch Projectile
 			this.Launch(posX, posY, velX, velY);
 
@@ -58,17 +64,9 @@ namespace Nexus.ObjectComponents {
 			else if(input.isDown(IKey.Down)) { velY = this.yVelDown; }
 		}
 
-		public virtual ProjectileBall Launch(int posX, int posY, FInt velX, FInt velY) {
-
-			// Apply Character's Momentum (if applicable)
-			if(this.multMomentum > 0) {
-				velX += character.physics.velocity.X * this.multMomentum;
-				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
-			}
-
+		public virtual void Launch(int posX, int posY, FInt velX, FInt velY) {
 			ProjectileBall projectile = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX.RoundInt, velY.RoundInt));
 			projectile.SetActorID(this.character);
-			return projectile;
 		}
 	}
 }

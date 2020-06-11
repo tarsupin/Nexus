@@ -20,19 +20,13 @@ namespace Nexus.ObjectComponents {
 			this.yVelDown = FInt.Create(1);
 		}
 
-		public override ProjectileBall Launch(int posX, int posY, FInt velX, FInt velY) {
+		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
 
-			// Apply Character's Momentum (if applicable)
-			if(this.multMomentum > 0) {
-				velX += character.physics.velocity.X * this.multMomentum;
-				velY += character.physics.velocity.Y * this.multMomentum;
-			}
+			var projectile = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			projectile.SetActorID(this.character);
 
-			Systems.sounds.flame.Play();
-
-			ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
-
-			return ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.2), velY * FInt.Create(1.1)));
+			var projectile2 = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.4), velY * FInt.Create(1.2)));
+			projectile2.SetActorID(this.character);
 		}
 	}
 }
