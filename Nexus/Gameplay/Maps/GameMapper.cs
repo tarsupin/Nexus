@@ -98,7 +98,7 @@ namespace Nexus.Gameplay {
 			MetaList[MetaGroup.Button] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.obj, LoadOrder.Item);
 			MetaList[MetaGroup.ButtonFixed] = new IMetaData(Arch.Item, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.ColorToggles, LayerEnum.main, LoadOrder.Item);
 				// Buttons
-			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.main, LoadOrder.Tile, true); // LoadOrder.Block
+			MetaList[MetaGroup.Generator] = new IMetaData(Arch.Generator, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Gadgets, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Block
 				// Cannon, Placer
 			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Collectables, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Collectable
 				// Collectables

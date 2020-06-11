@@ -4,7 +4,10 @@ using System.Collections.Generic;
 namespace Nexus.Engine {
 
 	// Add a QueueEvent for every RoomScene. It can be used to run events at a later time, generally for tiles that don't have RunTick() behaviors.
-	// When a Room gets generated, some tiles will add repeating events (beatEvents) to QueueEvent. They will trigger on their respective beats.
+	// Some tiles will add single or repeating events to QueueEvent.
+	//		- To add a QueueEvent, make sure the tile has .hasSetup set to true.
+	//		- Then add SetupTile(RoomScene room, ushort gridX, ushort gridY) to the tile.
+	//			- See "Cannon" or "ChomperFire" for an example.
 	public class QueueEvent {
 
 		RoomScene room;

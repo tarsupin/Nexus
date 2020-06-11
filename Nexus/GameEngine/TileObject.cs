@@ -25,6 +25,7 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
+		public bool hasSetup = false;       // If TRUE, tile runs SetupTile(RoomScene room, ushort gridX, ushort gridY) on placement.
 		public Params paramSet;
 
 		// Helper Titles and Text

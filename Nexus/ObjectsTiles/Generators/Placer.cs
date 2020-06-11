@@ -19,6 +19,7 @@ namespace Nexus.Objects {
 		// TODO: Integrate behavior of Placer.
 
 		public Placer() : base() {
+			this.hasSetup = true;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.tileId = (byte) TileEnum.Placer;
@@ -28,7 +29,7 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public bool SetupBeatEvent(RoomScene room, ushort gridX, ushort gridY) {
+		public bool SetupTile(RoomScene room, ushort gridX, ushort gridY) {
 
 			//// Track the activations for this cannon.
 			//Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);

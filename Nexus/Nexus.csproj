@@ -581,7 +581,7 @@
     <Compile Include="Gameplay\World\WorldState.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />
     <Compile Include="Gameplay\Maps\GameMapper.cs" />
-    <Compile Include="GameEngine\DynamicObject.cs" />
+    <Compile Include="GameEngine\GameObject.cs" />
     <Compile Include="ObjectsTiles\Collectables\Coins.cs" />
     <Compile Include="ObjectsTiles\Collectables\Collectable.cs" />
     <Compile Include="Gameplay\Types\ClassTypes.cs" />

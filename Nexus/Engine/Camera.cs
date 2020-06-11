@@ -15,7 +15,9 @@ namespace Nexus.Engine {
 		public ushort width;				// Width of the Camera (in pixels).
 		public ushort height;				// Height of the Camera (in pixels).
 		private int midX;					// X offset to center the Camera.
-		private int midY;					// Y offset to center the Camera.
+		private int midY;                   // Y offset to center the Camera.
+		private int rightX;					// X position on the right of the camera.
+		private int bottomY;				// Y position at the bottom of the camera.
 		private BoundsCamera bounds;		// Limits of how far within the scene the camera can travel.
 		private float speedMult;			// Camera follows or moves at this speed.
 		private byte controlSpeed;			// Speed (Pixel Movement) when using Manual Control (Directions)
@@ -68,6 +70,8 @@ namespace Nexus.Engine {
 		private void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
 			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left, this.posX));
 			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top, this.posY));
+			this.rightX = this.posX + this.width;
+			this.bottomY = this.posY + this.height;
 		}
 
 		// Camera Movement
@@ -140,6 +144,17 @@ namespace Nexus.Engine {
 			}
 
 			this.StayBounded();
+		}
+
+		// Camera Detection
+		public bool ActorIsOnCamera( GameObject actor ) {
+			return actor.posX < this.rightX && actor.posY < this.bottomY && actor.posX + actor.bounds.Right > this.posX && actor.posY + actor.bounds.Bottom > this.posY;
+		}
+
+		public int ActorXDistanceFromCamera( GameObject actor ) {
+			if(actor.posX > this.rightX) { return actor.posX - this.rightX; }
+			if(actor.posX + actor.bounds.Right < this.posX) { return actor.posX + actor.bounds.Right - this.posX; }
+			return 0;
 		}
 
 		// Camera Shake

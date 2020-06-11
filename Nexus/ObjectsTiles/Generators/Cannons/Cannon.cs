@@ -8,6 +8,7 @@ namespace Nexus.Objects {
 	public class Cannon : BlockTile {
 
 		public Cannon() : base() {
+			this.hasSetup = true;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.title = "Cannon";
@@ -15,7 +16,7 @@ namespace Nexus.Objects {
 			this.paramSet = Params.ParamMap["Beats"];
 		}
 
-		public void SetupBeatEvent(RoomScene room, ushort gridX, ushort gridY) {
+		public void SetupTile(RoomScene room, ushort gridX, ushort gridY) {
 
 			// Track the activations for this cannon.
 			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);

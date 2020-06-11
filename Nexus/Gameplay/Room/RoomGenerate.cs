@@ -65,8 +65,8 @@ namespace Nexus.Gameplay {
 					// If it does, add a repeating instruction to the QueueEvent.
 					TileObject tile = TileDict[tileId];
 
-					if(tile.Meta.HasBeatTick) {
-						(tile as dynamic).SetupBeatEvent(room, (ushort)(gridX + (byte)TilemapEnum.WorldGapLeft), (ushort)(gridY + (byte)TilemapEnum.WorldGapUp));
+					if(tile.hasSetup) {
+						(tile as dynamic).SetupTile(room, (ushort)(gridX + (byte)TilemapEnum.WorldGapLeft), (ushort)(gridY + (byte)TilemapEnum.WorldGapUp));
 					}
 				}
 			}
