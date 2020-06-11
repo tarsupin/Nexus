@@ -1,16 +1,14 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Nexus.GameEngine {
 
 	public static class ConsoleSave {
 
 		public static void SaveState() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 			ConsoleTrack.PrepareTabLookup(autoSave, currentIns, "Save the level state to a macro key.");
 
 			if(ConsoleTrack.activate) {

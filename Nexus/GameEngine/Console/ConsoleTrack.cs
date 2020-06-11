@@ -101,9 +101,9 @@ namespace Nexus.GameEngine {
 		}
 
 		// Updates the instruction index and returns next instruction instruction string (or "" if none).
-		public static string NextArg() {
+		public static string GetArg(bool increment = true) {
 			byte num = ConsoleTrack.instructionArgIndex;
-			ConsoleTrack.instructionArgIndex++;
+			if(increment) { ConsoleTrack.instructionArgIndex++; }
 
 			if(ConsoleTrack.instructionList.Count > num) {
 				return ConsoleTrack.instructionList[num];
@@ -112,15 +112,21 @@ namespace Nexus.GameEngine {
 			return string.Empty;
 		}
 
+		// Returns the next instruction arg as a string.
+		public static string GetArgAsString(bool increment = true) {
+			string arg = ConsoleTrack.GetArg(increment);
+			return arg.ToString().ToLower();
+		}
+		
 		// Returns the next instruction arg as a bool.
-		public static bool NextArgAsBool() {
-			string arg = ConsoleTrack.NextArg();
+		public static bool GetArgAsBool(bool increment = true) {
+			string arg = ConsoleTrack.GetArg(increment);
 			return (arg == "true" || arg == "1" || arg == "on");
 		}
 
 		// Returns the next instruction arg as an int.
-		public static int NextArgAsInt() {
-			string arg = ConsoleTrack.NextArg();
+		public static int GetArgAsInt(bool increment = true) {
+			string arg = ConsoleTrack.GetArg(increment);
 
 			if(arg != string.Empty) {
 				int intVal;
@@ -132,8 +138,8 @@ namespace Nexus.GameEngine {
 		}
 
 		// Returns the next instruction arg as a float.
-		public static float NextArgAsFloat() {
-			string arg = ConsoleTrack.NextArg();
+		public static float GetArgAsFloat(bool increment = true) {
+			string arg = ConsoleTrack.GetArg(increment);
 
 			if(arg != string.Empty) {
 				float floatVal;

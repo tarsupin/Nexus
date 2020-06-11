@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 	public static class ConsoleEquipment {
 
 		public static void CheatCodeSuit() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(suitCodes, currentIns, "Add a suit to the character. Can designate which suit, if desired.");
@@ -32,7 +32,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeSuitBasic() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(suitBasicCodes, currentIns, "Add a basic, unpowered suit to the character.");
@@ -57,7 +57,7 @@ namespace Nexus.GameEngine {
 		};
 		
 		public static void CheatCodeSuitNinja() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(suitNinjaCodes, currentIns, "Add a ninja suit to the character.");
@@ -86,7 +86,7 @@ namespace Nexus.GameEngine {
 		};
 		
 		public static void CheatCodeSuitWizard() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(suitWizardCodes, currentIns, "Add a wizard suit to the character.");
@@ -114,7 +114,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeHat() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(hatCodes, currentIns, "Add a hat to the character. Can designate which hat, if desired.");
@@ -147,7 +147,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeHead() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// If "head" is the only instruction, give a random head to the character.
 			if(currentIns == string.Empty) {

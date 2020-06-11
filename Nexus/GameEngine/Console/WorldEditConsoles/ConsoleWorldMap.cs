@@ -7,8 +7,8 @@ namespace Nexus.GameEngine {
 	public static class ConsoleWorldMap {
 
 		public static void ResizeMap() {
-			string currentIns = ConsoleTrack.NextArg();
-			int curVal = ConsoleTrack.NextArgAsInt();
+			string currentIns = ConsoleTrack.GetArgAsString();
+			int curVal = ConsoleTrack.GetArgAsInt();
 
 			ConsoleTrack.PrepareTabLookup(resizeOpts, currentIns, "Resize World Map");
 
@@ -46,8 +46,8 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void SetValue() {
-			string currentIns = ConsoleTrack.NextArg();
-			int curVal = ConsoleTrack.NextArgAsInt();
+			string currentIns = ConsoleTrack.GetArgAsString();
+			int curVal = ConsoleTrack.GetArgAsInt();
 
 			ConsoleTrack.PrepareTabLookup(valueOpts, currentIns, "Set World Campaign Values");
 
@@ -90,7 +90,7 @@ namespace Nexus.GameEngine {
 		}
 
 		private static void SetLives() {
-			byte lives = (byte) ConsoleTrack.NextArgAsInt();
+			byte lives = (byte) ConsoleTrack.GetArgAsInt();
 
 			if(ConsoleTrack.activate) {
 				if(lives > 0 && lives < 100) {
@@ -101,7 +101,7 @@ namespace Nexus.GameEngine {
 		}
 
 		private static void SetCharacter() {
-			string charName = ConsoleTrack.NextArg();
+			string charName = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(characterOpts, charName, "Assign a character archetype for this world campaign.");
 
@@ -120,12 +120,12 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void SetLevel() {
-			byte gridX = (byte) ConsoleTrack.NextArgAsInt();
+			byte gridX = (byte) ConsoleTrack.GetArgAsInt();
 			ConsoleTrack.possibleTabs = "Example: setLevel 10 10 MyLevelID";
 
 			// If gridX is assigned:
 			if(ConsoleTrack.instructionList.Count >= 2) {
-				byte gridY = (byte)ConsoleTrack.NextArgAsInt();
+				byte gridY = (byte)ConsoleTrack.GetArgAsInt();
 
 				// If gridY is assigned:
 				if(ConsoleTrack.instructionList.Count >= 3) {
@@ -137,7 +137,7 @@ namespace Nexus.GameEngine {
 
 					// If the location is a valid node, we can attempt to add a level ID.
 					if(NodeData.IsObjectANode(wtData[5])) {
-						string levelId = ConsoleTrack.NextArg();
+						string levelId = ConsoleTrack.GetArg();
 						ConsoleTrack.helpText = "Assign a level ID to the specified node. Enter the Level ID.";
 
 						// If the console was activated:

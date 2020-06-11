@@ -18,7 +18,8 @@ namespace Nexus.GameEngine {
 				{ "editor", ConsoleToEditor.ToEditor },
 
 				// Level
-				{ "level", ConsoleLevel.CheatCodeLevel },
+				{ "level", ConsoleLevel.LevelChange },
+				{ "move", ConsoleLevel.ConsoleTeleport },
 				{ "save", ConsoleSave.SaveState },
 
 				// Character Stats

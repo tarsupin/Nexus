@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 		public static void TileWand() {
 
 			// The next instruction should be the grid location of the tile, split by a comma. For example: 25,33
-			string statIns = ConsoleTrack.NextArg();
+			string statIns = ConsoleTrack.GetArg();
 
 			// Make sure the instruction is set up correctly:
 			if(statIns.Length == 0) { return; }

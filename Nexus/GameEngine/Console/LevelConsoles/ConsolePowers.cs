@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 	public static class ConsolePowers {
 
 		public static void CheatCodePowers() {
-			string statIns = ConsoleTrack.NextArg();
+			string statIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(basePowerCodes, statIns, "Assign a power to the character.");
 
@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeWeapon() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(weaponCodes, currentIns, "Assign a weapon to the character; e.g. `power weapon spear`");
 
@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 		};
 		
 		public static void CheatCodeRanged() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(rangedWeaponCodes, currentIns, "Assign a ranged weapon to the character; e.g. `power ranged axe`");
 
@@ -84,7 +84,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeWand() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(wandWeaponCodes, currentIns, "Assign a wand to the character; e.g. `power wand blue`");
 
@@ -109,7 +109,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeMagic() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(magicCodes, currentIns, "Assign magic power to the character; e.g. `power magic fire`");
 
@@ -138,7 +138,7 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void CheatCodeMobility() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(mobilityCodes, currentIns, "Assign mobility power to the character; e.g. `power mobility levitate`");
 

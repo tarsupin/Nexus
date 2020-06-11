@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 	public static class ConsoleDebug {
 
 		public static void DebugBase() {
-			string statIns = ConsoleTrack.NextArg();
+			string statIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(debugBaseList, statIns, "View or change debug settings.");
 
@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 		};
 
 		private static void DebugSpeed() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(debugSpeedCodes, currentIns, "Assign a debug speed / tick rate that the game runs at.");
 
@@ -47,7 +47,7 @@ namespace Nexus.GameEngine {
 		};
 
 		private static void DebugData() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(debugDataCodes, currentIns, "Retrieve helpful debug data.");
 

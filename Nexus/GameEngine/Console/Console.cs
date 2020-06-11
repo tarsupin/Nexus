@@ -173,7 +173,7 @@ namespace Nexus.GameEngine {
 			// Must have at least one part for a valid instruction.
 			if(ConsoleTrack.instructionList.Count < 1) { return; }
 
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArg();
 
 			// Assign Default Character and Player
 			ConsoleTrack.player = Systems.localServer.MyPlayer;

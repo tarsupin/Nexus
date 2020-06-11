@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 	public static class WCReset {
 
 		public static void ResetOptions() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(resetCodes, currentIns, "Reset options for this world.");
 

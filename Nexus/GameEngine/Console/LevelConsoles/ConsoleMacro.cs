@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 	public static class ConsoleMacro {
 
 		public static void DebugMacro() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.PrepareTabLookup(macroCodes, currentIns, "Save a macro to one of the function keys: F1 - F8.");
 

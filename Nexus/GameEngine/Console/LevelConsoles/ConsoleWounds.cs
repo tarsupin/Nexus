@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
-				byte health = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.NextArgAsInt() : (byte)100;
+				byte health = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
 				ConsoleTrack.character.wounds.AddHealth(health);
 			}
 		}
@@ -19,7 +19,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
-				byte armor = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.NextArgAsInt() : (byte)100;
+				byte armor = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
 				ConsoleTrack.character.wounds.AddArmor(armor);
 			}
 		}
@@ -29,7 +29,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
-				int duration = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.NextArgAsInt() : 60;
+				int duration = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : 60;
 				ConsoleTrack.character.wounds.SetInvincible((uint)duration * 60);
 			}
 		}

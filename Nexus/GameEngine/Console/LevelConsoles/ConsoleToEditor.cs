@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 	public static class ConsoleToEditor {
 
 		public static void ToEditor() {
-			string currentIns = ConsoleTrack.NextArg();
+			string currentIns = ConsoleTrack.GetArgAsString();
 
 			ConsoleTrack.possibleTabs = "Example: `editor 10`";
 			ConsoleTrack.helpText = "Load the level editor for one of your levels.";
