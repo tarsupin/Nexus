@@ -4,8 +4,8 @@ namespace Nexus.GameEngine {
 
 	public static class ConsoleWounds {
 
-		public static void CheatCodeHeal() {
-			ConsoleTrack.PrepareTabLookup("Add a given number of health (e.g. 'heal 2'). Default is max health.");
+		public static void CheatCodeHealth() {
+			ConsoleTrack.PrepareTabLookup("Assign a given number of health (e.g. 'health 2'). Default is max health.");
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void CheatCodeArmor() {
-			ConsoleTrack.PrepareTabLookup("Add a given number of armor (e.g. 'armor 2'). Default is max armor.");
+			ConsoleTrack.PrepareTabLookup("Assign a given number of armor (e.g. 'armor 2'). Default is max armor.");
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {

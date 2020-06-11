@@ -135,6 +135,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, object> hatCodes = new Dictionary<string, object>() {
+			{ "none", (byte) HatSubType.None },
 			{ "angel", (byte) HatSubType.AngelHat },
 			{ "bamboo", (byte) HatSubType.BambooHat },
 			{ "cowboy", (byte) HatSubType.CowboyHat },
@@ -163,6 +164,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, HeadSubType> headCodes = new Dictionary<string, HeadSubType>() {
+
+			{ "none", HeadSubType.None },
 
 			// Random Options
 			{ "any", HeadSubType.RandomStandard },

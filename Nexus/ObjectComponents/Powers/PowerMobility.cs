@@ -4,9 +4,7 @@ namespace Nexus.ObjectComponents {
 
 	public class PowerMobility : Power {
 
-		public PowerMobility( Character character ) : base( character ) {
-			
-		}
+		public PowerMobility( Character character ) : base( character ) { }
 
 		public virtual void EndPower() {
 			//this.character.attackMobility = null;

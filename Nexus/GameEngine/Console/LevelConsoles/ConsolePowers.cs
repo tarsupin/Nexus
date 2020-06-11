@@ -17,12 +17,23 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, System.Action> basePowerCodes = new Dictionary<string, System.Action>() {
+			{ "none", ConsolePowers.NoPower },
 			{ "mobility", ConsolePowers.CheatCodeMobility },
 			{ "weapon", ConsolePowers.CheatCodeWeapon },
 			{ "ranged", ConsolePowers.CheatCodeRanged },
 			{ "wand", ConsolePowers.CheatCodeWand },
 			{ "magic", ConsolePowers.CheatCodeMagic },
 		};
+
+		public static void NoPower() {
+			string currentIns = ConsoleTrack.GetArgAsString();
+			ConsoleTrack.PrepareTabLookup(weaponCodes, currentIns, "Removes attack power from character.");
+
+			if(ConsoleTrack.activate) {
+				ConsoleTrack.character.attackPower = null;
+				return;
+			}
+		}
 
 		public static void CheatCodeWeapon() {
 			string currentIns = ConsoleTrack.GetArgAsString();
@@ -33,12 +44,12 @@ namespace Nexus.GameEngine {
 
 				if(weaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(weaponCodes[currentIns].ToString());
-					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
+					Power.AssignPower(ConsoleTrack.character, (byte) subType);
 					return;
 				}
 
 				// "weapon" was the final valid instruction. Give a random weapon to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomWeapon);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomWeapon);
 			}
 		}
 
@@ -60,12 +71,12 @@ namespace Nexus.GameEngine {
 
 				if(rangedWeaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(rangedWeaponCodes[currentIns].ToString());
-					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
+					Power.AssignPower(ConsoleTrack.character, (byte) subType);
 					return;
 				}
 
 				// "ranged" was the final valid instruction. Give a random ranged weapon to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomThrown);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomThrown);
 			}
 		}
 
@@ -92,12 +103,12 @@ namespace Nexus.GameEngine {
 
 				if(wandWeaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(wandWeaponCodes[currentIns].ToString());
-					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
+					Power.AssignPower(ConsoleTrack.character, (byte) subType);
 					return;
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomBolt);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomBolt);
 			}
 		}
 
@@ -117,12 +128,12 @@ namespace Nexus.GameEngine {
 
 				if(magicCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(magicCodes[currentIns].ToString());
-					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
+					Power.AssignPower(ConsoleTrack.character, (byte) subType);
 					return;
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomPotion);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomPotion);
 			}
 		}
 
@@ -145,17 +156,24 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.activate) {
 
 				if(mobilityCodes.ContainsKey(currentIns)) {
+
+					if(currentIns == "none") {
+						ConsoleTrack.character.mobilityPower = null;
+						return;
+					}
+
 					byte subType = byte.Parse(mobilityCodes[currentIns].ToString());
-					Power.AssignToCharacter(ConsoleTrack.character, (byte) subType);
+					Power.AssignPower(ConsoleTrack.character, (byte) subType);
 					return;
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignToCharacter(ConsoleTrack.character, (byte) PowerSubType.RandomBook);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomBook);
 			}
 		}
 
 		public static readonly Dictionary<string, object> mobilityCodes = new Dictionary<string, object>() {
+			{ "none", (byte) PowerSubType.None },
 			{ "slowfall", (byte) PowerSubType.SlowFall },
 			{ "hover", (byte) PowerSubType.Hover },
 			{ "levitate", (byte) PowerSubType.Levitate },

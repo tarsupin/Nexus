@@ -7,8 +7,9 @@ namespace Nexus.ObjectComponents {
 
 	public enum PowerSubType : byte {
 
+		None = 0,
+
 		// Collectable Powers - Mobility
-		RandomPotion = 0,
 		SlowFall = 1,
 		Hover = 2,
 		Levitate = 3,
@@ -20,6 +21,7 @@ namespace Nexus.ObjectComponents {
 		Air = 9,
 		Phase = 10,
 		Teleport = 11,
+		RandomPotion = 12,
 
 		// Collectable Powers - Weapon
 		RandomWeapon = 20,
@@ -83,8 +85,8 @@ namespace Nexus.ObjectComponents {
 			this.character = character;
 		}
 
-		public static void AssignToCharacter(Character character, byte subType) {
-
+		public static void AssignPower(Character character, byte subType) {
+			
 			// Random Throwing Weapon
 			if(subType == (byte) PowerSubType.RandomThrown) {
 				Random rand = new Random((int) Systems.timer.Frame);
@@ -96,14 +98,8 @@ namespace Nexus.ObjectComponents {
 				}
 			}
 
-			// Random Potion (Mobility Powers)
-			else if(subType == (byte) PowerSubType.RandomBook) {
-				Random rand = new Random((int)Systems.timer.Frame);
-				subType = (byte)rand.Next(1, 11);
-			}
-			
 			// Random Book (Ball Projectiles)
-			else if(subType == (byte) PowerSubType.RandomPotion) {
+			else if(subType == (byte) PowerSubType.RandomBook) {
 				Random rand = new Random((int)Systems.timer.Frame);
 				subType = (byte)rand.Next(31, 37);
 			}
@@ -120,20 +116,26 @@ namespace Nexus.ObjectComponents {
 				subType = (byte)rand.Next(51, 53);
 			}
 
+			// Random Potion (Mobility Powers)
+			else if(subType == (byte)PowerSubType.RandomPotion) {
+				Random rand = new Random((int)Systems.timer.Frame);
+				subType = (byte)rand.Next(1, 11);
+			}
+
 			switch(subType) {
 
 				// Collectable Powers - Mobility (Potion)
-				case (byte) PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); return;
-				case (byte) PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); return;
-				case (byte) PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); return;
-				case (byte) PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); return;
-				case (byte) PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); return;
-				case (byte) PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); return;
-				case (byte) PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); return;
-				case (byte) PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); return;
-				case (byte) PowerSubType.Air: character.mobilityPower = new AirMobility(character); return;
-				case (byte) PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); return;
-				case (byte) PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); return;
+				case (byte)PowerSubType.SlowFall: character.mobilityPower = new SlowFallMobility(character); return;
+				case (byte)PowerSubType.Hover: character.mobilityPower = new HoverMobility(character); return;
+				case (byte)PowerSubType.Levitate: character.mobilityPower = new LevitateMobility(character); return;
+				case (byte)PowerSubType.Flight: character.mobilityPower = new FlightMobility(character); return;
+				case (byte)PowerSubType.Athlete: character.mobilityPower = new AthleteMobility(character); return;
+				case (byte)PowerSubType.Leap: character.mobilityPower = new LeapMobility(character); return;
+				case (byte)PowerSubType.Slam: character.mobilityPower = new SlamMobility(character); return;
+				case (byte)PowerSubType.Burst: character.mobilityPower = new BurstMobility(character); return;
+				case (byte)PowerSubType.Air: character.mobilityPower = new AirMobility(character); return;
+				case (byte)PowerSubType.Phase: character.mobilityPower = new PhaseMobility(character); return;
+				case (byte)PowerSubType.Teleport: character.mobilityPower = new TeleportMobility(character); return;
 
 				// Collectable Powers - Weapon
 				case (byte) PowerSubType.BoxingRed: character.attackPower = new BoxingGlove(character); return;

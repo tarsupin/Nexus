@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 				{ "power", ConsolePowers.CheatCodePowers },
 			
 				// Health, Wounds
-				{ "heal", ConsoleWounds.CheatCodeHeal },
+				{ "health", ConsoleWounds.CheatCodeHealth },
 				{ "armor", ConsoleWounds.CheatCodeArmor },
 				{ "invincible", ConsoleWounds.CheatCodeInvincible },
 				{ "wound", ConsoleWounds.CheatCodeWound },

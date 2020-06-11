@@ -136,7 +136,7 @@ namespace Nexus.Objects {
 		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
-			Power.AssignToCharacter(character, subType);
+			Power.AssignPower(character, subType);
 
 			Systems.sounds.collectSubtle.Play();
 			base.Collect(room, character, gridX, gridY);

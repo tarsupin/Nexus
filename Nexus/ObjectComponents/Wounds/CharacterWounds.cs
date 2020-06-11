@@ -59,6 +59,17 @@ namespace Nexus.ObjectComponents {
 			this.Armor = allowed;
 			if(this.Health > this.WoundMaximum - this.Armor) { this.Health = (byte) (this.WoundMaximum - this.Armor); }
 		}
+		
+		public void SetHealth( byte health ) {
+			this.Health = health;
+			if(this.Health > this.WoundMaximum - this.Armor) { this.Health = (byte) (this.WoundMaximum - this.Armor); }
+		}
+
+		public void SetArmor( byte armor ) {
+			byte allowed = (byte) Math.Min(armor, this.ArmorMaximum);
+			this.Armor = allowed;
+			if(this.Health > this.WoundMaximum - this.Armor) { this.Health = (byte) (this.WoundMaximum - this.Armor); }
+		}
 
 		public void SetInvincible( uint duration ) {
 			this.Invincible = this.timer.Frame + duration;
