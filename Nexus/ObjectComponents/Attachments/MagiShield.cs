@@ -12,6 +12,8 @@ namespace Nexus.ObjectComponents {
 		private const byte MaximumBalls = 8;
 
 		private readonly GameObject actor;
+		public string IconTexture { get; protected set; }
+
 		public ProjectileMagi[] innerBalls;		// Tracks the magi-balls within the inner shield.
 		public ProjectileMagi[] outerBalls;		// Tracks the magi-balls within the outer shield.
 
@@ -21,15 +23,31 @@ namespace Nexus.ObjectComponents {
 			this.outerBalls = new ProjectileMagi[MagiShield.MaximumBalls];
 		}
 
+		public void SetIconTexture( string iconTexture ) {
+			this.IconTexture = iconTexture;
+		}
+
+		public void CheckShieldEnd() {
+			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
+				if(this.innerBalls[i] is ProjectileMagi && this.innerBalls[i].isAlive) { return; }
+			}
+			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
+				if(this.outerBalls[i] is ProjectileMagi && this.outerBalls[i].isAlive) { return; }
+			}
+
+			// Clear the Icon Texture
+			this.SetIconTexture(null);
+		}
+
 		public void DestroyInnerShield() {
 			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.innerBalls[i] is ProjectileMagi) { this.innerBalls[i].DestroyForce(); }
+				if(this.innerBalls[i] is ProjectileMagi) { this.innerBalls[i].DestroyFinal(); }
 			}
 		}
 		
 		public void DestroyOuterShield() {
 			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.outerBalls[i] is ProjectileMagi) { this.outerBalls[i].DestroyForce(); }
+				if(this.outerBalls[i] is ProjectileMagi) { this.outerBalls[i].DestroyFinal(); }
 			}
 		}
 
@@ -43,7 +61,7 @@ namespace Nexus.ObjectComponents {
 			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {
 
 				// Find Open Projectile Slot (if available)
-				ProjectileMagi projectile = ProjectileMagi.Create(this.actor, subType, ballCount, ballNum, radius, regenFrames);
+				ProjectileMagi projectile = ProjectileMagi.Create(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
 				
 				this.innerBalls[ballNum] = projectile;
 			}
@@ -59,11 +77,10 @@ namespace Nexus.ObjectComponents {
 			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {
 
 				// Find Open Projectile Slot (if available)
-				ProjectileMagi projectile = ProjectileMagi.Create(this.actor, subType, ballCount, ballNum, radius, regenFrames);
+				ProjectileMagi projectile = ProjectileMagi.Create(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
 				
 				this.outerBalls[ballNum] = projectile;
 			}
 		}
-
 	}
 }

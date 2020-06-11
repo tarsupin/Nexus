@@ -2,6 +2,7 @@
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System;
 
 namespace Nexus.Objects {
@@ -18,10 +19,12 @@ namespace Nexus.Objects {
 
 	public class ProjectileMagi : Projectile {
 
-		private GameObject actor;		// The game object that the magi ball is circling around.
+		private GameObject actor;       // The game object that the magi ball is circling around.
+		private MagiShield magiShield;	// The magi-shield that created this magi ball.
 		private byte radius;			// The radius from the actor this rotates at.
-		private short elapsedOffset;	// The elapsed offset / weight that this ball rotates with, comparative to others in the set.
+		private short elapsedOffset;    // The elapsed offset / weight that this ball rotates with, comparative to others in the set.
 
+		public bool isAlive = false;
 		private short travelDuration;	// How fast (in frames) the ball travels around the diameter.
 		private short regenFrames;      // If set above 0, this ball will regenerate after # of frames pass.
 		private short regenEnergy;      // The amount of energy stored in the magiball. If less than regenFrames, it's deactivated and is regenerating.
@@ -29,13 +32,13 @@ namespace Nexus.Objects {
 
 		public bool CanDamage { get { return this.regenEnergy >= this.regenFrames; } }
 
-		private ProjectileMagi(GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) : base(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
+		private ProjectileMagi(GameObject actor, byte subType) : base(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
 		}
 
-		public static ProjectileMagi Create(GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
+		public static ProjectileMagi Create(MagiShield magiShield, GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
 			ProjectileMagi projectile;
 
 			// Retrieve a Projectile from the ObjectPool, if one is available:
@@ -45,10 +48,10 @@ namespace Nexus.Objects {
 
 			// Create a New Projectile
 			else {
-				projectile = new ProjectileMagi(actor, subType, numberOfBalls, ballNumber, radius, regenFrames);
+				projectile = new ProjectileMagi(actor, subType);
 			}
 
-			projectile.ResetMagiBall(actor, radius, regenFrames);
+			projectile.ResetMagiBall(magiShield, actor, radius, regenFrames);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.SetOffset(numberOfBalls, ballNumber);
@@ -60,13 +63,15 @@ namespace Nexus.Objects {
 			return projectile;
 		}
 
-		public void ResetMagiBall( GameObject actor, byte radius = 75, short regenFrames = 0 ) {
+		public void ResetMagiBall( MagiShield magiShield, GameObject actor, byte radius = 75, short regenFrames = 0 ) {
+			this.magiShield = magiShield;
 			this.actor = actor;
 			this.ByActorID = actor.id;
 			this.regenFrames = regenFrames;
 			this.regenEnergy = regenFrames;
 			this.regenAlpha = 1;
 			this.radius = radius;
+			this.isAlive = true;
 		}
 
 		public void SetOffset( byte numberOfBalls, byte ballNumber ) {
@@ -108,14 +113,18 @@ namespace Nexus.Objects {
 
 		public override void Destroy( DirCardinal dir = DirCardinal.None, GameObject obj = null ) {
 			
-			// Only destroy the projectile if it's not able to regenerate (or if it's a forced destroy):
-			if(this.regenEnergy == 0) { base.Destroy(); return; }
+			// Only destroy the projectile if it's not able to regenerate:
+			if(this.regenEnergy == 0) { this.DestroyFinal(); return; }
 
 			// Otherwise, deplete its energy.
 			this.regenEnergy = 1;
 		}
 		
-		public void DestroyForce() { base.Destroy(); }
+		public void DestroyFinal() {
+			this.isAlive = false;
+			this.magiShield.CheckShieldEnd();
+			base.Destroy();
+		}
 
 		private void AssignSubType(byte subType) {
 

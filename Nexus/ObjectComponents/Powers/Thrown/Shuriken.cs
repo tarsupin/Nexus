@@ -15,6 +15,7 @@ namespace Nexus.ObjectComponents {
 
 		public Shuriken( Character character, byte subType ) : base( character ) {
 			this.subType = (byte) subType;
+			this.ApplySubType(subType);
 			this.sound = Systems.sounds.axe;
 			this.baseStr = "ranged";
 			this.subStr = "shuriken";
@@ -28,16 +29,16 @@ namespace Nexus.ObjectComponents {
 			this.yVelDown = FInt.Create(18);
 		}
 
-		public void ApplySubType(ShurikenSubType subType) {
+		public void ApplySubType(byte subType) {
 			this.subType = (byte)subType;
 
-			if(subType == ShurikenSubType.Green) {
+			if(subType == (byte) ShurikenSubType.Green) {
 				this.IconTexture = "Weapon/ShurikenGreen";
-			} else if(subType == ShurikenSubType.Red) {
+			} else if(subType == (byte) ShurikenSubType.Red) {
 				this.IconTexture = "Weapon/ShurikenRed";
-			} else if(subType == ShurikenSubType.Blue) {
+			} else if(subType == (byte) ShurikenSubType.Blue) {
 				this.IconTexture = "Weapon/ShurikenBlue";
-			} else if(subType == ShurikenSubType.Yellow) {
+			} else if(subType == (byte) ShurikenSubType.Yellow) {
 				this.IconTexture = "Weapon/ShurikenYellow";
 			}
 		}

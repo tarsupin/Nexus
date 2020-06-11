@@ -12,6 +12,7 @@ namespace Nexus.ObjectComponents {
 			this.weaponWidth = 90;
 			this.offsetY = 10;
 			this.sound = Systems.sounds.sword;
+			this.IconTexture = "Weapon/Spear";
 			this.baseStr = "weapon";
 			this.subStr = "spear";
 		}

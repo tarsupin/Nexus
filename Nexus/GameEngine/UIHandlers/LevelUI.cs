@@ -10,13 +10,15 @@ namespace Nexus.GameEngine {
 	public class LevelUI {
 
 		private readonly LevelScene scene;
+		private readonly PowerUI powerUI;
 		public Atlas atlas;
 		public Player myPlayer;
-		private readonly ushort bottomRow;
+		public readonly ushort bottomRow;
 		private readonly LevelState levelState;
 
 		public LevelUI( LevelScene scene ) {
 			this.scene = scene;
+			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.myPlayer = Systems.localServer.MyPlayer;
 			this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
@@ -47,6 +49,9 @@ namespace Nexus.GameEngine {
 					i++;
 				}
 			}
+
+			// Power Icons
+			this.powerUI.Draw();
 
 			// Debug Render
 			if(DebugConfig.Debug) {

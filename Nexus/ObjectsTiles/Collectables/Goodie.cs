@@ -158,22 +158,51 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.ShieldBlue: this.GetArmor(character, 3); break;
 
 				// Inner Magi Shields
-				case (byte)GoodieSubType.RingMagic: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 480); break;
-				case (byte)GoodieSubType.RingFire: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3); break;
-				case (byte)GoodieSubType.RingPoison: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4); break;
+				case (byte)GoodieSubType.RingMagic:
+					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 480);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
+				case (byte)GoodieSubType.RingFire:
+					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
+				case (byte)GoodieSubType.RingPoison:
+					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
 				case (byte)GoodieSubType.RingElements:
 					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 3, 0, false);
 					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 4, 0, false);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
+
 				//case (byte)GoodieSubType.RingHawk: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 				//case (byte)GoodieSubType.RingDruid: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 				//case (byte)GoodieSubType.RingEye: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
 
 				// Outer Magi Shields
-				case (byte)GoodieSubType.AmuletMagic: this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 5, 720); break;
-				case (byte)GoodieSubType.NeckElectric: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 8); break;
-				case (byte)GoodieSubType.NeckFire: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 6); break;
-				//case (byte)GoodieSubType.NeckHeart: this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
+				case (byte)GoodieSubType.AmuletMagic:
+					this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 5, 720);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
+				case (byte)GoodieSubType.NeckElectric:
+					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 8);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
+				case (byte)GoodieSubType.NeckFire:
+					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 6);
+					character.magiShield.SetIconTexture(this.Texture[subType]);
+					break;
+
+				//case (byte)GoodieSubType.NeckHeart:
+					//this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7);
+					//character.magiShield.SetIconTexture(this.Texture[subType]);
+					//break;
 
 				// Invincibility
 				case (byte)GoodieSubType.Shiny: this.GetInvincible(character, 10000); break;
