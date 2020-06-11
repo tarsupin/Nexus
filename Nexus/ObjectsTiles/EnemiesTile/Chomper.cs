@@ -27,8 +27,6 @@ namespace Nexus.Objects {
 					if(!((ProjectileMagi) proj).CanDamage) { return false; }
 				}
 
-				proj.Destroy(dir);
-
 				// Verify the projectile does enough damage:
 				if(proj.Damage >= this.DamageSurvive || this is Plant) {
 
@@ -37,8 +35,9 @@ namespace Nexus.Objects {
 					DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 					Systems.sounds.splat1.Play();
 				}
-				
-				//else { Systems.sounds.thudThump.Play(0.2f, 0, 0); }
+
+				// Have to destroy projectile afterward, since it can affect projectile strength if it has unique death properties.
+				proj.Destroy(dir);
 
 				return true;
 			}
