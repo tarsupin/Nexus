@@ -294,7 +294,6 @@
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
     <Compile Include="ObjectComponents\Attachments\MagiShield.cs" />
-    <Compile Include="ObjectComponents\Attachments\HealthBits.cs" />
     <Compile Include="ObjectComponents\Attachments\Nameplate.cs" />
     <Compile Include="ObjectComponents\Attachments\HeldItem.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightTo.cs" />

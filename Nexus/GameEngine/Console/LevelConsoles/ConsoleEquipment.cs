@@ -167,7 +167,6 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, object> headCodes = new Dictionary<string, object>() {
-			{ "none", (byte) HeadSubType.None },
 
 			// Random Options
 			{ "any", (byte) HeadSubType.RandomStandard },

@@ -36,8 +36,5 @@ namespace Nexus.Objects {
 
 			return projectile;
 		}
-
-		// Prevent collision destruction of Weapon; it can go through multiple objects.
-		public override void Destroy( ) {}
 	}
 }

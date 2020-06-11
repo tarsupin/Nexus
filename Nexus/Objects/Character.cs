@@ -32,8 +32,7 @@ namespace Nexus.Objects {
 		public TrailingKeys trailKeys;
 		public HeldItem heldItem;
 		public MagiShield magiShield;
-		//public Nameplate nameplate;
-		//public HealthBits healthBits;
+		public Nameplate nameplate;
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
@@ -53,8 +52,7 @@ namespace Nexus.Objects {
 			this.trailKeys = new TrailingKeys(this);
 			this.heldItem = new HeldItem(this);
 			this.magiShield = new MagiShield(this);
-			//this.nameplate = new Nameplate(this, "Ryu", DirCardinal.Up);
-			//this.healthBits = new HealthBits(this);
+			this.nameplate = new Nameplate(this, "Ryu", true, true);
 
 			// Images and Animations
 			this.animate = new Animate(this, "/");
@@ -414,8 +412,7 @@ namespace Nexus.Objects {
 		public override void Draw(int camX, int camY) {
 
 			// Render Attachments (Behind Character)
-			//this.nameplate.Draw(camX, camY);
-			//this.healthBits.Draw(camX, camY);
+			this.nameplate.Draw(camX, camY);
 			this.trailKeys.Draw(camX, camY);
 
 			// Handle Invincibility Coloration, if applicable:
