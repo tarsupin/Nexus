@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 
 		public BoltBlue( Character character ) : base( character ) {
 			this.SetActivationSettings(72, 2, 21);
-			this.IconTexture = "Weapon/BoltBlue";
+			this.IconTexture = "Weapon/Bolt";
 			this.subStr = "blue";
 		}
 

@@ -10,7 +10,7 @@ namespace Nexus.ObjectComponents {
 		public Hammer( Character character, byte subType ) : base( character ) {
 			this.subType = (byte) subType;
 			this.sound = Systems.sounds.axe;
-			this.IconTexture = "Power/Hammer";
+			this.IconTexture = "Weapon/Hammer";
 			this.baseStr = "ranged";
 			this.subStr = "hammer";
 			this.SetActivationSettings(210, 7, 9);

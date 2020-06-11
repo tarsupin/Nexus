@@ -27,6 +27,8 @@ namespace Nexus.ObjectComponents {
 			// Make sure the power can be activated
 			if(!this.CanActivate()) { return false; }
 
+			this.sound.Play();
+			
 			// References
 			Character character = this.character;
 

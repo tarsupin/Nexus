@@ -115,7 +115,7 @@ namespace Nexus.GameEngine {
 
 		public static void CheatCodeHat() {
 			string currentIns = ConsoleTrack.GetArgAsString();
-
+			
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(hatCodes, currentIns, "Add a hat to the character. Can designate which hat, if desired.");
 
