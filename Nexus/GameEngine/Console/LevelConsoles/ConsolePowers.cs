@@ -143,7 +143,7 @@ namespace Nexus.GameEngine {
 			{ "frost", (byte) PowerSubType.Frost },
 			{ "rock", (byte) PowerSubType.Rock },
 			{ "water", (byte) PowerSubType.Water },
-			{ "slime", (byte) PowerSubType.Slime },
+			{ "poison", (byte) PowerSubType.Poison },
 			//{ "necro1", (byte) PowerSubType.Necro1 },
 			//{ "necro2", (byte) PowerSubType.Necro2 },
 		};

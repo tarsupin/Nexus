@@ -39,8 +39,7 @@ namespace Nexus.ObjectComponents {
 		Frost = 33,
 		Rock = 34,
 		Water = 35,
-		Slime = 36,
-		Ball = 37,
+		Poison = 36,
 
 		// Collectable Powers - Thrown
 		RandomThrown = 40,
@@ -151,7 +150,7 @@ namespace Nexus.ObjectComponents {
 				case (byte) PowerSubType.Frost: character.attackPower = new FrostBall(character); return;
 				case (byte) PowerSubType.Rock: character.attackPower = new RockBall(character); return;
 				case (byte) PowerSubType.Water: character.attackPower = new WaterBall(character); return;
-				case (byte) PowerSubType.Slime: character.attackPower = new PoisonBall(character); return;
+				case (byte) PowerSubType.Poison: character.attackPower = new PoisonBall(character); return;
 
 				// Collectable Powers - Thrown
 				case (byte) PowerSubType.Axe: character.attackPower = new Axe(character, WeaponAxeSubType.Axe); return;

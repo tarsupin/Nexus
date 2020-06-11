@@ -45,8 +45,7 @@ namespace Nexus.Objects {
 			this.titles[(byte)PowerSubType.Frost] = "Frost Potion";
 			this.titles[(byte)PowerSubType.Rock] = "Rock Potion";
 			this.titles[(byte)PowerSubType.Water] = "Waterball Potion";
-			this.titles[(byte)PowerSubType.Slime] = "Slimeball Potion";
-			//this.titles[(byte)PowerSubType.Ball] = "Ball Potion";
+			this.titles[(byte)PowerSubType.Poison] = "Poison Potion";
 
 			// Collectable Powers - Thrown
 			this.titles[(byte)PowerSubType.RandomThrown] = "Random Thrown Collectable";
@@ -105,8 +104,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)PowerSubType.Frost] = "Cast frost balls. Long range, fast, collide with ground.";
 			this.descriptions[(byte)PowerSubType.Rock] = "Throw rocks, which quickly fall below.";
 			this.descriptions[(byte)PowerSubType.Water] = "Cast water balls. Multiple casts at once.";
-			this.descriptions[(byte)PowerSubType.Slime] = "Cast slime balls.";
-			//this.descriptions[(byte)PowerSubType.Ball] = "Unknown power.";
+			this.descriptions[(byte)PowerSubType.Poison] = "Cast poison balls.";
 
 			// Collectable Powers - Thrown
 			this.descriptions[(byte)PowerSubType.RandomThrown] = "Acquire a random throwing weapon.";
@@ -175,8 +173,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte)PowerSubType.Frost] = "Power/Frost";
 			this.Texture[(byte)PowerSubType.Rock] = "Power/Rock";
 			this.Texture[(byte)PowerSubType.Water] = "Power/Water";
-			this.Texture[(byte)PowerSubType.Slime] = "Power/Slime";
-			//this.Texture[(byte)PowerSubType.Ball] = "Power/Ball";
+			this.Texture[(byte)PowerSubType.Poison] = "Power/Slime";
 
 			// Collectable Powers - Thrown
 			this.Texture[(byte)PowerSubType.RandomThrown] = "Weapon/RandThrown";

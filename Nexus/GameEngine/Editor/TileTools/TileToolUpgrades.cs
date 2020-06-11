@@ -189,7 +189,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Slime,
+					subType = (byte) PowerSubType.Poison,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,

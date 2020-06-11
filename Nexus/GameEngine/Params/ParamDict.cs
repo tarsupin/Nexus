@@ -116,7 +116,7 @@ namespace Nexus.GameEngine {
 			{ (byte) PowerSubType.Frost, "Frost Spellbook" },
 			{ (byte) PowerSubType.Rock, "Rock Spellbook" },
 			{ (byte) PowerSubType.Water, "Water Spellbook" },
-			{ (byte) PowerSubType.Slime, "Slime Spellbook" },
+			{ (byte) PowerSubType.Poison, "Poison Spellbook" },
 		};
 
 		// Collectable Powers - Thrown
