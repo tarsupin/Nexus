@@ -146,9 +146,12 @@ namespace Nexus.Gameplay {
 
 			// Convert the parameter list from JObject to Dictionary<string, short>
 			if(tileObj.Count > 2) {
-				// TODO REMOVE: 
-				var test = tileObj[2].ToString();
-				tileObj[2] = JsonConvert.DeserializeObject<Dictionary<string, short>>(tileObj[2].ToString());
+
+				// If the parameter list is already a Dictionary<string, short>, we don't need to convert it.
+				// This can occur if we recently edited the data in the editor.
+				if(tileObj[2] is Dictionary<string, short> == false) {
+					tileObj[2] = JsonConvert.DeserializeObject<Dictionary<string, short>>(tileObj[2].ToString());
+				}
 			}
 
 			return tileObj;
