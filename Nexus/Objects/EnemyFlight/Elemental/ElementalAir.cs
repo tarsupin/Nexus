@@ -5,9 +5,12 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public enum ElementalAirSubType : byte { Normal };
-
 	public class ElementalAir : Elemental {
+
+		public enum ElementalAirSubType : byte {
+			Left,
+			Right,
+		}
 
 		public ElementalAir(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ElementalAir].meta;
@@ -16,11 +19,13 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType(byte subType) {
-			this.SpriteName = "Elemental/Air/Left";
-		}
-
-		public override void OnDirectionChange() {
-			this.SpriteName = "Elemental/Air/" + (this.FaceRight ? "Right" : "Left");
+			if(subType == (byte)ElementalAirSubType.Left) {
+				this.SpriteName = "Elemental/Air/Left";
+				this.FaceRight = false;
+			} else {
+				this.SpriteName = "Elemental/Air/Right";
+				this.FaceRight = true;
+			}
 		}
 	}
 }

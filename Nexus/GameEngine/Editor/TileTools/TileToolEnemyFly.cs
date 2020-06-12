@@ -1,6 +1,8 @@
-﻿
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using Nexus.Objects;
+using static Nexus.Objects.ElementalAir;
+using static Nexus.Objects.ElementalEarth;
+using static Nexus.Objects.ElementalFire;
 
 namespace Nexus.GameEngine {
 
@@ -21,17 +23,32 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalAir,
-					subType = (byte) ElementalAirSubType.Normal,
+					subType = (byte) ElementalAirSubType.Left,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalAir,
+					subType = (byte) ElementalAirSubType.Right,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalFire,
-					subType = (byte) ElementalFireSubType.Normal,
+					subType = (byte) ElementalFireSubType.Left,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalFire,
+					subType = (byte) ElementalFireSubType.Right,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.ElementalEarth,
-					subType = (byte) ElementalEarthSubType.Normal,
+					subType = (byte) ElementalEarthSubType.Left,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ElementalEarth,
+					subType = (byte) ElementalEarthSubType.Right,
 					layerEnum = LayerEnum.obj,
 				},
 			});

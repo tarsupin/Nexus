@@ -13,6 +13,8 @@ namespace Nexus.Objects {
 		Rock,
 		Poison,
 		Water,
+
+		EnemyFire,
 	}
 
 	public class ProjectileBall : Projectile {
@@ -40,18 +42,32 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 
-			// Behaviors
-			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
+			if(subType == (byte) ProjectileBallSubType.EnemyFire) {
+				this.Damage = DamageStrength.Standard;
+				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
+				this.physics.SetGravity(FInt.Create(0));
+				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+				this.SetSpriteName("Projectiles/Fire");
+			}
+
+			else if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
 				this.Damage = DamageStrength.Standard;
 				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
 				this.physics.SetGravity(FInt.Create(0.45));
 				this.CollisionType = ProjectileCollisionType.BounceOnFloor;
+
+				if(subType == (byte)ProjectileBallSubType.Fire) {
+					this.SetSpriteName("Projectiles/Fire");
+				} else {
+					this.SetSpriteName("Projectiles/Electric");
+				}
 			}
 
 			else if(subType == (byte) ProjectileBallSubType.Rock) {
 				this.Damage = DamageStrength.Lethal;
 				this.physics.SetGravity(FInt.Create(0.8));
 				this.CollisionType = ProjectileCollisionType.Special;
+				this.SetSpriteName("Projectiles/Earth1");
 			}
 
 			else {
@@ -59,21 +75,15 @@ namespace Nexus.Objects {
 				this.spinRate = this.physics.velocity.X > 0 ? 0.09f : -0.09f;
 				this.physics.SetGravity(FInt.Create(0.4));
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
-			}
 
-			// Sprite Image
-			if(subType == (byte)ProjectileBallSubType.Fire) {
-				this.SetSpriteName("Projectiles/Fire");
-			} else if(subType == (byte)ProjectileBallSubType.Electric) {
-				this.SetSpriteName("Projectiles/Electric");
-			} else if(subType == (byte)ProjectileBallSubType.Frost) {
-				this.SetSpriteName("Projectiles/Frost");
-			} else if(subType == (byte)ProjectileBallSubType.Rock) {
-				this.SetSpriteName("Projectiles/Earth1");
-			} else if(subType == (byte)ProjectileBallSubType.Poison) {
-				this.SetSpriteName("Projectiles/Poison");
-			} else if(subType == (byte)ProjectileBallSubType.Water) {
-				this.SetSpriteName("Projectiles/Water");
+				// Sprite Image
+				if(subType == (byte)ProjectileBallSubType.Frost) {
+					this.SetSpriteName("Projectiles/Frost");
+				} else if(subType == (byte)ProjectileBallSubType.Poison) {
+					this.SetSpriteName("Projectiles/Poison");
+				} else if(subType == (byte)ProjectileBallSubType.Water) {
+					this.SetSpriteName("Projectiles/Water");
+				}
 			}
 		}
 

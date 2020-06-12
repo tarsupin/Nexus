@@ -3,6 +3,9 @@ using Nexus.Gameplay;
 using System.Collections.Generic;
 using static Nexus.Objects.Bomb;
 using static Nexus.Objects.Boulder;
+using static Nexus.Objects.ElementalAir;
+using static Nexus.Objects.ElementalEarth;
+using static Nexus.Objects.ElementalFire;
 using static Nexus.Objects.Shell;
 using static Nexus.Objects.SpringStandard;
 using static Nexus.Objects.TNT;
@@ -125,17 +128,20 @@ namespace Nexus.Objects {
 			
 			// ElementalAir
 			{ (byte) ObjectEnum.ElementalAir, new Dictionary<byte, string> {
-				{  (byte) ElementalAirSubType.Normal, "Elemental/Air/Left" },
+				{  (byte) ElementalAirSubType.Left, "Elemental/Air/Left" },
+				{  (byte) ElementalAirSubType.Right, "Elemental/Air/Right" },
 			}},
 
 			// ElementalEarth
 			{ (byte) ObjectEnum.ElementalEarth, new Dictionary<byte, string> {
-				{  (byte) ElementalEarthSubType.Normal, "Elemental/Earth/Left" },
+				{  (byte) ElementalEarthSubType.Left, "Elemental/Earth/Left" },
+				{  (byte) ElementalEarthSubType.Right, "Elemental/Earth/Right" },
 			}},
 
 			// ElementalFire
 			{ (byte) ObjectEnum.ElementalFire, new Dictionary<byte, string> {
-				{  (byte) ElementalFireSubType.Normal, "Elemental/Fire/Left" },
+				{  (byte) ElementalFireSubType.Left, "Elemental/Fire/Left" },
+				{  (byte) ElementalFireSubType.Right, "Elemental/Fire/Right" },
 			}},
 			
 			// Saw

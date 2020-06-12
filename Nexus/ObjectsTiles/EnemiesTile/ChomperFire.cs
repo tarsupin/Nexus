@@ -61,7 +61,7 @@ namespace Nexus.Objects {
 			short attackY = 0;
 
 			// Determine Attack Direction
-			float speedMult = (float)((paramList.ContainsKey("speed") ? paramList["speed"] : ParamsFireBurst.DefaultSpeed) * 0.01);
+			float speedMult = (float)((paramList.ContainsKey("speed") ? paramList["speed"] : ParamsFireBurst.DefaultSpeed) * 0.01 * 4);
 
 			if(subType == (byte)FacingSubType.FaceUp) { attackY = (short)((speedMult * -8) - 4); }
 			else if(subType == (byte)FacingSubType.FaceDown) { attackY = (short)(speedMult * 6); }
@@ -96,9 +96,8 @@ namespace Nexus.Objects {
 		}
 
 		public void FireAttack(RoomScene room, ushort gridX, ushort gridY, short attX, short attY, float gravity) {
-			ProjectileBall projectile = ProjectileBall.Create(room, (byte)ProjectileBallSubType.Fire, FVector.Create(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - 10), FVector.Create(attX, attY));
+			ProjectileBall projectile = ProjectileBall.Create(room, (byte)ProjectileBallSubType.EnemyFire, FVector.Create(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - 10), FVector.Create(attX, attY));
 			projectile.physics.SetGravity(FInt.Create(gravity * 0.35));
-			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 		}
 	}
 }

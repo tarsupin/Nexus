@@ -1,42 +1,49 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public enum ElementalEarthSubType : byte { Normal };
-
 	public class ElementalEarth : Elemental {
+
+		private const byte BaseAttackSpeed = 4;
+
+		public enum ElementalEarthSubType : byte {
+			Left,
+			Right,
+		}
+
+		public AttackSequence attack;
+		public sbyte attSpeed = 0;
 
 		public ElementalEarth(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ElementalEarth].meta;
+			this.attack = new AttackSequence(paramList);
+			this.attSpeed = (sbyte)Math.Round((paramList != null && paramList.ContainsKey("speed") ? paramList["speed"] : 100) * 0.01 * BaseAttackSpeed);
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 4, -4, -12);
 		}
 
+		public override void RunTick() {
+			base.RunTick();
+
+			// Check if an attack needs to be made:
+			if(this.attack.AttackThisFrame()) {
+				ProjectileBall projectile = ProjectileBall.Create(room, (byte)ProjectileBallSubType.EnemyFire, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY - 10), FVector.Create(0, this.attSpeed));
+			}
+		}
+
 		private void AssignSubType(byte subType) {
-			this.SpriteName = "Elemental/Earth/Left";
+			if(subType == (byte)ElementalEarthSubType.Left) {
+				this.SpriteName = "Elemental/Earth/Left";
+				this.FaceRight = false;
+			} else {
+				this.SpriteName = "Elemental/Earth/Right";
+				this.FaceRight = true;
+			}
 		}
-
-		public override void OnDirectionChange() {
-			this.SpriteName = "Elemental/Earth/" + (this.FaceRight ? "Right" : "Left");
-		}
-
-		//attack( time: Timer ): boolean {
-		//	if(!super.attack( time )) { return false; }
-
-		//	let velX = 0;
-		//	let velY = this.att.speed;
-
-		//	// Create the projectile
-		//	var projectile = Projectile.fire( this.scene, ProjectileEarth, "Earth", this.pos.x + 12, this.pos.y + 12, velX, velY, "EnemyEarth" );
-
-		//	// Set the projectile to rotate
-		//	projectile.render = projectile.renderBallRotation;
-
-		//	this.scene.soundList.flame.addToSoundPool(); // Track Sound			// TODO: Alter to a rock dropping sound.
-		//	return true;
-		//}
 	}
 }

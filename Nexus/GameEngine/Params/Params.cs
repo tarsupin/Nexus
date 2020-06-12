@@ -235,7 +235,7 @@ namespace Nexus.GameEngine {
 			this.rules[2] = new IntParam("chase", "Chase Range", 0, 40, 1, 10, " tile(s)");
 			this.rules[3] = new IntParam("flee", "Flee Range", 0, 40, 1, 0, " tile(s)");
 			this.rules[4] = new IntParam("stall", "Stall Range", 0, 40, 1, 8, " tile(s)");
-			this.rules[1] = new LabeledParam("returns", "Returns to Start", new string[2] { "Returns", "Doesn't Return" }, (byte)0);
+			this.rules[5] = new LabeledParam("returns", "Returns to Start", new string[2] { "Returns", "Doesn't Return" }, (byte)0);
 			this.rules[6] = new IntParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames");
 		}
 	}
@@ -271,7 +271,7 @@ namespace Nexus.GameEngine {
 			this.rules[1] = new IntParam("to", "Goes to Track ID", 0, 99, 1, 0, "");
 			this.rules[2] = new IntParam("duration", "Travel Duration", 60, 3600, 15, 180, " frames");
 			this.rules[3] = new IntParam("delay", "Departure Delay", 0, 3600, 15, 0, " frames");
-			this.rules[1] = new LabeledParam("beginFall", "Falls on Arrival", new string[2] { "False", "True" }, (byte)0);
+			this.rules[4] = new LabeledParam("beginFall", "Falls on Arrival", new string[2] { "False", "True" }, (byte)0);
 		}
 	}
 
