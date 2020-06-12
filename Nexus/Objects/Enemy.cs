@@ -35,12 +35,11 @@ namespace Nexus.Objects {
 		public virtual bool RunProjectileImpact(Projectile projectile) {
 
 			// TODO:
-			// Must be a projectile created by a character.
-			// if(!projectile.ignoreCharacter) { return false; }
-
-			// TODO:
 			// If the enemy ignores projectiles, they should pass through without being destroyed.
 			// if(enemy.collision.ignores.projectiles) { return false; }
+
+			// Can only be damaged if the projectile was cast by a Character.
+			if(projectile.ByCharacterId == 0) { return false; }
 
 			// Special behavior for Magi-Balls. Projectiles faded out don't function.
 			if(projectile is ProjectileMagi) {

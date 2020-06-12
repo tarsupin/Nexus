@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 		public DamageStrength Damage { get; protected set; }
 		public ProjectileCollisionType CollisionType { get; protected set; }
 		public bool SafelyJumpOnTop { get; protected set; }
-		public uint ByActorID { get; protected set; }
+		public uint ByCharacterId { get; protected set; }
 
 		// References
 		protected Atlas atlas;
@@ -41,7 +41,7 @@ namespace Nexus.Objects {
 
 		public void SetCollisionType(ProjectileCollisionType type) { this.CollisionType = type; }
 		public void SetSafelyJumpOnTop(bool safe = true) { this.SafelyJumpOnTop = safe; }
-		public void SetActorID(GameObject actor) { this.ByActorID = actor.id; }
+		public void SetActorID(GameObject actor) { this.ByCharacterId = actor.id; }
 		public void SetDamage(DamageStrength damage) { this.Damage = damage; }
 		public void SetEndLife(uint endFrame) { this.EndLife = endFrame; }
 		public void SetVelocity(FVector velocity) { this.physics.velocity = velocity; }
@@ -68,7 +68,7 @@ namespace Nexus.Objects {
 			this.spinRate = 0;
 			this.physics.MoveToPos(pos.X.RoundInt, pos.Y.RoundInt);
 			this.physics.velocity = velocity;
-			this.ByActorID = 0;
+			this.ByCharacterId = 0;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
 			this.EndLife = Systems.timer.Frame + 600;

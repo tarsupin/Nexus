@@ -1,5 +1,4 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 

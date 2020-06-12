@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 		public void ResetMagiBall( MagiShield magiShield, GameObject actor, byte radius = 75, short regenFrames = 0 ) {
 			this.magiShield = magiShield;
 			this.actor = actor;
-			this.ByActorID = actor.id;
+			this.ByCharacterId = actor.id;
 			this.regenFrames = regenFrames;
 			this.regenEnergy = regenFrames;
 			this.regenAlpha = 1;

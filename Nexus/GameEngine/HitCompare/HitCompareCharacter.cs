@@ -89,7 +89,7 @@ namespace Nexus.GameEngine {
 		public bool CharHitsProjectile( Character character, Projectile projectile ) {
 
 			// Skip Character if they cast the projectile.
-			if(projectile.ByActorID == character.id) { return false; }
+			if(projectile.ByCharacterId == character.id) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
 			return Impact.StandardImpact(character, projectile, dir);

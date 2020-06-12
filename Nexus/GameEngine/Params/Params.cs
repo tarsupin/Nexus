@@ -197,20 +197,21 @@ namespace Nexus.GameEngine {
 
 	public class ParamsFireBurst : Params {
 
-		// TODO: Need to account for X and Y directions of Fire Burst Params
-		// if(dirFacing == DirCardinal.Left) { xSpeed = -8 * speedMult; }
-		// else if(dirFacing == DirCardinal.Right) { xSpeed = 8 * speedMult; }
-		// else if(dirFacing == DirCardinal.Down) { ySpeed = 4 * speedMult; }
-		// else { ySpeed = (-8 * speedMult) - 4; }
+		public const byte DefaultGravity = 100;
+		public const byte DefaultCount = 1;
+		public const byte DefaultSpeed = 100;
+		public const byte DefaultSpread = 100;
+		public const byte DefaultCycle = 120;
+		public const byte DefaultOffset = 0;
 
 		public ParamsFireBurst() {
 			this.rules = new ParamGroup[6];
-			this.rules[0] = new PercentParam("grav", "Gravity Influence", 0, 200, 10, 100, FInt.Create(1));			// The percent that gravity influences the first.
-			this.rules[1] = new IntParam("count", "Number of Fireballs", 1, 3, 1, 1);								// Number of bolts that gets shot simultaneously (1 to 3).
-			this.rules[2] = new PercentParam("speed", "Fireball Speed", 20, 200, 10, 100, FInt.Create(4));			// Velocity of the bolts (Y-axis).
-			this.rules[3] = new PercentParam("spread", "Fireball Spread", 50, 250, 10, 100, FInt.Create(0.3));		// The % spread between each bolt.
-			this.rules[4] = new IntParam("cycle", "Attack Frequency", 60, 300, 15, 120, " frames");					// Frequency of the attack (in frames).
-			this.rules[5] = new IntParam("offset", "Timer Offset", 0, 300, 15, 0, " frames");						// The offset of the frequency on the global time.
+			this.rules[0] = new PercentParam("grav", "Gravity Influence", 0, 200, 10, DefaultGravity, FInt.Create(1));		// The percent that gravity influences the first.
+			this.rules[1] = new IntParam("count", "Number of Fireballs", 1, 2, 1, DefaultCount);							// Number of bolts that gets shot simultaneously (1 to 3).
+			this.rules[2] = new PercentParam("speed", "Fireball Speed", 20, 200, 10, DefaultSpeed, FInt.Create(4));			// Velocity of the bolts (Y-axis).
+			this.rules[3] = new PercentParam("spread", "Fireball Spread", 50, 250, 10, DefaultSpread, FInt.Create(0.3));	// The % spread between each bolt.
+			this.rules[4] = new IntParam("cycle", "Attack Frequency", 60, 300, 15, DefaultCycle, " frames");				// Frequency of the attack (in frames).
+			this.rules[5] = new IntParam("offset", "Timer Offset", 0, 300, 15, DefaultOffset, " frames");					// The offset of the frequency on the global time.
 		}
 	}
 

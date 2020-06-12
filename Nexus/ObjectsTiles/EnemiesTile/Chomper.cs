@@ -22,6 +22,9 @@ namespace Nexus.Objects {
 			if(actor is Projectile) {
 				Projectile proj = (Projectile)actor;
 
+				// Can only be damaged if the projectile was cast by a Character.
+				if(proj.ByCharacterId == 0) { return false; }
+
 				if(proj is ProjectileMagi) {
 					if(proj.Damage < this.DamageSurvive) { return false; }
 					if(!((ProjectileMagi) proj).CanDamage) { return false; }
