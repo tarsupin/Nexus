@@ -12,6 +12,10 @@ namespace Nexus.Objects {
 		public enum BrickSubType : byte {
 			Brown = 0,
 			Gray = 1,
+
+			// Invisible SubTypes at +10 the original value. When set, the Draw() method won't draw them; but this maintains their original nature.
+			InvisibleBrown = 10,
+			InvisibleGray = 11,
 		}
 
 		public Brick() : base() {
@@ -39,7 +43,14 @@ namespace Nexus.Objects {
 
 				// Nudge. Damages enemies above.
 				byte sub = room.tilemap.GetMainSubType(gridX, gridY);
-				SimpleEmitter.GravityParticle(room, this.Texture[sub], gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+
+				// Make the brick disappear (turn invisible) and replace it with a nudge particle. Then return the brick to visible after completion.
+				if(sub < 10) {
+					SimpleEmitter.GravityParticle(room, this.Texture[sub], gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+					room.tilemap.SetTileSubType(gridX, gridY, (byte)(sub + 10));
+					room.queueEvents.AddEvent(Systems.timer.Frame + 9, this.tileId, (short)gridX, (short)gridY);
+				}
+
 				BlockTile.DamageAbove(room, gridX, gridY);
 				Systems.sounds.thudHit.Play(0.7f, 0f, 0f);
 			}
@@ -58,6 +69,17 @@ namespace Nexus.Objects {
 			room.tilemap.SetMainTile(gridX, gridY, 0, 0);
 		}
 
+		// Trigger Event: Swap between invisible and visible.
+		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0) {
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+
+			if(subType >= 10) {
+				room.tilemap.SetTileSubType(gridX, gridY, (byte)(subType - 10));
+			}
+
+			return true;
+		}
+
 		private void CreateTextures() {
 			this.Texture = new string[2];
 			this.Texture[(byte) BrickSubType.Brown] = "Brick/Brown";
@@ -65,6 +87,10 @@ namespace Nexus.Objects {
 		}
 		
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
+
+			// Don't Render any subtypes of 10+ (Invisible)
+			if(subType >= 10) { return; }
+
 			this.atlas.Draw(this.Texture[subType], posX, posY);
 		}
 	}
