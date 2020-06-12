@@ -154,16 +154,20 @@ namespace Nexus.GameEngine {
 			// Update the tab lookup.
 			ConsoleTrack.PrepareTabLookup(headCodes, currentIns, "Assign the character's head.");
 
-			// If "head" is the only instruction, give a random head to the character.
-			if(currentIns == string.Empty) {
-				Head.AssignToCharacter(ConsoleTrack.character, (byte)HeadSubType.RandomStandard, true);
-				return;
-			}
+			// Activate the Instruction
+			if(ConsoleTrack.activate) {
 
-			// Get the Head Type by instruction:
-			if(headCodes.ContainsKey(currentIns)) {
-				byte subType = byte.Parse(headCodes[currentIns].ToString());
-				Head.AssignToCharacter(ConsoleTrack.character, (byte)subType, true);
+				// If "head" is the only instruction, give a random head to the character.
+				if(currentIns == string.Empty) {
+					Head.AssignToCharacter(ConsoleTrack.character, (byte)HeadSubType.RandomStandard, true);
+					return;
+				}
+
+				// Get the Head Type by instruction:
+				if(headCodes.ContainsKey(currentIns)) {
+					byte subType = byte.Parse(headCodes[currentIns].ToString());
+					Head.AssignToCharacter(ConsoleTrack.character, (byte)subType, true);
+				}
 			}
 		}
 

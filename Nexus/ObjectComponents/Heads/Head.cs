@@ -75,8 +75,9 @@ namespace Nexus.ObjectComponents {
 		public void ApplyHead(Character character, bool resetStats) {
 			character.head = this; // Apply Head to Character
 
-			// Apply the Head's Default Hat if the character has no hat OR a cosmetic hat.
+			// Remove cosmetic hats for the new head, but then apply the Head's Default Hat if the character has no hat OR a cosmetic hat.
 			if(character.hat == null || (character.hat is Hat && character.hat.IsCosmeticHat)) {
+				character.hat = null;
 				this.AssignHeadDefaultHat(character);
 			}
 
