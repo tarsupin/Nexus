@@ -69,7 +69,7 @@ namespace Nexus.GameEngine {
 		private ushort GetLeftWidth() {
 			ushort largestWidth = 0;
 
-			for(byte i = 0; i < WandData.paramRules.Length; i++) {
+			for(byte i = 0; i < WandData.paramRules.Count; i++) {
 				ushort w = (ushort) ParamMenu.font.font.MeasureString(WandData.paramRules[i].name).X;
 				if(w > largestWidth) { largestWidth = w; }
 			}

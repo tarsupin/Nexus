@@ -30,8 +30,8 @@ namespace Nexus.Objects {
 		private void AddNextAttackCycle(RoomScene room, Dictionary<string, short> paramList, ushort gridX, ushort gridY) {
 
 			// Determine How Frequently this effect runs:
-			short cycle = paramList.ContainsKey("cycle") ? paramList["cycle"] : ParamsFireBurst.DefaultCycle;
-			byte offset = paramList.ContainsKey("offset") ? (byte)paramList["offset"] : ParamsFireBurst.DefaultOffset;
+			short cycle = paramList.ContainsKey("cycle") ? paramList["cycle"] : ParamsAttack.DefaultCycle;
+			short offset = paramList.ContainsKey("offset") ? paramList["offset"] : (short) 0;
 
 			// Identify the next frame to activate on:
 			int nextFrame = ((int)Math.Floor((double)((Systems.timer.Frame) / cycle) + 1)) * cycle + offset;
@@ -54,14 +54,14 @@ namespace Nexus.Objects {
 			this.AddNextAttackCycle(room, paramList, gridX, gridY);
 
 			// Prepare Projectile Details
-			byte count = paramList.ContainsKey("count") ? (byte)paramList["count"] : ParamsFireBurst.DefaultCount;
-			float grav = (float)((paramList.ContainsKey("grav") ? paramList["grav"] : ParamsFireBurst.DefaultGravity) * 0.01);
+			byte count = paramList.ContainsKey("count") ? (byte)paramList["count"] : (byte) 1;
+			float grav = (float)((paramList.ContainsKey("grav") ? paramList["grav"] : 100) * 0.01);
 
 			short attackX = 0;
 			short attackY = 0;
 
 			// Determine Attack Direction
-			float speedMult = (float)((paramList.ContainsKey("speed") ? paramList["speed"] : ParamsFireBurst.DefaultSpeed) * 0.01 * 4);
+			float speedMult = (float)((paramList.ContainsKey("speed") ? paramList["speed"] : 100) * 0.01);
 
 			if(subType == (byte)FacingSubType.FaceUp) { attackY = (short)((speedMult * -8) - 4); }
 			else if(subType == (byte)FacingSubType.FaceDown) { attackY = (short)(speedMult * 6); }
@@ -75,7 +75,7 @@ namespace Nexus.Objects {
 
 			// For two fireballs, consider the spread:
 			else {
-				short spread = (short)((paramList.ContainsKey("spread") ? paramList["spread"] : ParamsFireBurst.DefaultSpread) * 0.01);
+				short spread = (short)((paramList.ContainsKey("spread") ? paramList["spread"] : 100) * 0.01);
 
 				// If we're facing left or right, the spread is based on vertical spread.
 				if(subType == (byte)FacingSubType.FaceLeft || (subType == (byte)FacingSubType.FaceRight)) {

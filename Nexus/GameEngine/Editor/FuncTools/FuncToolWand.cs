@@ -49,10 +49,10 @@ namespace Nexus.GameEngine {
 
 		// Essential References to Wand and Parameter Tools
 		public static Params paramSet;					// Current parameter set (e.g. ParamsCollectable, ParamsContent, ParamsFireBurst, etc).
-		public static ParamGroup[] paramRules;          // Shorthand for paramSet.rules
+		public static List<ParamGroup> paramRules;		// Shorthand for paramSet.rules
 
 		// Basic Menu Information
-		public static bool menuOptsChanged = false;			// Sets to true if the menu changes, and needs a display update and/or resize.
+		public static bool menuOptsChanged = false;		// Sets to true if the menu changes, and needs a display update and/or resize.
 		public static byte numberOptsToShow = 1;		// Number of Menu Options to Show
 		public static sbyte optionSelected = 0;			// Current Menu Option Highlighted
 
@@ -94,11 +94,11 @@ namespace Nexus.GameEngine {
 			Dictionary<string, short> paramList = WandData.GetParamList();
 
 			// Get Rules
-			ParamGroup[] rules = WandData.paramRules;
+			List<ParamGroup> rules = WandData.paramRules;
 
 			// Prepare Menu Options
 			if(numOptsToShow == 0) {
-				WandData.numberOptsToShow = (byte) rules.Length;
+				WandData.numberOptsToShow = (byte) rules.Count;
 			} else {
 				WandData.numberOptsToShow = numOptsToShow;
 				WandData.menuOptsChanged = true;

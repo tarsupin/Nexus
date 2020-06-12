@@ -11,18 +11,17 @@ namespace Nexus.GameEngine {
 		public string[] contentGroup = new string[10] { "Goodie", "Suit", "Hat", "Timer Mod", "Mobility Power", "Weapon", "Potion", "Thrown", "Bolt", "Stack" };
 
 		public ParamsContents() {
-			this.rules = new ParamGroup[11];
-			this.rules[0] = new LabeledParam("content", "Content Type", this.contentGroup, (byte)0);
-			this.rules[1] = new DictParam("id", "Goodie", ParamDict.Goodies, (byte)GoodieSubType.Apple);
-			this.rules[2] = new DictParam("id", "Suit", ParamDict.Suits, (byte)SuitSubType.RandomSuit);
-			this.rules[3] = new DictParam("id", "Hat", ParamDict.Hats, (byte)HatSubType.RandomPowerHat);
-			this.rules[4] = new DictParam("id", "Timers", ParamDict.Timers, (byte)GoodieSubType.Plus5);
-			this.rules[5] = new DictParam("id", "Mobility Power", ParamDict.MobPowers, (byte)PowerSubType.RandomPotion);
-			this.rules[6] = new DictParam("id", "Weapon", ParamDict.Weapons, (byte)PowerSubType.RandomWeapon);
-			this.rules[7] = new DictParam("id", "Spells", ParamDict.Spells, (byte)PowerSubType.RandomBook);
-			this.rules[8] = new DictParam("id", "Thrown", ParamDict.Thrown, (byte)PowerSubType.RandomThrown);
-			this.rules[9] = new DictParam("id", "Bolts", ParamDict.Bolts, (byte)PowerSubType.RandomBolt);
-			this.rules[10] = new DictParam("id", "Stacks", ParamDict.Stacks, (byte)PowerSubType.Chakram);
+			this.rules.Add(new LabeledParam("content", "Content Type", this.contentGroup, (byte)0));
+			this.rules.Add(new DictParam("id", "Goodie", ParamDict.Goodies, (byte)GoodieSubType.Apple));
+			this.rules.Add(new DictParam("id", "Suit", ParamDict.Suits, (byte)SuitSubType.RandomSuit));
+			this.rules.Add(new DictParam("id", "Hat", ParamDict.Hats, (byte)HatSubType.RandomPowerHat));
+			this.rules.Add(new DictParam("id", "Timers", ParamDict.Timers, (byte)GoodieSubType.Plus5));
+			this.rules.Add(new DictParam("id", "Mobility Power", ParamDict.MobPowers, (byte)PowerSubType.RandomPotion));
+			this.rules.Add(new DictParam("id", "Weapon", ParamDict.Weapons, (byte)PowerSubType.RandomWeapon));
+			this.rules.Add(new DictParam("id", "Spells", ParamDict.Spells, (byte)PowerSubType.RandomBook));
+			this.rules.Add(new DictParam("id", "Thrown", ParamDict.Thrown, (byte)PowerSubType.RandomThrown));
+			this.rules.Add(new DictParam("id", "Bolts", ParamDict.Bolts, (byte)PowerSubType.RandomBolt));
+			this.rules.Add(new DictParam("id", "Stacks", ParamDict.Stacks, (byte)PowerSubType.Chakram));
 		}
 
 		public override void CycleParam(string paramKey, bool up = true) {
