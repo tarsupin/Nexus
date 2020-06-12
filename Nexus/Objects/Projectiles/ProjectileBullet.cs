@@ -27,5 +27,11 @@ namespace Nexus.Objects {
 
 			return projectile;
 		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.ProjectileBullet.ReturnObject(this);
+		}
 	}
 }

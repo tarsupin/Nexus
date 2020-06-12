@@ -23,10 +23,10 @@ namespace Nexus.Objects {
 
 		// References
 		protected Atlas atlas;
-		public Power power;				// Reference to the power used for this projectile.
+		//public Power power;             // Reference to the power used for this projectile.
 
 		// Projectile Status
-		public uint Intangible;         // The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
+		//public uint Intangible;         // The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
 
 		// Essentials
 		protected uint EndLife;
@@ -80,7 +80,8 @@ namespace Nexus.Objects {
 
 		// Disables the instance of this object, returning it to a pool rather than destroying it altogether.
 		public virtual void ReturnToPool() {
-			this.room.RemoveFromScene(this);        // This is identical to Destroy(), but probably works since pool is connected elsewhere.
+			//this.room.RemoveFromScene(this);        // This is identical to Destroy(), but probably works since pool is connected elsewhere.
+			throw new System.Exception("Must overwrite this method");
 		}
 
 		// If set, this activates when the projectile bounces on the ground. Can set physics.velocity.Y here to a designated amount.

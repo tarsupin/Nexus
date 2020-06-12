@@ -6,26 +6,17 @@ namespace Nexus.Objects {
 
 	public class HammerProjectile : Projectile {
 
-		private HammerProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.Damage = DamageStrength.Major;
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-			this.physics.SetGravity(FInt.Create(0.45));
-		}
+		public HammerProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static HammerProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			HammerProjectile projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponHammerPool.Count > 0) {
-				projectile = ProjectilePool.WeaponHammerPool.Pop();
-				projectile.ResetProjectile(room, subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			HammerProjectile projectile = ProjectilePool.HammerProjectile.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new HammerProjectile(room, subType, pos, velocity);
-			}
-
+			projectile.ResetProjectile(room, subType, pos, velocity);
+			projectile.Damage = DamageStrength.Major;
+			projectile.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			projectile.physics.SetGravity(FInt.Create(0.45));
 			projectile.SetSpriteName("Weapon/Hammer");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.rotation = Radians.UpRight + (projectile.physics.velocity.X > 0 ? 0.3f : -0.3f);
@@ -35,6 +26,12 @@ namespace Nexus.Objects {
 			room.AddToScene(projectile, false);
 
 			return projectile;
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.HammerProjectile.ReturnObject(this);
 		}
 	}
 }

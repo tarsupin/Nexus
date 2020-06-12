@@ -19,6 +19,8 @@ namespace Nexus.Objects {
 			// Retrieve an available projectile from the pool.
 			ProjectileEarth projectile = ProjectilePool.ProjectileEarth.GetObject();
 
+			if(subType == 0) { throw new System.Exception("this whole class seems like it hasn't been built yet."); }
+
 			projectile.ResetProjectile(room, subType, pos, velocity);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
@@ -46,6 +48,7 @@ namespace Nexus.Objects {
 			base.RunTick();
 		}
 
+		// TODO: This doesn't ever return anything.
 		public override void Destroy( DirCardinal dir = DirCardinal.None, GameObject obj = null ) {
 			
 			// Can't be destroyed if already being destroyed:
@@ -73,6 +76,12 @@ namespace Nexus.Objects {
 			if(subType == (byte) ProjectileEarthSubType.Earth) {
 				this.SetSpriteName("Projectiles/Earth1");
 			}
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.ProjectileEarth.ReturnObject(this);
 		}
 	}
 }

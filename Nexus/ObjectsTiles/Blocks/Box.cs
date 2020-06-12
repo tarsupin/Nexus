@@ -24,8 +24,7 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
 			if(actor is Projectile) {
-				bool collides = TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
-				if(!collides) { return false; }
+				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 
 			// Destroy Box

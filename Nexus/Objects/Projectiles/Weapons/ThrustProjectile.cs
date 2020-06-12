@@ -1,24 +1,21 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using System;
 
 namespace Nexus.Objects {
 
 	public class ThrustProjectile : Projectile {
-		
+
 		protected byte cycleDuration; // The duration of the weapon's attack.
 		protected uint startFrame;
 		protected FVector endPos;
 
-		public ThrustProjectile(RoomScene room, byte subType, FVector pos, FVector endPos) : base(room, subType, pos, FVector.Create(0, 0)) {
+		public ThrustProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
+
+		public void ResetThrustProjectile(FVector endPos) {
+			this.endPos = endPos;
 			this.Damage = DamageStrength.Major;
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-			this.endPos = endPos;
-			this.ResetThrustProjectile();
-		}
-
-		public void ResetThrustProjectile() {
 			this.startFrame = Systems.timer.Frame;
 			this.SetEndLife(startFrame + this.cycleDuration);
 		}

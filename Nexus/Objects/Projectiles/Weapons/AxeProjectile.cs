@@ -12,26 +12,17 @@ namespace Nexus.Objects {
 
 	public class AxeProjectile : Projectile {
 
-		private AxeProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.Damage = DamageStrength.Lethal;
-			this.physics.SetGravity(FInt.Create(0.45));
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-		}
+		public AxeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static AxeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			AxeProjectile projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponAxePool.Count > 0) {
-				projectile = ProjectilePool.WeaponAxePool.Pop();
-				projectile.ResetProjectile(room, subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			AxeProjectile projectile = ProjectilePool.AxeProjectile.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new AxeProjectile(room, subType, pos, velocity);
-			}
-
+			projectile.ResetProjectile(room, subType, pos, velocity);
+			projectile.Damage = DamageStrength.Lethal;
+			projectile.physics.SetGravity(FInt.Create(0.45));
+			projectile.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.rotation = Radians.UpRight + (projectile.physics.velocity.X > 0 ? 0.3f : -0.3f);
@@ -55,6 +46,12 @@ namespace Nexus.Objects {
 			else if(subType == (byte) WeaponAxeSubType.Axe3) {
 				this.SetSpriteName("Weapon/Axe3");
 			}
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.AxeProjectile.ReturnObject(this);
 		}
 	}
 }

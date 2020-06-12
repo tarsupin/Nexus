@@ -46,5 +46,11 @@ namespace Nexus.Objects {
 				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 			}
 		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.ProjectileBolt.ReturnObject(this);
+		}
 	}
 }

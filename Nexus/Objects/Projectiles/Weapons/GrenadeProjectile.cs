@@ -12,26 +12,17 @@ namespace Nexus.Objects {
 
 		private uint endFrame;          // The frame that a movement style ends on.
 
-		private GrenadeProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.Damage = DamageStrength.None;
-			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
-			this.physics.SetGravity(FInt.Create(0.4));
-		}
+		public GrenadeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static GrenadeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			GrenadeProjectile projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponGrenadePool.Count > 0) {
-				projectile = ProjectilePool.WeaponGrenadePool.Pop();
-				projectile.ResetProjectile(room, subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			GrenadeProjectile projectile = ProjectilePool.GrenadeProjectile.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new GrenadeProjectile(room, subType, pos, velocity);
-			}
-
+			projectile.ResetProjectile(room, subType, pos, velocity);
+			projectile.Damage = DamageStrength.None;
+			projectile.CollisionType = ProjectileCollisionType.DestroyOnCollide;
+			projectile.physics.SetGravity(FInt.Create(0.4));
 			projectile.SetSpriteName("Projectiles/Grenade");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.07f : -0.07f;
@@ -136,6 +127,12 @@ namespace Nexus.Objects {
 
 			// Standard Physics
 			this.physics.RunPhysicsTick();
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.GrenadeProjectile.ReturnObject(this);
 		}
 	}
 }

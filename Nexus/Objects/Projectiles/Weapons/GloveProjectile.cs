@@ -11,29 +11,21 @@ namespace Nexus.Objects {
 
 	public class GloveProjectile : ThrustProjectile {
 
-		private GloveProjectile(RoomScene room, byte subType, FVector pos, FVector endPos) : base(room, subType, pos, endPos) {
-			this.Damage = DamageStrength.Standard;
-			this.CollisionType = ProjectileCollisionType.BreakObjects;
-			this.cycleDuration = 24;
-		}
+		public GloveProjectile() : base() { }
 
 		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos) {
-			GloveProjectile projectile;
 
-			// Retrieve a Projectile from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponGlovePool.Count > 0) {
-				projectile = ProjectilePool.WeaponGlovePool.Pop();
-				projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
-			}
+			// Retrieve an available projectile from the pool.
+			GloveProjectile projectile = ProjectilePool.GloveProjectile.GetObject();
 
-			// Create a New Projectile
-			else {
-				projectile = new GloveProjectile(room, subType, pos, endPos);
-			}
 
-			projectile.ResetThrustProjectile();
+			projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
+			projectile.ResetThrustProjectile(endPos);
+			projectile.CollisionType = ProjectileCollisionType.BreakObjects;
+			projectile.Damage = DamageStrength.Standard;
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(5, 5, -5, -5); // Reduce Bounds (otherwise it appears to hit too much, too quickly)
+			projectile.cycleDuration = 24;
 			projectile.rotation = projectile.endPos.X > projectile.posX ? 0 : Radians.Rotate180;
 
 			// Add the Projectile to Scene
@@ -48,6 +40,12 @@ namespace Nexus.Objects {
 			} else if(subType == (byte) WeaponGloveSubType.White) {
 				this.SetSpriteName("Weapon/BoxingWhite");
 			}
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.GloveProjectile.ReturnObject(this);
 		}
 	}
 }

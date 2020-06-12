@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 
@@ -32,12 +33,6 @@ namespace Nexus.Objects {
 			room.AddToScene(projectile, false);
 
 			return projectile;
-		}
-
-		// Return the ProjectileBall to the Pool
-		public override void ReturnToPool() {
-			this.room.RemoveFromScene(this);
-			ProjectilePool.ProjectileBall.ReturnObject(this);
 		}
 
 		public override void BounceOnGround() {
@@ -81,6 +76,12 @@ namespace Nexus.Objects {
 			} else if(subType == (byte)ProjectileBallSubType.Water) {
 				this.SetSpriteName("Projectiles/Water");
 			}
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.ProjectileBall.ReturnObject(this);
 		}
 	}
 }

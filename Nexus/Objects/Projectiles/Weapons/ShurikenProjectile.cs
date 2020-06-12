@@ -9,27 +9,18 @@ namespace Nexus.Objects {
 
 	public class ShurikenProjectile : Projectile {
 
-		private uint endFrame;			// The frame that a movement style ends on.
+		private uint endFrame;          // The frame that a movement style ends on.
 
-		private ShurikenProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.Damage = DamageStrength.Standard;
-			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
-		}
+		public ShurikenProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ShurikenProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			ShurikenProjectile projectile;
 
-			// Retrieve asset from the ProjectilePool, if one is available:
-			if(ProjectilePool.WeaponShurikenPool.Count > 0) {
-				projectile = ProjectilePool.WeaponShurikenPool.Pop();
-				projectile.ResetProjectile(room, subType, pos, velocity);
-				projectile.Damage = DamageStrength.Standard;    // Needs to be reset, because death action sets to trivial.
-			}
+			// Retrieve an available projectile from the pool.
+			ShurikenProjectile projectile = ProjectilePool.ShurikenProjectile.GetObject();
 
-			// Create a New Projectile
-			else {
-				projectile = new ShurikenProjectile(room, subType, pos, velocity);
-			}
+			projectile.ResetProjectile(room, subType, pos, velocity);
+			projectile.Damage = DamageStrength.Standard;
+			projectile.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 
 			// Assign Projectile Appearance
 			switch(subType) {
@@ -108,6 +99,12 @@ namespace Nexus.Objects {
 
 			// Standard Physics
 			this.physics.RunPhysicsTick();
+		}
+
+		// Return Projectile to the Pool
+		public override void ReturnToPool() {
+			this.room.RemoveFromScene(this);
+			ProjectilePool.ShurikenProjectile.ReturnObject(this);
 		}
 	}
 }
