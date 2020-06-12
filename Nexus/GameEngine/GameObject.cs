@@ -34,9 +34,9 @@ namespace Nexus.GameEngine {
 		// TODO: TrackInstructions (rules for dealing with tracks; not everything needs this, but... ???)
 
 		// Metadata
-		public readonly uint id;
+		public uint id { get; protected set; }
 		public IMetaData Meta { get; protected set; }
-		public readonly RoomScene room;
+		public RoomScene room;
 
 		// Data
 		public byte subType;
@@ -57,8 +57,8 @@ namespace Nexus.GameEngine {
 
 		public GameObject(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList = null) {
 			
-			this.id = room.nextId;
 			this.room = room;
+			this.id = room == null ? 0 : room.nextId;
 			this.subType = subType;
 			this.posX = pos.X.RoundInt;
 			this.posY = pos.Y.RoundInt;

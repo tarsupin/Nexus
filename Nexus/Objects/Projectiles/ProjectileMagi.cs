@@ -32,26 +32,18 @@ namespace Nexus.Objects {
 
 		public bool CanDamage { get { return this.regenEnergy >= this.regenFrames; } }
 
-		private ProjectileMagi(GameObject actor, byte subType) : base(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0)) {
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-			this.SafelyJumpOnTop = false;
-			this.Damage = DamageStrength.Standard;
-		}
+		public ProjectileMagi() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ProjectileMagi Create(MagiShield magiShield, GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
-			ProjectileMagi projectile;
 
-			// Retrieve a Projectile from the ObjectPool, if one is available:
-			if(ProjectilePool.ProjectileMagi.Count > 0) {
-				projectile = ProjectilePool.ProjectileMagi.Pop();
-			}
+			// Retrieve an available projectile from the pool.
+			ProjectileMagi projectile = ProjectilePool.ProjectileMagi.GetObject();
 
-			// Create a New Projectile
-			else {
-				projectile = new ProjectileMagi(actor, subType);
-			}
-
+			projectile.ResetProjectile(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0));
 			projectile.ResetMagiBall(magiShield, actor, radius, regenFrames);
+			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			projectile.SetSafelyJumpOnTop(false);
+			projectile.SetDamage(DamageStrength.Standard);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.SetOffset(numberOfBalls, ballNumber);
@@ -158,7 +150,7 @@ namespace Nexus.Objects {
 
 			// Rotates Slower
 			else if(subType == (byte) ProjectileMagiSubType.Poison) {
-				this.SetSpriteName("Projectiles/Slime");
+				this.SetSpriteName("Projectiles/Poison");
 				this.travelDuration = (short)(this.radius * 2.6f);
 			}
 

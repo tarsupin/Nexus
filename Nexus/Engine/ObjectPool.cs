@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nexus.Gameplay;
+using System;
 using System.Collections.Concurrent;
 
 /*
@@ -31,7 +32,7 @@ namespace Nexus.Engine {
 		// GetObject retrieves the object from the object pool (if already exists) or else creates an instance of object and returns (if not exists)
 		public T GetObject() {
 			T item;
-			if(_objects.TryTake(out item)) return item;
+			if(_objects.TryTake(out item)) { return item; }
 			return _objectGenerator();
 		}
 

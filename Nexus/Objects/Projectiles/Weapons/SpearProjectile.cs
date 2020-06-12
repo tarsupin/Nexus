@@ -16,9 +16,9 @@ namespace Nexus.Objects {
 			SpearProjectile projectile;
 
 			// Retrieve a Projectile from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponSpear.Count > 0) {
-				projectile = ProjectilePool.WeaponSpear.Pop();
-				projectile.ResetProjectile(subType, pos, FVector.Create(0, 0));
+			if(ProjectilePool.WeaponSpearPool.Count > 0) {
+				projectile = ProjectilePool.WeaponSpearPool.Pop();
+				projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
 			}
 
 			// Create a New Projectile

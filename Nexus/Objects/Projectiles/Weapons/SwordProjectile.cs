@@ -16,9 +16,9 @@ namespace Nexus.Objects {
 			SwordProjectile projectile;
 
 			// Retrieve a Projectile from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponSword.Count > 0) {
-				projectile = ProjectilePool.WeaponSword.Pop();
-				projectile.ResetProjectile(subType, pos, FVector.Create(0, 0));
+			if(ProjectilePool.WeaponSwordPool.Count > 0) {
+				projectile = ProjectilePool.WeaponSwordPool.Pop();
+				projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
 			}
 
 			// Create a New Projectile

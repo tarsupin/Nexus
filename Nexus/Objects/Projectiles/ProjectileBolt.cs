@@ -12,29 +12,18 @@ namespace Nexus.Objects {
 
 	public class ProjectileBolt : Projectile {
 
-		private ProjectileBolt(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-
-		}
+		public ProjectileBolt() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ProjectileBolt Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			ProjectileBolt projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.ProjectileBolt.Count > 0) {
-				projectile = ProjectilePool.ProjectileBolt.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			ProjectileBolt projectile = ProjectilePool.ProjectileBolt.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new ProjectileBolt(room, subType, pos, velocity);
-			}
-
-			// Rotation
-			projectile.rotation = Radians.GetRadiansBetweenCoords(0, 0, velocity.X.RoundInt, velocity.Y.RoundInt);
-
+			projectile.ResetProjectile(room, subType, pos, velocity);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+
+			projectile.rotation = Radians.GetRadiansBetweenCoords(0, 0, velocity.X.RoundInt, velocity.Y.RoundInt);
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
@@ -46,15 +35,15 @@ namespace Nexus.Objects {
 
 			if(subType == (byte) ProjectileBoltSubType.Blue) {
 				this.SetSpriteName("Projectiles/Bolt");
-				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
+				this.SetCollisionType(ProjectileCollisionType.DestroyOnCollide);
 
 			} else if(subType == (byte) ProjectileBoltSubType.Green) {
 				this.SetSpriteName("Projectiles/BoltGreen");
-				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 
 			} else if(subType == (byte) ProjectileBoltSubType.Gold) {
 				this.SetSpriteName("Projectiles/BoltGold");
-				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 			}
 		}
 	}

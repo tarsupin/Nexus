@@ -16,9 +16,9 @@ namespace Nexus.Objects {
 			HammerProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponHammer.Count > 0) {
-				projectile = ProjectilePool.WeaponHammer.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
+			if(ProjectilePool.WeaponHammerPool.Count > 0) {
+				projectile = ProjectilePool.WeaponHammerPool.Pop();
+				projectile.ResetProjectile(room, subType, pos, velocity);
 			}
 
 			// Create a New Projectile Ball

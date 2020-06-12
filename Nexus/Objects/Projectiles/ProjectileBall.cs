@@ -17,22 +17,14 @@ namespace Nexus.Objects {
 
 	public class ProjectileBall : Projectile {
 
-		public ProjectileBall(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {}
+		public ProjectileBall() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {}
 
 		public static ProjectileBall Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			ProjectileBall projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.ProjectileBall.Count > 0) {
-				projectile = ProjectilePool.ProjectileBall.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
-			}
-			
-			// Create a New Projectile Ball
-			else {
-				projectile = new ProjectileBall(room, subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			ProjectileBall projectile = ProjectilePool.ProjectileBall.GetObject();
 
+			projectile.ResetProjectile(room, subType, pos, velocity);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
@@ -45,8 +37,7 @@ namespace Nexus.Objects {
 		// Return the ProjectileBall to the Pool
 		public override void ReturnToPool() {
 			this.room.RemoveFromScene(this);
-			// TODO LOW PRIORITY: Is there any possible chance this could cause a ball to return to pool on same frame it's marked for delete?
-			ProjectilePool.ProjectileBall.Push(this);
+			ProjectilePool.ProjectileBall.ReturnObject(this);
 		}
 
 		public override void BounceOnGround() {
@@ -57,7 +48,7 @@ namespace Nexus.Objects {
 
 			// Behaviors
 			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
-				this.Damage = DamageStrength.Trivial;
+				this.Damage = DamageStrength.Standard;
 				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
 				this.physics.SetGravity(FInt.Create(0.45));
 				this.CollisionType = ProjectileCollisionType.BounceOnFloor;
@@ -70,7 +61,7 @@ namespace Nexus.Objects {
 			}
 
 			else {
-				this.Damage = DamageStrength.Trivial;
+				this.Damage = DamageStrength.Standard;
 				this.spinRate = this.physics.velocity.X > 0 ? 0.09f : -0.09f;
 				this.physics.SetGravity(FInt.Create(0.4));
 				this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
@@ -86,7 +77,7 @@ namespace Nexus.Objects {
 			} else if(subType == (byte)ProjectileBallSubType.Rock) {
 				this.SetSpriteName("Projectiles/Earth1");
 			} else if(subType == (byte)ProjectileBallSubType.Poison) {
-				this.SetSpriteName("Projectiles/Slime");
+				this.SetSpriteName("Projectiles/Poison");
 			} else if(subType == (byte)ProjectileBallSubType.Water) {
 				this.SetSpriteName("Projectiles/Water");
 			}

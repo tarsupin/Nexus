@@ -21,9 +21,9 @@ namespace Nexus.Objects {
 			GloveProjectile projectile;
 
 			// Retrieve a Projectile from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponGlove.Count > 0) {
-				projectile = ProjectilePool.WeaponGlove.Pop();
-				projectile.ResetProjectile(subType, pos, FVector.Create(0, 0));
+			if(ProjectilePool.WeaponGlovePool.Count > 0) {
+				projectile = ProjectilePool.WeaponGlovePool.Pop();
+				projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
 			}
 
 			// Create a New Projectile

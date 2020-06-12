@@ -5,27 +5,19 @@ namespace Nexus.Objects {
 
 	public class ProjectileBullet : Projectile {
 
-		private ProjectileBullet(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.SetActivity(Activity.NoTileCollide);
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-			this.SafelyJumpOnTop = true;
-		}
+		public ProjectileBullet() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ProjectileBullet Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			ProjectileBullet projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.ProjectileBullet.Count > 0) {
-				projectile = ProjectilePool.ProjectileBullet.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			ProjectileBullet projectile = ProjectilePool.ProjectileBullet.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new ProjectileBullet(room, subType, pos, velocity);
-			}
+			projectile.ResetProjectile(room, subType, pos, velocity);
 
-			projectile.SetEndLife(Systems.timer.Frame + 620); // TEMPORARY, REMOVE
+			projectile.SetActivity(Activity.NoTileCollide);
+			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			projectile.SetSafelyJumpOnTop(true);
+			projectile.SetEndLife(Systems.timer.Frame + 720);
 
 			projectile.SetSpriteName("Projectiles/Bullet");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);

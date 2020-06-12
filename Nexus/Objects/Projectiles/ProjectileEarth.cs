@@ -10,30 +10,21 @@ namespace Nexus.Objects {
 
 	public class ProjectileEarth : Projectile {
 
-		private uint DeathSequence;			// The frame # that the death sequence ends (or 0 if not in death sequence).
+		private uint DeathSequence;         // The frame # that the death sequence ends (or 0 if not in death sequence).
 
-		private ProjectileEarth(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos, velocity) {
-			this.CollisionType = ProjectileCollisionType.Special;
-			this.SafelyJumpOnTop = true;
-			this.Damage = DamageStrength.Lethal;
-		}
+		public ProjectileEarth() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ProjectileEarth Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
-			ProjectileEarth projectile;
 
-			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.ProjectileEarth.Count > 0) {
-				projectile = ProjectilePool.ProjectileEarth.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
-			}
+			// Retrieve an available projectile from the pool.
+			ProjectileEarth projectile = ProjectilePool.ProjectileEarth.GetObject();
 
-			// Create a New Projectile Ball
-			else {
-				projectile = new ProjectileEarth(room, subType, pos, velocity);
-			}
-
+			projectile.ResetProjectile(room, subType, pos, velocity);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
+			projectile.SetDamage(DamageStrength.Lethal);
+			projectile.SetCollisionType(ProjectileCollisionType.Special);
+			projectile.SetSafelyJumpOnTop(true);
 			projectile.DeathSequence = 0;
 			projectile.physics.SetGravity(FInt.Create(0.8));
 

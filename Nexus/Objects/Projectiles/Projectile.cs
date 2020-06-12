@@ -36,10 +36,15 @@ namespace Nexus.Objects {
 		public Projectile(RoomScene room, byte subType, FVector pos, FVector velocity) : base(room, subType, pos) {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Projectile];
 			this.physics = new Physics(this);
-			this.SafelyJumpOnTop = false;
-			this.Damage = DamageStrength.Standard;
-			this.ResetProjectile(subType, pos, velocity);
+			this.ResetProjectile(room, subType, pos, velocity);
 		}
+
+		public void SetCollisionType(ProjectileCollisionType type) { this.CollisionType = type; }
+		public void SetSafelyJumpOnTop(bool safe = true) { this.SafelyJumpOnTop = safe; }
+		public void SetActorID(GameObject actor) { this.ByActorID = actor.id; }
+		public void SetDamage(DamageStrength damage) { this.Damage = damage; }
+		public void SetEndLife(uint endFrame) { this.EndLife = endFrame; }
+		public void SetVelocity(FVector velocity) { this.physics.velocity = velocity; }
 
 		public override void RunTick() {
 
@@ -56,25 +61,17 @@ namespace Nexus.Objects {
 			this.physics.RunPhysicsTick();
 		}
 
-		public void SetActorID(GameObject actor) {
-			this.ByActorID = actor.id;
-		}
-
-		public void SetEndLife( uint endFrame ) {
-			this.EndLife = endFrame;
-		}
-
-		public void ResetProjectile(byte subType, FVector pos, FVector velocity) {
+		public void ResetProjectile(RoomScene room, byte subType, FVector pos, FVector velocity) {
+			this.room = room;
+			if(this.id == 0) { this.id = this.room == null ? 0 : this.room.nextId; }
 			this.subType = subType;
 			this.spinRate = 0;
 			this.physics.MoveToPos(pos.X.RoundInt, pos.Y.RoundInt);
 			this.physics.velocity = velocity;
 			this.ByActorID = 0;
-			this.SetEndLife(Systems.timer.Frame + 600);
-		}
-
-		public void SetVelocity( FVector velocity ) {
-			this.physics.velocity = velocity;
+			this.SafelyJumpOnTop = false;
+			this.Damage = DamageStrength.Standard;
+			this.EndLife = Systems.timer.Frame + 600;
 		}
 
 		public virtual void Destroy( DirCardinal dir = DirCardinal.None, GameObject obj = null ) {

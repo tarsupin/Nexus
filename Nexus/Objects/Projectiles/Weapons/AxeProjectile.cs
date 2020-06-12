@@ -22,9 +22,9 @@ namespace Nexus.Objects {
 			AxeProjectile projectile;
 
 			// Retrieve a Projectile Ball from the ObjectPool, if one is available:
-			if(ProjectilePool.WeaponAxe.Count > 0) {
-				projectile = ProjectilePool.WeaponAxe.Pop();
-				projectile.ResetProjectile(subType, pos, velocity);
+			if(ProjectilePool.WeaponAxePool.Count > 0) {
+				projectile = ProjectilePool.WeaponAxePool.Pop();
+				projectile.ResetProjectile(room, subType, pos, velocity);
 			}
 
 			// Create a New Projectile Ball
