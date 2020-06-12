@@ -5,8 +5,9 @@ using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
-	// TODO HIGH PRIORITY: LOTS MORE TO DO.
-	// TODO HIGH PRIORITY: LOTS MORE TO DO.
+	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
+	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
+	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
 
 	public class HitCompareCharacter : IHitCompare {
 
@@ -92,7 +93,43 @@ namespace Nexus.GameEngine {
 			if(projectile.ByCharacterId == character.id) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
-			return Impact.StandardImpact(character, projectile, dir);
+
+			// Set the projectile to bounce off of the screen:
+			// TODO: Alter this to a particle effect.
+			//projectile.physics.SetGravity(FInt.Create(1));
+			//projectile.BounceUp(character.posX + character.bounds.MidX, dir == DirCardinal.Up ? (sbyte)4 : (sbyte)0);
+			//projectile.SetIntangible(true);
+
+			// Destroy the Projectile
+			projectile.Destroy();
+
+			// If this projectile can be jumped on:
+			if(projectile.SafelyJumpOnTop) {
+
+				// Hit from above (projectile is below):
+				if(dir == DirCardinal.Down) {
+					character.BounceUp(projectile.posX + projectile.bounds.MidX, 1, 0, 0);
+					Systems.sounds.bulletJump.Play();
+					return true;
+				}
+
+				// Hit from below (projectile is above):
+				else if(dir == DirCardinal.Up && character.status.action is Action) {
+					character.status.action.EndAction(character);
+				}
+			}
+
+			// If wearing a hard hat, can ignore damage from above.
+			if(dir == DirCardinal.Up) {
+				if(character.hat is HardHat) { return true; }
+			}
+
+			character.wounds.ReceiveWoundDamage(projectile.Damage);
+
+			return true;
+
+			//DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
+			//return Impact.StandardImpact(character, projectile, dir);
 		}
 	}
 }

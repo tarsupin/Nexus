@@ -174,8 +174,8 @@ namespace Nexus.Objects {
 					break;
 
 				case (byte)GoodieSubType.RingElements:
-					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 3, 0, false);
-					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 4, 0, false);
+					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 2, 0, false);
+					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3, 0, false);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
