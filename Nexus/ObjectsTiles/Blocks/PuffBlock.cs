@@ -39,6 +39,10 @@ namespace Nexus.Objects {
 
 			if(newDir == DirCardinal.None) { return false; }
 
+			// If the character isn't centered with the puff block, move it closer to center.
+			//sbyte diffX = (sbyte)(character.posX + character.bounds.MidX - (gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth));
+			//sbyte diffY = (sbyte)(character.posY + character.bounds.MidY - (gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight));
+
 			// Get the SubType
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
@@ -48,12 +52,16 @@ namespace Nexus.Objects {
 
 			if(subType == (byte)PuffBlockSubType.Up) {
 				vert = -1;
+				character.physics.MoveToPosX(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - character.bounds.MidX);
 			} else if(subType == (byte)PuffBlockSubType.Right) {
 				hor = 1;
+				character.physics.MoveToPosY(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - character.bounds.MidY);
 			} else if(subType == (byte)PuffBlockSubType.Down) {
 				vert = 1;
+				character.physics.MoveToPosX(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - character.bounds.MidX);
 			} else if(subType == (byte)PuffBlockSubType.Left) {
 				hor = -1;
+				character.physics.MoveToPosY(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - character.bounds.MidY);
 			}
 
 			// Character is sent into an "Air Burst" action.

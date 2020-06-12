@@ -166,8 +166,9 @@ namespace Nexus.ObjectComponents {
 			character.hat = null;
 
 			// Reset Default Hat to Suit's Cosmetic Version (if applicable)
-			if(!removeCosmetic && character.suit.DefaultCosmeticHat is Hat) {
-				character.suit.DefaultCosmeticHat.ApplyHat(character, false);
+			if(!removeCosmetic) {
+				if(character.suit.DefaultCosmeticHat is Hat) { character.suit.DefaultCosmeticHat.ApplyHat(character, false); }
+				else if(character.head.DefaultCosmeticHat is Hat) { character.head.DefaultCosmeticHat.ApplyHat(character, false); }
 			}
 
 			if(resetStats) {

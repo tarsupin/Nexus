@@ -134,8 +134,13 @@ namespace Nexus.ObjectComponents {
 		public virtual void DestroySuit(Character character, bool resetStats) {
 
 			// Cosmetic Hat
-			if(character.suit.DefaultCosmeticHat != null) {
+			if(character.suit.DefaultCosmeticHat is Hat) {
 				character.suit.DefaultCosmeticHat.DestroyHat(character, false, true);
+			}
+
+			// Apply Head Hat (if applicable)
+			if(character.head.DefaultCosmeticHat is Hat) {
+				character.head.DefaultCosmeticHat.ApplyHat(character, false);
 			}
 
 			// Default Suit, Default Head

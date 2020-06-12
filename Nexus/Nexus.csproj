@@ -316,6 +316,7 @@
     <Compile Include="ObjectComponents\Actions\HoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FlightAction.cs" />
     <Compile Include="ObjectComponents\Actions\AirBurst.cs" />
+    <Compile Include="ObjectComponents\Hats\CosmeticHats\PooHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardWhiteHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardRedHat.cs" />
     <Compile Include="ObjectComponents\Hats\CosmeticHats\WizardGreenHat.cs" />

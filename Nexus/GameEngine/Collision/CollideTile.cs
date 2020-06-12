@@ -118,8 +118,8 @@ namespace Nexus.GameEngine {
 				if(velX > 0) {
 
 					// Compare against BOTTOM-LEFT (vs. up) and TOP-RIGHT (vs. left)
-					bool right = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right);
 					bool down = CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down);
+					bool right = CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right);
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!down && !right) {
@@ -132,8 +132,8 @@ namespace Nexus.GameEngine {
 				else if(velX < 0) {
 
 					// Compare against BOTTOM-RIGHT (vs.up) and TOP-LEFT (vs. right)
-					bool left = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left);
 					bool down = CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down);
+					bool left = CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left);
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!down && !left) {
