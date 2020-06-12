@@ -1,4 +1,6 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
@@ -170,6 +172,9 @@ namespace Nexus.ObjectComponents {
 				if(character.suit.DefaultCosmeticHat is Hat) { character.suit.DefaultCosmeticHat.ApplyHat(character, false); }
 				else if(character.head.DefaultCosmeticHat is Hat) { character.head.DefaultCosmeticHat.ApplyHat(character, false); }
 			}
+
+			// Create Hat Particle
+			HatLossParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName + (character.FaceRight ? "" : "Left"), new Vector2(character.posX, character.posY + this.yOffset), Systems.timer.Frame + 40);
 
 			if(resetStats) {
 				character.stats.ResetCharacterStats();
