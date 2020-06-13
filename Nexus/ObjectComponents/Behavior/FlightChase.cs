@@ -47,7 +47,7 @@ namespace Nexus.ObjectComponents {
 
 			// Retrieve Mechanics
 			this.axis = (paramList == null || !paramList.ContainsKey("axis") ? (byte)FlightChaseAxis.Both : (byte)paramList["axis"]);
-			this.speed = FInt.Create((paramList == null || !paramList.ContainsKey("speed") ? 100 : paramList["speed"]) * 2);
+			this.speed = FInt.Create((paramList == null || !paramList.ContainsKey("speed") ? 100 : paramList["speed"]) * 0.01 * 2);
 
 			// Chase Distance Mechanics
 			this.stall = (paramList == null || !paramList.ContainsKey("stall") ? (byte) 0 : (byte)paramList["axis"]);	// In Tiles
@@ -84,9 +84,6 @@ namespace Nexus.ObjectComponents {
 		
 		private uint WatchForCharacter() {
 
-			// Only run the watch behavior every 16 frames.
-			if(Systems.timer.frame16Modulus != 7) { return 0; }
-
 			int midX = this.actor.posX + this.actor.bounds.MidX;
 			int midY = this.actor.posY + this.actor.bounds.MidY;
 
@@ -101,37 +98,69 @@ namespace Nexus.ObjectComponents {
 			return objectId;
 		}
 
-		public override void RunTick() {
+		private void TryUpdateBehavior(int midX, int midY) {
 
 			// If there is no character in sight, check for a new one:
 			if(this.charBeingChased is Character == false) {
 				uint objectId = this.WatchForCharacter();
 
-				// No Character was located, so we can perform passive behaviors:
 				if(objectId > 0) {
 					this.charBeingChased = (Character)this.actor.room.objects[(byte)LoadOrder.Character][objectId];
 				}
 			}
 
-			// Preparee Values
+			// Prepare Values
 			uint frame = Systems.timer.Frame;
+
+			// Get distance from Character, if applicable.
+			int destX = this.charBeingChased is Character ? this.charBeingChased.posX + this.charBeingChased.bounds.MidX : midX;
+			int destY = this.charBeingChased is Character ? this.charBeingChased.posY + this.charBeingChased.bounds.MidY : midY;
+			int distance = FPTrigCalc.GetDistance(FVector.Create(midX, midY), FVector.Create(destX, destY)).RoundInt;
+
+			// Assign New Chase Action (When Action Time Expires).
+
+			// Flee
+			if(this.flee > 0 && distance < this.flee) {
+				this.quickAct = ChaseAction.Flee;
+			}
+
+			// Chase
+			else if(this.chase > 0 && distance <= this.chase) {
+				this.quickAct = ChaseAction.Chase;
+			}
+
+			// Return to Start Position
+			else if(this.returns) {
+
+				if(this.quickAct == ChaseAction.Return || (this.quickAct == ChaseAction.Wait && this.waitEndFrame < frame)) {
+					this.quickAct = ChaseAction.Return;
+
+				} else {
+					this.quickAct = ChaseAction.Wait;
+					this.waitEndFrame = this.waitEndFrame < frame ? (uint)(frame + this.retDelay) : this.waitEndFrame;
+				}
+			}
+
+			// Standard: Do Nothing
+			else {
+				this.quickAct = ChaseAction.Standard;
+			}
+		}
+
+		public override void RunTick() {
 
 			// Update the rotation to move toward.
 			int midX = this.actor.posX + this.actor.bounds.MidX;
 			int midY = this.actor.posY + this.actor.bounds.MidY;
 
-			int destX;
-			int destY;
-
-			// Get distance from Character, if applicable.
-			if(this.charBeingChased is Character) {
-				destX = this.charBeingChased.posX + this.charBeingChased.bounds.MidX;
-				destY = this.charBeingChased.posY + this.charBeingChased.bounds.MidY;
-			} else {
-				destX = midX;
-				destY = midY;
+			// Only change behaviors every 16 frames.
+			if(Systems.timer.frame16Modulus == 7) {
+				this.TryUpdateBehavior(midX, midY);
 			}
 
+			// Get distance from Character, if applicable.
+			int destX = this.charBeingChased is Character ? this.charBeingChased.posX + this.charBeingChased.bounds.MidX : midX;
+			int destY = this.charBeingChased is Character ? this.charBeingChased.posY + this.charBeingChased.bounds.MidY : midY;
 			int distance = FPTrigCalc.GetDistance(FVector.Create(midX, midY), FVector.Create(destX, destY)).RoundInt;
 
 			// Stall
@@ -141,42 +170,10 @@ namespace Nexus.ObjectComponents {
 				return;
 			}
 
-			// Assign New Chase Action (When Action Time Expires).
-			if(this.durEndFrame < frame) {
-				this.durEndFrame = frame + 17;
-
-				// Flee
-				if(this.flee > 0 && distance < this.flee) {
-					this.quickAct = ChaseAction.Flee;
-				}
-
-				// Chase
-				else if(this.chase > 0 && distance <= this.chase) {
-					this.quickAct = ChaseAction.Chase;
-				}
-
-				// Return to Start Position
-				else if(this.returns) {
-
-					if(this.quickAct == ChaseAction.Return || (this.quickAct == ChaseAction.Wait && this.waitEndFrame < frame)) {
-						this.quickAct = ChaseAction.Return;
-
-					} else {
-						this.quickAct = ChaseAction.Wait;
-						this.waitEndFrame = this.waitEndFrame < frame ? (uint)(frame + this.retDelay) : this.waitEndFrame;
-					}
-				}
-
-				// Standard: Do Nothing
-				else {
-					this.quickAct = ChaseAction.Standard;
-				}
-			}
-
 			// Stop Chasing
 			if(this.quickAct == ChaseAction.Standard || this.quickAct == ChaseAction.Wait) {
-				if(this.physics.velocity.X != 0) { this.physics.velocity.X *= FInt.Create(0.95); }
-				if(this.physics.velocity.Y != 0) { this.physics.velocity.Y *= FInt.Create(0.95); }
+				if(this.physics.velocity.X != 0) { this.physics.velocity.X *= FInt.Create(0.9); }
+				if(this.physics.velocity.Y != 0) { this.physics.velocity.Y *= FInt.Create(0.9); }
 				return;
 			}
 
@@ -224,7 +221,7 @@ namespace Nexus.ObjectComponents {
 				newVelY = newVelY.Inverse;
 			}
 
-			FInt accel = this.speed * FInt.Create(0.0002);
+			FInt accel = this.speed * FInt.Create(0.02);
 
 			if(this.physics.velocity.X > newVelX) {
 				this.physics.velocity.X -= accel;
