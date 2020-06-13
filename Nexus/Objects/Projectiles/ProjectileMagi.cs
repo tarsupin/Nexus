@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
@@ -35,27 +36,14 @@ namespace Nexus.Objects {
 		public ProjectileMagi() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
 
 		public static ProjectileMagi Create(MagiShield magiShield, GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
-
-			// Retrieve an available projectile from the pool.
-			ProjectileMagi projectile = ProjectilePool.ProjectileMagi.GetObject();
-
-			projectile.ResetProjectile(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0));
-			projectile.ResetMagiBall(magiShield, actor, radius, regenFrames);
-			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
-			projectile.SetSafelyJumpOnTop(false);
-			projectile.SetDamage(DamageStrength.Standard);
-			projectile.AssignSubType(subType);
-			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
-			projectile.SetOffset(numberOfBalls, ballNumber);
-			projectile.SetEndLife(Systems.timer.Frame + (60 * 60 * 10)); // Ten minute lifespan.
-
-			// Add the Projectile to Scene
-			actor.room.AddToScene(projectile, false);
-
+			ProjectileMagi projectile = new ProjectileMagi();
+			projectile.ResetMagiBall(magiShield, actor, subType, numberOfBalls, ballNumber, radius, regenFrames);
 			return projectile;
 		}
 
-		public void ResetMagiBall( MagiShield magiShield, GameObject actor, byte radius = 75, short regenFrames = 0 ) {
+		public void ResetMagiBall(MagiShield magiShield, GameObject actor, byte subType, byte numberOfBalls, byte ballNumber, byte radius, short regenFrames = 0) {
+			this.ResetProjectile(actor.room, subType, FVector.Create(0, 0), FVector.Create(0, 0));
+
 			this.magiShield = magiShield;
 			this.actor = actor;
 			this.ByCharacterId = actor.id;
@@ -64,6 +52,17 @@ namespace Nexus.Objects {
 			this.regenAlpha = 1;
 			this.radius = radius;
 			this.isAlive = true;
+
+			this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			this.SetSafelyJumpOnTop(false);
+			this.SetDamage(DamageStrength.Standard);
+			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
+			this.SetOffset(numberOfBalls, ballNumber);
+			this.SetEndLife(Systems.timer.Frame + (60 * 60 * 10)); // Ten minute lifespan.
+
+			// Add the Projectile to Scene
+			actor.room.AddToScene(this, true);
 		}
 
 		public void SetOffset( byte numberOfBalls, byte ballNumber ) {
@@ -95,7 +94,7 @@ namespace Nexus.Objects {
 						Systems.sounds.pop.Play(0.25f, 0, 0);
 					}
 				} else {
-					this.regenAlpha = (float)((float)regenEnergy / (float)regenFrames * 0.60);
+					this.regenAlpha = (float)((float)regenEnergy / (float)regenFrames * 0.50);
 				}
 			}
 
@@ -115,7 +114,7 @@ namespace Nexus.Objects {
 		public void DestroyFinal() {
 			this.isAlive = false;
 			this.magiShield.CheckShieldEnd();
-			base.Destroy();
+			this.room.RemoveFromScene(this);
 		}
 
 		private void AssignSubType(byte subType) {
@@ -139,7 +138,7 @@ namespace Nexus.Objects {
 			// Rotates Much Closer (-20) and Much Slower
 			else if(subType == (byte) ProjectileMagiSubType.Frost) {
 				this.SetSpriteName("Projectiles/Frost");
-				this.travelDuration = (short)(this.radius * 3f);
+				this.travelDuration = (short)(this.radius * 3.5f);
 			}
 
 			// Rotates Much Further (+20), and Much Faster 
@@ -163,12 +162,6 @@ namespace Nexus.Objects {
 
 		public override void Draw(int camX, int camY) {
 			this.Meta.Atlas.DrawAdvanced(this.SpriteName, this.posX - camX, this.posY - camY, Color.White * this.regenAlpha, this.rotation);
-		}
-
-		// Return Projectile to the Pool
-		public override void ReturnToPool() {
-			this.room.RemoveFromScene(this);
-			ProjectilePool.ProjectileMagi.ReturnObject(this);
 		}
 	}
 }

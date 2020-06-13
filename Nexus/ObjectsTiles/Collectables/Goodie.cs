@@ -159,50 +159,49 @@ namespace Nexus.Objects {
 
 				// Inner Magi Shields
 				case (byte)GoodieSubType.RingMagic:
-					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 480);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 60, 480);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				case (byte)GoodieSubType.RingFire:
-					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3, 60);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				case (byte)GoodieSubType.RingPoison:
-					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Poison, 4, 60);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				case (byte)GoodieSubType.RingElements:
-					this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Frost, 2, 0, false);
-					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 3, 0, false);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Frost, 3, 55, 0);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
-				//case (byte)GoodieSubType.RingHawk: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
-				//case (byte)GoodieSubType.RingDruid: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
-				//case (byte)GoodieSubType.RingEye: this.GetInnerMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7); break;
+				//case (byte)GoodieSubType.RingHawk: this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7, 60); break;
+				//case (byte)GoodieSubType.RingDruid: this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7, 60); break;
+				//case (byte)GoodieSubType.RingEye: this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7, 60); break;
 
 				// Outer Magi Shields
 				case (byte)GoodieSubType.AmuletMagic:
-					this.GetOuterMagiShield(character, (byte) ProjectileMagiSubType.Magi, 5, 720);
+					this.GetMagiShield(character, (byte) ProjectileMagiSubType.Magi, 5, 70, 720);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				case (byte)GoodieSubType.NeckElectric:
-					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Electric, 8);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Electric, 8, 80);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				case (byte)GoodieSubType.NeckFire:
-					this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Fire, 6);
+					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Fire, 6, 70);
 					character.magiShield.SetIconTexture(this.Texture[subType]);
 					break;
 
 				//case (byte)GoodieSubType.NeckHeart:
-					//this.GetOuterMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7);
-					//character.magiShield.SetIconTexture(this.Texture[subType]);
-					//break;
+				//this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 7, 60);
+				//character.magiShield.SetIconTexture(this.Texture[subType]);
+				//break;
 
 				// Invincibility
 				case (byte)GoodieSubType.Shiny: this.GetInvincible(character, 10000); break;
@@ -240,16 +239,11 @@ namespace Nexus.Objects {
 			Systems.sounds.collectSubtle.Play();
 		}
 
-		private void GetInnerMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0, bool clearBoth = true) {
-			character.magiShield.SetInnerShield(subType, ballCount, 60, regenFrames, clearBoth);
+		private void GetMagiShield(Character character, byte subType, byte ballCount, byte radius, short regenFrames = 0) {
+			character.magiShield.SetShield(subType, ballCount, radius, regenFrames);
 			Systems.sounds.shield.Play();
 		}
 		
-		private void GetOuterMagiShield(Character character, byte subType, byte ballCount, short regenFrames = 0, bool clearBoth = true) {
-			character.magiShield.SetOuterShield(subType, ballCount, 90, regenFrames, clearBoth);
-			Systems.sounds.shield.Play();
-		}
-
 		private void GetInvincible(Character character, uint frames) {
 			character.wounds.SetInvincible(frames);
 			//Systems.sounds.collectSubtle.Play();

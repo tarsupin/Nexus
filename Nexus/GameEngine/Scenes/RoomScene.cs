@@ -262,7 +262,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void RemoveFromScene( GameObject gameObject ) {
+		public void RemoveFromScene( GameObject gameObject, bool force = false ) {
 			this.markedForRemoval.Add(gameObject);
 		}
 

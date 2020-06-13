@@ -62,7 +62,7 @@ namespace Nexus.Objects {
 
 			// Display Particle Effect
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
-			ExplodeEmitter.BoxExplosion(room, this.Texture[subType], gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
+			ExplodeEmitter.BoxExplosion(room, "Particles/Brick" + (subType == (byte)BrickSubType.Gray ? "Gray" : ""), gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
 			Systems.sounds.brickBreak.Play();
 
 			// Destroy Brick Tile

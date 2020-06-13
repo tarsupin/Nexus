@@ -3,8 +3,8 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	// Rings are associated with Inner Shield
-	// Necklaces are associated with Outer Shield
+	// Rings are associated with Fewer Balls
+	// Necklaces are associated with More Balls
 	// Purple Jewelry is associated with Purple Regenerating Magi Balls. Others are elemental; non-regenerative.
 
 	public class MagiShield {
@@ -14,13 +14,11 @@ namespace Nexus.ObjectComponents {
 		private readonly GameObject actor;
 		public string IconTexture { get; protected set; }
 
-		public ProjectileMagi[] innerBalls;		// Tracks the magi-balls within the inner shield.
-		public ProjectileMagi[] outerBalls;		// Tracks the magi-balls within the outer shield.
+		public ProjectileMagi[] balls;		// Tracks the magi-balls within the shield.
 
 		public MagiShield(GameObject actor) {
 			this.actor = actor;
-			this.innerBalls = new ProjectileMagi[MagiShield.MaximumBalls];
-			this.outerBalls = new ProjectileMagi[MagiShield.MaximumBalls];
+			this.balls = new ProjectileMagi[MagiShield.MaximumBalls];
 		}
 
 		public void SetIconTexture( string iconTexture ) {
@@ -29,57 +27,36 @@ namespace Nexus.ObjectComponents {
 
 		public void CheckShieldEnd() {
 			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.innerBalls[i] is ProjectileMagi && this.innerBalls[i].isAlive) { return; }
+				if(this.balls[i] is ProjectileMagi && this.balls[i].isAlive) { return; }
 			}
-			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.outerBalls[i] is ProjectileMagi && this.outerBalls[i].isAlive) { return; }
-			}
-
+			
 			// Clear the Icon Texture
 			this.SetIconTexture(null);
 		}
 
-		public void DestroyInnerShield() {
-			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.innerBalls[i] is ProjectileMagi) { this.innerBalls[i].DestroyFinal(); }
+		public void DestroyShield(byte startIndex) {
+			for(byte i = startIndex; i < MagiShield.MaximumBalls; i++) {
+				if(this.balls[i] is ProjectileMagi) {
+					if(this.balls[i].isAlive == true) { this.balls[i].DestroyFinal(); }
+				}
 			}
 		}
 		
-		public void DestroyOuterShield() {
-			for(byte i = 0; i < MagiShield.MaximumBalls; i++) {
-				if(this.outerBalls[i] is ProjectileMagi) { this.outerBalls[i].DestroyFinal(); }
-			}
-		}
-
-		public void SetInnerShield(byte subType, byte ballCount, byte radius, short regenFrames = 0, bool clearBoth = true) {
+		public void SetShield(byte subType, byte ballCount, byte radius, short regenFrames = 0) {
 
 			// Clear Existing Shield
-			this.DestroyInnerShield();
-			if(clearBoth) { this.DestroyOuterShield(); }
+			this.DestroyShield(ballCount);
 
-			// Create First Layer of MagiBall Shield
 			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {
+				ProjectileMagi projectile = this.balls[ballNum];
 
-				// Find Open Projectile Slot (if available)
-				ProjectileMagi projectile = ProjectileMagi.Create(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
+				if(projectile != null) {
+					projectile.ResetMagiBall(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
+				}
 				
-				this.innerBalls[ballNum] = projectile;
-			}
-		}
-
-		public void SetOuterShield(byte subType, byte ballCount, byte radius, short regenFrames = 0, bool clearBoth = true) {
-
-			// Clear Existing Shield
-			this.DestroyOuterShield();
-			if(clearBoth) { this.DestroyInnerShield(); }
-
-			// Create First Layer of MagiBall Shield
-			for(byte ballNum = 0; ballNum < ballCount; ballNum++) {
-
-				// Find Open Projectile Slot (if available)
-				ProjectileMagi projectile = ProjectileMagi.Create(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
-				
-				this.outerBalls[ballNum] = projectile;
+				else {
+					this.balls[ballNum] = ProjectileMagi.Create(this, this.actor, subType, ballCount, ballNum, radius, regenFrames);
+				}
 			}
 		}
 	}

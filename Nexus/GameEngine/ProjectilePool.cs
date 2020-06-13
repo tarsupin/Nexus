@@ -10,7 +10,6 @@ namespace Nexus.GameEngine {
 		public static ObjectPool<ProjectileBolt> ProjectileBolt = new ObjectPool<ProjectileBolt>(() => new ProjectileBolt());
 		public static ObjectPool<ProjectileBullet> ProjectileBullet = new ObjectPool<ProjectileBullet>(() => new ProjectileBullet());
 		public static ObjectPool<ProjectileEarth> ProjectileEarth = new ObjectPool<ProjectileEarth>(() => new ProjectileEarth());
-		public static ObjectPool<ProjectileMagi> ProjectileMagi = new ObjectPool<ProjectileMagi>(() => new ProjectileMagi());
 
 		// Projectiles, Weapons
 		public static ObjectPool<AxeProjectile> AxeProjectile = new ObjectPool<AxeProjectile>(() => new AxeProjectile());
