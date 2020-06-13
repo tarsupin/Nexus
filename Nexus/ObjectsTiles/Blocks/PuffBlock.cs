@@ -1,5 +1,4 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -9,6 +8,7 @@ namespace Nexus.Objects {
 	public class PuffBlock : BlockTile {
 
 		public string Texture;
+		public sbyte puffDuration;
 
 		public enum PuffBlockSubType : byte {
 			Up = 0,
@@ -21,7 +21,8 @@ namespace Nexus.Objects {
 			this.tileId = (byte) TileEnum.PuffBlock;
 			this.Texture = "Puff/Puff";
 			this.title = "Puff Block";
-			this.description = "Touching it causes the character to burst quickly in the designated direction.";
+			this.description = "Touching it causes the character to burst powerfully in the designated direction.";
+			this.puffDuration = 4;
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
@@ -65,7 +66,7 @@ namespace Nexus.Objects {
 			}
 
 			// Character is sent into an "Air Burst" action.
-			ActionMap.AirBurst.StartAction(character, hor, vert, true, 4);
+			ActionMap.AirBurst.StartAction(character, hor, vert, true, this.puffDuration);
 
 			// Draw Overlap Particle
 			BurstEmitter.AirPuff(room, character.posX + character.bounds.MidX, character.posY + character.bounds.MidY, hor, vert, 18);

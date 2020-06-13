@@ -293,6 +293,7 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\FastMoveAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
     <Compile Include="ObjectComponents\Attachments\AttackSequence.cs" />
@@ -404,6 +405,8 @@
     <Compile Include="ObjectsTiles\BGTile\BGTile.cs" />
     <Compile Include="ObjectsTiles\BGTile\BGDisable.cs" />
     <Compile Include="ObjectsTiles\Blocks\Conveyor.cs" />
+    <Compile Include="ObjectsTiles\Blocks\PuffBlockOmni.cs" />
+    <Compile Include="ObjectsTiles\Blocks\PuffBlockMini.cs" />
     <Compile Include="ObjectsTiles\Blocks\PuffBlock.cs" />
     <Compile Include="ObjectsTiles\Blocks\ExclaimBlock.cs" />
     <Compile Include="ObjectsTiles\Blocks\Leaf.cs" />

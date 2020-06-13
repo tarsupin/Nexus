@@ -16,6 +16,7 @@ namespace Nexus.Gameplay {
 		public static readonly WallGrabAction WallGrab = new WallGrabAction();
 		public static readonly HoverAction Hover = new HoverAction();
 		public static readonly JumpAction Jump = new JumpAction();
+		public static readonly FastMoveAction FastMove = new FastMoveAction();
 		public static readonly SlideAction Slide = new SlideAction();
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
 	}
@@ -219,9 +220,10 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.Lock, new Lock() },
 				{ (byte) TileEnum.Leaf, new Leaf() },
 				{ (byte) TileEnum.ExclaimBlock, new ExclaimBlock() },
-				// ...
 				{ (byte) TileEnum.Spike, new Spike() },
+				{ (byte) TileEnum.PuffBlockMini, new PuffBlockMini() },
 				{ (byte) TileEnum.PuffBlock, new PuffBlock() },
+				{ (byte) TileEnum.PuffBlockOmni, new PuffBlockOmni() },
 				{ (byte) TileEnum.Conveyor, new Conveyor() },
 
 				// Solid, Toggled (50 - 55)

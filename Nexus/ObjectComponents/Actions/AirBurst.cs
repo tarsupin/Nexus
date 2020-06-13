@@ -14,7 +14,7 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = true;
 		}
 
-		public void StartAction( Character character, sbyte directionHor, sbyte directionVert, bool endMomentum = false, byte extraDuration = 0 ) {
+		public void StartAction( Character character, sbyte directionHor, sbyte directionVert, bool endMomentum = false, sbyte extraDuration = 0 ) {
 			this.EndLastActionIfActive(character);
 
 			CharacterStatus status = character.status;
@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 			status.action = ActionMap.AirBurst;
 			status.actionNum1 = directionHor;
 			status.actionNum2 = directionVert;
-			status.actionEnds = Systems.timer.Frame + this.duration + extraDuration;
+			status.actionEnds = (uint)(Systems.timer.Frame + this.duration + extraDuration);
 
 			// Horizontal Movements have a longer duration, since we're trying to ignore gravity for that duration.
 			if(directionVert == 0) {

@@ -55,10 +55,11 @@ namespace Nexus.Gameplay {
 		Lock = 42,
 		Leaf = 43,
 		ExclaimBlock = 44,
-		// ...
+		PuffBlockMini = 45,
 		Spike = 46,
 		PuffBlock = 47,
 		Conveyor = 48,
+		PuffBlockOmni = 49,
 
 		// Solid, Toggled (50 - 55)
 		// These can be TileGameObjects because Toggles are global properties, they are not saved by the individual object.

@@ -77,7 +77,7 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			// Puff Block
+			// Puff Block + Mini Puff Block
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PuffBlock,
@@ -94,6 +94,30 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.PuffBlock,
 					subType = (byte) PuffBlockSubType.Left,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlockMini,
+					subType = (byte) PuffBlockSubType.Up,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlockMini,
+					subType = (byte) PuffBlockSubType.Right,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlockMini,
+					subType = (byte) PuffBlockSubType.Down,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlockMini,
+					subType = (byte) PuffBlockSubType.Left,
+				},
+			});
+
+			// Omni Puff Block
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.PuffBlockOmni,
+					subType = 0,
 				},
 			});
 
