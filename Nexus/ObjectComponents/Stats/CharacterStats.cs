@@ -87,18 +87,21 @@ namespace Nexus.ObjectComponents {
 
 			// Some character stats are affected by Equipment, Cheats, etc.
 			this.UpdateCharStatsFromExternalInfluences();
+
+			// Update Physics (since Gravity might have changed)
+			this.character.physics.gravity = this.BaseGravity;
 		}
 
 		public void UpdateCharStatsFromExternalInfluences() {
 
 			// Update Suit Abilities (if applicable)
-			if(character.suit is Suit) {
-				character.suit.UpdateCharacterStats(character);
+			if(this.character.suit is Suit) {
+				this.character.suit.UpdateCharacterStats(this.character);
 			}
 
 			// Update Hat Abilities (if applicable)
-			if(character.hat is Hat) {
-				character.hat.UpdateCharacterStats(character);
+			if(this.character.hat is Hat) {
+				this.character.hat.UpdateCharacterStats(this.character);
 			}
 
 			// TODO: Do below

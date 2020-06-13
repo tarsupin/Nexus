@@ -1,11 +1,8 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
-
-	// TODO: Nudging is going to be complicated. Maybe hide the tile, create a particle effect.
 
 	public class ExclaimBlock : BlockTile {
 
