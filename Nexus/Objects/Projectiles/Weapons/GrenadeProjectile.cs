@@ -35,10 +35,6 @@ namespace Nexus.Objects {
 			return projectile;
 		}
 
-		public override void Draw(int camX, int camY) {
-			this.Meta.Atlas.DrawRotation(this.SpriteName, this.posX + 16 - camX, this.posY + 16 - camY, this.rotation, new Vector2(16, 16));
-		}
-
 		public override void Destroy(DirCardinal dir = DirCardinal.None, GameObject obj = null) {
 			if(this.State == (byte)CommonState.Death) { return; }
 
