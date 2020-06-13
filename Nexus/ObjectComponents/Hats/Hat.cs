@@ -174,7 +174,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Create Hat Particle
-			HatLossParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName + (character.FaceRight ? "" : "Left"), new Vector2(character.posX, character.posY + this.yOffset), Systems.timer.Frame + 40);
+			EndBounceParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName + (character.FaceRight ? "" : "Left"), new Vector2(character.posX, character.posY + this.yOffset), Systems.timer.Frame + 40);
 
 			if(resetStats) {
 				character.stats.ResetCharacterStats();

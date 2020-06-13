@@ -10,7 +10,6 @@ namespace Nexus.Objects {
 		DestroyOnCollide = 2,       // Projectile gets destroyed on collision.
 		BounceOnFloor = 3,          // Bounces on the floor.
 		BreakObjects = 4,           // Breaks objects (e.g. Boxing Glove).
-		Special = 5,                // Special Collision type (Used for Earth, which runs Destroy())
 	}
 
 	public class Projectile : GameObject {

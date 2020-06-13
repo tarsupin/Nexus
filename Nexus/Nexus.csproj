@@ -105,7 +105,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
     <Compile Include="Engine\UI\AlertText.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
-    <Compile Include="GameEngine\ParticleFreeClasses\HatLossParticle.cs" />
+    <Compile Include="GameEngine\ParticleFreeClasses\EndBounceParticle.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\LeafShakeParticle.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />

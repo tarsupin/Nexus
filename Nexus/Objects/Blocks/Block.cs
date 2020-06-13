@@ -32,12 +32,6 @@ namespace Nexus.Objects {
 				return true;
 			}
 
-			// Some projectiles have special behaviors.
-			else if(projectile.CollisionType == ProjectileCollisionType.Special) {
-				projectile.Destroy();
-				return true;
-			}
-
 			// Some projectiles bounce.
 			if(projectile.CollisionType == ProjectileCollisionType.BounceOnFloor) {
 				DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);

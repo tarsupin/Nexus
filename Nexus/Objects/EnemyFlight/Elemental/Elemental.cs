@@ -17,6 +17,10 @@ namespace Nexus.Objects {
 			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 		}
 
+		public override bool RunProjectileImpact(Projectile projectile) {
+			return true;
+		}
+
 		public override bool RunCharacterImpact(Character character) {
 			character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			return true;

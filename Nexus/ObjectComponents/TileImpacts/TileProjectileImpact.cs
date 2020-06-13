@@ -39,15 +39,6 @@ namespace Nexus.ObjectComponents {
 				// if(object instanceof Box || object instanceof Brick) { object.BreakApart(); }
 			}
 
-			// Some Projectiles have special behaviors (which currently also just activate the Destroy() method).
-			if(projectile.CollisionType == ProjectileCollisionType.Special) {
-				// TODO HIGH PRIORITY: Once we get instance tiles, we need to reapply here.
-				// TODO HIGH PRIORITY: Should look like projectile.Destroy(dir, thisInstanceTile)
-				// Could set this collision directly on Box and Brick (or other breakable objects) rather than in TileProjectileImpact
-				projectile.Destroy(dir);
-				return true;
-			}
-
 			return false;
 		}
 	}

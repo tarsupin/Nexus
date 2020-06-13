@@ -90,7 +90,7 @@ namespace Nexus.Objects {
 				}
 			}
 
-			Systems.sounds.flame.Play();
+			Systems.sounds.flame.Play(0.6f, 0, 0);
 
 			return true;
 		}

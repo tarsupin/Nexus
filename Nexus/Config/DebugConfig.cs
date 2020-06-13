@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Nexus.Config {
 
