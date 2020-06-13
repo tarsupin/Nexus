@@ -26,7 +26,11 @@ namespace Nexus.Objects {
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
-			
+
+			if(actor is Projectile) {
+				return base.RunImpact(room, actor, gridX, gridY, dir);
+			}
+
 			// Nudge Brick Upward
 			if(dir == DirCardinal.Up) {
 
