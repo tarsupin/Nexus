@@ -12,7 +12,13 @@ namespace Nexus.Objects {
 
 		private uint DeathSequence;         // The frame # that the death sequence ends (or 0 if not in death sequence).
 
-		public ProjectileEarth() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
+		public ProjectileEarth() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
+			this.SetDamage(DamageStrength.Lethal);
+			this.SetCollisionType(ProjectileCollisionType.Special);
+			this.SetSafelyJumpOnTop(true);
+			this.SetSpriteName("Projectiles/Earth1");
+			this.physics.SetGravity(FInt.Create(0.8));
+		}
 
 		public static ProjectileEarth Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 
@@ -22,13 +28,8 @@ namespace Nexus.Objects {
 			if(subType == 0) { throw new System.Exception("this whole class seems like it hasn't been built yet."); }
 
 			projectile.ResetProjectile(room, subType, pos, velocity);
-			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
-			projectile.SetDamage(DamageStrength.Lethal);
-			projectile.SetCollisionType(ProjectileCollisionType.Special);
-			projectile.SetSafelyJumpOnTop(true);
 			projectile.DeathSequence = 0;
-			projectile.physics.SetGravity(FInt.Create(0.8));
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
@@ -69,12 +70,6 @@ namespace Nexus.Objects {
 				Systems.sounds.shellThud.Play();
 
 				this.Damage = DamageStrength.Trivial;
-			}
-		}
-
-		private void AssignSubType(byte subType) {
-			if(subType == (byte) ProjectileEarthSubType.Earth) {
-				this.SetSpriteName("Projectiles/Earth1");
 			}
 		}
 

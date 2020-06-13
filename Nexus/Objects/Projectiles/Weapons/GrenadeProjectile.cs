@@ -12,7 +12,12 @@ namespace Nexus.Objects {
 
 		private uint endFrame;          // The frame that a movement style ends on.
 
-		public GrenadeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
+		public GrenadeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
+			this.Damage = DamageStrength.None;
+			this.CollisionType = ProjectileCollisionType.DestroyOnCollide;
+			this.physics.SetGravity(FInt.Create(0.4));
+			this.SetSpriteName("Projectiles/Grenade");
+		}
 
 		public static GrenadeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 
@@ -20,11 +25,7 @@ namespace Nexus.Objects {
 			GrenadeProjectile projectile = ProjectilePool.GrenadeProjectile.GetObject();
 
 			projectile.ResetProjectile(room, subType, pos, velocity);
-			projectile.Damage = DamageStrength.None;
-			projectile.CollisionType = ProjectileCollisionType.DestroyOnCollide;
-			projectile.physics.SetGravity(FInt.Create(0.4));
 			projectile.SetState((byte)CommonState.Move);
-			projectile.SetSpriteName("Projectiles/Grenade");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.07f : -0.07f;
 

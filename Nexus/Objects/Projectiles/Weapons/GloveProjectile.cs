@@ -11,21 +11,21 @@ namespace Nexus.Objects {
 
 	public class GloveProjectile : ThrustProjectile {
 
-		public GloveProjectile() : base() { }
+		public GloveProjectile() : base() {
+			this.cycleDuration = 24;
+			this.CollisionType = ProjectileCollisionType.BreakObjects;
+			this.Damage = DamageStrength.Standard;
+		}
 
 		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos) {
 
 			// Retrieve an available projectile from the pool.
 			GloveProjectile projectile = ProjectilePool.GloveProjectile.GetObject();
 
-
 			projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
 			projectile.ResetThrustProjectile(endPos);
-			projectile.CollisionType = ProjectileCollisionType.BreakObjects;
-			projectile.Damage = DamageStrength.Standard;
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(5, 5, -5, -5); // Reduce Bounds (otherwise it appears to hit too much, too quickly)
-			projectile.cycleDuration = 24;
 			projectile.rotation = projectile.endPos.X > projectile.posX ? 0 : Radians.Rotate180;
 
 			// Add the Projectile to Scene

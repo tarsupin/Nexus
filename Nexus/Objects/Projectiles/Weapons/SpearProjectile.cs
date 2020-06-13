@@ -5,7 +5,11 @@ namespace Nexus.Objects {
 
 	public class SpearProjectile : ThrustProjectile {
 
-		public SpearProjectile() : base() { }
+		public SpearProjectile() : base() {
+			this.cycleDuration = 24;
+			this.SetSpriteName("Weapon/Spear");
+			this.AssignBoundsByAtlas(2, 2, -2, -2);
+		}
 
 		public static SpearProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos) {
 
@@ -14,9 +18,6 @@ namespace Nexus.Objects {
 
 			projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
 			projectile.ResetThrustProjectile(endPos);
-			projectile.SetSpriteName("Weapon/Spear");
-			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
-			projectile.cycleDuration = 24;
 			projectile.rotation = projectile.endPos.X > projectile.posX ? 0 : Radians.Rotate180;
 
 			// Add the Projectile to Scene

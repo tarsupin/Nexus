@@ -10,7 +10,11 @@ namespace Nexus.Objects {
 
 	public class ChakramProjectile : Projectile {
 
-		public ChakramProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
+		public ChakramProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
+			this.Damage = DamageStrength.Major;
+			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.SetSpriteName("Weapon/Chakram");
+		}
 
 		public static ChakramProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 
@@ -18,9 +22,6 @@ namespace Nexus.Objects {
 			ChakramProjectile projectile = ProjectilePool.ChakramProjectile.GetObject();
 
 			projectile.ResetProjectile(room, subType, pos, velocity);
-			projectile.Damage = DamageStrength.Major;
-			projectile.CollisionType = ProjectileCollisionType.IgnoreWalls;
-			projectile.SetSpriteName("Weapon/Chakram");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 
 			// Add the Projectile to Scene

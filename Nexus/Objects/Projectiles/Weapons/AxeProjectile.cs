@@ -12,7 +12,11 @@ namespace Nexus.Objects {
 
 	public class AxeProjectile : Projectile {
 
-		public AxeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }
+		public AxeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
+			this.Damage = DamageStrength.Lethal;
+			this.physics.SetGravity(FInt.Create(0.45));
+			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+		}
 
 		public static AxeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 
@@ -20,9 +24,6 @@ namespace Nexus.Objects {
 			AxeProjectile projectile = ProjectilePool.AxeProjectile.GetObject();
 
 			projectile.ResetProjectile(room, subType, pos, velocity);
-			projectile.Damage = DamageStrength.Lethal;
-			projectile.physics.SetGravity(FInt.Create(0.45));
-			projectile.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.rotation = Radians.UpRight + (projectile.physics.velocity.X > 0 ? 0.3f : -0.3f);
@@ -35,17 +36,9 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType(byte subType) {
-			if(subType == (byte) WeaponAxeSubType.Axe) {
-				this.SetSpriteName("Weapon/Axe");
-			}
-
-			else if(subType == (byte) WeaponAxeSubType.Axe2) {
-				this.SetSpriteName("Weapon/Axe2");
-			}
-
-			else if(subType == (byte) WeaponAxeSubType.Axe3) {
-				this.SetSpriteName("Weapon/Axe3");
-			}
+			if(subType == (byte) WeaponAxeSubType.Axe) { this.SetSpriteName("Weapon/Axe"); }
+			else if(subType == (byte) WeaponAxeSubType.Axe2) { this.SetSpriteName("Weapon/Axe2"); }
+			else if(subType == (byte) WeaponAxeSubType.Axe3) { this.SetSpriteName("Weapon/Axe3"); }
 		}
 
 		// Return Projectile to the Pool
