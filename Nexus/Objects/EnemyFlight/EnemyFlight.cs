@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -12,13 +13,19 @@ namespace Nexus.Objects {
 
 		public override void RunTick() {
 			base.RunTick();
-			if(this.FaceRight) {
-				if(this.physics.velocity.X <= 1) {
-					this.SetDirection(false);
-				}
-			} else {
-				if(this.physics.velocity.X >= 1) {
-					this.SetDirection(true);
+
+			// Update Facing Direction based on speed
+			byte xVel = (byte) Math.Abs(this.physics.velocity.X.RoundInt);
+
+			if(xVel >= 1) {
+				if(this.FaceRight) {
+					if(xVel < 0) {
+						this.SetDirection(false);
+					}
+				} else {
+					if(xVel > 0) {
+						this.SetDirection(true);
+					}
 				}
 			}
 		}

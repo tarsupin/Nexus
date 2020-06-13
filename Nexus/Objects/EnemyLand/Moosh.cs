@@ -79,7 +79,7 @@ namespace Nexus.Objects {
 			if(subType == (byte) MooshSubType.Brown) {
 				this.animate = new Animate(this, "Moosh/Brown/");
 				this.behavior = new ChargeBehavior(this, 3, 11, true);
-				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 9);
+				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 10);
 				this.SetState((byte) CommonState.Move);
 
 			} else if(subType == (byte) MooshSubType.White) {
@@ -90,7 +90,7 @@ namespace Nexus.Objects {
 			} else if(subType == (byte) MooshSubType.Purple) {
 				this.animate = new Animate(this, "Moosh/Purple/");
 				this.behavior = new ChargeBehavior(this, 1, 13, true, 96, 15);
-				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 11);
+				((ChargeBehavior) this.behavior).SetBehavePassives(90, 30, 30, 15);
 				this.SetState((byte) CommonState.Move);
 			}
 		}

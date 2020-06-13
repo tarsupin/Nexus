@@ -50,7 +50,7 @@ namespace Nexus.Objects {
 			
 			else if(subType == (byte) ShroomSubType.Purple) {
 				this.behavior = new ChargeBehavior(this, 0, 13, false, 144, 64);
-				((ChargeBehavior)this.behavior).SetBehavePassives(45, 25, 30, 7);
+				((ChargeBehavior)this.behavior).SetBehavePassives(45, 25, 30, 5);
 				this.SetState((byte)CommonState.Wait);
 			}
 		}

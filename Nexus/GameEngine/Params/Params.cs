@@ -210,11 +210,12 @@ namespace Nexus.GameEngine {
 		public ParamsMoveChase() {
 			this.rules.Add(new LabeledParam("axis", "Movement Axis", new string[3] { "Both", "Vertical", "Horizontal" }, (byte) FlightChaseAxis.Both));
 			this.rules.Add(new PercentParam("speed", "Movement Speed", 10, 200, 10, 100, FInt.Create(2)));
-			this.rules.Add(new IntParam("chase", "Chase Range", 0, 40, 1, 10, " tile(s)"));
+			this.rules.Add(new IntParam("chase", "Chase Range", 0, 40, 1, 0, " tile(s)"));
 			this.rules.Add(new IntParam("flee", "Flee Range", 0, 40, 1, 0, " tile(s)"));
-			this.rules.Add(new IntParam("stall", "Stall Range", 0, 40, 1, 8, " tile(s)"));
+			this.rules.Add(new IntParam("stall", "Stall Range", 0, 40, 1, 0, " tile(s)"));
 			this.rules.Add(new LabeledParam("returns", "Returns to Start", new string[2] { "Returns", "Doesn't Return" }, (byte)0));
 			this.rules.Add(new IntParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames"));
+			this.rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, 10, 1, 0, " (0 to ignore)"));
 		}
 	}
 	

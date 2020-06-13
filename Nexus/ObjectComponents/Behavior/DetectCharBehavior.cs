@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 		protected readonly byte viewDist;		// The distance (X-axis) that the enemy can "see" in the direction it faces.
 		protected readonly byte viewHeight;		// The height for the enemy's view.
 
-		protected byte testFrequency;			// The frequency (in frames) of how often the enemy will "look" for characters.
+		protected byte test16Frame;				// The frame modulus 16 for how often the enemy will "look" for characters.
 		protected byte cooldownDuration;		// The duration of the cooldown (how long until the actor can act again).
 		protected byte stallDuration;			// The stalling duration; how long the actor will stall movement before charging.
 		protected byte actionDuration;			// The duration of the charge.
@@ -39,17 +39,17 @@ namespace Nexus.ObjectComponents {
 			this.SetBehavePassives();
 		}
 
-		public void SetBehavePassives( byte cooldownDuration = 120, byte stallDuration = 30, byte actionDuration = 15, byte testFrequency = 13 ) {
+		public void SetBehavePassives( byte cooldownDuration = 120, byte stallDuration = 30, byte actionDuration = 15, byte test16Frame = 0 ) {
 			this.cooldownDuration = cooldownDuration;
 			this.stallDuration = stallDuration;
 			this.actionDuration = actionDuration;
-			this.testFrequency = testFrequency;
+			this.test16Frame = test16Frame;
 		}
 
 		protected void WatchForCharacter() {
 
-			// Only run the watch behavior every 13 frames (prime number to reduce overlap).
-			if(this.timer.Frame % this.testFrequency != 0) { return; }
+			// Only run the watch behavior every 16 frames.
+			if(this.timer.frame16Modulus != this.test16Frame) { return; }
 
 			// Make sure the cooldown is complete.
 			if(this.actionEnd > this.timer.Frame) { return; }

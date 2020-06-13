@@ -42,7 +42,7 @@ namespace Nexus.Objects {
 			if(subType == (byte) LizSubType.Liz) {
 				this.animate = new Animate(this, "Liz/");
 				this.behavior = new ChargeBehavior(this, 6, 0, true);
-				((ChargeBehavior) this.behavior).SetBehavePassives(120, 30, 30, 10);
+				((ChargeBehavior) this.behavior).SetBehavePassives(120, 30, 30, 3);
 				this.OnDirectionChange();
 			}
 		}

@@ -169,7 +169,7 @@ namespace Nexus.Engine {
 		}
 
 		public int GetCameraShakeOffsetX() {
-			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (float)(Systems.timer.Frame % 15) / (float)15);
+			return (int) Interpolation.EaseBothDir(-this.shakeStrength * 2, this.shakeStrength * 2, (float)(Systems.timer.frame16Modulus) / (float)16);
 		}
 
 		public int GetCameraShakeOffsetY() {

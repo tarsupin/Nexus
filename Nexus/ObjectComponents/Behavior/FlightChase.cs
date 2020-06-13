@@ -1,24 +1,242 @@
-﻿using Nexus.GameEngine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
+using Nexus.Objects;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
 	public class FlightChase : FlightBehavior {
 
-		Physics physics;		// Reference to the actor's physics.
+		private enum ChaseAction : byte {
+			Standard,
+			Flee,
+			Return,
+			Chase,
+			Wait,
+		}
+
+		Physics physics;        // Reference to the actor's physics.
+
+		private Character charBeingChased;
+
+		// Chase Mechanics
+		private byte axis;
+		private FInt speed;
+		private bool returns;
+		private short retDelay;
+
+		// Chase Distances
+		private int chase;
+		private int stall;
+		private int flee;
+		private int reactDist;      // The reaction distance; based on the largest of 'chase', 'stall', and 'flee'.
+
+		// Behavior Checks
+		private Vector2 startPos;
+		private ChaseAction quickAct;
+		private uint durEndFrame;
+		public uint waitEndFrame;
+
+		protected byte clusterId;
 
 		public FlightChase(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
 
-			// TODO: MUST ADD THIS
-			// TODO: MUST ADD THIS
-			// TODO: MUST ADD THIS
-			// TODO: MUST ADD THIS
+			// Retrieve Mechanics
+			this.axis = (paramList == null || !paramList.ContainsKey("axis") ? (byte)FlightChaseAxis.Both : (byte)paramList["axis"]);
+			this.speed = FInt.Create((paramList == null || !paramList.ContainsKey("speed") ? 100 : paramList["speed"]) * 2);
+
+			// Chase Distance Mechanics
+			this.stall = (paramList == null || !paramList.ContainsKey("stall") ? (byte) 0 : (byte)paramList["axis"]);	// In Tiles
+			this.flee = (paramList == null || !paramList.ContainsKey("flee") ? (byte) 0 : (byte)paramList["flee"]);	// In Tiles
+			this.chase = (paramList == null || !paramList.ContainsKey("chase") ? (byte) 0 : (byte)paramList["chase"]);   // In Tiles
+
+			this.chase *= (byte) TilemapEnum.TileWidth;
+			this.stall *= (byte) TilemapEnum.TileWidth;
+			this.flee *= (byte) TilemapEnum.TileWidth;
+
+			this.reactDist = Math.Max(this.chase, Math.Max(this.stall, this.flee)); // Get the largest reaction distance for view purposes.
+
+			// Returns Back to Starting Position
+			this.returns = (paramList == null || !paramList.ContainsKey("returns") ? true : false);
+			this.retDelay = (paramList == null || !paramList.ContainsKey("retDelay") ? (byte) 120 : (byte)paramList["retDelay"]); // Frames
+
+			// Cluster Parent Handling
+			this.clusterId = (paramList == null || !paramList.ContainsKey("clusterId") ? (byte) 0 : (byte)paramList["clusterId"]);
+
+			// Quick Actions
+			this.quickAct = ChaseAction.Standard;
+			this.durEndFrame = 0;
+			this.waitEndFrame = 0;
+
+			// Positions
+			this.startPos = new Vector2(actor.posX, actor.posY);
+
+			// If the object is a parent cluster, it must be tracked through the full level.
+			// TODO: NOTE: All objects are probably already active, so this might be unnecessary.
+			if(this.clusterId > 0) {
+				actor.SetActivity(Activity.ForceActive);
+			}
+		}
+		
+		private uint WatchForCharacter() {
+
+			// Only run the watch behavior every 16 frames.
+			if(Systems.timer.frame16Modulus != 7) { return 0; }
+
+			int midX = this.actor.posX + this.actor.bounds.MidX;
+			int midY = this.actor.posY + this.actor.bounds.MidY;
+
+			uint objectId = CollideRect.FindOneObjectTouchingArea(
+				this.actor.room.objects[(byte)LoadOrder.Character],
+				(uint)Math.Max(0, midX - this.reactDist),
+				(uint)Math.Max(0, midY - this.reactDist),
+				(ushort)(this.reactDist * 2), // View Distance (Width)
+				(ushort)(this.reactDist * 2) // View Height
+			);
+
+			return objectId;
 		}
 
 		public override void RunTick() {
 
-			// TODO: Once in a while (every X frames), needs to check for character presence.
+			// If there is no character in sight, check for a new one:
+			if(this.charBeingChased is Character == false) {
+				uint objectId = this.WatchForCharacter();
+
+				// No Character was located, so we can perform passive behaviors:
+				if(objectId > 0) {
+					this.charBeingChased = (Character)this.actor.room.objects[(byte)LoadOrder.Character][objectId];
+				}
+			}
+
+			// Preparee Values
+			uint frame = Systems.timer.Frame;
+
+			// Update the rotation to move toward.
+			int midX = this.actor.posX + this.actor.bounds.MidX;
+			int midY = this.actor.posY + this.actor.bounds.MidY;
+
+			int destX;
+			int destY;
+
+			// Get distance from Character, if applicable.
+			if(this.charBeingChased is Character) {
+				destX = this.charBeingChased.posX + this.charBeingChased.bounds.MidX;
+				destY = this.charBeingChased.posY + this.charBeingChased.bounds.MidY;
+			} else {
+				destX = midX;
+				destY = midY;
+			}
+
+			int distance = FPTrigCalc.GetDistance(FVector.Create(midX, midY), FVector.Create(destX, destY)).RoundInt;
+
+			// Stall
+			if(this.stall > 0 && distance < this.stall) {
+				if(this.physics.velocity.X != 0) { this.physics.velocity.X *= FInt.Create(0.85); }
+				if(this.physics.velocity.Y != 0) { this.physics.velocity.Y *= FInt.Create(0.85); }
+				return;
+			}
+
+			// Assign New Chase Action (When Action Time Expires).
+			if(this.durEndFrame < frame) {
+				this.durEndFrame = frame + 17;
+
+				// Flee
+				if(this.flee > 0 && distance < this.flee) {
+					this.quickAct = ChaseAction.Flee;
+				}
+
+				// Chase
+				else if(this.chase > 0 && distance <= this.chase) {
+					this.quickAct = ChaseAction.Chase;
+				}
+
+				// Return to Start Position
+				else if(this.returns) {
+
+					if(this.quickAct == ChaseAction.Return || (this.quickAct == ChaseAction.Wait && this.waitEndFrame < frame)) {
+						this.quickAct = ChaseAction.Return;
+
+					} else {
+						this.quickAct = ChaseAction.Wait;
+						this.waitEndFrame = this.waitEndFrame < frame ? (uint)(frame + this.retDelay) : this.waitEndFrame;
+					}
+				}
+
+				// Standard: Do Nothing
+				else {
+					this.quickAct = ChaseAction.Standard;
+				}
+			}
+
+			// Stop Chasing
+			if(this.quickAct == ChaseAction.Standard || this.quickAct == ChaseAction.Wait) {
+				if(this.physics.velocity.X != 0) { this.physics.velocity.X *= FInt.Create(0.95); }
+				if(this.physics.velocity.Y != 0) { this.physics.velocity.Y *= FInt.Create(0.95); }
+				return;
+			}
+
+			// Return to Starting Position
+			if(this.quickAct == ChaseAction.Return) {
+				destX = (int) this.startPos.X;
+				destY = (int) this.startPos.Y;
+			}
+
+			FInt newVelX = FInt.Create(0);
+			FInt newVelY = FInt.Create(0);
+
+			// Chase or Flee
+			if(this.axis == (byte) FlightChaseAxis.Both) {
+
+				if(Math.Abs(midX - destX) < 2 && Math.Abs(midY - destY) <= 2) {
+					this.physics.velocity.X *= FInt.Create(0.90);
+					this.physics.velocity.Y *= FInt.Create(0.90);
+					return;
+				}
+
+				FInt rotRadian = FPRadians.GetRadiansBetweenCoords(midX, midY, destX, destY);
+				newVelX = FPRadians.GetXFromRotation(rotRadian, this.speed);
+				newVelY = FPRadians.GetYFromRotation(rotRadian, this.speed);
+			}
+			
+			// Vertical Movement Only
+			else if(this.axis == (byte) FlightChaseAxis.Vertical) {
+				if(Math.Abs(midY - destY) <= 2) { this.physics.velocity.Y *= FInt.Create(0.90); return; }
+				FInt rotRadian = FPRadians.GetRadiansBetweenCoords(0, midY, 0, destY);
+				newVelY = FPRadians.GetYFromRotation(rotRadian, this.speed);
+
+			}
+			
+			// Horizontal Movement Only
+			else {
+				if(Math.Abs(midX - destX) <= 2) { this.physics.velocity.X *= FInt.Create(0.90); return; }
+				FInt rotRadian = FPRadians.GetRadiansBetweenCoords(midX, 0, destX, 0);
+				newVelX = FPRadians.GetXFromRotation(rotRadian, this.speed);
+			}
+
+			// Flee
+			if(this.quickAct == ChaseAction.Flee) {
+				newVelX = newVelX.Inverse;
+				newVelY = newVelY.Inverse;
+			}
+
+			FInt accel = this.speed * FInt.Create(0.0002);
+
+			if(this.physics.velocity.X > newVelX) {
+				this.physics.velocity.X -= accel;
+			} else if(this.physics.velocity.X < newVelX) {
+				this.physics.velocity.X += accel;
+			}
+
+			if(this.physics.velocity.Y > newVelY) {
+				this.physics.velocity.Y -= accel;
+			} else if(this.physics.velocity.Y < newVelY) {
+				this.physics.velocity.Y += accel;
+			}
 		}
 	}
 }

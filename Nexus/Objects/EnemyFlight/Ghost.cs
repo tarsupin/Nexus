@@ -19,9 +19,10 @@ namespace Nexus.Objects {
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
+			this.SetActivity(Activity.NoTileCollide);
 
 			// Assign Flight Behavior
-			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
+			this.behavior = new FlightChase(this, paramList);
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 2, -2, -2);
@@ -37,33 +38,16 @@ namespace Nexus.Objects {
 			}
 		}
 
-		//update( time: Timer ) {
-		//	super.update( time );
-
-		//	// Update facing based on speed.
-		//	if(Math.abs(this.physics.velocity.x) > 0.15) {
-		//		this.status.faceRight = this.physics.velocity.x > 0;
-
-		//		if(this.status.faceRight) {
-		//			this.setFrame("Ghost/" + this.subType + "/Right");
-		//		} else {
-		//			this.setFrame("Ghost/" + this.subType + "/Left");
-		//		}
-		//	}
-		//}
-
-		//getJumpedOn( character: Character, bounceStrength: number = 0 ): void {
-		//	if(this.status.inDeathSequence) { return; }
-		//	if(this.subType === "Hat") {
-		//		ActionMap.Jump.StartAction(character, bounceStrength, 0, 4);
-		//	} else {
-		//		character.wound();
-		//	}
-		//}
-
 		public override bool RunCharacterImpact(Character character) {
-			character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
-			return true;
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, this);
+
+			if(dir == DirCardinal.Down && this.subType == (byte)GhostSubType.Hat) {
+				ActionMap.Jump.StartAction(character, 0, 0, 4);
+			} else {
+				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+			}
+
+			return Impact.StandardImpact(character, this, dir);
 		}
 	}
 }

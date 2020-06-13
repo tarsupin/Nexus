@@ -10,7 +10,8 @@ namespace Nexus.Engine {
 
 		public uint Frame { get; protected set; }       // The current frame.
 
-		public byte frame60Modulus;						// The current frame modulus; cycles through 60 per second, then loops back to 0.
+		public byte frame60Modulus;						// Cycles through 60 per second, then loops back to 0.
+		public byte frame16Modulus;						// Cycles through 16 frames, then loops back to 0.
 
 		public uint tick20;								// 20 per second, 1 per 3 frames, increments forever. Can use for global timing events.
 		public byte tick20Modulus;						// The current tick20 (tick % 20). Cycles through 20 per second, loops back to 0.
@@ -49,8 +50,10 @@ namespace Nexus.Engine {
 		}
 
 		public void RunTick() {
+
 			this.Frame += 1;
 			this.frame60Modulus = (byte)(this.Frame % 60);
+			this.frame16Modulus = (byte)(this.Frame % 16);
 			this.tick20 = (uint) Math.Floor((double)(this.Frame / 3));
 			this.tick20Modulus = (byte)(this.tick20 % 20);
 			this.beat = (uint) Math.Floor((double)(this.Frame / 15));
