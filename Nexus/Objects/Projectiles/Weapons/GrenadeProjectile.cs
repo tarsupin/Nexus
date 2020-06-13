@@ -23,6 +23,7 @@ namespace Nexus.Objects {
 			projectile.Damage = DamageStrength.None;
 			projectile.CollisionType = ProjectileCollisionType.DestroyOnCollide;
 			projectile.physics.SetGravity(FInt.Create(0.4));
+			projectile.SetState((byte)CommonState.Move);
 			projectile.SetSpriteName("Projectiles/Grenade");
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
 			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.07f : -0.07f;
