@@ -22,7 +22,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.Chest;
 			this.title = "Chest";
 			this.description = "Contains goodies and collectables.";
-			this.paramSet =  Params.ParamMap["Contents"];
+			this.moveParamSet =  Params.ParamMap["Contents"];
 
 			// Chest Contents
 			// TODO: Update Chest Contents with Param system. Needs to work with tiles.

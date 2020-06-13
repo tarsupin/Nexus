@@ -11,14 +11,14 @@ namespace Nexus.GameEngine {
 		// Map of Parameters
 		public static Dictionary<string, Params> ParamMap = new Dictionary<string, Params>() {
 			{ "AttackBolt", new ParamsAttackBolt() },
-			{ "AttackEarth", new ParamsElemental() },
 			{ "Beats", new ParamsBeats() },
 			{ "Checkpoint", new ParamsCheckpoint() },
 			{ "Collectable", new ParamsCollectable() },
 			{ "Contents", new ParamsContents() },
 			{ "Door", new ParamsDoor() },
+			{ "Elemental", new ParamsElemental() },
 			{ "Emblem", new ParamsEmblem() },
-			{ "FireBurst", new ParamsAttackFireChomp() },
+			{ "FireSpit", new ParamsAttackFireSpit() },
 			{ "Flight", new ParamsFlight() },
 			{ "MoveBounce", new ParamsMoveBounce() },
 			{ "MoveChase", new ParamsMoveChase() },
@@ -45,11 +45,12 @@ namespace Nexus.GameEngine {
 			return this.rules[ruleNum].key;
 		}
 
-		public virtual void CycleParam(string paramKey, bool up = true) {
+		// Returning `true` means it ran a custom menu update. `false` means the menu needs to be updated manually.
+		public virtual bool CycleParam(string paramKey, bool up = true) {
 			ArrayList tileObj = WandData.wandTileData;
 			
 			// Verify that the parameter can exist.
-			if(tileObj == null) { return; }
+			if(tileObj == null) { return false; }
 
 			if(tileObj.Count <= 2) {
 				tileObj.Add(new Dictionary<string, short>());
@@ -85,10 +86,10 @@ namespace Nexus.GameEngine {
 				this.UpdateParamNum(paramList, paramKey, newValue, labelRule.defValue);
 			}
 
-			else { return; }
+			else { return false; }
 
-			// Update the Menu Options
-			this.UpdateMenu();
+			// Run Custom Cycle Updates for Advanced Params
+			return this.RunCustomMenuUpdate();
 		}
 
 		protected short CycleNumber(short value, short min, short max, short increment, bool up = true) {
@@ -107,9 +108,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public virtual void UpdateMenu() {
-			WandData.UpdateMenuOptions();		// The default practice is to defer to the WandData's method.
-		}
+		public virtual bool RunCustomMenuUpdate() { return false; }
 	}
 
 	public class ParamsAttack : Params {
@@ -130,8 +129,8 @@ namespace Nexus.GameEngine {
 		}
 	}
 
-	public class ParamsAttackFireChomp : ParamsAttack {
-		public ParamsAttackFireChomp() : base() {
+	public class ParamsAttackFireSpit : ParamsAttack {
+		public ParamsAttackFireSpit() : base() {
 			this.rules.Add(new IntParam("count", "Number of Fireballs", 1, 2, 1, 1));                               // Number of bolts that gets shot simultaneously (1 to 3).
 			this.rules.Add(new PercentParam("grav", "Gravity Influence", 0, 200, 10, 100, FInt.Create(1)));			// The percent that gravity influences the first.
 			this.rules.Add(new PercentParam("spread", "Fireball Spread", 50, 250, 10, 100, FInt.Create(0.3)));		// The % spread between each bolt.

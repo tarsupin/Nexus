@@ -24,11 +24,12 @@ namespace Nexus.GameEngine {
 			this.rules.Add(new DictParam("id", "Stacks", ParamDict.Stacks, (byte)PowerSubType.Chakram));
 		}
 
-		public override void CycleParam(string paramKey, bool up = true) {
+		// Returning `true` means it ran a custom menu update. `false` means the menu needs to be updated manually.
+		public override bool CycleParam(string paramKey, bool up = true) {
 			ArrayList tileObj = WandData.wandTileData;
 
 			// Verify that the parameter can exist.
-			if(tileObj == null) { return; }
+			if(tileObj == null) { return false; }
 
 			if(tileObj.Count <= 2) {
 				tileObj.Add(new Dictionary<string, short>());
@@ -54,7 +55,7 @@ namespace Nexus.GameEngine {
 			else {
 				if(groupVal < 0 || groupVal > 9) { groupVal = 0; }
 
-				DictParam rule = (DictParam)WandData.paramRules[(byte)(groupVal + 1)];
+				DictParam rule = (DictParam)WandData.actParamSet.rules[(byte)(groupVal + 1)];
 				Dictionary<byte, string> dict = rule.dict;
 				byte[] contentKeys = dict.Keys.ToArray<byte>();
 
@@ -64,14 +65,15 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update the Menu Options
-			this.UpdateMenu();
+			return this.RunCustomMenuUpdate();
 		}
 
 		// This override will check the "content" group param, and show the appropriate rule accordingly.
-		public override void UpdateMenu() {
-			short contentVal = WandData.GetParamVal("content");
+		public override bool RunCustomMenuUpdate() {
+			short contentVal = WandData.GetParamVal(WandData.actParamSet, "content");
 			byte ruleIdToShow = (byte)(contentVal + 1);
-			WandData.UpdateMenuOptions(2, new byte[2] { 0, ruleIdToShow });
+			WandData.actParamMenu.UpdateMenuOptions(2, new byte[2] { 0, ruleIdToShow });
+			return true;
 		}
 	}
 

@@ -13,7 +13,8 @@ namespace Nexus.GameEngine {
 		private readonly EditorScroller scroller;
 		public readonly AlertText alertText;
 		public readonly ContextMenu contextMenu;
-		public readonly ParamMenu paramMenu;
+		public readonly ParamMenu moveParamMenu;
+		public readonly ParamMenu actParamMenu;
 
 		public static byte currentSlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
 		
@@ -43,8 +44,9 @@ namespace Nexus.GameEngine {
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Gadgets, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Cannon/UpRight", "Gadgets");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Scripting, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "HiddenObject/Cluster", "Scripting");
 
-			// Param Menu - Wand Tool
-			this.paramMenu = new ParamMenu(null);
+			// Param Menus - Wand Tool
+			this.moveParamMenu = new ParamMenu(null);
+			this.actParamMenu = new ParamMenu(null, true);
 		}
 
 		public void RunTick() {
@@ -52,7 +54,8 @@ namespace Nexus.GameEngine {
 			this.utilityBar.RunTick();
 			this.scroller.RunTick();
 			this.contextMenu.RunTick();
-			this.paramMenu.RunTick();
+			this.moveParamMenu.RunTick();
+			this.actParamMenu.RunTick();
 		}
 
 		public void Draw() {
@@ -69,7 +72,8 @@ namespace Nexus.GameEngine {
 				this.utilityBar.Draw();
 				this.scroller.Draw();
 				this.contextMenu.Draw();
-				this.paramMenu.Draw();
+				this.moveParamMenu.Draw();
+				this.actParamMenu.Draw();
 			}
 
 			// Alert Text

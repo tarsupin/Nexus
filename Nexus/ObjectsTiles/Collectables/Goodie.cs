@@ -55,7 +55,7 @@ namespace Nexus.Objects {
 		public Goodie() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Goodie;
-			this.paramSet = Params.ParamMap["Collectable"];
+			this.moveParamSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
 			this.titles = new string[33];

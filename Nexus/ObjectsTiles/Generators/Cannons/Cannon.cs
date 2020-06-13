@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.title = "Cannon";
 			this.description = "Fires cannonballs at instructed times.";
-			this.paramSet = Params.ParamMap["Beats"];
+			this.moveParamSet = Params.ParamMap["Beats"];
 		}
 
 		public void SetupTile(RoomScene room, ushort gridX, ushort gridY) {

@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 		public CollectableSuit() : base() {
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.CollectableSuit;
-			this.paramSet = Params.ParamMap["Collectable"];
+			this.moveParamSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
 			this.titles = new string[13];

@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte) TileEnum.Placer;
 			this.title = "Placer";
 			this.description = "Can place objects, items, collectables, etc.";
-			this.paramSet =  Params.ParamMap["Placer"];
+			this.moveParamSet =  Params.ParamMap["Placer"];
 			this.CreateTextures();
 		}
 

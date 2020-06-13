@@ -34,8 +34,8 @@ namespace Nexus.GameEngine {
 		}
 
 		// This override will check the "fly" group param, and show the appropriate rule accordingly.
-		public override void UpdateMenu() {
-			short flightVal = WandData.GetParamVal("fly");
+		public override bool RunCustomMenuUpdate() {
+			short flightVal = WandData.GetParamVal(WandData.moveParamSet, "fly");
 
 			List<byte> rulesToShow = new List<byte>();
 
@@ -75,7 +75,8 @@ namespace Nexus.GameEngine {
 			}
 
 			byte[] ruleIdsToShow = rulesToShow.ToArray();
-			WandData.UpdateMenuOptions((byte) ruleIdsToShow.Length, ruleIdsToShow);
+			WandData.moveParamMenu.UpdateMenuOptions((byte) ruleIdsToShow.Length, ruleIdsToShow);
+			return true;
 		}
 
 		public void AddRulesToShow(string[] ruleKeys, ref List<byte> rulesToShow) {

@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.ChomperFire;
 			this.title = "Fire Chomper";
 			this.description = "Stationary enemy. Can shoot fireballs.";
-			this.paramSet =  Params.ParamMap["FireBurst"];
+			this.actParamSet = Params.ParamMap["FireSpit"];
 		}
 
 		public void SetupTile(RoomScene room, ushort gridX, ushort gridY) {

@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.CheckFlagCheckpoint;
 			this.title = "Checkpoint Flag";
 			this.description = "Saves the character's position for level re-attempts. May grant bonuses.";
-			this.paramSet =  Params.ParamMap["Checkpoint"];
+			this.moveParamSet =  Params.ParamMap["Checkpoint"];
 		}
 	}
 }

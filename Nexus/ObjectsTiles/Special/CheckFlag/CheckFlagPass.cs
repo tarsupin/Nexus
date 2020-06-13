@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.CheckFlagPass;
 			this.title = "Checkpoint-Pass Flag";
 			this.description = "A Checkpoint Flag that reacts to characters passing above it.";
-			this.paramSet = Params.ParamMap["Checkpoint"];
+			this.moveParamSet = Params.ParamMap["Checkpoint"];
 		}
 	}
 }

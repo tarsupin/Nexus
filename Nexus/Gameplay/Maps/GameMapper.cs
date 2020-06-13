@@ -40,12 +40,14 @@ namespace Nexus.Gameplay {
 	// GameObjectMetaData exists because Game Objects need a reference to their metadata outside of the individual classes (and preferably without reflection).
 	// Example: The Wand Tool needs to know what Parameter Set to use for each object.
 	public class GameObjectMetaData {
-		public readonly Params paramSet;
+		public readonly Params moveParamSet;
+		public readonly Params actParamSet;
 		public readonly IMetaData meta;
 
-		public GameObjectMetaData(IMetaData meta, Params paramSet) {
+		public GameObjectMetaData(IMetaData meta, Params moveParamSet, Params actParamSet = null) {
 			this.meta = meta;
-			this.paramSet = paramSet;
+			this.moveParamSet = moveParamSet;
+			this.actParamSet = actParamSet;
 		}
 	}
 
@@ -139,21 +141,21 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.Lich] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 
 			//// Flight Enemies (40 - 69)
-			this.ObjectMetaData[(byte)ObjectEnum.Ghost] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.Ghost] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveChase"]);
 			this.ObjectMetaData[(byte)ObjectEnum.FlairElectric] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 			this.ObjectMetaData[(byte)ObjectEnum.FlairFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 			this.ObjectMetaData[(byte)ObjectEnum.FlairMagic] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.ElementalAir] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.ElementalEarth] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.ElementalFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.ElementalEarth] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.ElementalFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.Buzz] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.Saw] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 			this.ObjectMetaData[(byte)ObjectEnum.Slammer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.HoveringEye] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.Bouncer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.HoveringEye] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.Bouncer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveBounce"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.Dire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
