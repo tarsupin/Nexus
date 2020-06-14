@@ -37,7 +37,6 @@ namespace Nexus.ObjectComponents {
 		// Behavior Checks
 		private Vector2 startPos;
 		private ChaseAction quickAct;
-		private uint durEndFrame;
 		public uint waitEndFrame;
 
 		protected byte clusterId;
@@ -69,17 +68,21 @@ namespace Nexus.ObjectComponents {
 
 			// Quick Actions
 			this.quickAct = ChaseAction.Standard;
-			this.durEndFrame = 0;
 			this.waitEndFrame = 0;
 
 			// Positions
-			this.startPos = new Vector2(actor.posX, actor.posY);
+			this.startPos = new Vector2(actor.posX + actor.bounds.MidX, actor.posY + actor.bounds.MidY);
 
 			// If the object is a parent cluster, it must be tracked through the full level.
 			// TODO: NOTE: All objects are probably already active, so this might be unnecessary.
 			if(this.clusterId > 0) {
 				actor.SetActivity(Activity.ForceActive);
 			}
+		}
+
+		public void SetStallMinimum(byte minStall) {
+			minStall *= (byte) TilemapEnum.TileWidth;
+			if(this.stall < minStall) { this.stall = minStall; }
 		}
 		
 		private uint WatchForCharacter() {

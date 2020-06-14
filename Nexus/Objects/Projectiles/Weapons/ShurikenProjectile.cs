@@ -63,8 +63,8 @@ namespace Nexus.Objects {
 			EndBounceParticle particle = EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName, new Vector2(this.posX, this.posY), Systems.timer.Frame + 10, 3, 0.5f, 0.12f);
 
 			if(dir == DirCardinal.Right || dir == DirCardinal.Left) {
-				particle.vel.Y = (float)this.physics.velocity.Y.ToDouble() + (this.physics.velocity.Y < 0 ? 2 : 0);
-				particle.vel.X = dir == DirCardinal.Right ? CalcRandom.FloatBetween(-3, -1) : CalcRandom.FloatBetween(1, 3);
+				particle.vel.Y -= (float)CalcRandom.FloatBetween(0, 3);
+				particle.vel.X = dir == DirCardinal.Right ? CalcRandom.FloatBetween(-3, 0) : CalcRandom.FloatBetween(0, 3);
 			}
 
 			else if(dir == DirCardinal.Down || dir == DirCardinal.Up) {

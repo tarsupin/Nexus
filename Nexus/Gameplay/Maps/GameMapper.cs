@@ -163,7 +163,8 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.Shell] = new GameObjectMetaData(MetaList[MetaGroup.Item], Params.ParamMap["Shell"]);
 			this.ObjectMetaData[(byte)ObjectEnum.Boulder] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Bomb] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
-
+			this.ObjectMetaData[(byte)ObjectEnum.OrbItem] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
+			this.ObjectMetaData[(byte)ObjectEnum.SportBall] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.TNT] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 
 			this.ObjectMetaData[(byte)ObjectEnum.SpringStandard] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
@@ -587,7 +588,8 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.Shell, Type.GetType("Nexus.Objects.Shell") },
 			{ (byte) ObjectEnum.Boulder, Type.GetType("Nexus.Objects.Boulder") },
 			{ (byte) ObjectEnum.Bomb, Type.GetType("Nexus.Objects.Bomb") },
-
+			{ (byte) ObjectEnum.OrbItem, Type.GetType("Nexus.Objects.OrbItem") },
+			{ (byte) ObjectEnum.SportBall, Type.GetType("Nexus.Objects.SportBall") },
 			{ (byte) ObjectEnum.TNT, Type.GetType("Nexus.Objects.TNT") },
 
 			{ (byte) ObjectEnum.SpringStandard, Type.GetType("Nexus.Objects.SpringStandard") },

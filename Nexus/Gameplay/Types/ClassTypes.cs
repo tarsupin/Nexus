@@ -210,7 +210,8 @@ namespace Nexus.Gameplay {
 		Shell = 80,
 		Boulder = 81,
 		Bomb = 82,
-
+		OrbItem = 83,
+		SportBall = 84,
 		TNT = 85,
 
 		SpringStandard = 90,

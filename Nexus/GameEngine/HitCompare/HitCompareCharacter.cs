@@ -18,9 +18,9 @@ namespace Nexus.GameEngine {
 			// Specific Impact Types
 			if(obj is Enemy) { return ((Enemy)obj).RunCharacterImpact(ch); }
 			if(obj is Item) { return this.CharHitsItem(ch, (Item) obj); }
-			if(obj is Block) { return this.CharHitsBlock(ch, (Block) obj); }
 			if(obj is Platform) { return this.CharHitsPlatform(ch, (Platform) obj); }
 			if(obj is Projectile) { return this.CharHitsProjectile(ch, (Projectile) obj); }
+			if(obj is Block) { return this.CharHitsBlock(ch, (Block)obj); }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(ch, obj);
 
@@ -29,6 +29,11 @@ namespace Nexus.GameEngine {
 		}
 
 		public bool CharHitsItem( Character character, Item item ) {
+
+			// Sport Ball
+			if(item is SportBall) {
+				return ((SportBall)item).RunCharacterImpact(character);
+			}
 
 			// If this item is being held, skip.
 			if(item.isHeld) { return false; }

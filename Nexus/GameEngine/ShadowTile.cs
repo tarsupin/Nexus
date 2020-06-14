@@ -6,7 +6,9 @@ using static Nexus.Objects.Boulder;
 using static Nexus.Objects.ElementalAir;
 using static Nexus.Objects.ElementalEarth;
 using static Nexus.Objects.ElementalFire;
+using static Nexus.Objects.OrbItem;
 using static Nexus.Objects.Shell;
+using static Nexus.Objects.SportBall;
 using static Nexus.Objects.SpringStandard;
 using static Nexus.Objects.TNT;
 
@@ -109,6 +111,7 @@ namespace Nexus.Objects {
 				{  (byte) GhostSubType.Norm, "Ghost/Norm/Left" },
 				{  (byte) GhostSubType.Hide, "Ghost/Hide/Left" },
 				{  (byte) GhostSubType.Hat, "Ghost/Hat/Left" },
+				{  (byte) GhostSubType.Slimer, "Ghost/Slimer/Left" },
 			}},
 			
 			// FlairElectric
@@ -233,6 +236,19 @@ namespace Nexus.Objects {
 			// TNT
 			{ (byte) ObjectEnum.TNT, new Dictionary<byte, string> {
 				{  (byte) TNTSubType.TNT, "Items/TNT" },
+			}},
+			
+			// Orb
+			{ (byte) ObjectEnum.OrbItem, new Dictionary<byte, string> {
+				{  (byte) OrbSubType.Magic, "Orb/Magic" },
+			}},
+
+			// Sport Ball
+			{ (byte) ObjectEnum.SportBall, new Dictionary<byte, string> {
+				{  (byte) SportBallSubType.Fire, "Orb/Fire" },
+				{  (byte) SportBallSubType.Earth, "Orb/Earth" },
+				{  (byte) SportBallSubType.Forest, "Orb/Forest" },
+				{  (byte) SportBallSubType.Water, "Orb/Water" },
 			}},
 			
 			// Spring - Standard

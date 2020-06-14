@@ -483,6 +483,8 @@
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalEarth.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalFire.cs" />
     <Compile Include="Objects\EnemyFlight\Elemental\ElementalAir.cs" />
+    <Compile Include="Objects\Items\SportBall.cs" />
+    <Compile Include="Objects\Items\OrbItem.cs" />
     <Compile Include="Objects\Platforms\PlatformFall.cs" />
     <Compile Include="Objects\Platforms\PlatformMove.cs" />
     <Compile Include="Objects\Platforms\PlatformDip.cs" />

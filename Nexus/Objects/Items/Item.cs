@@ -1,8 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
-using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using System;
 using System.Collections.Generic;
 
 // Items are considered objects that Characters can pick up.

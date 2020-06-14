@@ -4,8 +4,10 @@ using static Nexus.Objects.Boulder;
 using static Nexus.Objects.CannonDiag;
 using static Nexus.Objects.CannonHor;
 using static Nexus.Objects.CannonVert;
+using static Nexus.Objects.OrbItem;
 using static Nexus.Objects.Placer;
 using static Nexus.Objects.Shell;
+using static Nexus.Objects.SportBall;
 using static Nexus.Objects.SpringFixed;
 using static Nexus.Objects.SpringSide;
 using static Nexus.Objects.SpringStandard;
@@ -162,6 +164,34 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.Boulder,
 					subType = (byte) BoulderSubType.Boulder,
+					layerEnum = LayerEnum.obj,
+				},
+			});
+
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.OrbItem,
+					subType = (byte) OrbSubType.Magic,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.SportBall,
+					subType = (byte) SportBallSubType.Forest,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.SportBall,
+					subType = (byte) SportBallSubType.Earth,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.SportBall,
+					subType = (byte) SportBallSubType.Fire,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.SportBall,
+					subType = (byte) SportBallSubType.Water,
 					layerEnum = LayerEnum.obj,
 				},
 			});

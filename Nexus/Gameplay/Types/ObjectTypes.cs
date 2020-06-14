@@ -59,8 +59,8 @@ namespace Nexus.Gameplay {
 
 	public enum FlightChaseAxis : byte {
 		Both = 0,
-		Horizontal = 1,
-		Vertical = 2,
+		Vertical = 1,
+		Horizontal = 2,
 	}
 
 	/*

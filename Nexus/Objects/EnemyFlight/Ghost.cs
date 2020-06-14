@@ -10,6 +10,7 @@ namespace Nexus.Objects {
 		Norm,
 		Hide,
 		Hat,
+		Slimer,
 	}
 
 	public class Ghost : EnemyFlight {
@@ -21,11 +22,15 @@ namespace Nexus.Objects {
 			this.physics = new Physics(this);
 			this.SetActivity(Activity.NoTileCollide);
 
-			// Assign Flight Behavior
-			this.behavior = new FlightChase(this, paramList);
-
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 2, -2, -2);
+
+			// Assign Flight-Chase Behavior (must be after atlas bounds, since it depends on it)
+			this.behavior = new FlightChase(this, paramList);
+
+			if(this.subType == (byte)GhostSubType.Hat) {
+				((FlightChase)this.behavior).SetStallMinimum(2);
+			}
 		}
 
 		private void AssignSubType( byte subType ) {
@@ -35,6 +40,8 @@ namespace Nexus.Objects {
 				this.SpriteName = "Ghost/Hide/Left";
 			} else if(subType == (byte)GhostSubType.Hat) {
 				this.SpriteName = "Ghost/Hat/Left";
+			} else if(subType == (byte)GhostSubType.Slimer) {
+				this.SpriteName = "Ghost/Slimer/Left";
 			}
 		}
 
@@ -42,12 +49,21 @@ namespace Nexus.Objects {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, this);
 
 			if(dir == DirCardinal.Down && this.subType == (byte)GhostSubType.Hat) {
-				ActionMap.Jump.StartAction(character, 0, 0, 4);
+				ActionMap.Jump.StartAction(character, 2, 0, 4);
 			} else {
-				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+				if(this.subType != (byte)GhostSubType.Hide) {
+					if(this.subType == (byte)GhostSubType.Hat && this.posY - character.posY > 25) { return false; }
+					character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
+				}
 			}
 
-			return Impact.StandardImpact(character, this, dir);
+			if(this.subType == (byte) GhostSubType.Slimer) {
+				return Impact.StandardImpact(character, this, dir);
+			}
+
+			return false;
 		}
+
+		public override bool RunProjectileImpact(Projectile projectile) { return false; }
 	}
 }

@@ -87,6 +87,11 @@ namespace Nexus.GameEngine {
 					subType = (byte) GhostSubType.Hat,
 					layerEnum = LayerEnum.obj,
 				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Ghost,
+					subType = (byte) GhostSubType.Slimer,
+					layerEnum = LayerEnum.obj,
+				},
 			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
