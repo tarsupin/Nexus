@@ -7,6 +7,7 @@ namespace Nexus.GameEngine {
 
 		// Projectiles, Standard
 		public static ObjectPool<ProjectileBall> ProjectileBall = new ObjectPool<ProjectileBall>(() => new ProjectileBall());
+		public static ObjectPool<ProjectileEnemy> ProjectileEnemy = new ObjectPool<ProjectileEnemy>(() => new ProjectileEnemy());
 		public static ObjectPool<ProjectileBolt> ProjectileBolt = new ObjectPool<ProjectileBolt>(() => new ProjectileBolt());
 		public static ObjectPool<ProjectileBullet> ProjectileBullet = new ObjectPool<ProjectileBullet>(() => new ProjectileBullet());
 		public static ObjectPool<ProjectileEarth> ProjectileEarth = new ObjectPool<ProjectileEarth>(() => new ProjectileEarth());

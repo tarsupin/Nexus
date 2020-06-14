@@ -115,6 +115,11 @@ namespace Nexus.Objects {
 			}},
 			
 			// FlairElectric
+			{ (byte) ObjectEnum.FlairNormal, new Dictionary<byte, string> {
+				{  (byte) FlairNormalSubType.Normal, "Flair/Norm/Left2" },
+			}},
+			
+			// FlairElectric
 			{ (byte) ObjectEnum.FlairElectric, new Dictionary<byte, string> {
 				{  (byte) FlairElectricSubType.Normal, "Flair/Electric/Left2" },
 			}},
@@ -124,9 +129,9 @@ namespace Nexus.Objects {
 				{  (byte) FlairFireSubType.Normal, "Flair/Fire/Left2" },
 			}},
 			
-			// FlairMagic
-			{ (byte) ObjectEnum.FlairMagic, new Dictionary<byte, string> {
-				{  (byte) FlairMagicSubType.Normal, "Flair/Magic/Left2" },
+			// FlairPoison
+			{ (byte) ObjectEnum.FlairPoison, new Dictionary<byte, string> {
+				{  (byte) FlairPoisonSubType.Normal, "Flair/Poison/Left2" },
 			}},
 			
 			// ElementalAir

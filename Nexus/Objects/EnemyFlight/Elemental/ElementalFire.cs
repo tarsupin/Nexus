@@ -18,11 +18,13 @@ namespace Nexus.Objects {
 
 		public AttackSequence attack;
 		public sbyte attSpeed = 0;
+		public FInt gravity = FInt.Create(0);
 
 		public ElementalFire(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ElementalFire].meta;
 			this.attack = new AttackSequence(paramList);
-			this.attSpeed = (sbyte)Math.Round((paramList.ContainsKey("speed") ? paramList["speed"] : 100) * 0.01 * BaseAttackSpeed);
+			this.attSpeed = (sbyte)Math.Round(paramList == null || !paramList.ContainsKey("speed") ? BaseAttackSpeed : paramList["speed"] * 0.01 * BaseAttackSpeed);
+			this.gravity = FInt.Create(paramList == null || !paramList.ContainsKey("grav") ? 0 : paramList["grav"] * 0.01f * 0.5f);
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 4, -4, -12);
 		}
@@ -32,7 +34,8 @@ namespace Nexus.Objects {
 
 			// Check if an attack needs to be made:
 			if(this.attack.AttackThisFrame()) {
-				ProjectileBall projectile = ProjectileBall.Create(room, (byte)ProjectileBallSubType.EnemyFire, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY - 10), FVector.Create(this.attSpeed, 0));
+				ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Fire, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY - 10), FVector.Create(this.attSpeed, 0));
+				projectile.physics.SetGravity(this.gravity);
 				Systems.sounds.flame.Play(0.6f, 0, 0);
 			}
 		}

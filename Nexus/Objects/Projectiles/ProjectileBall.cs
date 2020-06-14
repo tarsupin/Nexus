@@ -7,17 +7,12 @@ using Nexus.Gameplay;
 namespace Nexus.Objects {
 
 	public enum ProjectileBallSubType : byte {
-
-		// Character Projectiles
 		Electric,
 		Fire,
 		Frost,
 		Rock,
 		Poison,
 		Water,
-
-		// Enemy Projectiles
-		EnemyFire,
 	}
 
 	public class ProjectileBall : Projectile {
@@ -45,16 +40,7 @@ namespace Nexus.Objects {
 
 		private void AssignSubType(byte subType) {
 
-			// Enemy Projectiles
-			if(subType == (byte) ProjectileBallSubType.EnemyFire) {
-				this.Damage = DamageStrength.Standard;
-				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
-				this.physics.SetGravity(FInt.Create(0));
-				this.CollisionType = ProjectileCollisionType.IgnoreWalls;
-				this.SetSpriteName("Projectiles/Fire");
-			}
-
-			else if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
+			if(subType == (byte) ProjectileBallSubType.Fire || subType == (byte) ProjectileBallSubType.Electric) {
 				this.Damage = DamageStrength.Standard;
 				this.spinRate = this.physics.velocity.X > 0 ? 0.05f : -0.05f;
 				this.physics.SetGravity(FInt.Create(0.45));

@@ -191,7 +191,8 @@ namespace Nexus.Gameplay {
 		Ghost = 40,
 		FlairElectric = 41,
 		FlairFire = 42,
-		FlairMagic = 43,
+		FlairPoison = 43,
+		FlairNormal = 44,
 
 		ElementalAir = 45,
 		ElementalEarth = 46,

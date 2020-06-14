@@ -142,9 +142,10 @@ namespace Nexus.Gameplay {
 
 			//// Flight Enemies (40 - 69)
 			this.ObjectMetaData[(byte)ObjectEnum.Ghost] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveChase"]);
-			this.ObjectMetaData[(byte)ObjectEnum.FlairElectric] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.FlairFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.FlairMagic] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.FlairElectric] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.FlairFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.FlairPoison] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.FlairNormal] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.ElementalAir] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 			this.ObjectMetaData[(byte)ObjectEnum.ElementalEarth] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
@@ -567,9 +568,11 @@ namespace Nexus.Gameplay {
 
 			// Flight Enemies (40 - 69)
 			{ (byte) ObjectEnum.Ghost, Type.GetType("Nexus.Objects.Ghost") },
+
 			{ (byte) ObjectEnum.FlairElectric, Type.GetType("Nexus.Objects.FlairElectric") },
 			{ (byte) ObjectEnum.FlairFire, Type.GetType("Nexus.Objects.FlairFire") },
-			{ (byte) ObjectEnum.FlairMagic, Type.GetType("Nexus.Objects.FlairMagic") },
+			{ (byte) ObjectEnum.FlairPoison, Type.GetType("Nexus.Objects.FlairPoison") },
+			{ (byte) ObjectEnum.FlairNormal, Type.GetType("Nexus.Objects.FlairNormal") },
 
 			{ (byte) ObjectEnum.ElementalAir, Type.GetType("Nexus.Objects.ElementalAir") },
 			{ (byte) ObjectEnum.ElementalEarth, Type.GetType("Nexus.Objects.ElementalEarth") },

@@ -55,6 +55,11 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.FlairNormal,
+					subType = (byte) FlairNormalSubType.Normal,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.FlairElectric,
 					subType = (byte) FlairElectricSubType.Normal,
 					layerEnum = LayerEnum.obj,
@@ -65,8 +70,8 @@ namespace Nexus.GameEngine {
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.FlairMagic,
-					subType = (byte) FlairMagicSubType.Normal,
+					objectId = (byte) ObjectEnum.FlairPoison,
+					subType = (byte) FlairPoisonSubType.Normal,
 					layerEnum = LayerEnum.obj,
 				},
 			});

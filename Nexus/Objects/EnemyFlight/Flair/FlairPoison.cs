@@ -7,17 +7,17 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public enum FlairFireSubType : byte { Normal };
+	public enum FlairPoisonSubType : byte { Normal };
 
-	public class FlairFire : Flair {
+	public class FlairPoison : Flair {
 
-		private const byte BaseAttackSpeed = 4;
+		private const byte BaseAttackSpeed = 3;
 		public AttackSequence attack;
 		public sbyte attSpeed = 0;
 		public FInt gravity = FInt.Create(0);
 
-		public FlairFire(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.FlairFire].meta;
+		public FlairPoison(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.FlairPoison].meta;
 			this.attack = new AttackSequence(paramList);
 			this.attSpeed = (sbyte)Math.Round(paramList == null || !paramList.ContainsKey("speed") ? BaseAttackSpeed : paramList["speed"] * 0.01 * BaseAttackSpeed);
 			this.gravity = FInt.Create(paramList == null || !paramList.ContainsKey("grav") ? 0 : paramList["grav"] * 0.01f * 0.5f);
@@ -30,19 +30,19 @@ namespace Nexus.Objects {
 
 			// Check if an attack needs to be made:
 			if(this.attack.AttackThisFrame()) {
-				ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Fire, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY + 4), FVector.Create(this.FaceRight ? this.attSpeed : -this.attSpeed, 0));
+				ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Poison, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY + 10), FVector.Create(0, this.attSpeed));
 				projectile.physics.SetGravity(this.gravity);
 				Systems.sounds.flame.Play(0.6f, 0, 0);
 			}
 		}
 
 		private void AssignSubType(byte subType) {
-			this.animate = new Animate(this, "Flair/Fire/");
-			this.animate.SetAnimation("Flair/Fire/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+			this.animate = new Animate(this, "Flair/Poison/");
+			this.animate.SetAnimation("Flair/Poison/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 		}
 
 		public override void OnDirectionChange() {
-			this.animate.SetAnimation("Flair/Fire/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+			this.animate.SetAnimation("Flair/Poison/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
 		}
 	}
 }

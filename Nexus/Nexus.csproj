@@ -470,12 +470,13 @@
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatLeft.cs" />
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatDown.cs" />
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatUp.cs" />
+    <Compile Include="Objects\EnemyFlight\Flair\FlairNormal.cs" />
     <Compile Include="Objects\EnemyFlight\Slammer.cs" />
     <Compile Include="Objects\EnemyFlight\Dire.cs" />
     <Compile Include="Objects\EnemyFlight\Bouncer.cs" />
     <Compile Include="Objects\EnemyFlight\HoveringEye.cs" />
     <Compile Include="Objects\EnemyFlight\Saw.cs" />
-    <Compile Include="Objects\EnemyFlight\Flair\FlairMagic.cs" />
+    <Compile Include="Objects\EnemyFlight\Flair\FlairPoison.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairElectric.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairFire.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\Flair.cs" />
@@ -495,6 +496,7 @@
     <Compile Include="Objects\Items\Shell.cs" />
     <Compile Include="Objects\Items\ButtonStandard.cs" />
     <Compile Include="Objects\Items\SpringStandard.cs" />
+    <Compile Include="Objects\Projectiles\ProjectileEnemy.cs" />
     <Compile Include="Objects\Projectiles\Weapons\ThrustProjectile.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />
     <Compile Include="Scripts\LevelConvert.cs" />

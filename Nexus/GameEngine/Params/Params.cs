@@ -117,7 +117,8 @@ namespace Nexus.GameEngine {
 
 		public ParamsAttack() {
 			this.rules.Add(new IntParam("cycle", "Attack Frequency", 60, 300, 15, DefaultCycle, " frames"));	// Frequency of the attack (in frames).
-			this.rules.Add(new IntParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));					// The offset of the frequency on the global time.
+			this.rules.Add(new IntParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));                   // The offset of the frequency on the global time.
+			this.rules.Add(new PercentParam("grav", "Gravity Influence", 0, 200, 10, 0, FInt.Create(0.5)));		// The percent that gravity influences the projectile.
 			this.rules.Add(new PercentParam("speed", "Attack Speed", 20, 200, 10, 100, FInt.Create(4)));		// Velocity of the bolts (Y-axis).
 		}
 	}
@@ -132,7 +133,6 @@ namespace Nexus.GameEngine {
 	public class ParamsAttackFireSpit : ParamsAttack {
 		public ParamsAttackFireSpit() : base() {
 			this.rules.Add(new IntParam("count", "Number of Fireballs", 1, 2, 1, 1));                               // Number of bolts that gets shot simultaneously (1 to 3).
-			this.rules.Add(new PercentParam("grav", "Gravity Influence", 0, 200, 10, 100, FInt.Create(1)));			// The percent that gravity influences the first.
 			this.rules.Add(new PercentParam("spread", "Fireball Spread", 50, 250, 10, 100, FInt.Create(0.3)));		// The % spread between each bolt.
 		}
 	}
