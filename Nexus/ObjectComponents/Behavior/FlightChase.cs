@@ -85,10 +85,7 @@ namespace Nexus.ObjectComponents {
 			if(this.stall < minStall) { this.stall = minStall; }
 		}
 		
-		private uint WatchForCharacter() {
-
-			int midX = this.actor.posX + this.actor.bounds.MidX;
-			int midY = this.actor.posY + this.actor.bounds.MidY;
+		private uint WatchForCharacter(int midX, int midY) {
 
 			uint objectId = CollideRect.FindOneObjectTouchingArea(
 				this.actor.room.objects[(byte)LoadOrder.Character],
@@ -105,7 +102,7 @@ namespace Nexus.ObjectComponents {
 
 			// If there is no character in sight, check for a new one:
 			if(this.charBeingChased is Character == false) {
-				uint objectId = this.WatchForCharacter();
+				uint objectId = this.WatchForCharacter(midX, midY);
 
 				if(objectId > 0) {
 					this.charBeingChased = (Character)this.actor.room.objects[(byte)LoadOrder.Character][objectId];

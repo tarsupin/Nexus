@@ -155,7 +155,7 @@ namespace Nexus.Gameplay {
 
 			this.ObjectMetaData[(byte)ObjectEnum.Saw] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 			this.ObjectMetaData[(byte)ObjectEnum.Slammer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.HoveringEye] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
+			this.ObjectMetaData[(byte)ObjectEnum.HoveringEye] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["AttackBolt"]);
 			this.ObjectMetaData[(byte)ObjectEnum.Bouncer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveBounce"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.Dire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);

@@ -8,6 +8,8 @@ namespace Nexus.Objects {
 		Fire,
 		Electric,
 		Poison,
+		Magic,
+		BoltBlue,
 	}
 
 	public class ProjectileEnemy : Projectile {
@@ -22,11 +24,10 @@ namespace Nexus.Objects {
 			ProjectileEnemy projectile = ProjectilePool.ProjectileEnemy.GetObject();
 
 			projectile.ResetProjectile(room, subType, pos, velocity);
+			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.05f : -0.05f;
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(2, 2, -2, -2);
-			projectile.SetCollisionType(ProjectileCollisionType.DestroyOnCollide);
 			projectile.physics.SetGravity(FInt.Create(0));
-			projectile.spinRate = projectile.physics.velocity.X > 0 ? 0.05f : -0.05f;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
@@ -38,14 +39,28 @@ namespace Nexus.Objects {
 
 			if(subType == (byte) ProjectileEnemySubType.Fire) {
 				this.SetSpriteName("Projectiles/Fire");
+				this.SetCollisionType(ProjectileCollisionType.DestroyOnCollide);
 			}
 
-			else if(subType == (byte) ProjectileEnemySubType.Electric) {
+			else if(subType == (byte)ProjectileEnemySubType.Electric) {
 				this.SetSpriteName("Projectiles/Electric");
+				this.SetCollisionType(ProjectileCollisionType.DestroyOnCollide);
 			}
 
 			else if(subType == (byte) ProjectileEnemySubType.Poison) {
 				this.SetSpriteName("Projectiles/Poison");
+				this.SetCollisionType(ProjectileCollisionType.DestroyOnCollide);
+			}
+
+			else if(subType == (byte) ProjectileEnemySubType.Magic) {
+				this.SetSpriteName("Projectiles/Magi");
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			}
+
+			else if(subType == (byte) ProjectileEnemySubType.BoltBlue) {
+				this.SetSpriteName("Projectiles/Bolt");
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+				this.spinRate = 0;
 			}
 		}
 

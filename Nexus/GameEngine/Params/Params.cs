@@ -125,6 +125,7 @@ namespace Nexus.GameEngine {
 
 	public class ParamsAttackBolt : ParamsAttack {
 		public ParamsAttackBolt() : base() {
+			this.rules.Remove(this.rules[2]); // Remove Gravity Influence
 			this.rules.Add(new IntParam("count", "Number of Bolts", 1, 3, 1, 1));								// Number of bolts that gets shot simultaneously (1 to 3)
 			this.rules.Add(new PercentParam("spread", "Bolt Spread", 50, 200, 10, 100, FInt.Create(0.3)));		// The % spread between each bolt.
 		}
