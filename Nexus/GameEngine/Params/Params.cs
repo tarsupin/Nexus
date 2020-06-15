@@ -116,8 +116,8 @@ namespace Nexus.GameEngine {
 		public const short DefaultCycle = 120;
 
 		public ParamsAttack() {
-			this.rules.Add(new IntParam("cycle", "Attack Frequency", 60, 300, 15, DefaultCycle, " frames"));	// Frequency of the attack (in frames).
-			this.rules.Add(new IntParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));                   // The offset of the frequency on the global time.
+			this.rules.Add(new FrameParam("cycle", "Attack Frequency", 60, 300, 15, DefaultCycle, " frames"));	// Frequency of the attack (in frames).
+			this.rules.Add(new FrameParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));                   // The offset of the frequency on the global time.
 			this.rules.Add(new PercentParam("grav", "Gravity Influence", 0, 200, 10, 0, FInt.Create(0.5)));		// The percent that gravity influences the projectile.
 			this.rules.Add(new PercentParam("speed", "Attack Speed", 20, 200, 10, 100, FInt.Create(4)));		// Velocity of the bolts (Y-axis).
 		}
@@ -215,7 +215,7 @@ namespace Nexus.GameEngine {
 			this.rules.Add(new IntParam("flee", "Flee Range", 0, 40, 1, 0, " tile(s)"));
 			this.rules.Add(new IntParam("stall", "Stall Range", 0, 40, 1, 0, " tile(s)"));
 			this.rules.Add(new LabeledParam("returns", "Returns to Start", new string[2] { "Returns", "Doesn't Return" }, (byte)0));
-			this.rules.Add(new IntParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames"));
+			this.rules.Add(new FrameParam("retDelay", "Delay for Returning", 0, 300, 15, 120, " frames"));
 			this.rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, 10, 1, 0, " (0 to ignore)"));
 		}
 	}
@@ -245,8 +245,8 @@ namespace Nexus.GameEngine {
 		public ParamsTrackDot() {
 			this.rules.Add(new IntParam("trackNum", "Track ID", 0, 99, 1, 0, ""));
 			this.rules.Add(new IntParam("to", "Goes to Track ID", 0, 99, 1, 0, ""));
-			this.rules.Add(new IntParam("duration", "Travel Duration", 60, 3600, 15, 180, " frames"));
-			this.rules.Add(new IntParam("delay", "Departure Delay", 0, 3600, 15, 0, " frames"));
+			this.rules.Add(new FrameParam("duration", "Travel Duration", 60, 3600, 15, 180, " frames"));
+			this.rules.Add(new FrameParam("delay", "Departure Delay", 0, 3600, 15, 0, " frames"));
 			this.rules.Add(new LabeledParam("beginFall", "Falls on Arrival", new string[2] { "False", "True" }, (byte)0));
 		}
 	}

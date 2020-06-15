@@ -23,7 +23,7 @@ namespace Nexus.ObjectComponents {
 		public override void RunTick() {
 
 			// Identify Position based on Global Timing
-			double weight = (double) ((double)(Systems.timer.Frame + this.offset) % this.duration) / (double)this.duration;
+			float weight = (float) ((float)(Systems.timer.Frame + this.offset) % this.duration) / (float)this.duration;
 
 			// Assign Next Velocity
 			float posX = Interpolation.QuadBezierEaseBothDir(this.startX, this.midX, this.endX, (float) weight);

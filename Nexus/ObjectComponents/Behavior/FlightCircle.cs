@@ -21,8 +21,7 @@ namespace Nexus.ObjectComponents {
 		public override void RunTick() {
 
 			// Identify Position based on Global Timing
-			float weight = (Systems.timer.Frame + this.offset) % this.duration;
-			weight = weight / this.duration * 17;
+			float weight = (float)((float)(Systems.timer.Frame + this.offset) % this.duration) / (float)this.duration;
 
 			// Clockwise or Counter-Clockwise
 			if(this.reverse) { weight = -weight; }

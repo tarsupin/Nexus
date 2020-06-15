@@ -165,7 +165,7 @@ namespace Nexus.GameEngine {
 
 					// Frame Params (show them as milliseconds, rather than by frames)
 					else if(rule is FrameParam) {
-						int newVal = byte.Parse(paramList[rule.key].ToString()) * 1000 / 60;
+						int newVal = short.Parse(paramList[rule.key].ToString()) * 1000 / 60;
 						this.menuOptText[i] = newVal.ToString() + " ms";
 					}
 

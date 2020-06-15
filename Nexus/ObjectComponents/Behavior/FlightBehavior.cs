@@ -30,7 +30,7 @@ namespace Nexus.ObjectComponents {
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
 			this.duration = paramList.ContainsKey("duration") ? (ushort) paramList["duration"] : (ushort) FlightDefaults.MoveFlightDuration;
-			this.offset = paramList.ContainsKey("offset") ? (ushort) paramList["offset"] : (ushort) 0;
+			this.offset = paramList.ContainsKey("durationOffset") ? (ushort) paramList["durationOffset"] : (ushort) 0;
 
 			// Positions
 			this.startX = actor.posX;

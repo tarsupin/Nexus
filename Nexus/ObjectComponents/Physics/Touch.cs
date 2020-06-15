@@ -64,6 +64,7 @@ namespace Nexus.ObjectComponents {
 			this.onMover = false;
 			if(this.moveObj == null) { return; }
 			physics.SetExtraMovement(this.moveObj.physics.AmountMovedX, this.moveObj.physics.AmountMovedY);
+			this.moveObj = null;
 		}
 	}
 }
