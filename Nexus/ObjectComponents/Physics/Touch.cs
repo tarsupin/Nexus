@@ -1,5 +1,4 @@
-﻿
-using Nexus.GameEngine;
+﻿using Nexus.GameEngine;
 
 namespace Nexus.ObjectComponents {
 
@@ -12,20 +11,14 @@ namespace Nexus.ObjectComponents {
 		public bool toTop = false;
 		public bool toBottom = false;
 
-		public byte toFloor = 0;					// Number of frames since touched the floor (up to ten)
+		public byte toFloor = 0;                // Number of frames since touched the floor (up to ten)
 
-		public GameObject touchObj = null;		// Touching Floor
+		public GameObject touchObj = null;
+		public bool onPlatform = false;
 
 		public void ResetTouch() {
 			if(!this.isTouching) { return; }
 			this.isTouching = false;
-
-			// TODO HIGH PRIOIRTY: Affected by Platforms
-			//if(this.touchObj != null) {
-			//	if(this.touchObj is Platform) {
-
-			//	}
-			//}
 
 			if(toBottom) {
 				toBottom = false;
@@ -35,9 +28,10 @@ namespace Nexus.ObjectComponents {
 				if(toFloor < 11) { toFloor++; }
 			}
 
-			toTop = false;
-			toLeft = false;
-			toRight = false;
+			if(this.toTop) { this.toTop = false; }
+			if(this.toLeft) { this.toLeft = false; }
+			if(this.toRight) { this.toRight = false; }
+			if(this.onPlatform) { this.onPlatform = false; }
 		}
 
 		public void TouchLeft() {
@@ -61,9 +55,10 @@ namespace Nexus.ObjectComponents {
 			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
-		public void TouchPlatform( GameObject platform ) {
+		public void TouchPlatform( GameObject platform = null ) {
 			if(this.isTouching == false) { this.isTouching = true; }
 			this.touchObj = platform;
+			this.onPlatform = true;
 		}
 	}
 }

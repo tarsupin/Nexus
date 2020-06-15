@@ -81,6 +81,10 @@ namespace Nexus.GameEngine {
 			// Activate the Platform
 			platform.ActivatePlatform();
 
+			// TODO: May need to change this to .intend or .velocity. We'll see.
+			character.physics.extraMovement.X += platform.physics.AmountMovedX;
+			character.physics.extraMovement.Y += platform.physics.AmountMovedY;
+
 			platform.physics.touch.TouchPlatform(platform);
 
 			// Run Standard Platform Collision
