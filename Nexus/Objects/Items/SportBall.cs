@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -56,6 +57,11 @@ namespace Nexus.Objects {
 
 			this.physics.velocity.X *= this.decelGround;
 			this.physics.velocity.Y -= velY * bounceY;
+
+			// Bounce sound when it's sufficiently high enough.
+			if(velY > 2) {
+				Systems.sounds.shellThud.Play((float)Math.Min(0.8f, velY.ToDouble() * 0.1f), 0, 0);
+			}
 		}
 
 		public override void CollidePosLeft(int posX) {
@@ -80,6 +86,36 @@ namespace Nexus.Objects {
 			this.physics.velocity.X -= velX * bounceX;
 		}
 
+		public override bool CollideObjDown(GameObject obj) {
+
+			// Verify the object is moving Down. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.Y <= 0) { return false; }
+
+			this.CollidePosDown(obj.posY + obj.bounds.Top - this.bounds.Bottom);
+			return true;
+		}
+
+		public override bool CollideObjLeft(GameObject obj) {
+
+			// Verify the object is moving Left. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.X >= 0) { return false; }
+
+			this.CollidePosLeft(obj.posX + obj.bounds.Right - this.bounds.Left);
+			return true;
+		}
+
+		public override bool CollideObjRight(GameObject obj) {
+
+			// Verify the object is moving Right. If not, don't collide.
+			// This prevents certain false collisions, e.g. if both objects are moving in the same direction.
+			if(this.physics.intend.X <= 0) { return false; }
+			
+			this.CollidePosLeft(obj.posX + obj.bounds.Left - this.bounds.Right);
+			return true;
+		}
+
 		public bool RunCharacterImpact(Character character) {
 
 			// Don't allow interaction if it's too recent.
@@ -92,14 +128,15 @@ namespace Nexus.Objects {
 			this.lastTouchFrame = Systems.timer.Frame;
 			this.lastTouchId = character.id;
 
-			FInt boost = FInt.Create(Math.Round(Math.Abs(character.physics.velocity.X.RoundInt) * 0.5f));
+			var xVelHalf = character.physics.velocity.X.RoundInt * 0.5f;
+			FInt boost = FInt.Create(Math.Abs(Math.Round(xVelHalf)));
 
 			sbyte kickBoost = (sbyte)(this.KickStrength + boost);
 			sbyte throwBoost = (sbyte)(this.ThrowStrength + boost + (byte) Math.Round(Math.Abs(character.physics.velocity.Y.RoundInt) * 0.5f));
 			
 			// Holding Up increases throw strength. Holding Down is "dribble" and reduces throw + kick strength.
 			if(character.input.isDown(IKey.Up)) { throwBoost += 4; }
-			else if(character.input.isDown(IKey.Down)) { throwBoost -= 4; kickBoost = 0; }
+			else if(character.input.isDown(IKey.Down)) { throwBoost -= 4; kickBoost = (sbyte) boost.RoundInt; }
 
 			// Facing the same direction as the sport ball increases strength, and vice versa.
 			if(dir == DirCardinal.Right) {
@@ -139,6 +176,7 @@ namespace Nexus.Objects {
 			// Holding A Button and/or Y Button increases kick strength.
 			if(character.input.isDown(IKey.AButton)) { kickBoost += 2; }
 			if(character.input.isDown(IKey.YButton)) { kickBoost += 2; }
+			if(character.input.isDown(IKey.BButton)) { throwBoost += 2; }
 
 			// Vertical Collisions affect throw boost.
 			if(dir == DirCardinal.Up) { throwBoost += 4; }
@@ -159,9 +197,11 @@ namespace Nexus.Objects {
 
 			// Vertical Hits
 			if(dir == DirCardinal.Down) {
+				this.physics.velocity.X += FInt.Create(xVelHalf * 2);
 				this.physics.velocity.Y += throwBoost;
 			} else if(dir == DirCardinal.Up) {
-				this.physics.velocity.Y -= throwBoost;
+				this.physics.velocity.X += FInt.Create(xVelHalf * 2);
+				this.physics.velocity.Y = FInt.Create(-throwBoost);
 			}
 
 			return false;
