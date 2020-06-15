@@ -107,6 +107,9 @@ namespace Nexus.Gameplay {
 		SpringFixed = 90,
 		SpringSide = 91,
 
+		// Character Flags
+		BasicCharacter = 100,
+
 		// Rock Platforms (110 - 114)
 		PlatformRockUp = 110,
 		PlatformRockDown = 111,

@@ -16,7 +16,7 @@ namespace Nexus.GameEngine {
 			this.broad = new CollideBroad();
 
 			// Build the Collision Pool
-			this.pool = ArrayPool<uint>.Shared;
+			//this.pool = ArrayPool<uint>.Shared;
 		}
 
 		// 1. Get all game objects from the room.

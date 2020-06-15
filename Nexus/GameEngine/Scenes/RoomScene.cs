@@ -12,6 +12,7 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelScene scene;
+		public readonly byte roomID;
 		protected readonly CollideSequence collideSequence;
 
 		// Components
@@ -25,23 +26,31 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, Dictionary<uint, GameObject>> objects;       // objects[LoadOrder][ObjectID] = DynamicObject
 
 		// Object Coordination and Cleanup
-		private readonly List<GameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
-		private readonly List<GameObject> markedForRemoval;      // A list of objects that will be removed after the frame's loops have ended.
+		private List<GameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
+		private List<GameObject> markedForRemoval;      // A list of objects that will be removed after the frame's loops have ended.
 
-		public RoomScene(LevelScene scene, string roomID) : base() {
+		public RoomScene(LevelScene scene, byte roomID) : base() {
 
 			// References
 			this.scene = scene;
+			this.roomID = roomID;
 			this.collideSequence = new CollideSequence(this);
+
+			// Components that don't need to be rebuilt on room reset.
+			this.parallax = ParallaxOcean.CreateOceanParallax(this);
+			this.particleHandler = new ParticleHandler(this);
+		}
+
+		public void BuildRoom() {
 
 			// Game Objects
 			this.objects = new Dictionary<byte, Dictionary<uint, GameObject>> {
-				[(byte) LoadOrder.Platform] = new Dictionary<uint, GameObject>(),
-				[(byte) LoadOrder.Enemy] = new Dictionary<uint, GameObject>(),
-				[(byte) LoadOrder.Item] = new Dictionary<uint, GameObject>(),
-				[(byte) LoadOrder.TrailingItem] = new Dictionary<uint, GameObject>(),
-				[(byte) LoadOrder.Character] = new Dictionary<uint, GameObject>(),
-				[(byte) LoadOrder.Projectile] = new Dictionary<uint, GameObject>()
+				[(byte)LoadOrder.Platform] = new Dictionary<uint, GameObject>(),
+				[(byte)LoadOrder.Enemy] = new Dictionary<uint, GameObject>(),
+				[(byte)LoadOrder.Item] = new Dictionary<uint, GameObject>(),
+				[(byte)LoadOrder.TrailingItem] = new Dictionary<uint, GameObject>(),
+				[(byte)LoadOrder.Character] = new Dictionary<uint, GameObject>(),
+				[(byte)LoadOrder.Projectile] = new Dictionary<uint, GameObject>()
 			};
 
 			// Object Coordination and Cleanup
@@ -50,18 +59,21 @@ namespace Nexus.GameEngine {
 
 			// Build Tilemap with Correct Dimensions
 			ushort xCount, yCount;
-			RoomGenerate.DetectRoomSize(Systems.handler.levelContent.data.rooms[roomID], out xCount, out yCount);
+			RoomGenerate.DetectRoomSize(Systems.handler.levelContent.data.rooms[roomID.ToString()], out xCount, out yCount);
 
 			this.tilemap = new TilemapLevel(xCount, yCount);
 
 			// Additional Components
 			this.colors = new ColorToggles();
 			this.queueEvents = new QueueEvent(this);
-			this.parallax = ParallaxOcean.CreateOceanParallax(this);
-			this.particleHandler = new ParticleHandler(this);
 
 			// Generate Room Content (Tiles, Objects)
-			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
+			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID.ToString());
+
+			// TODO: Build Clusters and Tracks
+			//this.trackSystem = new TrackSystem(this);
+			//this.buildClusters();
+			//this.trackSystem.buildTrackData();
 		}
 
 		public override int Width { get { return this.tilemap.Width; } }
@@ -294,15 +306,6 @@ namespace Nexus.GameEngine {
 
 			// Clear the list of any objects being marked for removal.
 			this.markedForRemoval.Clear();
-		}
-
-		public void RestartRoom() {
-
-			// Toggle Resets
-			this.colors.ResetColorToggles();
-
-			// Regenerate Room
-			// this.SpawnRoom(posX, posY, roomId);
 		}
 	}
 }

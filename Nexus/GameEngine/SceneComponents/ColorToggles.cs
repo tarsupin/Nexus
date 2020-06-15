@@ -10,10 +10,7 @@ namespace Nexus.Engine {
 		public uint timerGYEnd { get; protected set; }
 
 		public ColorToggles() {
-			toggleBR = true;
-			toggleGY = true;
-			timerBREnd = 0;
-			timerGYEnd = 0;
+			this.ResetColorToggles();
 		}
 
 		// Toggle Colored Toggles. Used to be toggleWorldObjects()
@@ -77,8 +74,10 @@ namespace Nexus.Engine {
 		}
 
 		public void ResetColorToggles() {
-			this.toggleBR = true;
-			this.toggleGY = true;
+			toggleBR = true;
+			toggleGY = true;
+			timerBREnd = 0;
+			timerGYEnd = 0;
 		}
 	}
 }

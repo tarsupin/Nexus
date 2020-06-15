@@ -136,7 +136,7 @@ namespace Nexus.ObjectComponents {
 			this.character.DisableAbilities();      // Lose all Equipment and Powers
 			this.character.ResetCharacter();		// Reset Character Stats, Status, Attachments, Items, etc.
 
-			if(this.Invincible > 0) { this.Invincible = 0; }
+			this.Invincible = 0;
 
 			// Nullify Action, if applicable.
 			if(this.character.status.action is Action) { this.character.status.action = null; }
@@ -144,9 +144,8 @@ namespace Nexus.ObjectComponents {
 			// Play Death Sound
 			Systems.sounds.crack.Play();
 
-			// Run Level Death
-			levelState.Die();
-			this.character.room.scene.RunCharacterDeath( this.character );
+			// Assign the character's death frame. This will affect things different in Single Player and Multiplayer.
+			this.character.deathFrame = Systems.timer.Frame;
 
 			return true;
 		}

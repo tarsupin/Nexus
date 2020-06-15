@@ -4,7 +4,6 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
-using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -12,38 +11,86 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
-		public Dictionary<byte, RoomScene> rooms;
+		public RoomScene[] rooms;
+
+		// Trackers
+		public uint levelResetFrame = 0;
 
 		public LevelScene() : base() {
 
 			// Create UI
 			this.levelUI = new LevelUI(this);
 
-			// Generate Each Room
-			this.rooms = new Dictionary<byte, RoomScene>();
+			// Generate Each Room Class
+			this.rooms = new RoomScene[4];
 
 			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
-				byte parsedKey = Byte.Parse(roomKey);
-				this.rooms[parsedKey] = new RoomScene(this, roomKey);
+				byte roomID = Byte.Parse(roomKey);
+				this.rooms[roomID] = new RoomScene(this, roomID);
 			}
+
+			// Reset the level to it's full restarted position.
+			Systems.handler.levelState.FullReset();
+
+			// Restart the level, generate all rooms.
+			this.RestartLevel();
+		}
+
+		protected virtual void LoadMyPlayer() {
 
 			// TODO HIGH PRIORITY: All characters need to be assigned to the level? Or are they somewhere else?
 			// TODO HIGH PRIORITY: Assign All Characters according to the match rules:
 			foreach(var character in this.rooms[0].objects[(byte)LoadOrder.Character]) {
-				Systems.localServer.MyPlayer.AssignCharacter((Character) character.Value);
+				Systems.localServer.MyPlayer.AssignCharacter((Character)character.Value);
+			}
+		}
+
+		protected virtual void RunSceneLoop() {
+
+			// Check Player Survival
+			if(Systems.localServer.MyCharacter is Character == false || Systems.localServer.MyCharacter.deathFrame > 0) {
+
+				// Prepare the whole level to be rebuilt.
+				this.levelResetFrame = Systems.timer.Frame + 2;
 			}
 
-			// Important Components
-			Systems.camera.UpdateScene(this.rooms[0], (byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
+			Systems.localServer.MyPlayer.input.UpdateKeyStates(0);
 		}
 
 		public override void RunTick() {
 
-			// Loop through every player and update inputs for this frame tick:
-			foreach(var player in Systems.localServer.players) {
-				//player.Value.input.UpdateKeyStates(Systems.timer.Frame);
-				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
+			// Scene Loop will perform scene-specific critical checks, such as identifying all players' input.
+			// Single Player will only retrieve one player, while MP will review all players connected.
+			this.RunSceneLoop();
+
+			// Some Scenes will disable this, or limit behavior (such as for multiplayer).
+			this.RunLocalDebugFeatures();
+
+			// Update Timer
+			Systems.timer.RunTick();
+
+			// Run Each Room in Level
+			this.RunRoomLoop();
+		}
+
+		protected virtual void RunRoomLoop() {
+			
+			// If this level is in the process of being reset, we cannot allow rooms to continue their activity.
+			if(this.levelResetFrame > 0) {
+
+				// Rebuild the Level
+				if(this.levelResetFrame > Systems.timer.Frame) {
+					this.RestartLevel();
+				}
+
+				return;
 			}
+
+			// Run the room the character is currently in.
+			this.rooms[Systems.localServer.MyCharacter.room.roomID].RunTick();
+		}
+
+		protected virtual void RunLocalDebugFeatures() {
 
 			// Debug Console (only runs if visible)
 			Systems.levelConsole.RunTick();
@@ -89,17 +136,9 @@ namespace Nexus.GameEngine {
 					}
 				}
 			}
-
-			// Update Timer
-			Systems.timer.RunTick();
-
-			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
-			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
-			// TODO: RUN EACH ROOM IN LEVEL (or at least any active ones)
-			this.rooms[0].RunTick();
 		}
 
-		public void DebugToggles() {
+		protected void DebugToggles() {
 
 			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
@@ -124,30 +163,71 @@ namespace Nexus.GameEngine {
 			// My Character
 			Character MyCharacter = Systems.localServer.MyCharacter;
 
+			// Draw the Room that the local character is in:
 			if(MyCharacter is Character) {
-				// TODO: RENDER MY CHARACTER'S ROOM
-				// TODO: RENDER MY CHARACTER'S ROOM
-				// TODO: RENDER MY CHARACTER'S ROOM
+				this.rooms[MyCharacter.room.roomID].Draw();
 			}
-
-			// TODO HIGH PRIORITY: UPDATE THIS. RENDER THE CORRECT ROOM
-			this.rooms[0].Draw();
 
 			// Draw UI
 			this.levelUI.Draw();
 			Systems.levelConsole.Draw();
 		}
 
-		public void RunCharacterDeath( Character character ) {
-			// TODO HIGH PRIORITY:
-			//this.RestartLevel();        // true if all players are just self. for multiplayer, this changes... maybe a new scene for multiplayer?
-			character.ResetCharacter();
-		}
+		protected virtual void RestartLevel() {
+			this.levelResetFrame = 0;
 
-		public void RestartLevel() {
-			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
-			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
-			// TODO: RUN EVERY RESTARTROOM() IN EACH ROOM
+			// Timer Reset
+			Systems.timer.Unpause();
+			Systems.timer.ResetTimer();
+
+			// Build Each Room
+			foreach(RoomScene room in this.rooms) {
+				if(room is RoomScene == false) { continue; }
+				room.BuildRoom();
+			}
+
+			// Retrieves the local player (as opposed to other players connected online, who may also be linked up).
+			this.LoadMyPlayer();
+
+			// Update Camera Limitations
+			Systems.camera.UpdateScene(this.rooms[Systems.localServer.MyCharacter.room.roomID], (byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
+
+			// Reset Level State, Maintain Checkpoints.
+			Systems.handler.levelState.SoftReset();
+
+			// TODO: CHANGE TO NEW ROOM? NEW CHECKPOINT?
+			// TODO: CHANGE TO NEW ROOM? NEW CHECKPOINT?
+
+			// TODO: Reset Character's Position To Appropriate Checkpoint
+			// If the character's new position is being declared (such as for a door/portal),
+			// then we must identify what checkpoint and room the player should be at.
+			//let chk = this.game.level.state.checkpoint;
+
+			//if(chk.active) {
+			//	this.setRoom(chk.room);
+
+			//	// Update Character Generation Position to match checkpoint
+			//	posX = chk.pos.x;
+			//	posY = chk.pos.y + 48;
+
+			//	// Return to the original room (since no checkpoint was located). Or, if playtesting, to the same room.
+			//} else {
+
+			//	// If the user is the level's author, they can restart in the same room (for playtesting purposes).
+			//	let userHash = this.game.cache.get('myUserHash');
+			//	if(userHash && this.game.level.id.startsWith(userHash)) {
+			//		this.setRoom(this.game.level.state.roomId);
+			//	} else {
+			//		this.setRoom(0);
+			//	}
+			//}
+
+			// TODO: Update Camera if in the same room
+			// this.camera.bindToWorld(); // Update Camera Bounds
+
+			// TODO: Camera must follow (or cut) to the position. Only applies if in the same room.
+			// this.camera.cutToPosition(this.character.pos.x, this.character.pos.y);
+
 		}
 	}
 }

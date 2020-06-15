@@ -124,7 +124,7 @@ namespace Nexus.Gameplay {
 			);
 
 			// Character Creation
-			if(type == 100) {
+			if(type == (byte)TileEnum.BasicCharacter) {
 				Character character = new Character(room, 0, pos, null);
 				room.AddToScene(character, true);
 				return;

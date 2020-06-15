@@ -29,6 +29,8 @@ namespace Nexus.Engine {
 
 		public Camera( Scene scene ) {
 			this.UpdateScene(scene);
+			this.posX = 0;
+			this.posY = 0;
 		}
 
 		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (ushort)TilemapEnum.TileWidth); } }
@@ -39,8 +41,6 @@ namespace Nexus.Engine {
 
 		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;
-			this.posX = 0;
-			this.posY = 0;
 			this.speedMult = 0.08f; // 0.08f;
 			this.controlSpeed = 8;
 			this.SetSize(1440, 900);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.

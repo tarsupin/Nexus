@@ -111,6 +111,7 @@
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
+    <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\UIHandlers\PowerUI.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />

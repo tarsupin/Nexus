@@ -47,7 +47,7 @@ namespace Nexus.GameEngine {
 			if(!handler.levelContent.LoadLevelData(levelId)) { return false; }
 
 			// Update the Level State
-			handler.levelState.FullLevelReset();
+			handler.levelState.FullReset();
 
 			// End Old Level Scene
 			Systems.scene.EndScene();
@@ -78,7 +78,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update the Level State
-			handler.levelState.FullLevelReset();
+			handler.levelState.FullReset();
 
 			// End Old Level Scene
 			Systems.scene.EndScene();

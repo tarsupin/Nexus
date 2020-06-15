@@ -57,22 +57,18 @@ namespace Nexus.Gameplay {
 			};
 
 			// Reset Level
-			this.FullLevelReset();
+			this.FullReset();
 		}
 
 		public void SetLevel(string levelId, byte roomId = 0) {
 			this.levelId = levelId;
 			this.SetRoom(roomId);
-			this.FullLevelReset();
+			this.FullReset();
 		}
 
 		// Complete Level
 		public void CompleteLevel() {
-			this.FullLevelReset();
-		}
-
-		public void Die() {
-			this.LevelReset();
+			this.FullReset();
 		}
 
 		// Time Reset
@@ -88,11 +84,11 @@ namespace Nexus.Gameplay {
 		public uint FramesRemaining { get { return (300 * 60) + this.frameStarted - this.timer.Frame; } }
 		public ushort TimeRemaining { get { return (ushort) Math.Ceiling((double) this.FramesRemaining / 60); } }
 
-		// Performs a Full Level Reset (to the beginning)
-		public void FullLevelReset() {
+		// Performs a Full Level Reset (back to beginning, lose all checkpoints)
+		public void FullReset() {
 			this.SetRoom();
 			this.ResetFlags();
-			this.LevelReset();
+			this.SoftReset();
 		}
 
 		public void SetRoom(byte roomId = 0) {
@@ -100,10 +96,9 @@ namespace Nexus.Gameplay {
 		}
 
 		// Resets Level to Last Flag
-		public void LevelReset() {
+		public void SoftReset() {
 			this.TimerReset();
 			this.SetCoins(null);
-			this.ResetFlags();
 		}
 
 		public void ResetFlags() {
@@ -160,7 +155,7 @@ namespace Nexus.Gameplay {
 
 			// If there is no JSON content, load an empty state:
 			if(json == "") {
-				this.FullLevelReset();
+				this.FullReset();
 				return;
 			}
 

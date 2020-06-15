@@ -34,6 +34,9 @@ namespace Nexus.Objects {
 		public MagiShield magiShield;
 		public Nameplate nameplate;
 
+		// Survival
+		public uint deathFrame = 0;		// The frame that the character died.
+
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
 			this.SetSpriteName("Stand");
@@ -89,8 +92,9 @@ namespace Nexus.Objects {
 			// Reset Stats (NOT "STATUS")
 			this.stats.ResetCharacterStats();
 
-			// Reset Wounds
+			// Reset Wounds + Survival
 			this.wounds.WoundsDeathReset();
+			this.deathFrame = 0;
 
 			// Attachments
 			this.trailKeys.ResetTrailingKeys();

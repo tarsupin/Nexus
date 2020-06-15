@@ -25,6 +25,7 @@ namespace Nexus.GameEngine {
 
 		// LocalServer Data
 		public bool online = false;
+		public byte playerCount = 0;
 		// server address, port, etc.
 
 		// Game Data
@@ -57,10 +58,10 @@ namespace Nexus.GameEngine {
 		***********************/
 
 		// Add & Remove Players
-		public void AddPlayer(byte playerId) { this.players.Add(playerId, new Player(playerId)); }
-		public void RemoveAllPlayers() { this.players.Clear(); }
-		public void RemovePlayer(Player player) { this.players.Remove(player.playerId); }
-		public void RemovePlayer(byte playerId) { this.players.Remove(playerId); }
+		public void AddPlayer(byte playerId) { this.players.Add(playerId, new Player(playerId)); this.playerCount++; }
+		public void RemoveAllPlayers() { this.players.Clear(); this.playerCount = 0; }
+		public void RemovePlayer(Player player) { this.players.Remove(player.playerId); this.playerCount--; }
+		public void RemovePlayer(byte playerId) { this.players.Remove(playerId); this.playerCount--; }
 
 		/****************************
 		****** Packet Handling ******
