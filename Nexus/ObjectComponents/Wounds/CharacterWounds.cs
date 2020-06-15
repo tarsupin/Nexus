@@ -29,6 +29,9 @@ namespace Nexus.ObjectComponents {
 			this.ResetWoundSettings();
 		}
 
+		public bool HasMaxHealth { get { return this.Health + this.Armor == this.WoundMaximum; } }
+		public bool HasMaxArmor { get { return this.Armor == this.ArmorMaximum; } }
+
 		public bool IsInvincible {
 			get { return this.Invincible >= this.timer.Frame; }
 		}

@@ -144,19 +144,6 @@ namespace Nexus.Objects {
 
 			switch(subType) {
 
-				// Health
-				case (byte)GoodieSubType.Apple: this.GetHealth(character, 1); break;
-				case (byte)GoodieSubType.Pear: this.GetHealth(character, 1); break;
-				case (byte)GoodieSubType.Melon: this.GetHealth(character, 2); break;
-				case (byte)GoodieSubType.Soup: this.GetHealth(character, 2); break;
-				case (byte)GoodieSubType.Pack1: this.GetHealth(character, 99); break;
-				case (byte)GoodieSubType.Pack2: this.GetHealth(character, 99); break;
-
-				// Armor
-				case (byte)GoodieSubType.ShieldWood: this.GetArmor(character, 1); break;
-				case (byte)GoodieSubType.ShieldWhite: this.GetArmor(character, 3); break;
-				case (byte)GoodieSubType.ShieldBlue: this.GetArmor(character, 3); break;
-
 				// Inner Magi Shields
 				case (byte)GoodieSubType.RingMagic:
 					this.GetMagiShield(character, (byte)ProjectileMagiSubType.Magi, 3, 60, 480);
@@ -221,9 +208,51 @@ namespace Nexus.Objects {
 
 				// Explosive
 				case (byte)GoodieSubType.Explosive: this.RunTNTDetonation(character); break;
+			}
 
-				// Key
-				case (byte)GoodieSubType.Key: this.CollectKey(character); break;
+			// SubTypes that can be maxed out, and therefore not collected.
+			switch(subType) {
+
+				// Key Collection
+				case (byte)GoodieSubType.Key:
+					if(character.trailKeys.HasMaxKeys) { return; }
+					this.CollectKey(character);
+					break;
+
+				// Health
+				case (byte)GoodieSubType.Apple:
+				case (byte)GoodieSubType.Pear:
+					if(character.wounds.HasMaxHealth) { return; }
+					this.GetHealth(character, 1);
+					break;
+
+				case (byte)GoodieSubType.Melon:
+				case (byte)GoodieSubType.Soup:
+					if(character.wounds.HasMaxHealth) { return; }
+					this.GetHealth(character, 2);
+					break;
+
+				case (byte)GoodieSubType.Pack1:
+				case (byte)GoodieSubType.Pack2:
+					if(character.wounds.HasMaxHealth) { return; }
+					this.GetHealth(character, 99);
+					break;
+
+				// Armor
+				case (byte)GoodieSubType.ShieldWood:
+					if(character.wounds.HasMaxArmor) { return; }
+					this.GetArmor(character, 1);
+					break;
+
+				case (byte)GoodieSubType.ShieldWhite:
+					if(character.wounds.HasMaxArmor) { return; }
+					this.GetArmor(character, 3);
+					break;
+
+				case (byte)GoodieSubType.ShieldBlue:
+					if(character.wounds.HasMaxArmor) { return; }
+					this.GetArmor(character, 3);
+					break;
 			}
 
 			base.Collect(room, character, gridX, gridY);
@@ -254,13 +283,13 @@ namespace Nexus.Objects {
 			LevelState levelState = Systems.handler.levelState;
 
 			// If the Collectable ADDS to the timer, rather than SETS.
-			if(isAdditive) {
+			if(!isAdditive) {
 
 				// Update the Timer
 				uint origFramesLeft = levelState.FramesRemaining;
 				levelState.timeShift = 0;
 				uint trueTimeLeft = levelState.FramesRemaining;
-				levelState.timeShift = (int) -trueTimeLeft + (timeVal * 60);
+				levelState.timeShift = (uint)(-trueTimeLeft + (timeVal * 60));
 
 				// Sound of collectable is based on whether it was positive or negative.
 				if(origFramesLeft > levelState.FramesRemaining) {
@@ -272,7 +301,7 @@ namespace Nexus.Objects {
 
 			// If the Collectable SETS the timer, rather than ADDS.
 			else {
-				levelState.timeShift += timeVal * 60;
+				levelState.timeShift += (uint)(timeVal * 60);
 				Systems.sounds.timer2.Play();
 			}
 		}
@@ -287,8 +316,8 @@ namespace Nexus.Objects {
 		}
 
 		private void CollectKey(Character character) {
+			character.trailKeys.AddKey();
 			Systems.sounds.collectKey.Play();
-			throw new NotImplementedException();
 		}
 
 		private void CreateTextures() {

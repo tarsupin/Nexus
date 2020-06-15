@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 
 	public class TrailingKeys {
 
-		private const byte TrackLength = 60;
+		private const byte TrackLength = 50;
 
 		private readonly Atlas atlas;
 		private readonly Character character;
@@ -27,6 +27,8 @@ namespace Nexus.ObjectComponents {
 			this.ResetTrailingKeys();
 		}
 
+		public bool HasMaxKeys { get { return this.keys == 8; } }
+
 		public void RunKeyTick() {
 			if(this.keys == 0) { return; }
 
@@ -45,6 +47,9 @@ namespace Nexus.ObjectComponents {
 		public bool AddKey() {
 			if(this.keys < 8) {
 				this.keys++;
+				if(this.keys == 1) {
+					this.ResetTrailingKeys();
+				}
 				return true;
 			}
 			return false;

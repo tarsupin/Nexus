@@ -100,10 +100,6 @@ namespace Nexus.Objects {
 			this.trailKeys.ResetTrailingKeys();
 			this.heldItem.ResetHeldItem();
 
-			// TODO: REMOVE. TEMPORARY.
-			this.trailKeys.AddKey(); // REMOVE
-			this.trailKeys.AddKey(); // REMOVE
-
 			// Reset Physics to ensure it doesn't maintain knowledge from previous state.
 			this.physics.touch.ResetTouch();
 		}

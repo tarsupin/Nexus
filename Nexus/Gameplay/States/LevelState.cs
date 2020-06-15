@@ -24,7 +24,7 @@ namespace Nexus.Gameplay {
 
 		// Timer
 		public uint frameStarted;		// The frame when the timer started.
-		public int timeShift;           // The number of frames added or removed from the timer (for when timer collectables are acquired).
+		public uint timeShift;			// The number of frames added or removed from the timer (for when timer collectables are acquired).
 
 		// Locations
 		public FlagJson checkpoint;
@@ -40,7 +40,7 @@ namespace Nexus.Gameplay {
 		public LevelState(GameHandler handler) {
 			this.handler = handler;
 			this.timer = Systems.timer;
-
+			
 			// Build Flags
 			this.checkpoint = new FlagJson {
 				active = false,
@@ -81,7 +81,7 @@ namespace Nexus.Gameplay {
 		// Time Elapsed and Remaining
 		public uint FramesElapsed { get { return this.timer.Frame - this.frameStarted; } }
 		public ushort TimeElapsed { get { return (ushort) Math.Ceiling((double) this.FramesElapsed / 60); } }
-		public uint FramesRemaining { get { return (300 * 60) + this.frameStarted - this.timer.Frame; } }
+		public uint FramesRemaining { get { return (300 * 60) + this.frameStarted + this.timeShift - this.timer.Frame; } }
 		public ushort TimeRemaining { get { return (ushort) Math.Ceiling((double) this.FramesRemaining / 60); } }
 
 		// Performs a Full Level Reset (back to beginning, lose all checkpoints)

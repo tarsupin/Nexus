@@ -32,7 +32,7 @@ namespace Nexus.Objects {
 			this.physics.SetGravity(FInt.Create(0.4));
 
 			this.ThrowStrength = 4;
-			this.KickStrength = 4;
+			this.KickStrength = 2;
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 2, -2, -2);
@@ -94,32 +94,57 @@ namespace Nexus.Objects {
 
 			FInt boost = FInt.Create(Math.Round(Math.Abs(character.physics.velocity.X.RoundInt) * 0.5f));
 
-			byte kickBoost = (byte)(this.KickStrength + boost);
-			byte throwBoost = (byte)(this.ThrowStrength + boost + (byte) Math.Round(Math.Abs(character.physics.velocity.Y.RoundInt) * 0.5f));
+			sbyte kickBoost = (sbyte)(this.KickStrength + boost);
+			sbyte throwBoost = (sbyte)(this.ThrowStrength + boost + (byte) Math.Round(Math.Abs(character.physics.velocity.Y.RoundInt) * 0.5f));
+			
+			// Holding Up increases throw strength. Holding Down is "dribble" and reduces throw + kick strength.
+			if(character.input.isDown(IKey.Up)) { throwBoost += 4; }
+			else if(character.input.isDown(IKey.Down)) { throwBoost -= 4; kickBoost = 0; }
 
 			// Facing the same direction as the sport ball increases strength, and vice versa.
 			if(dir == DirCardinal.Right) {
 				if(character.FaceRight) { kickBoost += 2; throwBoost += 1; }
-				else { kickBoost -= 2; throwBoost -= 1; }
+				else {
+					this.CollidePosLeft(character.posX + character.bounds.Right);
+
+					// Boost the ball in the direction based on character speed, if character moving toward ball.
+					if(character.physics.velocity.X.RoundInt > 0) {
+						this.physics.velocity.X += boost;
+					}
+
+					return true;
+				}
+
+				// Holding toward direction of ball increases kick strength.
+				if(character.input.isDown(IKey.Right)) { kickBoost += 2; }
 			}
 
 			else if(dir == DirCardinal.Left) {
-				if(character.FaceRight) { kickBoost -= 2; throwBoost -= 1; }
-				else { kickBoost += 2; throwBoost += 1; }
+				if(!character.FaceRight) { kickBoost += 2; throwBoost += 1; }
+				else {
+					this.CollidePosRight(character.posX + character.bounds.Left - this.bounds.Right);
+
+					// Boost the ball in the direction based on character speed, if character moving toward ball.
+					if(character.physics.velocity.X.RoundInt > 0) {
+						this.physics.velocity.X -= boost;
+					}
+
+					return true;
+				}
+
+				// Holding toward direction of ball increases kick strength.
+				if(character.input.isDown(IKey.Left)) { kickBoost += 2; }
 			}
-
-			// Holding Up increases throw strength.
-			if(character.input.isDown(IKey.Up)) { throwBoost += 4; }
-			else if(character.input.isDown(IKey.Down)) { throwBoost -= 4; }
-
-			if(dir == DirCardinal.Up) { throwBoost += 4; }
-			else if(dir == DirCardinal.Down) { throwBoost -= 4; }
 
 			// Holding A Button and/or Y Button increases kick strength.
 			if(character.input.isDown(IKey.AButton)) { kickBoost += 2; }
 			if(character.input.isDown(IKey.YButton)) { kickBoost += 2; }
 
-			//DebugConfig.AddDebugNote("throw: " + throwBoost + "  kick: " + kickBoost);
+			// Vertical Collisions affect throw boost.
+			if(dir == DirCardinal.Up) { throwBoost += 4; }
+			else if(dir == DirCardinal.Down) { throwBoost -= 4; }
+
+			if(throwBoost < 0) { throwBoost = 0; }
 
 			// Horizontal Hits
 			if(dir == DirCardinal.Right) {
@@ -131,10 +156,6 @@ namespace Nexus.Objects {
 				this.physics.velocity.Y -= throwBoost;
 				return false;
 			}
-
-			// TODO: Add Kick Boost based on character velocity, holding left or right, etc.
-			// TODO: Add Kick Boost based on character velocity, holding left or right, etc.
-
 
 			// Vertical Hits
 			if(dir == DirCardinal.Down) {
@@ -159,7 +180,7 @@ namespace Nexus.Objects {
 				this.bounceX = FInt.Create(0.85f);
 				this.bounceY = FInt.Create(0.5f);
 				this.ThrowStrength = 3;
-				this.KickStrength = 2;
+				this.KickStrength = 0;
 			}
 			
 			else if(subType == (byte) SportBallSubType.Fire) {
@@ -169,7 +190,7 @@ namespace Nexus.Objects {
 				this.bounceX = FInt.Create(1);
 				this.bounceY = FInt.Create(0.9f);
 				this.ThrowStrength = 7;
-				this.KickStrength = 6;
+				this.KickStrength = 4;
 			}
 			
 			else if(subType == (byte) SportBallSubType.Forest) {
@@ -179,7 +200,7 @@ namespace Nexus.Objects {
 				this.bounceX = FInt.Create(0.95f);
 				this.bounceY = FInt.Create(0.8f);
 				this.ThrowStrength = 6;
-				this.KickStrength = 5;
+				this.KickStrength = 3;
 			}
 
 			else if(subType == (byte) SportBallSubType.Water) {
@@ -189,7 +210,7 @@ namespace Nexus.Objects {
 				this.bounceX = FInt.Create(0.9f);
 				this.bounceY = FInt.Create(0.7f);
 				this.ThrowStrength = 5;
-				this.KickStrength = 4;
+				this.KickStrength = 2;
 			}
 		}
 	}
