@@ -29,9 +29,9 @@ namespace Nexus.Objects {
 
 			// Allow Dropdown Mechanic
 			if(actor is Character) {
-				if(((Character)actor).status.action is DropdownAction) {
-					return false;
-				}
+				Character character = (Character)actor;
+				character.physics.touch.onMover = true;
+				if(character.status.action is DropdownAction) { return false; }
 			}
 
 			return CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);

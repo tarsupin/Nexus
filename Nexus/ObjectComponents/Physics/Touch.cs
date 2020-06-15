@@ -62,6 +62,7 @@ namespace Nexus.ObjectComponents {
 
 		public void ProcessMover( Physics physics ) {
 			this.onMover = false;
+			if(this.moveObj == null) { return; }
 			physics.SetExtraMovement(this.moveObj.physics.AmountMovedX, this.moveObj.physics.AmountMovedY);
 		}
 	}

@@ -28,14 +28,14 @@ namespace Nexus.Objects {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 
-			// Allow Dropdown Mechanic
-			if(actor is Character) {
-				if(((Character)actor).status.action is DropdownAction) {
-					return false;
-				}
+			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
+
+			// Additional Character Collisions (such as Wall Jumps)
+			if(collided && actor is Character) {
+				TileCharBasicImpact.RunImpact((Character)actor, dir);
 			}
 
-			return CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Down);
+			return collided;
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
