@@ -12,11 +12,6 @@
 	NEXT MAJOR: Add Game Mode Functionality; Assist, Challenge. Has "mode designer", which has a counter for which mode you're in.
 		- Tiles have a "mode" param that can be set. Makes item appear when that mode is active.
 	
-	Misc Projects: Trailing Items, Remove Programmer / Free Art
-	
-	Large Project: Background Objects (Parallax Setup)
-	Large Project: (Server Things, Level Sanitizer, Setup Actual Server)
-
 /********************************
 ****** Core / Prerequisite ******
 ********************************/
@@ -68,55 +63,21 @@ Text Objects:
 		- Changing options.
 		- Follow options
 		- What else?
-		
+
 Important Changes, Refactors, Features:
 	GameEffect Class (or Classes)
 		- Triggers (the thing causing the frequency or effect; could be any actor, just needs to send it through some system).
 		- Events (the result of the effect)
 		Frequency Effect Class: causes events or things to happen when a trigger is performed. Digital signals.
 		Potion Effect Class: Need its own class and behaviors, since it will trigger game-modifying events.
-	Chakram
-	Phase-In Effect when you load your character.
-		- Gives you 500ms to get ready before you begin. That way it's not so instantaneous.
-		- Freezes your character, cannot move until transition complete.
-		- Visual fading effect, sound effect for teleporting.
-	Background Objects:
-		Create Layers, possibly a single layer with a "Z" dimension that determines scrolling distance.
-	Decor / Cosmetic Objects:
-		Make "Decor" class? Or something cosmetic.
-	Boxing Glove (projectile weapon)
-		- Breaks on contact with something.
-		- White: Breaks Boxes, Blocks, etc.
-		- Red: ???
 		
 Trailing Items:
 	Still needs to be revised for better use.
 		- Only follow to the character's last few spots on the ground. (Takes "touching, down" into account).
 
-Fixes:
-	.death is a time.elapsed value rather than a true/false?
-	springType may not be needed.
-	Can activate "fast" (xbutton) after slow jumping, which makes it weird.
-
-Refactors:
-	ungrippable ?
-	safelyJumpOnTop ?
-	
 /**********************
 ****** UI System ******
 **********************/
-
-	Fixes:
-		Remove Section or put a use to it.
-		Search for // TODO: No longer using messageBox
-			- Delete all instances
-
-	Misc:
-		Need a font offset based on the type being used.
-			- Right now, text is being hardcoded for where it should be positioned. Can't have that.
-		Go through and fix instances where font offsets are hardcoded.
-			UIDialogHeader
-		onMouseOver for headers, can set cursor image?
 
 	Generic-ish Components:
 		MenuTiles: Level Icons, etc.
@@ -135,11 +96,6 @@ Refactors:
 			- Keep auto-loaded content in localstorage for fast retrieval?
 		Could instead, at least temporarily, make levels as an actual webpage.
 		Automatically place icons with prevelence? Within groups, like "Blocks" etc.
-
-	Future:
-		Mouse Drag
-			- Highlighted Area getter
-		Draggable Object Physics
 
 	Pause Menu UI Behavior
 		While pause menu is visible, show secondary text around the edge of the screen:
@@ -183,51 +139,6 @@ Editor:
 		- Can click a "help" button in the bar to open or close the tutorial box.
 		- Clicking on it closes the tutorial box.
 
-Future Editor:
-	Circle Menu Behaviors:
-		- A folder that has functions for how the object should behave when it gets clicked.
-		- For example, what sections does it bring up? "Alternate Types", "Flight", "Facing"
-		Right-Click object will bring up a circular menu that you can choose each subType?
-			- Would be potentially way nicer...
-			- The center option is "clone", so that you could have the menu appear on all item types.
-	Hover Menu:
-		- In place of a circle menu, we could have a hover menu.
-		- Basically the same, but you just click on the creature, and select the button? Then pops up a modal.
-	// TODO: Do some sort of highlight for button.	(when hovering over the EditorButton)
-
-/***************************
-****** BUGS / Missing ******
-***************************/
-
-Collision Bugs:
-	Throwing button up doesn't collide with ceiling, and will fall up through screen.
-	Can clip through objects when riding a platform.
-	Goos Fall off Ledges (not ground) when there is a bg object there (it can be statically collided with).
-	One-Sided Springs clip error: hold it, run into wall on left, and then turn around. It clips upward.
-	One-Sided Springs hit enemy, enemy doesn't bounce properly. Goos are just going back like 2 squares, then flip out.
-		- Probably something to do with xEdge. Thought I dealt with this at one point.
-			- Might already have an enemy that fixes this, or part of default enemy code.
-
-Miscellaneous Fixes / Updates / Non-Collision Bugs:
-	Double-size falling platform right side appears behind "Fill" ledge, but left side visible as normal.
-	FIX: Particle Emitter uses the first img and overwrites it as object reference.
-		- Need to go into .imgList and change it so that its values are not stored as reference.
-	Thwomp is colliding with non-solid toggle blocks.
-	FIX: Enemies don't stop flying through air after being hit by a spring, since they have no slowdown effect.
-	FIX: Orange Goo just suicided off a wall because there was an off block there.
-		(Same?) Fix: Creatures won't dive into offblocks.
-	Should die from being toggle-blocked in.
-	Fix issues with time speed multiplier (bullet time, etc); might be possible with new time.frame in place.
-
-Confirm Working, Fix/Update if needed:
-	Mobile Platforms allow interactions with items when setting you down / moving you.
-	Held Items:
-		Can do that special grab from below. Requires the .touchChar val?
-			- This problem also allows you to jump "through" items from below.
-	Altered (dir === 0) to: if(dir < 0) { dir = item.touchChar; }
-		- This should make the embed behavior actually work, but we probably don't need item.touchChar for this.
-		- Since this is the only place .touchChar exists, just remove it, and use new embed behavior, which is Math.abs(dir);
-	
 /******************
 ****** Other ******
 ******************/
@@ -286,13 +197,6 @@ Physics:
 	Need a new flying physics for Slammer, since the current implementation won't work correctly.
 
 Considerations:
-	character
-		.onFloor		getter
-		.onPlatform		getter
-	status
-		.isInvincible	getter		// do we want ones like this? Might not make sense...
-	Death Alternatives on Timer End: The idea being that instead of death, you could have something else happen.
-		- An inconvenience; maybe also depends on the type of challenge level you're playing.
 	New Ninja Type: Can't grab walls, but can wall kick.
 		- When grab walls was deactivated, this worked. Was interesting. Caught my attention.
 		- Might be really good for speed runners.
@@ -342,53 +246,4 @@ Major Projects (2+ days):
 	Timer System
 		- Time Item that add +10 seconds to your time. (Time Potion: When you collect it, the timer increases.)
 		- Timer that tracks how much time you have in the level.
-	
-
-/*******************
-****** Future ******
-*******************/
-
-Possible:
-	- buy navicat; may save me hours or days of work.
-
-Attack Classes:
-	Axe Boss
-	Fireballs
-
-Actions Classes:
-	Teleport
-	Boot Jump
-	(Hat Powers?)
-
-Objects:
-	Stone Shell, or other special shells.
-
-New Abilities:
-	Suits that turns on and off with the toggle colors.
-		- Blue: Makes you intangible.
-		- Red: Turns you on fire? Or something?
-		- Yellow: Can destroy bricks from below?
-	Hats that turn on and off with toggle colors.
-		- Similar to suits, but maybe different advantages.
-	Hat that can destroy blocks above it (spikey?)
-	Suit that can destroy blocks (like being big)
-	Weapon that can destroy blocks (punching glove?)
-	Wizard that freezes "time" and stops objects for a brief moment, so you can jump on them, etc.
-	Item that freezes "time" and stops objects for a brief moment.
-		- Like in Poo World 2 (ryu played through) https://www.youtube.com/watch?v=B_Fn-HOIa7E
-	
-For Art:
-	- Prepare artwork lists, double check, figure out what we need. Extend the list.
-		- Creatures
-		- Blocks
-		- Items
-	- Prepare background requests, for dual parallel. Bob Ross rom hack example (Poo Bear)
-
-Pets:
-	Birds or Hovering Objects that follow you, maybe circle, or whatever.
-		- Some may teleport.
-		- Some may ground travel, but would need advanced pathing for that.
-	Options: Attack for you, heal you, grant a passive advantage, mostly cosmetic,
-		- Could be used as a second life, like a retry flag, but updates regularly.
-	Familiars - Could potentially turn into them?
 	

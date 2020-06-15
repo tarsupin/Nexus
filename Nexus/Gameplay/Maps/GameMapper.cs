@@ -12,6 +12,7 @@ namespace Nexus.Gameplay {
 
 		// Character Actions
 		public static readonly AirBurst AirBurst = new AirBurst();
+		public static readonly DropdownAction Dropdown = new DropdownAction();
 		public static readonly FlightAction Flight = new FlightAction();
 		public static readonly WallGrabAction WallGrab = new WallGrabAction();
 		public static readonly HoverAction Hover = new HoverAction();

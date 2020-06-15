@@ -67,19 +67,26 @@ namespace Nexus.GameEngine {
 			return Impact.StandardImpact(character, item, dir);
 		}
 
-		//public bool CharHitsEnemy( Character character, Enemy enemy ) {
-		//	DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, enemy);
-		//	return Impact.StandardImpact(character, enemy, dir);
-		//}
-		
 		public bool CharHitsPlatform( Character character, Platform platform ) {
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, platform);
+			if(dir != DirCardinal.Down) { return false; }
 
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: CONVEYORS, WALL JUMPS, ETC
+			// Character is "Dropping" through platforms:
+			if(character.status.action is DropdownAction) {
+				character.physics.touch.TouchPlatform(null);
+				return false;
+			}
 
-			return Impact.StandardImpact(character, platform, dir);
+			// Activate the Platform
+			platform.ActivatePlatform();
+
+			platform.physics.touch.TouchPlatform(platform);
+
+			// Run Standard Platform Collision
+			Impact.StandardImpact(character, platform, dir);
+			
+			return true;
 		}
 
 		public bool CharHitsBlock( Character character, Block block ) {

@@ -220,19 +220,17 @@ namespace Nexus.Objects {
 					// JUMP+DOWN (Slide or Platform Drop) is Activated
 					if(input.isDown(IKey.Down)) {
 
-						// TODO HIGH PRIORITY: Platform Down Jump
 						// If on a Platform, perform Down-Jump
-						//if(this.physics.touch.touchObj is Platform) {
-						//	status.dropdown = this.scene.timer.frame + 6;
-						//}
+						if(this.physics.touch.touchObj is Platform) {
+							ActionMap.Dropdown.StartAction(this, 6);
+						}
 
-						//// Slide, if able:
-						//else
-						if(SlideAction.IsAbleToSlide(this, this.FaceRight)) {
+						// Slide, if able:
+						else if(SlideAction.IsAbleToSlide(this, this.FaceRight)) {
 							ActionMap.Slide.StartAction(this, this.FaceRight);
 						}
 
-						// Otherwise, JUMP:
+						// Otherwise, JUMP.
 						else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
 							ActionMap.Jump.StartAction(this);
 						}
@@ -252,7 +250,6 @@ namespace Nexus.Objects {
 						if(status.action is Action) { status.action.LandsOnGround(this); }
 						status.jumpsUsed = 0;
 					}
-
 				}
 			}
 		}

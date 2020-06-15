@@ -16,6 +16,8 @@ namespace Nexus.Objects {
 			this.physics.SetGravity(FInt.Create(0));
 		}
 
+		public virtual void ActivatePlatform() {}
+
 		public override void RunTick() {
 
 			// Limit Velocity

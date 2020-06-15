@@ -7,10 +7,19 @@ namespace Nexus.Objects {
 
 	public class PlatformMove : Platform {
 
+		public bool triggeredByTouch = false;
+		public int startTime = 0;
+
 		public PlatformMove(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.PlatformMove].meta;
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(0, 0, 0, 0);
+		}
+
+		public void ActivateMoveTo() {
+
+			// Must not have already started.
+			if(startTime != 0) { return; }
 		}
 
 		//this.physics.setMaxVelocity(0, 5);
