@@ -79,7 +79,7 @@ namespace Nexus.GameEngine {
 			character.physics.touch.TouchMover(platform);
 
 			// Assign the Character with the "OnMover" action, which will maintain their momentum after leaving the platform.
-			ActionMap.OnMover.StartAction(character, platform);
+			ActionMap.OnMover.StartAction(character);
 
 			// Special Character Collision for Platforms.
 			// Only the Character should run collision. Platform has no need to be touched, pushed, aligned, etc.

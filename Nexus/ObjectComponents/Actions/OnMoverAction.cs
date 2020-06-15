@@ -13,7 +13,7 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = false;
 		}
 
-		public void StartAction( Character character, GameObject mover ) {
+		public void StartAction( Character character ) {
 
 			// If we're already in the OnMoverAction, ignore any repeat.
 			if(character.status.action is OnMoverAction) { return; }

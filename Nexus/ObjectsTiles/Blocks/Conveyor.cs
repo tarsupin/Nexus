@@ -57,12 +57,17 @@ namespace Nexus.Objects {
 				return;
 			}
 
-			// Draw the Track using the Global Animation AnimId
-			//string tex = this.TrackStr + AnimGlobal.Get3PSAnimId(Systems.timer).ToString();
-			//this.atlas.Draw(tex, posX, posY);
+			byte num = 1;
+
+			switch(subType) {
+				case (byte)ConveyorSubType.SlowRight: num = (byte)(4 - AnimGlobal.Get3PHSAnimId(Systems.timer)); break;
+				case (byte)ConveyorSubType.SlowLeft: num = AnimGlobal.Get3PHSAnimId(Systems.timer); break;
+				case (byte)ConveyorSubType.Right: num = (byte)(4 - AnimGlobal.Get3PQSAnimId(Systems.timer)); break;
+				case (byte)ConveyorSubType.Left: num = AnimGlobal.Get3PQSAnimId(Systems.timer); break;
+			}
 
 			// Draw the Track using the Global Animation AnimId
-			string tex = this.TrackStr + AnimGlobal.Get3PHSAnimId(Systems.timer).ToString();
+			string tex = this.TrackStr + num.ToString();
 			this.atlas.Draw(tex, posX, posY);
 		}
 	}
