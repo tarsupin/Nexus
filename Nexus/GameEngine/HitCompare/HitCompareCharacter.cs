@@ -78,9 +78,13 @@ namespace Nexus.GameEngine {
 			platform.ActivatePlatform();
 			character.physics.touch.TouchMover(platform);
 
-			// Run Standard Platform Collision
-			Impact.StandardImpact(character, platform, dir);
-			
+			// Special Character Collision for Platforms.
+			// Only the Character should run collision. Platform has no need to be touched, pushed, aligned, etc.
+			// Additionally, it needs to skip the intend.Y test normally associated with CollideObjDown(platform).
+			character.physics.touch.TouchDown();
+			character.physics.AlignUp(platform);
+			character.physics.StopY();
+
 			return true;
 		}
 

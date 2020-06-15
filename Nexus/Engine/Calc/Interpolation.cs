@@ -36,9 +36,9 @@ namespace Nexus.Engine {
 		// p0, p1, p2 are Start Point, Control Point, End Point
 		// weight is a float between 0 and 1
 		public static float QuadBezierEaseBothDir( float p0, float p1, float p2, float weight )  {
-			weight = (float) Math.Sin((weight * Math.PI * 2) / 2 + 0.5);
+			weight = (float) (Math.Sin(weight * Math.PI * 2) / 2 + 0.5);
 			float k = 1 - weight;
-			return (k* k * p0) + (2 * (1 - weight) * weight * p1) + (weight* weight * p2);
+			return (k * k * p0) + (2 * (1 - weight) * weight * p1) + (weight * weight * p2);
 		}
 		
 		// Quadratic Bezier Interpolation

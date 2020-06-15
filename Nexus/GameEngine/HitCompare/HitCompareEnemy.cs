@@ -51,15 +51,23 @@ namespace Nexus.GameEngine {
 
 		public bool EnemyHitsPlatform(Enemy enemy, Platform platform) {
 
-			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, platform);
-
 			// If the enemy doesn't collide with tiles, they don't collide with platforms.
 			if(enemy.Activity <= Activity.NoTileCollide) { return false; }
 
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: CONVEYORS, WALL JUMPS, ETC
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, platform);
+			if(dir != DirCardinal.Down) { return false; }
 
-			return Impact.StandardImpact(enemy, platform, dir);
+			// Enemy needs to track it's platform physics:
+			enemy.physics.touch.TouchMover(platform);
+
+			// Special Actor Collision for Platforms.
+			// Only the Actor should run collision. Platform has no need to be touched, pushed, aligned, etc.
+			// Additionally, it needs to skip the intend.Y test normally associated with CollideObjDown(platform).
+			enemy.physics.touch.TouchDown();
+			enemy.physics.AlignUp(platform);
+			enemy.physics.StopY();
+
+			return true;
 		}
 
 		public bool EnemyHitsBlock(Enemy enemy, Block block, DirCardinal dir) {

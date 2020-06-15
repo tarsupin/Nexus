@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
@@ -7,10 +8,10 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightQuadratic : FlightBehavior {
 
-		Physics physics;        // Reference to the actor's physics.
+		Physics physics;		// Reference to the actor's physics.
 
-		protected int midX;                 // Middle X position of a motion, such as for curves (quadratic motion)
-		protected int midY;                 // Middle Y position of a motion, such as for curves (quadratic motion).
+		protected int midX;		// Middle X position of a motion, such as for curves (quadratic motion)
+		protected int midY;		// Middle Y position of a motion, such as for curves (quadratic motion).
 
 		public FlightQuadratic(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
 			this.physics = actor.physics;
@@ -22,12 +23,11 @@ namespace Nexus.ObjectComponents {
 		public override void RunTick() {
 
 			// Identify Position based on Global Timing
-			float weight = (Systems.timer.Frame + this.offset) % this.duration;
-			weight /= this.duration;
+			double weight = (double) ((double)(Systems.timer.Frame + this.offset) % this.duration) / (double)this.duration;
 
 			// Assign Next Velocity
-			float posX = Interpolation.QuadBezierEaseBothDir(this.startX, this.midX, this.endX, weight);
-			float posY = Interpolation.QuadBezierEaseBothDir(this.startY, this.midY, this.endY, weight);
+			float posX = Interpolation.QuadBezierEaseBothDir(this.startX, this.midX, this.endX, (float) weight);
+			float posY = Interpolation.QuadBezierEaseBothDir(this.startY, this.midY, this.endY, (float) weight);
 
 			this.physics.velocity.X = FInt.Create(posX - this.actor.posX);
 			this.physics.velocity.Y = FInt.Create(posY - this.actor.posY);

@@ -20,8 +20,10 @@ namespace Nexus.GameEngine {
 			if(obj is EnemyFlight) { return false; }
 
 			// Make sure the item isn't being held
-			//let char = item.scene.character;
-			//if(char.item && (char.item.id === item.id || char.item.id === obj2.id)) { return false; }
+			if(it.isHeld) { return false; }
+
+			// Platforms
+			if(obj is Platform) { return this.ItemHitsPlatform(it, (Platform)obj); ; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(it, obj);
 
@@ -38,6 +40,24 @@ namespace Nexus.GameEngine {
 
 			// Destroy the projectile for other cases.
 			projectile.Destroy();
+
+			return true;
+		}
+
+		public bool ItemHitsPlatform(Item item, Platform platform) {
+
+			DirCardinal dir = CollideDetect.GetDirectionOfCollision(item, platform);
+			if(dir != DirCardinal.Down) { return false; }
+
+			// Item needs to track it's platform physics:
+			item.physics.touch.TouchMover(platform);
+
+			// Special Actor Collision for Platforms.
+			// Only the Actor should run collision. Platform has no need to be touched, pushed, aligned, etc.
+			// Additionally, it needs to skip the intend.Y test normally associated with CollideObjDown(platform).
+			item.physics.touch.TouchDown();
+			item.physics.AlignUp(platform);
+			item.physics.StopY();
 
 			return true;
 		}

@@ -25,7 +25,6 @@ namespace Nexus.ObjectComponents {
 		protected byte clusterLinkId;		// Indicates a cluster to link to. Object will lock its offset position to the parent.
 
 		public FlightBehavior( GameObject actor, Dictionary<string, short> paramList) : base(actor) {
-			
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
 
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
@@ -50,7 +49,8 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public static FlightBehavior AssignFlightMotion( GameObject actor, Dictionary<string, short> paramList ) {
-			byte type = paramList != null && paramList.ContainsKey("fly") ? (byte) paramList["fly"] : (byte) FlightMovement.Axis;
+			if(paramList == null) { paramList = new Dictionary<string, short>(); }
+			byte type = paramList.ContainsKey("fly") ? (byte) paramList["fly"] : (byte) FlightMovement.Axis;
 
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:
 			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:

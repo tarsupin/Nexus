@@ -64,7 +64,7 @@ namespace Nexus.GameEngine {
 			this.RunSceneLoop();
 
 			// Some Scenes will disable this, or limit behavior (such as for multiplayer).
-			this.RunLocalDebugFeatures();
+			if(this.RunLocalDebugFeatures()) { return; }
 
 			// Update Timer
 			Systems.timer.RunTick();
@@ -90,7 +90,7 @@ namespace Nexus.GameEngine {
 			this.rooms[Systems.localServer.MyCharacter.room.roomID].RunTick();
 		}
 
-		protected virtual void RunLocalDebugFeatures() {
+		protected virtual bool RunLocalDebugFeatures() {
 
 			// Debug Console (only runs if visible)
 			Systems.levelConsole.RunTick();
@@ -106,36 +106,38 @@ namespace Nexus.GameEngine {
 
 						case DebugTickSpeed.HalfSpeed:
 							DebugConfig.trackTicks++;
-							if(DebugConfig.trackTicks % 2 != 0) { return; }
+							if(DebugConfig.trackTicks % 2 != 0) { return true; }
 							break;
 
 						case DebugTickSpeed.QuarterSpeed:
 							DebugConfig.trackTicks++;
-							if(DebugConfig.trackTicks % 4 != 0) { return; }
+							if(DebugConfig.trackTicks % 4 != 0) { return true; }
 							break;
 
 						case DebugTickSpeed.EighthSpeed:
 							DebugConfig.trackTicks++;
-							if(DebugConfig.trackTicks % 8 != 0) { return; }
+							if(DebugConfig.trackTicks % 8 != 0) { return true; }
 							break;
 
 						case DebugTickSpeed.WhenYPressed:
-							if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return; }
+							if(!Systems.localServer.MyPlayer.input.isPressed(IKey.YButton)) { return true; }
 							break;
 
 
 						case DebugTickSpeed.WhileYHeld:
-							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return true; }
 							break;
 
 						case DebugTickSpeed.WhileYHeldSlow:
-							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return; }
+							if(!Systems.localServer.MyPlayer.input.isDown(IKey.YButton)) { return true; }
 							DebugConfig.trackTicks++;
-							if(DebugConfig.trackTicks % 4 != 0) { return; }
+							if(DebugConfig.trackTicks % 4 != 0) { return true; }
 							break;
 					}
 				}
 			}
+
+			return false;
 		}
 
 		protected void DebugToggles() {
