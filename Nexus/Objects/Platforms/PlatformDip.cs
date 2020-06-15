@@ -34,12 +34,7 @@ namespace Nexus.Objects {
 					
 					// If the platform is above (or at) the starting height.
 					else {
-						this.physics.SetGravity(FInt.Create(0));
-						this.physics.velocity.Y = FInt.Create(0);
-						if(this.posY < this.yStart) {
-							this.physics.MoveToPosY(this.yStart);
-							return;
-						}
+						this.BackToStartY();
 					}
 				}
 			}
@@ -48,9 +43,23 @@ namespace Nexus.Objects {
 			else {
 				this.dipWeight -= 3;
 				this.physics.SetGravity(FInt.Create(0.05));
+
+				// If the platform is below the starting height:
+				if(this.posY < this.yStart) {
+					this.dipWeight = 0;
+					this.BackToStartY();
+				}
 			}
 
 			base.RunTick();
+		}
+
+		private void BackToStartY() {
+			this.physics.SetGravity(FInt.Create(0));
+			this.physics.velocity.Y = FInt.Create(0);
+			if(this.posY < this.yStart) {
+				this.physics.MoveToPosY(this.yStart);
+			}
 		}
 
 		public override void ActivatePlatform() {

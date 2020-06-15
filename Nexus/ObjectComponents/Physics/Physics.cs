@@ -47,10 +47,24 @@ namespace Nexus.ObjectComponents {
 			this.gravity = gravity;
 		}
 
-		public void SetExtraMovement(int x, int y) {
+		public void AddExtraMovement(int x, int y) {
 			this.hasExtraMovement = true;
 			this.extraMovement.X += x;
 			this.extraMovement.Y += y;
+		}
+
+		public void SetExtraMovement(int x, int y) {
+			this.hasExtraMovement = true;
+			this.extraMovement.X = FInt.Create(x);
+			this.extraMovement.Y = FInt.Create(y);
+		}
+
+		public void ClearExtraMovement() {
+			this.hasExtraMovement = false;
+			this.extraMovement.X = FInt.Create(0);
+			this.extraMovement.Y = FInt.Create(0);
+			this.touch.onMover = false;
+			this.touch.moveObj = null;
 		}
 
 		// Run this method BEFORE any collisions take place. The .result value will change from collisions.

@@ -1,20 +1,20 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
 	public class Conveyor : BlockTile {
 
 		public string[] Texture;
-
-		// TODO: Add Conveyor movement.
+		private string TrackStr = "Conveyor/Track";
 
 		public enum ConveyorSubType : byte {
-			Left = 0,
-			Right = 1,
-			SlowLeft = 2,
-			SlowRight = 3,
+			SlowLeft = 0,
+			Left = 1,
+			SlowRight = 2,
+			Right = 3,
 		}
 
 		public Conveyor() : base() {
@@ -26,23 +26,27 @@ namespace Nexus.Objects {
 
 		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
 
-			//if(actor is Character) {
-			//	Character character = (Character) actor;
+			if(dir == DirCardinal.Down) {
 
-			// // Get the SubType
-			// byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+				// Get the SubType
+				byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
-			//}
+				if(subType <= (byte)ConveyorSubType.Left) {
+					actor.physics.SetExtraMovement(subType == (byte)ConveyorSubType.SlowLeft ? -2 : -4, 0);
+				} else {
+					actor.physics.SetExtraMovement(subType == (byte)ConveyorSubType.SlowRight ? 2 : 4, 0);
+				}
+			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 
 		private void CreateTextures() {
 			this.Texture = new string[4];
-			this.Texture[(byte)ConveyorSubType.Left] = "Conveyor/Left";
-			this.Texture[(byte)ConveyorSubType.Right] = "Conveyor/Right";
 			this.Texture[(byte)ConveyorSubType.SlowLeft] = "Conveyor/SlowLeft";
+			this.Texture[(byte)ConveyorSubType.Left] = "Conveyor/Left";
 			this.Texture[(byte)ConveyorSubType.SlowRight] = "Conveyor/SlowRight";
+			this.Texture[(byte)ConveyorSubType.Right] = "Conveyor/Right";
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
@@ -50,19 +54,16 @@ namespace Nexus.Objects {
 			// Drawing For Editor
 			if(room == null) {
 				this.atlas.Draw(this.Texture[subType], posX, posY);
+				return;
 			}
 
-			// Standard Draw (Animated Conveyor)
-			// 'track1', 'track2', 'track3' - processed by Global Animation
-			//if(subType == (byte) ConveyorSubType.Left) {
-				
-			//} else if(subType == (byte) ConveyorSubType.Right) {
-				
-			//} else if(subType == (byte) ConveyorSubType.SlowLeft) {
-				
-			//} else if(subType == (byte) ConveyorSubType.SlowRight) {
-				
-			//}
+			// Draw the Track using the Global Animation AnimId
+			//string tex = this.TrackStr + AnimGlobal.Get3PSAnimId(Systems.timer).ToString();
+			//this.atlas.Draw(tex, posX, posY);
+
+			// Draw the Track using the Global Animation AnimId
+			string tex = this.TrackStr + AnimGlobal.Get3PHSAnimId(Systems.timer).ToString();
+			this.atlas.Draw(tex, posX, posY);
 		}
 	}
 }

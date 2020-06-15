@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
@@ -64,7 +65,6 @@ namespace Nexus.GameEngine {
 		}
 
 		public bool CharHitsPlatform( Character character, Platform platform ) {
-
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, platform);
 			if(dir != DirCardinal.Down) { return false; }
 
@@ -78,6 +78,9 @@ namespace Nexus.GameEngine {
 			platform.ActivatePlatform();
 			character.physics.touch.TouchMover(platform);
 
+			// Assign the Character with the "OnMover" action, which will maintain their momentum after leaving the platform.
+			ActionMap.OnMover.StartAction(character, platform);
+
 			// Special Character Collision for Platforms.
 			// Only the Character should run collision. Platform has no need to be touched, pushed, aligned, etc.
 			// Additionally, it needs to skip the intend.Y test normally associated with CollideObjDown(platform).
@@ -89,12 +92,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public bool CharHitsBlock( Character character, Block block ) {
-
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, block);
-
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: CONVEYORS, WALL JUMPS, ETC
-
 			return Impact.StandardImpact(character, block, dir);
 		}
 

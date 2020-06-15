@@ -25,6 +25,13 @@ namespace Nexus.ObjectComponents {
 			return 1;
 		}
 
+		// Get 3-Per-Half-Second Global Animation ID: Animations that cycle between three texture IDs per half-second.
+		public static byte Get3PHSAnimId( TimerGlobal timer ) {
+			if(timer.frame60Modulus >= 40) { return timer.frame60Modulus >= 50 ? (byte)3 : (byte)2; }
+			if(timer.frame60Modulus >= 20) { return timer.frame60Modulus >= 30 ? (byte)1 : (byte)3; }
+			return timer.frame60Modulus >= 10 ? (byte)2 : (byte)1;
+		}
+
 		// Get 4-Per-Second Global Animation ID: Animations that cycle between four texture IDs per second.
 		public static byte Get4PSAnimId( TimerGlobal timer ) {
 			return (byte) (timer.beat4Modulus + 1);

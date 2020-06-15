@@ -295,6 +295,7 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\OnMoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FastMoveAction.cs" />
     <Compile Include="ObjectComponents\Actions\DropdownAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
