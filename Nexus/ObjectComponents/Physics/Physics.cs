@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 		public int lastPosY;
 		public Touch touch;
 
-		protected bool hasExtraMovement;
+		public bool hasExtraMovement;
 
 		// Movements
 		public FVector intend;          // The X, Y the actor intends to move during its frame. A combination of gravity + velocity + extraMovement. Once set for the frame, don't change it.
