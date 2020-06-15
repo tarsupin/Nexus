@@ -172,7 +172,7 @@ namespace Nexus.Scripts {
 				}
 
 				// Looking for "ms" settings, regardless of tileId type
-				if(changed == false && (param.Key == "duration" || param.Key == "offset" || param.Key == "durationOffset" || param.Key == "delay" || param.Key == "retDelay" || param.Key == "cycle")) {
+				if(changed == false && (param.Key == "duration" || param.Key == "offset" || param.Key == "durOffset" || param.Key == "delay" || param.Key == "retDelay" || param.Key == "cycle")) {
 					changed = true;
 					newValue = (short)(int.Parse(param.Value.ToString()) * 60 / 1000);
 					//System.Console.WriteLine("Param Located :  { " + param.Key + ",  " + param.Value.ToString() + " }  -->  " + newParams[param.Key]);

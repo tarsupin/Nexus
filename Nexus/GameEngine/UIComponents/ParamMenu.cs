@@ -173,8 +173,17 @@ namespace Nexus.GameEngine {
 					else {
 						this.menuOptText[i] = paramList[rule.key].ToString() + rule.unitName;
 					}
-				} else {
-					this.menuOptText[i] = rule.defStr;
+				}
+				
+				// Display Default String
+				else {
+
+					// Default Rule for Frame Params is still altered.
+					if(rule is FrameParam) {
+						this.menuOptText[i] = (rule.defValue * 1000 / 60).ToString() + " ms";
+					} else {
+						this.menuOptText[i] = rule.defStr;
+					}
 				}
 
 				// Resize Menu after any update.

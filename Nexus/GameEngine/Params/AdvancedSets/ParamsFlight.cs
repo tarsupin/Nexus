@@ -11,10 +11,10 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void ApplyRules(ref List<ParamGroup> rules) {
-			rules.Add(new LabeledParam("fly", "Movement Type", new string[6] { "None", "Axis", "Quadratic", "Circle", "To Direction", "Follows Track", }, (byte)FlightMovement.Axis));
+			rules.Add(new LabeledParam("fly", "Movement Type", new string[6] { "None", "Axis", "Quadratic", "Circle", "To Direction", "Follows Track", }, (byte)FlightMovement.None));
 
-			rules.Add(new FrameParam("duration", "Move Duration", 60, 3600, 15, 300, " frames"));
-			rules.Add(new FrameParam("durationOffset", "Timer Offset", 0, 3600, 15, 0, " frames"));
+			rules.Add(new FrameParam("duration", "Move Duration", 60, 3600, 15, 240, " frames"));
+			rules.Add(new FrameParam("durOffset", "Timer Offset", 0, 3600, 15, 0, " frames"));
 
 			rules.Add(new IntParam("x", "X Movement", -20, 20, 1, 0, " tiles(s)"));
 			rules.Add(new IntParam("y", "Y Movement", -20, 20, 1, 0, " tiles(s)"));
@@ -43,24 +43,24 @@ namespace Nexus.GameEngine {
 			this.AddRulesToShow(new string[] { "fly" }, ref rulesToShow);
 
 			if(flightVal != 0) {
-				this.AddRulesToShow(new string[] { "duration", "durationOffset" }, ref rulesToShow);
+				this.AddRulesToShow(new string[] { "duration" }, ref rulesToShow);
 			}
 
 			switch(flightVal) {
 
 				// X, Y, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Axis:
-					this.AddRulesToShow(new string[] { "x", "y", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
 					break;
 
 				// X, Y, MidX, MidY, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Quadratic:
-					this.AddRulesToShow(new string[] { "x", "y", "midX", "midY", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "midX", "midY", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
 					break;
 
 				// Diameter, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Circle:
-					this.AddRulesToShow(new string[] { "diameter", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "diameter", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
 					break;
 
 				// X, Y, Countdown, Cluster ID
@@ -70,7 +70,7 @@ namespace Nexus.GameEngine {
 
 				// Track, Cluster ID
 				case (byte)FlightMovement.Track:
-					this.AddRulesToShow(new string[] { "toTrack", "clusterId" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "toTrack", "clusterId" }, ref rulesToShow);
 					break;
 			}
 

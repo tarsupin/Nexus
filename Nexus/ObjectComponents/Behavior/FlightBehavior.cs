@@ -30,7 +30,7 @@ namespace Nexus.ObjectComponents {
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
 			this.duration = paramList.ContainsKey("duration") ? (ushort) paramList["duration"] : (ushort) FlightDefaults.MoveFlightDuration;
-			this.offset = paramList.ContainsKey("durationOffset") ? (ushort) paramList["durationOffset"] : (ushort) 0;
+			this.offset = paramList.ContainsKey("durOffset") ? (ushort) paramList["durOffset"] : (ushort) 0;
 
 			// Positions
 			this.startX = actor.posX;
@@ -64,7 +64,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			if(type == (byte) FlightMovement.To) {
-				//return new FlightTo(actor, paramList);
+				return new FlightTo(actor, paramList);
 			}
 
 			if(type == (byte) FlightMovement.Track) {

@@ -21,6 +21,14 @@ namespace Nexus.Objects {
 			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 		}
 
+		public override void ActivatePlatform() {
+
+			// Activate Move-To Behavior (i.e. it goes to a specific location over a given time),
+			if(this.behavior is FlightTo) {
+				((FlightTo)this.behavior).BeginMovement();
+			}
+		}
+
 		public override void RunTick() {
 
 			// Flight Behavior
@@ -34,14 +42,6 @@ namespace Nexus.Objects {
 				this.animate.RunAnimationTick(Systems.timer);
 			}
 		}
-
-		public void ActivateMoveTo() {
-
-			// Must not have already started.
-			if(startTime != 0) { return; }
-		}
-
-		//this.physics.setMaxVelocity(0, 5);
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte)PlatformSubTypes.W2) {
