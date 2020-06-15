@@ -13,8 +13,8 @@ namespace Nexus.ObjectComponents {
 
 		public byte toFloor = 0;                // Number of frames since touched the floor (up to ten)
 
-		public GameObject touchObj = null;
-		public bool onPlatform = false;
+		public GameObject moveObj = null;		// Reference to the moving object you're standing on.
+		public bool onMover = false;			// TRUE if you're on an object that is moving, and you move with it (conveyor, platform, etc).
 
 		public void ResetTouch() {
 			if(!this.isTouching) { return; }
@@ -31,7 +31,6 @@ namespace Nexus.ObjectComponents {
 			if(this.toTop) { this.toTop = false; }
 			if(this.toLeft) { this.toLeft = false; }
 			if(this.toRight) { this.toRight = false; }
-			if(this.onPlatform) { this.onPlatform = false; }
 		}
 
 		public void TouchLeft() {
@@ -55,10 +54,15 @@ namespace Nexus.ObjectComponents {
 			if(this.isTouching == false) { this.isTouching = true; }
 		}
 
-		public void TouchPlatform( GameObject platform = null ) {
+		public void TouchMover( GameObject mover = null ) {
 			if(this.isTouching == false) { this.isTouching = true; }
-			this.touchObj = platform;
-			this.onPlatform = true;
+			this.moveObj = mover;
+			this.onMover = true;
+		}
+
+		public void ProcessMover( Physics physics ) {
+			this.onMover = false;
+			physics.SetExtraMovement(this.moveObj.physics.AmountMovedX, this.moveObj.physics.AmountMovedY);
 		}
 	}
 }

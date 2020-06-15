@@ -5,10 +5,6 @@ using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
-	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
-	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
-	// TODO HIGH PRIORITY: LOTS MORE TO DO. SEE "CollideCharacter.ts"
-
 	public class HitCompareCharacter : IHitCompare {
 
 		public bool RunImpact( GameObject character, GameObject obj ) {
@@ -74,18 +70,13 @@ namespace Nexus.GameEngine {
 
 			// Character is "Dropping" through platforms:
 			if(character.status.action is DropdownAction) {
-				character.physics.touch.TouchPlatform(null);
+				character.physics.touch.TouchMover(null);
 				return false;
 			}
 
 			// Activate the Platform
 			platform.ActivatePlatform();
-
-			// TODO: May need to change this to .intend or .velocity. We'll see.
-			character.physics.extraMovement.X += platform.physics.AmountMovedX;
-			character.physics.extraMovement.Y += platform.physics.AmountMovedY;
-
-			platform.physics.touch.TouchPlatform(platform);
+			character.physics.touch.TouchMover(platform);
 
 			// Run Standard Platform Collision
 			Impact.StandardImpact(character, platform, dir);
@@ -143,9 +134,6 @@ namespace Nexus.GameEngine {
 			character.wounds.ReceiveWoundDamage(projectile.Damage);
 
 			return true;
-
-			//DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
-			//return Impact.StandardImpact(character, projectile, dir);
 		}
 	}
 }

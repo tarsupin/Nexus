@@ -11,9 +11,13 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.PlatformFall].meta;
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(0, 0, 0, 0);
+
+			this.physics.SetGravity(FInt.Create(0));
 		}
 
-		//this.physics.setMaxVelocity(0, 5);
+		public override void ActivatePlatform() {
+			this.physics.SetGravity(FInt.Create(0.1));
+		}
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte)HorizontalSubTypes.S) {

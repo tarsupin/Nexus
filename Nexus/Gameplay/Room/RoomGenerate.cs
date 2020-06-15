@@ -137,18 +137,18 @@ namespace Nexus.Gameplay {
 			bool hasType = mapper.ObjectTypeDict.TryGetValue(type, out classType);
 			if(!hasType || classType == null) { return; }
 
-			// TODO: See if we can eliminate this; removing reflection would be a good idea. This effect only really benefits platforms, and that was on web.
-			if(classType.GetMethod("Generate") != null) {
-				classType.GetMethod("Generate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (byte)subType, (FVector)pos, (Dictionary<string, short>) paramList });
+			// Special Pre-Generation Rules. 
+			//if(classType.GetMethod("PreGenerate") != null) {
+			//	classType.GetMethod("PreGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (byte)subType, (FVector)pos, (Dictionary<string, short>) paramList });
+			//	return;
+			//}
 
 			// Create Object
-			} else {
-				GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
+			GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
 
-				// Add the Object to the Scene
-				if(gameObj is GameObject) {
-					room.AddToScene((GameObject) gameObj, true);
-				}
+			// Add the Object to the Scene
+			if(gameObj is GameObject) {
+				room.AddToScene((GameObject) gameObj, true);
 			}
 		}
 

@@ -11,9 +11,10 @@ namespace Nexus.Objects {
 
 		public Platform(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
-			// Physics
+			// Physics + Collisions
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0));
+			this.SetActivity(Activity.NoTileCollide);
 		}
 
 		public virtual void ActivatePlatform() {}

@@ -172,7 +172,7 @@ namespace Nexus.Objects {
 			// Character Movement & Handling
 			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt) 1 : this.stats.SlowSpeedMult);
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
-				// TODO LOW PRIORITY: add * status.friction
+			// TODO LOW PRIORITY: add * status.friction
 
 			// Movement Right
 			if(this.input.isDown(IKey.Right)) {
@@ -221,7 +221,7 @@ namespace Nexus.Objects {
 					if(input.isDown(IKey.Down)) {
 
 						// If on a Platform, perform Down-Jump
-						if(this.physics.touch.touchObj is Platform) {
+						if(this.physics.touch.onMover) {
 							ActionMap.Dropdown.StartAction(this, 6);
 						}
 

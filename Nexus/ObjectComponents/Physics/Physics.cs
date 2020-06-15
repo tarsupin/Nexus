@@ -47,9 +47,19 @@ namespace Nexus.ObjectComponents {
 			this.gravity = gravity;
 		}
 
+		public void SetExtraMovement(int x, int y) {
+			this.hasExtraMovement = true;
+			this.extraMovement.X += x;
+			this.extraMovement.Y += y;
+		}
+
 		// Run this method BEFORE any collisions take place. The .result value will change from collisions.
 		public void RunPhysicsTick() {
 			this.touch.ResetTouch();
+			
+			if(this.touch.onMover) {
+				this.touch.ProcessMover(this);
+			}
 
 			// Update Last Positions
 			this.lastPosX = this.actor.posX;
@@ -61,9 +71,10 @@ namespace Nexus.ObjectComponents {
 			// Determine what the intended movement is for this frame.
 			this.intend = this.velocity;
 
-			if(hasExtraMovement) {
+			if(this.hasExtraMovement) {
 				this.intend = FVector.VectorAdd(this.intend, this.extraMovement);
 				this.extraMovement = new FVector();
+				this.hasExtraMovement = false;
 			}
 
 			this.TrackPhysicsTick();
