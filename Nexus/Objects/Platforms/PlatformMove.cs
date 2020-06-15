@@ -44,14 +44,10 @@ namespace Nexus.Objects {
 		//this.physics.setMaxVelocity(0, 5);
 
 		private void AssignSubType(byte subType) {
-			if(subType == (byte)HorizontalSubTypes.S) {
-				this.SpriteName = "Platform/Move/S";
-			} else if(subType == (byte)HorizontalSubTypes.H1) {
-				this.SpriteName = "Platform/Move/S";
-			} else if(subType == (byte)HorizontalSubTypes.H2) {
-				this.SpriteName = "Platform/Move/H2";
-			} else if(subType == (byte)HorizontalSubTypes.H3) {
-				this.SpriteName = "Platform/Move/H3";
+			if(subType == (byte)PlatformSubTypes.W2) {
+				this.SpriteName = "Platform/Move/W2";
+			} else {
+				this.SpriteName = "Platform/Move/W1";
 			}
 		}
 	}

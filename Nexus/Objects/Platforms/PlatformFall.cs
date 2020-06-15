@@ -20,14 +20,10 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType(byte subType) {
-			if(subType == (byte)HorizontalSubTypes.S) {
-				this.SpriteName = "Platform/Fall/S";
-			} else if(subType == (byte)HorizontalSubTypes.H1) {
-				this.SpriteName = "Platform/Fall/S";
-			} else if(subType == (byte)HorizontalSubTypes.H2) {
-				this.SpriteName = "Platform/Fall/H2";
-			} else if(subType == (byte)HorizontalSubTypes.H3) {
-				this.SpriteName = "Platform/Fall/H3";
+			if(subType == (byte)PlatformSubTypes.W2) {
+				this.SpriteName = "Platform/Fall/W2";
+			} else {
+				this.SpriteName = "Platform/Fall/W1";
 			}
 		}
 	}

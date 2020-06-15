@@ -7,6 +7,11 @@ namespace Nexus.Objects {
 
 	public class Platform : GameObject {
 
+		public enum PlatformSubTypes : byte {
+			W1 = 0,
+			W2 = 1,
+		}
+
 		public static readonly FInt MaxFallVelocity = FInt.Create(5);
 
 		public Platform(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {

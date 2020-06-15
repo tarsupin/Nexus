@@ -1,5 +1,6 @@
 ﻿using Nexus.Gameplay;
 using static Nexus.Objects.Conveyor;
+using static Nexus.Objects.Platform;
 
 namespace Nexus.GameEngine {
 
@@ -150,22 +151,12 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformDelay,
-					subType = (byte) HorizontalSubTypes.S,
+					subType = (byte) PlatformSubTypes.W1,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformDelay,
-					subType = (byte) HorizontalSubTypes.H1,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformDelay,
-					subType = (byte) HorizontalSubTypes.H2,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformDelay,
-					subType = (byte) HorizontalSubTypes.H3,
+					subType = (byte) PlatformSubTypes.W2,
 					layerEnum = LayerEnum.obj,
 				},
 			});
@@ -173,22 +164,12 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformDip,
-					subType = (byte) HorizontalSubTypes.S,
+					subType = (byte) PlatformSubTypes.W1,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformDip,
-					subType = (byte) HorizontalSubTypes.H1,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformDip,
-					subType = (byte) HorizontalSubTypes.H2,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformDip,
-					subType = (byte) HorizontalSubTypes.H3,
+					subType = (byte) PlatformSubTypes.W2,
 					layerEnum = LayerEnum.obj,
 				},
 			});
@@ -196,22 +177,12 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformFall,
-					subType = (byte) HorizontalSubTypes.S,
+					subType = (byte) PlatformSubTypes.W1,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformFall,
-					subType = (byte) HorizontalSubTypes.H1,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformFall,
-					subType = (byte) HorizontalSubTypes.H2,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformFall,
-					subType = (byte) HorizontalSubTypes.H3,
+					subType = (byte) PlatformSubTypes.W2,
 					layerEnum = LayerEnum.obj,
 				},
 			});
@@ -219,22 +190,12 @@ namespace Nexus.GameEngine {
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformMove,
-					subType = (byte) HorizontalSubTypes.S,
+					subType = (byte) PlatformSubTypes.W1,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
 					objectId = (byte) ObjectEnum.PlatformMove,
-					subType = (byte) HorizontalSubTypes.H1,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformMove,
-					subType = (byte) HorizontalSubTypes.H2,
-					layerEnum = LayerEnum.obj,
-				},
-				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.PlatformMove,
-					subType = (byte) HorizontalSubTypes.H3,
+					subType = (byte) PlatformSubTypes.W2,
 					layerEnum = LayerEnum.obj,
 				},
 			});

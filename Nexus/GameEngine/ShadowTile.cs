@@ -7,6 +7,7 @@ using static Nexus.Objects.ElementalAir;
 using static Nexus.Objects.ElementalEarth;
 using static Nexus.Objects.ElementalFire;
 using static Nexus.Objects.OrbItem;
+using static Nexus.Objects.Platform;
 using static Nexus.Objects.Shell;
 using static Nexus.Objects.SportBall;
 using static Nexus.Objects.SpringStandard;
@@ -186,34 +187,26 @@ namespace Nexus.Objects {
 			
 			// PlatformDip
 			{ (byte) ObjectEnum.PlatformDip, new Dictionary<byte, string> {
-				{  (byte) HorizontalSubTypes.S, "Platform/Dip/S" },
-				{  (byte) HorizontalSubTypes.H1, "Platform/Dip/H1" },
-				{  (byte) HorizontalSubTypes.H2, "Platform/Dip/H2" },
-				{  (byte) HorizontalSubTypes.H3, "Platform/Dip/H3" },
+				{  (byte) PlatformSubTypes.W1, "Platform/Dip/W1" },
+				{  (byte) PlatformSubTypes.W2, "Platform/Dip/W2" },
 			}},
 			
 			// PlatformDelay
 			{ (byte) ObjectEnum.PlatformDelay, new Dictionary<byte, string> {
-				{  (byte) HorizontalSubTypes.S, "Platform/Delay/S" },
-				{  (byte) HorizontalSubTypes.H1, "Platform/Delay/H1" },
-				{  (byte) HorizontalSubTypes.H2, "Platform/Delay/H2" },
-				{  (byte) HorizontalSubTypes.H3, "Platform/Delay/H3" },
+				{  (byte) PlatformSubTypes.W1, "Platform/Delay/W1" },
+				{  (byte) PlatformSubTypes.W2, "Platform/Delay/W2" },
 			}},
 			
 			// PlatformFall
 			{ (byte) ObjectEnum.PlatformFall, new Dictionary<byte, string> {
-				{  (byte) HorizontalSubTypes.S, "Platform/Fall/S" },
-				{  (byte) HorizontalSubTypes.H1, "Platform/Fall/H1" },
-				{  (byte) HorizontalSubTypes.H2, "Platform/Fall/H2" },
-				{  (byte) HorizontalSubTypes.H3, "Platform/Fall/H3" },
+				{  (byte) PlatformSubTypes.W1, "Platform/Fall/W1" },
+				{  (byte) PlatformSubTypes.W2, "Platform/Fall/W2" },
 			}},
 			
 			// PlatformMove
 			{ (byte) ObjectEnum.PlatformMove, new Dictionary<byte, string> {
-				{  (byte) HorizontalSubTypes.S, "Platform/Move/S" },
-				{  (byte) HorizontalSubTypes.H1, "Platform/Move/H1" },
-				{  (byte) HorizontalSubTypes.H2, "Platform/Move/H2" },
-				{  (byte) HorizontalSubTypes.H3, "Platform/Move/H3" },
+				{  (byte) PlatformSubTypes.W1, "Platform/Move/W1" },
+				{  (byte) PlatformSubTypes.W2, "Platform/Move/W2" },
 			}},
 
 			///////////////////
