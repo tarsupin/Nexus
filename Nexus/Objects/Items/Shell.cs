@@ -131,7 +131,7 @@ namespace Nexus.Objects {
 			}
 			
 			// If the Shell is stationary:
-			if(this.physics.velocity.X == 0 && this.physics.velocity.Y == 0) {
+			if(this.physics.velocity.X == 0 && this.physics.velocity.Y.RoundInt == 0) {
 
 				if(obj is Character) {
 					Character character = (Character)obj;
@@ -145,13 +145,13 @@ namespace Nexus.Objects {
 					enemy.BounceUp(enemy.posX + enemy.bounds.MidX, 2);
 				}
 
-				// Start Shell Movingd
+				// Start Shell Moving
 				int xDiff = CollideDetect.GetRelativeX(this, obj);
 				this.physics.velocity.X = FInt.Create(xDiff > 0 ? this.KickStrength : -this.KickStrength);
 				Systems.sounds.shellBoop.Play(0.2f, 0, 0);
 				this.animate.SetAnimation(null, this.physics.velocity.X > 0 ? AnimCycleMap.Cycle4 : AnimCycleMap.Cycle4Reverse, 7, 1);
 
-				return base.CollideObjUp(obj);
+				return false;
 			}
 
 			// If the Shell is moving:

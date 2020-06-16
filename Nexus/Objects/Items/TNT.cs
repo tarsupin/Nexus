@@ -24,6 +24,8 @@ namespace Nexus.Objects {
 			this.AssignBoundsByAtlas(6, 2, -2, 0);
 		}
 
+		public override void ActivateItem() { }
+
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) TNTSubType.TNT) {
 				this.SpriteName = "Items/TNT";

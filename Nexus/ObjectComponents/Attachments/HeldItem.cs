@@ -50,6 +50,11 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
+		public void ActivateItem() {
+			if(!this.IsHeld) { return; }
+			this.objHeld.ActivateItem();
+		}
+
 		public bool WillPickupAttemptWork( Item item, DirCardinal dirToward ) {
 
 			// Don't pick up an item if you're already carrying one.

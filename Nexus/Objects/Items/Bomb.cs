@@ -29,5 +29,7 @@ namespace Nexus.Objects {
 				this.SpriteName = "Items/Bomb1";
 			}
 		}
+
+		public override void ActivateItem() { }
 	}
 }

@@ -222,7 +222,7 @@ namespace Nexus.GameEngine {
 			this.room.RemoveFromScene(this);
 		}
 
-		public virtual void BounceUp(int midX, sbyte strengthMod = 4, byte maxX = 4, sbyte relativeMult = 5) {
+		public virtual void BounceUp(int midX, sbyte strengthMod = 4, byte maxX = 2, sbyte relativeMult = 3) {
 
 			this.physics.velocity.Y = FInt.Create(-strengthMod);
 			

@@ -35,26 +35,32 @@ namespace Nexus.Objects {
 			else if(subType == (byte) ButtonSubTypes.GY) { this.SpriteName = "Button/GY"; }
 		}
 
-		public override bool CollideObjUp(GameObject obj) {
-			if(!base.CollideObjUp(obj)) { return false; }
-
-			if(obj is Character) {
-				ActionMap.Jump.StartAction((Character)obj, 5, 0, 4, true);
-			}
-			
-			else if(obj is EnemyLand || obj is Item) {
-				obj.BounceUp(this.posX + this.bounds.MidX, 5);
-			}
-			
-			else { return false; }
+		public override void ActivateItem() {
 
 			// Press Button Down
 			this.isDown = !this.isDown;
 
 			// Toggle the color-toggle that matches this tap type.
 			this.room.colors.ToggleColor(this.toggleBR);
+		}
 
-			return true;
+		public override bool CollideObjUp(GameObject obj) {
+
+			if(obj is Character) {
+				ActionMap.Jump.StartAction((Character)obj, 5, 0, 4, true);
+			}
+			
+			else if(obj is EnemyLand || obj is Item) {
+				obj.BounceUp(this.posX + this.bounds.MidX, 9, 1, 2);
+				obj.physics.SetExtraMovement(0, -2);
+				obj.physics.RunPhysicsTick();
+			}
+			
+			else { return false; }
+
+			this.ActivateItem();
+
+			return base.CollideObjUp(obj);
 		}
 
 		public override void Draw(int camX, int camY) {

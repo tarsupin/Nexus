@@ -77,10 +77,8 @@ namespace Nexus.Objects {
 			// Status Reset (NOT "STATS")
 			this.status.ResetCharacterStatus();
 
-			// TODO HIGH PRIORITY: Add item, attachments
-
-			// Item Handling
-			//if(this.item is Item) { this.item.DropItem(); }		// Multiplayer must drop. Single player will reset level.
+			// Multiplayer needs the item to be dropped. Single player will reset level, so it won't matter.
+			if(this.heldItem.IsHeld) { this.heldItem.DropItem(); }
 
 			// Equipment
 			if(this.hat is Hat) { this.hat.DestroyHat(this, false); };
@@ -99,6 +97,7 @@ namespace Nexus.Objects {
 			// Attachments
 			this.trailKeys.ResetTrailingKeys();
 			this.heldItem.ResetHeldItem();
+			this.magiShield.DestroyShield(0);
 
 			// Reset Physics to ensure it doesn't maintain knowledge from previous state.
 			this.physics.touch.ResetTouch();
@@ -138,15 +137,16 @@ namespace Nexus.Objects {
 			// Activate Powers
 			if(this.input.isDown(IKey.R1)) {
 
-				// If the character is holding an item, cannot activate powers.
-				// However, the item may be possible to activate.
+				// If the character is holding an item, activate the item instead of activating powers.
+				if(this.heldItem.IsHeld) {
 
-				// TODO HIGH PRIORITY: Allow activating items:
-				//if(this.item is Item) {
-				//	if(this.input.isPressed(IKey.R1)) { this.item.ActivateWhileHeld(this);  }
-				//}
+					// Only activate when pressed - holding down no longer relevant.
+					if(this.input.isPressed(IKey.R1)) {
+						this.heldItem.ActivateItem();
+					}
+				}
 
-				if(this.attackPower is Power) {
+				else if(this.attackPower is Power) {
 					this.attackPower.Activate();
 				}
 			}
