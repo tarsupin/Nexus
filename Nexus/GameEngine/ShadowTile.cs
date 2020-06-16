@@ -10,7 +10,7 @@ using static Nexus.Objects.OrbItem;
 using static Nexus.Objects.Platform;
 using static Nexus.Objects.Shell;
 using static Nexus.Objects.SportBall;
-using static Nexus.Objects.SpringStandard;
+using static Nexus.Objects.SpringHeld;
 using static Nexus.Objects.TNT;
 
 namespace Nexus.Objects {
@@ -250,12 +250,12 @@ namespace Nexus.Objects {
 			}},
 			
 			// Spring - Standard
-			{ (byte) ObjectEnum.SpringStandard, new Dictionary<byte, string> {
-				{  (byte) SpringStandardSubType.Norm, "Spring/Up" },
+			{ (byte) ObjectEnum.SpringHeld, new Dictionary<byte, string> {
+				{  (byte) SpringHeldSubType.Norm, "Spring/Up" },
 			}},
 
 			// Button - Standard
-			{ (byte) ObjectEnum.ButtonStandard, new Dictionary<byte, string> {
+			{ (byte) ObjectEnum.ButtonHeld, new Dictionary<byte, string> {
 				{  (byte) ButtonSubTypes.BR, "Button/BR" },
 				{  (byte) ButtonSubTypes.GY, "Button/GY" },
 			}},

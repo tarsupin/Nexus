@@ -10,7 +10,7 @@ using static Nexus.Objects.Shell;
 using static Nexus.Objects.SportBall;
 using static Nexus.Objects.SpringFixed;
 using static Nexus.Objects.SpringSide;
-using static Nexus.Objects.SpringStandard;
+using static Nexus.Objects.SpringHeld;
 using static Nexus.Objects.TNT;
 
 namespace Nexus.GameEngine {
@@ -80,12 +80,12 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.ButtonStandard,
+					objectId = (byte) ObjectEnum.ButtonHeld,
 					subType = (byte) ButtonSubTypes.BR,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.ButtonStandard,
+					objectId = (byte) ObjectEnum.ButtonHeld,
 					subType = (byte) ButtonSubTypes.GY,
 					layerEnum = LayerEnum.obj,
 				},
@@ -105,8 +105,8 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.SpringStandard,
-					subType = (byte) SpringStandardSubType.Norm,
+					objectId = (byte) ObjectEnum.SpringHeld,
+					subType = (byte) SpringHeldSubType.Norm,
 					layerEnum = LayerEnum.obj,
 				},
 				new EditorPlaceholder() {

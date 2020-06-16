@@ -171,8 +171,8 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.SportBall] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.TNT] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 
-			this.ObjectMetaData[(byte)ObjectEnum.SpringStandard] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
-			this.ObjectMetaData[(byte)ObjectEnum.ButtonStandard] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
+			this.ObjectMetaData[(byte)ObjectEnum.SpringHeld] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
+			this.ObjectMetaData[(byte)ObjectEnum.ButtonHeld] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
 
 			//// Special Objects
 			this.ObjectMetaData[(byte)ObjectEnum.Cluster] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
@@ -598,8 +598,8 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.SportBall, Type.GetType("Nexus.Objects.SportBall") },
 			{ (byte) ObjectEnum.TNT, Type.GetType("Nexus.Objects.TNT") },
 
-			{ (byte) ObjectEnum.SpringStandard, Type.GetType("Nexus.Objects.SpringStandard") },
-			{ (byte) ObjectEnum.ButtonStandard, Type.GetType("Nexus.Objects.ButtonStandard") },
+			{ (byte) ObjectEnum.SpringHeld, Type.GetType("Nexus.Objects.SpringHeld") },
+			{ (byte) ObjectEnum.ButtonHeld, Type.GetType("Nexus.Objects.ButtonHeld") },
 
 			// Special Objects
 			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },

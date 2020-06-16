@@ -497,8 +497,8 @@
     <Compile Include="Objects\Items\Bomb.cs" />
     <Compile Include="Objects\Items\Boulder.cs" />
     <Compile Include="Objects\Items\Shell.cs" />
-    <Compile Include="Objects\Items\ButtonStandard.cs" />
-    <Compile Include="Objects\Items\SpringStandard.cs" />
+    <Compile Include="Objects\Items\ButtonHeld.cs" />
+    <Compile Include="Objects\Items\SpringHeld.cs" />
     <Compile Include="Objects\Projectiles\ProjectileEnemy.cs" />
     <Compile Include="Objects\Projectiles\Weapons\ThrustProjectile.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />

@@ -218,8 +218,8 @@ namespace Nexus.Gameplay {
 		SportBall = 84,
 		TNT = 85,
 
-		SpringStandard = 90,
-		ButtonStandard = 91,
+		SpringHeld = 90,
+		ButtonHeld = 91,
 
 		// Special Objects
 		Cluster = 100,

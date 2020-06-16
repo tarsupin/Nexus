@@ -123,11 +123,11 @@ namespace Nexus.GameEngine {
 			// TODO LOW PRIORITY: FINISH
 			//this.placeholders.Add(new EditorPlaceholder[] {
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonStandard,
+			//		tileId = (byte) TileEnum.ButtonHeld,
 			//		subType = (byte) Something.BR,
 			//	},
 			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonStandard,
+			//		tileId = (byte) TileEnum.ButtonHeld,
 			//		subType = (byte) Something.GY,
 			//	},
 			//});
