@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 		protected byte actionDuration;			// The duration of the charge.
 
 		// Action
-		protected uint actionEnd;				// The next frame # end for a given duration.
+		protected int actionEnd;				// The next frame # end for a given duration.
 		protected bool dirRight;				// If the charge is facing right (or false if left).
 
 		public DetectCharBehavior( EnemyLand actor, byte viewDistance = 144, byte viewHeight = 32 ) : base(actor) {
@@ -60,10 +60,10 @@ namespace Nexus.ObjectComponents {
 			int scanX = actor.posX + (actor.FaceRight ? bounds.Right : bounds.Left - this.viewDist);
 			int scanY = actor.posY + bounds.Bottom - this.viewHeight;
 
-			uint objectId = CollideRect.FindOneObjectTouchingArea(
+			int objectId = CollideRect.FindOneObjectTouchingArea(
 				this.actor.room.objects[(byte)LoadOrder.Character],
-				(uint)scanX,
-				(uint)scanY,
+				scanX,
+				scanY,
 				this.viewDist,
 				this.viewHeight
 			);

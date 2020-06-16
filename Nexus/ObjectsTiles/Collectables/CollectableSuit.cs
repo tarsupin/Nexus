@@ -46,7 +46,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)SuitSubType.WhiteWizard] = "Gains a special regenerating shield, casts projectiles faster.";
 		}
 
-		public override void Collect(RoomScene room, Character character, ushort gridX, ushort gridY) {
+		public override void Collect(RoomScene room, Character character, short gridX, short gridY) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			Suit.AssignToCharacter(character, subType, true);

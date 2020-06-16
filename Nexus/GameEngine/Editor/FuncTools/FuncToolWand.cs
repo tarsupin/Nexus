@@ -49,8 +49,8 @@ namespace Nexus.GameEngine {
 		public static Dictionary<string, Dictionary<string, ArrayList>> layerData;
 
 		// Tile Grid Data
-		public static ushort gridX;
-		public static ushort gridY;
+		public static short gridX;
+		public static short gridY;
 
 		// Essential Tile Data
 		public static ArrayList wandTileData;
@@ -84,7 +84,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Initialize Wand Data
-		public static bool InitializeWandData(EditorRoomScene scene, ushort gridX, ushort gridY) {
+		public static bool InitializeWandData(EditorRoomScene scene, short gridX, short gridY) {
 
 			// Get Scene References
 			WandData.editorScene = scene;

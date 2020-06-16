@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Block];
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Projectile) {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
@@ -26,10 +26,10 @@ namespace Nexus.Objects {
 			return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 		}
 
-		public static void DamageAbove(RoomScene room, ushort gridX, ushort gridY) {
+		public static void DamageAbove(RoomScene room, short gridX, short gridY) {
 
 			// Damage Creatures Above (if applicable)
-			uint enemyFoundId = CollideRect.FindOneObjectTouchingArea(room.objects[(byte)LoadOrder.Enemy], (uint)gridX * (byte)TilemapEnum.TileWidth + 16, (uint)gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4);
+			int enemyFoundId = CollideRect.FindOneObjectTouchingArea(room.objects[(byte)LoadOrder.Enemy], gridX * (byte)TilemapEnum.TileWidth + 16, gridY * (byte)TilemapEnum.TileHeight - 4, 16, 4);
 
 			if(enemyFoundId > 0) {
 				Enemy enemy = (Enemy)room.objects[(byte)LoadOrder.Enemy][enemyFoundId];
@@ -37,7 +37,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public static void BreakFromBelow(RoomScene room, ushort gridX, ushort gridY) {
+		public static void BreakFromBelow(RoomScene room, short gridX, short gridY) {
 
 			// Damage Creatures Above (if applicable)
 			BlockTile.DamageAbove(room, gridX, gridY);

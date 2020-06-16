@@ -19,10 +19,10 @@ namespace Nexus.Gameplay {
 		public Dictionary<string, Dictionary<string, ArrayList>> fg { get; set; }
 
 		[JsonProperty("width")]
-		public ushort Width { get; set; }
+		public short Width { get; set; }
 
 		[JsonProperty("height")]
-		public ushort Height { get; set; }
+		public short Height { get; set; }
 	}
 
 }

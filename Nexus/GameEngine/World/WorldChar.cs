@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 		public int posY = 0;
 
 		// Travel Position Tracking
-		private uint startTime = 0;
+		private int startTime = 0;
 		private int duration = 0;
 		private int startX = 0;
 		private int startY = 0;

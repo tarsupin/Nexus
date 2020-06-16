@@ -18,17 +18,17 @@ namespace Nexus.Objects {
 		public DamageStrength Damage { get; protected set; }
 		public ProjectileCollisionType CollisionType { get; protected set; }
 		public bool SafelyJumpOnTop { get; protected set; }
-		public uint ByCharacterId { get; protected set; }
+		public int ByCharacterId { get; protected set; }
 
 		// References
 		protected Atlas atlas;
-		//public Power power;             // Reference to the power used for this projectile.
+		//public Power power;			// Reference to the power used for this projectile.
 
 		// Projectile Status
-		public uint Intangible;         // The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
+		public int Intangible;			// The frame # that intangibility ends. Makes it intangible to certain dynamic objects.
 
 		// Essentials
-		protected uint EndLife;
+		protected int EndLife;
 		public float spinRate;			// The rate of rotation, if applicable.
 		public float rotation;
 
@@ -42,7 +42,7 @@ namespace Nexus.Objects {
 		public void SetSafelyJumpOnTop(bool safe = true) { this.SafelyJumpOnTop = safe; }
 		public void SetActorID(GameObject actor) { this.ByCharacterId = actor.id; }
 		public void SetDamage(DamageStrength damage) { this.Damage = damage; }
-		public void SetEndLife(uint endFrame) { this.EndLife = endFrame; }
+		public void SetEndLife(int endFrame) { this.EndLife = endFrame; }
 		public void SetVelocity(FVector velocity) { this.physics.velocity = velocity; }
 
 		public override void RunTick() {

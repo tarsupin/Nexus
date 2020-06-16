@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.moveParamSet = Params.ParamMap["Beats"];
 		}
 
-		public void SetupTile(RoomScene room, ushort gridX, ushort gridY) {
+		public void SetupTile(RoomScene room, short gridX, short gridY) {
 
 			// Track the activations for this cannon.
 			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
@@ -45,7 +45,7 @@ namespace Nexus.Objects {
 		}
 
 		// Only return false if (and/or when) the event should no longer be looped in the QueueEvent class. For Cannons, this shouldn't occur.
-		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0) {
+		public override bool TriggerEvent(RoomScene room, short gridX, short gridY, short val1 = 0, short val2 = 0) {
 
 			// Track the activations for this cannon.
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
@@ -71,6 +71,6 @@ namespace Nexus.Objects {
 			return true;
 		}
 
-		public virtual void ActivateCannon(RoomScene room, byte subType, ushort gridX, ushort gridY, byte cannonSpeed) { }
+		public virtual void ActivateCannon(RoomScene room, byte subType, short gridX, short gridY, byte cannonSpeed) { }
 	}
 }

@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public static ObjectPool<LeafShakeParticle> leafPool = new ObjectPool<LeafShakeParticle>(() => new LeafShakeParticle());
 
-		public static LeafShakeParticle SetParticle(RoomScene room, Atlas atlas, string spriteName, Vector2 pos, uint frameEnd) {
+		public static LeafShakeParticle SetParticle(RoomScene room, Atlas atlas, string spriteName, Vector2 pos, int frameEnd) {
 
 			// Retrieve an available particle from the pool.
 			LeafShakeParticle particle = LeafShakeParticle.leafPool.GetObject();

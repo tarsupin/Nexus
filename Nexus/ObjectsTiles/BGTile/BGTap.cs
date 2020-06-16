@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			this.description = "Toggles color blocks, then disappears along with its neighbors.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 
@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		private void RemoveTap(RoomScene room, ushort gridX, ushort gridY, byte subType) {
+		private void RemoveTap(RoomScene room, short gridX, short gridY, byte subType) {
 
 			// Check if the tile exists:
 			byte[] td = room.tilemap.GetTileDataAtGrid(gridX, gridY);
@@ -49,10 +49,10 @@ namespace Nexus.Objects {
 			room.tilemap.ClearMainLayer(gridX, gridY);
 
 			// Destroy all Neighbor BGTaps of the same subtype:
-			this.RemoveTap(room, (ushort)(gridX - 1), gridY, subType);
-			this.RemoveTap(room, (ushort)(gridX + 1), gridY, subType);
-			this.RemoveTap(room, gridX, (ushort)(gridY - 1), subType);
-			this.RemoveTap(room, gridX, (ushort)(gridY + 1), subType);
+			this.RemoveTap(room, (short)(gridX - 1), gridY, subType);
+			this.RemoveTap(room, (short)(gridX + 1), gridY, subType);
+			this.RemoveTap(room, gridX, (short)(gridY - 1), subType);
+			this.RemoveTap(room, gridX, (short)(gridY + 1), subType);
 		}
 
 		private void CreateTextures() {

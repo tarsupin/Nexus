@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Chompers die when hit by projectiles of sufficient damage.
 			if(actor is Projectile) {
@@ -53,7 +53,7 @@ namespace Nexus.Objects {
 		}
 
 		// Remove the Chomper and Display it's knockout effect.
-		public void DestroyChomper(RoomScene room, ushort gridX, ushort gridY) {
+		public void DestroyChomper(RoomScene room, short gridX, short gridY) {
 			room.tilemap.ClearMainLayer(gridX, gridY);
 			DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			Systems.sounds.splat1.Play();

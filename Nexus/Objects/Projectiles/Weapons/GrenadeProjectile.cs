@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 	public class GrenadeProjectile : Projectile {
 
-		private uint endFrame;          // The frame that a movement style ends on.
+		private int endFrame;          // The frame that a movement style ends on.
 
 		public GrenadeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.Damage = DamageStrength.None;
@@ -84,17 +84,17 @@ namespace Nexus.Objects {
 					int gridY = (int) Math.Floor((double)(midY / (byte)TilemapEnum.TileHeight));
 
 					// Destroy Enemies Within Area of Effect
-					List<GameObject> enemiesFound = CollideRect.FindAllObjectsTouchingArea(room.objects[(byte)LoadOrder.Enemy], (uint)(midX - 144), (uint)(midY - 96), 288, 192);
+					List<GameObject> enemiesFound = CollideRect.FindAllObjectsTouchingArea(room.objects[(byte)LoadOrder.Enemy], midX - 144, midY - 96, 288, 192);
 
 					foreach(GameObject enemy in enemiesFound) {
 						((Enemy)enemy).Die(DeathResult.Knockout);
 					}
 
 					// Destroy Certain Tiles Within Area of Effect
-					ushort startX = (ushort) Math.Max(0, gridX - 3);
-					ushort startY = (ushort) Math.Max(0, gridY - 2);
-					ushort endX = (ushort) Math.Min(tilemap.XCount, gridX + 3);
-					ushort endY = (ushort) Math.Min(tilemap.YCount, gridY + 2);
+					short startX = (short) Math.Max(0, gridX - 3);
+					short startY = (short) Math.Max(0, gridY - 2);
+					short endX = (short) Math.Min(tilemap.XCount, gridX + 3);
+					short endY = (short) Math.Min(tilemap.YCount, gridY + 2);
 
 					// Locate Tiles: Chompers, Boxes, Bricks, Leafs, etc.
 					var tilesFound = tilemap.GetTilesByMainIDsWithinArea(new byte[7] { (byte)TileEnum.ChomperFire, (byte)TileEnum.ChomperGrass, (byte)TileEnum.ChomperMetal, (byte)TileEnum.Plant, (byte)TileEnum.Box, (byte)TileEnum.Brick, (byte)TileEnum.Leaf }, startX, startY, endX, endY);

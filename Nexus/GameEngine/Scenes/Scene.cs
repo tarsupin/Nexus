@@ -4,7 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class Scene {
 
-		public uint idCounter;           // Tracks the last ID that was generated in the scene.
+		public int idCounter;           // Tracks the last ID that was generated in the scene.
 
 		public Scene() {}
 
@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 		public virtual void RunTick() { }
 		public virtual void Draw() { }
 
-		public uint nextId {
+		public int nextId {
 			get {
 				this.idCounter++;
 				return this.idCounter;

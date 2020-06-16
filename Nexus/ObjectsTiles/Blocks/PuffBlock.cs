@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			this.puffDuration = 4;
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Only run this test for Characters.
 			if(!(actor is Character)) { return false; }

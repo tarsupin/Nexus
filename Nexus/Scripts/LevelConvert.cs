@@ -22,8 +22,8 @@ namespace Nexus.Scripts {
 		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
 		protected static string curRoomId;
 		protected static string curRoomLayerId;
-		protected static ushort curGridY;
-		protected static ushort curGridX;
+		protected static short curGridY;
+		protected static short curGridX;
 
 		// Level Data
 		protected LevelContent levelContent;
@@ -97,11 +97,11 @@ namespace Nexus.Scripts {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layerJson) {
-				LevelConvert.curGridY = ushort.Parse(yData.Key);
+				LevelConvert.curGridY = short.Parse(yData.Key);
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value.ToList()) {
-					LevelConvert.curGridX = ushort.Parse(xData.Key);
+					LevelConvert.curGridX = short.Parse(xData.Key);
 
 					// Process the Tile JSON
 					this.ProcessTileData(xData.Value, isObjectLayer);

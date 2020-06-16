@@ -79,7 +79,7 @@ namespace Nexus.Engine {
 		}
 
 		// Helper for Fading Particles
-		public static float AlphaByFadeTime(uint currentFrame, uint fadeStart, uint fadeEnd, float alphaStart = 1, float alphaEnd = 0) {
+		public static float AlphaByFadeTime(int currentFrame, int fadeStart, int fadeEnd, float alphaStart = 1, float alphaEnd = 0) {
 			float duration = fadeEnd - fadeStart;
 			float dist = currentFrame - fadeStart;
 			float weight = dist / duration;

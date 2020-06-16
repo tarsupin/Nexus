@@ -97,12 +97,12 @@ namespace Nexus.Objects {
 			// If there is no character in sight, check for a new one:
 			if(this.charWatched is Character == false) {
 
-				uint objectId = CollideRect.FindOneObjectTouchingArea(
+				int objectId = CollideRect.FindOneObjectTouchingArea(
 					this.room.objects[(byte)LoadOrder.Character],
-					(uint)Math.Max(0, midX - ViewDistance),
-					(uint)Math.Max(0, midY - ViewDistance),
-					(ushort)(ViewDistance * 2), // View Distance (Width)
-					(ushort)(ViewDistance * 2) // View Height
+					Math.Max(0, midX - ViewDistance),
+					Math.Max(0, midY - ViewDistance),
+					(ViewDistance * 2), // View Distance (Width)
+					(ViewDistance * 2) // View Height
 				);
 
 				if(objectId > 0) {

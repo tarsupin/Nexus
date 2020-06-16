@@ -131,7 +131,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)PowerSubType.GrenadePack] = "A pack of three grenades.";
 		}
 
-		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
+		public override void Collect( RoomScene room, Character character, short gridX, short gridY ) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			Power.AssignPower(character, subType);

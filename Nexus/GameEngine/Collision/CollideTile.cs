@@ -10,12 +10,12 @@ namespace Nexus.GameEngine {
 	public class CollideTile {
 
 		// Tests if object is completely within a tile square.
-		public static bool IsWithinTile(GameObject dynamicObj, ushort gridX, ushort gridY) {
+		public static bool IsWithinTile(GameObject dynamicObj, short gridX, short gridY) {
 			return (dynamicObj.GridX == gridX && dynamicObj.GridX2 == gridX && dynamicObj.GridY == gridY && dynamicObj.GridY2 == gridY);
 		}
 
 		// Tests if object is within a tile with padded borders. Note: Many tests can't use this, since they're probably already touching the tile.
-		public static bool IsWithinPaddedTile(GameObject dynamicObj, ushort gridX, ushort gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
+		public static bool IsWithinPaddedTile(GameObject dynamicObj, short gridX, short gridY, byte left = 0, byte right = 0, byte top = 0, byte bottom = 0) {
 
 			byte w = (byte) TilemapEnum.TileWidth;
 			byte h = (byte) TilemapEnum.TileHeight;
@@ -27,13 +27,13 @@ namespace Nexus.GameEngine {
 
 		// Check if an exact coordinate has a Blocking Square (Ground, BlockTile, HorizontalWall, etc.)
 		public static bool IsBlockingCoord(TilemapLevel tilemap, int posX, int posY, DirCardinal dir) {
-			ushort gridX = (ushort)(posX / (byte)TilemapEnum.TileWidth);
-			ushort gridY = (ushort)(posY / (byte)TilemapEnum.TileHeight);
+			short gridX = (short)(posX / (byte)TilemapEnum.TileWidth);
+			short gridY = (short)(posY / (byte)TilemapEnum.TileHeight);
 			return CollideTile.IsBlockingSquare(tilemap, gridX, gridY, dir);
 		}
 
 		// Check if Grid Square is a Blocking Square (Ground, BlockTile, HorizontalWall, etc.)
-		public static bool IsBlockingSquare(TilemapLevel tilemap, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool IsBlockingSquare(TilemapLevel tilemap, short gridX, short gridY, DirCardinal dir) {
 
 			// Verify that a tile exists at the given location:
 			byte[] tileData = tilemap.GetTileDataAtGrid(gridX, gridY);
@@ -60,7 +60,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Perform Collision Detection against a designated Grid Square
-		public static bool RunGridTest(GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public static bool RunGridTest(GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Verify that a tile exists at the given location:
 			byte[] tileData = actor.room.tilemap.GetTileDataAtGrid(gridX, gridY);
@@ -84,10 +84,10 @@ namespace Nexus.GameEngine {
 			if(actor.Activity <= Activity.NoTileCollide) { return; }
 
 			// Determine Tiles Potentially Touched
-			ushort gridX = actor.GridX;
-			ushort gridY = actor.GridY;
-			ushort gridX2 = actor.GridX2;
-			ushort gridY2 = actor.GridY2;
+			short gridX = actor.GridX;
+			short gridY = actor.GridY;
+			short gridX2 = actor.GridX2;
+			short gridY2 = actor.GridY2;
 
 			bool vertOnly = gridX == gridX2;
 

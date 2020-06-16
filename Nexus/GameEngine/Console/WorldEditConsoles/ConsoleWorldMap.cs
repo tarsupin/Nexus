@@ -142,7 +142,7 @@ namespace Nexus.GameEngine {
 
 						// If the console was activated:
 						if(ConsoleTrack.activate) {
-							uint coordInt = Coords.MapToInt((uint)gridX, (uint)gridY);
+							int coordInt = Coords.MapToInt(gridX, gridY);
 							zone.nodes[coordInt.ToString()] = levelId;
 							return;
 						}

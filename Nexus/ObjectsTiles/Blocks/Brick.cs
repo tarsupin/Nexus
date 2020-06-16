@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			this.description = "Nudged from underneath. Can be destroyed with Spikey Hat.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Projectile) {
 				return base.RunImpact(room, actor, gridX, gridY, dir);
@@ -62,7 +62,7 @@ namespace Nexus.Objects {
 			return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 
-		public void DestroyBrick(RoomScene room, ushort gridX, ushort gridY) {
+		public void DestroyBrick(RoomScene room, short gridX, short gridY) {
 
 			// Display Particle Effect
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
@@ -74,7 +74,7 @@ namespace Nexus.Objects {
 		}
 
 		// Trigger Event: Swap between invisible and visible.
-		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0) {
+		public override bool TriggerEvent(RoomScene room, short gridX, short gridY, short val1 = 0, short val2 = 0) {
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			if(subType >= 10) {

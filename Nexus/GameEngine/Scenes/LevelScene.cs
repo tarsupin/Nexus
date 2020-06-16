@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		public RoomScene[] rooms;
 
 		// Trackers
-		public uint levelResetFrame = 0;
+		public int levelResetFrame = 0;
 
 		public LevelScene() : base() {
 

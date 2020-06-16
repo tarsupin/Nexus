@@ -17,12 +17,12 @@ namespace Nexus.GameEngine {
 		// Retrieve the object ID of a GameObject that is within the area designated.
 		// You can supply an existing ID to scan for IDs above a previous value.
 		// For example, if you retrieved ID 10 from this, you could search again with ID 10 as a minimum, and it will only return newer objects.
-		// uint enemyFoundId = CollideRect.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindObjectWithinArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
-			uint right = posX + width;
-			uint bottom = posY + height;
+		// int enemyFoundId = CollideRect.FindObjectWithinArea( objectList, 480, 96, 48, 48, minimumId );
+		public static int FindObjectWithinArea(Dictionary<int, GameObject> objectList, int posX, int posY, short width, short height, short minId = 0) {
+			int right = posX + width;
+			int bottom = posY + height;
 
-			foreach(KeyValuePair<uint, GameObject> actorEntry in objectList) {
+			foreach(KeyValuePair<int, GameObject> actorEntry in objectList) {
 				GameObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
@@ -38,12 +38,12 @@ namespace Nexus.GameEngine {
 		}
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
-		// uint enemyFoundId = CollideRect.FindObjectTouchingArea( objectList, 480, 96, 48, 48, minimumId );
-		public static uint FindOneObjectTouchingArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
-			uint right = posX + width;
-			uint bottom = posY + height;
+		// int enemyFoundId = CollideRect.FindObjectTouchingArea( objectList, 480, 96, 48, 48, minimumId );
+		public static int FindOneObjectTouchingArea(Dictionary<int, GameObject> objectList, int posX, int posY, short width, short height, int minId = 0) {
+			int right = posX + width;
+			int bottom = posY + height;
 
-			foreach(KeyValuePair<uint, GameObject> actorEntry in objectList) {
+			foreach(KeyValuePair<int, GameObject> actorEntry in objectList) {
 				GameObject actor = actorEntry.Value;
 
 				// If the Actor is within the bounds described.
@@ -59,13 +59,13 @@ namespace Nexus.GameEngine {
 		}
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
-		// uint enemyFoundId = CollideRect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
-		public static List<GameObject> FindAllObjectsTouchingArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height) {
+		// int enemyFoundId = CollideRect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
+		public static List<GameObject> FindAllObjectsTouchingArea(Dictionary<int, GameObject> objectList, int posX, int posY, short width, short height) {
 			List<GameObject> objList = new List<GameObject>();
-			uint right = posX + width;
-			uint bottom = posY + height;
+			int right = posX + width;
+			int bottom = posY + height;
 
-			foreach(KeyValuePair<uint, GameObject> actorEntry in objectList) {
+			foreach(KeyValuePair<int, GameObject> actorEntry in objectList) {
 				GameObject actor = actorEntry.Value;
 
 				// Include the actor if it is within the bounds described.

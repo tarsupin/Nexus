@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.description = "A background landscape that acts like a platform.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Actor must cross the DOWN threshold for this ledge; otherwise, it shouldn't compute any collision.
 			if(!actor.physics.CrossedThresholdDown(gridY * (byte)TilemapEnum.TileHeight)) { return false;  }

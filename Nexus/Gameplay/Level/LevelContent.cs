@@ -128,19 +128,19 @@ namespace Nexus.Gameplay {
 			return null;
 		}
 
-		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+		public static bool VerifyTiles(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY) {
 			if(!layerData.ContainsKey(gridY.ToString())) { return false; }
 			if(!layerData[gridY.ToString()].ContainsKey(gridX.ToString())) { return false; }
 			return true;
 		}
 
-		public static byte[] GetTileData(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+		public static byte[] GetTileData(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY) {
 			if(!LevelContent.VerifyTiles(layerData, gridX, gridY)) { return null; }
 			ArrayList tileList = layerData[gridY.ToString()][gridX.ToString()];
 			return new byte[] { byte.Parse(tileList[0].ToString()), byte.Parse(tileList[1].ToString()) };
 		}
 
-		public static ArrayList GetTileDataWithParams(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY) {
+		public static ArrayList GetTileDataWithParams(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY) {
 			if(!LevelContent.VerifyTiles(layerData, gridX, gridY)) { return null; }
 			ArrayList tileObj = layerData[gridY.ToString()][gridX.ToString()];
 
@@ -157,7 +157,7 @@ namespace Nexus.Gameplay {
 			return tileObj;
 		}
 
-		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
 
 			string xStr = gridX.ToString();
 			string yStr = gridY.ToString();
@@ -179,7 +179,7 @@ namespace Nexus.Gameplay {
 			//}
 		}
 
-		public void DeleteTile(string roomID, ushort gridX, ushort gridY) {
+		public void DeleteTile(string roomID, short gridX, short gridY) {
 			RoomFormat roomData = this.data.rooms[roomID];
 
 			string strX = gridX.ToString();
@@ -191,7 +191,7 @@ namespace Nexus.Gameplay {
 			if(roomData.bg.ContainsKey(strY)) { roomData.bg[strY].Remove(strX); }
 		}
 
-		public void DeleteTileOnLayer(LayerEnum layerEnum, string roomID, ushort gridX, ushort gridY) {
+		public void DeleteTileOnLayer(LayerEnum layerEnum, string roomID, short gridX, short gridY) {
 			RoomFormat roomData = this.data.rooms[roomID];
 
 			string strX = gridX.ToString();

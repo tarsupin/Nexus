@@ -139,7 +139,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)GoodieSubType.Blood] = "Unknown.";
 		}
 
-		public override void Collect(RoomScene room, Character character, ushort gridX, ushort gridY) {
+		public override void Collect(RoomScene room, Character character, short gridX, short gridY) {
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			switch(subType) {
@@ -273,7 +273,7 @@ namespace Nexus.Objects {
 			Systems.sounds.shield.Play();
 		}
 		
-		private void GetInvincible(Character character, uint frames) {
+		private void GetInvincible(Character character, int frames) {
 			character.wounds.SetInvincible(frames);
 			//Systems.sounds.collectSubtle.Play();
 			Systems.sounds.potion.Play();
@@ -286,10 +286,10 @@ namespace Nexus.Objects {
 			if(!isAdditive) {
 
 				// Update the Timer
-				uint origFramesLeft = levelState.FramesRemaining;
+				int origFramesLeft = levelState.FramesRemaining;
 				levelState.timeShift = 0;
-				uint trueTimeLeft = levelState.FramesRemaining;
-				levelState.timeShift = (uint)(-trueTimeLeft + (timeVal * 60));
+				int trueTimeLeft = levelState.FramesRemaining;
+				levelState.timeShift = -trueTimeLeft + (timeVal * 60);
 
 				// Sound of collectable is based on whether it was positive or negative.
 				if(origFramesLeft > levelState.FramesRemaining) {
@@ -301,7 +301,7 @@ namespace Nexus.Objects {
 
 			// If the Collectable SETS the timer, rather than ADDS.
 			else {
-				levelState.timeShift += (uint)(timeVal * 60);
+				levelState.timeShift += timeVal * 60;
 				Systems.sounds.timer2.Play();
 			}
 		}

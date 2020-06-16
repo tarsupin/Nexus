@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 
 		public LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
 		public sbyte lineNum = 0;
-		public uint backspaceFrame = 0;
+		public int backspaceFrame = 0;
 		public bool enabled = true;			// Set to false when you're in a live game, or where you shouldn't be allowed to use console.
 		public bool beenOpened = false;		// Set to true on the first open.
 

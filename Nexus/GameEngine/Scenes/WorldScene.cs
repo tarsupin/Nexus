@@ -256,7 +256,7 @@ namespace Nexus.GameEngine {
 			if(isBlocking) {
 
 				// Identify Level Data at this node:
-				uint coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+				int coordId = Coords.MapToInt(this.character.curX, this.character.curY);
 				string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
 
 				// Check if this level has been completed (or isn't marked as one)
@@ -286,14 +286,14 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public void ActivateWarp( byte zoneId, ushort warpId ) {
+		public void ActivateWarp( byte zoneId, short warpId ) {
 
 			// Ignore the warp if it goes to its own zone.
 			if(zoneId == this.campaign.zoneId) { return; }
 
 			// TODO: FINISH
 			// Find the warp in the designated zone:
-			//ushort nodeId = this.zones.();
+			//short nodeId = this.zones.();
 		}
 
 		public bool ActivateNode() {
@@ -310,7 +310,7 @@ namespace Nexus.GameEngine {
 			if(!isPlayableNode) { return false; }
 
 			// Identify Level Data at this node:
-			uint coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+			int coordId = Coords.MapToInt(this.character.curX, this.character.curY);
 			string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
 
 			// If the level is valid, we can enter the level.

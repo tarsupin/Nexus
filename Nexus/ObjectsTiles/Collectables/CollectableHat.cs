@@ -38,7 +38,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)HatSubType.RandomPowerHat] = "Gain a random hat.";
 		}
 
-		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
+		public override void Collect( RoomScene room, Character character, short gridX, short gridY ) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			Hat.AssignToCharacter(character, subType, true);

@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			this.description = "Toggles colors.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Get the Direction of an Inner Boundary
 			DirCardinal newDir = TileSolidImpact.RunInnerImpact(actor, gridX * (byte)TilemapEnum.TileWidth, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight + 32, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
@@ -85,7 +85,7 @@ namespace Nexus.Objects {
 		}
 
 		// Pop-Up the Timers that have expired their particular count.
-		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0) {
+		public override bool TriggerEvent(RoomScene room, short gridX, short gridY, short val1 = 0, short val2 = 0) {
 
 			// If Button is Blue-Red Switch
 			if(this.toggleBR) {

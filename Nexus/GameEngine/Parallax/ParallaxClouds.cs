@@ -22,7 +22,7 @@ namespace Nexus.Engine {
 			ParallaxClouds.AddCloud(pxHandler, "BG/CloudBlue3", 0.6f, 216);
 		}
 
-		public static void AddCloud( ParallaxHandler pxHandler, string spriteName, float parallaxDist, ushort width ) {
+		public static void AddCloud( ParallaxHandler pxHandler, string spriteName, float parallaxDist, short width ) {
 			float xVel = CalcRandom.FloatBetween(-0.5f, 0.5f) * parallaxDist; // Randomize X-Velocity
 			pxHandler.AddLoopingObject(spriteName, parallaxDist, ParallaxLoopFlag.Skyline, ParallaxLoopFlag.Top, xVel, width);
 		}

@@ -18,8 +18,8 @@ namespace Nexus.GameEngine {
 		private ArrayList[,,] gridTrack = new ArrayList[4, FuncToolBlueprint.BPMaxWidth, FuncToolBlueprint.BPMaxHeight];
 
 		private bool isActive;				// TRUE if the blueprint is active.
-		private ushort blueprintHeight;		// Width of the blueprint.
-		private ushort blueprintWidth;		// Height of the blueprint.
+		private short blueprintHeight;		// Width of the blueprint.
+		private short blueprintWidth;		// Height of the blueprint.
 		private sbyte xOffset;				// X-offset to drag the blueprint at, respective to the cursor.
 		private sbyte yOffset;				// Y-offset to drag the blueprint at, respective to the cursor.
 
@@ -29,15 +29,15 @@ namespace Nexus.GameEngine {
 			this.description = "Click to place the selected blueprint. Cancel with delete or by changing tools.";
 		}
 
-		public void PrepareBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart, ushort xEnd, ushort yEnd, sbyte xOffset = 0, sbyte yOffset = 0) {
+		public void PrepareBlueprint(EditorRoomScene scene, short xStart, short yStart, short xEnd, short yEnd, sbyte xOffset = 0, sbyte yOffset = 0) {
 			
 			this.isActive = true;
 
-			ushort left = xStart <= xEnd ? xStart : xEnd;
-			ushort top = yStart <= yEnd ? yStart : yEnd;
+			short left = xStart <= xEnd ? xStart : xEnd;
+			short top = yStart <= yEnd ? yStart : yEnd;
 
-			this.blueprintWidth = (ushort)(Math.Abs(xEnd - xStart) + 1);
-			this.blueprintHeight = (ushort)(Math.Abs(yEnd - yStart) + 1);
+			this.blueprintWidth = (short)(Math.Abs(xEnd - xStart) + 1);
+			this.blueprintHeight = (short)(Math.Abs(yEnd - yStart) + 1);
 			this.xOffset = xOffset;
 			this.yOffset = yOffset;
 
@@ -49,10 +49,10 @@ namespace Nexus.GameEngine {
 			var fgData = roomData.fg;
 
 			// Loop through the blueprint:
-			for(ushort y = 0; y < this.blueprintHeight; y++) {
+			for(short y = 0; y < this.blueprintHeight; y++) {
 				string yPos = (top + y).ToString();
 
-				for(ushort x = 0; x < this.blueprintWidth; x++) {
+				for(short x = 0; x < this.blueprintWidth; x++) {
 					string xPos = (left + x).ToString();
 
 					this.AddToBlueprintTile(mainData, LayerEnum.main, x, y, xPos, yPos);
@@ -63,7 +63,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void AddToBlueprintTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort x, ushort y, string xPos, string yPos) {
+		public void AddToBlueprintTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, short x, short y, string xPos, string yPos) {
 
 			if(!layerData.ContainsKey(yPos) || !layerData[yPos].ContainsKey(xPos)) {
 				this.gridTrack[(byte) layerEnum, y, x] = null;
@@ -101,11 +101,11 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void PasteBlueprint(EditorRoomScene scene, ushort xStart, ushort yStart) {
+		public void PasteBlueprint(EditorRoomScene scene, short xStart, short yStart) {
 			if(this.isActive == false) { return; }
 
-			xStart = (ushort) (xStart + this.xOffset < 0 ? 0 : xStart + this.xOffset);
-			yStart = (ushort) (yStart + this.yOffset < 0 ? 0 : yStart + this.yOffset);
+			xStart = (short) (xStart + this.xOffset < 0 ? 0 : xStart + this.xOffset);
+			yStart = (short) (yStart + this.yOffset < 0 ? 0 : yStart + this.yOffset);
 
 			RoomFormat roomData = scene.levelContent.data.rooms[scene.roomID];
 
@@ -115,8 +115,8 @@ namespace Nexus.GameEngine {
 			var fgData = roomData.fg;
 
 			// Loop through the blueprint:
-			for(ushort y = 0; y < this.blueprintHeight; y++) {
-				for(ushort x = 0; x < this.blueprintWidth; x++) {
+			for(short y = 0; y < this.blueprintHeight; y++) {
+				for(short x = 0; x < this.blueprintWidth; x++) {
 					this.PasteBlueprintByLayer(scene, objData, LayerEnum.obj, x, y, xStart, yStart);
 					this.PasteBlueprintByLayer(scene, mainData, LayerEnum.main, x, y, xStart, yStart);
 					this.PasteBlueprintByLayer(scene, bgData, LayerEnum.bg, x, y, xStart, yStart);
@@ -125,7 +125,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void PasteBlueprintByLayer(EditorRoomScene scene, Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort x, ushort y, ushort xStart, ushort yStart) {
+		public void PasteBlueprintByLayer(EditorRoomScene scene, Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, short x, short y, short xStart, short yStart) {
 
 			// Get the value stored in this blueprint at correct tile position:
 			ArrayList bpData = this.gridTrack[(byte) layerEnum, y, x];
@@ -134,20 +134,20 @@ namespace Nexus.GameEngine {
 
 			// Copy the blueprint at correct tile position in level editor:
 			if(bpData.Count > 2) {
-				scene.PlaceTile(layerData, layerEnum, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
+				scene.PlaceTile(layerData, layerEnum, (short)(xStart + x), (short)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
 			} else {
-				scene.PlaceTile(layerData, layerEnum, (ushort)(xStart + x), (ushort)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
+				scene.PlaceTile(layerData, layerEnum, (short)(xStart + x), (short)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
 			}
 		}
 
 		public override void DrawFuncTool() {
 
-			ushort xStart = (ushort)(Cursor.TileGridX + this.xOffset < 0 ? 0 : Cursor.TileGridX + this.xOffset);
-			ushort yStart = (ushort)(Cursor.TileGridY + this.yOffset < 0 ? 0 : Cursor.TileGridY + this.yOffset);
+			short xStart = (short)(Cursor.TileGridX + this.xOffset < 0 ? 0 : Cursor.TileGridX + this.xOffset);
+			short yStart = (short)(Cursor.TileGridY + this.yOffset < 0 ? 0 : Cursor.TileGridY + this.yOffset);
 
 			// Loop through the blueprint:
-			for(ushort y = 0; y < this.blueprintHeight; y++) {
-				for(ushort x = 0; x < this.blueprintWidth; x++) {
+			for(short y = 0; y < this.blueprintHeight; y++) {
+				for(short x = 0; x < this.blueprintWidth; x++) {
 					DrawBlueprintByLayer(LayerEnum.bg, x, y, xStart, yStart);
 					DrawBlueprintByLayer(LayerEnum.main, x, y, xStart, yStart);
 					DrawBlueprintByLayer(LayerEnum.obj, x, y, xStart, yStart);
@@ -159,7 +159,7 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(xStart * (byte)TilemapEnum.TileWidth - Systems.camera.posX, yStart * (byte)TilemapEnum.TileHeight - Systems.camera.posY, this.blueprintWidth * (byte)TilemapEnum.TileWidth, this.blueprintHeight * (byte)TilemapEnum.TileHeight), Color.White * 0.25f);
 		}
 
-		public void DrawBlueprintByLayer(LayerEnum layerEnum, ushort x, ushort y, ushort xStart, ushort yStart) {
+		public void DrawBlueprintByLayer(LayerEnum layerEnum, short x, short y, short xStart, short yStart) {
 
 			// Get the value stored in this blueprint at correct tile position:
 			ArrayList bpData = this.gridTrack[(byte) layerEnum, y, x];

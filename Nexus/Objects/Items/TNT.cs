@@ -41,7 +41,7 @@ namespace Nexus.Objects {
 			Systems.sounds.explosion.Play();
 
 			List<GameObject> objects = CollideRect.FindAllObjectsTouchingArea(
-				room.objects[(byte)LoadOrder.Enemy], (uint)posX, (uint)posY, (ushort)width, (ushort)height
+				room.objects[(byte)LoadOrder.Enemy], posX, posY, width, height
 			);
 
 			// Loop through Enemies and destroy any that can be destroyed by TNT.

@@ -11,8 +11,8 @@ namespace Nexus.Objects {
 	public class SportBall : Item {
 
 		private float rotation = 0;
-		private uint lastTouchFrame = 0;
-		private uint lastTouchId = 0;
+		private int lastTouchFrame = 0;
+		private int lastTouchId = 0;
 		private FInt bounceX = FInt.Create(0.95f);
 		private FInt bounceY = FInt.Create(0.8f);
 		private FInt decelGround = FInt.Create(0.95f);

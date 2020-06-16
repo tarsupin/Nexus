@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.ToggleBlock];
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 			if(!ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) { return false; }
 
 			// Actor must cross the LEFT threshold for this ledge; otherwise, it shouldn't compute any collision.

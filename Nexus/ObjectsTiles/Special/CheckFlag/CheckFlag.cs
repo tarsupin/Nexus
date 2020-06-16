@@ -30,7 +30,7 @@ namespace Nexus.Objects {
 			// Needs to have a RunTick() function that detects when you're vertically crossing it.
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 			
 			// Characters interact with CheckFlag:
 			if(actor is Character) {
@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		protected void TouchFlag( RoomScene room, Character character, uint gridId ) {
+		protected void TouchFlag( RoomScene room, Character character, int gridId ) {
 
 			// Don't activate the flag if it's already been activated.
 			if(this.activated) { return; }

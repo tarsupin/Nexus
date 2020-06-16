@@ -31,8 +31,8 @@ namespace Nexus.GameEngine {
 			if(split.Length != 2 || split[0].Length == 0 || split[1].Length == 0) { return; }
 
 			// Identify the Coordinates
-			ushort xCoord = ushort.Parse(split[0]);
-			ushort yCoord = ushort.Parse(split[1]);
+			short xCoord = short.Parse(split[0]);
+			short yCoord = short.Parse(split[1]);
 
 			// Make sure the Coordinates are within the grid.
 			EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;

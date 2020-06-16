@@ -6,8 +6,8 @@ namespace Nexus.Engine {
 
 		public bool toggleBR { get; protected set; }
 		public bool toggleGY { get; protected set; }
-		public uint timerBREnd { get; protected set; }
-		public uint timerGYEnd { get; protected set; }
+		public int timerBREnd { get; protected set; }
+		public int timerGYEnd { get; protected set; }
 
 		public ColorToggles() {
 			this.ResetColorToggles();
@@ -28,7 +28,7 @@ namespace Nexus.Engine {
 		}
 
 		public void RunColorTimers() {
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 
 			// BR Timer
 			if(this.timerBREnd > frame) {

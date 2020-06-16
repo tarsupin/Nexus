@@ -18,11 +18,11 @@ namespace Nexus.Engine {
 		public static int MouseX { get { return Cursor.mouseState.X; } }
 		public static int MouseY { get { return Cursor.mouseState.Y; } }
 
-		public static ushort TileGridX { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
-		public static ushort TileGridY { get { return (ushort) Snap.GridFloor((ushort)TilemapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
+		public static short TileGridX { get { return (short) Snap.GridFloor((short)TilemapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
+		public static short TileGridY { get { return (short) Snap.GridFloor((short)TilemapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
 
-		public static ushort MiniGridX { get { return (ushort) Snap.GridFloor((ushort)WorldmapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
-		public static ushort MiniGridY { get { return (ushort) Snap.GridFloor((ushort)WorldmapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
+		public static short MiniGridX { get { return (short) Snap.GridFloor((short)WorldmapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
+		public static short MiniGridY { get { return (short) Snap.GridFloor((short)WorldmapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
 
 		public static MouseDownState LeftMouseState;		// NOTE: Can use mouseState.LeftButton if you only need ON/OFF.
 		public static MouseDownState RightMouseState;       // NOTE: Can use mouseState.RightButton if you only need ON/OFF.

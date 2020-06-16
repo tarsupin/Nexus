@@ -30,11 +30,10 @@ namespace Nexus.GameEngine {
 
 		public Activity Activity { get; protected set; }
 
-		// TODO: -- last character touch direction; what relelvant for?
 		// TODO: TrackInstructions (rules for dealing with tracks; not everything needs this, but... ???)
 
 		// Metadata
-		public uint id { get; protected set; }
+		public int id { get; protected set; }
 		public IMetaData Meta { get; protected set; }
 		public RoomScene room;
 
@@ -104,11 +103,11 @@ namespace Nexus.GameEngine {
 		// Run this method when the actor's .state has changed. This may affect sprites, animations, or other custom behaviors.
 		public virtual void OnStateChange() {}
 
-		public ushort GridX { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Left) / (byte)TilemapEnum.TileWidth)); } }
-		public ushort GridY { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Top) / (byte)TilemapEnum.TileHeight)); } }
+		public short GridX { get { return (short)Math.Floor((double)((this.posX + this.bounds.Left) / (byte)TilemapEnum.TileWidth)); } }
+		public short GridY { get { return (short)Math.Floor((double)((this.posY + this.bounds.Top) / (byte)TilemapEnum.TileHeight)); } }
 
-		public ushort GridX2 { get { return (ushort)Math.Floor((double)((this.posX + this.bounds.Right -1) / (byte)TilemapEnum.TileWidth)); } }
-		public ushort GridY2 { get { return (ushort)Math.Floor((double)((this.posY + this.bounds.Bottom -1) / (byte)TilemapEnum.TileHeight)); } }
+		public short GridX2 { get { return (short)Math.Floor((double)((this.posX + this.bounds.Right -1) / (byte)TilemapEnum.TileWidth)); } }
+		public short GridY2 { get { return (short)Math.Floor((double)((this.posY + this.bounds.Bottom -1) / (byte)TilemapEnum.TileHeight)); } }
 
 		public void SetSpriteName(string spriteName) {
 			this.SpriteName = spriteName;

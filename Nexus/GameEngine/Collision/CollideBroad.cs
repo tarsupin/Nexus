@@ -48,7 +48,7 @@ namespace Nexus.GameEngine {
 			this.comparePos = new BroadComparePos();
 		}
 
-		public void RunBroadSequence( byte roomId, Dictionary<byte, Dictionary<uint, GameObject>> objects) {
+		public void RunBroadSequence( byte roomId, Dictionary<byte, Dictionary<int, GameObject>> objects) {
 			this.objectList[roomId].Clear();
 
 			CollideBroad.SweepObjectGroup(this.objectList[roomId], objects[(byte)LoadOrder.Platform]);
@@ -64,7 +64,7 @@ namespace Nexus.GameEngine {
 			CollideBroad.PassToNarrow(this.objectList[roomId]);
 		}
 
-		private static void SweepObjectGroup( List<GameObject> objList, Dictionary<uint, GameObject> objects ) {
+		private static void SweepObjectGroup( List<GameObject> objList, Dictionary<int, GameObject> objects ) {
 
 			// Loop through every object, add it to an array.
 			foreach( var obj in objects ) {
@@ -77,17 +77,17 @@ namespace Nexus.GameEngine {
 		}
 
 		private static void PassToNarrow( List<GameObject> objList ) {
-			ushort count = (ushort) objList.Count;
+			short count = (short) objList.Count;
 
 			// Loop through every object, starting from left.
-			for( ushort left = 0; left < count; left++ ) {
+			for( short left = 0; left < count; left++ ) {
 				GameObject obj = objList[left];
 
 				// Determine the right-boundary of the LEFT CURSOR object.
 				int rBound = obj.posX + obj.bounds.Right;
 
 				// Assign the RIGHT CURSOR as one to the right of LEFT CURSOR.
-				ushort right = (ushort)(left + 1);
+				short right = (short)(left + 1);
 
 				// Compare the LEFT CURSOR to objects to its right until a short-circuit is found.
 				while( right < count ) {

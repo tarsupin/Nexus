@@ -28,14 +28,14 @@ namespace Nexus.Engine {
 	public class UIComponent {
 
 		// Static Settings
-		private static uint _nextId = 0;
-		public static uint NextID { get { UIComponent._nextId++; return UIComponent._nextId; } }
+		private static int _nextId = 0;
+		public static int NextID { get { UIComponent._nextId++; return UIComponent._nextId; } }
 
 		public static UIComponent ComponentWithFocus;       // Component with current focus.
 		public static UIComponent ComponentSelected;        // Component that is currently "selected" (like a button)
 
 		// Identification
-		public uint id;
+		public int id;
 
 		// Parent & Children
 		public UIComponent Parent { get; protected set; }

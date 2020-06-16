@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
-		public bool hasSetup = false;       // If TRUE, tile runs SetupTile(RoomScene room, ushort gridX, ushort gridY) on placement.
+		public bool hasSetup = false;       // If TRUE, tile runs SetupTile(RoomScene room, short gridX, short gridY) on placement.
 		public Params moveParamSet;
 		public Params actParamSet;
 
@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Return false if (and/or when) the event should no longer be looped in the QueueEvent class for a given beatMod.
-		public virtual bool TriggerEvent( RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0 ) {
+		public virtual bool TriggerEvent( RoomScene room, short gridX, short gridY, short val1 = 0, short val2 = 0 ) {
 			return false; // Removes from QueueEventClass
 		}
 
@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 			//this.atlas.Draw(texture, posX, posY);
 		}
 
-		public virtual bool RunImpact( RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir ) {
+		public virtual bool RunImpact( RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir ) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			return true;
 		}

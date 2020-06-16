@@ -18,7 +18,7 @@ namespace Nexus.Engine {
 	public class ParallaxLoopers {
 		public float x;
 		public float y;
-		public ushort width;
+		public short width;
 		public float parallaxDist;	// Parallax Z-Dist & Speed. (0 = ignores camera, 0.05 = far distance, 0.6 = close and fast, 1 = fast as camera)
 		public float xVelocity;		// Natural Speed; how fast it moves regardless of camera movement.
 		public string spriteName;	// Name of the sprite to draw.
@@ -30,12 +30,12 @@ namespace Nexus.Engine {
 		private readonly Atlas atlas;
 		public List<ParallaxLoopers> loopObjects;
 
-		public ushort totalHeight;				// Total height of the parallax.
-		public ushort skyLine;					// Reference point for Y-axis; where the high-area skyline starts (e.g. clouds).
-		public ushort horizon;					// Reference point for Y-axis; where the horizon starts.
-		public ushort groundLine;				// Reference point for Y-axis; where the ground "starts" for drawing purposes.
+		public short totalHeight;				// Total height of the parallax.
+		public short skyLine;					// Reference point for Y-axis; where the high-area skyline starts (e.g. clouds).
+		public short horizon;					// Reference point for Y-axis; where the horizon starts.
+		public short groundLine;				// Reference point for Y-axis; where the ground "starts" for drawing purposes.
 
-		public ParallaxHandler( RoomScene room, Atlas atlas, ushort groundLine, ushort horizon, ushort skyLine ) {
+		public ParallaxHandler( RoomScene room, Atlas atlas, short groundLine, short horizon, short skyLine ) {
 			this.room = room;
 			this.atlas = atlas;
 			this.groundLine = groundLine;
@@ -48,7 +48,7 @@ namespace Nexus.Engine {
 
 		}
 
-		public void AddLoopingObject( string spriteName, float parallaxDist, ParallaxLoopFlag lowFlag, ParallaxLoopFlag highFlag, float xVelocity, ushort width ) {
+		public void AddLoopingObject( string spriteName, float parallaxDist, ParallaxLoopFlag lowFlag, ParallaxLoopFlag highFlag, float xVelocity, short width ) {
 
 			// Randomize X and Y starting position if they're unassigned.
 			float x = CalcRandom.IntBetween(-50, Systems.screen.windowWidth - 20);
@@ -74,7 +74,7 @@ namespace Nexus.Engine {
 			this.AddLoopingObject(spriteName, parallaxDist, x, y, xVelocity, width);
 		}
 
-		public void AddLoopingObject( string spriteName, float parallaxDist, float x, float y, float xVelocity, ushort width ) {
+		public void AddLoopingObject( string spriteName, float parallaxDist, float x, float y, float xVelocity, short width ) {
 
 			ParallaxLoopers item = new ParallaxLoopers() {
 				x = x,
@@ -90,7 +90,7 @@ namespace Nexus.Engine {
 
 		public void RunParallaxTick() {
 			Camera camera = Systems.camera;
-			ushort camWidth = camera.width;
+			short camWidth = camera.width;
 			int camX = camera.posX;
 			int camY = camera.posY;
 
@@ -115,7 +115,7 @@ namespace Nexus.Engine {
 			Camera camera = Systems.camera;
 			int camX = camera.posX;
 			int camY = camera.posY;
-			ushort windowWidth = Systems.screen.windowWidth;
+			short windowWidth = Systems.screen.windowWidth;
 
 			// Draw all visible parallax objects:
 			foreach( ParallaxLoopers loopObject in this.loopObjects ) {

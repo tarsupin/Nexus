@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			this.actParamSet = Params.ParamMap["FireSpit"];
 		}
 
-		public void SetupTile(RoomScene room, ushort gridX, ushort gridY) {
+		public void SetupTile(RoomScene room, short gridX, short gridY) {
 
 			// Identify the subtype and params for this tile.
 			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 			this.AddNextAttackCycle(room, paramList, gridX, gridY);
 		}
 
-		private void AddNextAttackCycle(RoomScene room, Dictionary<string, short> paramList, ushort gridX, ushort gridY) {
+		private void AddNextAttackCycle(RoomScene room, Dictionary<string, short> paramList, short gridX, short gridY) {
 
 			// Determine How Frequently this effect runs:
 			short cycle = paramList.ContainsKey("cycle") ? paramList["cycle"] : ParamsAttack.DefaultCycle;
@@ -37,11 +37,11 @@ namespace Nexus.Objects {
 			int nextFrame = ((int)Math.Floor((double)((Systems.timer.Frame) / cycle) + 1)) * cycle + offset;
 
 			// Add the Recurring Event
-			room.queueEvents.AddEvent((uint) nextFrame, this.tileId, (short)gridX, (short)gridY);
+			room.queueEvents.AddEvent(nextFrame, this.tileId, (short)gridX, (short)gridY);
 		}
 
 		// Only return false if (and/or when) the event should no longer be looped in the QueueEvent class.
-		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short val1 = 0, short val2 = 0) {
+		public override bool TriggerEvent(RoomScene room, short gridX, short gridY, short val1 = 0, short val2 = 0) {
 
 			byte[] tileData = room.tilemap.GetTileDataAtGrid(gridX, gridY);
 			if(tileData == null || tileData[0] != tileId) { return false; }
@@ -95,7 +95,7 @@ namespace Nexus.Objects {
 			return true;
 		}
 
-		public void FireAttack(RoomScene room, ushort gridX, ushort gridY, short attX, short attY, float gravity) {
+		public void FireAttack(RoomScene room, short gridX, short gridY, short attX, short attY, float gravity) {
 			ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Fire, FVector.Create(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - 10), FVector.Create(attX, attY));
 			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 			projectile.physics.SetGravity(FInt.Create(gravity * 0.35));

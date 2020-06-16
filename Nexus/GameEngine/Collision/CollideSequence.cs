@@ -9,21 +9,21 @@ namespace Nexus.GameEngine {
 		private readonly RoomScene room;
 		private readonly CollideBroad broad;
 
-		public ArrayPool<uint> pool;
+		public ArrayPool<int> pool;
 
 		public CollideSequence(RoomScene room) {
 			this.room = room;
 			this.broad = new CollideBroad();
 
 			// Build the Collision Pool
-			//this.pool = ArrayPool<uint>.Shared;
+			//this.pool = ArrayPool<int>.Shared;
 		}
 
 		// 1. Get all game objects from the room.
 		// 2. Send to CollideBroad component to be sorted.
 		public void RunCollisionSequence() {
 
-			Dictionary<byte, Dictionary<uint, GameObject>> objects = this.room.objects;
+			Dictionary<byte, Dictionary<int, GameObject>> objects = this.room.objects;
 
 			// Run the Broad Sequence to build our array.
 			this.broad.RunBroadSequence( 0, objects );

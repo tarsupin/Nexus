@@ -18,7 +18,7 @@ namespace Nexus.Objects {
 			this.description = "A platform that never moves.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Actor must cross the UP threshold for this ledge; otherwise, it shouldn't compute any collision.
 			if(!actor.physics.CrossedThresholdUp(gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight)) { return false; }

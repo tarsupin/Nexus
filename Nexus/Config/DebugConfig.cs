@@ -31,7 +31,7 @@ namespace Nexus.Config {
 		public static DebugTickSpeed TickSpeed = DebugTickSpeed.StandardSpeed;
 
 		// Tracking Values
-		public static uint trackTicks = 0;
+		public static int trackTicks = 0;
 
 		public static void ToggleDebugFrames() {
 

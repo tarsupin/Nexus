@@ -12,8 +12,8 @@ namespace Nexus.ObjectComponents {
 		protected readonly FInt speedY;
 
 		public byte countdown;			// Number of seconds until the motion will collapse.
-		public uint startFrame;			// The frame at which the motion begins (timer.frame).
-		public uint endFrame;			// The frame at which the countdown concludes.
+		public int startFrame;			// The frame at which the motion begins (timer.frame).
+		public int endFrame;			// The frame at which the countdown concludes.
 
 		protected bool isFalling;		// TRUE means the motion is falling (e.g. like falling platforms).
 
@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 				this.physics.velocity.Y = this.speedY;
 
 				if(this.countdown != 0) {
-					this.endFrame = (uint)(this.startFrame + (this.countdown * 60));
+					this.endFrame = this.startFrame + (this.countdown * 60);
 				}
 			}
 		}

@@ -9,8 +9,8 @@ namespace Nexus.Gameplay {
 	public class FlagJson {
 		public bool active;             // True if flag is marked as active.
 		public byte roomId;             // # of the room (0 to 9)
-		public ushort gridX;            // The GridX position of the flag.
-		public ushort gridY;			// The GridY position of the flag.
+		public short gridX;            // The GridX position of the flag.
+		public short gridY;			// The GridY position of the flag.
 	}
 
 	public class LevelJson {
@@ -20,11 +20,11 @@ namespace Nexus.Gameplay {
 		public byte roomId;             // Room ID (0 to 9)
 
 		// Tracking
-		public ushort coins;            // # of coins currently gathered.
+		public short coins;            // # of coins currently gathered.
 
 		// Timer
-		public uint frameStarted;		// The frame when the timer started.
-		public uint timeShift;			// The number of frames added or removed from the timer (for when timer collectables are acquired).
+		public int frameStarted;		// The frame when the timer started.
+		public int timeShift;			// The number of frames added or removed from the timer (for when timer collectables are acquired).
 
 		// Locations
 		public FlagJson checkpoint;
@@ -79,10 +79,10 @@ namespace Nexus.Gameplay {
 		}
 
 		// Time Elapsed and Remaining
-		public uint FramesElapsed { get { return this.timer.Frame - this.frameStarted; } }
-		public ushort TimeElapsed { get { return (ushort) Math.Ceiling((double) this.FramesElapsed / 60); } }
-		public uint FramesRemaining { get { return (300 * 60) + this.frameStarted + this.timeShift - this.timer.Frame; } }
-		public ushort TimeRemaining { get { return (ushort) Math.Ceiling((double) this.FramesRemaining / 60); } }
+		public int FramesElapsed { get { return this.timer.Frame - this.frameStarted; } }
+		public short TimeElapsed { get { return (short) Math.Ceiling((double) this.FramesElapsed / 60); } }
+		public int FramesRemaining { get { return (300 * 60) + this.frameStarted + this.timeShift - this.timer.Frame; } }
+		public short TimeRemaining { get { return (short) Math.Ceiling((double) this.FramesRemaining / 60); } }
 
 		// Performs a Full Level Reset (back to beginning, lose all checkpoints)
 		public void FullReset() {
@@ -107,8 +107,8 @@ namespace Nexus.Gameplay {
 		}
 
 		// Coins must identify the Character, since some levels will distribute coins directly to characters.
-		public virtual void SetCoins( Character character, ushort coins = 0) { this.coins = coins; }
-		public virtual void AddCoins( Character character, ushort coins = 0) { this.coins += coins; }
+		public virtual void SetCoins( Character character, short coins = 0) { this.coins = coins; }
+		public virtual void AddCoins( Character character, short coins = 0) { this.coins += coins; }
 
 		// TODO HIGH PRIORITY: Set Checkpoint by "Flag" object
 		public void SetCheckpoint() {

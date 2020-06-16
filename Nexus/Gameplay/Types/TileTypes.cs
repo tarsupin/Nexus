@@ -1,7 +1,7 @@
 ﻿
 namespace Nexus.Gameplay {
 
-	public enum TilemapEnum : ushort {
+	public enum TilemapEnum : short {
 
 		// Grid Sizes
 		TileWidth = 48,
@@ -20,7 +20,6 @@ namespace Nexus.Gameplay {
 		// Tilemap Limits
 		MaxTilesWide = 800,
 		MaxTilesHigh = 800,
-		MaxTileMult = 40000,			// The maximum size of (Tiles Wide x Tiles High)
 
 		// Sectors
 		SectorWidth = 6,

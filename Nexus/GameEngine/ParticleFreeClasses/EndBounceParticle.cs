@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public static ObjectPool<EndBounceParticle> endBouncePool = new ObjectPool<EndBounceParticle>(() => new EndBounceParticle());
 
-		public static EndBounceParticle SetParticle(RoomScene room, Atlas atlas, string spriteName, Vector2 pos, uint frameEnd, float bounceHeight = 3, float gravity = 0.5f, float rotateSpeed = 0.12f) {
+		public static EndBounceParticle SetParticle(RoomScene room, Atlas atlas, string spriteName, Vector2 pos, int frameEnd, float bounceHeight = 3, float gravity = 0.5f, float rotateSpeed = 0.12f) {
 
 			// Retrieve an available particle from the pool.
 			EndBounceParticle particle = EndBounceParticle.endBouncePool.GetObject();

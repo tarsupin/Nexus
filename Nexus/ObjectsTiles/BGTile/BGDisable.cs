@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 			this.description = "Removes all equipment and powers.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Character) {
 				Character character = (Character)actor;

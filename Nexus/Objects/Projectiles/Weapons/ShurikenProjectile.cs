@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 	public class ShurikenProjectile : Projectile {
 		
-		private uint gravFrame;          // The frame that a movement style ends on.
+		private int gravFrame;          // The frame that a movement style ends on.
 
 		public ShurikenProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.Damage = DamageStrength.Standard;

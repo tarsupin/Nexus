@@ -26,7 +26,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)CoinsSubType.Gem] = "Adds 10 Gems to the character's collection.";
 		}
 
-		public override void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
+		public override void Collect( RoomScene room, Character character, short gridX, short gridY ) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			byte border = subType == (byte)CoinsSubType.Coin ? (byte)10 : (byte)2;

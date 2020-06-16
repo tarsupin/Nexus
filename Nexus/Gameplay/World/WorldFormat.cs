@@ -19,7 +19,7 @@ namespace Nexus.Gameplay {
 		public string username { get; set; }
 		
 		[JsonProperty("version")]
-		public ushort version { get; set; }
+		public short version { get; set; }
 		
 		[JsonProperty("zones")]
 		public WorldZoneFormat[] zones { get; set; }

@@ -16,7 +16,7 @@ namespace Nexus.ObjectComponents {
 
 		public override void DestroyHat(Character character, bool resetStats, bool removeCosmetic = false) {
 			base.DestroyHat(character, resetStats);
-			character.wounds.SetInvincible((uint) (character.wounds.InvincibleDuration + 45));
+			character.wounds.SetInvincible(character.wounds.InvincibleDuration + 45);
 		}
 	}
 }

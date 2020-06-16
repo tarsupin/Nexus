@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 			this.CreateTextures();
 		}
 
-		public bool SetupTile(RoomScene room, ushort gridX, ushort gridY) {
+		public bool SetupTile(RoomScene room, short gridX, short gridY) {
 
 			//// Track the activations for this cannon.
 			//Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
@@ -60,7 +60,7 @@ namespace Nexus.Objects {
 		}
 
 		// TODO: Run Placer RunTick()
-		public void RunTick(RoomScene room, ushort gridX, ushort gridY) {
+		public void RunTick(RoomScene room, short gridX, short gridY) {
 
 			// Can only activate Placer when there's a beat frame.
 			if(Systems.timer.IsBeatFrame) {
@@ -114,7 +114,7 @@ namespace Nexus.Objects {
 		//	this.activate();
 		//}
 
-		public void ActivatePlacer(RoomScene room, byte subType, ushort gridX, ushort gridY) {
+		public void ActivatePlacer(RoomScene room, byte subType, short gridX, short gridY) {
 
 			// Determine Grid Of Placement
 			if(subType == (byte) PlacerSubType.Up) { gridY -= 1; }
@@ -123,8 +123,8 @@ namespace Nexus.Objects {
 			else if(subType == (byte) PlacerSubType.Right) { gridX += 1; }
 
 			// Convert Grid to Position
-			uint posX = (uint) (gridX * (byte) TilemapEnum.TileWidth);
-			uint posY = (uint) (gridY * (byte) TilemapEnum.TileWidth);
+			int posX = gridX * (byte) TilemapEnum.TileWidth;
+			int posY = gridY * (byte) TilemapEnum.TileHeight;
 
 			// TODO: Add Placer Placement
 

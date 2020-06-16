@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 
 		// Level Data
 		public TilemapLevel tilemap;
-		public Dictionary<byte, Dictionary<uint, GameObject>> objects;       // objects[LoadOrder][ObjectID] = DynamicObject
+		public Dictionary<byte, Dictionary<int, GameObject>> objects;       // objects[LoadOrder][ObjectID] = DynamicObject
 
 		// Object Coordination and Cleanup
 		private List<GameObject> markedForAddition;		// A list of objects to be added after the frame's loops have ended.
@@ -44,13 +44,13 @@ namespace Nexus.GameEngine {
 		public void BuildRoom() {
 
 			// Game Objects
-			this.objects = new Dictionary<byte, Dictionary<uint, GameObject>> {
-				[(byte)LoadOrder.Platform] = new Dictionary<uint, GameObject>(),
-				[(byte)LoadOrder.Enemy] = new Dictionary<uint, GameObject>(),
-				[(byte)LoadOrder.Item] = new Dictionary<uint, GameObject>(),
-				[(byte)LoadOrder.TrailingItem] = new Dictionary<uint, GameObject>(),
-				[(byte)LoadOrder.Character] = new Dictionary<uint, GameObject>(),
-				[(byte)LoadOrder.Projectile] = new Dictionary<uint, GameObject>()
+			this.objects = new Dictionary<byte, Dictionary<int, GameObject>> {
+				[(byte)LoadOrder.Platform] = new Dictionary<int, GameObject>(),
+				[(byte)LoadOrder.Enemy] = new Dictionary<int, GameObject>(),
+				[(byte)LoadOrder.Item] = new Dictionary<int, GameObject>(),
+				[(byte)LoadOrder.TrailingItem] = new Dictionary<int, GameObject>(),
+				[(byte)LoadOrder.Character] = new Dictionary<int, GameObject>(),
+				[(byte)LoadOrder.Projectile] = new Dictionary<int, GameObject>()
 			};
 
 			// Object Coordination and Cleanup
@@ -58,7 +58,7 @@ namespace Nexus.GameEngine {
 			this.markedForRemoval = new List<GameObject>();
 
 			// Build Tilemap with Correct Dimensions
-			ushort xCount, yCount;
+			short xCount, yCount;
 			RoomGenerate.DetectRoomSize(Systems.handler.levelContent.data.rooms[roomID.ToString()], out xCount, out yCount);
 
 			this.tilemap = new TilemapLevel(xCount, yCount);
@@ -114,7 +114,7 @@ namespace Nexus.GameEngine {
 			this.RunCharacterSpriteTick(this.objects[(byte)LoadOrder.Character]);
 		}
 
-		private void RunTickForObjectGroup(Dictionary<uint, GameObject> objectGroup) {
+		private void RunTickForObjectGroup(Dictionary<int, GameObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -126,7 +126,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 		
-		private void RunCharacterSpriteTick(Dictionary<uint, GameObject> objectGroup) {
+		private void RunCharacterSpriteTick(Dictionary<int, GameObject> objectGroup) {
 
 			// Loop through each object in the dictionary, run it's tick:
 			foreach(var obj in objectGroup) {
@@ -142,18 +142,18 @@ namespace Nexus.GameEngine {
 
 			Camera cam = Systems.camera;
 
-			ushort startX = Math.Max((ushort)0, (ushort)cam.GridX);
-			ushort startY = Math.Max((ushort)0, (ushort)cam.GridY);
+			short startX = Math.Max((short)0, cam.GridX);
+			short startY = Math.Max((short)0, cam.GridY);
 
 			// Must adjust for the World Gaps (Resistance Barrier)
 			if(startX < (byte)TilemapEnum.WorldGapLeft) { startX = (byte)TilemapEnum.WorldGapLeft; }
 			if(startY < (byte)TilemapEnum.WorldGapUp) { startY = (byte)TilemapEnum.WorldGapUp; }
 
-			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.tilemap.XCount) { gridX = (ushort)(this.tilemap.XCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.tilemap.YCount) { gridY = (ushort)(this.tilemap.YCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.tilemap.XCount) { gridX = (short)(this.tilemap.XCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.tilemap.YCount) { gridY = (short)(this.tilemap.YCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -168,10 +168,10 @@ namespace Nexus.GameEngine {
 			var tileMap = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(ushort y = gridY; y --> startY; ) {
-				ushort tileYPos = (ushort) (y * (byte)TilemapEnum.TileHeight - camY);
+			for(short y = gridY; y --> startY; ) {
+				short tileYPos = (short) (y * (byte)TilemapEnum.TileHeight - camY);
 
-				for(ushort x = gridX; x --> startX; ) {
+				for(short x = gridX; x --> startX; ) {
 
 					// Scan the Tiles Data at this grid square:
 					byte[] tileData = tilemap.GetTileDataAtGrid(x, y);
@@ -230,7 +230,7 @@ namespace Nexus.GameEngine {
 			//System.Console.WriteLine("Benchmark: " + Systems.timer.stopwatch.ElapsedTicks + ", " + Systems.timer.stopwatch.ElapsedMilliseconds);
 		}
 
-		private void DrawObjectGroup( Dictionary<uint, GameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
+		private void DrawObjectGroup( Dictionary<int, GameObject> objectGroup, int camX, int camY, int camRight, int camBottom ) {
 
 			// Loop through each object in the dictionary:
 			foreach( var obj in objectGroup ) {
@@ -253,7 +253,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		private void DrawDebugFrame(Dictionary<uint, GameObject> objectGroup, int camX, int camY, int camRight, int camBottom) {
+		private void DrawDebugFrame(Dictionary<int, GameObject> objectGroup, int camX, int camY, int camRight, int camBottom) {
 
 			// Loop through each object in the dictionary:
 			foreach(var obj in objectGroup) {

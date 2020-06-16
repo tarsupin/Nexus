@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 			// TODO: Update Chest Contents with Param system. Needs to work with tiles.
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 			
 			// Characters interact with Chest:
 			if(actor is Character) {
@@ -57,7 +57,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		protected void OpenChest(RoomScene room, ushort gridX, ushort gridY) {
+		protected void OpenChest(RoomScene room, short gridX, short gridY) {
 
 			// Open the Chest
 			room.tilemap.SetTileSubType(gridX, gridY, (byte)ChestSubType.Open);

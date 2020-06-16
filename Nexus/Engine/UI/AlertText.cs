@@ -13,15 +13,15 @@ namespace Nexus.GameEngine {
 		private Color textColor = Color.White;
 
 		// Fading
-		private uint fadeStart = 0;
-		private uint fadeEnd = 0;
+		private int fadeStart = 0;
+		private int fadeEnd = 0;
 		private float alpha = 1;
 
 		public AlertText( UIComponent parent ) : base(parent) {
 			this.SetRelativePosition((short) Systems.screen.windowHalfWidth, 5);
 		}
 
-		public void SetNotice(string title, string text, uint duration = 0) {
+		public void SetNotice(string title, string text, int duration = 0) {
 
 			this.title = title;
 			this.text = text;
@@ -39,7 +39,7 @@ namespace Nexus.GameEngine {
 
 		public void ClearNotice() { this.title = ""; }
 		
-		public void Draw( uint frame = 0 ) {
+		public void Draw( int frame = 0 ) {
 
 			// Draw Alert (if applicable)
 			if(this.title.Length == 0) { return; }
@@ -59,12 +59,12 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw Notice
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x - ((ushort) this.measureTitle.X / 2) - 2, this.y - 2, (int)(this.measureTitle.X + 4), (int)(this.measureTitle.Y + 4)), this.bgColor * alpha);
-			Systems.fonts.baseText.Draw(this.title, this.x - ((ushort) this.measureTitle.X / 2), this.y, this.textColor * alpha);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x - ((short) this.measureTitle.X / 2) - 2, this.y - 2, (int)(this.measureTitle.X + 4), (int)(this.measureTitle.Y + 4)), this.bgColor * alpha);
+			Systems.fonts.baseText.Draw(this.title, this.x - ((short) this.measureTitle.X / 2), this.y, this.textColor * alpha);
 
 			if(this.text.Length > 0) {
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x - ((ushort) this.measureText.X / 2) - 2, this.y + 25 - 2, (int) this.measureText.X + 4, (int) this.measureText.Y + 4), this.bgColor * alpha);
-				Systems.fonts.console.Draw(this.text, this.x - ((ushort) this.measureText.X / 2), this.y + 25, this.textColor * alpha);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.x - ((short) this.measureText.X / 2) - 2, this.y + 25 - 2, (int) this.measureText.X + 4, (int) this.measureText.Y + 4), this.bgColor * alpha);
+				Systems.fonts.console.Draw(this.text, this.x - ((short) this.measureText.X / 2), this.y + 25, this.textColor * alpha);
 			}
 		}
 	}

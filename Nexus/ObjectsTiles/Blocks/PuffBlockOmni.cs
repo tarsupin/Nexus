@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			this.description = "Touching it enhances the character's momentum.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Only run this test for Characters.
 			if(!(actor is Character)) { return false; }

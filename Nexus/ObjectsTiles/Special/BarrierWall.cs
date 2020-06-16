@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.BarrierWall;
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 			TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			if(actor is Projectile) { actor.Destroy(); }
 			return true;

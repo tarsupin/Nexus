@@ -17,8 +17,8 @@ namespace Nexus.GameEngine {
 		public string roomID;
 
 		// Editor Data
-		private readonly ushort xCount;
-		private readonly ushort yCount;
+		private readonly short xCount;
+		private readonly short yCount;
 		private readonly int mapWidth;
 		private readonly int mapHeight;
 
@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 			this.roomID = roomID;
 
 			// Build Tilemap with Correct Dimensions
-			ushort xCount, yCount;
+			short xCount, yCount;
 			RoomGenerate.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
 			// Sizing
@@ -83,14 +83,14 @@ namespace Nexus.GameEngine {
 		private void DrawLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
 
-			ushort startX = (ushort)Math.Max((ushort)0, (ushort)cam.GridX);
-			ushort startY = (ushort)Math.Max((ushort)0, (ushort)cam.GridY);
+			short startX = (short)Math.Max((short)0, (short)cam.GridX);
+			short startY = (short)Math.Max((short)0, (short)cam.GridY);
 
-			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.xCount) { gridX = (ushort) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = (ushort) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -100,8 +100,8 @@ namespace Nexus.GameEngine {
 			var tileDict = Systems.mapper.TileDict;
 
 			// Loop through the tilemap data:
-			for(ushort y = gridY; y --> startY; ) {
-				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
+			for(short y = gridY; y --> startY; ) {
+				short tileYPos = (short)(y * (byte)TilemapEnum.TileHeight - camY);
 
 				string yStr = y.ToString();
 
@@ -109,7 +109,7 @@ namespace Nexus.GameEngine {
 				if(!layerData.ContainsKey(yStr)) { continue; }
 				var yData = layerData[yStr];
 
-				for(ushort x = gridX; x --> startX; ) {
+				for(short x = gridX; x --> startX; ) {
 
 					// Verify Tile Data exists at this Grid Square:
 					if(!yData.ContainsKey(x.ToString())) { continue; }
@@ -131,14 +131,14 @@ namespace Nexus.GameEngine {
 		private void DrawObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
 
-			ushort startX = (ushort)Math.Max((ushort)0, (ushort)cam.GridX);
-			ushort startY = (ushort)Math.Max((ushort)0, (ushort)cam.GridY);
+			short startX = (short)Math.Max((short)0, (short)cam.GridX);
+			short startY = (short)Math.Max((short)0, (short)cam.GridY);
 
-			ushort gridX = (ushort)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			ushort gridY = (ushort)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.xCount) { gridX = (ushort) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = (ushort) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -146,8 +146,8 @@ namespace Nexus.GameEngine {
 			int camY = cam.posY + (isShaking ? cam.GetCameraShakeOffsetY() : 0);
 
 			// Loop through the tilemap data:
-			for(ushort y = gridY; y --> startY; ) {
-				ushort tileYPos = (ushort)(y * (byte)TilemapEnum.TileHeight - camY);
+			for(short y = gridY; y --> startY; ) {
+				short tileYPos = (short)(y * (byte)TilemapEnum.TileHeight - camY);
 
 				string yStr = y.ToString();
 
@@ -155,7 +155,7 @@ namespace Nexus.GameEngine {
 				if(!layerData.ContainsKey(yStr)) { continue; }
 				var yData = layerData[yStr];
 
-				for(ushort x = gridX; x --> startX; ) {
+				for(short x = gridX; x --> startX; ) {
 
 					// Verify Tile Data exists at this Grid Square:
 					if(!yData.ContainsKey(x.ToString())) { continue; }
@@ -169,7 +169,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public bool ConfirmDraw(ushort gridX, ushort gridY) {
+		public bool ConfirmDraw(short gridX, short gridY) {
 
 			// Make sure deletion is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return false; }
@@ -181,7 +181,7 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public void TileToolTick(ushort gridX, ushort gridY) {
+		public void TileToolTick(short gridX, short gridY) {
 
 			// Prevent drawing when a component is selected.
 			if(UIComponent.ComponentWithFocus != null) { return; }
@@ -250,17 +250,17 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void DeleteTile(ushort gridX, ushort gridY) {
+		public void DeleteTile(short gridX, short gridY) {
 			if(!this.ConfirmDraw(gridX, gridY)) { return; }
 			this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 		}
 
-		public void DeleteTileOnLayer(LayerEnum layerEnum, ushort gridX, ushort gridY) {
+		public void DeleteTileOnLayer(LayerEnum layerEnum, short gridX, short gridY) {
 			if(!this.ConfirmDraw(gridX, gridY)) { return; }
 			this.levelContent.DeleteTileOnLayer(layerEnum, this.roomID, gridX, gridY);
 		}
 
-		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, ushort gridX, ushort gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
@@ -286,7 +286,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void CloneTile(ushort gridX, ushort gridY) {
+		public void CloneTile(short gridX, short gridY) {
 			RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 			Dictionary<string, Dictionary<string, ArrayList>> layerData = null;
 			bool isObject = false;

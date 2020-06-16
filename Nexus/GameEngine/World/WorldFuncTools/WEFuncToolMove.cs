@@ -8,10 +8,10 @@ namespace Nexus.GameEngine {
 	public class WEFuncToolMove : WEFuncTool {
 
 		private bool activity;		// TRUE if the selection is active.
-		private ushort xStart;		// X-Grid that selection started at.
-		private ushort yStart;		// Y-Grid that selection started at.
-		private ushort xEnd;		// X-Grid that selection ends at.
-		private ushort yEnd;		// Y-Grid that selection ends at.
+		private short xStart;		// X-Grid that selection started at.
+		private short yStart;		// Y-Grid that selection started at.
+		private short xEnd;			// X-Grid that selection ends at.
+		private short yEnd;			// Y-Grid that selection ends at.
 
 		public WEFuncToolMove() : base() {
 			this.spriteName = "Icons/Small/Move";
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
 		private byte BoxHeight { get { return (byte) (Math.Abs(this.yEnd - this.yStart) + 1); } }
 
-		public void StartSelection(ushort gridX, ushort gridY) {
+		public void StartSelection(short gridX, short gridY) {
 			this.activity = true;
 			this.xStart = gridX;
 			this.xEnd = gridX;
@@ -61,8 +61,8 @@ namespace Nexus.GameEngine {
 
 		public override void DrawWorldFuncTool() {
 
-			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
-			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			short left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			short top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
 			int width = this.BoxWidth * (byte)WorldmapEnum.TileWidth;
 			int height = this.BoxHeight * (byte)WorldmapEnum.TileHeight;
 

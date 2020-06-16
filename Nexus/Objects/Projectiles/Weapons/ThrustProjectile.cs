@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class ThrustProjectile : Projectile {
 
 		protected byte cycleDuration; // The duration of the weapon's attack.
-		protected uint startFrame;
+		protected int startFrame;
 		protected FVector endPos;
 
 		public ThrustProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) { }

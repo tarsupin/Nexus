@@ -1,13 +1,12 @@
 ﻿
 using Newtonsoft.Json;
-using Nexus.Engine;
 using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
 
 	public class EditorRoomJson {
-		public ushort camX;
-		public ushort camY;
+		public short camX;
+		public short camY;
 	}
 
 	public class EditorJson {

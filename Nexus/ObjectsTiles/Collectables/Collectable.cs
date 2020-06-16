@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Collectable];
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 			
 			// Characters receive Collectable:
 			if(actor is Character) {
@@ -30,7 +30,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		public virtual void Collect( RoomScene room, Character character, ushort gridX, ushort gridY ) {
+		public virtual void Collect( RoomScene room, Character character, short gridX, short gridY ) {
 			room.tilemap.RemoveTile(gridX, gridY);
 		}
 

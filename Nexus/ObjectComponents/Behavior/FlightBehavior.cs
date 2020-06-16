@@ -11,8 +11,8 @@ namespace Nexus.ObjectComponents {
 	public class FlightBehavior : Behavior {
 
 		// Motion Flags
-		protected ushort duration;			// Duration the motion is intended to take, in frames (such as 120 frames between two points).
-		protected ushort offset;			// The offset in the duration cycle (for timing purposes)
+		protected short duration;			// Duration the motion is intended to take, in frames (such as 120 frames between two points).
+		protected short offset;			// The offset in the duration cycle (for timing purposes)
 		protected bool reverse;				// `true` means the motion is backward (such as for moving platforms returning).
 		
 		protected int startX;				// Starting X position of a motion.
@@ -29,8 +29,8 @@ namespace Nexus.ObjectComponents {
 
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
-			this.duration = paramList.ContainsKey("duration") ? (ushort) paramList["duration"] : (ushort) FlightDefaults.MoveFlightDuration;
-			this.offset = paramList.ContainsKey("durOffset") ? (ushort) paramList["durOffset"] : (ushort) 0;
+			this.duration = paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) FlightDefaults.MoveFlightDuration;
+			this.offset = paramList.ContainsKey("durOffset") ? (short) paramList["durOffset"] : (short) 0;
 
 			// Positions
 			this.startX = actor.posX;

@@ -13,15 +13,15 @@ namespace Nexus.GameEngine {
 
 		// Param Dictionary
 		private readonly Dictionary<string, short> emptyParam;
-		private Dictionary<uint, Dictionary<string, short>> paramList;       // Key is the Coords.MapToInt(x, y)
+		private Dictionary<int, Dictionary<string, short>> paramList;       // Key is the Coords.MapToInt(x, y)
 
 		// Width and Height of the Tilemap:
 		public int Width { get; protected set; }
 		public int Height { get; protected set; }
-		public ushort XCount { get; protected set; }
-		public ushort YCount { get; protected set; }
+		public short XCount { get; protected set; }
+		public short YCount { get; protected set; }
 
-		public TilemapLevel(ushort xCount, ushort yCount) {
+		public TilemapLevel(short xCount, short yCount) {
 
 			// Sizing
 			this.XCount = xCount;
@@ -29,26 +29,26 @@ namespace Nexus.GameEngine {
 			this.Width = xCount * (byte)TilemapEnum.TileWidth;
 			this.Height = yCount * (byte)TilemapEnum.TileHeight;
 
-			ushort fullXCount = (ushort)(xCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight);
-			ushort fullYCount = (ushort)(yCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown);
+			short fullXCount = (short)(xCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight);
+			short fullYCount = (short)(yCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown);
 
 			// Create Empty Tilemap Data
 			this.tiles = new byte[fullYCount, fullXCount][];
-			this.paramList = new Dictionary<uint, Dictionary<string, short>>();
+			this.paramList = new Dictionary<int, Dictionary<string, short>>();
 			this.emptyParam = new Dictionary<string, short>();
 		}
 
-		public byte[] GetTileDataAtGrid(ushort gridX, ushort gridY) {
+		public byte[] GetTileDataAtGrid(short gridX, short gridY) {
 			return this.tiles[gridY, gridX];
 		}
 
-		public byte GetMainSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][1]; }
-		public byte GetBGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][3]; }
-		public byte GetFGSubType(ushort gridX, ushort gridY) { return this.tiles[gridY, gridX][5]; }
+		public byte GetMainSubType(short gridX, short gridY) { return this.tiles[gridY, gridX][1]; }
+		public byte GetBGSubType(short gridX, short gridY) { return this.tiles[gridY, gridX][3]; }
+		public byte GetFGSubType(short gridX, short gridY) { return this.tiles[gridY, gridX][5]; }
 
 		// Setting Tile Data
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void SetMainTile(ushort gridX, ushort gridY, byte id = 0, byte subType = 0) {
+		public void SetMainTile(short gridX, short gridY, byte id = 0, byte subType = 0) {
 
 			if(this.tiles[gridY, gridX] == null) {
 				this.tiles[gridY, gridX] = new byte[] { id, subType, 0, 0, 0, 0 };
@@ -58,7 +58,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void SetBGTile(ushort gridX, ushort gridY, byte bgId = 0, byte bgSubType = 0) {
+		public void SetBGTile(short gridX, short gridY, byte bgId = 0, byte bgSubType = 0) {
 
 			if(this.tiles[gridY, gridX] == null) {
 				this.tiles[gridY, gridX] = new byte[] { 0, 0, bgId, bgSubType, 0, 0 };
@@ -68,7 +68,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void SetFGTile(ushort gridX, ushort gridY, byte fgId = 0, byte fgSubType = 0) {
+		public void SetFGTile(short gridX, short gridY, byte fgId = 0, byte fgSubType = 0) {
 			
 			if(this.tiles[gridY, gridX] == null) {
 				this.tiles[gridY, gridX] = new byte[] { 0, 0, 0, 0, fgId, fgSubType };
@@ -78,39 +78,39 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void SetTileSubType(ushort gridX, ushort gridY, byte subType = 0) {
+		public void SetTileSubType(short gridX, short gridY, byte subType = 0) {
 			this.tiles[gridY, gridX][1] = subType;
 		}
 
 		// Param Tracking
-		public Dictionary<string, short> GetParamList(ushort gridX, ushort gridY) {
-			uint coords = Coords.MapToInt(gridX, gridY);
+		public Dictionary<string, short> GetParamList(short gridX, short gridY) {
+			int coords = Coords.MapToInt(gridX, gridY);
 			return this.paramList.ContainsKey(coords) ? this.paramList[coords] : this.emptyParam;
 		}
 
-		public void SetParamList(ushort gridX, ushort gridY, Dictionary<string, short> paramList) {
+		public void SetParamList(short gridX, short gridY, Dictionary<string, short> paramList) {
 			this.paramList[Coords.MapToInt(gridX, gridY)] = paramList;
 		}
 
-		public void SetParam(ushort gridX, ushort gridY, string paramKey, short paramVal) {
-			uint coordVal = Coords.MapToInt(gridX, gridY);
+		public void SetParam(short gridX, short gridY, string paramKey, short paramVal) {
+			int coordVal = Coords.MapToInt(gridX, gridY);
 			if(!this.paramList.ContainsKey(coordVal)) {
 				this.paramList.Add(coordVal, new Dictionary<string, short>());
 			}
 			this.paramList[coordVal][paramKey] = paramVal;
 		}
 
-		public void ClearParams(ushort gridX, ushort gridY) {
+		public void ClearParams(short gridX, short gridY) {
 			this.paramList.Remove(Coords.MapToInt(gridX, gridY));
 		}
 
 		// Removing Tiles
 		// For performance reasons, it is up to the user to avoid exceeding the grid's X,Y limits.
-		public void RemoveTile(ushort gridX, ushort gridY) {
+		public void RemoveTile(short gridX, short gridY) {
 			this.tiles[gridY, gridX] = null;
 		}
 
-		private void MaybeRemoveTile(ushort gridX, ushort gridY) {
+		private void MaybeRemoveTile(short gridX, short gridY) {
 			var x = this.tiles[gridY, gridX];
 
 			// If every index (each layer) is empty, remove the tile:
@@ -120,8 +120,8 @@ namespace Nexus.GameEngine {
 		}
 
 		// Area Of Effect Check: Search for specific Tile IDs (Main Layer) within an area.
-		public List<(byte tileId, ushort gridX, ushort gridY)> GetTilesByMainIDsWithinArea(byte[] tileIds, ushort startX, ushort startY, ushort endX, ushort endY) {
-			List<(byte tileId, ushort gridX, ushort gridY)> gridList = new List<(byte tileId, ushort gridX, ushort gridY)>();
+		public List<(byte tileId, short gridX, short gridY)> GetTilesByMainIDsWithinArea(byte[] tileIds, short startX, short startY, short endX, short endY) {
+			List<(byte tileId, short gridX, short gridY)> gridList = new List<(byte tileId, short gridX, short gridY)>();
 			for(var y = startY; y <= endY; y++) {
 				for(var x = startX; x <= endX; x++) {
 					byte[] tileData = this.tiles[y, x];
@@ -135,26 +135,26 @@ namespace Nexus.GameEngine {
 		}
 
 		// Clear the Main Layer
-		public void ClearMainLayer(ushort gridX, ushort gridY) {
+		public void ClearMainLayer(short gridX, short gridY) {
 			this.tiles[gridY, gridX][0] = 0;
 			this.tiles[gridY, gridX][1] = 0;
 			this.MaybeRemoveTile(gridX, gridY);
 		}
 
-		public void ClearBGLayer(ushort gridX, ushort gridY) {
+		public void ClearBGLayer(short gridX, short gridY) {
 			this.tiles[gridY, gridX][2] = 0;
 			this.tiles[gridY, gridX][3] = 0;
 			this.MaybeRemoveTile(gridX, gridY);
 		}
 
-		public void ClearFGLayer(ushort gridX, ushort gridY) {
+		public void ClearFGLayer(short gridX, short gridY) {
 			this.tiles[gridY, gridX][4] = 0;
 			this.tiles[gridY, gridX][5] = 0;
 			this.MaybeRemoveTile(gridX, gridY);
 		}
 
 		// Grid Square Positions
-		public static ushort GridX(int posX) { return (ushort)Math.Floor((double)(posX / (ushort)TilemapEnum.TileWidth)); }
-		public static ushort GridY(int posY) { return (ushort)Math.Floor((double)(posY / (ushort)TilemapEnum.TileHeight)); }
+		public static short GridX(int posX) { return (short)Math.Floor((double)(posX / (short)TilemapEnum.TileWidth)); }
+		public static short GridY(int posY) { return (short)Math.Floor((double)(posY / (short)TilemapEnum.TileHeight)); }
 	}
 }

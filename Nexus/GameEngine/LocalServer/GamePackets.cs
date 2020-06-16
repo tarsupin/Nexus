@@ -41,13 +41,13 @@ namespace Nexus.GameEngine {
 		// Creates a Fake Input Packet sent from the Server
 		// ..., Frame #, [PLAYER INPUT PACKET], [PLAYER INPUT PACKET]
 		// [PLAYER INPUT PACKET]: Player ID, IKeyPressCount, IKeyPressed x(repeats based on IKeyPressCount), IKeyReleased, IKeyReleased
-		public static List<object> FakeInputToClient(uint frame, byte playerId, IKey[] IKeysPressed, IKey[] IKeysReleased) {
+		public static List<object> FakeInputToClient(int frame, byte playerId, IKey[] IKeysPressed, IKey[] IKeysReleased) {
 
 			// Create Packet
 			var Packet = new List<object>();
 			Packet.Add((byte)PacketType.Input);
 			Packet.Add((byte)InputPacketIns.ToClientIKeys);
-			Packet.Add((uint)frame);
+			Packet.Add(frame);
 
 			byte pressedNum = (byte) IKeysPressed.Length;
 			byte releasedNum = (byte) IKeysReleased.Length;

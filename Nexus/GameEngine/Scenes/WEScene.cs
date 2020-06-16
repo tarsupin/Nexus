@@ -193,7 +193,7 @@ namespace Nexus.GameEngine {
 			else if(keyPressed == Keys.D0) { WETools.SetWorldTileToolBySlotGroup(WE_UI.curWESlotGroup, 9); }
 		}
 
-		public void TileToolTick(ushort gridX, ushort gridY) {
+		public void TileToolTick(short gridX, short gridY) {
 
 			// Make sure placement is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return; }
@@ -531,7 +531,7 @@ namespace Nexus.GameEngine {
 			if(isNode) {
 
 				// Remove the Node Level Reference, if applicable:
-				uint coordInt = Coords.MapToInt(gridX, gridY);
+				int coordInt = Coords.MapToInt(gridX, gridY);
 
 				if(this.currentZone.nodes.ContainsKey(coordInt.ToString())) {
 					this.currentZone.nodes.Remove(coordInt.ToString());

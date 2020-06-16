@@ -17,10 +17,10 @@ namespace Nexus.GameEngine {
 		}
 
 		private SelectActivity activity;	// TRUE if the selection is active.
-		private ushort xStart;				// X-Grid that selection started at.
-		private ushort yStart;				// Y-Grid that selection started at.
-		private ushort xEnd;				// X-Grid that selection ends at.
-		private ushort yEnd;				// Y-Grid that selection ends at.
+		private short xStart;				// X-Grid that selection started at.
+		private short yStart;				// Y-Grid that selection started at.
+		private short xEnd;				// X-Grid that selection ends at.
+		private short yEnd;				// Y-Grid that selection ends at.
 
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
@@ -31,7 +31,7 @@ namespace Nexus.GameEngine {
 		private byte BoxWidth { get { return (byte) (Math.Abs(this.xEnd - this.xStart) + 1); } }
 		private byte BoxHeight { get { return (byte) (Math.Abs(this.yEnd - this.yStart) + 1); } }
 
-		public void StartSelection(ushort gridX, ushort gridY) {
+		public void StartSelection(short gridX, short gridY) {
 			this.activity = SelectActivity.Working;
 			this.xStart = gridX;
 			this.xEnd = gridX;
@@ -39,7 +39,7 @@ namespace Nexus.GameEngine {
 			this.yEnd = gridY;
 		}
 		
-		private void UpdatePosition(ushort gridX, ushort gridY) {
+		private void UpdatePosition(short gridX, short gridY) {
 			if(Math.Abs(gridX - this.xStart) < FuncToolBlueprint.BPMaxWidth) { this.xEnd = gridX; }
 			if(Math.Abs(gridY - this.yStart) < FuncToolBlueprint.BPMaxHeight) { this.yEnd = gridY; }
 		}
@@ -55,13 +55,13 @@ namespace Nexus.GameEngine {
 
 		public void ClearSelection() { this.activity = SelectActivity.None; this.xEnd = this.xStart; this.yEnd = this.yStart; }
 
-		private bool IsTileWithinSelection(ushort gridX, ushort gridY) {
+		private bool IsTileWithinSelection(short gridX, short gridY) {
 			if(this.activity != SelectActivity.HasSelection) { return false; }
 
-			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
-			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
-			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
-			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+			short left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			short top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			short right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			short bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
 
 			return gridX >= left && gridX <= right && gridY >= top && gridY <= bottom;
 		}
@@ -129,10 +129,10 @@ namespace Nexus.GameEngine {
 			sbyte xOffset = 0;
 			sbyte yOffset = 0;
 
-			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
-			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
-			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
-			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+			short left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			short top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			short right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			short bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
 
 			if(Cursor.TileGridX >= left && Cursor.TileGridX <= right) { xOffset = (sbyte)(left - Cursor.TileGridX); }
 			if(Cursor.TileGridY >= top && Cursor.TileGridY <= bottom) { yOffset = (sbyte)(top - Cursor.TileGridY); }
@@ -148,13 +148,13 @@ namespace Nexus.GameEngine {
 
 		private void CutTiles(EditorRoomScene scene) {
 
-			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
-			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
-			ushort right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
-			ushort bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
+			short left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			short top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			short right = this.xStart <= this.xEnd ? this.xEnd : this.xStart;
+			short bottom = this.yStart <= this.yEnd ? this.yEnd : this.yStart;
 
-			for(ushort y = top; y <= bottom; y++) {
-				for(ushort x = left; x <= right; x++) {
+			for(short y = top; y <= bottom; y++) {
+				for(short x = left; x <= right; x++) {
 					scene.DeleteTile(x, y);
 				}
 			}
@@ -162,8 +162,8 @@ namespace Nexus.GameEngine {
 
 		public override void DrawFuncTool() {
 
-			ushort left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
-			ushort top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
+			short left = this.xStart <= this.xEnd ? this.xStart : this.xEnd;
+			short top = this.yStart <= this.yEnd ? this.yStart : this.yEnd;
 			int width = this.BoxWidth * (byte)TilemapEnum.TileWidth;
 			int height = this.BoxHeight * (byte)TilemapEnum.TileHeight;
 

@@ -2,7 +2,7 @@
 
 namespace Nexus.Gameplay {
 
-	public enum WorldmapEnum : ushort {
+	public enum WorldmapEnum : short {
 
 		// Grid Sizes
 		TileWidth = 32,
@@ -290,7 +290,7 @@ namespace Nexus.Gameplay {
 		OTerrain l { get; set; }
 		string lf { get; set; }
 		string o { get; set; }
-		ushort n { get; set; }
+		short n { get; set; }
 	}
 	
 }

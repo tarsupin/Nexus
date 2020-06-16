@@ -23,15 +23,15 @@ namespace Nexus.Gameplay {
 			if(roomData.fg != null) { RoomGenerate.GenerateTileLayer(room, roomData.fg, LayerEnum.fg); }
 
 			// Build "Barrier Wall" around Level. Designed to protect against objects crossing tile path.
-			ushort maxX = (ushort) (room.tilemap.XCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight - 1);
-			ushort maxY = (ushort) (room.tilemap.YCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown - 1);
+			short maxX = (short) (room.tilemap.XCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight - 1);
+			short maxY = (short) (room.tilemap.YCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown - 1);
 
-			for(ushort y = 0; y <= maxY; y++) {
+			for(short y = 0; y <= maxY; y++) {
 				room.tilemap.SetMainTile(0, y, (byte)TileEnum.BarrierWall, 0);
 				room.tilemap.SetMainTile(maxX, y, (byte)TileEnum.BarrierWall, 0);
 			}
 
-			for(ushort x = 0; x <= maxX; x++) {
+			for(short x = 0; x <= maxX; x++) {
 				room.tilemap.SetMainTile(x, 0, (byte)TileEnum.BarrierWall, 0);
 				room.tilemap.SetMainTile(x, maxY, (byte)TileEnum.BarrierWall, 0);
 			}
@@ -42,11 +42,11 @@ namespace Nexus.Gameplay {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
-				ushort gridY = ushort.Parse(yData.Key);
+				short gridY = short.Parse(yData.Key);
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
-					ushort gridX = ushort.Parse(xData.Key);
+					short gridX = short.Parse(xData.Key);
 
 					byte tileId = Convert.ToByte(xData.Value[0]);
 
@@ -66,7 +66,7 @@ namespace Nexus.Gameplay {
 					TileObject tile = TileDict[tileId];
 
 					if(tile.hasSetup) {
-						(tile as dynamic).SetupTile(room, (ushort)(gridX + (byte)TilemapEnum.WorldGapLeft), (ushort)(gridY + (byte)TilemapEnum.WorldGapUp));
+						(tile as dynamic).SetupTile(room, (short)(gridX + (byte)TilemapEnum.WorldGapLeft), (short)(gridY + (byte)TilemapEnum.WorldGapUp));
 					}
 				}
 			}
@@ -76,11 +76,11 @@ namespace Nexus.Gameplay {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
-				ushort gridY = ushort.Parse(yData.Key);
+				short gridY = short.Parse(yData.Key);
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
-					ushort gridX = ushort.Parse(xData.Key);
+					short gridX = short.Parse(xData.Key);
 
 					if(xData.Value.Count == 2) {
 						RoomGenerate.AddObjectToScene(room, gridX, gridY, Convert.ToByte(xData.Value[0]), Convert.ToByte(xData.Value[1]));
@@ -95,7 +95,7 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, ushort gridX, ushort gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
+		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
 			gridX += (byte)TilemapEnum.WorldGapLeft;
@@ -111,7 +111,7 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		private static void AddObjectToScene(RoomScene room, ushort gridX, ushort gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
+		private static void AddObjectToScene(RoomScene room, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
 			gridX += (byte)TilemapEnum.WorldGapLeft;
@@ -119,8 +119,8 @@ namespace Nexus.Gameplay {
 
 			// Prepare Position
 			FVector pos = FVector.Create(
-				Snap.GridToPos((ushort)TilemapEnum.TileWidth, gridX),
-				Snap.GridToPos((ushort)TilemapEnum.TileHeight, gridY)
+				Snap.GridToPos((short)TilemapEnum.TileWidth, gridX),
+				Snap.GridToPos((short)TilemapEnum.TileHeight, gridY)
 			);
 
 			// Character Creation
@@ -157,12 +157,12 @@ namespace Nexus.Gameplay {
 
 		//}
 
-		public static void DetectRoomSize(RoomFormat roomData, out ushort xCount, out ushort yCount) {
+		public static void DetectRoomSize(RoomFormat roomData, out short xCount, out short yCount) {
 
 			// The Room may store its size in the data:
 			if(roomData.Width != 0 && roomData.Height != 0) {
-				xCount = (ushort) roomData.Width;
-				yCount = (ushort) roomData.Height;
+				xCount = (short) roomData.Width;
+				yCount = (short) roomData.Height;
 				return;
 			}
 
@@ -181,20 +181,20 @@ namespace Nexus.Gameplay {
 			yCount++;
 		}
 
-		private static void DetectLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref ushort xCount, ref ushort yCount) {
+		private static void DetectLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref short xCount, ref short yCount) {
 
 			// Loop through YData within the Layer Provided:
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
-				ushort gridY = ushort.Parse(yData.Key);
+				short gridY = short.Parse(yData.Key);
 
 				if(gridY > yCount) {
-					yCount = (ushort) (gridY);
+					yCount = (short) (gridY);
 				}
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
-					ushort gridX = ushort.Parse(xData.Key);
-					if(gridX > xCount) { xCount = (ushort) (gridX); }
+					short gridX = short.Parse(xData.Key);
+					if(gridX > xCount) { xCount = (short) (gridX); }
 				}
 			}
 		}

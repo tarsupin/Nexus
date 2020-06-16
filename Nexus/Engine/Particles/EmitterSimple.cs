@@ -20,14 +20,14 @@ namespace Nexus.Engine {
 		public Vector2 vel;         // Velocity of the Emitter, if applicable.
 
 		// Lifespan & Fading
-		public uint frameEnd;		// The frame # that indicates the end of the emitter's life.
-		public uint fadeStart;		// The frame # that indicates the emitter's particles should begin to fade.
+		public int frameEnd;		// The frame # that indicates the end of the emitter's life.
+		public int fadeStart;		// The frame # that indicates the emitter's particles should begin to fade.
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 		
 		public bool HasExpired { get { return this.frameEnd < Systems.timer.Frame; } }
 
-		public static EmitterSimple NewEmitter( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
+		public static EmitterSimple NewEmitter( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, float gravity, int frameEnd, int fadeStart = 0, float alphaStart = 1, float alphaEnd = 0 ) {
 
 			// Retrieve an emitter from the pool.
 			EmitterSimple emitter = EmitterSimple.emitterPool.GetObject();
@@ -100,7 +100,7 @@ namespace Nexus.Engine {
 		public void Draw(int camX, int camY) {
 
 			// Determine Alpha of Particle (can be affected by fading)
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 			float alpha = this.fadeStart < frame ? ParticleHandler.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 
 			// Loop Through Particles, Draw:

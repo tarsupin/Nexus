@@ -14,9 +14,9 @@ namespace Nexus.GameEngine {
 		public bool actionParams;           // FALSE if this is the "Move Param" menu, TRUE if this is the "Action Param" menu.
 		public Params paramSet;				// The param set loaded into this menu.
 
-		protected ushort splitPos;			// The "central" section in the middle that splits the left and right sides.
-		protected ushort leftWidth;			// The amount of width for the left side (titles)
-		protected ushort rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
+		protected short splitPos;			// The "central" section in the middle that splits the left and right sides.
+		protected short leftWidth;			// The amount of width for the left side (titles)
+		protected short rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
 		protected static FontClass font;
 
 		// Basic Menu Information
@@ -87,7 +87,7 @@ namespace Nexus.GameEngine {
 					this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX - this.width);
 					if(this.x < 100) { this.x = 100; }
 				}
-				this.splitPos = (ushort)(this.x + this.leftWidth + 10);
+				this.splitPos = (short)(this.x + this.leftWidth + 10);
 			}
 
 			this.y = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
@@ -96,20 +96,20 @@ namespace Nexus.GameEngine {
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.
-		private ushort GetLeftWidth() {
-			ushort largestWidth = 0;
+		private short GetLeftWidth() {
+			short largestWidth = 0;
 
 			for(byte i = 0; i < this.paramSet.rules.Count; i++) {
-				ushort w = (ushort) ParamMenu.font.font.MeasureString(this.paramSet.rules[i].name).X;
+				short w = (short) ParamMenu.font.font.MeasureString(this.paramSet.rules[i].name).X;
 				if(w > largestWidth) { largestWidth = w; }
 			}
 
-			return (ushort) (largestWidth + 50);
+			return (short) (largestWidth + 50);
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.
-		private ushort GetRightWidth() {
-			ushort rightWidth = 140;
+		private short GetRightWidth() {
+			short rightWidth = 140;
 
 			foreach(ParamGroup group in this.paramSet.rules) {
 				if(group is LabeledParam) {

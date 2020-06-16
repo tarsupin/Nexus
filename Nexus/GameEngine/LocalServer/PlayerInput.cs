@@ -12,14 +12,14 @@ namespace Nexus.GameEngine {
 		// Track IKeys on the exact frames they were pressed or released.
 		// byte[0] is the # of IKeyPressed elements that follow byte 0.
 		// byte[1+] are IKeyPressed (until the byte[0] count is matched), and all remaining elements are IKeyReleased.
-		public Dictionary<uint, byte[]> inputLog;
+		public Dictionary<int, byte[]> inputLog;
 
 		// Tracks the current status of each IKey.
 		private Dictionary<IKey, IKeyState> iKeyTrack;
 
 		public PlayerInput( Player player ) {
 			this.player = player;
-			this.inputLog = new Dictionary<uint, byte[]>();
+			this.inputLog = new Dictionary<int, byte[]>();
 			this.iKeyTrack = new Dictionary<IKey, IKeyState>();
 			this.ResetIKeyStates();
 		}
@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 		****** Key Processing ******
 		***************************/
 
-		public void ApplyInputs(uint frame, IKey[] iKeysPressed, IKey[] iKeysReleased) {
+		public void ApplyInputs(int frame, IKey[] iKeysPressed, IKey[] iKeysReleased) {
 
 			byte pressedNum = (byte)iKeysPressed.Length;
 			byte releasedNum = (byte)iKeysReleased.Length;
@@ -63,7 +63,7 @@ namespace Nexus.GameEngine {
 		*******************************/
 
 		// Update all Key States for Assigned Frame
-		public void UpdateKeyStates(uint frame) {
+		public void UpdateKeyStates(int frame) {
 
 			// Loop through existing keys and update accordingly:
 			for( byte i = 1; i < this.iKeyTrack.Count; i++ ) {

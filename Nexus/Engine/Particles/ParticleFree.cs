@@ -21,14 +21,14 @@ namespace Nexus.Engine {
 		public float rotationSpeed;
 
 		// Lifespan & Fading
-		public uint frameEnd;       // The frame # that indicates the end of the particle's life.
-		public uint fadeStart;      // The frame # that indicates the particle should begin to fade.
+		public int frameEnd;       // The frame # that indicates the end of the particle's life.
+		public int fadeStart;      // The frame # that indicates the particle should begin to fade.
 		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
 		public float alphaEnd;      // The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 
 		public bool HasExpired { get { return this.frameEnd < Systems.timer.Frame; } }
 
-		public static ParticleFree SetParticle( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, uint frameEnd, uint fadeStart = 0, float alphaStart = 1, float alphaEnd = 0, float rotation = 0, float rotationSpeed = 0, float gravity = 0 ) {
+		public static ParticleFree SetParticle( RoomScene room, Atlas atlas, string spriteName, Vector2 pos, Vector2 vel, int frameEnd, int fadeStart = 0, float alphaStart = 1, float alphaEnd = 0, float rotation = 0, float rotationSpeed = 0, float gravity = 0 ) {
 
 			// Retrieve an available particle from the pool.
 			ParticleFree particle = ParticleFree.pool.GetObject();
@@ -72,7 +72,7 @@ namespace Nexus.Engine {
 		public virtual void Draw(int camX, int camY) {
 
 			// Determine Alpha of Particle (can be affected by fading)
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 			float alpha = this.fadeStart < frame ? ParticleHandler.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
 			
 			this.atlas.DrawAdvanced(this.spriteName, (int)this.pos.X - camX, (int)this.pos.Y - camY, Color.White * alpha, this.rotation);

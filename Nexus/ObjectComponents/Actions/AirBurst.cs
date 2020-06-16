@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 			status.action = ActionMap.AirBurst;
 			status.actionNum1 = directionHor;
 			status.actionNum2 = directionVert;
-			status.actionEnds = (uint)(Systems.timer.Frame + this.duration + extraDuration);
+			status.actionEnds = Systems.timer.Frame + this.duration + extraDuration;
 
 			// Horizontal Movements have a longer duration, since we're trying to ignore gravity for that duration.
 			if(directionVert == 0) {

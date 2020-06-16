@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 		// Behavior Checks
 		private Vector2 startPos;
 		private ChaseAction quickAct;
-		public uint waitEndFrame;
+		public int waitEndFrame;
 
 		protected byte clusterId;
 
@@ -85,14 +85,14 @@ namespace Nexus.ObjectComponents {
 			if(this.stall < minStall) { this.stall = minStall; }
 		}
 		
-		private uint WatchForCharacter(int midX, int midY) {
+		private int WatchForCharacter(int midX, int midY) {
 
-			uint objectId = CollideRect.FindOneObjectTouchingArea(
+			int objectId = CollideRect.FindOneObjectTouchingArea(
 				this.actor.room.objects[(byte)LoadOrder.Character],
-				(uint)Math.Max(0, midX - this.reactDist),
-				(uint)Math.Max(0, midY - this.reactDist),
-				(ushort)(this.reactDist * 2), // View Distance (Width)
-				(ushort)(this.reactDist * 2) // View Height
+				Math.Max(0, midX - this.reactDist),
+				Math.Max(0, midY - this.reactDist),
+				(short)(this.reactDist * 2), // View Distance (Width)
+				(short)(this.reactDist * 2) // View Height
 			);
 
 			return objectId;
@@ -102,7 +102,7 @@ namespace Nexus.ObjectComponents {
 
 			// If there is no character in sight, check for a new one:
 			if(this.charBeingChased is Character == false) {
-				uint objectId = this.WatchForCharacter(midX, midY);
+				int objectId = this.WatchForCharacter(midX, midY);
 
 				if(objectId > 0) {
 					this.charBeingChased = (Character)this.actor.room.objects[(byte)LoadOrder.Character][objectId];
@@ -110,7 +110,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Prepare Values
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 
 			// Get distance from Character, if applicable.
 			int destX = this.charBeingChased is Character ? this.charBeingChased.posX + this.charBeingChased.bounds.MidX : midX;
@@ -137,7 +137,7 @@ namespace Nexus.ObjectComponents {
 
 				} else {
 					this.quickAct = ChaseAction.Wait;
-					this.waitEndFrame = this.waitEndFrame < frame ? (uint)(frame + this.retDelay) : this.waitEndFrame;
+					this.waitEndFrame = this.waitEndFrame < frame ? frame + this.retDelay : this.waitEndFrame;
 				}
 			}
 

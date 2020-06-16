@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 	public static class BurstEmitter {
 
 		public static EmitterSimple AirPuff( RoomScene room, int posX, int posY, sbyte dirHor, sbyte dirVert, byte duration = 8 ) {
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 
 			// Readjust positions to adjust for midX and midY of AirPuff image.
 			posX -= 16;

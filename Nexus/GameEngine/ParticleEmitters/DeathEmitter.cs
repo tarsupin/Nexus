@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 	public static class DeathEmitter {
 
 		public static EmitterSimple Knockout(RoomScene room, string spriteName, int posX, int posY, byte duration = 60) {
-			uint frame = Systems.timer.Frame;
+			int frame = Systems.timer.Frame;
 
 			// Prepare Emnitter
 			EmitterSimple emitter = EmitterSimple.NewEmitter(room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], spriteName, new Vector2(posX, posY), new Vector2(0, 0), 0.5f, frame + duration, frame + duration - 25);

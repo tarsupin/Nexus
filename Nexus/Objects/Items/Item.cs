@@ -22,7 +22,7 @@ namespace Nexus.Objects {
 		// Status
 		public bool isHeld;					// TRUE if the object is currently being held.
 		public sbyte releasedMomentum;		// The amount of momentum (X-Axis) the item has when thrown (used to determine how it lands).
-		public uint intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
+		public int intangible;				// The frame (relative to timer.frame) until it is no longer intangible.
 
 		public Item(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 

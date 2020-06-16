@@ -42,7 +42,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)LeafSubType.Reform] = "Shatters a short duration after standing on it, but reforms seconds later.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
@@ -60,7 +60,7 @@ namespace Nexus.Objects {
 				// Begin Shaking. Add a Queue for 1 second that will break the leaf block.
 				else if(dir == DirCardinal.Down) {
 					room.tilemap.SetTileSubType(gridX, gridY, (byte)(subType + 10));
-					room.queueEvents.AddEvent(Systems.timer.Frame + Leaf.LeafShakeDuration, this.tileId, (short)gridX, (short)gridY, (byte)LeafTriggerEvent.BreakApart);
+					room.queueEvents.AddEvent(Systems.timer.Frame + Leaf.LeafShakeDuration, this.tileId, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
 
 					// Create Visible Shaking Particle
 					LeafShakeParticle.SetParticle(room, this.atlas, this.Texture[subType], new Vector2(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight), Systems.timer.Frame + Leaf.LeafShakeDuration);
@@ -71,7 +71,7 @@ namespace Nexus.Objects {
 		}
 
 		// Trigger Event: BeginShake, Break Apart, Reform
-		public override bool TriggerEvent(RoomScene room, ushort gridX, ushort gridY, short triggerType = 0, short val2 = 0) {
+		public override bool TriggerEvent(RoomScene room, short gridX, short gridY, short triggerType = 0, short val2 = 0) {
 
 			// Break Apart Event
 			if(triggerType == (byte) LeafTriggerEvent.BreakApart) {

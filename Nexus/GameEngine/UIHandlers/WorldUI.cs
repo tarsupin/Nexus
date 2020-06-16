@@ -7,13 +7,13 @@ namespace Nexus.GameEngine {
 
 		private readonly WorldScene scene;
 		public Atlas atlas;
-		private readonly ushort bottomRow;
+		private readonly short bottomRow;
 		private readonly WorldContent worldContent;
 
 		public WorldUI( WorldScene scene ) {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) WorldmapEnum.TileHeight);
+			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) WorldmapEnum.TileHeight);
 			this.worldContent = this.scene.worldContent;
 		}
 

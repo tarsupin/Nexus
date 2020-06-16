@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				int duration = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : 60;
-				ConsoleTrack.character.wounds.SetInvincible((uint)duration * 60);
+				ConsoleTrack.character.wounds.SetInvincible(duration * 60);
 			}
 		}
 

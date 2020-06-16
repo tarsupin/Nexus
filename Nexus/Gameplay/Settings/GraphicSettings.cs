@@ -5,7 +5,7 @@ namespace Nexus.Gameplay {
 
 	public class GraphicsJson {
 		public bool DisplayParticles;
-		public ushort MaxParticles;
+		public short MaxParticles;
 	}
 
 	public class GraphicSettings : GraphicsJson {

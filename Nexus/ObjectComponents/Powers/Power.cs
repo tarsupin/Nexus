@@ -77,8 +77,8 @@ namespace Nexus.ObjectComponents {
 		protected byte cooldown;			// In Frames
 		protected byte numberOfUses;
 		protected byte delayBetweenUses;	// In Frames
-		protected uint lastActivation;
-		protected uint[] lastUseTracker;
+		protected int lastActivation;
+		protected int[] lastUseTracker;
 
 		public Power( Character character ) {
 			this.character = character;
@@ -187,7 +187,7 @@ namespace Nexus.ObjectComponents {
 			this.numberOfUses = numberOfUses;
 			this.delayBetweenUses = delayBetweenUses;
 			this.lastActivation = 0;
-			this.lastUseTracker = new uint[this.numberOfUses];
+			this.lastUseTracker = new int[this.numberOfUses];
 		}
 
 		public bool CanActivate() {
@@ -209,10 +209,10 @@ namespace Nexus.ObjectComponents {
 				if(timer.Frame > this.lastUseTracker[i]) {
 
 					// Consume this activation for now:
-					this.lastUseTracker[i] = (uint)(timer.Frame + this.cooldown / fastCastMult);
+					this.lastUseTracker[i] = timer.Frame + this.cooldown / fastCastMult;
 
 					// Set most recent activation:
-					this.lastActivation = (uint)(timer.Frame + this.delayBetweenUses / fastCastMult);
+					this.lastActivation = timer.Frame + this.delayBetweenUses / fastCastMult;
 
 					return true;
 				}

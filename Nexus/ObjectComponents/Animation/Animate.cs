@@ -15,7 +15,7 @@ namespace Nexus.ObjectComponents {
 		public string[] AnimCycles { get; private set; }	// The animation names to cycle through (e.g. "WalkLeft1", "WalkLeft2", etc).
 		public byte CycleId { get; private set; }			// The animation ID of the texture (e.g. "1", "2", etc.), which cycles through the animation.
 		public byte AnimSpeed { get; private set; }			// The number of frames that each animation takes place.
-		public uint NextFrame { get; private set; }			// The frame # that the texture will next update.
+		public int NextFrame { get; private set; }			// The frame # that the texture will next update.
 
 		public Animate( GameObject actor, string baseName = "" ) {
 			this.actor = actor;

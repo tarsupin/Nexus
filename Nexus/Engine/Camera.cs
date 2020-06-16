@@ -12,8 +12,8 @@ namespace Nexus.Engine {
 		// Camera Traits
 		public int posX;
 		public int posY;
-		public ushort width;				// Width of the Camera (in pixels).
-		public ushort height;				// Height of the Camera (in pixels).
+		public short width;				// Width of the Camera (in pixels).
+		public short height;				// Height of the Camera (in pixels).
 		private int midX;					// X offset to center the Camera.
 		private int midY;                   // Y offset to center the Camera.
 		private int rightX;					// X position on the right of the camera.
@@ -23,8 +23,8 @@ namespace Nexus.Engine {
 		private byte controlSpeed;			// Speed (Pixel Movement) when using Manual Control (Directions)
 
 		// Shake Effect, measured by Frames
-		private uint shakeStart;
-		private uint shakeEnd;
+		private int shakeStart;
+		private int shakeEnd;
 		private byte shakeStrength;
 
 		public Camera( Scene scene ) {
@@ -33,11 +33,11 @@ namespace Nexus.Engine {
 			this.posY = 0;
 		}
 
-		public ushort GridX { get { return (ushort)Math.Floor((double)this.posX / (ushort)TilemapEnum.TileWidth); } }
-		public ushort GridY { get { return (ushort)Math.Floor((double)this.posY / (ushort)TilemapEnum.TileHeight); } }
+		public short GridX { get { return (short)Math.Floor((double)this.posX / (short)TilemapEnum.TileWidth); } }
+		public short GridY { get { return (short)Math.Floor((double)this.posY / (short)TilemapEnum.TileHeight); } }
 		
-		public ushort MiniX { get { return (ushort)Math.Floor((double)this.posX / (ushort)WorldmapEnum.TileWidth); } }
-		public ushort MiniY { get { return (ushort)Math.Floor((double)this.posY / (ushort)WorldmapEnum.TileHeight); } }
+		public short MiniX { get { return (short)Math.Floor((double)this.posX / (short)WorldmapEnum.TileWidth); } }
+		public short MiniY { get { return (short)Math.Floor((double)this.posY / (short)WorldmapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;
@@ -49,7 +49,7 @@ namespace Nexus.Engine {
 			this.shakeEnd = 0;
 		}
 
-		public void SetSize( ushort width, ushort height ) {
+		public void SetSize( short width, short height ) {
 			this.midX = (int) Math.Floor((double)(width * 0.5));
 			this.midY = (int) Math.Floor((double)(height * 0.5));
 			this.width = width;

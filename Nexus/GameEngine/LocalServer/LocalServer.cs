@@ -102,9 +102,9 @@ namespace Nexus.GameEngine {
 
 			// Verify Integrity of Input Packet:
 			if(packet.Count < 4) { return; }
-			if(packet[2] is uint == false) { return; }
+			if(packet[2] is int == false) { return; }
 
-			uint frame = (uint) packet[2];
+			int frame = (int) packet[2];
 
 			// Loop through each player in the packet, and update their frames accordingly.
 			byte len = (byte)packet.Count;

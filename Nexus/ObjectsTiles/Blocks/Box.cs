@@ -21,7 +21,7 @@ namespace Nexus.Objects {
 			this.description = "Destroyed when hit from beneath.";
 		}
 
-		public override bool RunImpact(RoomScene room, GameObject actor, ushort gridX, ushort gridY, DirCardinal dir) {
+		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Projectile) {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 			return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 
-		public void DestroyBox(RoomScene room, ushort gridX, ushort gridY) {
+		public void DestroyBox(RoomScene room, short gridX, short gridY) {
 
 			// Display Particle Effect
 			ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);

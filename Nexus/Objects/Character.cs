@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 		public Nameplate nameplate;
 
 		// Survival
-		public uint deathFrame = 0;		// The frame that the character died.
+		public int deathFrame = 0;		// The frame that the character died.
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;

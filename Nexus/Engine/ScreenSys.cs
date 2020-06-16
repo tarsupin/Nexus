@@ -6,11 +6,11 @@ namespace Nexus.Engine {
 	public class ScreenSys {
 
 		public GraphicsDeviceManager graphics;
-		public ushort screenWidth;
-		public ushort screenHeight;
-		public ushort windowWidth;
-		public ushort windowHeight;
-		public ushort windowHalfWidth;
+		public short screenWidth;
+		public short screenHeight;
+		public short windowWidth;
+		public short windowHeight;
+		public short windowHalfWidth;
 
 		public ScreenSys(GameClient game) {
 			this.graphics = game.graphics;
@@ -20,17 +20,17 @@ namespace Nexus.Engine {
 		public void UpdateSizes() {
 
 			// Screen Size
-			this.screenWidth = (ushort) this.graphics.GraphicsDevice.DisplayMode.Width;
-			this.screenHeight = (ushort) this.graphics.GraphicsDevice.DisplayMode.Height;
+			this.screenWidth = (short) this.graphics.GraphicsDevice.DisplayMode.Width;
+			this.screenHeight = (short) this.graphics.GraphicsDevice.DisplayMode.Height;
 
 			// Window Size
-			this.windowWidth = (ushort) this.graphics.GraphicsDevice.Viewport.Width;
-			this.windowHeight = (ushort) this.graphics.GraphicsDevice.Viewport.Height;
+			this.windowWidth = (short) this.graphics.GraphicsDevice.Viewport.Width;
+			this.windowHeight = (short) this.graphics.GraphicsDevice.Viewport.Height;
 
-			this.windowHalfWidth = (ushort) Math.Floor((decimal) (this.windowWidth / 2));
+			this.windowHalfWidth = (short) Math.Floor((decimal) (this.windowWidth / 2));
 		}
 
-		public void ResizeWindowTo( ushort width, ushort height ) {
+		public void ResizeWindowTo( short width, short height ) {
 			graphics.PreferredBackBufferWidth = width;
 			graphics.PreferredBackBufferHeight = height;
 			//graphics.IsFullScreen = true;
@@ -46,7 +46,7 @@ namespace Nexus.Engine {
 			// 1920x1080, 1600x900, 1536x864, 1366x768, 1024x768
 
 			// Max Window Size should be 1440x900. After that, just fill the space as best as possible.
-			this.ResizeWindowTo((ushort) (this.screenWidth >= 1440 ? 1440 : this.screenWidth), (ushort) (this.screenHeight >= 900 ? 900 : this.screenHeight));
+			this.ResizeWindowTo((short) (this.screenWidth >= 1440 ? 1440 : this.screenWidth), (short) (this.screenHeight >= 900 ? 900 : this.screenHeight));
 		}
 		
 		public void ResizeWindowToLargestFit() {

@@ -45,7 +45,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static void StartAutoTool(ushort gridX, ushort gridY) {
+		public static void StartAutoTool(short gridX, short gridY) {
 
 			// Can only set an AutoTile tool if a TileTool is also active.
 			if(EditorTools.tileTool == null) { return; }

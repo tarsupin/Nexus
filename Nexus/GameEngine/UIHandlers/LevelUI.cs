@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 		private readonly PowerUI powerUI;
 		public Atlas atlas;
 		public Player myPlayer;
-		public readonly ushort bottomRow;
+		public readonly short bottomRow;
 		private readonly LevelState levelState;
 
 		public LevelUI( LevelScene scene ) {
@@ -21,7 +21,7 @@ namespace Nexus.GameEngine {
 			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.myPlayer = Systems.localServer.MyPlayer;
-			this.bottomRow = (ushort) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
+			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
 			this.levelState = Systems.handler.levelState;
 		}
 
