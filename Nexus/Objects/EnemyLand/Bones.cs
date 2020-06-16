@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 
 		public override void OnDirectionChange() {
 			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-			this.animate.SetAnimation("Bones/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
+			this.animate.SetAnimation("Bones/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 15);
 		}
 
 		public override bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {

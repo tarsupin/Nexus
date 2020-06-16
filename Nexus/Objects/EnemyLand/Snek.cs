@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 
 		public override void OnDirectionChange() {
 			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-			this.animate.SetAnimation((this.subType == (byte) SnekSubType.Snek ? "Snek/" : "Wurm/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+			this.animate.SetAnimation((this.subType == (byte) SnekSubType.Snek ? "Snek/" : "Wurm/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 		}
 	}
 }

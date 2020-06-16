@@ -49,7 +49,7 @@ namespace Nexus.Objects {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, this);
 
 			if(dir == DirCardinal.Down && this.subType == (byte)GhostSubType.Hat) {
-				ActionMap.Jump.StartAction(character, 2, 0, 4);
+				ActionMap.Jump.StartAction(character, 2, 0, 4, true);
 			} else {
 				if(this.subType != (byte)GhostSubType.Hide) {
 					if(this.subType == (byte)GhostSubType.Hat && this.posY - character.posY > 25) { return false; }

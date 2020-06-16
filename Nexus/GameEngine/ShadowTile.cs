@@ -215,10 +215,10 @@ namespace Nexus.Objects {
 			
 			// Shell
 			{ (byte) ObjectEnum.Shell, new Dictionary<byte, string> {
-				{  (byte) ShellSubType.Green, "Shell/Green/Side" },
-				{  (byte) ShellSubType.GreenWing, "Shell/GreenWing/Side" },
-				{  (byte) ShellSubType.Heavy, "Shell/Heavy/Side" },
-				{  (byte) ShellSubType.Red, "Shell/Red/Side" },
+				{  (byte) ShellSubType.Green, "Shell/Green/Spin1" },
+				{  (byte) ShellSubType.GreenWing, "Shell/GreenWing/Spin1" },
+				{  (byte) ShellSubType.Heavy, "Shell/Heavy/Spin1" },
+				{  (byte) ShellSubType.Red, "Shell/Red/Spin1" },
 			}},
 			
 			// Boulder

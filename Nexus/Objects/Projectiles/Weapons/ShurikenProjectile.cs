@@ -60,7 +60,7 @@ namespace Nexus.Objects {
 		public override void Destroy(DirCardinal dir = DirCardinal.None, GameObject obj = null) {
 			base.Destroy();
 
-			EndBounceParticle particle = EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName, new Vector2(this.posX, this.posY), Systems.timer.Frame + 10, 3, 0.5f, 0.12f);
+			EndBounceParticle particle = EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName, new Vector2(this.posX + this.bounds.Left - 2, this.posY + this.bounds.Top - 2), Systems.timer.Frame + 10, 3, 0.5f, 0.12f);
 
 			if(dir == DirCardinal.Right || dir == DirCardinal.Left) {
 				particle.vel.Y -= (float)CalcRandom.FloatBetween(0, 3);

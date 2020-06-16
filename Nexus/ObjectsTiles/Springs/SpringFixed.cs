@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 			
 			if(subType == (byte)SpringFixedSubType.Up && dir == DirCardinal.Down) {
 				if(actor is Character) {
-					ActionMap.Jump.StartAction((Character)actor, 10, 0, 6, false);
+					ActionMap.Jump.StartAction((Character)actor, 10, 0, 6, true, false);
 					Systems.sounds.spring.Play(0.4f, 0, 0);
 				} else {
 					actor.BounceUp(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, 8, 0, 5);

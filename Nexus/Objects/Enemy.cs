@@ -71,7 +71,7 @@ namespace Nexus.Objects {
 		}
 
 		public virtual bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
-			ActionMap.Jump.StartAction(character, bounceStrength, 0, 4);
+			ActionMap.Jump.StartAction(character, bounceStrength, 0, 4, true);
 			return this.ReceiveWound();
 		}
 

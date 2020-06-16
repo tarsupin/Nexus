@@ -29,7 +29,7 @@ namespace Nexus.Objects {
 			// Hit Button
 			if(newDir == DirCardinal.Down) {
 				if(actor is Character) {
-					ActionMap.Jump.StartAction((Character)actor, 5, 0, 4);
+					ActionMap.Jump.StartAction((Character)actor, 5, 0, 4, true);
 				}
 
 				else if(actor is EnemyLand || actor is Item) {

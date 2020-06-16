@@ -42,7 +42,7 @@ namespace Nexus.ObjectComponents {
 
 					// If it can be kicked:
 					if(this.objHeld.KickStrength > 0) {
-						this.KickItem();
+						this.KickItem(this.objHeld, this.character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
 					} else {
 						this.DropItem();
 					}
@@ -67,7 +67,7 @@ namespace Nexus.ObjectComponents {
 			// Shells have special requirements for pickup:
 			if(item is Shell) {
 
-				// If thee shell is moving quickly, it can't be picked up (unless you have the bamboo hat).
+				// If the shell is moving quickly, it can't be picked up (unless you have the bamboo hat).
 				if(Math.Abs(item.physics.velocity.X.RoundInt) > 4) {
 					if(!(this.character.hat is BambooHat)) { return false; }
 				}
@@ -105,7 +105,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Assign Item Physics + Thrown Properties
-			item.intangible = Systems.timer.Frame + 7;
+			item.intangible = Systems.timer.Frame + 5;
 			item.releasedMomentum = useXMomentum ? (sbyte) Math.Round(this.character.physics.velocity.X.RoundInt / 2.5) : (sbyte) 0;
 			item.physics.velocity.X = FInt.Create(item.releasedMomentum);
 			item.physics.velocity.Y = FInt.Create(-item.ThrowStrength);
@@ -117,17 +117,31 @@ namespace Nexus.ObjectComponents {
 			this.ResetHeldItem();
 		}
 
-		public void KickItem() {
-			if(this.objHeld == null) { return; }
+		public void KickItem(Item item, DirCardinal dir ) {
+			item.intangible = Systems.timer.Frame + 5;
 
-			Item item = this.objHeld;
-			item.intangible = Systems.timer.Frame + 7;
+			// If the Shell is stationary, or character is hitting it from behind, or was wearing a Bamboo Hat.
+			sbyte xStrength = 0;
+			sbyte yStrength = 0;
 
-			item.physics.velocity.X = FInt.Create(this.character.FaceRight ? item.KickStrength : -item.KickStrength);
-			item.physics.velocity.Y = FInt.Create(-1.5);
+			// Affect Kick by Input
+			if(this.character.input.isDown(IKey.Down)) { xStrength = -2; }
+			else if(this.character.input.isDown(IKey.Up)) { yStrength = 6; }
+
+			// If facing the wrong way, reduce kick power:
+			if(dir == DirCardinal.Left && this.character.FaceRight) { xStrength = -2; yStrength = 0; }
+			if(dir == DirCardinal.Right && !this.character.FaceRight) { xStrength = -2; yStrength = 0; }
+
+			item.physics.velocity.X = FInt.Create(dir == DirCardinal.Right ? item.KickStrength + xStrength : -(item.KickStrength + xStrength));
+			item.physics.velocity.Y = FInt.Create(-1.5 - yStrength);
+
+			// Animate Shells
+			if(item is Shell) {
+				item.animate.SetAnimation(null, item.physics.velocity.X > 0 ? AnimCycleMap.Cycle4 : AnimCycleMap.Cycle4Reverse, 7, 1);
+			}
 
 			// Play Kick Sound
-			Systems.sounds.shellBoop.Play(0.2f, 0, 0);
+			Systems.sounds.shellBoop.Play(0.3f, 0, 0);
 
 			this.ResetHeldItem();
 		}

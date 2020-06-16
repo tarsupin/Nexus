@@ -78,12 +78,12 @@ namespace Nexus.Objects {
 			if(this.subType == (byte)ShroomSubType.Red) {
 				this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
 				this.animate = new Animate(this, "Shroom/Red/");
-				this.animate.SetAnimation("Shroom/Red/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+				this.animate.SetAnimation("Shroom/Red/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 			}
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 6) {
-			ActionMap.Jump.StartAction(character, 6, 0, 4);
+			ActionMap.Jump.StartAction(character, 6, 0, 4, true);
 			return this.ReceiveWound(); // TODO: Some Shrooms should be protected above; cannot be damaged by jumping on them.
 		}
 	}

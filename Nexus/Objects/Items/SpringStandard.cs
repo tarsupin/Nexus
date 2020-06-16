@@ -21,11 +21,12 @@ namespace Nexus.Objects {
 			this.gripLift = -8;
 
 			this.AssignSubType(subType);
+			this.AssignBoundsByAtlas(2, 2, -2, 0);
 		}
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) SpringStandardSubType.Norm) {
-				this.SpriteName = "Spring/Standard/Up";
+				this.SpriteName = "Spring/Up";
 			}
 		}
 	}

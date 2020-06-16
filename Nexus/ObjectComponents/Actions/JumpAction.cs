@@ -16,13 +16,14 @@ namespace Nexus.ObjectComponents {
 			this.endsOnLanding = true;
 		}
 
-		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0, bool playSound = true ) {
+		public void StartAction( Character character, sbyte extraStrength = 0, byte extraDuration = 0, sbyte minimumDuration = 0, bool resetJumps = false, bool playSound = true ) {
 
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
 			// If falling, must have at least one jump strain (to account for extra jump otherwise)
-			if(!character.physics.touch.toBottom && status.jumpsUsed < 1) { status.jumpsUsed = 1; }
+			if(resetJumps) { status.jumpsUsed = 0; }
+			else if(!character.physics.touch.toBottom && status.jumpsUsed < 1) { status.jumpsUsed = 1; }
 
 			// If you've spent more jumps than you have available, cannot jump again.
 			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }

@@ -32,15 +32,15 @@ namespace Nexus.GameEngine {
 		}
 
 		public bool EnemyHitsItem(Enemy enemy, Item item, DirCardinal dir) {
+			if(item.isHeld) { return false; }
 
-			// If the item is intangible, don't collide with the item.
-			if(item.intangible > Systems.timer.Frame) { return false; }
-
-			// TODO: LOTS OF STUFF HERE.
-			// TODO: GRABBING, HOLDING, PICK UP ITEMS, ETC.
+			// Most Flight Enemies ignore item collisions.
+			if(enemy is EnemyFlight) {
+				if(!((EnemyFlight)enemy).shellCollision && item is Shell) { return false; }
+			}
 
 			// If we've made it this far, run standard collision with item:
-			return Impact.StandardImpact(enemy, item);
+			return Impact.StandardImpact(enemy, item, dir);
 		}
 
 		public bool EnemyHitsEnemy(Enemy enemy, Enemy enemy2, DirCardinal dir) {

@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 		}
 
 		public override void Destroy( DirCardinal dir = DirCardinal.None, GameObject obj = null ) {
-			EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], "Projectiles/Earth1", new Vector2(this.posX, this.posY), Systems.timer.Frame + 10);
+			EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], "Projectiles/Earth1", new Vector2(this.posX + this.bounds.Left - 2, this.posY + this.bounds.Top - 2), Systems.timer.Frame + 10);
 			Systems.sounds.shellThud.Play();
 			base.Destroy();
 		}

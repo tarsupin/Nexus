@@ -16,9 +16,6 @@ namespace Nexus.GameEngine {
 			// Specific Impact Types
 			if(obj is Projectile) { return this.ItemHitsProjectile(it, (Projectile) obj); }
 
-			// Don't collide with Flight Enemies
-			if(obj is EnemyFlight) { return false; }
-
 			// Make sure the item isn't being held
 			if(it.isHeld) { return false; }
 

@@ -18,11 +18,11 @@ namespace Nexus.Objects {
 
 		private void AssignSubType( byte subType ) {
 			this.animate = new Animate(this, "Flair/Norm/");
-			this.animate.SetAnimation("Flair/Norm/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+			this.animate.SetAnimation("Flair/Norm/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 		}
 
 		public override void OnDirectionChange() {
-			this.animate.SetAnimation("Flair/Norm/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+			this.animate.SetAnimation("Flair/Norm/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 		}
 	}
 }

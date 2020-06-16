@@ -7,6 +7,8 @@ namespace Nexus.Objects {
 
 	public class EnemyFlight : Enemy {
 
+		public bool shellCollision = false;
+
 		public EnemyFlight(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}

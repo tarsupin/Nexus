@@ -32,7 +32,7 @@ namespace Nexus.Objects {
 
 		public override void OnStateChange() {
 			if(this.State == (byte)CommonState.Move || this.State == (byte)CommonState.MotionEnd) {
-				this.animate.SetAnimation("Liz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+				this.animate.SetAnimation("Liz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 			} else {
 				this.SetSpriteName("Liz/" + (this.FaceRight ? "Right" : "Left") + (this.State == (byte)CommonState.SpecialWait ? "1" : "3"));
 			}
@@ -49,7 +49,7 @@ namespace Nexus.Objects {
 
 		public override void OnDirectionChange() {
 			this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-			this.animate.SetAnimation("Liz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 15);
+			this.animate.SetAnimation("Liz/" + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 15);
 		}
 	}
 }

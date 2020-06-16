@@ -21,7 +21,6 @@ namespace Nexus.Objects {
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0.7));
 			
-
 			// Sub-Type
 			this.AssignSubType(subType);
 
@@ -58,7 +57,7 @@ namespace Nexus.Objects {
 				if(this.State == (byte)CommonState.Move || this.State == (byte)CommonState.MotionEnd) {
 
 					// TODO FIX: This apparently broke (this.animate was set to null, and subtype was set to 0 (brown). shouldn't have occurred; can't recreate bug)
-					this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+					this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 				}
 
 				else {
@@ -70,7 +69,7 @@ namespace Nexus.Objects {
 		public override void OnDirectionChange() {
 			if(this.subType != (byte)MooshSubType.White) {
 				this.physics.velocity.X = this.speed * (this.FaceRight ? 1 : -1);
-				this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3Reverse, 12);
+				this.animate.SetAnimation("Moosh/" + (this.subType == (byte)MooshSubType.Brown ? "Brown/" : "Purple/") + (this.FaceRight ? "Right" : "Left"), AnimCycleMap.Cycle3BothWays, 12);
 			}
 		}
 
