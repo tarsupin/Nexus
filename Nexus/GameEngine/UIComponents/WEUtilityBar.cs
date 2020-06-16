@@ -53,7 +53,7 @@ namespace Nexus.GameEngine {
 
 					// Draw the Helper Text associated with the Function Button
 					WEScene WEScene = (WEScene)Systems.scene;
-					WEScene.weUI.alertText.SetAlert(WorldFuncBut.title, WorldFuncBut.description);
+					WEScene.weUI.alertText.SetNotice(WorldFuncBut.title, WorldFuncBut.description);
 				}
 
 				// Mouse was pressed

@@ -26,12 +26,17 @@ namespace Nexus.Objects {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 
+			// Allow Dropdown Mechanic
+			if(actor is Character) {
+				Character character = (Character)actor;
+				character.physics.touch.onMover = true;
+				if(character.status.action is DropdownAction) { return false; }
+			}
+
 			bool collided = CollideTileFacing.RunImpact(actor, gridX, gridY, dir, DirCardinal.Up);
 
 			if(collided) {
-				if(actor is Character) {
-					TileCharBasicImpact.RunImpact((Character)actor, dir); // Standard Character Tile Collisions
-				} else if(actor is Projectile) {
+				if(actor is Projectile) {
 					TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 				}
 			}
