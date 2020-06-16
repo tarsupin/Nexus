@@ -30,6 +30,6 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public override void ActivateItem() { }
+		public override void ActivateItem(Character character) { }
 	}
 }

@@ -60,7 +60,7 @@ namespace Nexus.GameEngine {
 
 		// Retrieve the object ID of a GameObject that is touching the area designated. Otherwise identical to FindObjectWithinArea().
 		// uint enemyFoundId = CollideRect.FindObjectsTouchingArea( objectList, 480, 96, 48, 48, minimumId );
-		public static List<GameObject> FindAllObjectsTouchingArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height, ushort minId = 0) {
+		public static List<GameObject> FindAllObjectsTouchingArea(Dictionary<uint, GameObject> objectList, uint posX, uint posY, ushort width, ushort height) {
 			List<GameObject> objList = new List<GameObject>();
 			uint right = posX + width;
 			uint bottom = posY + height;

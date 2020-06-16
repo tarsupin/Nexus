@@ -24,12 +24,31 @@ namespace Nexus.Objects {
 			this.AssignBoundsByAtlas(6, 2, -2, 0);
 		}
 
-		public override void ActivateItem() { }
+		public override void ActivateItem(Character character) {
+			this.Destroy();
+			character.heldItem.ResetHeldItem();
+			TNT.DetonateTNT(this.room, character.posX - 800, character.posY - 500, 1600, 1000);
+		}
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) TNTSubType.TNT) {
 				this.SpriteName = "Items/TNT";
 			}
+		}
+
+		public static void DetonateTNT(RoomScene room, int posX, int posY, short width, short height) {
+			Systems.camera.BeginCameraShake(13, 7);
+			Systems.sounds.explosion.Play();
+
+			List<GameObject> objects = CollideRect.FindAllObjectsTouchingArea(
+				room.objects[(byte)LoadOrder.Enemy], (uint)posX, (uint)posY, (ushort)width, (ushort)height
+			);
+
+			// Loop through Enemies and destroy any that can be destroyed by TNT.
+			foreach(GameObject obj in objects) {
+				Enemy enemy = (Enemy)obj;
+				enemy.DamageByTNT();
+			};
 		}
 	}
 }

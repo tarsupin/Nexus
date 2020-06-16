@@ -57,7 +57,7 @@ namespace Nexus.Objects {
 			}
 		}
 
-		public virtual void ActivateItem() {}
+		public virtual void ActivateItem(Character character) {}
 
 		public override void CollidePosDown(int posY) {
 			base.CollidePosDown(posY);

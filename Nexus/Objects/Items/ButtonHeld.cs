@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 			else if(subType == (byte) ButtonSubTypes.GY) { this.SpriteName = "Button/GY"; }
 		}
 
-		public override void ActivateItem() {
+		public override void ActivateItem(Character character) {
 
 			// Press Button Down
 			this.isDown = !this.isDown;
@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 			
 			else { return false; }
 
-			this.ActivateItem();
+			this.ActivateItem(null);
 
 			return base.CollideObjUp(obj);
 		}

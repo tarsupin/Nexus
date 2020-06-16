@@ -52,7 +52,7 @@ namespace Nexus.ObjectComponents {
 
 		public void ActivateItem() {
 			if(!this.IsHeld) { return; }
-			this.objHeld.ActivateItem();
+			this.objHeld.ActivateItem(this.character);
 		}
 
 		public bool WillPickupAttemptWork( Item item, DirCardinal dirToward ) {

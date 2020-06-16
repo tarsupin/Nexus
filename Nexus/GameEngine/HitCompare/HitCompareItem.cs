@@ -8,19 +8,21 @@ namespace Nexus.GameEngine {
 
 		public bool RunImpact( GameObject item, GameObject obj ) {
 
-			// TODO: ALL OF THIS HAS TO BE BUILT. NEED DYNAMIC OBJECTS IN PLACE FIRST.
-			// TODO: ALL OF THIS HAS TO BE BUILT. NEED DYNAMIC OBJECTS IN PLACE FIRST.
-
 			Item it = (Item) item;
 
 			// Specific Impact Types
 			if(obj is Projectile) { return this.ItemHitsProjectile(it, (Projectile) obj); }
 
-			// Make sure the item isn't being held
+			// Make sure the items aren't being held.
 			if(it.isHeld) { return false; }
 
 			// Platforms
 			if(obj is Platform) { return this.ItemHitsPlatform(it, (Platform)obj); ; }
+
+			// Item-Item Collision
+			if(obj is Item) {
+				if(((Item)obj).isHeld) { return false; }
+			}
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(it, obj);
 
