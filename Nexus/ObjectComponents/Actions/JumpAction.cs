@@ -29,6 +29,7 @@ namespace Nexus.ObjectComponents {
 
 			this.EndLastActionIfActive(character);
 
+			status.jumpsUsed++;
 			status.action = ActionMap.Jump;
 			status.actionEnds = Systems.timer.Frame + stats.JumpDuration + extraDuration;
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);

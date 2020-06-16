@@ -309,9 +309,10 @@ namespace Nexus.Objects {
 				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
 				if(this.status.leaveWall >= Systems.timer.Frame) {
 					ActionMap.WallJump.StartAction(this, this.status.grabDir);
+				}
 
-					// Double Jump
-				} else if(this.stats.JumpMaxTimes > 1 && this.status.jumpsUsed < this.stats.JumpMaxTimes) {
+				// Double Jump
+				else if(this.stats.JumpMaxTimes > 1 && this.status.jumpsUsed < this.stats.JumpMaxTimes) {
 					ActionMap.Jump.StartAction(this);
 				}
 			}

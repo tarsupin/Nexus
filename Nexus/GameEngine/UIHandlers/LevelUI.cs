@@ -32,7 +32,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw(this.levelState.coins.ToString(), 65, 10, Color.White);
 
 			// Timer
-			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.windowWidth - 100, 10, Color.White);
+			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.windowWidth - 90, 10, Color.White);
 
 			// Health & Armor
 			if(this.myPlayer.character is Character) {
