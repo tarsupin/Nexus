@@ -207,7 +207,7 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.Disrupt: this.RunDisrupt(character); break;
 
 				// Explosive
-				case (byte)GoodieSubType.Explosive: this.RunTNTDetonation(character); break;
+				case (byte)GoodieSubType.Explosive: TNT.DetonateTNT(character); break;
 			}
 
 			// SubTypes that can be maxed out, and therefore not collected.
@@ -309,10 +309,6 @@ namespace Nexus.Objects {
 		private void RunDisrupt(Character character) {
 			character.DisableAbilities();
 			Systems.sounds.collectDisable.Play();
-		}
-
-		private void RunTNTDetonation(Character character) {
-			throw new NotImplementedException();
 		}
 
 		private void CollectKey(Character character) {

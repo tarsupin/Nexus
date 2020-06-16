@@ -28,17 +28,19 @@ namespace Nexus.Objects {
 		public override void ActivateItem(Character character) {
 			this.Destroy();
 			character.heldItem.ResetHeldItem();
-
-			int posX = Math.Min(Math.Max(0, character.posX - 800), this.room.tilemap.Width - 1600);
-			int posY = Math.Min(Math.Max(0, character.posY - 500), this.room.tilemap.Height - 1000);
-
-			TNT.DetonateTNT(this.room, posX, posY, 1600, 1000);
+			TNT.DetonateTNT(character);
 		}
 
 		private void AssignSubType(byte subType) {
 			if(subType == (byte) TNTSubType.TNT) {
 				this.SpriteName = "Items/TNT";
 			}
+		}
+
+		public static void DetonateTNT(Character character) {
+			int posX = Math.Min(Math.Max(0, character.posX - 800), character.room.tilemap.Width - 1600);
+			int posY = Math.Min(Math.Max(0, character.posY - 500), character.room.tilemap.Height - 1000);
+			TNT.DetonateTNT(character.room, posX, posY, 1600, 1000);
 		}
 
 		public static void DetonateTNT(RoomScene room, int posX, int posY, short width, short height) {

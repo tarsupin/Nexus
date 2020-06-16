@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace Nexus.Gameplay {
 
 	public enum WorldmapEnum : short {
@@ -275,22 +274,4 @@ namespace Nexus.Gameplay {
 		Warp = 10,
 		WarpAuto = 11,
 	}
-
-	public interface ZoneTiles {
-		Dictionary<byte, ZoneTilesY> gridY { get; set; }
-	}
-
-	public interface ZoneTilesY {
-		Dictionary<byte, ZoneTilesX> gridX { get; set; }
-	}
-
-	public interface ZoneTilesX {
-		OTerrain t { get; set; }
-		string f { get; set; }
-		OTerrain l { get; set; }
-		string lf { get; set; }
-		string o { get; set; }
-		short n { get; set; }
-	}
-	
 }
