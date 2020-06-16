@@ -65,10 +65,23 @@ namespace Nexus.Objects {
 		}
 
 		public override bool CollideObjDown(GameObject obj) {
+
+			if(obj is Character) {
+				Character character = (Character)obj;
+
+				// End any action that ends upward:
+				Action action = character.status.action;
+
+				if(action is JumpAction || action is WallJumpAction) {
+					character.status.action.EndAction(character);
+				}
+			}
+
 			if(base.CollideObjDown(obj)) {
 				this.physics.StopX();
 				return true;
 			}
+
 			return false;
 		}
 	}
