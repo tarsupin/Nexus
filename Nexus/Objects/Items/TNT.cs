@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -27,7 +28,11 @@ namespace Nexus.Objects {
 		public override void ActivateItem(Character character) {
 			this.Destroy();
 			character.heldItem.ResetHeldItem();
-			TNT.DetonateTNT(this.room, character.posX - 800, character.posY - 500, 1600, 1000);
+
+			int posX = Math.Min(Math.Max(0, character.posX - 800), this.room.tilemap.Width - 1600);
+			int posY = Math.Min(Math.Max(0, character.posY - 500), this.room.tilemap.Height - 1000);
+
+			TNT.DetonateTNT(this.room, posX, posY, 1600, 1000);
 		}
 
 		private void AssignSubType(byte subType) {
@@ -49,6 +54,24 @@ namespace Nexus.Objects {
 				Enemy enemy = (Enemy)obj;
 				enemy.DamageByTNT();
 			};
+
+			TilemapLevel tilemap = room.tilemap;
+
+			// Destroy Chompers Within Area of Effect
+			short startX = Math.Max((short) 0, (short)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)));
+			short startY = Math.Max((short) 0, (short)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)));
+			short endX = Math.Min(tilemap.XCount, (short)Math.Floor((double)((posX + width) / (byte)TilemapEnum.TileWidth)));
+			short endY = Math.Min(tilemap.YCount, (short)Math.Floor((double)((posY + height) / (byte)TilemapEnum.TileHeight)));
+
+			// Locate Chompers
+			var tilesFound = tilemap.GetTilesByMainIDsWithinArea(new byte[7] { (byte)TileEnum.ChomperFire, (byte)TileEnum.ChomperGrass, (byte)TileEnum.ChomperMetal, (byte)TileEnum.Plant, (byte)TileEnum.Box, (byte)TileEnum.Brick, (byte)TileEnum.Leaf }, startX, startY, endX, endY);
+
+			var TileDict = Systems.mapper.TileDict;
+
+			foreach(var tileInfo in tilesFound) {
+				TileObject tile = TileDict[tileInfo.tileId];
+				if(tile is Chomper) { ((Chomper)tile).DestroyChomper(room, tileInfo.gridX, tileInfo.gridY); }
+			}
 		}
 	}
 }
