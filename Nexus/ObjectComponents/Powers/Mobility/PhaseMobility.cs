@@ -7,6 +7,12 @@ namespace Nexus.ObjectComponents {
 
 	public class PhaseMobility : PowerMobility {
 
+		private enum PhaseSuccess : byte {
+			NoAction,
+			Fail,
+			Success,
+		}
+
 		public PhaseMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Phase";
 			this.subStr = "phase";
@@ -18,12 +24,22 @@ namespace Nexus.ObjectComponents {
 			// Make sure the power can be activated
 			if(!this.CanActivate()) { return false; }
 
+			PhaseSuccess ps = this.PerformBlink();
+
+			// The sound plays even if the phase fails so that the player can recognize it triggered.
+			if(ps != PhaseSuccess.NoAction) {
+				Systems.sounds.pop.Play();
+				return true;
+			}
+
+			return false;
+		}
+
+		private PhaseSuccess PerformBlink() {
+
 			Character character = this.character;
 			RoomScene room = character.room;
 			TilemapLevel tilemap = room.tilemap;
-
-			// The sound plays even if the phase fails so that the player can recognize it triggered.
-			Systems.sounds.pop.Play();
 
 			// Vertical Phasing
 			if(character.input.isDown(IKey.Down) || character.input.isDown(IKey.Up)) {
@@ -32,16 +48,16 @@ namespace Nexus.ObjectComponents {
 
 				if(dir == DirCardinal.Down) {
 					toY = (short)(character.GridY2 + 2);
-					if(character.GridY2 >= (short)(tilemap.YCount - TilemapEnum.WorldGapDown - 2)) { return false; }
+					if(character.GridY2 >= (short)(tilemap.YCount - TilemapEnum.WorldGapDown - 2)) { return PhaseSuccess.Success; }
 				} else {
 					toY = (short)(character.GridY - 2);
-					if(character.GridY <= (short)(TilemapEnum.WorldGapUp + 2)) { return false; }
+					if(character.GridY <= (short)(TilemapEnum.WorldGapUp + 2)) { return PhaseSuccess.Success; }
 				}
 
 				// Phase to the given location if it's open:
 				if(this.TestPhasingVertical(character, tilemap, toY, dir)) {
 					character.physics.MoveToPosY(toY * (byte)TilemapEnum.TileHeight);
-					return false;
+					return PhaseSuccess.Success;
 				}
 
 				// If the last location is blocked, try the next:
@@ -49,27 +65,27 @@ namespace Nexus.ObjectComponents {
 
 				if(this.TestPhasingVertical(character, tilemap, toY, dir)) {
 					character.physics.MoveToPosY(toY * (byte)TilemapEnum.TileHeight);
-					return false;
+					return PhaseSuccess.Success;
 				}
 			}
 
 			// Horizontal Phasing
-			else {
+			else if(character.input.isDown(IKey.Left) || character.input.isDown(IKey.Right)) {
 				DirCardinal dir = character.input.isDown(IKey.Left) ? DirCardinal.Left : DirCardinal.Right;
 				short toX;
 
 				if(dir == DirCardinal.Right) {
 					toX = (short)(character.GridX2 + 2);
-					if(character.GridX2 >= (short)(tilemap.XCount - TilemapEnum.WorldGapRight - 2)) { return false; }
+					if(character.GridX2 >= (short)(tilemap.XCount - TilemapEnum.WorldGapRight - 2)) { return PhaseSuccess.Success; }
 				} else {
 					toX = (short)(character.GridX - 2);
-					if(character.GridX <= (short)(TilemapEnum.WorldGapLeft + 2)) { return false; }
+					if(character.GridX <= (short)(TilemapEnum.WorldGapLeft + 2)) { return PhaseSuccess.Success; }
 				}
 
 				// Phase to the given location if it's open:
 				if(this.TestPhasingHorizontal(character, tilemap, toX, dir)) {
 					character.physics.MoveToPosX(toX * (byte)TilemapEnum.TileWidth);
-					return false;
+					return PhaseSuccess.Success;
 				}
 
 				// If the last location is blocked, try the next:
@@ -77,11 +93,16 @@ namespace Nexus.ObjectComponents {
 
 				if(this.TestPhasingHorizontal(character, tilemap, toX, dir)) {
 					character.physics.MoveToPosX(toX * (byte)TilemapEnum.TileWidth);
-					return false;
+					return PhaseSuccess.Success;
 				}
 			}
 
-			return true;
+			// No inputs were provided.
+			else {
+				return PhaseSuccess.NoAction;
+			}
+
+			return PhaseSuccess.Fail;
 		}
 
 		// Returns TRUE if the character can phase to the vertical location.
