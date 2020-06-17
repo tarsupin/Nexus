@@ -66,7 +66,7 @@ namespace Nexus.Objects {
 			this.physics.touch.TouchDown();
 			this.physics.AlignUp(obj);
 			this.physics.StopY();
-			this.physics.velocity.Y -= 5;
+			this.physics.velocity.Y -= 6;
 
 			return true;
 		}

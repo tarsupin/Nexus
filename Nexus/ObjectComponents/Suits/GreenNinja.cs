@@ -19,9 +19,9 @@ namespace Nexus.ObjectComponents {
 			stats.JumpDuration = 12; // 10
 			stats.JumpStrength = 12; // 11
 			stats.AirAcceleration = FInt.Create(0.55);		// 0.45
-			stats.AirDeceleration = FInt.Create(-0.2);		// -0.2
+			stats.AirDeceleration = FInt.Create(-0.2);      // -0.2
 
-			stats.RunMaxSpeed = 8;
+			stats.RunMaxSpeed = 8; // 7
 			stats.RunAcceleration = FInt.Create(0.4);		// 0.3
 			stats.RunDeceleration = FInt.Create(-0.25);     // -0.2
 

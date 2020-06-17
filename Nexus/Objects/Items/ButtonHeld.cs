@@ -44,6 +44,7 @@ namespace Nexus.Objects {
 			this.room.colors.ToggleColor(this.toggleBR);
 		}
 
+		// Something Tapped Button From Above
 		public override bool CollideObjUp(GameObject obj) {
 
 			if(obj is Character) {

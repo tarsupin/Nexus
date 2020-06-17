@@ -14,6 +14,7 @@ namespace Nexus.ObjectComponents {
 			CharacterStats stats = character.stats;
 			stats.CanFastCast = true;
 			stats.JumpMaxTimes++;
+			stats.JumpStrength = 9; // 11
 		}
 	}
 }

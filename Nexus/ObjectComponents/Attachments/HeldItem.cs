@@ -29,12 +29,12 @@ namespace Nexus.ObjectComponents {
 
 				// If Looking Up
 				if(this.character.input.isDown(IKey.Up)) {
-					this.ThrowItem();
+					this.ThrowItem(true);
 				}
 
 				// If Looking Down
 				else if(this.character.input.isDown(IKey.Down)) {
-					this.ThrowItem(true);
+					this.ThrowItem();
 				}
 
 				// If Looking Left or Right
@@ -122,7 +122,7 @@ namespace Nexus.ObjectComponents {
 			this.ResetHeldItem();
 		}
 
-		public void KickItem(Item item, DirCardinal dir ) {
+		public void KickItem( Item item, DirCardinal dir ) {
 			item.intangible = Systems.timer.Frame + 5;
 
 			// If the Shell is stationary, or character is hitting it from behind, or was wearing a Bamboo Hat.

@@ -78,7 +78,7 @@ namespace Nexus.ObjectComponents {
 			this.Invincible = this.timer.Frame + duration;
 		}
 
-		public bool ReceiveWoundDamage( DamageStrength damageStrength ) {
+		public bool ReceiveWoundDamage( DamageStrength damageStrength, bool forceDmg = false ) {
 
 			// If insufficient damage was created.
 			if(damageStrength < DamageStrength.Trivial) { return false; }
@@ -87,7 +87,7 @@ namespace Nexus.ObjectComponents {
 			if((byte) damageStrength > (byte) DamageStrength.Lethal) { return this.Death(); }
 
 			// If the Character is Invincible, no damage taken.
-			if(this.IsInvincible) { return false; }
+			if(this.IsInvincible && forceDmg == false) { return false; }
 
 			// Wound Sound
 			Systems.sounds.wound.Play();

@@ -34,8 +34,6 @@ namespace Nexus.ObjectComponents {
 			stats.SlideStrength = FInt.Create(14);
 			
 			stats.BaseGravity = FInt.Create(0.9); // 0.7 - Has more weight so that the wizard feels faster in general.
-
-			character.physics.SetGravity(stats.BaseGravity);
 		}
 	}
 }
