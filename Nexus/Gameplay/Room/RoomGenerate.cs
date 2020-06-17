@@ -61,7 +61,7 @@ namespace Nexus.Gameplay {
 						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]), paramList);
 					}
 
-					// Check the TileDict to see if it's MetaData has a BeatTick requirement.
+					// Check the TileDict to see if its MetaData has a BeatTick requirement.
 					// If it does, add a repeating instruction to the QueueEvent.
 					TileObject tile = TileDict[tileId];
 

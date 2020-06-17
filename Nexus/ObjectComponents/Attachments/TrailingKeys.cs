@@ -27,6 +27,7 @@ namespace Nexus.ObjectComponents {
 			this.ResetTrailingKeys();
 		}
 
+		public bool HasKey { get { return this.keys > 0; } }
 		public bool HasMaxKeys { get { return this.keys == 8; } }
 
 		public void RunKeyTick() {

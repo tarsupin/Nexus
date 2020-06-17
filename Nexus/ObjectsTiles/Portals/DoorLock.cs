@@ -5,13 +5,37 @@ using Nexus.Gameplay;
 namespace Nexus.Objects {
 
 	public class DoorLock : Door {
-		
+
 		public DoorLock() : base() {
-			// TODO: Add Door Locked Behavior
 			this.tileId = (byte)TileEnum.DoorLock;
 			this.title = "Locked Door";
 			this.description = "A door that must be unlocked before use.";
 			this.moveParamSet = Params.ParamMap["Door"];
+		}
+
+		public override bool InteractWithDoor(Character character, RoomScene room, short gridX, short gridY) {
+
+			// The door is locked. Must have a key, or prevent entry.
+			if(!character.trailKeys.HasKey) {
+				Systems.sounds.click3.Play();
+				return false;
+			}
+
+			// Check if the door is locked.
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+
+			// Find Destination Door. If none exist, then no reason to unlock it.
+			(RoomScene destRoom, short gridX, short gridY) doorLink = Door.GetLinkingDoor(room, subType, gridX, gridY);
+
+			if(doorLink.gridX == 0 && doorLink.gridY == 0) {
+				Systems.sounds.collectDisable.Play(0.4f, 0, 0);
+				return false;
+			}
+
+			// Unlock Door
+			Door.UnlockDoor(character, room, subType, gridX, gridY, true);
+
+			return true;
 		}
 
 		protected override void CreateTextures() {

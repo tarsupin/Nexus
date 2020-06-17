@@ -109,6 +109,7 @@
     <Compile Include="GameEngine\ParticleFreeClasses\EndBounceParticle.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\LeafShakeParticle.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
+    <Compile Include="GameEngine\SceneComponents\RoomExits.cs" />
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />

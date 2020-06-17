@@ -16,6 +16,7 @@ namespace Nexus.GameEngine {
 		protected readonly CollideSequence collideSequence;
 
 		// Components
+		public RoomExits roomExits;
 		public ColorToggles colors;
 		public QueueEvent queueEvents;
 		private ParallaxHandler parallax;
@@ -65,6 +66,7 @@ namespace Nexus.GameEngine {
 
 			// Additional Components
 			this.colors = new ColorToggles();
+			this.roomExits = new RoomExits();
 			this.queueEvents = new QueueEvent(this);
 
 			// Generate Room Content (Tiles, Objects)

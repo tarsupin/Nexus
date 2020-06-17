@@ -23,6 +23,7 @@ namespace Nexus.Objects {
 		}
 
 		public CheckFlag(FlagSubType subType) : base() {
+			this.hasSetup = true;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Flag];
 			this.subType = subType;
@@ -32,6 +33,11 @@ namespace Nexus.Objects {
 			// TODO:
 			// Special Pass-Flag Behavior (White Flag)
 			// Needs to have a RunTick() function that detects when you're vertically crossing it.
+		}
+
+		public void SetupTile(RoomScene room, short gridX, short gridY) {
+			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
+			room.roomExits.AddExit(this.tileId, subType, gridX, gridY);
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
