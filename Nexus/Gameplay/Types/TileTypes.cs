@@ -20,14 +20,6 @@ namespace Nexus.Gameplay {
 		// Tilemap Limits
 		MaxTilesWide = 800,
 		MaxTilesHigh = 800,
-
-		// Sectors
-		SectorWidth = 6,
-		SectorHeight = 6,
-		SectorVertIncrement = 100,			// The step increment that sectors count vertically (e.g. 0, 100, 200, ...)
-
-		SectorXPixels = 288,
-		SectorYPixels = 288,
 	}
 
 }

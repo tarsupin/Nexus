@@ -134,6 +134,21 @@ namespace Nexus.GameEngine {
 			return gridList;
 		}
 
+		// Specific SubType in Area Of Effect Test: Search for specific Tile and SubType IDs (Main Layer) within an area.
+		public List<(short gridX, short gridY)> ScanMainTilesForSubType(byte tileId, byte subType, short startX, short startY, short endX, short endY) {
+			List<(short gridX, short gridY)> gridList = new List<(short gridX, short gridY)>();
+			for(var y = startY; y <= endY; y++) {
+				for(var x = startX; x <= endX; x++) {
+					byte[] tileData = this.tiles[y, x];
+					if(tileData == null) { continue; }
+					if(tileData[0] == tileId && tileData[1] == subType) {
+						gridList.Add((x, y));
+					}
+				}
+			}
+			return gridList;
+		}
+
 		// Clear the Main Layer
 		public void ClearMainLayer(short gridX, short gridY) {
 			this.tiles[gridY, gridX][0] = 0;

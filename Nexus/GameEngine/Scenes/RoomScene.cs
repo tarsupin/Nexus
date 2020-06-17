@@ -86,7 +86,7 @@ namespace Nexus.GameEngine {
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Enemy]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Item]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.TrailingItem]);
-			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Character]);
+			this.RunTickForCharacterGroup(this.objects[(byte)LoadOrder.Character]);
 			this.RunTickForObjectGroup(this.objects[(byte)LoadOrder.Projectile]);
 
 			// Update Components
@@ -123,6 +123,40 @@ namespace Nexus.GameEngine {
 
 				// Run Tile Detection for the Object
 				CollideTile.RunTileCollision(obj.Value);
+			}
+		}
+
+		// Identical to "RunTickForObjectGroup", but with an extra overlap test for Characters.
+		// RunTileCollision only detects what you're moving INTO, not what you're on top of.
+		// Characters need the additional check to know what they're on top of, such as for Chests, Doors, NPCs, etc.
+		private void RunTickForCharacterGroup(Dictionary<int, GameObject> objectGroup) {
+			foreach(var obj in objectGroup) {
+				Character character = (Character)obj.Value;
+
+				character.RunTick();
+
+				CollideTile.RunTileCollision(character);
+
+				// Determine Tiles Potentially Touched
+				short gridX = character.GridX;
+				short gridY = character.GridY;
+				short gridX2 = character.GridX2;
+				short gridY2 = character.GridY2;
+
+				// Run Collision Tests on any tiles beneath the Character.
+				CollideTile.RunGridTest(character, gridX, gridY, DirCardinal.Center);
+				
+				if(gridX != gridX2) {
+					CollideTile.RunGridTest(character, gridX2, gridY, DirCardinal.Center);
+
+					if(gridY != gridY2) {
+						CollideTile.RunGridTest(character, gridX, gridY2, DirCardinal.Center);
+						CollideTile.RunGridTest(character, gridX2, gridY2, DirCardinal.Center);
+					}
+				}
+				else if(gridY != gridY2) {
+					CollideTile.RunGridTest(character, gridX, gridY2, DirCardinal.Center);
+				}
 			}
 		}
 		

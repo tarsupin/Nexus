@@ -6,6 +6,10 @@ namespace Nexus.Objects {
 
 	public class CheckFlagPass : CheckFlag {
 
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
+
 		public CheckFlagPass() : base(FlagSubType.PassFlag) {
 			this.Texture = "Flag/White";
 			this.tileId = (byte)TileEnum.CheckFlagPass;

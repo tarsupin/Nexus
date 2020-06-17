@@ -182,10 +182,10 @@ namespace Nexus.GameEngine {
 		public ParamsDoor() {
 
 			// The room # that the door will take you to.
-			this.rules.Add(new IntParam("room", "Room Destination", 0, 9, 1, 0, ""));
+			this.rules.Add(new IntParam("room", "Room Destination", 0, 4, 1, 0, ""));
 
 			// Determines what type of door you'll enter to (or to a checkpoint)
-			this.rules.Add(new LabeledParam("exit", "Exit Type", new string[3] { "To Same Door Color", "To Open Doorway", "To Checkpoint" }, (byte) DoorExitType.ToSameColor));
+			this.rules.Add(new LabeledParam("exit", "Exit Type", new string[4] { "To Same Door Color", "To Open Doorway", "To Red Checkpoint", "To White Checkpoint" }, (byte) DoorExitType.ToSameColor));
 		}
 	}
 

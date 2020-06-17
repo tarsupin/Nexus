@@ -88,6 +88,7 @@ namespace Nexus.Gameplay {
 	public enum DoorExitType : byte {
 		ToSameColor = 0,
 		ToOpenDoor = 1,
-		ToCheckpoint = 2,
+		ToRedCheckpoint = 2,
+		ToWhiteCheckpoint = 3,
 	}
 }

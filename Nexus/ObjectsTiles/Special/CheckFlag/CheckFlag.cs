@@ -8,8 +8,12 @@ namespace Nexus.Objects {
 
 		protected string Texture;
 		protected FlagSubType subType;
-		protected bool activated;			// TRUE if the flag has been activated (touched by character) already.
-		// TODO: Set up the param mechanics and draw the NPC for CheckFlags.
+		protected bool activated;           // TRUE if the flag has been activated (touched by character) already.
+											// TODO: Set up the param mechanics and draw the NPC for CheckFlags.
+
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
+		// TODO: THE SUBTYPE NEEDS TO BE 0. NOT PASSING A FLAG SUB TYPE.
 
 		public enum FlagSubType : byte {
 			FinishFlag = 0,
