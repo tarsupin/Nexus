@@ -26,10 +26,10 @@ namespace Nexus.ObjectComponents {
 			else if(!character.physics.touch.toBottom && status.jumpsUsed < 1) { status.jumpsUsed = 1; }
 
 			// If you've spent more jumps than you have available, cannot jump again.
-			if(status.jumpsUsed > stats.JumpMaxTimes) { return; }
+			if(!JumpAction.CanJump(character)) { return; }
 
 			this.EndLastActionIfActive(character);
-
+			
 			status.jumpsUsed++;
 			status.action = ActionMap.Jump;
 			status.actionEnds = Systems.timer.Frame + stats.JumpDuration + extraDuration;
@@ -40,6 +40,10 @@ namespace Nexus.ObjectComponents {
 
 			// Jump Sound
 			if(playSound) { Systems.sounds.jump.Play(); }
+		}
+
+		public static bool CanJump( Character character ) {
+			return character.status.jumpsUsed < character.stats.JumpMaxTimes + (character.mobilityPower is LeapMobility ? 1 : 0);
 		}
 
 		public static bool MinimumTimePassed( CharacterStatus status ) {

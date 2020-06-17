@@ -129,11 +129,6 @@ namespace Nexus.Objects {
 			// In Air Update
 			else { this.InAirUpdate(); }
 
-			// Process Behaviors & Actions
-			if(this.status.action is Action) {
-				this.status.action.RunAction(this);
-			}
-
 			// Activate Powers
 			if(this.input.isDown(IKey.R1)) {
 
@@ -154,6 +149,11 @@ namespace Nexus.Objects {
 			// Activate Mobility Powers
 			if(this.input.isDown(IKey.BButton) && this.mobilityPower is PowerMobility) {
 				this.mobilityPower.Activate();
+			}
+
+			// Process Actions
+			if(this.status.action is Action) {
+				this.status.action.RunAction(this);
 			}
 
 			// Restrict to World Bounds (except below, for falling deaths)
@@ -312,7 +312,7 @@ namespace Nexus.Objects {
 				}
 
 				// Double Jump
-				else if(this.stats.JumpMaxTimes > 1 && this.status.jumpsUsed < this.stats.JumpMaxTimes) {
+				else if(JumpAction.CanJump(this)) {
 					ActionMap.Jump.StartAction(this);
 				}
 			}

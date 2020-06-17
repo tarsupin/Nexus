@@ -179,7 +179,7 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public virtual bool Activate() { return false;  }
+		public virtual bool Activate() { return false; }
 		public virtual void UpdateAbilities() {}
 
 		public void SetActivationSettings( byte cooldown, byte numberOfUses = 2, byte delayBetweenUses = 15 ) {
