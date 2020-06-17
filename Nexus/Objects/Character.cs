@@ -3,6 +3,7 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
+using System.Linq;
 
 // NOTES:
 // Must be able to have multiple characters in the level.
@@ -430,6 +431,12 @@ namespace Nexus.Objects {
 			if(this.posY - this.bounds.Top > this.room.tilemap.Height) {
 				this.wounds.Death();
 			}
+		}
+
+		public void MoveToNewRoom(byte roomID) {
+			RoomScene[] rooms = this.room.scene.rooms;
+			if(rooms.Length < roomID) { return; }
+			this.room = rooms[roomID];
 		}
 
 		public static void Teleport( Character character, int posX, int posY ) {
