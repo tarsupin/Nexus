@@ -26,33 +26,33 @@ namespace Nexus.ObjectComponents {
 			// Horizontal Levitation Movement/Speed
 			if(input.isDown(IKey.Right)) {
 				character.SetDirection(true);
-				physics.velocity.X += (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
+				physics.velocity.X += hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
 
 			} else if(input.isDown(IKey.Left)) {
 				character.SetDirection(false);
-				physics.velocity.X -= (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
-				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
+				physics.velocity.X -= hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
+				if(physics.velocity.X < -hoverSpeed) { physics.velocity.X = FInt.Create(-hoverSpeed); }
 			}
 
 			// Horizontal Deceleration
 			else {
-				physics.velocity.X = this.FlightDeceleration(physics.velocity.X, hoverSpeed * FInt.Create(0.3));
+				physics.velocity.X = this.FlightDeceleration(physics.velocity.X, hoverSpeed * FInt.Create(0.1));
 			}
 
 			// Vertical Levitation
-			if(input.isDown(IKey.Up)) {
-				physics.velocity.Y += (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
+			if(input.isDown(IKey.Down)) {
+				physics.velocity.Y += hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
 				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed); }
 
-			} else if(input.isDown(IKey.Down)) {
-				physics.velocity.Y -= (hoverSpeed * FInt.Create(0.05)); // HoverSpeed * 0.05
-				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed); }
+			} else if(input.isDown(IKey.Up)) {
+				physics.velocity.Y -= hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
+				if(physics.velocity.Y < -hoverSpeed) { physics.velocity.Y = FInt.Create(-hoverSpeed); }
 			}
 
 			// Vertical Deceleration
 			else {
-				physics.velocity.Y = this.FlightDeceleration(physics.velocity.Y, hoverSpeed * FInt.Create(0.3));
+				physics.velocity.Y = this.FlightDeceleration(physics.velocity.Y, hoverSpeed * FInt.Create(0.2));
 			}
 		}
 

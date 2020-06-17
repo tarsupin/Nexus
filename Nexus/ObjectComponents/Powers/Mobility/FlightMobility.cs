@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -9,7 +10,7 @@ namespace Nexus.ObjectComponents {
 		public FlightMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Flight";
 			this.subStr = "flight";
-			this.SetActivationSettings(15, 1, 15);
+			this.SetActivationSettings(30, 1, 30);
 		}
 
 		public override bool Activate() {
@@ -21,13 +22,11 @@ namespace Nexus.ObjectComponents {
 
 			if(status.action is FlightAction) {
 				status.action.EndAction(this.character);
-
-				// TODO SOUND: Create an "End Flight" sound, to identify that the flight has been toggled off.
+				Systems.sounds.wooshSubtle.Play(0.5f, 0, 0);
 
 			} else {
 				ActionMap.Flight.StartAction(character);
-
-				// TODO SOUND: Create a "Flight Takeoff" sound, to identify the flight has been toggled on.
+				Systems.sounds.wooshDeep.Play();
 			}
 
 			return true;

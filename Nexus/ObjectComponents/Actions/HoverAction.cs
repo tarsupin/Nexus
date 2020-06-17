@@ -5,7 +5,7 @@ using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
 
-	// status.actionBool1 (horizontalOnly)		:: TRUE if only moving horizontally.
+	// status.actionBool1 (allowVertical)		:: TRUE if you want to allow vertical movement.
 
 	public class HoverAction : Action {
 
@@ -14,7 +14,7 @@ namespace Nexus.ObjectComponents {
 			this.duration = 60;
 		}
 
-		public void StartAction( Character character, bool horizontalOnly = false ) {
+		public void StartAction( Character character, bool allowVertical = false ) {
 			CharacterStatus status = character.status;
 
 			// Don't start hovering if there is already a hover action in place.
@@ -24,7 +24,7 @@ namespace Nexus.ObjectComponents {
 
 			status.action = ActionMap.Hover;
 			status.actionEnds = Systems.timer.Frame + this.duration;
-			status.actionBool1 = horizontalOnly;
+			status.actionBool1 = allowVertical;
 
 			character.physics.SetGravity((FInt) 0);
 		}
@@ -46,13 +46,14 @@ namespace Nexus.ObjectComponents {
 			// Horizontal Levitation Movement/Speed
 			if(input.isDown(IKey.Right)) {
 				character.SetDirection(true);
-				physics.velocity.X += (hoverSpeed * FInt.Create(0.15)); // HoverSpeed * 0.15
+				physics.velocity.X += hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
 				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
-
-			} else if(input.isDown(IKey.Left)) {
+			}
+			
+			else if(input.isDown(IKey.Left)) {
 				character.SetDirection(false);
-				physics.velocity.X -= (hoverSpeed * FInt.Create(0.15)); // HoverSpeed * 0.15
-				if(physics.velocity.X > hoverSpeed) { physics.velocity.X = FInt.Create(hoverSpeed); }
+				physics.velocity.X -= hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
+				if(physics.velocity.X < -hoverSpeed) { physics.velocity.X = FInt.Create(-hoverSpeed); }
 			}
 
 			// Horizontal Deceleration
@@ -61,13 +62,14 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Vertical Levitation
-			if(input.isDown(IKey.Up)) {
-				physics.velocity.Y += (hoverSpeed / FInt.Create(1.5) * FInt.Create(0.15)); // HoverSpeed / 1.5 * 0.15
+			if(input.isDown(IKey.Down) && character.status.actionBool1) {
+				physics.velocity.Y += hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
 				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed / 1.5); }
-
-			} else if(input.isDown(IKey.Down)) {
-				physics.velocity.Y -= (hoverSpeed * FInt.Create(0.15)); // HoverSpeed * 0.15
-				if(physics.velocity.Y > hoverSpeed) { physics.velocity.Y = FInt.Create(hoverSpeed); }
+			}
+				
+			else if(input.isDown(IKey.Up) && character.status.actionBool1) {
+				physics.velocity.Y -= hoverSpeed * FInt.Create(0.15); // HoverSpeed * 0.15
+				if(physics.velocity.Y < -hoverSpeed) { physics.velocity.Y = FInt.Create(-hoverSpeed); }
 			}
 
 			// Vertical Deceleration

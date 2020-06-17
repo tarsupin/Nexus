@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -9,7 +10,7 @@ namespace Nexus.ObjectComponents {
 		public HoverMobility( Character character ) : base( character ) {
 			this.IconTexture = "Power/Hover";
 			this.subStr = "hover";
-			this.SetActivationSettings(105, 1, 105);
+			this.SetActivationSettings(180, 1, 180);
 		}
 
 		public override bool Activate() {
@@ -18,9 +19,8 @@ namespace Nexus.ObjectComponents {
 			if(!this.CanActivate()) { return false; }
 
 			// Start the Hover Action
-			ActionMap.Hover.StartAction(character, true);
-
-			// TODO SOUND: Trigger a "Start Hover" sound, to identify that the hover has begun.
+			ActionMap.Hover.StartAction(this.character, false);
+			Systems.sounds.wooshDeep.Play();
 			return true;
 		}
 	}

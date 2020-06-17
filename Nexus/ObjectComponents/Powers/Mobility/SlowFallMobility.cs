@@ -17,8 +17,6 @@ namespace Nexus.ObjectComponents {
 			// Slows the Vertical Descent to Speed of 1.
 			if(physics.velocity.Y > 1) { physics.velocity.Y = (FInt) 1; }
 
-			// TODO SOUND: A "Slow Falling" sound? Like a repeating woosh or something?
-
 			return true;
 		}
 	}
