@@ -71,16 +71,12 @@ namespace Nexus.Objects {
 			Systems.sounds.door.Play();
 
 			// If the Door is in the same room as the character.
-			if(arrivalExit.destRoom.roomID == room.roomID) {
-
-				// Teleport Character
-				Character.Teleport(character, arrivalExit.gridX * (byte)TilemapEnum.TileWidth, arrivalExit.gridY * (byte)TilemapEnum.TileHeight);
+			if(arrivalExit.destRoom.roomID != room.roomID) {
+				room.scene.MoveCharacterToNewRoom(character, arrivalExit.destRoom.roomID);
 			}
 
-			// If the Door is in a different room than the character.
-			else {
-				// TODO
-			}
+			// Teleport Character
+			Character.Teleport(character, arrivalExit.gridX * (byte)TilemapEnum.TileWidth, arrivalExit.gridY * (byte)TilemapEnum.TileHeight);
 
 			// Unlock the arrival door (if applicable), since you came from within.
 			Door.UnlockDoor(character, arrivalExit.destRoom, subType, arrivalExit.gridX, arrivalExit.gridY, false);

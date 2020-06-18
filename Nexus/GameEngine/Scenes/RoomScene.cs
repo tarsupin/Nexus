@@ -78,8 +78,8 @@ namespace Nexus.GameEngine {
 			//this.trackSystem.buildTrackData();
 		}
 
-		public override int Width { get { return this.tilemap.Width; } }
-		public override int Height { get { return this.tilemap.Height; } }
+		public override int Width { get { return this.tilemap.InnerWidth; } }
+		public override int Height { get { return this.tilemap.InnerHeight; } }
 
 		public override void RunTick() {
 
@@ -177,19 +177,20 @@ namespace Nexus.GameEngine {
 			//Systems.timer.stopwatch.Start();
 
 			Camera cam = Systems.camera;
+			cam.StayBounded((byte)TilemapEnum.GapLeftPixel, this.Width + (byte)TilemapEnum.GapLeftPixel, (byte)TilemapEnum.GapUpPixel, this.Height + (byte)TilemapEnum.GapUpPixel);
 
 			short startX = Math.Max((short)0, cam.GridX);
 			short startY = Math.Max((short)0, cam.GridY);
 
 			// Must adjust for the World Gaps (Resistance Barrier)
-			if(startX < (byte)TilemapEnum.WorldGapLeft) { startX = (byte)TilemapEnum.WorldGapLeft; }
-			if(startY < (byte)TilemapEnum.WorldGapUp) { startY = (byte)TilemapEnum.WorldGapUp; }
+			if(startX < (byte)TilemapEnum.GapLeft) { startX = (byte)TilemapEnum.GapLeft; }
+			if(startY < (byte)TilemapEnum.GapUp) { startY = (byte)TilemapEnum.GapUp; }
 
-			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1); // 30 is view size. +1 is to render the edge.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1); // 18 is view size. +1 is to render the edge.
 
-			if(gridX > this.tilemap.XCount) { gridX = (short)(this.tilemap.XCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.tilemap.YCount) { gridY = (short)(this.tilemap.YCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.tilemap.XCount) { gridX = (short)(this.tilemap.XCount + (byte)TilemapEnum.GapLeft); } // Must limit to room size.
+			if(gridY > this.tilemap.YCount) { gridY = (short)(this.tilemap.YCount + (byte)TilemapEnum.GapUp); } // Must limit to room size.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();

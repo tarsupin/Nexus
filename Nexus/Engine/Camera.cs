@@ -64,13 +64,26 @@ namespace Nexus.Engine {
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
-			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth + (byte) TilemapEnum.TileWidth; ;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight) + (byte) TilemapEnum.TileHeight;
+			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight);
 		}
 
-		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
+		public void StayBoundedAuto( short extraWidth = 0, short extraHeight = 0 ) {
 			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left, this.posX));
 			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top, this.posY));
+			this.rightX = this.posX + this.width;
+			this.bottomY = this.posY + this.height;
+		}
+
+		public void StayBounded(int left = 0, int right = 0, int top = 0, int bottom = 0) {
+			if(this.posX < left) { this.posX = left; }
+			else if(this.posX + this.width > right) { this.posX = right - this.width; }
+			if(this.posY < top) {
+				this.posY = top;
+			}
+			else if(this.posY + this.height > bottom) {
+				this.posY = bottom - this.height;
+			}
 			this.rightX = this.posX + this.width;
 			this.bottomY = this.posY + this.height;
 		}
@@ -79,7 +92,6 @@ namespace Nexus.Engine {
 		public void CenterAtPosition( int posX, int posY ) {
 			this.posX = posX - this.midX;
 			this.posY = posY - this.midY;
-			this.StayBounded();
 		}
 
 		public void CutToPosition( int posX, int posY ) {
@@ -124,9 +136,6 @@ namespace Nexus.Engine {
 				dist = this.posY - (centerY + leewayY);
 				this.posY -= (int) (dist * this.speedMult);
 			}
-
-			// Force the Camera to remain within bounds.
-			this.StayBounded();
 		}
 
 		// Camera Input Control

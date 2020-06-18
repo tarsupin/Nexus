@@ -192,7 +192,7 @@ namespace Nexus.GameEngine {
 			this.LoadMyPlayer();
 
 			// Update Camera Limitations
-			Systems.camera.UpdateScene(this.rooms[Systems.localServer.MyCharacter.room.roomID], (byte)TilemapEnum.WorldGapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.WorldGapLeft * (byte)TilemapEnum.TileWidth);
+			Systems.camera.UpdateScene(this.rooms[Systems.localServer.MyCharacter.room.roomID], (byte)TilemapEnum.GapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.GapLeft * (byte)TilemapEnum.TileWidth);
 
 			// Reset Level State, Maintain Checkpoints.
 			Systems.handler.levelState.SoftReset();
@@ -230,6 +230,18 @@ namespace Nexus.GameEngine {
 			// TODO: Camera must follow (or cut) to the position. Only applies if in the same room.
 			// this.camera.cutToPosition(this.character.pos.x, this.character.pos.y);
 
+		}
+
+		public void MoveCharacterToNewRoom(Character character, byte roomID) {
+
+			// Remove Character from Scene's Objects
+			character.room.RemoveFromScene(character);
+
+			// Add Character to New Scene's Objects
+			this.rooms[roomID].AddToScene(character, true);
+
+			// Update Character's New Room
+			character.MoveToNewRoom(roomID);
 		}
 	}
 }

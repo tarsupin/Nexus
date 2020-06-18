@@ -2,7 +2,6 @@
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -16,8 +15,9 @@ namespace Nexus.GameEngine {
 		private Dictionary<int, Dictionary<string, short>> paramList;       // Key is the Coords.MapToInt(x, y)
 
 		// Width and Height of the Tilemap:
-		public int Width { get; protected set; }
-		public int Height { get; protected set; }
+		public int InnerWidth { get; protected set; }
+		public int InnerHeight { get; protected set; }
+		public int FloorHeight { get; protected set; }
 		public short XCount { get; protected set; }
 		public short YCount { get; protected set; }
 
@@ -26,11 +26,11 @@ namespace Nexus.GameEngine {
 			// Sizing
 			this.XCount = xCount;
 			this.YCount = yCount;
-			this.Width = xCount * (byte)TilemapEnum.TileWidth;
-			this.Height = yCount * (byte)TilemapEnum.TileHeight;
+			this.InnerWidth = xCount * (byte)TilemapEnum.TileWidth;
+			this.InnerHeight = yCount * (byte)TilemapEnum.TileHeight;
 
-			short fullXCount = (short)(xCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight);
-			short fullYCount = (short)(yCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown);
+			short fullXCount = (short)(xCount + (byte)TilemapEnum.GapLeft + (byte)TilemapEnum.GapRight);
+			short fullYCount = (short)(yCount + (byte)TilemapEnum.GapUp + (byte)TilemapEnum.GapDown);
 
 			// Create Empty Tilemap Data
 			this.tiles = new byte[fullYCount, fullXCount][];

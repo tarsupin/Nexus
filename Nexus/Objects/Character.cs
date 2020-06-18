@@ -157,9 +157,6 @@ namespace Nexus.Objects {
 				this.status.action.RunAction(this);
 			}
 
-			// Restrict to World Bounds (except below, for falling deaths)
-			this.CheckFallOfWorld();
-
 			// Run Physics
 			base.RunTick();
 
@@ -423,14 +420,6 @@ namespace Nexus.Objects {
 			// Draw Character's Head and Hat
 			this.head.Draw(this.FaceRight, posX, posY, camX, camY);
 			if(this.hat is Hat) { this.hat.Draw(this.FaceRight, posX, posY, camX, camY); }
-		}
-
-		private void CheckFallOfWorld() {
-
-			// If the Character falls off the world edge, die.
-			if(this.posY - this.bounds.Top > this.room.tilemap.Height) {
-				this.wounds.Death();
-			}
 		}
 
 		public void MoveToNewRoom(byte roomID) {

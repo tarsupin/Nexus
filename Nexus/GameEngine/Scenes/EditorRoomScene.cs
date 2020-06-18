@@ -83,14 +83,14 @@ namespace Nexus.GameEngine {
 		private void DrawLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
 
-			short startX = (short)Math.Max((short)0, (short)cam.GridX);
-			short startY = (short)Math.Max((short)0, (short)cam.GridY);
+			short startX = Math.Max((short)0, cam.GridX);
+			short startY = Math.Max((short)0, cam.GridY);
 
-			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 30 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
-			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size. +1 is to deal with --> operator in loop.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -130,15 +130,19 @@ namespace Nexus.GameEngine {
 
 		private void DrawObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
+			
+			short startX = Math.Max((short)0, cam.GridX);
+			short startY = Math.Max((short)0, cam.GridY);
 
-			short startX = (short)Math.Max((short)0, (short)cam.GridX);
-			short startY = (short)Math.Max((short)0, (short)cam.GridY);
+			// Must adjust for the World Gaps (Resistance Barrier)
+			if(startX < (byte)TilemapEnum.GapLeft) { startX = (byte)TilemapEnum.GapLeft; }
+			if(startY < (byte)TilemapEnum.GapUp) { startY = (byte)TilemapEnum.GapUp; }
 
-			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1); // 30 is view size. +1 is to render the edge.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1); // 18 is view size. +1 is to render the edge.
 
-			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size.
+			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -322,8 +326,8 @@ namespace Nexus.GameEngine {
 
 			// Delete all tiles that got resized:
 			if(newWidth < this.xCount) {
-				for(short gridX = (short)(newWidth + 1); gridX <= this.xCount; gridX++) {
-					for(short gridY = 0; gridY <= this.yCount; gridY++) {
+				for(short gridX = newWidth; gridX < this.xCount; gridX++) {
+					for(short gridY = 0; gridY < this.yCount; gridY++) {
 						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 					}
 				}
@@ -338,8 +342,8 @@ namespace Nexus.GameEngine {
 
 			// Delete all tiles that got resized:
 			if(newHeight < this.yCount) {
-				for(short gridY = (short)(newHeight + 1); gridY <= this.yCount; gridY++) {
-					for(short gridX = 0; gridX <= this.xCount; gridX++) {
+				for(short gridY = newHeight; gridY < this.yCount; gridY++) {
+					for(short gridX = 0; gridX < this.xCount; gridX++) {
 						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 					}
 				}

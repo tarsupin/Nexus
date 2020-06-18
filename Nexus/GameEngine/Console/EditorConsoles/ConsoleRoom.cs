@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 
 		public static void Resize() {
 			string currentIns = ConsoleTrack.GetArgAsString();
-			ConsoleTrack.PrepareTabLookup(resizeCodes, currentIns, "Resize a room.");
+			ConsoleTrack.PrepareTabLookup(resizeCodes, currentIns, "Resize a room. WARNING: BE CAREFUL! Reducing a room size can remove tiles you've placed.");
 
 			if(resizeCodes.ContainsKey(currentIns)) {
 				resizeCodes[currentIns].Invoke();
@@ -18,15 +18,15 @@ namespace Nexus.GameEngine {
 		}
 
 		public static readonly Dictionary<string, System.Action> resizeCodes = new Dictionary<string, System.Action>() {
-			{ "hor", ConsoleRoom.ResizeHorizontal },
-			{ "vert", ConsoleRoom.ResizeVertical },
+			{ "width", ConsoleRoom.ResizeWidth },
+			{ "height", ConsoleRoom.ResizeHeight },
 			{ "one-screen", ConsoleRoom.ResizeOneScreen },
 			{ "custom", ConsoleRoom.ResizeCustom },
 		};
 
-		public static void ResizeHorizontal() {
+		public static void ResizeWidth() {
 			ConsoleTrack.possibleTabs = "Example: `resize hor 250`";
-			ConsoleTrack.helpText = "Resize a room to be horizontal. Add the width (in tiles).";
+			ConsoleTrack.helpText = "Resize the level's width, in tiles.";
 
 			// Prepare Width
 			int getWidth = ConsoleTrack.GetArgAsInt();
@@ -36,14 +36,13 @@ namespace Nexus.GameEngine {
 				if(getWidth < (byte)TilemapEnum.MinWidth) { getWidth = (byte)TilemapEnum.MinWidth; }
 				if(getWidth > (short)TilemapEnum.MaxTilesWide) { getWidth = (short)TilemapEnum.MaxTilesWide; }
 				EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
-				scene.ResizeHeight((byte)TilemapEnum.MinHeight);
 				scene.ResizeWidth((short) getWidth);
 			}
 		}
 		
-		public static void ResizeVertical() {
+		public static void ResizeHeight() {
 			ConsoleTrack.possibleTabs = "Example: `resize vert 180`";
-			ConsoleTrack.helpText = "Resize a room to be vertical. Add the height (in tiles).";
+			ConsoleTrack.helpText = "Resize the level's height, in tiles.";
 
 			// Prepare Height
 			int getHeight = ConsoleTrack.GetArgAsInt();
@@ -53,14 +52,13 @@ namespace Nexus.GameEngine {
 				if(getHeight < (byte)TilemapEnum.MinHeight) { getHeight = (byte)TilemapEnum.MinHeight; }
 				if(getHeight > (short)TilemapEnum.MaxTilesHigh) { getHeight = (short)TilemapEnum.MaxTilesHigh; }
 				EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
-				scene.ResizeHeight((byte)TilemapEnum.MinHeight);
-				scene.ResizeWidth((short)getHeight);
+				scene.ResizeHeight((short)getHeight);
 			}
 		}
 		
 		public static void ResizeOneScreen() {
 			ConsoleTrack.possibleTabs = "Example: `resize one-screen`";
-			ConsoleTrack.helpText = "Resize a room to be one screen.";
+			ConsoleTrack.helpText = "Resize a room to be one screen. WARNING: This will delete all tiles down to one room size.";
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {

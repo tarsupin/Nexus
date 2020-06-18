@@ -4,15 +4,15 @@ namespace Nexus.Gameplay {
 	public enum ArenaSize : byte {
 		Undeclared = 0,                 // Any Size.
 
-		Horizontal1 = 1,                // 29x18 in size. Covers 1 page.
+		Horizontal1 = 1,                // 30x18 in size. Covers 1 page.
 		Horizontal1Plus = 2,            // 44x18 in size. Covers 1.5 pages.
 		Horizontal2 = 3,                // 58x18 in size. Covers 2 pages. Regulation field size?
 		Horizontal2Plus = 4,            // 73x18 in size. Covers 2.5 pages.
 		Horizontal3 = 5,                // 87x18 in size. Covers 3 pages.
 
-		Vertical2 = 11,                 // 29x36 in size. Covers 2 vertical pages.
-		Vertical3 = 12,                 // 29x54 in size. Covers 3 vertical pages.
-		Vertical4 = 13,                 // 29x72 in size. Covers 4 vertical pages.
+		Vertical2 = 11,                 // 30x36 in size. Covers 2 vertical pages.
+		Vertical3 = 12,                 // 30x54 in size. Covers 3 vertical pages.
+		Vertical4 = 13,                 // 30x72 in size. Covers 4 vertical pages.
 
 		Field1 = 21,                    // 40x22 in size.
 		Field2 = 22,                    // 50x24 in size.

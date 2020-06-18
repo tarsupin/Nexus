@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics.PackedVector;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Nexus.Gameplay {
 
@@ -23,8 +21,8 @@ namespace Nexus.Gameplay {
 			if(roomData.fg != null) { RoomGenerate.GenerateTileLayer(room, roomData.fg, LayerEnum.fg); }
 
 			// Build "Barrier Wall" around Level. Designed to protect against objects crossing tile path.
-			short maxX = (short) (room.tilemap.XCount + (byte)TilemapEnum.WorldGapLeft + (byte)TilemapEnum.WorldGapRight - 1);
-			short maxY = (short) (room.tilemap.YCount + (byte)TilemapEnum.WorldGapUp + (byte)TilemapEnum.WorldGapDown - 1);
+			short maxX = (short) (room.tilemap.XCount + (byte)TilemapEnum.GapLeft + (byte)TilemapEnum.GapRight - 1);
+			short maxY = (short) (room.tilemap.YCount + (byte)TilemapEnum.GapUp + (byte)TilemapEnum.GapDown - 1);
 
 			for(short y = 0; y <= maxY; y++) {
 				room.tilemap.SetMainTile(0, y, (byte)TileEnum.BarrierWall, 0);
@@ -66,7 +64,7 @@ namespace Nexus.Gameplay {
 					TileObject tile = TileDict[tileId];
 
 					if(tile.hasSetup) {
-						(tile as dynamic).SetupTile(room, (short)(gridX + (byte)TilemapEnum.WorldGapLeft), (short)(gridY + (byte)TilemapEnum.WorldGapUp));
+						(tile as dynamic).SetupTile(room, (short)(gridX + (byte)TilemapEnum.GapLeft), (short)(gridY + (byte)TilemapEnum.GapUp));
 					}
 				}
 			}
@@ -98,8 +96,8 @@ namespace Nexus.Gameplay {
 		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
-			gridX += (byte)TilemapEnum.WorldGapLeft;
-			gridY += (byte)TilemapEnum.WorldGapUp;
+			gridX += (byte)TilemapEnum.GapLeft;
+			gridY += (byte)TilemapEnum.GapUp;
 
 			if(layerEnum == LayerEnum.main) {
 				room.tilemap.SetMainTile(gridX, gridY, type, subType);
@@ -114,8 +112,8 @@ namespace Nexus.Gameplay {
 		private static void AddObjectToScene(RoomScene room, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
-			gridX += (byte)TilemapEnum.WorldGapLeft;
-			gridY += (byte)TilemapEnum.WorldGapUp;
+			gridX += (byte)TilemapEnum.GapLeft;
+			gridY += (byte)TilemapEnum.GapUp;
 
 			// Prepare Position
 			FVector pos = FVector.Create(
@@ -159,13 +157,6 @@ namespace Nexus.Gameplay {
 
 		public static void DetectRoomSize(RoomFormat roomData, out short xCount, out short yCount) {
 
-			// The Room may store its size in the data:
-			if(roomData.Width != 0 && roomData.Height != 0) {
-				xCount = (short) roomData.Width;
-				yCount = (short) roomData.Height;
-				return;
-			}
-
 			// Prepare Minimum Width and Height for Level
 			xCount = (byte)TilemapEnum.MinWidth;
 			yCount = (byte)TilemapEnum.MinHeight;
@@ -184,13 +175,13 @@ namespace Nexus.Gameplay {
 				short gridY = short.Parse(yData.Key);
 
 				if(gridY > yCount) {
-					yCount = (short) (gridY);
+					yCount = (short)(gridY + 1); // +1 is because yCount includes 0
 				}
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					short gridX = short.Parse(xData.Key);
-					if(gridX > xCount) { xCount = (short) (gridX); }
+					if(gridX > xCount) { xCount = (short)(gridX + 1); } // +1 is because xCount includes 0
 				}
 			}
 		}

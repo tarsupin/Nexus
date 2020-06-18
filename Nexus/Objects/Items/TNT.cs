@@ -38,8 +38,8 @@ namespace Nexus.Objects {
 		}
 
 		public static void DetonateTNT(Character character) {
-			int posX = Math.Min(Math.Max(0, character.posX - 800), character.room.tilemap.Width - 1600);
-			int posY = Math.Min(Math.Max(0, character.posY - 500), character.room.tilemap.Height - 1000);
+			int posX = Math.Min(Math.Max(0, character.posX - 800), character.room.tilemap.InnerWidth - 1600);
+			int posY = Math.Min(Math.Max(0, character.posY - 500), character.room.tilemap.InnerHeight - 1000);
 			TNT.DetonateTNT(character.room, posX, posY, 1600, 1000);
 		}
 

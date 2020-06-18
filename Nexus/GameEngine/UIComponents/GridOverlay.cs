@@ -23,8 +23,8 @@ namespace Nexus.GameEngine {
 			int offsetX = -camX % this.tileWidth;
 			int offsetY = -camY % this.tileHeight;
 
-			int right = Math.Min(Systems.screen.windowWidth, xCount * this.tileWidth - camX + this.tileWidth);
-			int bottom = Math.Min(Systems.screen.windowHeight, yCount * this.tileHeight - camY + this.tileHeight);
+			int right = Math.Min(Systems.screen.windowWidth, xCount * this.tileWidth - camX);
+			int bottom = Math.Min(Systems.screen.windowHeight, yCount * this.tileHeight - camY);
 
 			// Draw Vertical Lines
 			for(int drawX = offsetX - 1; drawX <= right; drawX += this.tileWidth) {
