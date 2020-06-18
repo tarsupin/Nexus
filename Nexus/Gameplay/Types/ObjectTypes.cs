@@ -5,13 +5,13 @@
 namespace Nexus.Gameplay {
 
 	public enum DamageStrength : byte {
-		None = 0,                   // Does no damage.
-		Trivial = 1,                // 
-		Minor = 2,                  // 
-		Standard = 3,               // Destroys most creatures, unless shielded.
-		Major = 4,                  // 
-		Lethal = 5,                 // Lethal to most enemies.
-		Forced = 6,                 // Forces a death, despite other values.
+		None = 0,				// Does no damage.
+		Trivial = 1,			// 
+		Minor = 2,				// 
+		Standard = 3,			// Destroys most creatures, unless shielded.
+		Major = 4,				// 
+		Lethal = 5,				// Lethal to most enemies.
+		InstantKill = 6,		// Forces a death, despite other values.
 	}
 
 	public enum DeathResult : byte {

@@ -12,7 +12,6 @@ namespace Nexus.ObjectComponents {
 				if(facing == DirCardinal.None || facing == DirCardinal.Left) {
 					ActionMap.WallGrab.StartAction(character, DirCardinal.Right);
 				}
-
 			}
 			
 			else if(dir == DirCardinal.Left) {

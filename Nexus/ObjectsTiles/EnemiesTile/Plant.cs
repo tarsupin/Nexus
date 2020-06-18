@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.EnemyFixed];
 			this.KnockoutName = "Particles/Chomp/Plant";
-			this.DamageSurvive = DamageStrength.Forced;
+			this.DamageSurvive = DamageStrength.InstantKill;
 			this.CreateTextures();
 			this.tileId = (byte)TileEnum.Plant;
 			this.title = "Plant";

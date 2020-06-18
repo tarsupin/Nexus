@@ -48,7 +48,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
-				ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.Forced);
+				ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.InstantKill);
 			}
 		}
 	}
