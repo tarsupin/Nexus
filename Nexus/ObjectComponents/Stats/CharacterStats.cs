@@ -71,7 +71,7 @@ namespace Nexus.ObjectComponents {
 			JumpStrength = 11;
 
 			WallJumpDuration = 8;
-			WallJumpXStrength = 8;
+			WallJumpXStrength = 7;
 			WallJumpYStrength = 7;
 
 			SlideWaitDuration = 36;

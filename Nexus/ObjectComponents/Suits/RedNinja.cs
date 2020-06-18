@@ -19,7 +19,7 @@ namespace Nexus.ObjectComponents {
 			stats.JumpStrength = 9; // 11
 
 			stats.WallJumpDuration = 7;
-			stats.WallJumpXStrength = 7;
+			stats.WallJumpXStrength = 6;
 			stats.WallJumpYStrength = 5;
 		}
 	}

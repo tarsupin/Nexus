@@ -58,6 +58,7 @@ namespace Nexus.ObjectComponents {
 
 			if(grab) {
 				physics.StopY();
+				physics.velocity.Y = physics.gravity.Inverse;
 			} else {
 				physics.velocity.Y = FInt.Create(0.4);
 			}

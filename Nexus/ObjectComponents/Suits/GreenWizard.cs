@@ -25,10 +25,6 @@ namespace Nexus.ObjectComponents {
 			stats.RunAcceleration = FInt.Create(0.4);		// 0.3
 			stats.RunDeceleration = FInt.Create(-0.25);     // -0.2
 
-			stats.WallJumpDuration = 7; // 8
-			stats.WallJumpXStrength = 7; // 8
-			stats.WallJumpYStrength = 9; // 7
-
 			stats.SlideWaitDuration = 30;
 			stats.SlideDuration = 15;
 			stats.SlideStrength = FInt.Create(14);
