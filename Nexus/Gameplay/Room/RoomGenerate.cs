@@ -167,18 +167,14 @@ namespace Nexus.Gameplay {
 			}
 
 			// Prepare Minimum Width and Height for Level
-			xCount = 24;
-			yCount = 18;
+			xCount = (byte)TilemapEnum.MinWidth;
+			yCount = (byte)TilemapEnum.MinHeight;
 
 			// Scan the full level to determine it's size:
 			if(roomData.bg != null) { RoomGenerate.DetectLayerSize(roomData.bg, ref xCount, ref yCount); }
 			if(roomData.main != null) { RoomGenerate.DetectLayerSize(roomData.main, ref xCount, ref yCount); }
 			if(roomData.obj != null) { RoomGenerate.DetectLayerSize(roomData.obj, ref xCount, ref yCount); }
 			if(roomData.fg != null) { RoomGenerate.DetectLayerSize(roomData.fg, ref xCount, ref yCount); }
-
-			// The final gap needs to be provided
-			xCount++;
-			yCount++;
 		}
 
 		private static void DetectLayerSize(Dictionary<string, Dictionary<string, ArrayList>> layer, ref short xCount, ref short yCount) {

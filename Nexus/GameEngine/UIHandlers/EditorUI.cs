@@ -8,9 +8,9 @@ namespace Nexus.GameEngine {
 	public class EditorUI {
 
 		private readonly EditorScene scene;
-		private readonly GridOverlay gridUI;
 		private readonly UtilityBar utilityBar;
 		private readonly EditorScroller scroller;
+		public readonly GridOverlay gridUI;
 		public readonly AlertText alertText;
 		public readonly ContextMenu contextMenu;
 		public readonly ParamMenu moveParamMenu;
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			this.scene = scene;
 
 			// UI Components
-			this.gridUI = new GridOverlay(null);
+			this.gridUI = new GridOverlay(null, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight);
 			this.alertText = new AlertText(null);
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
@@ -60,11 +60,8 @@ namespace Nexus.GameEngine {
 
 		public void Draw() {
 
-			int offsetX = -Systems.camera.posX % (byte)TilemapEnum.TileWidth;
-			int offsetY = -Systems.camera.posY % (byte)TilemapEnum.TileHeight;
-
 			// Draw Editor UI Components
-			this.gridUI.Draw(offsetX, offsetY);
+			this.gridUI.DrawGridOverlay(Systems.camera.posX, Systems.camera.posY, this.scene.CurrentRoom.xCount, this.scene.CurrentRoom.yCount);
 
 			// Disability visibility of certain UI components if the console is visible.
 			if(!Systems.editorConsole.visible) {

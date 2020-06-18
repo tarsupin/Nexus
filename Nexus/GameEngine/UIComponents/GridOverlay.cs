@@ -1,36 +1,46 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 
 namespace Nexus.GameEngine {
 
 	public class GridOverlay : UIComponent {
 
-		private readonly byte gridXCount;
-		private readonly byte gridYCount;
+		private static Color fadedWhite = Color.White * 0.45f;
+		private static Color fadedRed = Color.Red * 0.65f;
+
 		private readonly byte tileWidth;
 		private readonly byte tileHeight;
 
-		public GridOverlay( UIComponent parent, byte gridXCount = 30, byte gridYCount = 19, byte tileWidth = (byte)TilemapEnum.TileWidth, byte tileHeight = (byte)TilemapEnum.TileHeight ) : base(parent) {
-			this.gridXCount = gridXCount;
-			this.gridYCount = gridYCount;
+		public GridOverlay( UIComponent parent, byte tileWidth = (byte)TilemapEnum.TileWidth, byte tileHeight = (byte)TilemapEnum.TileHeight ) : base(parent) {
 			this.tileWidth = tileWidth;
 			this.tileHeight = tileHeight;
 		}
 
-		public void Draw( int posX, int posY ) {
+		public void DrawGridOverlay( int camX, int camY, short xCount, short yCount ) {
 
-			Color fadedWhite = Color.White * 0.45f;
+			int offsetX = -camX % this.tileWidth;
+			int offsetY = -camY % this.tileHeight;
+
+			int right = Math.Min(Systems.screen.windowWidth, xCount * this.tileWidth - camX + this.tileWidth);
+			int bottom = Math.Min(Systems.screen.windowHeight, yCount * this.tileHeight - camY + this.tileHeight);
 
 			// Draw Vertical Lines
-			for(int gridX = 0; gridX <= this.gridXCount; gridX++) {
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX - 1 + gridX * (byte)this.tileWidth, 0, 3, Systems.screen.windowHeight), fadedWhite);
+			for(int drawX = offsetX - 1; drawX <= right; drawX += this.tileWidth) {
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(drawX, 0, 3, bottom), GridOverlay.fadedWhite);
 			}
 
 			// Draw Horizontal Lines
-			for(int gridY = 0; gridY <= this.gridYCount; gridY++) {
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, posY - 1 + gridY * (byte)this.tileHeight, Systems.screen.windowWidth, 3), fadedWhite);
+			for(int drawY = offsetY - 1; drawY <= bottom; drawY += this.tileHeight) {
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, drawY, right, 3), GridOverlay.fadedWhite);
 			}
+
+			// Draw Limits
+			//Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, 3, bottom), GridOverlay.fadedRed);
+			//Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, right, 3), GridOverlay.fadedRed);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(right - 1, 0, 3, bottom), GridOverlay.fadedRed);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, bottom - 1, right, 3), GridOverlay.fadedRed);
 		}
 	}
 }

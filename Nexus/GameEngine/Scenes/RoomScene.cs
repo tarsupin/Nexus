@@ -185,8 +185,8 @@ namespace Nexus.GameEngine {
 			if(startX < (byte)TilemapEnum.WorldGapLeft) { startX = (byte)TilemapEnum.WorldGapLeft; }
 			if(startY < (byte)TilemapEnum.WorldGapUp) { startY = (byte)TilemapEnum.WorldGapUp; }
 
-			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
 			if(gridX > this.tilemap.XCount) { gridX = (short)(this.tilemap.XCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 			if(gridY > this.tilemap.YCount) { gridY = (short)(this.tilemap.YCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.

@@ -83,21 +83,35 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
-		private LevelFormat BuildLevelStruct() {
-			LevelFormat levelStructure = new LevelFormat();
+		public bool BuildRoomData(byte roomID) {
+			string roomStr = roomID.ToString();
 
-			levelStructure.id = levelId;
-			levelStructure.rooms["0"] = new RoomFormat();
-			levelStructure.rooms["0"].main["16"]["0"].Add(1);
-			levelStructure.rooms["0"].main["16"]["0"].Add(1);
-			levelStructure.rooms["0"].main["16"]["1"].Add(1);
-			levelStructure.rooms["0"].main["16"]["1"].Add(1);
+			// Build Initial Room Format
+			if(!this.data.rooms.ContainsKey(roomStr)) {
+				this.data.rooms[roomStr] = new RoomFormat();
+			}
 
-			// TODO: Must confirm that .obj, .fg, and .bg are being added to level structure by new RoomFormat()
-			// TODO: If not, then we need to add them here.
-			//levelStructure.rooms["0"].bg
+			// Main Layer
+			if(this.data.rooms[roomStr].main == null) {
+				this.data.rooms[roomStr].main = new Dictionary<string, Dictionary<string, ArrayList>>();
+			}
+			
+			// BG Layer
+			if(this.data.rooms[roomStr].bg == null) {
+				this.data.rooms[roomStr].bg = new Dictionary<string, Dictionary<string, ArrayList>>();
+			}
+			
+			// FG Layer
+			if(this.data.rooms[roomStr].fg == null) {
+				this.data.rooms[roomStr].fg = new Dictionary<string, Dictionary<string, ArrayList>>();
+			}
+			
+			// Obj Layer
+			if(this.data.rooms[roomStr].obj == null) {
+				this.data.rooms[roomStr].obj = new Dictionary<string, Dictionary<string, ArrayList>>();
+			}
 
-			return levelStructure;
+			return true;
 		}
 
 		public void SaveLevel( string destDir = null, string destLevelId = null ) {

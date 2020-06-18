@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.World];
 
 			// UI Components
-			this.gridUI = new GridOverlay(null, 45, 28, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
+			this.gridUI = new GridOverlay(null, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
 			this.alertText = new AlertText(null);
 			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
@@ -47,11 +47,8 @@ namespace Nexus.GameEngine {
 
 		public void Draw() {
 
-			int offsetX = -Systems.camera.posX % (byte)WorldmapEnum.TileWidth;
-			int offsetY = -Systems.camera.posY % (byte)WorldmapEnum.TileHeight;
-
 			// Draw Editor UI Components
-			this.gridUI.Draw(offsetX, offsetY);
+			this.gridUI.DrawGridOverlay(Systems.camera.posX, Systems.camera.posY, this.scene.xCount, this.scene.yCount);
 
 			// Disability visibility of certain UI components if the console is visible.
 			if(!Systems.worldEditConsole.visible) {

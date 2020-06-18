@@ -17,8 +17,8 @@ namespace Nexus.GameEngine {
 		public string roomID;
 
 		// Editor Data
-		private readonly short xCount;
-		private readonly short yCount;
+		public readonly short xCount;
+		public readonly short yCount;
 		private readonly int mapWidth;
 		private readonly int mapHeight;
 
@@ -86,8 +86,8 @@ namespace Nexus.GameEngine {
 			short startX = (short)Math.Max((short)0, (short)cam.GridX);
 			short startY = (short)Math.Max((short)0, (short)cam.GridY);
 
-			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
 			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
@@ -134,8 +134,8 @@ namespace Nexus.GameEngine {
 			short startX = (short)Math.Max((short)0, (short)cam.GridX);
 			short startY = (short)Math.Max((short)0, (short)cam.GridY);
 
-			short gridX = (short)(startX + 29 + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + 18 + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 29 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
 
 			if(gridX > this.xCount) { gridX = (short) (this.xCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.
 			if(gridY > this.yCount) { gridY = (short) (this.yCount + 1); } // Must limit to room size. +1 is to deal with --> operator in loop.

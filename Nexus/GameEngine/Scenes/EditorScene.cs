@@ -136,9 +136,7 @@ namespace Nexus.GameEngine {
 		private void PrepareEmptyRoom(byte newRoomId) {
 
 			// If there is no data for the room, create an empty object for it.
-			if(!Systems.handler.levelContent.data.rooms.ContainsKey(newRoomId.ToString())) {
-				Systems.handler.levelContent.data.rooms.Add(newRoomId.ToString(), new RoomFormat());
-			}
+			Systems.handler.levelContent.BuildRoomData(newRoomId);
 
 			// We must generate the room scene as well:
 			if(!this.rooms.ContainsKey(newRoomId)) {

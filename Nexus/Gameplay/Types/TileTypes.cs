@@ -17,6 +17,10 @@ namespace Nexus.Gameplay {
 		WorldGapUp = 3,
 		WorldGapDown = 2,
 
+		// Min Sizes
+		MinWidth = 29,
+		MinHeight = 19,
+
 		// Tilemap Limits
 		MaxTilesWide = 800,
 		MaxTilesHigh = 800,
