@@ -119,8 +119,8 @@ namespace Nexus.ObjectComponents {
 		public void ApplySuit(Character character, bool resetStats) {
 			character.suit = this; // Apply Suit to Character
 
-			// Apply the Suit's Default Hat if the character has no hat OR a cosmetic hat.
-			if(character.hat == null || (character.hat is Hat && character.hat.IsCosmeticHat)) {
+			// If the character is not wearing a hat, or is wearing a typical cosmetic hat, apply the default hat.
+			if(character.hat == null || character.hat.IsCosmeticHat) {
 				this.AssignSuitDefaultHat(character);
 			}
 
@@ -156,9 +156,9 @@ namespace Nexus.ObjectComponents {
 
 		// Some Suits come with default hats.
 		public void AssignSuitDefaultHat(Character character) {
-			if(this.DefaultCosmeticHat != null) {
-				this.DefaultCosmeticHat.ApplyHat(character, false);
-			}
+			character.hat = null;
+			if(this.DefaultCosmeticHat is Hat) { this.DefaultCosmeticHat.ApplyHat(character, false); }
+			else if(character.head.DefaultCosmeticHat is Hat) { character.head.DefaultCosmeticHat.ApplyHat(character, false); }
 		}
 
 		// posX and posY should be set to character.posX and .posY respectively.

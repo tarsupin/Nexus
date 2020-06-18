@@ -85,8 +85,8 @@ namespace Nexus.Objects {
 			if(this.hat is Hat) { this.hat.DestroyHat(this, false); };
 
 			// Default Suit, Default Head
-			Suit.AssignToCharacter(this, (byte) SuitSubType.RedBasic, false);
 			HeadMap.RyuHead.ApplyHead(this, false);
+			Suit.AssignToCharacter(this, (byte)SuitSubType.RedBasic, false);
 
 			// Reset Stats (NOT "STATUS")
 			this.stats.ResetCharacterStats();

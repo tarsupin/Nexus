@@ -22,6 +22,7 @@ namespace Nexus.Objects {
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
+			this.SetActivity(Activity.NoTileCollide);
 
 			// Assign Flight Behavior
 			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);

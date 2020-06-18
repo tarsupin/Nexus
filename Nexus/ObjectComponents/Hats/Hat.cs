@@ -181,7 +181,8 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public bool IsCosmeticHat { get { return this.hatRank == HatRank.CosmeticHat; } }
+		public bool IsBaseHat { get { return this.hatRank == HatRank.BaseHat; } }
+		public bool IsCosmeticHat { get { return this.hatRank == HatRank.CosmeticHat || this.hatRank == HatRank.BaseHat; } }
 		public bool IsPowerHat { get { return this.hatRank == HatRank.PowerHat; } }
 
 		// Hats with powers may update the stats of the character that wears them.

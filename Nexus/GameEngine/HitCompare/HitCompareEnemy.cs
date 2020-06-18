@@ -1,5 +1,4 @@
-﻿using Nexus.Engine;
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
 
@@ -18,7 +17,7 @@ namespace Nexus.GameEngine {
 			if(obj is Projectile) { return en.RunProjectileImpact(obj as Projectile); }
 
 			// Don't collide with Flight Enemies
-			if(obj is EnemyFlight) { return false; }
+			if(en is EnemyFlight || obj is EnemyFlight) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(en, obj);
 

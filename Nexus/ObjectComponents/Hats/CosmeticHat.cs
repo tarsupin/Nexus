@@ -20,7 +20,7 @@ namespace Nexus.ObjectComponents {
 			if(subType == (byte) HatSubType.WizWhite) { this.SpriteName = "Hat/WizWhite"; }
 
 			// Important Cosmetic Hats
-			if(subType == (byte) HatSubType.PooHat) { this.SpriteName = "Hat/PooHat"; }
+			if(subType == (byte) HatSubType.PooHat) { this.SpriteName = "Hat/PooHat"; this.hatRank = HatRank.BaseHat; }
 
 			// Miscellaneous Hats
 			if(subType == (byte) HatSubType.BaseballHat) { this.SpriteName = "Hat/BaseballHat"; }

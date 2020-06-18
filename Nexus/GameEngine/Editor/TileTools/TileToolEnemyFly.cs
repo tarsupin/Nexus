@@ -140,8 +140,8 @@ namespace Nexus.GameEngine {
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					objectId = (byte) ObjectEnum.Dire,
-					subType = (byte) DireSubType.Dire,
+					objectId = (byte) ObjectEnum.Bouncer,
+					subType = (byte) 0,
 					layerEnum = LayerEnum.obj,
 				},
 			});
