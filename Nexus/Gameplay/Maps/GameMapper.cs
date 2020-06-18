@@ -19,6 +19,7 @@ namespace Nexus.Gameplay {
 		public static readonly HoverAction Hover = new HoverAction();
 		public static readonly JumpAction Jump = new JumpAction();
 		public static readonly OnMoverAction OnMover = new OnMoverAction();
+		public static readonly SlamAction Slam = new SlamAction();
 		public static readonly SlideAction Slide = new SlideAction();
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
 	}

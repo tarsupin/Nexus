@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 
 			if(actor is Character) {
 				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-				return TileCharBasicImpact.RunImpact((Character)actor, dir);
+				return TileCharBasicImpact.RunWallImpact((Character)actor, dir);
 			}
 			
 			return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);

@@ -17,8 +17,8 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Character) {
-				TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
-				return TileCharBasicImpact.RunImpact((Character)actor, dir);
+				TileCharBasicImpact.RunUpwardImpact((Character)actor, dir);
+				return TileSolidImpact.RunImpact(actor, gridX, gridY, dir);
 			}
 			
 			if(actor is Projectile) {

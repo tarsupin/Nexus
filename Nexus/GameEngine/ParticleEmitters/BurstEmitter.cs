@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using System;
 
 namespace Nexus.GameEngine {
 
@@ -11,8 +10,8 @@ namespace Nexus.GameEngine {
 			int frame = Systems.timer.Frame;
 
 			// Readjust positions to adjust for midX and midY of AirPuff image.
-			posX -= 16;
-			posY -= 16;
+			posX -= 20;
+			posY -= 20;
 
 			float radian = Radians.GetRadiansByCardinalDir((sbyte)-dirHor, (sbyte)-dirVert);
 

@@ -300,6 +300,7 @@
     <Compile Include="ObjectComponents\Actions\OnMoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FastMoveAction.cs" />
     <Compile Include="ObjectComponents\Actions\DropdownAction.cs" />
+    <Compile Include="ObjectComponents\Actions\SlamAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallGrabAction.cs" />
     <Compile Include="ObjectComponents\Actions\WallJumpAction.cs" />
     <Compile Include="ObjectComponents\Attachments\AttackSequence.cs" />
@@ -400,7 +401,7 @@
     <Compile Include="ObjectComponents\Suits\BlackNinja.cs" />
     <Compile Include="ObjectComponents\Suits\Suit.cs" />
     <Compile Include="ObjectComponents\TileImpacts\CollideTileFacing.cs" />
-    <Compile Include="ObjectComponents\TileImpacts\TileCharWallImpact.cs" />
+    <Compile Include="ObjectComponents\TileImpacts\TileCharBasicImpact.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileProjectileImpact.cs" />
     <Compile Include="ObjectComponents\TileImpacts\TileSolidImpact.cs" />
     <Compile Include="ObjectComponents\Wounds\CharacterWounds.cs" />

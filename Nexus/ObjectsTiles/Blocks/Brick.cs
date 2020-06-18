@@ -59,6 +59,16 @@ namespace Nexus.Objects {
 				Systems.sounds.thudHit.Play(0.7f, 0f, 0f);
 			}
 
+			// Slam-Down Action can break bricks.
+			if(actor is Character && ((Character)actor).status.action is SlamAction) {
+
+				// Bricks will cause some hindrance, slowing down vertical velocity.
+				actor.physics.velocity.Y *= FInt.Create(0.6);
+				this.DestroyBrick(room, gridX, gridY);
+
+				return true;
+			}
+
 			return base.RunImpact(room, actor, gridX, gridY, dir);
 		}
 

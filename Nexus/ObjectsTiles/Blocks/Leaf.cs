@@ -2,6 +2,7 @@
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -49,6 +50,12 @@ namespace Nexus.Objects {
 			// If the SubType is over 20 (Untouchable), don't run any collisions. It's in an invisible and untouchable state.
 			if(subType > 20) { return false; }
 
+			// Slam-Down Action can break leaves without any shake delay.
+			if(actor is Character && ((Character)actor).status.action is SlamAction) {
+				this.TriggerEvent(room, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
+				return true;
+			}
+
 			if(subType < 10) {
 
 				// Destroy Leaf
@@ -59,6 +66,8 @@ namespace Nexus.Objects {
 
 				// Begin Shaking. Add a Queue for 1 second that will break the leaf block.
 				else if(dir == DirCardinal.Down) {
+
+					// Perform Shake Delay normally.
 					room.tilemap.SetTileSubType(gridX, gridY, (byte)(subType + 10));
 					room.queueEvents.AddEvent(Systems.timer.Frame + Leaf.LeafShakeDuration, this.tileId, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
 
@@ -81,9 +90,9 @@ namespace Nexus.Objects {
 				ExplodeEmitter.BoxExplosion(room, "Particles/Leaf", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
 
 				// Reforming Leafs will be reformed.
-				if(subType == (byte)LeafSubType.InvisibleReform || subType == (byte)LeafSubType.Reform) {
+				if(subType == (byte)LeafSubType.InvisibleReform || subType == (byte)LeafSubType.Reform || subType == (byte)LeafSubType.UntouchableReform) {
 					room.tilemap.SetTileSubType(gridX, gridY, (byte)LeafSubType.UntouchableReform);
-					room.queueEvents.AddEvent(Systems.timer.Frame + 60, this.tileId, (short)gridX, (short)gridY, (byte)LeafTriggerEvent.Reform);
+					room.queueEvents.AddEvent(Systems.timer.Frame + 60, this.tileId, gridX, gridY, (byte)LeafTriggerEvent.Reform);
 				}
 				
 				// Basic Leaf gets destroyed.

@@ -35,12 +35,12 @@ namespace Nexus.Objects {
 		}
 
 		public void WalkLeft() {
-			if(this.physics.touch.toFloor > 2) { return; }
+			if(!this.physics.touch.toFloor) { return; }
 			this.SetDirection(false);
 		}
 
 		public void WalkRight() {
-			if(this.physics.touch.toFloor > 2) { return; }
+			if(!this.physics.touch.toFloor) { return; }
 			this.SetDirection(true);
 		}
 	}

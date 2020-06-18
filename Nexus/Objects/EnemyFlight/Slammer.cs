@@ -42,9 +42,9 @@ namespace Nexus.Objects {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, this);
 
 			if(dir == DirCardinal.Left) {
-				TileCharBasicImpact.RunImpact(character, dir, DirCardinal.None);
+				TileCharBasicImpact.RunWallImpact(character, dir, DirCardinal.None);
 			} else if(dir == DirCardinal.Right) {
-				TileCharBasicImpact.RunImpact(character, dir, DirCardinal.None);
+				TileCharBasicImpact.RunWallImpact(character, dir, DirCardinal.None);
 			}
 			
 			// Character is Beneath
@@ -59,7 +59,7 @@ namespace Nexus.Objects {
 					}
 				}
 
-				TileCharBasicImpact.RunImpact(character, dir, DirCardinal.None);
+				TileCharBasicImpact.RunWallImpact(character, dir, DirCardinal.None);
 			}
 
 			return Impact.StandardImpact(character, this, dir);

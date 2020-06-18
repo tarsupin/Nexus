@@ -31,7 +31,7 @@ namespace Nexus.Objects {
 
 			// Additional Character Collisions (such as Wall Jumps)
 			if(collided && actor is Character) {
-				TileCharBasicImpact.RunImpact((Character)actor, dir);
+				TileCharBasicImpact.RunWallImpact((Character)actor, dir);
 			}
 
 			return collided;

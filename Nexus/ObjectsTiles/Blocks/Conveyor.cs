@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 			}
 
 			if(actor is Character) {
-				return TileCharBasicImpact.RunImpact((Character)actor, dir);
+				return TileCharBasicImpact.RunWallImpact((Character)actor, dir);
 			}
 
 			return true;

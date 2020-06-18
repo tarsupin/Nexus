@@ -27,6 +27,12 @@ namespace Nexus.Objects {
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 
+			// Slam-Down Action can break boxes.
+			if(actor is Character && ((Character)actor).status.action is SlamAction) {
+				this.DestroyBox(room, gridX, gridY);
+				return true;
+			}
+
 			// Destroy Box
 			if(dir == DirCardinal.Up) {
 				BlockTile.DamageAbove(room, gridX, gridY);

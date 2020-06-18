@@ -10,8 +10,7 @@ namespace Nexus.ObjectComponents {
 		public bool toRight = false;
 		public bool toTop = false;
 		public bool toBottom = false;
-
-		public byte toFloor = 0;                // Number of frames since touched the floor (up to ten)
+		public bool toFloor = false;			// True if touched the floor last frame, but not this one.
 
 		public GameObject moveObj = null;		// Reference to the moving object you're standing on.
 		public bool onMover = false;			// TRUE if you're on an object that is moving, and you move with it (conveyor, platform, etc).
@@ -20,12 +19,12 @@ namespace Nexus.ObjectComponents {
 			if(!this.isTouching) { return; }
 			this.isTouching = false;
 
-			if(toBottom) {
-				toBottom = false;
-				isTouching = true;
-				toFloor = 0;
+			if(this.toBottom) {
+				this.toBottom = false;
+				this.isTouching = true;
+				this.toFloor = true;
 			} else {
-				if(toFloor < 11) { toFloor++; }
+				this.toFloor = false;
 			}
 
 			if(this.toTop) { this.toTop = false; }
@@ -50,7 +49,7 @@ namespace Nexus.ObjectComponents {
 
 		public void TouchDown() {
 			this.toBottom = true;
-			this.toFloor = 0;
+			this.toFloor = true;
 			if(this.isTouching == false) { this.isTouching = true; }
 		}
 

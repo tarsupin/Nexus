@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 			bool collided = base.RunImpact(room, actor, gridX, gridY, dir);
 
 			if(actor is Character) {
-				TileCharBasicImpact.RunImpact((Character)actor, dir); // Standard Character Tile Collisions
+				TileCharBasicImpact.RunWallImpact((Character)actor, dir); // Standard Character Tile Collisions
 			}
 
 			return collided;
