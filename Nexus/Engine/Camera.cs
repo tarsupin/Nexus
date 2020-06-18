@@ -68,7 +68,7 @@ namespace Nexus.Engine {
 			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight) + (byte) TilemapEnum.TileHeight;
 		}
 
-		private void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
+		public void StayBounded( short extraWidth = 0, short extraHeight = 0 ) {
 			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left, this.posX));
 			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top, this.posY));
 			this.rightX = this.posX + this.width;
@@ -143,8 +143,6 @@ namespace Nexus.Engine {
 			} else if(input.isDown(IKey.Down)) {
 				this.posY += this.controlSpeed * moveMult;
 			}
-
-			this.StayBounded();
 		}
 
 		// Camera Detection

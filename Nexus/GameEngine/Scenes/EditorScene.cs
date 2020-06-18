@@ -29,6 +29,12 @@ namespace Nexus.GameEngine {
 				byte parsedKey = Byte.Parse(roomKey);
 				this.rooms[parsedKey] = new EditorRoomScene(this, roomKey);
 			}
+		}
+
+		public override void StartScene() {
+
+			// Set Default Tool to Selection Tool
+			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte)FuncToolEnum.Select]);
 
 			// Important Components
 			Systems.camera.UpdateScene(this.CurrentRoom);
@@ -38,17 +44,7 @@ namespace Nexus.GameEngine {
 			Cursor.UpdateMouseState();
 		}
 
-		public override void StartScene() {
-
-			// Set Default Tool to Selection Tool
-			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte)FuncToolEnum.Select]);
-		}
-
 		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }
-
-		public void SetRoom( byte roomNum ) {
-			this.roomNum = roomNum;
-		}
 
 		public override void RunTick() {
 
@@ -108,6 +104,7 @@ namespace Nexus.GameEngine {
 
 			// Camera Movement
 			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
+			Systems.camera.StayBounded(250, 250);
 		}
 
 		public void CheckTileToolKeyBinds(Keys keyPressed) {
@@ -164,16 +161,19 @@ namespace Nexus.GameEngine {
 			this.rooms[newRoomId] = tempRoom;
 
 			this.SwitchRoom(newRoomId);
-
-			// Update Camera Memory in Editor
-			//this.editor.swapCameraMemoryRooms(this.roomNum, newRoomId);
 		}
 
 		public void SwitchRoom(byte newRoomId) {
 			newRoomId = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
 
 			this.PrepareEmptyRoom(newRoomId);
-			this.SetRoom(newRoomId);
+			this.roomNum = newRoomId;
+
+			// Important Components
+			Systems.camera.UpdateScene(this.CurrentRoom);
+
+			// Update Camera Memory in Editor
+			//this.editor.swapCameraMemoryRooms(this.roomNum, newRoomId);
 
 			// TODO: Update the editor camera's position:
 			//// If there is no saved camera position, set one based on character's position for that room (if available), or default it.

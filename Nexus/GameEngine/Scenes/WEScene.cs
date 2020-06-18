@@ -152,6 +152,7 @@ namespace Nexus.GameEngine {
 
 			// Camera Movement
 			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
+			Systems.camera.StayBounded();
 
 			// Release TempTool Control every tick:
 			if(WETools.WETempTool != null) {
