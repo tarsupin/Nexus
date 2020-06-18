@@ -17,10 +17,10 @@ namespace Nexus.GameEngine {
 		public string roomID;
 
 		// Editor Data
-		public readonly short xCount;
-		public readonly short yCount;
-		private readonly int mapWidth;
-		private readonly int mapHeight;
+		public short xCount { get; private set; }
+		public short yCount { get; private set; }
+		private int mapWidth;
+		private int mapHeight;
 
 		public EditorRoomScene(EditorScene scene, string roomID) : base() {
 
@@ -315,6 +315,39 @@ namespace Nexus.GameEngine {
 				EditorTools.SetTileTool(clonedTool, (byte)clonedTool.index);
 				clonedTool.SetSubIndex(subIndex);
 			}
+		}
+
+		// Resize Map
+		public void ResizeWidth(short newWidth = 0) {
+
+			// Delete all tiles that got resized:
+			if(newWidth < this.xCount) {
+				for(short gridX = (short)(newWidth + 1); gridX <= this.xCount; gridX++) {
+					for(short gridY = 0; gridY <= this.yCount; gridY++) {
+						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
+					}
+				}
+			}
+
+			this.xCount = newWidth;
+			this.mapWidth = this.xCount * (byte)TilemapEnum.TileWidth;
+			Systems.camera.UpdateScene(this);
+		}
+
+		public void ResizeHeight(short newHeight = 0) {
+
+			// Delete all tiles that got resized:
+			if(newHeight < this.yCount) {
+				for(short gridY = (short)(newHeight + 1); gridY <= this.yCount; gridY++) {
+					for(short gridX = 0; gridX <= this.xCount; gridX++) {
+						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
+					}
+				}
+			}
+
+			this.yCount = newHeight;
+			this.mapHeight = this.yCount * (byte)TilemapEnum.TileHeight;
+			Systems.camera.UpdateScene(this);
 		}
 	}
 }

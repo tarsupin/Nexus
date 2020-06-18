@@ -22,8 +22,8 @@ namespace Nexus.Gameplay {
 		MinHeight = 19,
 
 		// Tilemap Limits
-		MaxTilesWide = 800,
-		MaxTilesHigh = 800,
+		MaxTilesWide = 600,
+		MaxTilesHigh = 600,
 	}
 
 }
