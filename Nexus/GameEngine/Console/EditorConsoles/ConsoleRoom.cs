@@ -26,7 +26,7 @@ namespace Nexus.GameEngine {
 
 		public static void ResizeWidth() {
 			ConsoleTrack.possibleTabs = "Example: `resize hor 250`";
-			ConsoleTrack.helpText = "Resize the level's width, in tiles.";
+			ConsoleTrack.helpText = "Resize the level's width, in tiles. Minimum width is 30.";
 
 			// Prepare Width
 			int getWidth = ConsoleTrack.GetArgAsInt();
@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 		
 		public static void ResizeHeight() {
 			ConsoleTrack.possibleTabs = "Example: `resize vert 180`";
-			ConsoleTrack.helpText = "Resize the level's height, in tiles.";
+			ConsoleTrack.helpText = "Resize the level's height, in tiles. Minimum height is 19.";
 
 			// Prepare Height
 			int getHeight = ConsoleTrack.GetArgAsInt();

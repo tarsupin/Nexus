@@ -326,8 +326,8 @@ namespace Nexus.GameEngine {
 
 			// Delete all tiles that got resized:
 			if(newWidth < this.xCount) {
-				for(short gridX = newWidth; gridX < this.xCount; gridX++) {
-					for(short gridY = 0; gridY < this.yCount; gridY++) {
+				for(short gridX = newWidth; gridX <= (short)(this.xCount + 1); gridX++) {
+					for(short gridY = 0; gridY <= (short)(this.yCount + 1); gridY++) {
 						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 					}
 				}
@@ -342,8 +342,8 @@ namespace Nexus.GameEngine {
 
 			// Delete all tiles that got resized:
 			if(newHeight < this.yCount) {
-				for(short gridY = newHeight; gridY < this.yCount; gridY++) {
-					for(short gridX = 0; gridX < this.xCount; gridX++) {
+				for(short gridY = newHeight; gridY <= (short)(this.yCount + 1); gridY++) {
+					for(short gridX = 0; gridX <= (short)(this.xCount + 1); gridX++) {
 						this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 					}
 				}
