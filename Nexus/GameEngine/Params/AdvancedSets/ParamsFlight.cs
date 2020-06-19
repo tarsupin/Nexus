@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,12 +26,13 @@ namespace Nexus.GameEngine {
 			rules.Add(new IntParam("diameter", "Diameter", 0, 20, 1, 3, " tiles(s)"));
 
 			rules.Add(new LabeledParam("reverse", "Reverses Direction", new string[2] { "False", "True" }, (byte)0));
+
 			rules.Add(new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)"));
 
-			rules.Add(new IntParam("toTrack", "To Track #", 0, 100, 1, 1, " (0 to ignore)"));
+			rules.Add(new IntParam("toTrack", "To Track #", 0, TrackSystem.MaxTracks, 1, 1, " (0 to ignore)"));
 
-			rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, 10, 1, 0, " (0 to ignore)"));
-			rules.Add(new IntParam("toCluster", "Link To Cluster ID", 0, 10, 1, 0, " (0 to ignore)"));
+			rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
+			rules.Add(new IntParam("toCluster", "Link To Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
 		}
 
 		// This override will check the "fly" group param, and show the appropriate rule accordingly.

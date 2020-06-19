@@ -110,7 +110,7 @@ namespace Nexus.Gameplay {
 				// Cannon, Placer
 			MetaList[MetaGroup.Collectable] = new IMetaData(Arch.Collectable, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Collectables, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Collectable
 				// Collectables
-			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Scripting, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Invisible
+			MetaList[MetaGroup.Track] = new IMetaData(Arch.HiddenObject, this.atlas[(byte)AtlasGroup.Tiles], SlotGroup.Scripting, LayerEnum.fg, LoadOrder.Tile); // LoadOrder.Invisible
 				// Track, Clusuter
 			MetaList[MetaGroup.Door] = new IMetaData(Arch.Portal, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Portal
 			MetaList[MetaGroup.Interactives] = new IMetaData(Arch.Interactives, this.atlas[(byte)AtlasGroup.Objects], SlotGroup.Interactives, LayerEnum.main, LoadOrder.Tile); // LoadOrder.Interactives
@@ -177,7 +177,7 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.ButtonHeld] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
 
 			//// Special Objects
-			this.ObjectMetaData[(byte)ObjectEnum.Cluster] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
 			//// Special Flags and Placements (150+)
 			this.ObjectMetaData[(byte)ObjectEnum.Character] = new GameObjectMetaData(MetaList[MetaGroup.Character], null);
@@ -604,7 +604,7 @@ namespace Nexus.Gameplay {
 			{ (byte) ObjectEnum.ButtonHeld, Type.GetType("Nexus.Objects.ButtonHeld") },
 
 			// Special Objects
-			{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
+			{ (byte) ObjectEnum.ClusterDot, Type.GetType("Nexus.Objects.Cluster") },
 
 			// Special Flags and Placements (150+)
 			{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },

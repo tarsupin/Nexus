@@ -222,7 +222,7 @@ namespace Nexus.Gameplay {
 		ButtonHeld = 91,
 
 		// Special Objects
-		Cluster = 100,
+		ClusterDot = 100,
 
 		// Special Flags and Placements (150+)
 		Character = 150,

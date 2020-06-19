@@ -309,6 +309,7 @@
     <Compile Include="ObjectComponents\Attachments\MagiShield.cs" />
     <Compile Include="ObjectComponents\Attachments\Nameplate.cs" />
     <Compile Include="ObjectComponents\Attachments\HeldItem.cs" />
+    <Compile Include="ObjectComponents\Behavior\FlightTrack.cs" />
     <Compile Include="ObjectComponents\Behavior\SlammerBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightTo.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightQuadratic.cs" />
@@ -480,7 +481,7 @@
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatDown.cs" />
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatUp.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairNormal.cs" />
-    <Compile Include="Objects\Special\Cluster.cs" />
+    <Compile Include="Objects\Special\ClusterDot.cs" />
     <Compile Include="Objects\EnemyFlight\Slammer.cs" />
     <Compile Include="Objects\EnemyFlight\Dire.cs" />
     <Compile Include="Objects\EnemyFlight\Bouncer.cs" />

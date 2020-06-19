@@ -102,6 +102,11 @@ namespace Nexus.GameEngine {
 				WandData.isObject = false;
 			}
 			
+			else if(LevelContent.VerifyTiles(roomData.fg, gridX, gridY)) {
+				WandData.layerData = roomData.fg;
+				WandData.isObject = false;
+			}
+			
 			else if(LevelContent.VerifyTiles(roomData.obj, gridX, gridY)) {
 				WandData.layerData = roomData.obj;
 				WandData.isObject = true;

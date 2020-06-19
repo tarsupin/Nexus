@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
 
@@ -16,17 +17,12 @@ namespace Nexus.ObjectComponents {
 		protected bool reverse;				// `true` means the motion is backward (such as for moving platforms returning).
 		
 		protected int startX;				// Starting X position of a motion.
-		protected int startY;               // Starting Y position of a motion.
-		protected int endX;                 // End X position of a motion.
+		protected int startY;				// Starting Y position of a motion.
+		protected int endX;					// End X position of a motion.
 		protected int endY;                 // End Y position of a motion.
 
 		// Cluster Motion
-		protected byte actAsClusterId;      // Indicates that this object is a cluster. All child clusters will remain offset to it.
-		protected byte clusterLinkId;       // Indicates a cluster to link to. Object will lock its offset position to the parent.
-
-		protected GameObject cluster;
-		protected int clusterPosX;
-		protected int clusterPosY;
+		public Cluster cluster;				// Indicates the cluster that this object connects to.
 
 		public FlightBehavior( GameObject actor, Dictionary<string, short> paramList) : base(actor) {
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
@@ -43,16 +39,21 @@ namespace Nexus.ObjectComponents {
 			this.endY = this.startY + (paramList.ContainsKey("y") ? paramList["y"] * (byte) TilemapEnum.TileHeight : 0);
 
 			// Clusters
-			this.actAsClusterId = paramList.ContainsKey("clusterId") ? (byte) paramList["clusterId"] : (byte) 0;
-			this.clusterLinkId = paramList.ContainsKey("toCluster") ? (byte) paramList["toCluster"] : (byte) 0;
+			byte clusterId = paramList.ContainsKey("clusterId") ? (byte) paramList["clusterId"] : (byte) 0;
+			byte toClusterId = paramList.ContainsKey("toCluster") ? (byte) paramList["toCluster"] : (byte) 0;
+
+			if(clusterId > 0) {
+				actor.room.trackSys.AddCluster(clusterId, actor);
+			}
+
+			if(toClusterId > 0) {
+				actor.room.trackSys.AssignToClusterId(toClusterId, actor);
+			}
 		}
 
 		public static FlightBehavior AssignFlightMotion( GameObject actor, Dictionary<string, short> paramList ) {
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
 			byte type = paramList.ContainsKey("fly") ? (byte) paramList["fly"] : (byte) FlightMovement.Axis;
-
-			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:
-			// TODO HIGH PRIORITY: UNCOMMENT BEHAVIORS BELOW:
 
 			if(type == (byte) FlightMovement.Circle) {
 				return new FlightCircle(actor, paramList);
@@ -67,7 +68,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			if(type == (byte) FlightMovement.Track) {
-				//return new FlightTrack(actor, paramList);
+				return new FlightTrack(actor, paramList);
 			}
 
 			return new FlightAxis( actor, paramList );

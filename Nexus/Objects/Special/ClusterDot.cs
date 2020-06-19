@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
-	public class Cluster : GameObject {
+	public class ClusterDot : GameObject {
 
-		public enum ClusterSubType : byte {
+		public enum ClusterDotSubType : byte {
 			Basic = 0,
 			Char = 1,
 			Screen = 2,
@@ -16,8 +16,8 @@ namespace Nexus.Objects {
 
 		public Behavior behavior;
 
-		public Cluster(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
-			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Cluster].meta;
+		public ClusterDot(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
+			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.ClusterDot].meta;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
@@ -28,16 +28,16 @@ namespace Nexus.Objects {
 
 			// Add Behavior to Clusters
 			// Note: Must be after Atlas Bounds (it depends on it).
-			if(subType == (byte)ClusterSubType.Basic) {
+			if(subType == (byte)ClusterDotSubType.Basic) {
 				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 			}
 
-			else if(subType == (byte)ClusterSubType.Char) {
+			else if(subType == (byte)ClusterDotSubType.Char) {
 				// TODO: Make Character Cluster Behavior
 				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 			}
 			
-			else if(subType == (byte)ClusterSubType.Screen) {
+			else if(subType == (byte)ClusterDotSubType.Screen) {
 				// TODO: Make Screen Cluster Behavior
 				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 			}
@@ -49,11 +49,11 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType( byte subType ) {
-			if(subType == (byte)ClusterSubType.Basic) {
+			if(subType == (byte)ClusterDotSubType.Basic) {
 				this.SpriteName = "HiddenObject/Cluster";
-			} else if(subType == (byte)ClusterSubType.Char) {
+			} else if(subType == (byte)ClusterDotSubType.Char) {
 				this.SpriteName = "HiddenObject/ClusterChar";
-			} else if(subType == (byte)ClusterSubType.Screen) {
+			} else if(subType == (byte)ClusterDotSubType.Screen) {
 				this.SpriteName = "HiddenObject/ClusterScreen";
 			}
 		}

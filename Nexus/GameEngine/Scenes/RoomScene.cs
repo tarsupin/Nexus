@@ -74,10 +74,8 @@ namespace Nexus.GameEngine {
 			// Generate Room Content (Tiles, Objects)
 			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID.ToString());
 
-			// TODO: Build Clusters and Tracks
-			//this.trackSystem = new TrackSystem(this);
-			//this.buildClusters();
-			//this.trackSystem.buildTrackData();
+			// Prepare the Full Track System
+			this.trackSys.SetupTrackSystem();
 		}
 
 		public override int Width { get { return this.tilemap.InnerWidth; } }

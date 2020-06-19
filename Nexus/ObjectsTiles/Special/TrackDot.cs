@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -36,7 +37,7 @@ namespace Nexus.Objects {
 				gridX,
 				gridY,
 				paramList.ContainsKey("to") ? (byte) paramList["to"] : (byte) 0,
-				paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) 0,
+				paramList.ContainsKey("duration") ? Math.Max((short) 60, paramList["duration"]) : (short) 180,
 				paramList.ContainsKey("delay") ? (short) paramList["delay"] : (short) 0,
 				paramList.ContainsKey("beginFall") ? (paramList["beginFall"] == 1 ? true : false) : false
 			);
