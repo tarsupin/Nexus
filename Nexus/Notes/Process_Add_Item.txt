@@ -1,7 +1,0 @@
-﻿
-// Adding Items
-
-1. Add TileDict entry
-2. Add TileEnum entry
-3. Add Item Class
-4. Add entry to TileTool{Type}
