@@ -108,6 +108,7 @@
     <Compile Include="Engine\UI\AlertText.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\EndBounceParticle.cs" />
+    <Compile Include="GameEngine\ParticleFreeClasses\StationaryParticle.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\LeafShakeParticle.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
     <Compile Include="GameEngine\SceneComponents\RoomExits.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\TeleportAction.cs" />
     <Compile Include="ObjectComponents\Actions\OnMoverAction.cs" />
     <Compile Include="ObjectComponents\Actions\FastMoveAction.cs" />
     <Compile Include="ObjectComponents\Actions\DropdownAction.cs" />

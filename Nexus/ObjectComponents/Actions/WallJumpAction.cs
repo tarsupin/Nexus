@@ -1,5 +1,4 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -32,7 +31,6 @@ namespace Nexus.ObjectComponents {
 			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
 
 			// Apply X-Axis Jump Strength
-			var origX = character.physics.velocity.X;
 			character.physics.velocity.X = FInt.Create((stats.WallJumpXStrength + extraStrength) * (dir == DirCardinal.Right ? -1 : 1));
 			character.physics.velocity.Y -= stats.WallJumpYStrength;
 

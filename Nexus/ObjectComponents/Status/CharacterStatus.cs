@@ -8,8 +8,9 @@ namespace Nexus.ObjectComponents {
 		// Action Properties
 		public Action action;			// Reference to the action class being used.
 		public int actionEnds;			// The frame when the action ends.
-		public sbyte actionNum1;		// Generic Action Property
-		public sbyte actionNum2;		// Generic Action Property
+		public int actionNum1;			// Generic Action Property
+		public int actionNum2;          // Generic Action Property
+		public float actionFloat1;		// Generic Action Property
 		public bool actionBool1;		// Generic Action Property
 		public bool actionBool2;		// Generic Action Property
 
