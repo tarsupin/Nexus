@@ -9,7 +9,7 @@ namespace Nexus.Objects {
 	public class ChomperFire : Chomper {
 
 		public ChomperFire() : base() {
-			this.hasSetup = true;
+			this.setupRules = SetupRules.SetupTile;
 			this.SpriteName = "Chomper/Fire/Chomp";
 			this.KnockoutName = "Particles/Chomp/Fire";
 			this.DamageSurvive = DamageStrength.Standard;

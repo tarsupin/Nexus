@@ -1,7 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
-using Nexus.Objects;
 
 /*
  * Tile Game Object:
@@ -25,7 +24,7 @@ namespace Nexus.GameEngine {
 		public IMetaData Meta { get; protected set; }
 		public Atlas atlas;
 		public byte tileId;
-		public bool hasSetup = false;       // If TRUE, tile runs SetupTile(RoomScene room, short gridX, short gridY) on placement.
+		public SetupRules setupRules = SetupRules.NoSpecialRules;		// Can run SetupTile(RoomScene room, short gridX, short gridY) in RoomGenerate class.
 		public Params moveParamSet;
 		public Params actParamSet;
 

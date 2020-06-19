@@ -68,6 +68,12 @@ namespace Nexus.Gameplay {
 		Static,
 	}
 
+	public enum SetupRules : byte {
+		NoSpecialRules = 0,
+		SetupTile = 1,
+		PreSetupOnly = 2,
+	}
+
 	public enum AtlasGroup : byte {
 		Tiles = 0,
 		Objects = 1,

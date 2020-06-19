@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -15,16 +16,30 @@ namespace Nexus.Objects {
 			Red = 2,
 		}
 
-		// TODO: TrackDots must be assigned track data in the track system.
-
+		// TrackDots must be assigned to the track system.
 		public TrackDot() : base() {
+			this.setupRules = SetupRules.PreSetupOnly;
 			this.collides = false;
 			this.CreateTextures();
-			this.Meta = Systems.mapper.MetaList[MetaGroup.Interactives];
+			this.Meta = Systems.mapper.MetaList[MetaGroup.Track];
 			this.tileId = (byte)TileEnum.TrackDot;
 			this.title = "Track Dot";
 			this.description = "A designation that tracked items can move between.";
 			this.moveParamSet =  Params.ParamMap["TrackDot"];
+		}
+
+		public void PreSetup(RoomScene room, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, short> paramList = null) {
+			if(paramList == null) { paramList = new Dictionary<string, short>(); }
+
+			room.trackSys.AddTrack(
+				paramList.ContainsKey("trackNum") ? (byte) paramList["trackNum"] : (byte) 0,
+				gridX,
+				gridY,
+				paramList.ContainsKey("to") ? (byte) paramList["to"] : (byte) 0,
+				paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) 0,
+				paramList.ContainsKey("delay") ? (short) paramList["delay"] : (short) 0,
+				paramList.ContainsKey("beginFall") ? (paramList["beginFall"] == 1 ? true : false) : false
+			);
 		}
 
 		private void CreateTextures() {

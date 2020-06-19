@@ -111,6 +111,7 @@
     <Compile Include="GameEngine\ParticleFreeClasses\StationaryParticle.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\LeafShakeParticle.cs" />
     <Compile Include="GameEngine\ParticleEmitters\SimpleEmitter.cs" />
+    <Compile Include="GameEngine\SceneComponents\TrackSystem.cs" />
     <Compile Include="GameEngine\SceneComponents\RoomExits.cs" />
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
@@ -284,7 +285,6 @@
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
     <Compile Include="Gameplay\GameClasses\GameClass.cs" />
-    <Compile Include="Gameplay\Types\ActionTypes.cs" />
     <Compile Include="Gameplay\Types\WorldTypes.cs" />
     <Compile Include="Gameplay\Types\TileTypes.cs" />
     <Compile Include="Gameplay\Types\ArenaTypes.cs" />
@@ -480,6 +480,7 @@
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatDown.cs" />
     <Compile Include="ObjectsTiles\TogglePlats\TogglePlatUp.cs" />
     <Compile Include="Objects\EnemyFlight\Flair\FlairNormal.cs" />
+    <Compile Include="Objects\Special\Cluster.cs" />
     <Compile Include="Objects\EnemyFlight\Slammer.cs" />
     <Compile Include="Objects\EnemyFlight\Dire.cs" />
     <Compile Include="Objects\EnemyFlight\Bouncer.cs" />

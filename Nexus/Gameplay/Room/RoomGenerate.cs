@@ -47,23 +47,29 @@ namespace Nexus.Gameplay {
 					short gridX = short.Parse(xData.Key);
 
 					byte tileId = Convert.ToByte(xData.Value[0]);
+					byte subType = Convert.ToByte(xData.Value[1]);
+					Dictionary<string, short> paramList = null;
 
-					if(xData.Value.Count == 2) {
-						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]));
-
-					} else if(xData.Value.Count > 2) {
+					if(xData.Value.Count > 2) {
 
 						// ERRORS HERE MEAN: The json data saved a string instead of a short; e.g. {"Suit", "WhiteNinja"} instead of {"Suit", 2}
-							// To fix it, we need to run LevelConvert updates that make the appropriate changes.
-						Dictionary<string, short> paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
-						RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, Convert.ToByte(xData.Value[1]), paramList);
+						// To fix it, we need to run LevelConvert updates that make the appropriate changes.
+						paramList = JsonConvert.DeserializeObject<Dictionary<string, short>>(xData.Value[2].ToString());
 					}
 
-					// Check the TileDict to see if its MetaData has a BeatTick requirement.
-					// If it does, add a repeating instruction to the QueueEvent.
+					// Check the TileDict to identify setup requirements. If it does, run it's setup process.
 					TileObject tile = TileDict[tileId];
 
-					if(tile.hasSetup) {
+					// If the tile is considered "Pre-Setup Only" - only run its pre-setup method; don't add it to the scene.
+					if(tile.setupRules == SetupRules.PreSetupOnly) {
+						(tile as dynamic).PreSetup(room, (short)(gridX + (byte)TilemapEnum.GapLeft), (short)(gridY + (byte)TilemapEnum.GapUp), tileId, subType, paramList);
+						continue;
+					}
+
+					RoomGenerate.AddTileToScene(room, layerEnum, gridX, gridY, tileId, subType, paramList);
+
+					// Post Setup
+					if(tile.setupRules >= SetupRules.SetupTile) {
 						(tile as dynamic).SetupTile(room, (short)(gridX + (byte)TilemapEnum.GapLeft), (short)(gridY + (byte)TilemapEnum.GapUp));
 					}
 				}
@@ -93,23 +99,23 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
+		private static void AddTileToScene(RoomScene room, LayerEnum layerEnum, short gridX, short gridY, byte tileId, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
 			gridX += (byte)TilemapEnum.GapLeft;
 			gridY += (byte)TilemapEnum.GapUp;
 
 			if(layerEnum == LayerEnum.main) {
-				room.tilemap.SetMainTile(gridX, gridY, type, subType);
+				room.tilemap.SetMainTile(gridX, gridY, tileId, subType);
 				if(paramList != null) { room.tilemap.SetParamList(gridX, gridY, paramList); }
 			} else if(layerEnum == LayerEnum.bg) {
-				room.tilemap.SetBGTile(gridX, gridY, type, subType);
+				room.tilemap.SetBGTile(gridX, gridY, tileId, subType);
 			} else if(layerEnum == LayerEnum.fg) {
-				room.tilemap.SetFGTile(gridX, gridY, type, subType);
+				room.tilemap.SetFGTile(gridX, gridY, tileId, subType);
 			}
 		}
 
-		private static void AddObjectToScene(RoomScene room, short gridX, short gridY, byte type, byte subType = 0, Dictionary<string, short> paramList = null) {
+		private static void AddObjectToScene(RoomScene room, short gridX, short gridY, byte objectId, byte subType = 0, Dictionary<string, short> paramList = null) {
 
 			// Adjust for World Gaps
 			gridX += (byte)TilemapEnum.GapLeft;
@@ -122,7 +128,7 @@ namespace Nexus.Gameplay {
 			);
 
 			// Character Creation
-			if(type == (byte)TileEnum.BasicCharacter) {
+			if(objectId == (byte)TileEnum.BasicCharacter) {
 				Character character = new Character(room, 0, pos, null);
 				room.AddToScene(character, true);
 				return;
@@ -132,7 +138,7 @@ namespace Nexus.Gameplay {
 
 			// Identify Object Class Type
 			Type classType;
-			bool hasType = mapper.ObjectTypeDict.TryGetValue(type, out classType);
+			bool hasType = mapper.ObjectTypeDict.TryGetValue(objectId, out classType);
 			if(!hasType || classType == null) { return; }
 
 			// Special Pre-Generation Rules. 

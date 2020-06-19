@@ -17,9 +17,9 @@ namespace Nexus.Objects {
 			base.RunTick();
 
 			// Update Facing Direction based on speed
-			byte xVel = (byte) Math.Abs(this.physics.velocity.X.RoundInt);
+			float xVel = (float) this.physics.velocity.X.ToDouble();
 
-			if(xVel >= 1) {
+			if(Math.Abs(xVel) >= 0.4f) {
 				if(this.FaceRight) {
 					if(xVel < 0) {
 						this.SetDirection(false);

@@ -26,7 +26,7 @@ namespace Nexus.ObjectComponents {
 
 			// End the action after the designated number of frames has elapsed:
 			if(this.HasTimeElapsed(character)) {
-				if(!character.input.isDown(IKey.Down)) {
+				if(!character.input.isDown(IKey.BButton)) {
 					this.EndAction(character);
 				}
 				return;

@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 		}
 
 		public CheckFlag(FlagSubType subType) : base() {
-			this.hasSetup = true;
+			this.setupRules = SetupRules.SetupTile;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Flag];
 			this.subType = subType;

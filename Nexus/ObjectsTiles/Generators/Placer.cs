@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 		// TODO: Integrate behavior of Placer.
 
 		public Placer() : base() {
-			this.hasSetup = true;
+			this.setupRules = SetupRules.SetupTile;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.tileId = (byte) TileEnum.Placer;

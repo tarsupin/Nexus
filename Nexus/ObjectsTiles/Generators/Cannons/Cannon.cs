@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 	public class Cannon : BlockTile {
 
 		public Cannon() : base() {
-			this.hasSetup = true;
+			this.setupRules = SetupRules.SetupTile;
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Generator];
 			this.title = "Cannon";

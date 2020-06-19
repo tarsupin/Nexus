@@ -17,6 +17,7 @@ namespace Nexus.GameEngine {
 
 		// Components
 		public RoomExits roomExits;
+		public TrackSystem trackSys;
 		public ColorToggles colors;
 		public QueueEvent queueEvents;
 		private ParallaxHandler parallax;
@@ -66,6 +67,7 @@ namespace Nexus.GameEngine {
 
 			// Additional Components
 			this.colors = new ColorToggles();
+			this.trackSys = new TrackSystem();
 			this.roomExits = new RoomExits();
 			this.queueEvents = new QueueEvent(this);
 

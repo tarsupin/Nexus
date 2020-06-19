@@ -12,7 +12,7 @@ namespace Nexus.ObjectComponents {
 
 		// Motion Flags
 		protected short duration;			// Duration the motion is intended to take, in frames (such as 120 frames between two points).
-		protected short offset;			// The offset in the duration cycle (for timing purposes)
+		protected short offset;				// The offset in the duration cycle (for timing purposes)
 		protected bool reverse;				// `true` means the motion is backward (such as for moving platforms returning).
 		
 		protected int startX;				// Starting X position of a motion.
@@ -22,7 +22,11 @@ namespace Nexus.ObjectComponents {
 
 		// Cluster Motion
 		protected byte actAsClusterId;      // Indicates that this object is a cluster. All child clusters will remain offset to it.
-		protected byte clusterLinkId;		// Indicates a cluster to link to. Object will lock its offset position to the parent.
+		protected byte clusterLinkId;       // Indicates a cluster to link to. Object will lock its offset position to the parent.
+
+		protected GameObject cluster;
+		protected int clusterPosX;
+		protected int clusterPosY;
 
 		public FlightBehavior( GameObject actor, Dictionary<string, short> paramList) : base(actor) {
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
@@ -41,11 +45,6 @@ namespace Nexus.ObjectComponents {
 			// Clusters
 			this.actAsClusterId = paramList.ContainsKey("clusterId") ? (byte) paramList["clusterId"] : (byte) 0;
 			this.clusterLinkId = paramList.ContainsKey("toCluster") ? (byte) paramList["toCluster"] : (byte) 0;
-
-			// If the object is a cluster, or is attached to a parent cluster, it must be tracked through the full level.
-			if(this.actAsClusterId > 0 || this.clusterLinkId > 0) {
-				actor.SetActivity(Activity.ForceActive);
-			}
 		}
 
 		public static FlightBehavior AssignFlightMotion( GameObject actor, Dictionary<string, short> paramList ) {

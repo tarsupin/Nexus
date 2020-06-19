@@ -243,7 +243,7 @@ namespace Nexus.GameEngine {
 	public class ParamsTrackDot : Params {
 
 		public ParamsTrackDot() {
-			this.rules.Add(new IntParam("trackNum", "Track ID", 0, 99, 1, 0, ""));
+			this.rules.Add(new IntParam("trackNum", "Track ID", 0, 99, 1, 0, " (must set > 0)"));
 			this.rules.Add(new IntParam("to", "Goes to Track ID", 0, 99, 1, 0, ""));
 			this.rules.Add(new FrameParam("duration", "Travel Duration", 60, 3600, 15, 180, " frames"));
 			this.rules.Add(new FrameParam("delay", "Departure Delay", 0, 3600, 15, 0, " frames"));

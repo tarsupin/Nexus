@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 		}
 
 		public Door() : base() {
-			this.hasSetup = true;
+			this.setupRules = SetupRules.SetupTile;
 			this.CreateTextures();
 			this.collides = true;
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Door];
