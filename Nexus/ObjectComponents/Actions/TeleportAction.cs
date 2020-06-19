@@ -13,7 +13,7 @@ namespace Nexus.ObjectComponents {
 	public class TeleportAction : Action {
 
 		public const string teleSprite = "Particles/Fireball";
-		public const float rotateSpeed = 0.04f;
+		public const float rotateSpeed = 0.05f;
 
 		public TeleportAction() : base() {
 			this.endsOnLanding = false;
@@ -58,7 +58,7 @@ namespace Nexus.ObjectComponents {
 			CharacterStatus status = character.status;
 
 			// Extend the distance.
-			status.actionNum1 += 7;
+			status.actionNum1 += 10;
 
 			float trueRotation = Radians.Normalize(status.actionFloat1);
 
@@ -77,7 +77,7 @@ namespace Nexus.ObjectComponents {
 
 			status.actionFloat1 = trueRotation;
 
-			StationaryParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], TeleportAction.teleSprite, new Vector2(xCoord, yCoord), Systems.timer.Frame + 1);
+			StationaryParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], TeleportAction.teleSprite, new Vector2(xCoord, yCoord), Systems.timer.Frame);
 		}
 	}
 }

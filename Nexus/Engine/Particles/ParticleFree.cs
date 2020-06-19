@@ -72,10 +72,12 @@ namespace Nexus.Engine {
 		public virtual void Draw(int camX, int camY) {
 
 			// Determine Alpha of Particle (can be affected by fading)
-			int frame = Systems.timer.Frame;
-			float alpha = this.fadeStart < frame ? ParticleHandler.AlphaByFadeTime(frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd) : 1;
-			
-			this.atlas.DrawAdvanced(this.spriteName, (int)this.pos.X - camX, (int)this.pos.Y - camY, Color.White * alpha, this.rotation);
+			if(this.fadeStart < Systems.timer.Frame) {
+				this.atlas.DrawAdvanced(this.spriteName, (int)this.pos.X - camX, (int)this.pos.Y - camY, null, this.rotation);
+			} else {
+				float alpha = ParticleHandler.AlphaByFadeTime(Systems.timer.Frame, this.fadeStart, this.frameEnd, this.alphaStart, this.alphaEnd);
+				this.atlas.DrawAdvanced(this.spriteName, (int)this.pos.X - camX, (int)this.pos.Y - camY, Color.White * alpha, this.rotation);
+			}
 		}
 	}
 }
