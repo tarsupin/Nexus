@@ -251,6 +251,18 @@ namespace Nexus.GameEngine {
 			
 			// Mobility Power
 			this.placeholders.Add(new EditorPlaceholder[] {
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.Athlete,
+				//},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CollectablePower,
+					subType = (byte) PowerSubType.Leap,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CollectablePower,
+					subType = (byte) PowerSubType.Slam,
+				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
 					subType = (byte) PowerSubType.SlowFall,
@@ -285,19 +297,7 @@ namespace Nexus.GameEngine {
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Athlete,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Leap,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Slam,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.RandomBook,
+					subType = (byte) PowerSubType.RandomPotion,
 				},
 			});
 

@@ -121,21 +121,14 @@ namespace Nexus {
 				// Try converting levels
 				//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
 
-				//DebugConfig.SetTickSpeed(DebugTickSpeed.HalfSpeed);
-				//DebugConfig.SetTickSpeed(DebugTickSpeed.WhenYPressed);
-
 				// TODO: Change playtesting level to correct setup.
 				// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.
 				// TODO: We also need levels to be somehow loaded into local data during installation. Unfamiliar with that process atm.
 				// Load a default level.
-				//SceneTransition.ToLevel("", "QCALQOD16");
-				//Systems.camera.CenterAtPosition(1200, 0);
+				SceneTransition.ToLevel("", "QCALQOD16");
 
-				SceneTransition.ToWorld("Tarsupin");
+				//SceneTransition.ToWorld("Tarsupin");
 				//SceneTransition.ToWorldEditor("Tarsupin");
-
-				//Console.WriteLine("-----------------DATA--------------");
-				//Console.WriteLine(Systems.handler.level.data.id);
 			};
 
 			using(var game = new GameClient(gameLoadInstructions)) {

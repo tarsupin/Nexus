@@ -86,11 +86,11 @@ namespace Nexus.GameEngine {
 			short startX = Math.Max((short)0, cam.GridX);
 			short startY = Math.Max((short)0, cam.GridY);
 
-			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1 + 1); // 30 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
-			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1 + 1); // 18 is view size. +1 is to render the edge. +1 is to deal with --> operator in loop.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1); // +1 is to render the edge.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1); // +1 is to render the edge.
 
-			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size. +1 is to deal with --> operator in loop.
-			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size. +1 is to deal with --> operator in loop.
+			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size.
+			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size.
 
 			// Camera Position
 			bool isShaking = cam.IsShaking();
@@ -324,6 +324,12 @@ namespace Nexus.GameEngine {
 		// Resize Map
 		public void ResizeWidth(short newWidth = 0) {
 
+			// Prevent Resize if over room size limit:
+			if(newWidth * this.yCount > (short)TilemapEnum.MaxTilesTotal) {
+				this.scene.editorUI.alertText.SetNotice("Unable to Resize Width", "Maximum Room Size Limit is " + (short)TilemapEnum.MaxTilesTotal, 240);
+				return;
+			}
+
 			// Delete all tiles that got resized:
 			if(newWidth < this.xCount) {
 				for(short gridX = newWidth; gridX <= (short)(this.xCount + 1); gridX++) {
@@ -336,9 +342,18 @@ namespace Nexus.GameEngine {
 			this.xCount = newWidth;
 			this.mapWidth = this.xCount * (byte)TilemapEnum.TileWidth;
 			Systems.camera.UpdateScene(this);
+
+			// Set Notice of Update:
+			this.scene.editorUI.noticeText.SetNotice("Room Has Been Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
 		}
 
 		public void ResizeHeight(short newHeight = 0) {
+
+			// Prevent Resize if over room size limit:
+			if(newHeight * this.xCount > (short)TilemapEnum.MaxTilesTotal) {
+				this.scene.editorUI.alertText.SetNotice("Unable to Resize Height", "Maximum Room Size Limit is " + (short)TilemapEnum.MaxTilesTotal, 240);
+				return;
+			}
 
 			// Delete all tiles that got resized:
 			if(newHeight < this.yCount) {
@@ -352,6 +367,9 @@ namespace Nexus.GameEngine {
 			this.yCount = newHeight;
 			this.mapHeight = this.yCount * (byte)TilemapEnum.TileHeight;
 			Systems.camera.UpdateScene(this);
+
+			// Set Notice of Update:
+			this.scene.editorUI.noticeText.SetNotice("Room Has Been Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
 		}
 	}
 }

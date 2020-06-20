@@ -168,7 +168,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// "wand" was the final valid instruction. Give a random wand to the character.
-				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomBook);
+				Power.AssignPower(ConsoleTrack.character, (byte) PowerSubType.RandomBolt);
 			}
 		}
 

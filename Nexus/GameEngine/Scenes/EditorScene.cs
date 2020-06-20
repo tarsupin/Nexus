@@ -53,6 +53,9 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
+			// Update Timer
+			Systems.timer.RunTick();
+
 			// Update the Mouse State Every Tick
 			Cursor.UpdateMouseState();
 

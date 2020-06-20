@@ -16,7 +16,7 @@ namespace Nexus.Objects {
 			this.titles = new string[64];
 
 			// Collectable Powers - Mobility
-			this.titles[(byte)PowerSubType.RandomPotion] = "Random Book Collectable";
+			this.titles[(byte)PowerSubType.RandomPotion] = "Random Potion Collectable";
 			this.titles[(byte)PowerSubType.SlowFall] = "Slow Fall Powerup";
 			this.titles[(byte)PowerSubType.Hover] = "Hover Powerup";
 			this.titles[(byte)PowerSubType.Levitate] = "Levitation Powerup";
@@ -38,14 +38,14 @@ namespace Nexus.Objects {
 			this.titles[(byte)PowerSubType.Spear] = "Spear";
 			this.titles[(byte)PowerSubType.Sword] = "Sword";
 
-			// Collectable Powers - Potion
-			this.titles[(byte)PowerSubType.RandomBook] = "Random Potion Collectable";
-			this.titles[(byte)PowerSubType.Electric] = "Electric Potion";
-			this.titles[(byte)PowerSubType.Fire] = "Fireball Potion";
-			this.titles[(byte)PowerSubType.Frost] = "Frost Potion";
-			this.titles[(byte)PowerSubType.Rock] = "Rock Potion";
-			this.titles[(byte)PowerSubType.Water] = "Waterball Potion";
-			this.titles[(byte)PowerSubType.Poison] = "Poison Potion";
+			// Collectable Power - Spellbook
+			this.titles[(byte)PowerSubType.RandomBook] = "Random Spellbook Collectable";
+			this.titles[(byte)PowerSubType.Electric] = "Electric Spellbook";
+			this.titles[(byte)PowerSubType.Fire] = "Fireball Spellbook";
+			this.titles[(byte)PowerSubType.Frost] = "Frost Spellbook";
+			this.titles[(byte)PowerSubType.Rock] = "Rock Spellbook";
+			this.titles[(byte)PowerSubType.Water] = "Waterball Spellbook";
+			this.titles[(byte)PowerSubType.Poison] = "Poison Spellbook";
 
 			// Collectable Powers - Thrown
 			this.titles[(byte)PowerSubType.RandomThrown] = "Random Thrown Collectable";
@@ -75,13 +75,13 @@ namespace Nexus.Objects {
 			this.descriptions = new string[64];
 
 			// Collectable Powers - Mobility
-			this.descriptions[(byte)PowerSubType.RandomPotion] = "Acquire a random mobility powerup from the 'book' selections.";
+			this.descriptions[(byte)PowerSubType.RandomPotion] = "Acquire a random mobility powerup from the 'potion' selections.";
 			this.descriptions[(byte)PowerSubType.SlowFall] = "Grants the ability to fall slower.";
 			this.descriptions[(byte)PowerSubType.Hover] = "Grants the ability to hover in mid-air for a short duration.";
 			this.descriptions[(byte)PowerSubType.Levitate] = "Grants the ability to levitate in any direction for a short duration.";
 			this.descriptions[(byte)PowerSubType.Flight] = "Grants the power to fly.";
 			this.descriptions[(byte)PowerSubType.Athlete] = "Gain improved athletic abilities.";
-			this.descriptions[(byte)PowerSubType.Leap] = "Grants a special jump that can be used while in mid-air.";
+			this.descriptions[(byte)PowerSubType.Leap] = "Grants an additional jump that can be used while in mid-air.";
 			this.descriptions[(byte)PowerSubType.Slam] = "Grants the ability to slam the ground.";
 			this.descriptions[(byte)PowerSubType.Burst] = "Grants a burst of momentum.";
 			this.descriptions[(byte)PowerSubType.Air] = "Grants an overpowering burst of momentum to the intended direction.";
@@ -98,7 +98,7 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)PowerSubType.Sword] = "Medium range, fast attack. Horizontal strikes only.";
 
 			// Collectable Powers - Potion
-			this.descriptions[(byte)PowerSubType.RandomBook] = "Acquire a random potion.";
+			this.descriptions[(byte)PowerSubType.RandomBook] = "Acquire a random book.";
 			this.descriptions[(byte)PowerSubType.Electric] = "Cast balls of electricity. Fast, bounce on ground, unwieldy.";
 			this.descriptions[(byte)PowerSubType.Fire] = "Cast fireballs. Bounce on ground.";
 			this.descriptions[(byte)PowerSubType.Frost] = "Cast frost balls. Long range, fast, collide with ground.";
@@ -144,7 +144,7 @@ namespace Nexus.Objects {
 			this.Texture = new string[64];
 			
 			// Collectable Powers - Mobility
-			this.Texture[(byte)PowerSubType.RandomPotion] = "Power/RandBook";
+			this.Texture[(byte)PowerSubType.RandomPotion] = "Power/RandPot";
 			this.Texture[(byte)PowerSubType.SlowFall] = "Power/SlowFall";
 			this.Texture[(byte)PowerSubType.Hover] = "Power/Hover";
 			this.Texture[(byte)PowerSubType.Levitate] = "Power/Levitate";
@@ -167,7 +167,7 @@ namespace Nexus.Objects {
 			this.Texture[(byte)PowerSubType.Sword] = "Weapon/Sword";
 
 			// Collectable Powers - Potion
-			this.Texture[(byte)PowerSubType.RandomBook] = "Power/RandPot";
+			this.Texture[(byte)PowerSubType.RandomBook] = "Power/RandBook";
 			this.Texture[(byte)PowerSubType.Electric] = "Power/Electric";
 			this.Texture[(byte)PowerSubType.Fire] = "Power/Fire";
 			this.Texture[(byte)PowerSubType.Frost] = "Power/Frost";
