@@ -20,7 +20,6 @@ namespace Nexus.GameEngine {
 			this.scene = scene;
 			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			this.myPlayer = Systems.localServer.MyPlayer;
 			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
 			this.levelState = Systems.handler.levelState;
 		}
@@ -35,8 +34,8 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.windowWidth - 90, 10, Color.White);
 
 			// Health & Armor
-			if(this.myPlayer.character is Character) {
-				CharacterWounds wounds = this.myPlayer.character.wounds;
+			if(Systems.localServer.MyPlayer.character is Character) {
+				CharacterWounds wounds = Systems.localServer.MyCharacter.wounds;
 				byte i = 0;
 
 				while(i < wounds.Health) {
@@ -48,10 +47,10 @@ namespace Nexus.GameEngine {
 					this.atlas.Draw("Icon/Shield", 10 + 48 * i, this.bottomRow);
 					i++;
 				}
-			}
 
-			// Power Icons
-			this.powerUI.Draw();
+				// Power Icons
+				this.powerUI.Draw();
+			}
 
 			// Debug Render
 			if(DebugConfig.Debug) {

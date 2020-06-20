@@ -57,12 +57,12 @@ namespace Nexus.Objects {
 			// Images and Animations
 			this.animate = new Animate(this, "/");
 
+			// Reset Character, Set Default Values
+			this.ResetCharacter();
+
 			// Assign SubTypes and Params
 			this.AssignSubType(subType);
 			this.AssignParams(paramList);
-
-			// Reset Character, Set Default Values
-			this.ResetCharacter();
 		}
 
 		private void AssignSubType(byte subType) {
@@ -70,7 +70,14 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignParams(Dictionary<string, short> paramList) {
-			
+			this.FaceRight = paramList.ContainsKey("dir") && paramList["dir"] == 1 ? false : true;
+
+			// Apply Head
+			byte face = paramList.ContainsKey("face") ? (byte) paramList["face"] : (byte) 0;
+
+			if(face == 0) { HeadMap.RyuHead.ApplyHead(this, false); }
+			else if(face == 1) { HeadMap.PooHead.ApplyHead(this, false); }
+			else if(face == 2) { HeadMap.CarlHead.ApplyHead(this, false); }
 		}
 
 		public void AssignPlayer( Player player ) {
@@ -93,7 +100,7 @@ namespace Nexus.Objects {
 			if(this.hat is Hat) { this.hat.DestroyHat(this, false); };
 
 			// Default Suit, Default Head
-			HeadMap.RyuHead.ApplyHead(this, false);
+			if(this.head == null) { HeadMap.RyuHead.ApplyHead(this, false); }
 			Suit.AssignToCharacter(this, (byte)SuitSubType.RedBasic, false);
 
 			// Reset Stats (NOT "STATUS")

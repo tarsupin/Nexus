@@ -17,7 +17,7 @@ namespace Nexus.GameEngine {
 			Atlas atlas = this.levelUI.atlas;
 			short topRow = (short)10;
 			//short bottomRow = (short)(this.levelUI.bottomRow - 8);
-			Character character = this.levelUI.myPlayer.character;
+			Character character = Systems.localServer.MyCharacter;
 			short posX = (short)(Systems.screen.windowHalfWidth + (byte)(TilemapEnum.HalfWidth));
 
 			// Power Positioning

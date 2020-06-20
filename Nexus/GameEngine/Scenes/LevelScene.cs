@@ -37,11 +37,26 @@ namespace Nexus.GameEngine {
 		}
 
 		protected virtual void LoadMyPlayer() {
+			Systems.localServer.ResetPlayers();
 
-			// TODO HIGH PRIORITY: All characters need to be assigned to the level? Or are they somewhere else?
-			// TODO HIGH PRIORITY: Assign All Characters according to the match rules:
+			// Assign All Characters according to the match rules:
 			foreach(var character in this.rooms[0].objects[(byte)LoadOrder.Character]) {
-				Systems.localServer.MyPlayer.AssignCharacter((Character)character.Value);
+				Character nChar = (Character)character.Value;
+
+				// Each character can only be assigned to one player:
+				if(nChar.player is Player) { continue; }
+
+				// TODO: Determine which player(s) meet the parameters for this character:
+				// TODO
+
+				// If My Character has not been assigned, assign it now:
+				if(Systems.localServer.MyCharacter is Character == false) {
+					Systems.localServer.MyPlayer.AssignCharacter(nChar, true);
+					continue;
+				}
+
+				// If the Character has no players to assign to it:
+				nChar.AssignPlayer(Placeholders.Player);
 			}
 		}
 
@@ -181,7 +196,7 @@ namespace Nexus.GameEngine {
 			// Timer Reset
 			Systems.timer.Unpause();
 			Systems.timer.ResetTimer();
-
+			
 			// Build Each Room
 			foreach(RoomScene room in this.rooms) {
 				if(room is RoomScene == false) { continue; }

@@ -42,6 +42,10 @@ namespace Nexus.Gameplay {
 		public static readonly string[] CharacterMoveHoldRight = new string[2] { "RunHold", "StandHold" };
 	}
 
+	public static class Placeholders {
+		public static readonly Player Player = new PlayerPlaceholder();
+	}
+
 	// GameObjectMetaData exists because Game Objects need a reference to their metadata outside of the individual classes (and preferably without reflection).
 	// Example: The Wand Tool needs to know what Parameter Set to use for each object.
 	public class GameObjectMetaData {
@@ -62,7 +66,7 @@ namespace Nexus.Gameplay {
 		public Dictionary<MetaGroup, IMetaData> MetaList = new Dictionary<MetaGroup, IMetaData>();
 		public Dictionary<byte, TileObject> TileDict;
 		public Dictionary<byte, GameObjectMetaData> ObjectMetaData = new Dictionary<byte, GameObjectMetaData>();
-
+		
 		// World Tiles
 		public Dictionary<byte, string> WorldTerrain;
 		public Dictionary<byte, string> WorldLayers;

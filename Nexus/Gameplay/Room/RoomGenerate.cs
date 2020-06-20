@@ -127,13 +127,6 @@ namespace Nexus.Gameplay {
 				Snap.GridToPos((short)TilemapEnum.TileHeight, gridY)
 			);
 
-			// Character Creation
-			if(objectId == (byte)TileEnum.BasicCharacter) {
-				Character character = new Character(room, 0, pos, null);
-				room.AddToScene(character, true);
-				return;
-			}
-
 			GameMapper mapper = Systems.mapper;
 
 			// Identify Object Class Type

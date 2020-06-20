@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 
 		public LocalServer() {
 			this.players = new Dictionary<byte, Player>();
-			this.StartLocalGame();
+			this.ResetPlayers();
 		}
 
 		// Returns the "Self" Player Instance
@@ -47,7 +47,7 @@ namespace Nexus.GameEngine {
 			get { return this.players[this.MyPlayerId].character; }
 		}
 
-		public void StartLocalGame() {
+		public void ResetPlayers() {
 			this.RemoveAllPlayers();
 			this.AddPlayer(1);
 			this.MyPlayerId = 1;

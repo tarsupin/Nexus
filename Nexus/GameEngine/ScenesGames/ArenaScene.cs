@@ -1,5 +1,4 @@
 ﻿using Nexus.Engine;
-using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.GameEngine {
@@ -9,12 +8,7 @@ namespace Nexus.GameEngine {
 		public ArenaScene() : base() {}
 
 		protected override void LoadMyPlayer() {
-
-			// TODO HIGH PRIORITY: All characters need to be assigned to the level? Or are they somewhere else?
-			// TODO HIGH PRIORITY: Assign All Characters according to the match rules:
-			foreach(var character in this.rooms[0].objects[(byte)LoadOrder.Character]) {
-				Systems.localServer.MyPlayer.AssignCharacter((Character)character.Value);
-			}
+			base.LoadMyPlayer();
 		}
 
 		protected override void RunSceneLoop() {
