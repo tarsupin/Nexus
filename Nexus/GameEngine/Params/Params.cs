@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 			{ "AttackBolt", new ParamsAttackBolt() },
 			{ "Beats", new ParamsBeats() },
 			{ "Checkpoint", new ParamsCheckpoint() },
+			{ "Character", new ParamsCharacter() },
 			{ "Cluster", new ParamsCluster() },
 			{ "Collectable", new ParamsCollectable() },
 			{ "Contents", new ParamsContents() },
@@ -166,7 +167,7 @@ namespace Nexus.GameEngine {
 			this.rules.Add(new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0));
 		}
 	}
-
+	
 	public class ParamsCluster : Params {
 		public ParamsCluster() {
 			this.rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));

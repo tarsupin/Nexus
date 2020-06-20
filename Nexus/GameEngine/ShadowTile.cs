@@ -265,14 +265,14 @@ namespace Nexus.Objects {
 			////// SPECIAL OBJECTS //////
 			/////////////////////////////
 			
+			{ (byte) ObjectEnum.Character, new Dictionary<byte, string> {
+				{  (byte) 0, "Head/Ryu/Left" },
+			}},
+
 			// Special Objects
 			{ (byte) ObjectEnum.ClusterDot, new Dictionary<byte, string> {
 				{  (byte) ClusterDotSubType.Basic, "Cluster/Basic" },
 			}},
-
-			//// Special Flags and Placements (150+)
-			//{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },
-
 		};
 		
 		public static void Draw(byte index, byte subType, Dictionary<string, short> paramList, int posX, int posY) {

@@ -177,7 +177,7 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.ButtonHeld] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
 
 			// Special Flags and Placements (100+)
-			this.ObjectMetaData[(byte)ObjectEnum.Character] = new GameObjectMetaData(MetaList[MetaGroup.Character], null);
+			this.ObjectMetaData[(byte)ObjectEnum.Character] = new GameObjectMetaData(MetaList[MetaGroup.Character], null, Params.ParamMap["Character"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Cluster"]);
 		}

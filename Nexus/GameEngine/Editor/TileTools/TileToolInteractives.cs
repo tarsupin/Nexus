@@ -1,5 +1,4 @@
-﻿
-using Nexus.Gameplay;
+﻿using Nexus.Gameplay;
 using static Nexus.Objects.Chest;
 using static Nexus.Objects.Door;
 using static Nexus.Objects.NPC;
@@ -12,12 +11,13 @@ namespace Nexus.GameEngine {
 
 			this.slotGroup = (byte)SlotGroup.Interactives;
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.Character,
-			//		subType = (byte) Something.Ryu,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.Character,
+					subType = (byte) 0,
+					layerEnum = LayerEnum.obj,
+				},
+			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

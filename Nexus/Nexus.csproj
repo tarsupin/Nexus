@@ -107,6 +107,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
     <Compile Include="Engine\UI\AlertText.cs" />
+    <Compile Include="GameEngine\Params\AdvancedSets\ParamsCharacter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\EndBounceParticle.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\StationaryParticle.cs" />

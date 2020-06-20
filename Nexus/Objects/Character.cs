@@ -3,11 +3,6 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
-using System.Linq;
-
-// NOTES:
-// Must be able to have multiple characters in the level.
-// Characters must be controlled by their player.
 
 namespace Nexus.Objects {
 
@@ -40,6 +35,7 @@ namespace Nexus.Objects {
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
+
 			this.SetSpriteName("Stand");
 
 			// Physics, Collisions, etc.
@@ -61,8 +57,20 @@ namespace Nexus.Objects {
 			// Images and Animations
 			this.animate = new Animate(this, "/");
 
+			// Assign SubTypes and Params
+			this.AssignSubType(subType);
+			this.AssignParams(paramList);
+
 			// Reset Character, Set Default Values
 			this.ResetCharacter();
+		}
+
+		private void AssignSubType(byte subType) {
+			
+		}
+
+		private void AssignParams(Dictionary<string, short> paramList) {
+			
 		}
 
 		public void AssignPlayer( Player player ) {
