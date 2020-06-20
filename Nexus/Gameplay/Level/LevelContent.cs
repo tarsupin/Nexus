@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Nexus.Engine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -115,8 +116,12 @@ namespace Nexus.Gameplay {
 		}
 
 		// Assign Level Data
-		public void SetTitle( string text ) { this.data.title = text; }
-		public void SetDescription( string text ) { this.data.description = text; }
+		public void SetAccount( string account ) { this.data.account = account; }
+		public void SetTitle( string title ) { this.data.title = title; }
+		public void SetDescription( string description ) { this.data.description = description; }
+		public void SetTimeLimit( short timeLimit ) { this.data.timeLimit = Math.Max((short) 10, timeLimit); }
+		public void SetGameClass( GameClassFlag gameClass ) { this.data.gameClass = (short) gameClass; }
+		public void SetMusicTrack( MusicTrackEnum track ) { this.data.music = (short) track; }
 
 		public void SaveLevel( string destDir = null, string destLevelId = null ) {
 

@@ -18,8 +18,8 @@ namespace Nexus.GameEngine {
 				// Set Level Data
 				{ "title", ConsoleEditData.SetTitle },
 				{ "desc", ConsoleEditData.SetDescription },
+				{ "time", ConsoleEditData.SetTimeLimit },
 				//{ "music", ConsoleEditData.SetMusic },
-				//{ "time", ConsoleEditData.SetTimeLimit },
 				//{ "game-class", ConsoleEditData.SetGameClass },
 			};
 		}
