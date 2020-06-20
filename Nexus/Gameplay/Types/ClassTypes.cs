@@ -221,11 +221,10 @@ namespace Nexus.Gameplay {
 		SpringHeld = 90,
 		ButtonHeld = 91,
 
-		// Special Objects
-		ClusterDot = 100,
+		// Special Flags and Placements (100+)
+		Character = 100,
 
-		// Special Flags and Placements (150+)
-		Character = 150,
+		ClusterDot = 150,
 	};
 
 }

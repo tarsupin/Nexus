@@ -3,6 +3,7 @@ using Nexus.Gameplay;
 using System.Collections.Generic;
 using static Nexus.Objects.Bomb;
 using static Nexus.Objects.Boulder;
+using static Nexus.Objects.ClusterDot;
 using static Nexus.Objects.ElementalAir;
 using static Nexus.Objects.ElementalEarth;
 using static Nexus.Objects.ElementalFire;
@@ -264,8 +265,10 @@ namespace Nexus.Objects {
 			////// SPECIAL OBJECTS //////
 			/////////////////////////////
 			
-			//// Special Objects
-			//{ (byte) ObjectEnum.Cluster, Type.GetType("Nexus.Objects.Cluster") },
+			// Special Objects
+			{ (byte) ObjectEnum.ClusterDot, new Dictionary<byte, string> {
+				{  (byte) ClusterDotSubType.Basic, "Cluster/Basic" },
+			}},
 
 			//// Special Flags and Placements (150+)
 			//{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },

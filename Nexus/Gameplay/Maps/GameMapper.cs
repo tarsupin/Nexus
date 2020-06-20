@@ -176,11 +176,10 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.SpringHeld] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.ButtonHeld] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
 
-			// Special Objects
-			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Cluster"]);
-
-			// Special Flags and Placements (150+)
+			// Special Flags and Placements (100+)
 			this.ObjectMetaData[(byte)ObjectEnum.Character] = new GameObjectMetaData(MetaList[MetaGroup.Character], null);
+
+			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Cluster"]);
 		}
 
 		public void PostLoad() {
@@ -602,13 +601,11 @@ namespace Nexus.Gameplay {
 
 			{ (byte) ObjectEnum.SpringHeld, Type.GetType("Nexus.Objects.SpringHeld") },
 			{ (byte) ObjectEnum.ButtonHeld, Type.GetType("Nexus.Objects.ButtonHeld") },
-
-			// Special Objects
-			{ (byte) ObjectEnum.ClusterDot, Type.GetType("Nexus.Objects.Cluster") },
-
-			// Special Flags and Placements (150+)
+			
+			// Special Flags and Placements (100+)
 			{ (byte) ObjectEnum.Character, Type.GetType("Nexus.Objects.Character") },
 
+			{ (byte) ObjectEnum.ClusterDot, Type.GetType("Nexus.Objects.ClusterDot") },
 		};
 	}
 }

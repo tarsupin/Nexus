@@ -10,8 +10,6 @@ namespace Nexus.Objects {
 
 		public enum ClusterDotSubType : byte {
 			Basic = 0,
-			Char = 1,
-			Screen = 2,
 		}
 
 		public Behavior behavior;
@@ -28,19 +26,7 @@ namespace Nexus.Objects {
 
 			// Add Behavior to Clusters
 			// Note: Must be after Atlas Bounds (it depends on it).
-			if(subType == (byte)ClusterDotSubType.Basic) {
-				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
-			}
-
-			else if(subType == (byte)ClusterDotSubType.Char) {
-				// TODO: Make Character Cluster Behavior
-				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
-			}
-			
-			else if(subType == (byte)ClusterDotSubType.Screen) {
-				// TODO: Make Screen Cluster Behavior
-				this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
-			}
+			this.behavior = FlightBehavior.AssignFlightMotion(this, paramList);
 		}
 
 		public override void RunTick() {
@@ -49,13 +35,7 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignSubType( byte subType ) {
-			if(subType == (byte)ClusterDotSubType.Basic) {
-				this.SpriteName = "HiddenObject/Cluster";
-			} else if(subType == (byte)ClusterDotSubType.Char) {
-				this.SpriteName = "HiddenObject/ClusterChar";
-			} else if(subType == (byte)ClusterDotSubType.Screen) {
-				this.SpriteName = "HiddenObject/ClusterScreen";
-			}
+			this.SpriteName = "Cluster/Basic";
 		}
 
 		// Clusters are invisible. Do not render them.

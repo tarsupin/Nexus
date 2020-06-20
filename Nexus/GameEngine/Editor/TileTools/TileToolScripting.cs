@@ -1,4 +1,6 @@
 ﻿using Nexus.Gameplay;
+using Nexus.Objects;
+using static Nexus.Objects.ClusterDot;
 using static Nexus.Objects.TrackDot;
 
 namespace Nexus.GameEngine {
@@ -27,23 +29,13 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		objectId = (byte) TileEnum.Cluster,
-			//		subType = (byte) Something.Cluster,
-			//		layerEnum = LayerEnum.obj,
-			//	},
-			//	new EditorPlaceholder() {
-			//		objectId = (byte) TileEnum.Cluster,
-			//		subType = (byte) Something.Char,
-			//		layerEnum = LayerEnum.obj,
-			//	},
-			//	new EditorPlaceholder() {
-			//		objectId = (byte) TileEnum.Cluster,
-			//		subType = (byte) Something.Screen,
-			//		layerEnum = LayerEnum.obj,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ClusterDot,
+					subType = (byte) ClusterDotSubType.Basic,
+					layerEnum = LayerEnum.obj,
+				},
+			});
 		}
 	}
 }
