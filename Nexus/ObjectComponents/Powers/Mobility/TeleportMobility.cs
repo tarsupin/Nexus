@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 
@@ -45,16 +46,39 @@ namespace Nexus.ObjectComponents {
 			int xCoord = (int)Radians.GetXFromRotation(trueRotation, status.actionNum1) + character.posX + character.bounds.MidX;
 			int yCoord = (int)Radians.GetYFromRotation(trueRotation, status.actionNum1) + character.posY + character.bounds.MidY;
 
-			// Make sure teleportation is valid.
+			// Make sure teleportation is within world bounds.
 			if(yCoord < (byte)TilemapEnum.GapUpPixel || yCoord > this.character.room.Height + (byte)TilemapEnum.GapUpPixel || xCoord < (byte)TilemapEnum.GapLeftPixel || xCoord > this.character.room.Width + (byte)TilemapEnum.GapRightPixel) {
 				Systems.sounds.disableCollectable.Play(0.5f, 0, 0);
 				return;
 			}
 
+			TilemapLevel tilemap = character.room.tilemap;
+
+			// Make sure teleportation is to a valid open area. Blocking tiles will prevent teleportation.
+			int xMid = xCoord - this.character.bounds.MidX;
+			int yMid = yCoord - this.character.bounds.MidY;
+
+			bool upLeft = CollideTile.IsBlockingCoord(tilemap, xMid + character.bounds.Left, yMid + character.bounds.Top - 1, DirCardinal.None);
+			bool upRight = CollideTile.IsBlockingCoord(tilemap, xMid + character.bounds.Right, yMid + character.bounds.Bottom - 1, DirCardinal.None);
+			bool downLeft = CollideTile.IsBlockingCoord(tilemap, xMid + character.bounds.Left, yMid + character.bounds.Top - 1, DirCardinal.None);
+			bool downRight = CollideTile.IsBlockingCoord(tilemap, xMid + character.bounds.Right, yMid + character.bounds.Bottom - 1, DirCardinal.None);
+
+			// If all positions are blocked, prevent teleport.
+			if(upLeft && upRight && downLeft && downRight) {
+				Systems.sounds.disableCollectable.Play(0.5f, 0, 0);
+				return;
+			}
+
+			// If some positions are blocked, adjust position:
+			if(upLeft && downLeft) { xMid += 12; }
+			if(upRight && downRight) { xMid -= 12; }
+			if(upLeft && upRight) { yMid += 12; }
+			if(downLeft && downRight) { yMid -= 12; }
+
 			Systems.sounds.pop.Play();
 
 			// Teleport Character
-			this.character.physics.MoveToPos(xCoord - this.character.bounds.MidX, yCoord - this.character.bounds.MidY);
+			this.character.physics.MoveToPos(xMid, yMid);
 		}
 	}
 }
