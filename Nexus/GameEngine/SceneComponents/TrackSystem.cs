@@ -45,10 +45,14 @@ namespace Nexus.Engine {
 	public class Cluster {
 		public readonly byte clusterId = 0;
 		public readonly GameObject actor;
+		public readonly int startX;
+		public readonly int startY;
 
 		public Cluster( byte clusterId, GameObject actor ) {
 			this.clusterId = clusterId;
 			this.actor = actor;
+			this.startX = actor.posX;
+			this.startY = actor.posY;
 		}
 	}
 

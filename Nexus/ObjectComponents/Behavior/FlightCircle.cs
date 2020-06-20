@@ -25,8 +25,8 @@ namespace Nexus.ObjectComponents {
 			if(this.reverse) { weight = -weight; }
 
 			// Set Position
-			float posX = Circle.GetEdgePointByRadianX(this.startX, this.radius, (float) (weight * Math.PI * 2)) + (this.cluster is Cluster ? this.cluster.actor.posX : 0);
-			float posY = Circle.GetEdgePointByRadianY(this.startY, this.radius, (float) (weight * Math.PI * 2)) + (this.cluster is Cluster ? this.cluster.actor.posY : 0);
+			float posX = Circle.GetEdgePointByRadianX(this.startX, this.radius, (float) (weight * Math.PI * 2)) + (this.cluster is Cluster ? this.cluster.actor.posX - this.cluster.startX : 0);
+			float posY = Circle.GetEdgePointByRadianY(this.startY, this.radius, (float) (weight * Math.PI * 2)) + (this.cluster is Cluster ? this.cluster.actor.posY - this.cluster.startY : 0);
 
 			this.physics.velocity.X = FInt.Create(posX - this.actor.posX);
 			this.physics.velocity.Y = FInt.Create(posY - this.actor.posY);

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
-	public enum FlightDefaults : short {
-		MoveFlightDuration = 180,			// NOTE: this needs to be moved to ParamsMoveFlight.rules.duration.default or new system.
-	}
 
 	public class FlightBehavior : Behavior {
+
+		public const byte MoveFlightDuration = 180;
+
 		protected Physics physics;			// Reference to the actor's physics.
 
 		// Motion Flags
@@ -31,7 +31,7 @@ namespace Nexus.ObjectComponents {
 
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 
-			this.duration = paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) FlightDefaults.MoveFlightDuration;
+			this.duration = paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) FlightBehavior.MoveFlightDuration;
 			this.offset = paramList.ContainsKey("durOffset") ? (short) paramList["durOffset"] : (short) 0;
 
 			// Positions
