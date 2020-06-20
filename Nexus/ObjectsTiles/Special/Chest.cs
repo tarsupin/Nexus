@@ -22,10 +22,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.Chest;
 			this.title = "Chest";
 			this.description = "Contains goodies and collectables.";
-			this.moveParamSet =  Params.ParamMap["Contents"];
-
-			// Chest Contents
-			// TODO: Update Chest Contents with Param system. Needs to work with tiles.
+			this.actParamSet =  Params.ParamMap["Contents"];
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {

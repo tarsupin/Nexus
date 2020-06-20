@@ -8,18 +8,19 @@ namespace Nexus.GameEngine {
 
 		// Suits
 		public static Dictionary<byte, string> Suits = new Dictionary<byte, string>() {
+			{ (byte) SuitSubType.None, "None" },
 			{ (byte) SuitSubType.RandomSuit, "Random Suit" },
 			{ (byte) SuitSubType.RandomNinja, "Random Ninja Suit" },
 			{ (byte) SuitSubType.RandomWizard, "Random Wizard Suit" },
-			{ (byte) SuitSubType.BlackNinja, "Black Ninja Suit" },
-			{ (byte) SuitSubType.BlueNinja, "Blue Ninja Suit" },
-			{ (byte) SuitSubType.GreenNinja, "Green Ninja Suit" },
-			{ (byte) SuitSubType.RedNinja, "Red Ninja Suit" },
-			{ (byte) SuitSubType.WhiteNinja, "White Ninja Suit" },
-			{ (byte) SuitSubType.BlueWizard, "Blue Wizard Suit" },
-			{ (byte) SuitSubType.GreenWizard, "Green Wizard Suit" },
-			{ (byte) SuitSubType.RedWizard, "Red Wizard Suit" },
-			{ (byte) SuitSubType.WhiteWizard, "White Wizard Suit" },
+			{ (byte) SuitSubType.BlackNinja, "Ninja Suit, Black" },
+			{ (byte) SuitSubType.BlueNinja, "Ninja Suit, Blue" },
+			{ (byte) SuitSubType.GreenNinja, "Ninja Suit, Green" },
+			{ (byte) SuitSubType.RedNinja, "Ninja Suit, Red" },
+			{ (byte) SuitSubType.WhiteNinja, "Ninja Suit, White" },
+			{ (byte) SuitSubType.BlueWizard, "Wizard Suit, Blue" },
+			{ (byte) SuitSubType.GreenWizard, "Wizard Suit, Green" },
+			{ (byte) SuitSubType.RedWizard, "Wizard Suit, Red" },
+			{ (byte) SuitSubType.WhiteWizard, "Wizard Suit, White" },
 		};
 
 		// Hats
@@ -43,7 +44,7 @@ namespace Nexus.GameEngine {
 			{ (byte) GoodieSubType.Melon, "Melon" },
 			{ (byte) GoodieSubType.Soup, "Soup" },
 			{ (byte) GoodieSubType.Pack1, "Medical Pack" },
-			{ (byte) GoodieSubType.Pack2, "Red Medical Pack" },
+			{ (byte) GoodieSubType.Pack2, "Medical Pack, Red" },
 
 			{ (byte) GoodieSubType.ShieldWood, "Wood Shield" },
 			{ (byte) GoodieSubType.ShieldWhite, "White Shield" },
@@ -84,23 +85,23 @@ namespace Nexus.GameEngine {
 		// Collectable Powers - Mobility
 		public static Dictionary<byte, string> MobPowers = new Dictionary<byte, string>() {
 			{ (byte) PowerSubType.RandomPotion, "Random Mobility Power" },
-			{ (byte) PowerSubType.SlowFall, "Slow Fall" },
-			{ (byte) PowerSubType.Hover, "Hover" },
-			{ (byte) PowerSubType.Levitate, "Levitate" },
-			{ (byte) PowerSubType.Flight, "Flight" },
-			{ (byte) PowerSubType.Athlete, "Athletic Augment" },
-			{ (byte) PowerSubType.Leap, "Leap" },
-			{ (byte) PowerSubType.Slam, "Slam" },
-			{ (byte) PowerSubType.Burst, "Burst" },
 			{ (byte) PowerSubType.Air, "Air" },
+			//{ (byte) PowerSubType.Athlete, "Athletic Augment" },
+			{ (byte) PowerSubType.Burst, "Burst" },
+			{ (byte) PowerSubType.Flight, "Flight" },
+			{ (byte) PowerSubType.Hover, "Hover" },
+			{ (byte) PowerSubType.Leap, "Leap" },
+			{ (byte) PowerSubType.Levitate, "Levitate" },
 			{ (byte) PowerSubType.Phase, "Phase" },
+			{ (byte) PowerSubType.Slam, "Slam" },
+			{ (byte) PowerSubType.SlowFall, "Slow Fall" },
 			{ (byte) PowerSubType.Teleport, "Teleport" },
 		};
 
 		// Collectable Powers - Weapon
 		public static Dictionary<byte, string> Weapons = new Dictionary<byte, string>() {
 			{ (byte) PowerSubType.RandomWeapon, "Random Weapon" },
-			{ (byte) PowerSubType.BoxingRed, "Red Boxing Glove" },
+			{ (byte) PowerSubType.BoxingRed, "Boxing Glove" },
 			{ (byte) PowerSubType.BoxingWhite, "White Boxing Glove" },
 			{ (byte) PowerSubType.Dagger, "Dagger" },
 			{ (byte) PowerSubType.DaggerGreen, "Green Dagger" },
@@ -124,10 +125,10 @@ namespace Nexus.GameEngine {
 			{ (byte) PowerSubType.RandomThrown, "Random Throwing Weapon" },
 			{ (byte) PowerSubType.Axe, "Axe" },
 			{ (byte) PowerSubType.Hammer, "Hammer" },
-			{ (byte) PowerSubType.ShurikenGreen, "Green Shuriken" },
-			{ (byte) PowerSubType.ShurikenRed, "Red Shuriken" },
-			{ (byte) PowerSubType.ShurikenBlue, "Blue Shuriken" },
-			{ (byte) PowerSubType.ShurikenYellow, "Yellow Shuriken" },
+			{ (byte) PowerSubType.ShurikenGreen, "Shuriken, Green" },
+			{ (byte) PowerSubType.ShurikenRed, "Shuriken, Red" },
+			{ (byte) PowerSubType.ShurikenBlue, "Shuriken, Blue" },
+			{ (byte) PowerSubType.ShurikenYellow, "Shuriken, Yellow" },
 		};
 
 		// Collectable Powers - Bolts
