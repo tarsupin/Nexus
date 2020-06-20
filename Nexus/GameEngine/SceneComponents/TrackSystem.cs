@@ -150,9 +150,6 @@ namespace Nexus.Engine {
 				GameObject actor = actorMatch.Key;
 				byte destId = actorMatch.Value;
 
-				// Must have Flight Behavior to qualify for connecting to a cluster.
-				if((actor as dynamic).behavior == null || (actor as dynamic).behavior is FlightBehavior == false) { return; }
-				
 				// Connect the actor to their designated cluster.
 				if(this.clusters.ContainsKey(destId)) {
 					(actor as dynamic).behavior.cluster = this.clusters[destId];

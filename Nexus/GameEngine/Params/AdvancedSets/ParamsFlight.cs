@@ -27,7 +27,9 @@ namespace Nexus.GameEngine {
 			rules.Add(new LabeledParam("reverse", "Reverses Direction", new string[2] { "False", "True" }, (byte)0));
 			rules.Add(new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)"));
 			rules.Add(new IntParam("toTrack", "To Track #", 0, TrackSystem.MaxTracks, 1, 1, " (0 to ignore)"));
+
 			rules.Add(new IntParam("toCluster", "Link To Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
+			rules.Add(new LabeledParam("rel", "Relative to Cluster", new string[2] { "Centered on Cluster", "Relative to Cluster" }, (byte)0));
 		}
 
 		// This override will check the "fly" group param, and show the appropriate rule accordingly.
@@ -57,7 +59,7 @@ namespace Nexus.GameEngine {
 
 				// Diameter, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Circle:
-					this.AddRulesToShow(new string[] { "durOffset", "diameter", "reverse", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "diameter", "reverse", "toCluster", "rel" }, ref rulesToShow);
 					break;
 
 				// X, Y, Countdown, Cluster ID

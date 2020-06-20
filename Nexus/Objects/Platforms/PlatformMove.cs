@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 
 		public bool triggeredByTouch = false;
 		public int startTime = 0;
-		private Behavior behavior;
+		public Behavior behavior;
 
 		public PlatformMove(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.PlatformMove].meta;
