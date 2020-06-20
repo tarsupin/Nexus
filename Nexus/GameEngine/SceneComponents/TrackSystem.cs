@@ -82,9 +82,6 @@ namespace Nexus.Engine {
 			// Must have a valid Cluster ID assigned.
 			if(clusterId < 1 || clusterId > TrackSystem.MaxClusters) { return; }
 
-			// Must have Flight Behavior to qualify as a cluster.
-			if((actor as dynamic).behavior == null || (actor as dynamic).behavior is FlightBehavior == false) { return; }
-
 			// Create the Cluster
 			this.clusters[clusterId] = new Cluster(clusterId, actor);
 		}

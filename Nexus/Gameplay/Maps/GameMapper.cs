@@ -122,13 +122,13 @@ namespace Nexus.Gameplay {
 
 			// List of Game Objects
 
-			//// Platforms (1 - 4)
+			// Platforms (1 - 4)
 			this.ObjectMetaData[(byte)ObjectEnum.PlatformDip] = new GameObjectMetaData(MetaList[MetaGroup.Platform], null);
 			this.ObjectMetaData[(byte)ObjectEnum.PlatformDelay] = new GameObjectMetaData(MetaList[MetaGroup.Platform], null);
 			this.ObjectMetaData[(byte)ObjectEnum.PlatformFall] = new GameObjectMetaData(MetaList[MetaGroup.Platform], null);
 			this.ObjectMetaData[(byte)ObjectEnum.PlatformMove] = new GameObjectMetaData(MetaList[MetaGroup.Platform], Params.ParamMap["Flight"]);
 
-			//// Land & Fixed Enemies (10 - 39)
+			// Land & Fixed Enemies (10 - 39)
 			this.ObjectMetaData[(byte)ObjectEnum.Moosh] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Shroom] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Bug] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
@@ -145,7 +145,7 @@ namespace Nexus.Gameplay {
 			this.ObjectMetaData[(byte)ObjectEnum.Poke] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Lich] = new GameObjectMetaData(MetaList[MetaGroup.EnemyLand], null);
 
-			//// Flight Enemies (40 - 69)
+			// Flight Enemies (40 - 69)
 			this.ObjectMetaData[(byte)ObjectEnum.Ghost] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveChase"]);
 			this.ObjectMetaData[(byte)ObjectEnum.FlairElectric] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
 			this.ObjectMetaData[(byte)ObjectEnum.FlairFire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Elemental"]);
@@ -158,28 +158,28 @@ namespace Nexus.Gameplay {
 
 			this.ObjectMetaData[(byte)ObjectEnum.Buzz] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
-			this.ObjectMetaData[(byte)ObjectEnum.Saw] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
-			this.ObjectMetaData[(byte)ObjectEnum.Slammer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			this.ObjectMetaData[(byte)ObjectEnum.Saw] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Cluster"]);
+			this.ObjectMetaData[(byte)ObjectEnum.Slammer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Cluster"]);
 			this.ObjectMetaData[(byte)ObjectEnum.HoveringEye] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["AttackBolt"]);
-			this.ObjectMetaData[(byte)ObjectEnum.Bouncer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveBounce"]);
+			this.ObjectMetaData[(byte)ObjectEnum.Bouncer] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["MoveBounce"], Params.ParamMap["Cluster"]);
 
 			this.ObjectMetaData[(byte)ObjectEnum.Dire] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
 
-			//// Items, Mobile (80 - 99)
+			// Items, Mobile (80 - 99)
 			this.ObjectMetaData[(byte)ObjectEnum.Shell] = new GameObjectMetaData(MetaList[MetaGroup.Item], Params.ParamMap["Shell"]);
 			this.ObjectMetaData[(byte)ObjectEnum.Boulder] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.Bomb] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
-			this.ObjectMetaData[(byte)ObjectEnum.OrbItem] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
+			this.ObjectMetaData[(byte)ObjectEnum.OrbItem] = new GameObjectMetaData(MetaList[MetaGroup.Item], Params.ParamMap["Cluster"]);
 			this.ObjectMetaData[(byte)ObjectEnum.SportBall] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.TNT] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 
 			this.ObjectMetaData[(byte)ObjectEnum.SpringHeld] = new GameObjectMetaData(MetaList[MetaGroup.Item], null);
 			this.ObjectMetaData[(byte)ObjectEnum.ButtonHeld] = new GameObjectMetaData(MetaList[MetaGroup.Button], null);
 
-			//// Special Objects
-			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"]);
+			// Special Objects
+			this.ObjectMetaData[(byte)ObjectEnum.ClusterDot] = new GameObjectMetaData(MetaList[MetaGroup.EnemyFly], Params.ParamMap["Flight"], Params.ParamMap["Cluster"]);
 
-			//// Special Flags and Placements (150+)
+			// Special Flags and Placements (150+)
 			this.ObjectMetaData[(byte)ObjectEnum.Character] = new GameObjectMetaData(MetaList[MetaGroup.Character], null);
 		}
 

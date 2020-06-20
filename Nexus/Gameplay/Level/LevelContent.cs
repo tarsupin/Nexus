@@ -171,7 +171,7 @@ namespace Nexus.Gameplay {
 			return tileObj;
 		}
 
-		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void SetTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, short> paramList = null) {
 
 			string xStr = gridX.ToString();
 			string yStr = gridY.ToString();
@@ -184,13 +184,10 @@ namespace Nexus.Gameplay {
 			// Place the Tile
 			layerData[yStr][xStr] = new ArrayList() { tileId, subType };
 
-			// TODO: Handle Params when Adding Tiles and Objects
-			//if(params && typeof(params) === "object") {
-			//	for(let p in params ) {
-			//		if(p === "id") { continue; }
-			//		yData[gridX][p] = params[p];
-			//	}
-			//}
+			// Handle Params when Adding Tiles and Objects
+			if(paramList != null && paramList.Count > 0) {
+				layerData[yStr][xStr].Add(paramList);
+			}
 		}
 
 		public void DeleteTile(string roomID, short gridX, short gridY) {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -134,7 +135,15 @@ namespace Nexus.GameEngine {
 
 			// Copy the blueprint at correct tile position in level editor:
 			if(bpData.Count > 2) {
-				scene.PlaceTile(layerData, layerEnum, (short)(xStart + x), (short)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), (Dictionary<string, object>)bpData[2]);
+				Dictionary<string, short> paramsList;
+
+				if(bpData[2] is IDictionary) {
+					paramsList = (Dictionary<string, short>) bpData[2];
+				} else {
+					paramsList = JsonConvert.DeserializeObject<Dictionary<string, short>>(bpData[2].ToString());
+				}
+				
+				scene.PlaceTile(layerData, layerEnum, (short)(xStart + x), (short)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()), paramsList);
 			} else {
 				scene.PlaceTile(layerData, layerEnum, (short)(xStart + x), (short)(yStart + y), byte.Parse(bpData[0].ToString()), byte.Parse(bpData[1].ToString()));
 			}

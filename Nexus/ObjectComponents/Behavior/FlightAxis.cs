@@ -20,8 +20,8 @@ namespace Nexus.ObjectComponents {
 			weight /= this.duration;
 
 			// Assign Next Velocity
-			float posX = Interpolation.EaseBothDir(this.startX, this.endX, weight);
-			float posY = Interpolation.EaseBothDir(this.startY, this.endY, weight);
+			float posX = Interpolation.EaseBothDir(this.startX, this.endX, weight) + (this.cluster is Cluster ? this.cluster.actor.posX : 0);
+			float posY = Interpolation.EaseBothDir(this.startY, this.endY, weight) + (this.cluster is Cluster ? this.cluster.actor.posY : 0);
 
 			this.physics.velocity.X = FInt.Create(posX - this.actor.posX);
 			this.physics.velocity.Y = FInt.Create(posY - this.actor.posY);

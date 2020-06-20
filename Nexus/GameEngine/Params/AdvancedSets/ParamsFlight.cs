@@ -24,14 +24,9 @@ namespace Nexus.GameEngine {
 			rules.Add(new IntParam("midY", "Y Midpoint", -20, 20, 1, 0, " tiles(s)"));
 
 			rules.Add(new IntParam("diameter", "Diameter", 0, 20, 1, 3, " tiles(s)"));
-
 			rules.Add(new LabeledParam("reverse", "Reverses Direction", new string[2] { "False", "True" }, (byte)0));
-
 			rules.Add(new IntParam("countdown", "Countdown", 0, 60, 1, 0, " second(s)"));
-
 			rules.Add(new IntParam("toTrack", "To Track #", 0, TrackSystem.MaxTracks, 1, 1, " (0 to ignore)"));
-
-			rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
 			rules.Add(new IntParam("toCluster", "Link To Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
 		}
 
@@ -52,27 +47,27 @@ namespace Nexus.GameEngine {
 
 				// X, Y, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Axis:
-					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "reverse", "toCluster" }, ref rulesToShow);
 					break;
 
 				// X, Y, MidX, MidY, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Quadratic:
-					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "midX", "midY", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "x", "y", "midX", "midY", "reverse", "toCluster" }, ref rulesToShow);
 					break;
 
 				// Diameter, Reverse, Cluster Link, Cluster ID
 				case (byte)FlightMovement.Circle:
-					this.AddRulesToShow(new string[] { "durOffset", "diameter", "reverse", "clusterId", "toCluster" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "diameter", "reverse", "toCluster" }, ref rulesToShow);
 					break;
 
 				// X, Y, Countdown, Cluster ID
 				case (byte)FlightMovement.To:
-					this.AddRulesToShow(new string[] { "x", "y", "countdown", "clusterId" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "x", "y", "countdown" }, ref rulesToShow);
 					break;
 
 				// Track, Cluster ID
 				case (byte)FlightMovement.Track:
-					this.AddRulesToShow(new string[] { "durOffset", "toTrack", "clusterId" }, ref rulesToShow);
+					this.AddRulesToShow(new string[] { "durOffset", "toTrack" }, ref rulesToShow);
 					break;
 			}
 

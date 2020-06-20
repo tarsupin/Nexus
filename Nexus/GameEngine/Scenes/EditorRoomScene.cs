@@ -264,7 +264,7 @@ namespace Nexus.GameEngine {
 			this.levelContent.DeleteTileOnLayer(layerEnum, this.roomID, gridX, gridY);
 		}
 
-		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, object> paramList = null) {
+		public void PlaceTile(Dictionary<string, Dictionary<string, ArrayList>> layerData, LayerEnum layerEnum, short gridX, short gridY, byte tileId, byte subType, Dictionary<string, short> paramList = null) {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
@@ -280,7 +280,7 @@ namespace Nexus.GameEngine {
 			//	};
 			//}
 
-			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, null);
+			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, paramList);
 
 			// If placing on 'obj' or 'main' layer, delete the other:
 			if(layerEnum == LayerEnum.main) {
