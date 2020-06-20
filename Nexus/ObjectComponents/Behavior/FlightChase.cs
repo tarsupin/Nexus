@@ -18,8 +18,6 @@ namespace Nexus.ObjectComponents {
 			Wait,
 		}
 
-		Physics physics;        // Reference to the actor's physics.
-
 		private Character charBeingChased;
 
 		// Chase Mechanics
@@ -42,7 +40,6 @@ namespace Nexus.ObjectComponents {
 		protected byte clusterId;
 
 		public FlightChase(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
-			this.physics = actor.physics;
 
 			// Retrieve Mechanics
 			this.axis = (paramList == null || !paramList.ContainsKey("axis") ? (byte)FlightChaseAxis.Both : (byte)paramList["axis"]);

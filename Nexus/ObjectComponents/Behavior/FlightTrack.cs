@@ -7,8 +7,6 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightTrack : FlightBehavior {
 
-		public Physics physics;     // Reference to the actor's physics.
-
 		// Last Track Location
 		public Track lastTrack;
 		public Track nextTrack;
@@ -16,7 +14,6 @@ namespace Nexus.ObjectComponents {
 		public int lastArrivalFrame;		// The frame that this object arrived at the last track.
 
 		public FlightTrack(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
-			this.physics = actor.physics;
 
 			this.nextTrack = null;
 			this.lastTrack = null;

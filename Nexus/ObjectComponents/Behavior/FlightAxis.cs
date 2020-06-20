@@ -6,11 +6,7 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightAxis : FlightBehavior {
 
-		Physics physics;		// Reference to the actor's physics.
-
-		public FlightAxis(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
-			this.physics = actor.physics;
-		}
+		public FlightAxis(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {}
 
 		// TODO OPTIMIZE: This section has a huge opportunity for optimization, since we're currently using EaseBothDir() twice.
 		public override void RunTick() {

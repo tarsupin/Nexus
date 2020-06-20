@@ -10,6 +10,7 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public class FlightBehavior : Behavior {
+		protected Physics physics;			// Reference to the actor's physics.
 
 		// Motion Flags
 		protected short duration;			// Duration the motion is intended to take, in frames (such as 120 frames between two points).
@@ -26,6 +27,7 @@ namespace Nexus.ObjectComponents {
 
 		public FlightBehavior( GameObject actor, Dictionary<string, short> paramList) : base(actor) {
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
+			this.physics = actor.physics;
 
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
 

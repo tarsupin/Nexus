@@ -8,13 +8,10 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightQuadratic : FlightBehavior {
 
-		Physics physics;		// Reference to the actor's physics.
-
-		protected int midX;		// Middle X position of a motion, such as for curves (quadratic motion)
-		protected int midY;		// Middle Y position of a motion, such as for curves (quadratic motion).
+		private int midX;		// Middle X position of a motion, such as for curves (quadratic motion)
+		private int midY;		// Middle Y position of a motion, such as for curves (quadratic motion).
 
 		public FlightQuadratic(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
-			this.physics = actor.physics;
 			this.midX = this.startX + (paramList.ContainsKey("midX") ? paramList["midX"] * (byte) TilemapEnum.TileWidth : 0);
 			this.midY = this.startY + (paramList.ContainsKey("midY") ? paramList["midY"] * (byte) TilemapEnum.TileHeight : 0);
 		}

@@ -6,19 +6,16 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightTo : FlightBehavior {
 
-		Physics physics;        // Reference to the actor's physics.
-
-		protected readonly FInt speedX;
-		protected readonly FInt speedY;
+		private readonly FInt speedX;
+		private readonly FInt speedY;
 
 		public byte countdown;			// Number of seconds until the motion will collapse.
 		public int startFrame;			// The frame at which the motion begins (timer.frame).
 		public int endFrame;			// The frame at which the countdown concludes.
 
-		protected bool isFalling;		// TRUE means the motion is falling (e.g. like falling platforms).
+		private bool isFalling;			// TRUE means the motion is falling (e.g. like falling platforms).
 
 		public FlightTo(GameObject actor, Dictionary<string, short> paramList) : base(actor, paramList) {
-			this.physics = actor.physics;
 
 			this.startFrame = 0;
 			this.endFrame = 0;

@@ -315,7 +315,6 @@
     <Compile Include="ObjectComponents\Behavior\FlightQuadratic.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightCircle.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightChase.cs" />
-    <Compile Include="ObjectComponents\Behavior\FlightCharacter.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightAxis.cs" />
     <Compile Include="ObjectComponents\Behavior\HopConstantBehavior.cs" />
     <Compile Include="ObjectComponents\Behavior\HopBehavior.cs" />
