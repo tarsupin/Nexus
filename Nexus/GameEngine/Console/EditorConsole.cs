@@ -14,6 +14,13 @@ namespace Nexus.GameEngine {
 				
 				{ "tile", ConsoleTileWand.TileWand },
 				{ "resize", ConsoleRoom.Resize },
+
+				// Set Level Data
+				{ "title", ConsoleEditData.SetTitle },
+				{ "desc", ConsoleEditData.SetDescription },
+				//{ "music", ConsoleEditData.SetMusic },
+				//{ "time", ConsoleEditData.SetTimeLimit },
+				//{ "game-class", ConsoleEditData.SetGameClass },
 			};
 		}
 	}

@@ -86,6 +86,7 @@
     <Compile Include="Engine\Particles\ParticleFree.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
+    <Compile Include="GameEngine\Console\EditorConsoles\ConsoleLevelData.cs" />
     <Compile Include="GameEngine\Console\EditorConsoles\ConsoleRoom.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleSave.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleToEditor.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
     <Compile Include="Gameplay\GameClasses\GameClass.cs" />
+    <Compile Include="Gameplay\Types\AssetTypes.cs" />
     <Compile Include="Gameplay\Types\WorldTypes.cs" />
     <Compile Include="Gameplay\Types\TileTypes.cs" />
     <Compile Include="Gameplay\Types\ArenaTypes.cs" />

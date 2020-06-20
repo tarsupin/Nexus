@@ -114,6 +114,10 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
+		// Assign Level Data
+		public void SetTitle( string text ) { this.data.title = text; }
+		public void SetDescription( string text ) { this.data.description = text; }
+
 		public void SaveLevel( string destDir = null, string destLevelId = null ) {
 
 			// Determine the Destination Path and Destination Level ID
