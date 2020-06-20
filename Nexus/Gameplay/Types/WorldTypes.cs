@@ -8,8 +8,8 @@ namespace Nexus.Gameplay {
 		TileHeight = 32,
 
 		// Tilemap Limits
-		MinWidth = 46,
-		MinHeight = 27,
+		MinWidth = 45,
+		MinHeight = 29,         // 28.125 is the actual view size
 
 		MaxWidth = 120,			// <= 200, avoid crossing byte threshold for range modifiers.
 		MaxHeight = 120,		// <= 200, avoid crossing byte threshold for range modifiers.

@@ -26,8 +26,8 @@ namespace Nexus.GameEngine {
 		public Dictionary<byte, string> WorldCharacters;
 
 		// Grid Limits
-		public byte xCount = 45;
-		public byte yCount = 28;
+		public byte xCount = (byte)WorldmapEnum.MinWidth;
+		public byte yCount = (byte)WorldmapEnum.MinHeight;
 
 		public WorldScene() : base() {
 
@@ -54,9 +54,6 @@ namespace Nexus.GameEngine {
 
 			// Load World Character
 			this.character = new WorldChar(this);
-
-			// Camera Update
-			//Systems.camera.UpdateScene(this, 0, 0, xCount * (byte) WorldmapEnum.TileWidth, yCount * (byte)WorldmapEnum.TileHeight);
 		}
 
 		public WorldZoneFormat currentZone { get { return this.worldContent.GetWorldZone(this.campaign.zoneId); } }
@@ -139,6 +136,7 @@ namespace Nexus.GameEngine {
 
 			// Update Camera
 			Systems.camera.Follow(this.character.posX, this.character.posY, 100);
+			Systems.camera.StayBounded(0, this.xCount * (byte)WorldmapEnum.TileWidth, 0, this.yCount * (byte)WorldmapEnum.TileHeight);
 
 			// Debug Console (only runs if visible)
 			Systems.worldConsole.RunTick();
@@ -325,14 +323,14 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			Camera cam = Systems.camera;
 
-			byte startX = (byte)Math.Max((byte)0, (byte)cam.MiniX - 1);
-			byte startY = (byte)Math.Max((byte)0, (byte)cam.MiniY - 1);
+			byte startX = (byte)Math.Max((byte)0, (byte)cam.WorldX);
+			byte startY = (byte)Math.Max((byte)0, (byte)cam.WorldY);
 
-			byte gridX = (byte)(startX + 45 + 1); // 45 is view size. +1 is to render the edge.
-			byte gridY = (byte)(startY + 29 + 1); // 28.125 is view size. +1 is to render the edge.
+			byte gridX = (byte)(startX + (byte)WorldmapEnum.MinWidth + 1); // +1 is to render the edge.
+			byte gridY = (byte)(startY + (byte)WorldmapEnum.MinHeight + 1); // +1 is to render the edge.
 
 			if(gridX > this.xCount) { gridX = (byte)(this.xCount); } // Must limit to room size.
-			if(gridY > this.yCount) { gridY = (byte)(this.yCount); } // Must limit to room size.
+			if(gridY > this.yCount) { gridY = (byte)this.yCount; } // Must limit to room size.
 
 			// Camera Position
 			int camX = cam.posX;
@@ -357,7 +355,7 @@ namespace Nexus.GameEngine {
 			Systems.worldConsole.Draw();
 		}
 
-		// NOTE: This is a duplicate of World Editor.
+		// NOTE: This is a duplicate of World Editor (probably). Just need to add "Atlas".
 		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
 
 			// Draw Water / Coastline (special behavior)

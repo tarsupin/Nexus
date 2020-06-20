@@ -36,8 +36,8 @@ namespace Nexus.Engine {
 		public short GridX { get { return (short)Math.Floor((double)this.posX / (short)TilemapEnum.TileWidth); } }
 		public short GridY { get { return (short)Math.Floor((double)this.posY / (short)TilemapEnum.TileHeight); } }
 		
-		public short MiniX { get { return (short)Math.Floor((double)this.posX / (short)WorldmapEnum.TileWidth); } }
-		public short MiniY { get { return (short)Math.Floor((double)this.posY / (short)WorldmapEnum.TileHeight); } }
+		public short WorldX { get { return (short)Math.Floor((double)this.posX / (short)WorldmapEnum.TileWidth); } }
+		public short WorldY { get { return (short)Math.Floor((double)this.posY / (short)WorldmapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;

@@ -128,10 +128,10 @@ namespace Nexus {
 				// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.
 				// TODO: We also need levels to be somehow loaded into local data during installation. Unfamiliar with that process atm.
 				// Load a default level.
-				SceneTransition.ToLevel("", "QCALQOD16");
+				//SceneTransition.ToLevel("", "QCALQOD16");
 				//Systems.camera.CenterAtPosition(1200, 0);
 
-				//SceneTransition.ToWorld("Tarsupin");
+				SceneTransition.ToWorld("Tarsupin");
 				//SceneTransition.ToWorldEditor("Tarsupin");
 
 				//Console.WriteLine("-----------------DATA--------------");

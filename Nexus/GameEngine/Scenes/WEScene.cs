@@ -247,8 +247,8 @@ namespace Nexus.GameEngine {
 		public override void Draw() {
 			Camera cam = Systems.camera;
 
-			byte startX = (byte)Math.Max((byte)0, (byte)cam.MiniX - 1);
-			byte startY = (byte)Math.Max((byte)0, (byte)cam.MiniY - 1);
+			byte startX = (byte)Math.Max((byte)0, (byte)cam.WorldX - 1);
+			byte startY = (byte)Math.Max((byte)0, (byte)cam.WorldY - 1);
 
 			byte gridX = (byte)(startX + 45 + 1); // 45 is view size. +1 is to render the edge.
 			byte gridY = (byte)(startY + 29 + 1); // 28.125 is view size. +1 is to render the edge.
