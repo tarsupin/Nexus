@@ -46,14 +46,22 @@ namespace Nexus.Objects {
 				if(!character.input.isPressed(IKey.YButton)) { return false; }
 
 				// If the chest is locked, must have a key:
-				if(subType == (byte) ChestSubType.Locked) {
-					// TODO: Must have a key to open chest.
-					return false;
+				if(subType == (byte)ChestSubType.Locked) {
+
+					// Remove the Key, Unlock the Chest.
+					if(!character.trailKeys.RemoveKey()) {
+						Systems.sounds.click3.Play();
+						return false;
+					}
+
+					Systems.sounds.unlock.Play();
+				} else {
+					Systems.sounds.click2.Play(0.5f, 0, 0);
 				}
 
 				this.OpenChest(room, gridX, gridY);
 			}
-
+			
 			return false;
 		}
 
