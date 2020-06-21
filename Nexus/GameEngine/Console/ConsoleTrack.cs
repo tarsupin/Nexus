@@ -84,7 +84,7 @@ namespace Nexus.GameEngine {
 			// Update possible tabs.
 			ConsoleTrack.possibleTabs = "Options: " + String.Join(", ", dict.Keys.ToArray());
 		}
-
+		
 		public static void PrepareTabLookup(string helpText) {
 
 			// Update help text.

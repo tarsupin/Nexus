@@ -48,7 +48,7 @@ namespace Nexus.Gameplay {
 
 		private Song currentTrack;
 
-		private Dictionary<byte, string> trackNames = new Dictionary<byte, string>() {
+		public static Dictionary<byte, string> TrackNames = new Dictionary<byte, string>() {
 
 			// Peaceful
 			{ (byte) MusicTrack.Happy1, "Music/Happy1" },
@@ -86,20 +86,21 @@ namespace Nexus.Gameplay {
 			this.content = game.Content;
 		}
 
-		public void Play(MusicTrack track) {
+		public void Play(byte track) {
 
 			// Make sure the track exists:
-			if(!this.trackNames.ContainsKey((byte) track)) { return; }
+			if(!MusicAssets.TrackNames.ContainsKey(track)) { return; }
 
 			// Load the Music Track
-			this.currentTrack = this.content.Load<Song>(this.trackNames[(byte) track]);
+			this.currentTrack = this.content.Load<Song>(MusicAssets.TrackNames[track]);
 
 			MediaPlayer.Volume = Systems.settings.audio.MusicVolume;
 			MediaPlayer.Play(this.currentTrack);
 			MediaPlayer.IsRepeating = true;
+		}
 
-			// See this link for more details: https://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
-			// MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+		public void StopMusic() {
+			MediaPlayer.Stop();
 		}
 	}
 }

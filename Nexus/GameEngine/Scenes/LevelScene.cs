@@ -37,7 +37,9 @@ namespace Nexus.GameEngine {
 			this.RestartLevel();
 
 			// Play Music
-			Systems.music.Play(MusicTrack.Intensity1);
+			if(Systems.handler.levelContent.data.music > 0) {
+				Systems.music.Play((byte) Systems.handler.levelContent.data.music);
+			}
 		}
 
 		protected virtual void LoadMyPlayer() {

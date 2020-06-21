@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using static Nexus.Gameplay.MusicAssets;
 
 namespace Nexus.Gameplay {
 
@@ -120,8 +121,8 @@ namespace Nexus.Gameplay {
 		public void SetTitle( string title ) { this.data.title = title; }
 		public void SetDescription( string description ) { this.data.description = description; }
 		public void SetTimeLimit( short timeLimit ) { this.data.timeLimit = Math.Max((short) 10, timeLimit); }
-		public void SetGameClass( GameClassFlag gameClass ) { this.data.gameClass = (short) gameClass; }
-		public void SetMusicTrack( MusicTrackEnum track ) { this.data.music = (short) track; }
+		public void SetGameClass( GameClassFlag gameClass ) { this.data.gameClass = (byte) gameClass; }
+		public void SetMusicTrack( byte track ) { this.data.music = (byte) track; } // MusicTrack enum
 
 		public void SaveLevel( string destDir = null, string destLevelId = null ) {
 

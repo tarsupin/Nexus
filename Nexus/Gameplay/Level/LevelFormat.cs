@@ -18,13 +18,13 @@ namespace Nexus.Gameplay {
 		public string description { get; set; }
 
 		[JsonProperty("gameClass")]
-		public short gameClass { get; set; }	// GameClassFlag enum
+		public byte gameClass { get; set; }	// GameClassFlag enum
 		
 		[JsonProperty("timeLimit")]
 		public short timeLimit { get; set; }	// In Seconds
 		
 		[JsonProperty("music")]
-		public short music { get; set; }        // The Music Track ID. (MusicTrackEnum in Types/AssetTypes.cs)
+		public byte music { get; set; }        // The Music Track ID. (MusicTrackEnum in Types/AssetTypes.cs)
 
 		[JsonProperty("rooms")]
 		public Dictionary<string, RoomFormat> rooms { get; set; }

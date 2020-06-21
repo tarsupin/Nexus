@@ -42,6 +42,9 @@ namespace Nexus.GameEngine {
 
 			Systems.SetMouseVisible(true);
 			Cursor.UpdateMouseState();
+
+			// End Music
+			Systems.music.StopMusic();
 		}
 
 		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }
