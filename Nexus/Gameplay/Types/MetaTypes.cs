@@ -19,6 +19,7 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum MetaGroup : byte {
+		Detect,
 		Ground,
 		Ledge,
 		Decor,

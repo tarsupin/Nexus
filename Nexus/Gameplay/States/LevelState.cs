@@ -7,9 +7,9 @@ using System;
 namespace Nexus.Gameplay {
 
 	public class FlagJson {
-		public bool active;             // True if flag is marked as active.
-		public byte roomId;             // # of the room (0 to 9)
-		public short gridX;            // The GridX position of the flag.
+		public bool active;			// True if flag is marked as active.
+		public byte roomId;			// # of the room (0 to 9)
+		public short gridX;			// The GridX position of the flag.
 		public short gridY;			// The GridY position of the flag.
 	}
 
@@ -17,10 +17,10 @@ namespace Nexus.Gameplay {
 
 		// Level Data
 		public string levelId;			// Level ID (e.g. "QCALQOD16")
-		public byte roomId;             // Room ID (0 to 9)
+		public byte roomId;				// Room ID (0 to 9)
 
 		// Tracking
-		public short coins;            // # of coins currently gathered.
+		public short coins;				// # of coins currently gathered.
 
 		// Timer
 		public int frameStarted;		// The frame when the timer started.
@@ -110,23 +110,35 @@ namespace Nexus.Gameplay {
 		public virtual void SetCoins( Character character, short coins = 0) { this.coins = coins; }
 		public virtual void AddCoins( Character character, short coins = 0) { this.coins += coins; }
 
-		// TODO HIGH PRIORITY: Set Checkpoint by "Flag" object
-		public void SetCheckpoint() {
-			//this.checkpoint.active = flag.id;
-			//this.checkpoint.gridX = flag.gridX;
-			//this.checkpoint.gridY = flag.gridY;
-			this.checkpoint.roomId = this.roomId;
+		// Set Checkpoint by "Flag" object
+		public bool SetCheckpoint(byte roomId, short gridX, short gridY) {
+
+			// Return FALSE if this checkpoint is already active.
+			if(this.checkpoint.gridX == gridX && this.checkpoint.gridY == gridY && this.checkpoint.active == true) { return false; }
+
+			this.checkpoint.active = true;
+			this.checkpoint.gridX = gridX;
+			this.checkpoint.gridY = gridY;
+			this.checkpoint.roomId = roomId;
 
 			// If there is a retry-flag active, must unset it:
 			this.retryFlag.active = false;
+
+			return true;
 		}
 
-		// TODO HIGH PRIORITY: Set SetRetry by "Flag" object
-		public void SetRetry() {
-			//this.retryFlag.active = flag.id;
-			//this.retryFlag.gridX = flag.gridX;
-			//this.retryFlag.gridY = flag.gridY;
-			this.retryFlag.roomId = this.roomId;
+		// Set SetRetry by "Flag" object
+		public bool SetRetry(byte roomId, short gridX, short gridY) {
+
+			// Return FALSE if this retry flag is already active.
+			if(this.retryFlag.gridX == gridX && this.retryFlag.gridY == gridY && this.retryFlag.active == true) { return false; }
+
+			this.retryFlag.active = true;
+			this.retryFlag.gridX = gridX;
+			this.retryFlag.gridY = gridY;
+			this.retryFlag.roomId = roomId;
+
+			return true;
 		}
 
 		public void SaveLevelState() {
@@ -163,8 +175,8 @@ namespace Nexus.Gameplay {
 
 			this.SetLevel(level.levelId, level.roomId);
 			this.SetCoins(null, level.coins);
-			this.SetCheckpoint(); // set to level.checkpoint
-			this.SetRetry(); // set to level.retryFlag
+			this.SetCheckpoint(level.checkpoint.roomId, level.checkpoint.gridX, level.checkpoint.gridY);
+			this.SetRetry(level.checkpoint.roomId, level.checkpoint.gridX, level.checkpoint.gridY);
 			this.timeShift = level.timeShift;
 		}
 	}

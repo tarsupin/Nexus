@@ -436,6 +436,11 @@
     <Compile Include="ObjectsTiles\Buttons\ButtonFixed\ButtonFixedBRUp.cs" />
     <Compile Include="ObjectsTiles\Decor\DecorSnow.cs" />
     <Compile Include="ObjectsTiles\Decor\DecorDesert.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectCheckpointPass.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectRetry.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectDoorLock.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectDoor.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectFinish.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\SlabBrown.cs" />
     <Compile Include="ObjectsTiles\Ledges\LedgeSnow.cs" />
     <Compile Include="ObjectsTiles\Platforms\PlatformRock\PlatformRockDown.cs" />
@@ -451,6 +456,8 @@
     <Compile Include="ObjectsTiles\Generators\Cannons\CannonVert.cs" />
     <Compile Include="ObjectsTiles\Generators\Placer.cs" />
     <Compile Include="ObjectsTiles\Special\BarrierWall.cs" />
+    <Compile Include="ObjectsTiles\Detector\DetectCheckpoint.cs" />
+    <Compile Include="ObjectsTiles\Detector\Detector.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringSide.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringFixed.cs" />
     <Compile Include="ObjectsTiles\Springs\SpringTile.cs" />
