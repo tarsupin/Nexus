@@ -13,7 +13,6 @@ namespace Nexus.GameEngine {
 		public static Dictionary<string, Params> ParamMap = new Dictionary<string, Params>() {
 			{ "AttackBolt", new ParamsAttackBolt() },
 			{ "Beats", new ParamsBeats() },
-			{ "Checkpoint", new ParamsCheckpoint() },
 			{ "Character", new ParamsCharacter() },
 			{ "Cluster", new ParamsCluster() },
 			{ "Collectable", new ParamsCollectable() },
@@ -26,8 +25,9 @@ namespace Nexus.GameEngine {
 			{ "MoveBounce", new ParamsMoveBounce() },
 			{ "MoveChase", new ParamsMoveChase() },
 			{ "Placer", new ParamsPlacer() },
-			{ "TrackDot", new ParamsTrackDot() },
 			{ "Shell", new ParamsShell() },
+			{ "TrackDot", new ParamsTrackDot() },
+			{ "Upgrades", new ParamsUpgrades() },
 		};
 
 		public List<ParamGroup> rules;

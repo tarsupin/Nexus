@@ -110,7 +110,7 @@ namespace Nexus.GameEngine {
 
 			// Camera Movement
 			Systems.camera.MoveWithInput(Systems.localServer.MyPlayer.input, moveMult);
-			Systems.camera.StayBoundedAuto(250, 250);
+			Systems.camera.StayBoundedAuto(350, 250);
 		}
 
 		public void CheckTileToolKeyBinds(Keys keyPressed) {

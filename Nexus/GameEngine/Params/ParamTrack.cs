@@ -6,6 +6,10 @@ namespace Nexus.GameEngine {
 
 	public static class ParamTrack {
 
+		// Wound Upgrades
+		public static string[] AssignHP = new string[4] { "Default Health", "+1 Health", "+2 Health", "+3 Health" };
+		public static string[] AssignArmor = new string[4] { "Default Armor", "+1 Armor", "+2 Armor", "+3 Armor" };
+
 		// Suit Assignment
 		public static string[] AssignSuitList = new string[] { "Default Suit", "Remove Suit", "Ninja Suit, Black", "Ninja Suit, Blue", "Ninja Suit, Green", "Ninja Suit, Red", "Ninja Suit, White", "Wizard Suit, Blue", "Wizard Suit, Green", "Wizard Suit, Red", "Wizard Suit, White" };
 

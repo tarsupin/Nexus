@@ -85,7 +85,7 @@ namespace Nexus.GameEngine {
 					this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX + (byte)TilemapEnum.TileWidth);
 				} else {
 					this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX - this.width);
-					if(this.x < 100) { this.x = 100; }
+					if(this.x < 5) { this.x = 5; }
 				}
 				this.splitPos = (short)(this.x + this.leftWidth + 10);
 			}

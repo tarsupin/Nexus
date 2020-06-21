@@ -2,9 +2,11 @@
 
 namespace Nexus.GameEngine {
 
-	public class ParamsCheckpoint : Params {
+	public class ParamsUpgrades : Params {
 
-		public ParamsCheckpoint() {
+		public ParamsUpgrades() {
+			this.rules.Add(new LabeledParam("hp", "Starting Health", ParamTrack.AssignHP, (byte)0));
+			this.rules.Add(new LabeledParam("armor", "Starting Armor", ParamTrack.AssignArmor, (byte)0));
 			this.rules.Add(new LabeledParam("suit", "Suit", ParamTrack.AssignSuitList, 0));
 			this.rules.Add(new LabeledParam("hat", "Hat", ParamTrack.AssignHatList, 0));
 			this.rules.Add(new LabeledParam("mob", "Mobility Power", ParamTrack.AssignMobilityList, 0));
@@ -20,7 +22,7 @@ namespace Nexus.GameEngine {
 			List<byte> rulesToShow = new List<byte>();
 
 			// Add Rules that are present for this menu:
-			this.AddRulesToShow(new string[] { "suit", "hat", "mob", "att" }, ref rulesToShow);
+			this.AddRulesToShow(new string[] { "hp", "armor", "suit", "hat", "mob", "att" }, ref rulesToShow);
 
 			short attType = WandData.GetParamVal(WandData.actParamSet, "att");
 			

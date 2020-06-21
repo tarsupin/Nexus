@@ -69,8 +69,8 @@ namespace Nexus.Engine {
 		}
 
 		public void StayBoundedAuto( short extraWidth = 0, short extraHeight = 0 ) {
-			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left, this.posX));
-			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top, this.posY));
+			this.posX = Math.Min(this.bounds.Right + extraWidth, Math.Max(this.bounds.Left - extraWidth, this.posX));
+			this.posY = Math.Min(this.bounds.Bottom + extraHeight, Math.Max(this.bounds.Top - extraHeight, this.posY));
 			this.rightX = this.posX + this.width;
 			this.bottomY = this.posY + this.height;
 		}
