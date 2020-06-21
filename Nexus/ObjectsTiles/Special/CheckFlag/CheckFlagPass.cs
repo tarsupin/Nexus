@@ -11,7 +11,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.CheckFlagPass;
 			this.title = "Checkpoint-Pass Flag";
 			this.description = "A Checkpoint Flag that reacts to characters passing above it.";
-			this.moveParamSet = Params.ParamMap["Checkpoint"];
+			this.actParamSet = Params.ParamMap["Checkpoint"];
 		}
 
 		public override void SetupTile(RoomScene room, short gridX, short gridY) {

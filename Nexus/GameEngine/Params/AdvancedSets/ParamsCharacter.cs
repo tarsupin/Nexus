@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -25,10 +23,10 @@ namespace Nexus.GameEngine {
 			this.rules.Add(new LabeledParam("hat", "Hat", ParamTrack.AssignHatList, 0));
 			this.rules.Add(new LabeledParam("mob", "Mobility Power", ParamTrack.AssignMobilityList, 0));
 			this.rules.Add(new LabeledParam("att", "Attack Power", ParamTrack.AssignAttackList, 0));
-			this.rules.Add(new LabeledParam("attSet", "Weapon", ParamTrack.AssignWeaponList, 0));
-			this.rules.Add(new LabeledParam("attSet", "Spells", ParamTrack.AssignSpellsList, 0));
-			this.rules.Add(new LabeledParam("attSet", "Thrown", ParamTrack.AssignThrownList, 0));
-			this.rules.Add(new LabeledParam("attSet", "Bolts", ParamTrack.AssignBoltsList, 0));
+			this.rules.Add(new LabeledParam("weapon", "Weapon", ParamTrack.AssignWeaponList, 0));
+			this.rules.Add(new LabeledParam("spell", "Spells", ParamTrack.AssignSpellsList, 0));
+			this.rules.Add(new LabeledParam("thrown", "Thrown", ParamTrack.AssignThrownList, 0));
+			this.rules.Add(new LabeledParam("bolt", "Bolts", ParamTrack.AssignBoltsList, 0));
 		}
 
 		// Returning `true` means it ran a custom menu update. `false` means the menu needs to be updated manually.
@@ -40,9 +38,10 @@ namespace Nexus.GameEngine {
 
 			short attType = WandData.GetParamVal(WandData.actParamSet, "att");
 
-			if(attType >= 2) {
-				rulesToShow.Add((byte)(attType + 8));
-			}
+			if(attType == 2) { this.AddRulesToShow(new string[] { "weapon" }, ref rulesToShow); }
+			else if(attType == 3) { this.AddRulesToShow(new string[] { "spell" }, ref rulesToShow); }
+			else if(attType == 4) { this.AddRulesToShow(new string[] { "thrown" }, ref rulesToShow); }
+			else if(attType == 5) { this.AddRulesToShow(new string[] { "bolt" }, ref rulesToShow); }
 
 			byte[] ruleIdsToShow = rulesToShow.ToArray();
 			WandData.actParamMenu.UpdateMenuOptions((byte)ruleIdsToShow.Length, ruleIdsToShow);

@@ -25,12 +25,12 @@ namespace Nexus.GameEngine {
 
 		// The Menu Options Displayed
 		// Stored for speed, as well as because it can change dynamically.
-		public string[] menuOptLabels = new string[13] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
-		public string[] menuOptText = new string[13] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
+		public string[] menuOptLabels = new string[15] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+		public string[] menuOptText = new string[15] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
 
 		// Rules Currently Loaded
 		// This is important because some rules might not be loaded at times, such as with the "Flight" wand menu - rules change based on the Flight type.
-		public byte[] menuOptRuleIds = new byte[13] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		public byte[] menuOptRuleIds = new byte[15] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		public ParamMenu( UIComponent parent, bool actionParams = false ) : base(parent) {
 
@@ -152,7 +152,10 @@ namespace Nexus.GameEngine {
 
 					// Labeled Params
 					if(rule is LabeledParam) {
-						this.menuOptText[i] = ((LabeledParam)(rule)).labels[short.Parse(paramList[rule.key].ToString())];
+						byte paramVal = byte.Parse(paramList[rule.key].ToString());
+						if(((LabeledParam)rule).labels.Length > paramVal) {
+							this.menuOptText[i] = ((LabeledParam)rule).labels[paramVal];
+						}
 					}
 
 					// Dictionary Params
