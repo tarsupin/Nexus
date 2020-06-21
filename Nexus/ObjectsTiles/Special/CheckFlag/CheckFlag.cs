@@ -14,7 +14,7 @@ namespace Nexus.Objects {
 			this.Meta = Systems.mapper.MetaList[MetaGroup.Flag];
 		}
 
-		public void SetupTile(RoomScene room, short gridX, short gridY) {
+		public virtual void SetupTile(RoomScene room, short gridX, short gridY) {
 
 			// Add a Room Exit, which tracks where all the "destinations" are for Character transitions between rooms.
 			room.roomExits.AddExit(this.tileId, 0, gridX, gridY);
@@ -24,6 +24,7 @@ namespace Nexus.Objects {
 			
 			// Characters interact with CheckFlag:
 			if(actor is Character) {
+				if(actor.posX + actor.bounds.Left > gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth) { return false; }
 				this.TouchFlag(room, (Character)actor, gridX, gridY);
 			}
 

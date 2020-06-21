@@ -330,6 +330,15 @@ namespace Nexus.Gameplay {
 				{ (byte) TileEnum.CheckFlagCheckpoint, new CheckFlagCheckpoint() },
 				{ (byte) TileEnum.CheckFlagPass, new CheckFlagPass() },
 				{ (byte) TileEnum.CheckFlagRetry, new CheckFlagRetry() },
+				
+				// Detectors (220 - 239)
+				{ (byte) TileEnum.DetectDoor, new DetectorDoor() },
+				{ (byte) TileEnum.DetectDoorLock, new DetectorDoorLock() },
+
+				{ (byte) TileEnum.DetectCheckpoint, new DetectorCheckpoint() },
+				{ (byte) TileEnum.DetectCheckpointPass, new DetectorCheckpointPass() },
+				{ (byte) TileEnum.DetectRetry, new DetectorRetry() },
+				{ (byte) TileEnum.DetectFinish, new DetectorFinish() },
 			};
 
 			// World Terrain

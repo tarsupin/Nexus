@@ -13,6 +13,13 @@ namespace Nexus.Objects {
 			this.description = "Triggers a level victory.";
 		}
 
+		public override void SetupTile(RoomScene room, short gridX, short gridY) {
+			base.SetupTile(room, gridX, gridY);
+
+			// Place a Detector beneath the flag:
+			room.tilemap.SetMainTile(gridX, (short)(gridY + 1), (byte)TileEnum.DetectFinish, 0);
+		}
+
 		protected override void TouchFlag(RoomScene room, Character character, short gridX, short gridY) {
 
 			// Play Victory Sound
