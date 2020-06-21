@@ -4,10 +4,13 @@ using Nexus.Engine;
 namespace Nexus.Gameplay {
 
 	public class AudioJson {
-		public byte VolumeMaster;           // 0 to 100, 100 is maximum
-		public byte VolumeSound;            // 0 to 100
-		public byte VolumeMusic;            // 0 to 100
-		public bool Mute;					// TRUE if currently muted.
+		public byte MasterValue;		// 0 to 100, 100 is maximum
+		public byte SoundValue;			// 0 to 100
+		public byte MusicValue;			// 0 to 100
+		public bool Mute;               // TRUE if currently muted.
+
+		public float SoundVolume = 0f;
+		public float MusicVolume = 0f;
 	}
 
 	public class AudioSettings : AudioJson {
@@ -21,31 +24,45 @@ namespace Nexus.Gameplay {
 
 				AudioJson audioSettings = JsonConvert.DeserializeObject<AudioJson>(fileContents);
 
-				this.VolumeMaster = audioSettings.VolumeMaster;
-				this.VolumeSound = audioSettings.VolumeSound;
-				this.VolumeMusic = audioSettings.VolumeMusic;
+				this.MasterValue = audioSettings.MasterValue;
+				this.SoundValue = audioSettings.SoundValue;
+				this.MusicValue = audioSettings.MusicValue;
 				this.Mute = audioSettings.Mute;
 
 			// Assign Generic Settings & Create Audio Settings
 			} else {
 
 				// Assign Generic Settings
-				this.VolumeMaster = 50;
-				this.VolumeSound = 50;
-				this.VolumeMusic = 50;
+				this.MasterValue = 50;
+				this.SoundValue = 50;
+				this.MusicValue = 50;
 				this.Mute = false;
 
 				// Create Audio Settings
 				this.SaveSettings();
 			}
+
+			this.UpdatedAudioSettings();
+		}
+
+		private void UpdatedAudioSettings() {
+
+			if(this.Mute) {
+				this.SoundVolume = 0f;
+				this.MusicVolume = 0f;
+				return;
+			}
+
+			this.SoundVolume = (float)this.SoundValue / 100f * (float)this.MasterValue / 100f;
+			this.MusicVolume = (float)this.MusicValue / 100f * (float)this.MasterValue / 100f;
 		}
 
 		public void SaveSettings() {
 
 			AudioJson audioSettings = new AudioJson {
-				VolumeMaster = this.VolumeMaster,
-				VolumeSound = this.VolumeSound,
-				VolumeMusic = this.VolumeMusic,
+				MasterValue = this.MasterValue,
+				SoundValue = this.SoundValue,
+				MusicValue = this.MusicValue,
 				Mute = this.Mute
 			};
 

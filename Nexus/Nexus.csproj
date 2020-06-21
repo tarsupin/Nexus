@@ -281,6 +281,7 @@
     <Compile Include="Gameplay\GameClasses\CaptureTheFlag.cs" />
     <Compile Include="Gameplay\GameClasses\BossBattle.cs" />
     <Compile Include="Gameplay\GameClasses\BattleRoyale.cs" />
+    <Compile Include="Gameplay\Maps\MusicAssets.cs" />
     <Compile Include="Gameplay\Room\RoomFormat.cs" />
     <Compile Include="GameEngine\Editor\AutoTileTool.cs" />
     <Compile Include="Gameplay\Room\RoomGenerate.cs" />

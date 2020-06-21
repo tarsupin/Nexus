@@ -4,6 +4,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
+using static Nexus.Gameplay.MusicAssets;
 
 namespace Nexus.GameEngine {
 
@@ -34,6 +35,9 @@ namespace Nexus.GameEngine {
 
 			// Restart the level, generate all rooms.
 			this.RestartLevel();
+
+			// Play Music
+			Systems.music.Play(MusicTrack.Intensity1);
 		}
 
 		protected virtual void LoadMyPlayer() {

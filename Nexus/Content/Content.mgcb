@@ -34,6 +34,132 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Counter.spritefont
 
+#begin Music/BossFight1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/BossFight1.ogg
+
+#begin Music/BossFight2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/BossFight2.ogg
+
+#begin Music/CasualDesert.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/CasualDesert.ogg
+
+#begin Music/CasualDungeon.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/CasualDungeon.ogg
+
+#begin Music/CasualForest.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/CasualForest.ogg
+
+#begin Music/CasualGrassland.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/CasualGrassland.ogg
+
+#begin Music/CasualIceland.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/CasualIceland.ogg
+
+#begin Music/Challenge1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Challenge1.ogg
+
+#begin Music/Challenge2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Challenge2.ogg
+
+#begin Music/Challenge3.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Challenge3.ogg
+
+#begin Music/EpicTask.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/EpicTask.ogg
+
+#begin Music/Happy1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Happy1.ogg
+
+#begin Music/Happy2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Happy2.ogg
+
+#begin Music/Intensity1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Intensity1.ogg
+
+#begin Music/Intensity2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Intensity2.ogg
+
+#begin Music/Intensity3.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Intensity3.ogg
+
+#begin Music/Intensity4.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Intensity4.ogg
+
+#begin Music/Journey.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Journey.ogg
+
+#begin Music/Peaceful.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Peaceful.ogg
+
+#begin Music/PleasantDay1.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/PleasantDay1.ogg
+
+#begin Music/PleasantDay2.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/PleasantDay2.ogg
+
 #begin Sounds/cast-laser.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

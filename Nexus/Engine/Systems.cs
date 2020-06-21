@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nexus.Config;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 
@@ -36,6 +35,7 @@ namespace Nexus.Engine {
 		public static ScreenSys screen;
 		public static GameMapper mapper;
 		public static SoundAssets sounds;
+		public static MusicAssets music;
 		public static FontAssets fonts;
 		public static Camera camera;
 
@@ -77,6 +77,7 @@ namespace Nexus.Engine {
 
 		public static void AddAudio( GameClient game ) {
 			Systems.sounds = new SoundAssets(game);
+			Systems.music = new MusicAssets(game);
 		}
 
 		public static void AddFonts( GameClient game ) {

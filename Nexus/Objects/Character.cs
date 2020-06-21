@@ -70,10 +70,10 @@ namespace Nexus.Objects {
 		}
 
 		private void AssignParams(Dictionary<string, short> paramList) {
-			this.FaceRight = paramList.ContainsKey("dir") && paramList["dir"] == 1 ? false : true;
+			this.FaceRight = paramList != null && paramList.ContainsKey("dir") && paramList["dir"] == 1 ? false : true;
 
 			// Apply Head
-			byte face = paramList.ContainsKey("face") ? (byte) paramList["face"] : (byte) 0;
+			byte face = paramList != null && paramList.ContainsKey("face") ? (byte) paramList["face"] : (byte) 0;
 
 			if(face == 0) { HeadMap.RyuHead.ApplyHead(this, false); }
 			else if(face == 1) { HeadMap.PooHead.ApplyHead(this, false); }
