@@ -107,6 +107,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
     <Compile Include="Engine\UI\AlertText.cs" />
+    <Compile Include="GameEngine\Params\AdvancedSets\ParamsCheckpoint.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsCharacter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\BurstEmitter.cs" />
     <Compile Include="GameEngine\ParticleFreeClasses\EndBounceParticle.cs" />
@@ -189,7 +190,7 @@
     <Compile Include="Engine\Particles\EmitterSimple.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsFlight.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsContents.cs" />
-    <Compile Include="GameEngine\Params\ParamDict.cs" />
+    <Compile Include="GameEngine\Params\ParamTrack.cs" />
     <Compile Include="GameEngine\Params\ParamGroup.cs" />
     <Compile Include="GameEngine\ParticleEmitters\DeathEmitter.cs" />
     <Compile Include="GameEngine\ParticleEmitters\ExplodeEmitter.cs" />

@@ -4,7 +4,41 @@ using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
 
-	public static class ParamDict {
+	public static class ParamTrack {
+
+		// Suit Assignment
+		public static string[] AssignSuitList = new string[] { "Default Suit", "Remove Suit", "Ninja Suit, Black", "Ninja Suit, Blue", "Ninja Suit, Green", "Ninja Suit, Red", "Ninja Suit, White", "Wizard Suit, Blue", "Wizard Suit, Green", "Wizard Suit, Red", "Wizard Suit, White" };
+
+		public static byte[] AssignSuitIDs = new byte[] { (byte) SuitSubType.None, (byte) SuitSubType.RedBasic, (byte) SuitSubType.BlackNinja, (byte) SuitSubType.BlueNinja, (byte) SuitSubType.GreenNinja, (byte) SuitSubType.RedNinja, (byte) SuitSubType.WhiteNinja, (byte) SuitSubType.BlueWizard, (byte) SuitSubType.GreenWizard, (byte) SuitSubType.RedWizard, (byte) SuitSubType.WhiteWizard };
+
+		// Hat Assignment
+		public static string[] AssignHatList = new string[] { "Default Hat", "Remove Hat", "Angel Hat", "Bamboo Hat", "Cowboy Hat", "Feathered Hat", "Fedora", "Hard Hat", "Ranger Hat", "Spikey Hat", "Top Hat" };
+
+		public static byte[] AssignHatIDs = new byte[] { (byte)HatSubType.None, (byte)HatSubType.None, (byte)HatSubType.AngelHat, (byte)HatSubType.BambooHat, (byte)HatSubType.CowboyHat, (byte)HatSubType.FeatheredHat, (byte)HatSubType.Fedora, (byte)HatSubType.HardHat, (byte)HatSubType.RangerHat, (byte)HatSubType.SpikeyHat, (byte)HatSubType.TopHat };
+
+		// Hat Assignment
+		public static string[] AssignMobilityList = new string[] { "Default Mobility Power", "Remove Mobility Power", "Air", "Burst", "Flight", "Hover", "Leap", "Levitate", "Phase", "Slam", "Slow Fall", "Teleport" };
+
+		public static byte[] AssignMobilityIDs = new byte[] { (byte)PowerSubType.None, (byte)PowerSubType.None, (byte)PowerSubType.Air, (byte)PowerSubType.Burst, (byte)PowerSubType.Flight, (byte)PowerSubType.Hover, (byte)PowerSubType.Leap, (byte)PowerSubType.Levitate, (byte)PowerSubType.Phase, (byte)PowerSubType.Slam, (byte)PowerSubType.SlowFall, (byte)PowerSubType.Teleport };
+
+		// Power Assignment
+		public static string[] AssignAttackList = new string[] { "Default Attack", "Remove Attack", "Weapon", "Spells", "Thrown", "Bolts" };
+
+		// Weapons
+		public static string[] AssignWeaponList = new string[] { "Boxing Glove", "Dagger", "Spear", "Sword" };
+		public static byte[] AssignWeaponIDs = new byte[] { (byte)PowerSubType.BoxingRed, (byte)PowerSubType.Dagger, (byte)PowerSubType.Spear, (byte)PowerSubType.Sword };
+		
+		// Spells
+		public static string[] AssignSpellsList = new string[] { "Electric", "Fire", "Frost", "Rock", "Water", "Poison" };
+		public static byte[] AssignSpellsIDs = new byte[] { (byte)PowerSubType.Electric, (byte)PowerSubType.Fire, (byte)PowerSubType.Frost, (byte)PowerSubType.Rock, (byte)PowerSubType.Water, (byte)PowerSubType.Poison };
+
+		// Thrown
+		public static string[] AssignThrownList = new string[] { "Axe", "Hammer", "Shuriken, Green", "Shuriken, Red", "Shuriken, Blue", "Shuriken, Yellow" };
+		public static byte[] AssignThrownIDs = new byte[] { (byte)PowerSubType.Axe, (byte)PowerSubType.Hammer, (byte)PowerSubType.ShurikenGreen, (byte)PowerSubType.ShurikenRed, (byte)PowerSubType.ShurikenBlue, (byte)PowerSubType.ShurikenYellow };
+
+		// Bolts
+		public static string[] AssignBoltsList = new string[] { "Blue Bolt", "Gold Bolt", "Green Bolt" };
+		public static byte[] AssignBoltsIDs = new byte[] { (byte)PowerSubType.BoltBlue, (byte)PowerSubType.BoltGold, (byte)PowerSubType.BoltGreen };
 
 		// Suits
 		public static Dictionary<byte, string> Suits = new Dictionary<byte, string>() {

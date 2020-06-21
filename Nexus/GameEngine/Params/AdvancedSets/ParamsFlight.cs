@@ -1,7 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -76,16 +75,6 @@ namespace Nexus.GameEngine {
 			byte[] ruleIdsToShow = rulesToShow.ToArray();
 			WandData.moveParamMenu.UpdateMenuOptions((byte) ruleIdsToShow.Length, ruleIdsToShow);
 			return true;
-		}
-
-		public void AddRulesToShow(string[] ruleKeys, ref List<byte> rulesToShow) {
-			byte index = 0;
-			foreach(var rule in this.rules) {
-				if(ruleKeys.Contains(rule.key)) {
-					rulesToShow.Add(index);
-				}
-				index++;
-			}
 		}
 	}
 }

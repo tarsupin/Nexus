@@ -1,26 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public class ParamsCharacter : Params {
+	public class ParamsCheckpoint : Params {
 
-		public string[] teams = new string[5] { "No Team", "Team #1", "Team #2", "Team #3", "Team #4" };
-		public string[] faceOpt = new string[3] { "Ryu", "Poo", "Carl" };
-		public string[] hp = new string[4] { "Default Health", "+1 Health", "+2 Health", "+3 Health" };
-		public string[] armor = new string[4] { "Default Armor", "+1 Armor", "+2 Armor", "+3 Armor" };
-
-		public ParamsCharacter() {
-
-			this.rules.Add(new LabeledParam("team", "Team", this.teams, (byte) 0));
-			this.rules.Add(new IntParam("num", "Team Position", 0, 8, 1, 0, ""));
-			this.rules.Add(new LabeledParam("face", "Face", this.faceOpt, (byte) 0));
-			this.rules.Add(new LabeledParam("dir", "Facing Direction", new string[2] { "Right", "Left" }, (byte) 0));
-
-			// Starting Upgrades
-			this.rules.Add(new LabeledParam("hp", "Starting Health", this.hp, (byte)0));
-			this.rules.Add(new LabeledParam("armor", "Starting Armor", this.armor, (byte)0));
+		public ParamsCheckpoint() {
 			this.rules.Add(new LabeledParam("suit", "Suit", ParamTrack.AssignSuitList, 0));
 			this.rules.Add(new LabeledParam("hat", "Hat", ParamTrack.AssignHatList, 0));
 			this.rules.Add(new LabeledParam("mob", "Mobility Power", ParamTrack.AssignMobilityList, 0));
@@ -36,12 +20,12 @@ namespace Nexus.GameEngine {
 			List<byte> rulesToShow = new List<byte>();
 
 			// Add Rules that are present for this menu:
-			this.AddRulesToShow(new string[] { "team", "num", "face", "dir", "hp", "armor", "suit", "hat", "mob", "att" }, ref rulesToShow);
+			this.AddRulesToShow(new string[] { "suit", "hat", "mob", "att" }, ref rulesToShow);
 
 			short attType = WandData.GetParamVal(WandData.actParamSet, "att");
 
 			if(attType >= 2) {
-				rulesToShow.Add((byte)(attType + 8));
+				rulesToShow.Add((byte)(attType + 2));
 			}
 
 			byte[] ruleIdsToShow = rulesToShow.ToArray();

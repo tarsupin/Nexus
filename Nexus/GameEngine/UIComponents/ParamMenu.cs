@@ -16,7 +16,7 @@ namespace Nexus.GameEngine {
 
 		protected short splitPos;			// The "central" section in the middle that splits the left and right sides.
 		protected short leftWidth;			// The amount of width for the left side (titles)
-		protected short rightWidth;		// The amount of width for the right side (integers, percents, labels, etc)
+		protected short rightWidth;			// The amount of width for the right side (integers, percents, labels, etc)
 		protected static FontClass font;
 
 		// Basic Menu Information

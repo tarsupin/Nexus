@@ -12,16 +12,16 @@ namespace Nexus.GameEngine {
 
 		public ParamsContents() {
 			this.rules.Add(new LabeledParam("content", "Content Type", this.contentGroup, (byte)0));
-			this.rules.Add(new DictParam("id", "Goodie", ParamDict.Goodies, (byte)GoodieSubType.Apple));
-			this.rules.Add(new DictParam("id", "Suit", ParamDict.Suits, (byte)SuitSubType.RandomSuit));
-			this.rules.Add(new DictParam("id", "Hat", ParamDict.Hats, (byte)HatSubType.RandomPowerHat));
-			this.rules.Add(new DictParam("id", "Timers", ParamDict.Timers, (byte)GoodieSubType.Plus5));
-			this.rules.Add(new DictParam("id", "Mobility Power", ParamDict.MobPowers, (byte)PowerSubType.RandomPotion));
-			this.rules.Add(new DictParam("id", "Weapon", ParamDict.Weapons, (byte)PowerSubType.RandomWeapon));
-			this.rules.Add(new DictParam("id", "Spells", ParamDict.Spells, (byte)PowerSubType.RandomBook));
-			this.rules.Add(new DictParam("id", "Thrown", ParamDict.Thrown, (byte)PowerSubType.RandomThrown));
-			this.rules.Add(new DictParam("id", "Bolts", ParamDict.Bolts, (byte)PowerSubType.RandomBolt));
-			this.rules.Add(new DictParam("id", "Stacks", ParamDict.Stacks, (byte)PowerSubType.Chakram));
+			this.rules.Add(new DictParam("id", "Goodie", GameEngine.ParamTrack.Goodies, (byte)GoodieSubType.Apple));
+			this.rules.Add(new DictParam("id", "Suit", GameEngine.ParamTrack.Suits, (byte)SuitSubType.RandomSuit));
+			this.rules.Add(new DictParam("id", "Hat", GameEngine.ParamTrack.Hats, (byte)HatSubType.RandomPowerHat));
+			this.rules.Add(new DictParam("id", "Timers", GameEngine.ParamTrack.Timers, (byte)GoodieSubType.Plus5));
+			this.rules.Add(new DictParam("id", "Mobility Power", GameEngine.ParamTrack.MobPowers, (byte)PowerSubType.RandomPotion));
+			this.rules.Add(new DictParam("id", "Weapon", GameEngine.ParamTrack.Weapons, (byte)PowerSubType.RandomWeapon));
+			this.rules.Add(new DictParam("id", "Spells", GameEngine.ParamTrack.Spells, (byte)PowerSubType.RandomBook));
+			this.rules.Add(new DictParam("id", "Thrown", GameEngine.ParamTrack.Thrown, (byte)PowerSubType.RandomThrown));
+			this.rules.Add(new DictParam("id", "Bolts", GameEngine.ParamTrack.Bolts, (byte)PowerSubType.RandomBolt));
+			this.rules.Add(new DictParam("id", "Stacks", GameEngine.ParamTrack.Stacks, (byte)PowerSubType.Chakram));
 		}
 
 		// Returning `true` means it ran a custom menu update. `false` means the menu needs to be updated manually.
@@ -67,14 +67,5 @@ namespace Nexus.GameEngine {
 			// Update the Menu Options
 			return this.RunCustomMenuUpdate();
 		}
-
-		// This override will check the "content" group param, and show the appropriate rule accordingly.
-		public override bool RunCustomMenuUpdate() {
-			short contentVal = WandData.GetParamVal(WandData.actParamSet, "content");
-			byte ruleIdToShow = (byte)(contentVal + 1);
-			WandData.actParamMenu.UpdateMenuOptions(2, new byte[2] { 0, ruleIdToShow });
-			return true;
-		}
 	}
-
 }

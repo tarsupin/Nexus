@@ -3,6 +3,7 @@ using Nexus.Gameplay;
 using Nexus.Objects;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -111,6 +112,16 @@ namespace Nexus.GameEngine {
 		}
 
 		public virtual bool RunCustomMenuUpdate() { return false; }
+
+		public void AddRulesToShow(string[] ruleKeys, ref List<byte> rulesToShow) {
+			byte index = 0;
+			foreach(var rule in this.rules) {
+				if(ruleKeys.Contains(rule.key)) {
+					rulesToShow.Add(index);
+				}
+				index++;
+			}
+		}
 	}
 
 	public class ParamsAttack : Params {
@@ -158,16 +169,6 @@ namespace Nexus.GameEngine {
 		}
 	}
 
-	public class ParamsCheckpoint : Params {
-
-		public ParamsCheckpoint() {
-
-			// TODO: ADD CHECKPIONT PARAMS
-			// TODO: ADD CHECKPIONT PARAMS
-			this.rules.Add(new IntParam("STUFF", "CHANGE THIS", 0, 7, 1, 0));
-		}
-	}
-	
 	public class ParamsCluster : Params {
 		public ParamsCluster() {
 			this.rules.Add(new IntParam("clusterId", "Act As Cluster ID", 0, TrackSystem.MaxClusters, 1, 0, " (0 to ignore)"));
