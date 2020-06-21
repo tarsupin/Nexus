@@ -70,13 +70,8 @@ namespace Nexus.Objects {
 			// Open Door
 			Systems.sounds.door.Play();
 
-			// If the Door is in the same room as the character.
-			if(arrivalExit.destRoom.roomID != room.roomID) {
-				room.scene.MoveCharacterToNewRoom(character, arrivalExit.destRoom.roomID);
-			}
-
-			// Teleport Character
-			Character.Teleport(character, arrivalExit.gridX * (byte)TilemapEnum.TileWidth, arrivalExit.gridY * (byte)TilemapEnum.TileHeight);
+			// Transport Character to Destination Door
+			ActionMap.Transport.StartAction(character, arrivalExit.destRoom.roomID, arrivalExit.gridX * (byte)TilemapEnum.TileWidth, arrivalExit.gridY * (byte)TilemapEnum.TileHeight);
 
 			// Unlock the arrival door (if applicable), since you came from within.
 			Door.UnlockDoor(character, arrivalExit.destRoom, subType, arrivalExit.gridX, arrivalExit.gridY, false);
@@ -108,7 +103,7 @@ namespace Nexus.Objects {
 			// Character is attempting to open an unlocked door.
 			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
 
-			byte destRoomId = paramList.ContainsKey("room") ? (byte)paramList["room"] : room.roomID;
+			byte destRoomId = paramList.ContainsKey("room") ? (byte)paramList["room"] : (byte) 0; // Defaults to Room #1 (which is ID 0)
 			byte exitType = paramList.ContainsKey("exit") ? (byte)paramList["exit"] : (byte)DoorExitType.ToSameColor;
 
 			byte toTileId = (byte)TileEnum.Door;

@@ -311,8 +311,12 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void RemoveFromScene( GameObject gameObject, bool force = false ) {
-			this.markedForRemoval.Add(gameObject);
+		public void RemoveFromScene( GameObject gameObject, bool immediately = false ) {
+			if(immediately) {
+				this.objects[(byte)gameObject.Meta.LoadOrder].Remove(gameObject.id);
+			} else {
+				this.markedForRemoval.Add(gameObject);
+			}
 		}
 
 		// We use this method to add objects outside of the loops they're created in. This is to allow enumerators to continue working.

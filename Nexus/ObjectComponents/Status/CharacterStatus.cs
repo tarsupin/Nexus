@@ -10,6 +10,7 @@ namespace Nexus.ObjectComponents {
 		public int actionEnds;			// The frame when the action ends.
 		public int actionNum1;			// Generic Action Property
 		public int actionNum2;          // Generic Action Property
+		public int actionNum3;          // Generic Action Property
 		public float actionFloat1;		// Generic Action Property
 		public bool actionBool1;		// Generic Action Property
 		public bool actionBool2;		// Generic Action Property

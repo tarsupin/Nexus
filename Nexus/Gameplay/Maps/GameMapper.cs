@@ -22,6 +22,7 @@ namespace Nexus.Gameplay {
 		public static readonly SlamAction Slam = new SlamAction();
 		public static readonly SlideAction Slide = new SlideAction();
 		public static readonly TeleportAction Teleport = new TeleportAction();
+		public static readonly TransportAction Transport = new TransportAction();
 		public static readonly WallJumpAction WallJump = new WallJumpAction();
 	}
 

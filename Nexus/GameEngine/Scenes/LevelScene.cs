@@ -2,6 +2,7 @@
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System;
 using static Nexus.Gameplay.MusicAssets;
@@ -67,9 +68,17 @@ namespace Nexus.GameEngine {
 		}
 
 		protected virtual void RunSceneLoop() {
+			Character character = Systems.localServer.MyCharacter;
+
+			// Run Transport Action, if applicable
+			if(character is Character) {
+				if(character.status.action is TransportAction) {
+					((TransportAction)character.status.action).TriggerTransport(character);
+				}
+			}
 
 			// Check Player Survival
-			if(Systems.localServer.MyCharacter is Character == false || Systems.localServer.MyCharacter.deathFrame > 0) {
+			if(character is Character == false || character.deathFrame > 0) {
 
 				// Prepare the whole level to be rebuilt.
 				this.levelResetFrame = Systems.timer.Frame + 2;
@@ -216,47 +225,25 @@ namespace Nexus.GameEngine {
 			Systems.camera.UpdateScene(this.rooms[Systems.localServer.MyCharacter.room.roomID], (byte)TilemapEnum.GapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.GapLeft * (byte)TilemapEnum.TileWidth);
 
 			// Reset Level State, Maintain Checkpoints.
-			Systems.handler.levelState.SoftReset();
+			LevelState levelState = Systems.handler.levelState;
+			levelState.SoftReset();
 
-			// TODO: CHANGE TO NEW ROOM? NEW CHECKPOINT?
-			// TODO: CHANGE TO NEW ROOM? NEW CHECKPOINT?
+			// Reset Character's Position To Appropriate Checkpoint (if applicable)
+			FlagJson checkpoint = levelState.checkpoint;
 
-			// TODO: Reset Character's Position To Appropriate Checkpoint
-			// If the character's new position is being declared (such as for a door/portal),
-			// then we must identify what checkpoint and room the player should be at.
-			//let chk = this.game.level.state.checkpoint;
-
-			//if(chk.active) {
-			//	this.setRoom(chk.room);
-
-			//	// Update Character Generation Position to match checkpoint
-			//	posX = chk.pos.x;
-			//	posY = chk.pos.y + 48;
-
-			//	// Return to the original room (since no checkpoint was located). Or, if playtesting, to the same room.
-			//} else {
-
-			//	// If the user is the level's author, they can restart in the same room (for playtesting purposes).
-			//	let userHash = this.game.cache.get('myUserHash');
-			//	if(userHash && this.game.level.id.startsWith(userHash)) {
-			//		this.setRoom(this.game.level.state.roomId);
-			//	} else {
-			//		this.setRoom(0);
-			//	}
-			//}
-
-			// TODO: Update Camera if in the same room
-			// this.camera.bindToWorld(); // Update Camera Bounds
-
-			// TODO: Camera must follow (or cut) to the position. Only applies if in the same room.
-			// this.camera.cutToPosition(this.character.pos.x, this.character.pos.y);
-
+			if(checkpoint.active) {
+				ActionMap.Transport.StartAction(Systems.localServer.MyCharacter, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
+			}
 		}
 
+		// NOTE: You probably want to call this from TransportAction - it will handle your room transitions correctly.
 		public void MoveCharacterToNewRoom(Character character, byte roomID) {
 
+			// Make sure the character isn't already in this room:
+			if(character.room.roomID == roomID) { return; }
+
 			// Remove Character from Scene's Objects
-			character.room.RemoveFromScene(character);
+			character.room.RemoveFromScene(character, true);
 
 			// Add Character to New Scene's Objects
 			this.rooms[roomID].AddToScene(character, true);
