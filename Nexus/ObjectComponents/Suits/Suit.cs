@@ -2,6 +2,7 @@
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.ObjectComponents {
 
@@ -30,7 +31,7 @@ namespace Nexus.ObjectComponents {
 		GreenWizard = 9,
 		RedWizard = 10,
 		WhiteWizard = 11,
-		RandomWizard = 12,	// Random
+		RandomWizard = 12,  // Random
 
 		// Basic Suits
 		RandomBasic = 50,
@@ -57,6 +58,25 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public class Suit {
+
+		public static Dictionary<short, string> BaseTextures = new Dictionary<short, string>() {
+
+			// Ninjas
+			{ (byte) SuitSubType.BlackNinja, "BlackNinja" },
+			{ (byte) SuitSubType.BlueNinja, "BlueNinja" },
+			{ (byte) SuitSubType.GreenNinja, "GreenNinja" },
+			{ (byte) SuitSubType.RedNinja, "RedNinja" },
+			{ (byte) SuitSubType.WhiteNinja, "WhiteNinja" },
+
+			// Wizards
+			{ (byte) SuitSubType.BlueWizard, "BlueWizard" },
+			{ (byte) SuitSubType.GreenWizard, "GreenWizard" },
+			{ (byte) SuitSubType.RedWizard, "RedWizard" },
+			{ (byte) SuitSubType.WhiteWizard, "WhiteWizard" },
+
+			// Cosmetic Suits
+			{ (byte) SuitSubType.RedBasic, "BasicChar" }
+		};
 
 		protected SuitRank suitRank;
 		protected Atlas atlas;

@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class DetectorCheckpointPass : Detector {
 
 		public DetectorCheckpointPass() : base() {
-			this.tileId = (byte)TileEnum.DetectCheckpoint;
+			this.tileId = (byte)TileEnum.DetectCheckpointPass;
 		}
 
 		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {

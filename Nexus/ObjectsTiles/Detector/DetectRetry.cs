@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class DetectorRetry : Detector {
 
 		public DetectorRetry() : base() {
-			this.tileId = (byte)TileEnum.DetectCheckpoint;
+			this.tileId = (byte)TileEnum.DetectRetry;
 		}
 
 		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {

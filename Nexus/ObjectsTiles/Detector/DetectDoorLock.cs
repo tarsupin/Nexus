@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class DetectorDoorLock : Detector {
 
 		public DetectorDoorLock() : base() {
-			this.tileId = (byte)TileEnum.DetectCheckpoint;
+			this.tileId = (byte)TileEnum.DetectDoorLock;
 		}
 
 		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {

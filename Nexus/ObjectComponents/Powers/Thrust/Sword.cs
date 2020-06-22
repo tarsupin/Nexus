@@ -7,7 +7,7 @@ namespace Nexus.ObjectComponents {
 	public class Sword : PowerThrust {
 
 		public Sword( Character character ) : base( character ) {
-			this.SetActivationSettings(30, 1, 30);
+			this.SetActivationSettings(60, 1, 60);
 			this.range = 130; // Range of weapon's attack.
 			this.weaponWidth = 81;
 			this.offsetY = 15;

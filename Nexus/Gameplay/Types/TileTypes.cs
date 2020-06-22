@@ -30,7 +30,7 @@ namespace Nexus.Gameplay {
 		// Tilemap Limits
 		MaxTilesWide = 600,
 		MaxTilesHigh = 600,
-		MaxTilesTotal = 32000,
+		MaxTilesTotal = 16000,
 	}
 
 }

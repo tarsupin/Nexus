@@ -4,6 +4,7 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 using System;
+using System.Collections.Generic;
 
 /*
 	Powered Hats:
@@ -96,6 +97,26 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public class Hat {
+
+		public static Dictionary<short, string> BaseTextures = new Dictionary<short, string>() {
+
+			// Power Hats
+			{ (byte) HatSubType.AngelHat, "AngelHat" },
+			{ (byte) HatSubType.BambooHat, "BambooHat" },
+			{ (byte) HatSubType.CowboyHat, "CowboyHat" },
+			{ (byte) HatSubType.FeatheredHat, "FeatheredHat" },
+			{ (byte) HatSubType.Fedora, "Fedora" },
+			{ (byte) HatSubType.HardHat, "HardHat" },
+			{ (byte) HatSubType.RangerHat, "RangerHat" },
+			{ (byte) HatSubType.SpikeyHat, "SpikeyHat" },
+			{ (byte) HatSubType.TopHat, "TopHat" },
+
+			// Cosmetic Hats
+			{ (byte) HatSubType.WizBlue, "WizBlue" },
+			{ (byte) HatSubType.WizGreen, "WizGreen" },
+			{ (byte) HatSubType.WizRed, "WizRed" },
+			{ (byte) HatSubType.WizWhite, "WizWhite" }
+		};
 
 		protected HatRank hatRank;
 		protected Atlas atlas;

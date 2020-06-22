@@ -32,6 +32,9 @@ namespace Nexus.Objects {
 		public void SetupTile(RoomScene room, short gridX, short gridY) {
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			room.roomExits.AddExit(this.tileId, subType, gridX, gridY);
+
+			// Place a Detector beneath the flag:
+			room.tilemap.SetMainTile(gridX, (short)(gridY + 1), this.tileId == (byte)TileEnum.Door ? (byte)TileEnum.DetectDoor : (byte)TileEnum.DetectDoorLock, 0);
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
@@ -42,7 +45,7 @@ namespace Nexus.Objects {
 			Character character = (Character)actor;
 
 			// Make sure the character is overlapping the inner door.
-			if(!CollideRect.IsTouchingRect(character, gridX * (byte)TilemapEnum.TileWidth + 6, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 6, gridY * (byte)TilemapEnum.TileHeight, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight)) {
+			if(!CollideRect.IsTouchingRect(character, gridX * (byte)TilemapEnum.TileWidth + 16, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 12, gridY * (byte)TilemapEnum.TileHeight, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight * 2)) {
 				return false;
 			}
 			
@@ -71,7 +74,7 @@ namespace Nexus.Objects {
 			Systems.sounds.door.Play();
 
 			// Transport Character to Destination Door
-			ActionMap.Transport.StartAction(character, arrivalExit.destRoom.roomID, arrivalExit.gridX * (byte)TilemapEnum.TileWidth, arrivalExit.gridY * (byte)TilemapEnum.TileHeight);
+			ActionMap.Transport.StartAction(character, arrivalExit.destRoom.roomID, arrivalExit.gridX * (byte)TilemapEnum.TileWidth + 6, arrivalExit.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight * 2 - character.bounds.Bottom);
 
 			// Unlock the arrival door (if applicable), since you came from within.
 			Door.UnlockDoor(character, arrivalExit.destRoom, subType, arrivalExit.gridX, arrivalExit.gridY, false);

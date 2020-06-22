@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 	public class DetectorFinish : Detector {
 
 		public DetectorFinish() : base() {
-			this.tileId = (byte)TileEnum.DetectCheckpoint;
+			this.tileId = (byte)TileEnum.DetectFinish;
 		}
 
 		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {
