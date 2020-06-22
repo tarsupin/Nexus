@@ -173,14 +173,14 @@ namespace Nexus.Gameplay {
 			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in layer) {
 				short gridY = short.Parse(yData.Key);
 
-				if(gridY > yCount && yData.Value.Count > 0) {
+				if(gridY >= yCount && yData.Value.Count > 0) {
 					yCount = (short)(gridY + 1); // +1 is because yCount includes 0
 				}
 
 				// Loop through XData
 				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
 					short gridX = short.Parse(xData.Key);
-					if(gridX > xCount && xData.Value.Count > 0) { xCount = (short)(gridX + 1); } // +1 is because xCount includes 0
+					if(gridX >= xCount && xData.Value.Count > 0) { xCount = (short)(gridX + 1); } // +1 is because xCount includes 0
 				}
 			}
 		}

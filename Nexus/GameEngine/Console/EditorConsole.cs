@@ -14,6 +14,9 @@ namespace Nexus.GameEngine {
 				
 				{ "tile", ConsoleTileWand.TileWand },
 				{ "resize", ConsoleRoom.Resize },
+				
+				// Level
+				{ "level", EditorConsole.LevelChange },
 
 				// Set Level Data
 				{ "title", ConsoleEditData.SetTitle },
@@ -22,6 +25,17 @@ namespace Nexus.GameEngine {
 				{ "music", ConsoleEditData.SetMusicTrack },
 				//{ "game-class", ConsoleEditData.SetGameClass },
 			};
+		}
+
+		public static void LevelChange() {
+			string currentIns = ConsoleTrack.GetArgAsString();
+
+			ConsoleTrack.possibleTabs = "Example: `level QCALQOD16`";
+			ConsoleTrack.helpText = "The level ID of the level to load.";
+
+			if(ConsoleTrack.activate) {
+				SceneTransition.ToLevelEditor("", currentIns);
+			}
 		}
 	}
 }
