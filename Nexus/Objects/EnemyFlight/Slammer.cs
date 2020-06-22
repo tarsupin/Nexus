@@ -1,5 +1,4 @@
-﻿using Nexus.Config;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -64,6 +63,9 @@ namespace Nexus.Objects {
 
 			return Impact.StandardImpact(character, this, dir);
 		}
+
+		// Slammers Ignore Projectiles
+		public override bool RunProjectileImpact(Projectile projectile) { return false; }
 
 		private void AssignSubType( byte subType ) {
 			this.SpriteName = "Slammer/Standard";
