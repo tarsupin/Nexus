@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
@@ -44,13 +45,15 @@ namespace Nexus.Objects {
 
 			Character character = (Character)actor;
 
+			// Display "Interaction" Prompt for Character (draws the 'interaction' hand icon above character head)
+			//if(Systems.timer.frame16Modulus % 8 == 5) {
+			//	StationaryParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Prompt/Hand", new Vector2(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight - (byte)TilemapEnum.HalfHeight), Systems.timer.Frame + 8);
+			//}
+
 			// Make sure the character is overlapping the inner door.
 			if(!CollideRect.IsTouchingRect(character, gridX * (byte)TilemapEnum.TileWidth + 16, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth - 12, gridY * (byte)TilemapEnum.TileHeight, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight * 2)) {
 				return false;
 			}
-			
-			// Display "Interaction" Prompt for Character (draws the 'interaction' hand icon above character head)
-			// TODO: Apply attachment. Local only. Maybe a particle effect? Lasts one frame only? Or multiple, and follows character? Follows Local MyCharacter.
 
 			// Make sure the Character is actually attempting to interact with the door.
 			if(!character.input.isPressed(IKey.YButton)) { return false; }
