@@ -5,7 +5,6 @@ using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System;
-using static Nexus.Gameplay.MusicAssets;
 
 namespace Nexus.GameEngine {
 
@@ -24,7 +23,7 @@ namespace Nexus.GameEngine {
 			this.levelUI = new LevelUI(this);
 
 			// Generate Each Room Class
-			this.rooms = new RoomScene[4];
+			this.rooms = new RoomScene[6];
 
 			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
 				byte roomID = Byte.Parse(roomKey);

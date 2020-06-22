@@ -56,7 +56,8 @@ namespace Nexus.Objects {
 			// Spin Rate
 			if(this.spinRate != 0) { this.rotation += this.spinRate; }
 
-			// Standard Physics
+			// Run Physics
+			if(this.physics.velocity.Y > 20) { this.physics.velocity.Y = FInt.Create(20); }
 			this.physics.RunPhysicsTick();
 		}
 
@@ -70,7 +71,7 @@ namespace Nexus.Objects {
 			this.ByCharacterId = 0;
 			this.SafelyJumpOnTop = false;
 			this.Damage = DamageStrength.Standard;
-			this.EndLife = Systems.timer.Frame + 600;
+			this.EndLife = Systems.timer.Frame + 300;
 		}
 
 		public virtual void Destroy( DirCardinal dir = DirCardinal.None, GameObject obj = null ) {

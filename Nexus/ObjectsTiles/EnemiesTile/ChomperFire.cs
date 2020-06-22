@@ -97,7 +97,6 @@ namespace Nexus.Objects {
 
 		public void FireAttack(RoomScene room, short gridX, short gridY, short attX, short attY, float gravity) {
 			ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Fire, FVector.Create(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth - 10, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight - 10), FVector.Create(attX, attY));
-			projectile.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
 			projectile.physics.SetGravity(FInt.Create(gravity * 0.35));
 		}
 	}
