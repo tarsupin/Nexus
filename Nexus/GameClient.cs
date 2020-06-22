@@ -120,7 +120,7 @@ namespace Nexus {
 			Action gameLoadInstructions = () => {
 
 				// Try converting levels
-				//new LevelConvertV1();               // TODO CLEANUP: Remove this line.
+				//new LevelConvertV1("Levels-V0", "Levels-V1");               // TODO CLEANUP: Remove this line.
 
 				// TODO: Change playtesting level to correct setup.
 				// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.

@@ -11,13 +11,13 @@ namespace Nexus.Scripts {
 	class LevelConvert {
 
 		// Config
-		readonly string originalFolder = "Levels-Orig";
-		readonly string deliveryFolder = "Levels";
+		public string originalFolder = ""; // Levels-V0
+		public string deliveryFolder = ""; // Levels-V1
 
 		// Level Directory
-		readonly string basePath = "";
-		readonly string originalPath = "";
-		readonly string deliveryPath = "";
+		public string basePath = "";
+		public string originalPath = "";
+		public string deliveryPath = "";
 
 		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
 		protected static string curRoomId;
@@ -28,14 +28,18 @@ namespace Nexus.Scripts {
 		// Level Data
 		protected LevelContent levelContent;
 
-		// LevelContent.GetLocalLevelPath		// this returns "QC/QCAL10" from "QCAL10"
+		// LevelContent.GetLocalLevelPath		// this returns "QC/QCALQOD10" from "QCALQOD10"
 
-		public LevelConvert() {
+		public LevelConvert( string fromPath, string toPath ) {
+
+			// Folders
+			this.originalFolder = fromPath;
+			this.deliveryFolder = toPath;
 
 			// Set Paths
 			this.basePath = Systems.filesLocal.localDir;
-			this.originalPath = Path.Combine(basePath, originalFolder);
-			this.deliveryPath = Path.Combine(basePath, deliveryFolder);
+			this.originalPath = Path.Combine(basePath, this.originalFolder);
+			this.deliveryPath = Path.Combine(basePath, this.deliveryFolder);
 
 			this.levelContent = new LevelContent(this.originalPath);
 

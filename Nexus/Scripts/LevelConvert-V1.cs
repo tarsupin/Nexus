@@ -9,7 +9,7 @@ namespace Nexus.Scripts {
 
 	class LevelConvertV1 : LevelConvert {
 
-		public LevelConvertV1() : base() {
+		public LevelConvertV1( string fromPath, string toPath ) : base( fromPath, toPath ) {
 			System.Console.WriteLine("--------------------------------------");
 			System.Console.WriteLine("----- LEVEL CONVERSION - Version 1.0");
 			System.Console.WriteLine("--------------------------------------");
@@ -290,6 +290,5 @@ namespace Nexus.Scripts {
 				this.OverwriteTileData(newTileId, subTypeId);
 			}
 		}
-		
 	}
 }

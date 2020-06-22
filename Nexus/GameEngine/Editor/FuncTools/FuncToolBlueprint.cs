@@ -10,13 +10,13 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	// This class tracks a grid up to 20x20 blueprint of tiles, allowing user to place them all at once.
+	// This class tracks a grid of tiles, allowing user to place them all at once.
 	public class FuncToolBlueprint : FuncTool {
 
-		public static byte BPMaxWidth = 16;
-		public static byte BPMaxHeight = 16;
+		public static byte BPMaxWidth = 30;
+		public static byte BPMaxHeight = 19;
 
-		private ArrayList[,,] gridTrack = new ArrayList[4, FuncToolBlueprint.BPMaxWidth, FuncToolBlueprint.BPMaxHeight];
+		private ArrayList[,,] gridTrack = new ArrayList[4, FuncToolBlueprint.BPMaxHeight, FuncToolBlueprint.BPMaxWidth];
 
 		private bool isActive;				// TRUE if the blueprint is active.
 		private short blueprintHeight;		// Width of the blueprint.

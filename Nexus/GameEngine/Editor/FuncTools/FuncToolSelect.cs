@@ -19,8 +19,8 @@ namespace Nexus.GameEngine {
 		private SelectActivity activity;	// TRUE if the selection is active.
 		private short xStart;				// X-Grid that selection started at.
 		private short yStart;				// Y-Grid that selection started at.
-		private short xEnd;				// X-Grid that selection ends at.
-		private short yEnd;				// Y-Grid that selection ends at.
+		private short xEnd;					// X-Grid that selection ends at.
+		private short yEnd;					// Y-Grid that selection ends at.
 
 		public FuncToolSelect() : base() {
 			this.spriteName = "Icons/Move";
