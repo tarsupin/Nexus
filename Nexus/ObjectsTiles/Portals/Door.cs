@@ -35,7 +35,7 @@ namespace Nexus.Objects {
 			room.roomExits.AddExit(this.tileId, subType, gridX, gridY);
 
 			// Place a Detector beneath the flag:
-			room.tilemap.SetMainTile(gridX, (short)(gridY + 1), this.tileId == (byte)TileEnum.Door ? (byte)TileEnum.DetectDoor : (byte)TileEnum.DetectDoorLock, 0);
+			room.tilemap.SetMainTile(gridX, (short)(gridY + 1), (byte)TileEnum.DetectDoor, 0);
 		}
 
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {

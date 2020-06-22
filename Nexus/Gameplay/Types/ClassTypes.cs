@@ -161,7 +161,6 @@ namespace Nexus.Gameplay {
 
 		// Detectors (220 - 239)
 		DetectDoor = 220,
-		DetectDoorLock = 221,
 
 		DetectCheckpoint = 222,
 		DetectCheckpointPass = 223,

@@ -440,7 +440,6 @@
     <Compile Include="ObjectsTiles\Decor\DecorDesert.cs" />
     <Compile Include="ObjectsTiles\Detector\DetectCheckpointPass.cs" />
     <Compile Include="ObjectsTiles\Detector\DetectRetry.cs" />
-    <Compile Include="ObjectsTiles\Detector\DetectDoorLock.cs" />
     <Compile Include="ObjectsTiles\Detector\DetectDoor.cs" />
     <Compile Include="ObjectsTiles\Detector\DetectFinish.cs" />
     <Compile Include="ObjectsTiles\HorizontalWalls\SlabBrown.cs" />

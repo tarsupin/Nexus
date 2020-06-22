@@ -184,5 +184,17 @@ namespace Nexus.GameEngine {
 			{ "panda", (byte) HeadSubType.PandaHead },
 			{ "neo", (byte) HeadSubType.NeoHead },
 		};
+
+		public static void CheatKey() {
+
+			// Update the tab lookup.
+			ConsoleTrack.possibleTabs = "";
+			ConsoleTrack.helpText = "Provides a key to the character.";
+
+			// Activate the Instruction
+			if(ConsoleTrack.activate) {
+				ConsoleTrack.character.trailKeys.AddKey();
+			}
+		}
 	}
 }

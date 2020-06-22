@@ -334,8 +334,6 @@ namespace Nexus.Gameplay {
 				
 				// Detectors (220 - 239)
 				{ (byte) TileEnum.DetectDoor, new DetectorDoor() },
-				{ (byte) TileEnum.DetectDoorLock, new DetectorDoorLock() },
-
 				{ (byte) TileEnum.DetectCheckpoint, new DetectorCheckpoint() },
 				{ (byte) TileEnum.DetectCheckpointPass, new DetectorCheckpointPass() },
 				{ (byte) TileEnum.DetectRetry, new DetectorRetry() },
