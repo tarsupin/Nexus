@@ -78,6 +78,56 @@ namespace Nexus.Objects {
 			if(face == 0) { HeadMap.RyuHead.ApplyHead(this, false); }
 			else if(face == 1) { HeadMap.PooHead.ApplyHead(this, false); }
 			else if(face == 2) { HeadMap.CarlHead.ApplyHead(this, false); }
+
+			// Suit
+			if(paramList.ContainsKey("suit") && paramList["suit"] > 0) {
+				Suit.AssignToCharacter(this, ParamTrack.AssignSuitIDs[(byte)paramList["suit"]], true);
+			}
+
+			// Hat
+			if(paramList.ContainsKey("hat") && paramList["hat"] > 0) {
+				Hat.AssignToCharacter(this, ParamTrack.AssignHatIDs[(byte)paramList["hat"]], true);
+			}
+
+			// Mobility Power
+			if(paramList.ContainsKey("mob") && paramList["mob"] > 0) {
+				if(paramList["mob"] == 1) { Power.RemoveMobilityPower(this); }
+				Power.AssignPower(this, ParamTrack.AssignMobilityIDs[(byte)paramList["mob"]]);
+			}
+
+			// Attack Power
+			byte attType = paramList.ContainsKey("att") ? (byte)paramList["att"] : (byte)0;
+
+			// No Attack Power
+			if(attType == 1) {
+				Power.RemoveAttackPower(this);
+			}
+
+			// Weapon
+			if(attType == 2) {
+				byte power = paramList.ContainsKey("weapon") ? (byte)paramList["weapon"] : (byte)0;
+				Power.AssignPower(this, ParamTrack.AssignWeaponIDs[power]);
+			}
+
+			// Spells
+			if(attType == 3) {
+				byte power = paramList.ContainsKey("spell") ? (byte)paramList["spell"] : (byte)0;
+				Power.AssignPower(this, ParamTrack.AssignSpellsIDs[power]);
+			}
+
+			// Thrown
+			if(attType == 4) {
+				byte power = paramList.ContainsKey("thrown") ? (byte)paramList["thrown"] : (byte)0;
+				Power.AssignPower(this, ParamTrack.AssignThrownIDs[power]);
+			}
+
+			// Bolts
+			if(attType == 5) {
+				byte power = paramList.ContainsKey("bolt") ? (byte)paramList["bolt"] : (byte)0;
+				Power.AssignPower(this, ParamTrack.AssignBoltsIDs[power]);
+			}
+
+			this.stats.ResetCharacterStats();
 		}
 
 		public void AssignPlayer( Player player ) {

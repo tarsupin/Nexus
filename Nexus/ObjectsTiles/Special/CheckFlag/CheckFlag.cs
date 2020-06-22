@@ -1,6 +1,8 @@
 ﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
+using System.Collections.Generic;
 
 namespace Nexus.Objects {
 
@@ -36,15 +38,61 @@ namespace Nexus.Objects {
 			// Play Flag Touch Sound
 			Systems.sounds.flag.Play();
 
-			this.ReceiveFlagUpgrades();
+			this.ReceiveFlagUpgrades(room, character, gridX, gridY);
 		}
 
-		protected void ReceiveFlagUpgrades() {
-			// TODO: Assign Suit
-				// if this.mechanics.suit { character.suit = .... }
-			// TODO: Assign Hat
-			// TODO: Assign Mobility Power
-			// TODO: Assign Attack Power
+		protected void ReceiveFlagUpgrades(RoomScene room, Character character, short gridX, short gridY) {
+			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
+
+			// Suit
+			if(paramList.ContainsKey("suit") && paramList["suit"] > 0) {
+				Suit.AssignToCharacter(character, ParamTrack.AssignSuitIDs[(byte) paramList["suit"]], true);
+			}
+			
+			// Hat
+			if(paramList.ContainsKey("hat") && paramList["hat"] > 0) {
+				Hat.AssignToCharacter(character, ParamTrack.AssignHatIDs[(byte) paramList["hat"]], true);
+			}
+
+			// Mobility Power
+			if(paramList.ContainsKey("mob") && paramList["mob"] > 0) {
+				if(paramList["mob"] == 1) { Power.RemoveMobilityPower(character); }
+				Power.AssignPower(character, ParamTrack.AssignMobilityIDs[(byte) paramList["mob"]]);
+			}
+
+			// Attack Power
+			byte attType = paramList.ContainsKey("att") ? (byte) paramList["att"] : (byte) 0;
+
+			// No Attack Power
+			if(attType == 1) {
+				Power.RemoveAttackPower(character);
+			}
+
+			// Weapon
+			if(attType == 2) {
+				byte power = paramList.ContainsKey("weapon") ? (byte)paramList["weapon"] : (byte)0;
+				Power.AssignPower(character, ParamTrack.AssignWeaponIDs[power]);
+			}
+
+			// Spells
+			if(attType == 3) {
+				byte power = paramList.ContainsKey("spell") ? (byte)paramList["spell"] : (byte)0;
+				Power.AssignPower(character, ParamTrack.AssignSpellsIDs[power]);
+			}
+
+			// Thrown
+			if(attType == 4) {
+				byte power = paramList.ContainsKey("thrown") ? (byte)paramList["thrown"] : (byte)0;
+				Power.AssignPower(character, ParamTrack.AssignThrownIDs[power]);
+			}
+
+			// Bolts
+			if(attType == 5) {
+				byte power = paramList.ContainsKey("bolt") ? (byte)paramList["bolt"] : (byte)0;
+				Power.AssignPower(character, ParamTrack.AssignBoltsIDs[power]);
+			}
+
+			character.stats.ResetCharacterStats();
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

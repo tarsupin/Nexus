@@ -179,6 +179,9 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
+		public static void RemoveAttackPower(Character character) { character.attackPower = null; }
+		public static void RemoveMobilityPower(Character character) { character.mobilityPower = null; }
+
 		public virtual bool Activate() { return false; }
 		public virtual void UpdateAbilities() {}
 
