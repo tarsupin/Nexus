@@ -23,7 +23,8 @@ namespace Nexus.Objects {
 
 		protected override void TouchFlag(RoomScene room, Character character, short gridX, short gridY) {
 			if(Systems.handler.levelState.SetCheckpoint(room.roomID, gridX, gridY)) {
-				base.TouchFlag(room, character, gridX, gridY);
+				Systems.sounds.flag.Play();
+				this.ReceiveFlagUpgrades(room, character, gridX, gridY);
 			}
 		}
 	}

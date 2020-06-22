@@ -137,9 +137,6 @@ namespace Nexus.Objects {
 
 		public void ResetCharacter() {
 
-			// TODO HIGH PRIORITY: Character Archetype
-			// Character Archetype
-
 			// Status Reset (NOT "STATS")
 			this.status.ResetCharacterStatus();
 

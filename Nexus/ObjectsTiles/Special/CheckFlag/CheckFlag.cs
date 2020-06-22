@@ -33,13 +33,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		protected virtual void TouchFlag( RoomScene room, Character character, short gridX, short gridY ) {
-
-			// Play Flag Touch Sound
-			Systems.sounds.flag.Play();
-
-			this.ReceiveFlagUpgrades(room, character, gridX, gridY);
-		}
+		protected virtual void TouchFlag( RoomScene room, Character character, short gridX, short gridY ) {}
 
 		protected void ReceiveFlagUpgrades(RoomScene room, Character character, short gridX, short gridY) {
 			Dictionary<string, short> paramList = room.tilemap.GetParamList(gridX, gridY);
