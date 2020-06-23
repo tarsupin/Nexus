@@ -12,7 +12,7 @@ namespace Nexus.GameEngine {
 			int curFrame = Systems.timer.Frame;
 
 			// If the last draw occurred within the last 100ms on this tile, return early to prevent repeat draws:
-			if(DrawTracker.drawFrame > curFrame - 100 && DrawTracker.gridX == gridX && DrawTracker.gridY == gridY) {
+			if(DrawTracker.drawFrame > curFrame - 6 && DrawTracker.gridX == gridX && DrawTracker.gridY == gridY) {
 				DrawTracker.drawFrame = curFrame;
 				return false;
 			}
