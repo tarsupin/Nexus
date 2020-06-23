@@ -7,9 +7,11 @@ namespace Nexus.ObjectComponents {
 	public class PowerThrust : PowerAttack {
 
 		// Weapon Stats
-		protected short range;				// The range of the weapon's attack.
+		protected short duration;			// The duration of the weapon's attack.
+		protected short speed;				// The X-Velocity of the weapon's attack.
 		protected byte weaponWidth;			// The width of the weapon, in pixels.
-		protected byte offsetY;				// Height to offset the starting position. (Usually Half Weapon Height)
+		protected byte offsetY;             // Height to offset the starting position. (Usually Half Weapon Height)
+		protected byte behindVal;			// The amount to set the projectile behind the character when thrust (to collide with first block).
 		
 		public PowerThrust( Character character ) : base( character ) {
 			this.sound = Systems.sounds.sword;
@@ -24,26 +26,19 @@ namespace Nexus.ObjectComponents {
 			Character character = this.character;
 
 			// Determine Starting Position of Projectile relative to Character
-			int startX = character.posX + character.bounds.MidX + (this.character.FaceRight ? 0 : -this.weaponWidth);
+			int startX = character.posX + character.bounds.MidX + (this.character.FaceRight ? -this.behindVal : -this.weaponWidth + this.behindVal);
 			int startY = character.posY + character.bounds.MidY - this.offsetY;
 
-			int endX = startX + this.range * (this.character.FaceRight ? 1 : -1);
-			int endY = startY;
-
-			// Apply Character's Momentum (if applicable)
-			//if(this.multMomentum > 0) {
-			//	velX += character.physics.velocity.X * this.multMomentum;
-			//	velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
-			//}
+			sbyte velX = (this.character.FaceRight ? (sbyte)this.speed : (sbyte)-this.speed);
 
 			this.sound.Play();
 
 			// Launch Projectile
-			this.Launch(character, startX, startY, endX, endY);
+			this.Launch(character, startX, startY, velX);
 
 			return true;
 		}
 
-		public virtual void Launch(GameObject actor, int startX, int startY, int endX, int endY) {}
+		public virtual void Launch(GameObject actor, int startX, int startY, sbyte velX) {}
 	}
 }

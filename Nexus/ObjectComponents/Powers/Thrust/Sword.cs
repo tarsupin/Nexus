@@ -8,18 +8,21 @@ namespace Nexus.ObjectComponents {
 
 		public Sword( Character character ) : base( character ) {
 			this.SetActivationSettings(60, 1, 60);
-			this.range = 130; // Range of weapon's attack.
+			this.duration = 10;
+			this.speed = 13;
 			this.weaponWidth = 81;
 			this.offsetY = 15;
+			this.behindVal = 35;
 			this.sound = Systems.sounds.sword;
 			this.IconTexture = "Weapon/Sword";
 			this.baseStr = "weapon";
 			this.subStr = "sword";
 		}
 
-		public override void Launch(GameObject actor, int startX, int startY, int endX, int endY) {
-			var projectile = SwordProjectile.Create(actor.room, this.subType, FVector.Create(startX, startY), FVector.Create(endX, endY));
+		public override void Launch(GameObject actor, int startX, int startY, sbyte velX) {
+			var projectile = SwordProjectile.Create(actor.room, this.subType, FVector.Create(startX, startY), FVector.Create(velX, 0));
 			projectile.SetActorID(actor);
+			projectile.SetEndLife(Systems.timer.Frame + this.duration);
 		}
 	}
 }
