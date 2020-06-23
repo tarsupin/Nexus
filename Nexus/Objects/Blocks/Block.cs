@@ -23,15 +23,6 @@ namespace Nexus.Objects {
 				return true;
 			}
 
-			// Some projectiles can break objects (like boxes).
-			else if(projectile.CollisionType == ProjectileCollisionType.BreakObjects) {
-
-				// TODO: Probably not needed, since no dynamic blocks would explode?
-				//this.ProjectileBreakBlock(projectile, this);
-				projectile.Destroy();
-				return true;
-			}
-
 			// Some projectiles bounce.
 			if(projectile.CollisionType == ProjectileCollisionType.BounceOnFloor) {
 				DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);

@@ -24,6 +24,10 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			if(actor is Projectile) {
+				if(actor is GloveProjectile) {
+					this.DestroyBox(room, gridX, gridY);
+					return false;
+				}
 				return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 			}
 

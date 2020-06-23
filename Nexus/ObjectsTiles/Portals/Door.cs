@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 			// Only Characters interact with doors.
 			if(actor is Character == false) { return false; }
 
-			Character character = (Character)actor;
+			Character character = (Character) actor;
 
 			// Display "Interaction" Prompt for Character (draws the 'interaction' hand icon above character head)
 			//if(Systems.timer.frame16Modulus % 8 == 5) {

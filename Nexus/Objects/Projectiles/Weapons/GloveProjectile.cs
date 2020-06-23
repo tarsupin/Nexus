@@ -13,7 +13,7 @@ namespace Nexus.Objects {
 
 		public GloveProjectile() : base() {
 			this.cycleDuration = 24;
-			this.CollisionType = ProjectileCollisionType.BreakObjects;
+			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.Damage = DamageStrength.Standard;
 		}
 

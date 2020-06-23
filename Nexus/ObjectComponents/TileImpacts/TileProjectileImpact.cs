@@ -32,13 +32,6 @@ namespace Nexus.ObjectComponents {
 				return true;
 			}
 
-			// Some Projectiles can break boxes.
-			if(projectile.CollisionType == ProjectileCollisionType.BreakObjects) {
-				// TODO HIGH PRIORITY: Once we get breakable objects (instance tiles), we need to reapply here.
-				// Could set this collision directly on Box and Brick (or other breakable objects) rather than in TileProjectileImpact
-				// if(object instanceof Box || object instanceof Brick) { object.BreakApart(); }
-			}
-
 			return false;
 		}
 	}

@@ -45,6 +45,13 @@ namespace Nexus.Objects {
 
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
+			if(actor is Projectile) {
+				if(actor is GloveProjectile) {
+					this.TriggerEvent(room, gridX, gridY, (byte)LeafTriggerEvent.BreakApart);
+					return false;
+				}
+			}
+
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 
 			// If the SubType is over 20 (Untouchable), don't run any collisions. It's in an invisible and untouchable state.

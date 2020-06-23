@@ -9,7 +9,6 @@ namespace Nexus.Objects {
 		IgnoreWalls = 1,			// Passes through walls harmlessly.
 		DestroyOnCollide = 2,       // Projectile gets destroyed on collision.
 		BounceOnFloor = 3,          // Bounces on the floor.
-		BreakObjects = 4,           // Breaks objects (e.g. Boxing Glove).
 	}
 
 	public class Projectile : GameObject {
