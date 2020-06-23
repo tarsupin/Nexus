@@ -48,10 +48,10 @@ namespace Nexus.ObjectComponents {
 
 				if(dir == DirCardinal.Down) {
 					toY = (short)(character.GridY2 + 2);
-					if(character.GridY2 >= (short)(tilemap.YCount - TilemapEnum.GapDown - 2)) { return PhaseSuccess.Success; }
+					if(toY >= (short)(tilemap.YCount + (byte) TilemapEnum.GapUp - 1)) { return PhaseSuccess.Success; }
 				} else {
 					toY = (short)(character.GridY - 2);
-					if(character.GridY <= (short)(TilemapEnum.GapUp + 2)) { return PhaseSuccess.Success; }
+					if(toY <= (short)TilemapEnum.GapUp + 1) { return PhaseSuccess.Success; }
 				}
 
 				// Phase to the given location if it's open:
@@ -76,10 +76,10 @@ namespace Nexus.ObjectComponents {
 
 				if(dir == DirCardinal.Right) {
 					toX = (short)(character.GridX2 + 2);
-					if(character.GridX2 >= (short)(tilemap.XCount - TilemapEnum.GapRight - 2)) { return PhaseSuccess.Success; }
+					if(toX >= (short)(tilemap.XCount + (byte)TilemapEnum.GapLeft - 1)) { return PhaseSuccess.Success; }
 				} else {
 					toX = (short)(character.GridX - 2);
-					if(character.GridX <= (short)(TilemapEnum.GapLeft + 2)) { return PhaseSuccess.Success; }
+					if(toX <= (short)TilemapEnum.GapLeft + 1) { return PhaseSuccess.Success; }
 				}
 
 				// Phase to the given location if it's open:
