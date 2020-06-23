@@ -10,7 +10,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				byte health = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
-				ConsoleTrack.character.wounds.AddHealth(health);
+				ConsoleTrack.character.wounds.SetHealth(health);
 			}
 		}
 
@@ -20,7 +20,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				byte armor = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
-				ConsoleTrack.character.wounds.AddArmor(armor);
+				ConsoleTrack.character.wounds.SetArmor(armor);
 			}
 		}
 
