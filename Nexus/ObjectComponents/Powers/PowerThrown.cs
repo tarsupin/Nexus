@@ -29,15 +29,15 @@ namespace Nexus.ObjectComponents {
 			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -10) - 17;
 			int posY = character.posY + character.bounds.Top;
 
-			// Check if the tile placement is blocked:
-			if(this is Shuriken) {
-				TilemapLevel tilemap = this.character.room.tilemap;
+			//// Check if the tile placement is blocked:
+			//if(this is Shuriken) {
+			//	TilemapLevel tilemap = this.character.room.tilemap;
 
-				bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + (character.FaceRight ? 10 : -10), posY, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
+			//	bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + 16 + (character.FaceRight ? 6 : -6), posY + 16, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
 
-				// Prevent Throw
-				if(isBlocked) { return false; }
-			}
+			//	// Prevent Throw
+			//	if(isBlocked) { return false; }
+			//}
 
 			// Prepare Velocity
 			FInt velX = character.FaceRight ? this.xVel : this.xVel.Inverse;
