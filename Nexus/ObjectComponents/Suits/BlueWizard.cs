@@ -14,11 +14,7 @@ namespace Nexus.ObjectComponents {
 			CharacterStats stats = character.stats;
 
 			stats.CanFastCast = true;
-			stats.JumpDuration = 25;
-			stats.JumpStrength = 9;
-			stats.BaseGravity = FInt.Create(0.4);
-
-			character.physics.SetGravity(stats.BaseGravity);
+			character.stats.JumpStrength += 2;
 		}
 	}
 }
