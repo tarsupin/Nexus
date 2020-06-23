@@ -34,7 +34,7 @@ namespace Nexus.ObjectComponents {
 			// Check if the tile placement is blocked:
 			TilemapLevel tilemap = this.character.room.tilemap;
 
-			bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + (character.FaceRight ? 10 : 4), posY, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
+			bool isBlocked = CollideTile.IsBlockingCoord(tilemap, posX + 10 + (character.FaceRight ? 6 : -6), posY + 10, character.FaceRight ? DirCardinal.Right : DirCardinal.Left);
 
 			// Prevent Throw
 			if(isBlocked) { return false; }
