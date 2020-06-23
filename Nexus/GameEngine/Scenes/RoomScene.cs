@@ -145,7 +145,7 @@ namespace Nexus.GameEngine {
 				short gridX2 = character.GridX2;
 				short gridY2 = character.GridY2;
 
-				// Run Collision Tests on any tiles beneath the Character.
+				// Run Collision Tests on any tiles beneath the Character (to identify Chests, Doors, NPCs, etc).
 				CollideTile.RunGridTest(character, gridX, gridY, DirCardinal.Center);
 				
 				if(gridX != gridX2) {

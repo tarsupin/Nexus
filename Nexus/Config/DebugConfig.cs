@@ -21,7 +21,7 @@ namespace Nexus.Config {
 		public static bool Debug = true;
 
 		// Debug Settings
-		public static bool DrawDebugFrames = true;
+		public static bool DrawDebugFrames = false;
 		public static LoadOrder[] DrawDebugLoadOrders = new LoadOrder[] {
 			//LoadOrder.Character,
 			LoadOrder.Projectile,

@@ -53,7 +53,6 @@ namespace Nexus.Objects {
 			this.radius = radius;
 			this.isAlive = true;
 
-			this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			this.SetSafelyJumpOnTop(false);
 			this.SetDamage(DamageStrength.Standard);
 			this.AssignSubType(subType);
@@ -122,41 +121,48 @@ namespace Nexus.Objects {
 			if(subType == (byte) ProjectileMagiSubType.Magi) {
 				this.SetSpriteName("Projectiles/Magi");
 				this.travelDuration = (short)(this.radius * 2f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			}
 			
 			else if(subType == (byte) ProjectileMagiSubType.Magi2) {
 				this.SetSpriteName("Projectiles/Magi2");
 				this.travelDuration = (short)(this.radius * 2f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			}
 
 			// Rotates Further (+10), Slightly Faster
 			else if(subType == (byte) ProjectileMagiSubType.Fire) {
 				this.SetSpriteName("Projectiles/Fire");
 				this.travelDuration = (short)(this.radius * 1.5f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 			}
 
 			// Rotates Much Closer (-20) and Much Slower
 			else if(subType == (byte) ProjectileMagiSubType.Frost) {
 				this.SetSpriteName("Projectiles/Frost");
 				this.travelDuration = (short)(this.radius * 3.5f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 			}
 
 			// Rotates Much Further (+20), and Much Faster 
 			else if(subType == (byte) ProjectileMagiSubType.Electric) {
 				this.SetSpriteName("Projectiles/Electric");
 				this.travelDuration = (short)(this.radius * 1.2f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 			}
 
 			// Rotates Slower
 			else if(subType == (byte) ProjectileMagiSubType.Poison) {
 				this.SetSpriteName("Projectiles/Poison");
 				this.travelDuration = (short)(this.radius * 2.6f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 			}
 
 			// Rotates Closer (-10) and Slower
 			else if(subType == (byte) ProjectileMagiSubType.Water) {
 				this.SetSpriteName("Projectiles/Water");
 				this.travelDuration = (short)(this.radius * 2.8f);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 			}
 		}
 

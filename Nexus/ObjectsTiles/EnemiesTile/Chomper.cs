@@ -35,11 +35,8 @@ namespace Nexus.Objects {
 					this.DestroyChomper(room, gridX, gridY);
 				}
 
-				// Don't destroy the projectile if it ignores wall.
-				if(proj.CollisionType == ProjectileCollisionType.IgnoreWallsSurvive) { return false; }
-
-				// Have to destroy projectile afterward, since it can affect projectile strength if it has unique death properties.
-				proj.Destroy(dir);
+				// Don't destroy the projectile if it ignores walls.
+				if(proj.CollisionType != ProjectileCollisionType.IgnoreWallsSurvive || proj is ProjectileMagi) { proj.Destroy(dir); ; }
 
 				return true;
 			}

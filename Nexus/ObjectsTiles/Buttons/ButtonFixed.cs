@@ -29,6 +29,11 @@ namespace Nexus.Objects {
 			// Hit Button
 			if(newDir == DirCardinal.Down) {
 				if(actor is Character) {
+
+					// Since Character has an addditional overlay test (for Doors, NPCs, etc), must shift 1 pixel to avoid a second conflict this frame.
+					// See RoomScene.RunTickForCharacterGroup() to understand. Moving up one pixel prevents newDir from returning DirCardinal.Down.
+					actor.physics.MoveToPosY(actor.posY - 1);
+
 					ActionMap.Jump.StartAction((Character)actor, 5, 0, 4, true);
 				}
 

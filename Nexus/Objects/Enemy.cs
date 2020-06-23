@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);
 
 			// Destroy the Projectile (unless it ignores walls)
-			if(projectile.CollisionType != ProjectileCollisionType.IgnoreWallsSurvive) { projectile.Destroy(dir); }
+			if(projectile.CollisionType != ProjectileCollisionType.IgnoreWallsSurvive || projectile is ProjectileMagi) { projectile.Destroy(dir); }
 
 			// Wound the Enemy
 			if(!canResist) { this.ReceiveWound(); }
