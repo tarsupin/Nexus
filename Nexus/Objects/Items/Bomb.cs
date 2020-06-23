@@ -28,6 +28,11 @@ namespace Nexus.Objects {
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(4, 4, -4, 0);
+
+			// Is Active
+			if(paramList != null && paramList.ContainsKey("on")) {
+				this.BeginTimer();
+			}
 		}
 
 		private void AssignSubType(byte subType) {
@@ -122,8 +127,8 @@ namespace Nexus.Objects {
 			// Destroy Certain Tiles Within Area of Effect
 			short startX = (short)Math.Max(0, gridX - 3);
 			short startY = (short)Math.Max(0, gridY - 2);
-			short endX = (short)Math.Min(tilemap.XCount, gridX + 3);
-			short endY = (short)Math.Min(tilemap.YCount, gridY + 2);
+			short endX = (short)Math.Min(tilemap.XCount + (byte)TilemapEnum.GapLeft - 1, gridX + 3);
+			short endY = (short)Math.Min(tilemap.YCount + (byte)TilemapEnum.GapUp - 1, gridY + 2);
 
 			// Locate Tiles: Chompers, Boxes, Bricks, Leafs, etc.
 			var tilesFound = tilemap.GetTilesByMainIDsWithinArea(new byte[7] { (byte)TileEnum.ChomperFire, (byte)TileEnum.ChomperGrass, (byte)TileEnum.ChomperMetal, (byte)TileEnum.Plant, (byte)TileEnum.Box, (byte)TileEnum.Brick, (byte)TileEnum.Leaf }, startX, startY, endX, endY);

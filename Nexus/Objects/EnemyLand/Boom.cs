@@ -3,6 +3,7 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
+using static Nexus.Objects.Bomb;
 
 namespace Nexus.Objects {
 
@@ -47,10 +48,11 @@ namespace Nexus.Objects {
 			this.Destroy(); // Can automatically destroy Boom, since it gets replaced with an item.
 			Systems.sounds.thudWhop.Play();
 
-			// TODO HIGH PRIORITY: Uncomment once "Bomb" item is created.
 			// Create Bomb in Boom's Place
-			//Bomb bomb = new Bomb(this.scene, BombSubType.Bomb, this.posX, this.posY);
-			//this.scene.AddToObjects(bomb);
+			Bomb bomb = new Bomb(this.room, (byte) BombSubType.Bomb, FVector.Create(this.posX, this.posY), new Dictionary<string, short>() { { "on", 1 } });
+			room.AddToScene(bomb, true);
+
+			ActionMap.Jump.StartAction(character, 0, 0, 2, true, false);
 
 			return true;
 		}

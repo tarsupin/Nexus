@@ -134,12 +134,6 @@ namespace Nexus.Gameplay {
 			bool hasType = mapper.ObjectTypeDict.TryGetValue(objectId, out classType);
 			if(!hasType || classType == null) { return; }
 
-			// Special Pre-Generation Rules. 
-			//if(classType.GetMethod("PreGenerate") != null) {
-			//	classType.GetMethod("PreGenerate", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { room, (byte)subType, (FVector)pos, (Dictionary<string, short>) paramList });
-			//	return;
-			//}
-
 			// Create Object
 			GameObject gameObj = (GameObject) Activator.CreateInstance(classType, new object[] { room, (byte) subType, (FVector) pos, (Dictionary<string, short>) paramList });
 
@@ -148,11 +142,6 @@ namespace Nexus.Gameplay {
 				room.AddToScene((GameObject) gameObj, true);
 			}
 		}
-
-		// TODO HIGH PRIORITY: See generateCharacter() in LevelGenerator.ts
-		//public void GenerateCharacter( FVector pos ) {
-
-		//}
 
 		public static void DetectRoomSize(RoomFormat roomData, out short xCount, out short yCount) {
 

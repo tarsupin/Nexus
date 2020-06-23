@@ -21,8 +21,9 @@ namespace Nexus.ObjectComponents {
 			CharacterStatus status = character.status;
 			CharacterStats stats = character.stats;
 
-			// If falling, must have at least one jump strain (to account for extra jump otherwise)
 			if(resetJumps) { status.jumpsUsed = 0; }
+
+			// If falling, must have at least one jump strain (to account for extra jump otherwise)
 			else if(!character.physics.touch.toFloor && status.jumpsUsed < 1) { status.jumpsUsed = 1; }
 
 			// If you've spent more jumps than you have available, cannot jump again.

@@ -3,6 +3,7 @@ using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System.Collections.Generic;
+using static Nexus.Objects.Shell;
 
 namespace Nexus.Objects {
 
@@ -62,10 +63,9 @@ namespace Nexus.Objects {
 
 			this.Destroy();
 
-			// TODO HIGH PRIORITY: Uncomment once "Shell" item is created.
 			// Create Shell In Turtle's Place
-			//Shell shell = new Shell(this.scene, ShellSubType.Red, this.posX, this.posY);
-			//this.scene.AddToObjects(shell);
+			Shell shell = new Shell(this.room, (byte)ShellSubType.Red, FVector.Create(this.posX, this.posY), null);
+			room.AddToScene(shell, true);
 
 			return true;
 		}
