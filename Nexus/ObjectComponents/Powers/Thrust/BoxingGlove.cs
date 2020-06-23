@@ -23,10 +23,10 @@ namespace Nexus.ObjectComponents {
 			Character character = this.character;
 
 			// Determine Starting Position of Projectile relative to Character
-			int startX = character.posX + character.bounds.MidX + (this.character.FaceRight ? 0 : -62); // 62 is BoxGlove Width
+			int startX = character.posX + character.bounds.MidX + (this.character.FaceRight ? -20 : -42); // 62 is BoxGlove Width
 			int startY = character.posY + character.bounds.MidY - 24; // Y Offset
 
-			sbyte velX = (this.character.FaceRight ? (sbyte)18 : (sbyte)-18);
+			sbyte velX = (this.character.FaceRight ? (sbyte)13 : (sbyte)-13);
 
 			this.sound.Play();
 
@@ -39,7 +39,7 @@ namespace Nexus.ObjectComponents {
 		public virtual void Launch(GameObject actor, int startX, int startY, sbyte velX) {
 			var projectile = GloveProjectile.Create(actor.room, this.subType, FVector.Create(startX, startY), FVector.Create(velX, 0));
 			projectile.SetActorID(actor);
-			projectile.SetEndLife(Systems.timer.Frame + 8);
+			projectile.SetEndLife(Systems.timer.Frame + 10);
 		}
 	}
 }
