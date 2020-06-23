@@ -9,24 +9,24 @@ namespace Nexus.Objects {
 		White
 	}
 
-	public class GloveProjectile : ThrustProjectile {
+	public class GloveProjectile : Projectile {
 
-		public GloveProjectile() : base() {
-			this.cycleDuration = 24;
+		public GloveProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
 			this.Damage = DamageStrength.Standard;
+			this.physics.SetGravity(FInt.Create(0));
+			this.spinRate = 0f;
 		}
 
-		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector endPos) {
+		public static GloveProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {
 
 			// Retrieve an available projectile from the pool.
 			GloveProjectile projectile = ProjectilePool.GloveProjectile.GetObject();
 
-			projectile.ResetProjectile(room, subType, pos, FVector.Create(0, 0));
-			projectile.ResetThrustProjectile(endPos);
+			projectile.ResetProjectile(room, subType, pos, velocity);
 			projectile.AssignSubType(subType);
 			projectile.AssignBoundsByAtlas(5, 5, -5, -5); // Reduce Bounds (otherwise it appears to hit too much, too quickly)
-			projectile.rotation = projectile.endPos.X > projectile.posX ? 0 : Radians.Rotate180;
+			projectile.rotation = projectile.physics.velocity.X > 0 ? 0 : Radians.Rotate180;
 
 			// Add the Projectile to Scene
 			room.AddToScene(projectile, false);
