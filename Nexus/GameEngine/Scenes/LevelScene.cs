@@ -231,6 +231,7 @@ namespace Nexus.GameEngine {
 			FlagJson checkpoint = levelState.checkpoint;
 
 			if(checkpoint.active) {
+				levelState.checkpoint.active = false;
 				ActionMap.Transport.StartAction(Systems.localServer.MyCharacter, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
 			}
 		}
