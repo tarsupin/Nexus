@@ -9,7 +9,7 @@ namespace Nexus.ObjectComponents {
 		public static bool RunImpact(Projectile projectile, short gridX, short gridY, DirCardinal dir = DirCardinal.None) {
 
 			// Some Projectiles get to ignore walls.
-			if(projectile.CollisionType == ProjectileCollisionType.IgnoreWalls) {
+			if(projectile.CollisionType <= ProjectileCollisionType.IgnoreWallsDestroy) {
 				return false;
 			}
 

@@ -36,7 +36,7 @@ namespace Nexus.Objects {
 				}
 
 				// Don't destroy the projectile if it ignores wall.
-				if(proj.CollisionType == ProjectileCollisionType.IgnoreWalls) { return false; }
+				if(proj.CollisionType == ProjectileCollisionType.IgnoreWallsSurvive) { return false; }
 
 				// Have to destroy projectile afterward, since it can affect projectile strength if it has unique death properties.
 				proj.Destroy(dir);

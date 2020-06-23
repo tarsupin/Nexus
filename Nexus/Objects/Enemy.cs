@@ -51,14 +51,14 @@ namespace Nexus.Objects {
 			bool canResist = this.CanResistDamage(projectile.Damage);
 
 			// If the projectile typicallly passes through walls, allow it to pass through indestructable enemies.
-			if(canResist && projectile.CollisionType == ProjectileCollisionType.IgnoreWalls) {
+			if(canResist && projectile.CollisionType <= ProjectileCollisionType.IgnoreWallsDestroy) {
 				return false;
 			}
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(projectile, this);
 
-			// Destroy the Projectile
-			projectile.Destroy(dir);
+			// Destroy the Projectile (unless it ignores walls)
+			if(projectile.CollisionType != ProjectileCollisionType.IgnoreWallsSurvive) { projectile.Destroy(dir); }
 
 			// Wound the Enemy
 			if(!canResist) { this.ReceiveWound(); }

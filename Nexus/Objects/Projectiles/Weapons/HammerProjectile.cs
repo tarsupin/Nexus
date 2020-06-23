@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 
 		public HammerProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.Damage = DamageStrength.Major;
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.CollisionType = ProjectileCollisionType.IgnoreWallsSurvive;
 			this.physics.SetGravity(FInt.Create(0.45));
 			this.SetSpriteName("Weapon/Hammer");
 		}

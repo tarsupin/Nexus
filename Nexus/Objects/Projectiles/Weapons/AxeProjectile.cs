@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 		public AxeProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.Damage = DamageStrength.Lethal;
 			this.physics.SetGravity(FInt.Create(0.45));
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.CollisionType = ProjectileCollisionType.IgnoreWallsSurvive;
 		}
 
 		public static AxeProjectile Create(RoomScene room, byte subType, FVector pos, FVector velocity) {

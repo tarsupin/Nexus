@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 
 		public ChakramProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.Damage = DamageStrength.Major;
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.CollisionType = ProjectileCollisionType.IgnoreWallsSurvive;
 			this.SetSpriteName("Weapon/Chakram");
 		}
 

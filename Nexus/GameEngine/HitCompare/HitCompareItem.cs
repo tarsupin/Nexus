@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 		public bool ItemHitsProjectile(Item item, Projectile projectile) {
 
 			// The projectile ignores items if it ignores walls or breaks through objects:
-			if(projectile.CollisionType == ProjectileCollisionType.IgnoreWalls) {
+			if(projectile.CollisionType == ProjectileCollisionType.IgnoreWallsSurvive) {
 				return false;
 			}
 

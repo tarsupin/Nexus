@@ -15,7 +15,7 @@ namespace Nexus.Objects {
 		public void ResetThrustProjectile(FVector endPos) {
 			this.endPos = endPos;
 			this.Damage = DamageStrength.Major;
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.CollisionType = ProjectileCollisionType.IgnoreWallsSurvive;
 			this.startFrame = Systems.timer.Frame;
 			this.SetEndLife(startFrame + this.cycleDuration);
 		}

@@ -54,12 +54,12 @@ namespace Nexus.Objects {
 
 			else if(subType == (byte) ProjectileEnemySubType.Magic) {
 				this.SetSpriteName("Projectiles/Magi");
-				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			}
 
 			else if(subType == (byte) ProjectileEnemySubType.BoltBlue) {
 				this.SetSpriteName("Projectiles/Bolt");
-				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsDestroy);
 				this.spinRate = 0;
 			}
 		}

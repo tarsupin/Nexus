@@ -7,7 +7,7 @@ namespace Nexus.Objects {
 
 		public ProjectileBullet() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
 			this.SetActivity(Activity.NoTileCollide);
-			this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			this.SetSafelyJumpOnTop(true);
 			this.SetSpriteName("Projectiles/Bullet");
 		}

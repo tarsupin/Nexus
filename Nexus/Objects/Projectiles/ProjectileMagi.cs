@@ -53,7 +53,7 @@ namespace Nexus.Objects {
 			this.radius = radius;
 			this.isAlive = true;
 
-			this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+			this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			this.SetSafelyJumpOnTop(false);
 			this.SetDamage(DamageStrength.Standard);
 			this.AssignSubType(subType);

@@ -12,7 +12,7 @@ namespace Nexus.Objects {
 	public class GloveProjectile : Projectile {
 
 		public GloveProjectile() : base(null, 0, FVector.Create(0, 0), FVector.Create(0, 0)) {
-			this.CollisionType = ProjectileCollisionType.IgnoreWalls;
+			this.CollisionType = ProjectileCollisionType.IgnoreWallsSurvive;
 			this.Damage = DamageStrength.Standard;
 			this.physics.SetGravity(FInt.Create(0));
 			this.spinRate = 0f;

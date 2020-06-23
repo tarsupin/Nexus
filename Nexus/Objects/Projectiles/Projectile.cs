@@ -6,9 +6,10 @@ using Nexus.ObjectComponents;
 namespace Nexus.Objects {
 
 	public enum ProjectileCollisionType {
-		IgnoreWalls = 1,			// Passes through walls harmlessly.
-		DestroyOnCollide = 2,       // Projectile gets destroyed on collision.
-		BounceOnFloor = 3,          // Bounces on the floor.
+		IgnoreWallsSurvive = 1,		// Passes through walls harmlessly, survives indefinitely.
+		IgnoreWallsDestroy = 2,		// Passes through walls harmlessly, but destroys on collision.
+		DestroyOnCollide = 3,       // Projectile gets destroyed on collision.
+		BounceOnFloor = 4,          // Bounces on the floor.
 	}
 
 	public class Projectile : GameObject {

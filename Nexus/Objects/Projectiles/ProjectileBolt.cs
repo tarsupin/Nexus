@@ -39,11 +39,11 @@ namespace Nexus.Objects {
 
 			} else if(subType == (byte) ProjectileBoltSubType.Green) {
 				this.SetSpriteName("Projectiles/BoltGreen");
-				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 
 			} else if(subType == (byte) ProjectileBoltSubType.Gold) {
 				this.SetSpriteName("Projectiles/BoltGold");
-				this.SetCollisionType(ProjectileCollisionType.IgnoreWalls);
+				this.SetCollisionType(ProjectileCollisionType.IgnoreWallsSurvive);
 			}
 		}
 
