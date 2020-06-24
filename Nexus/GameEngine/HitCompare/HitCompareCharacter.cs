@@ -1,4 +1,5 @@
-﻿using Nexus.Config;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
@@ -104,10 +105,7 @@ namespace Nexus.GameEngine {
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(character, projectile);
 
 			// Set the projectile to bounce off of the screen:
-			// TODO: Alter this to a particle effect.
-			//projectile.physics.SetGravity(FInt.Create(1));
-			//projectile.BounceUp(character.posX + character.bounds.MidX, dir == DirCardinal.Up ? (sbyte)4 : (sbyte)0);
-			//projectile.SetIntangible(true);
+			EndBounceParticle.SetParticle(character.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], projectile.SpriteName, new Vector2(projectile.posX, projectile.posY), Systems.timer.Frame + 40, 1, 0.5f, 0f);
 
 			// Destroy the Projectile
 			projectile.Destroy();
@@ -117,7 +115,8 @@ namespace Nexus.GameEngine {
 
 				// Hit from above (projectile is below):
 				if(dir == DirCardinal.Down) {
-					character.BounceUp(projectile.posX + projectile.bounds.MidX, 1, 0, 0);
+					//character.BounceUp(projectile.posX + projectile.bounds.MidX, 1, 0, 0);
+					ActionMap.Jump.StartAction(character, 1, 0, 0, true, false);
 					Systems.sounds.bulletJump.Play();
 					return true;
 				}
