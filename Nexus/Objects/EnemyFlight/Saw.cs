@@ -15,6 +15,9 @@ namespace Nexus.Objects {
 
 	public class Saw : EnemyFlight {
 
+		public float spinRate;          // The rate of rotation, if applicable.
+		public float rotation;
+
 		public DamageStrength Damage;
 
 		public Saw(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
@@ -30,6 +33,12 @@ namespace Nexus.Objects {
 			this.Damage = DamageStrength.Standard;
 
 			this.AssignSubType(subType);
+		}
+
+		public override void RunTick() {
+			if(this.behavior is Behavior) { this.behavior.RunTick(); }
+			this.physics.RunPhysicsTick();
+			this.rotation += 0.05f;
 		}
 
 		private void AssignSubType( byte subType ) {
@@ -53,6 +62,10 @@ namespace Nexus.Objects {
 		public override bool RunCharacterImpact(Character character) {
 			character.wounds.ReceiveWoundDamage(this.Damage);
 			return true;
+		}
+
+		public override void Draw(int camX, int camY) {
+			this.Meta.Atlas.DrawAdvanced(this.SpriteName, this.posX - camX, this.posY - camY, null, this.rotation);
 		}
 	}
 }
