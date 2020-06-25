@@ -55,7 +55,7 @@ namespace Nexus.Objects {
 
 			// Prepare Projectile Details
 			byte count = paramList.ContainsKey("count") ? (byte)paramList["count"] : (byte) 1;
-			float grav = (float)((paramList.ContainsKey("grav") ? paramList["grav"] : 100) * 0.01);
+			float grav = (float)((paramList.ContainsKey("grav") ? paramList["grav"] : 0) * 0.01);
 
 			short attackX = 0;
 			short attackY = 0;

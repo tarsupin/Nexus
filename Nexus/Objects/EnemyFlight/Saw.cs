@@ -44,18 +44,18 @@ namespace Nexus.Objects {
 		private void AssignSubType( byte subType ) {
 			if(subType == (byte)SawSubType.Small) {
 				this.SpriteName = "Saw/Small";
-				this.AssignBoundsByAtlas(6, 6, -6, -6);
+				this.AssignBoundsByAtlas(2, 2, -2, -2);
 			} else if(subType == (byte) SawSubType.Large) {
 				this.SpriteName = "Saw/Large";
-				this.AssignBoundsByAtlas(12, 12, -12, -12);
+				this.AssignBoundsByAtlas(2, 2, -2, -2);
 			} else if(subType == (byte) SawSubType.LethalSmall) {
-				this.Damage = DamageStrength.Lethal;
+				this.Damage = DamageStrength.InstantKill;
 				this.SpriteName = "Saw/Lethal";
-				this.AssignBoundsByAtlas(6, 6, -6, -6);
+				this.AssignBoundsByAtlas(2, 2, -2, -2);
 			} else if(subType == (byte) SawSubType.LethalLarge) {
-				this.Damage = DamageStrength.Lethal;
+				this.Damage = DamageStrength.InstantKill;
 				this.SpriteName = "Saw/LethalLarge";
-				this.AssignBoundsByAtlas(12, 12, -12, -12);
+				this.AssignBoundsByAtlas(2, 2, -2, -2);
 			}
 		}
 

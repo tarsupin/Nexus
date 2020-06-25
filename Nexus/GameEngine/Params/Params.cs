@@ -130,7 +130,7 @@ namespace Nexus.GameEngine {
 
 		public ParamsAttack() {
 			this.rules.Add(new FrameParam("cycle", "Attack Frequency", 60, 300, 15, DefaultCycle, " frames"));	// Frequency of the attack (in frames).
-			this.rules.Add(new FrameParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));                   // The offset of the frequency on the global time.
+			this.rules.Add(new FrameParam("offset", "Timer Offset", 0, 300, 15, 0, " frames"));					// The offset of the frequency on the global time.
 			this.rules.Add(new PercentParam("grav", "Gravity Influence", 0, 200, 10, 0, FInt.Create(0.5)));		// The percent that gravity influences the projectile.
 			this.rules.Add(new PercentParam("speed", "Attack Speed", 20, 200, 10, 100, FInt.Create(4)));		// Velocity of the bolts (Y-axis).
 		}

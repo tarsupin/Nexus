@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System.Collections.Generic;
