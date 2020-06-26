@@ -84,6 +84,7 @@
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Particles\ParticleFree.cs" />
+    <Compile Include="Engine\WebHandler.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
     <Compile Include="GameEngine\Console\EditorConsoles\ConsoleLevelData.cs" />
