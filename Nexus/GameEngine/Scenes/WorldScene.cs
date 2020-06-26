@@ -187,6 +187,9 @@ namespace Nexus.GameEngine {
 			// If a node is not located here, something is wrong.
 			if(!isNode) { throw new Exception("Arrived at a destination that was not indicated as a node. That should not be possible."); }
 
+			// Update the Campaign's Position
+			this.campaign.SetPosition(gridX, gridY, (byte) this.character.lastDir);
+
 			// Check if Node type is Automatic Travel Dot.
 			if(isAutoDot) {
 
