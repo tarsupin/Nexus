@@ -95,10 +95,10 @@ namespace Nexus.Gameplay {
 
 		public void SetUpgradesByCharacter(Character character) {
 			this.SetUpgrades(
-				character.suit.subType,
-				character.hat.subType,
-				character.attackPower.subType,
-				character.mobilityPower.subType,
+				character.suit == null ? (byte) 0 : character.suit.subType,
+				character.hat == null ? (byte) 0 : character.hat.subType,
+				character.attackPower == null ? (byte) 0 : character.attackPower.subType,
+				character.mobilityPower == null ? (byte) 0 : character.mobilityPower.subType,
 				character.wounds.Health,
 				character.wounds.Armor
 			);
@@ -124,13 +124,12 @@ namespace Nexus.Gameplay {
 				this.levelStatus.Add(this.zoneId, new Dictionary<string, CampaignLevelStatus>());
 			}
 
-			Dictionary<string, CampaignLevelStatus> levels = this.levelStatus[this.zoneId];
-
-			if(!levels.ContainsKey(levelId)) {
-				levels.Add(levelId, new CampaignLevelStatus());
+			// Mark the level as completed:
+			if(!this.levelStatus[this.zoneId].ContainsKey(levelId)) {
+				this.levelStatus[this.zoneId].Add(levelId, new CampaignLevelStatus());
 			}
 
-			levels[levelId].won = true;
+			this.levelStatus[this.zoneId][levelId].won = true;
 
 			// Save Campaign (to Local Storage)
 			this.SaveCampaign();
@@ -163,6 +162,9 @@ namespace Nexus.Gameplay {
 				hat = this.hat,
 				powerAtt = this.powerAtt,
 				powerMob = this.powerMob,
+				
+				// Nodes Completed / Status
+				levelStatus = this.levelStatus,
 			};
 
 			// Save State
@@ -171,7 +173,6 @@ namespace Nexus.Gameplay {
 		}
 
 		public void LoadCampaign( string worldId, StartNodeFormat start ) {
-
 			string json = this.handler.GameStateRead("Campaign/" + worldId);
 
 			// If there is no JSON content, load an empty state:

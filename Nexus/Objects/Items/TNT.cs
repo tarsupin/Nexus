@@ -39,8 +39,8 @@ namespace Nexus.Objects {
 
 		public static void DetonateTNT(Character character) {
 			int posX = Math.Min(Math.Max(0, character.posX - 800), character.room.tilemap.InnerWidth - 1600);
-			int posY = Math.Min(Math.Max(0, character.posY - 500), character.room.tilemap.InnerHeight - 1000);
-			TNT.DetonateTNT(character.room, posX, posY, 1600, 1000);
+			int posY = Math.Min(Math.Max(0, character.posY - 600), character.room.tilemap.InnerHeight - 900);
+			TNT.DetonateTNT(character.room, posX, posY, 1600, 1200);
 		}
 
 		public static void DetonateTNT(RoomScene room, int posX, int posY, short width, short height) {

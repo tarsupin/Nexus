@@ -1,6 +1,7 @@
 ﻿
 using Newtonsoft.Json;
 using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Objects;
 using System;
 
@@ -78,11 +79,13 @@ namespace Nexus.Gameplay {
 			if(campaign.worldId.Length > 0) {
 				campaign.SetUpgradesByCharacter(character);
 				campaign.ProcessLevelCompletion(this.levelId);
+				SceneTransition.ToWorld(campaign.worldId);
+				return;
 			}
 
-			// If you're in a campaign, update the level completion:
-			// TODO
-			//Systems.handler.campaignState.ProcessLevelCompletion();
+			// If we arrive here, there was no world to return to.
+			// TODO URGEN: Figure out what to do here.
+			// Original: this.game.menu.loadLevelComplete();
 		}
 
 		// Time Reset
