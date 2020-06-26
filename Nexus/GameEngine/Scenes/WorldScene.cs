@@ -346,7 +346,7 @@ namespace Nexus.GameEngine {
 				int tileYPos = y * (byte)WorldmapEnum.TileHeight - camY;
 
 				for(byte x = gridX; x-- > startX;) {
-					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos);
+					this.DrawWorldTile(curTiles[y][x], x * (byte)WorldmapEnum.TileWidth - camX, tileYPos, x, y);
 				};
 			}
 
@@ -358,8 +358,8 @@ namespace Nexus.GameEngine {
 			Systems.worldConsole.Draw();
 		}
 
-		// NOTE: This is a duplicate of World Editor (probably). Just need to add "Atlas".
-		public void DrawWorldTile(byte[] wtData, int posX, int posY) {
+		// NOTE: This is ROUGHLY a duplicate of World Editor (probably). Just need to add "Atlas".
+		public void DrawWorldTile(byte[] wtData, int posX, int posY, byte gridX, byte gridY) {
 
 			// Draw Water / Coastline (special behavior)
 			if(wtData[0] == (byte)OTerrain.Water) {
@@ -394,6 +394,20 @@ namespace Nexus.GameEngine {
 			// Draw Object Layer [5]
 			if(wtData[5] != 0) {
 				if(WorldObjects.ContainsKey(wtData[5])) {
+
+					// If a level is marked as completed, draw a "NodeWon" instead of "NodeCasual" or "NodeStrict"
+					if(wtData[5] == (byte)OTerrainObjects.NodeCasual || wtData[5] == (byte)OTerrainObjects.NodeStrict) {
+
+						// Identify Level Data at this node:
+						int coordId = Coords.MapToInt(gridX, gridY);
+						string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
+						
+						if(this.campaign.IsLevelWon(this.campaign.zoneId, levelId)) {
+							this.atlas.Draw("Objects/" + WorldObjects[(byte)OTerrainObjects.NodeWon], posX, posY);
+							return;
+						}
+					}
+
 					this.atlas.Draw("Objects/" + WorldObjects[wtData[5]], posX, posY);
 				}
 			}

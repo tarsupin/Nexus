@@ -183,7 +183,7 @@ namespace Nexus.GameEngine {
 			return (false, 0, 0);
 		}
 
-		public static (bool hasNode, byte gridX, byte gridY) LocateNearestNode(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir, byte range = 4) {
+		public static (bool hasNode, byte gridX, byte gridY) LocateNearestNode(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir, byte range = 5) {
 			(bool hasNode, byte gridX, byte gridY) tuple = (hasNode: false, gridX: 0, gridY: 0);
 
 			// Vertical UP Node Scan - Scans for any nodes above this location.

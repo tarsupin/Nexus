@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateWorldFuncButton() {
 			Systems.handler.worldContent.SaveWorld();
-			SceneTransition.ToLevel("", ((WEScene) Systems.scene).worldContent.worldId);
+			SceneTransition.ToWorld(((WEScene)Systems.scene).worldContent.worldId);
 		}
 	}
 }
