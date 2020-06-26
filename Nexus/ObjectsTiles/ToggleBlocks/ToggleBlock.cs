@@ -36,6 +36,9 @@ namespace Nexus.Objects {
 			if(this.isToggleBox || ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) {
 
 				if(actor is Projectile) {
+					if(actor is ShurikenProjectile) {
+						room.colors.ToggleColor(this.toggleBR);
+					}
 					return TileProjectileImpact.RunImpact((Projectile)actor, gridX, gridY, dir);
 				}
 

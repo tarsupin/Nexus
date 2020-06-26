@@ -43,10 +43,10 @@ namespace Nexus.ObjectComponents {
 
 			// If the actor has begun falling (i.e. after the countdown concludes).
 			if(this.isFalling) {
-				if(this.physics.velocity.Y > 6) {
-					this.physics.velocity.Y = FInt.Create(6);
+				if(this.physics.velocity.Y > 9) {
+					this.physics.velocity.Y = FInt.Create(9);
 				} else {
-					this.physics.velocity.Y += FInt.Create(0.05);
+					this.physics.velocity.Y += FInt.Create(0.12);
 					this.physics.velocity.X *= FInt.Create(0.99);
 				}
 			}

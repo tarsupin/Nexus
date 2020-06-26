@@ -6,6 +6,8 @@ namespace Nexus.GameEngine {
 
 	public class ParamsFlight : Params {
 
+		public const byte MoveFlightDuration = 240;
+
 		public ParamsFlight() {
 			ParamsFlight.ApplyRules(ref this.rules);
 		}
@@ -13,7 +15,7 @@ namespace Nexus.GameEngine {
 		public static void ApplyRules(ref List<ParamGroup> rules) {
 			rules.Add(new LabeledParam("fly", "Movement Type", new string[6] { "None", "Axis", "Quadratic", "Circle", "To Direction", "Follows Track", }, (byte)FlightMovement.None));
 
-			rules.Add(new FrameParam("duration", "Move Duration", 60, 3600, 15, 240, " frames"));
+			rules.Add(new FrameParam("duration", "Move Duration", 60, 3600, 15, ParamsFlight.MoveFlightDuration, " frames"));
 			rules.Add(new FrameParam("durOffset", "Timer Offset", 0, 3600, 15, 0, " frames"));
 
 			rules.Add(new IntParam("x", "X Movement", -20, 20, 1, 0, " tiles(s)"));

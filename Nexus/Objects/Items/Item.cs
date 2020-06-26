@@ -48,6 +48,7 @@ namespace Nexus.Objects {
 			
 			// If Item is not being held, run Standard Physics.
 			else {
+				if(this.physics.velocity.Y.ToInt() > 16) { this.physics.velocity.Y = FInt.Create(16); }
 				this.physics.RunPhysicsTick();
 			}
 

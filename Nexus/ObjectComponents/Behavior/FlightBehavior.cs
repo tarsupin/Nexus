@@ -8,8 +8,6 @@ namespace Nexus.ObjectComponents {
 
 	public class FlightBehavior : Behavior {
 
-		public const byte MoveFlightDuration = 180;
-
 		protected Physics physics;			// Reference to the actor's physics.
 
 		// Motion Flags
@@ -27,11 +25,10 @@ namespace Nexus.ObjectComponents {
 
 		public FlightBehavior( GameObject actor, Dictionary<string, short> paramList) : base(actor) {
 			if(paramList == null) { paramList = new Dictionary<string, short>(); }
+
 			this.physics = actor.physics;
-
 			this.reverse = paramList.ContainsKey("reverse") ? paramList["reverse"] == 1 : false;
-
-			this.duration = paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) FlightBehavior.MoveFlightDuration;
+			this.duration = paramList.ContainsKey("duration") ? (short) paramList["duration"] : (short) ParamsFlight.MoveFlightDuration;
 			this.offset = paramList.ContainsKey("durOffset") ? (short) paramList["durOffset"] : (short) 0;
 
 			// Positions
