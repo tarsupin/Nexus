@@ -6,6 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class TopHat : Hat {
 
 		public TopHat() : base(HatRank.PowerHat) {
+			this.subType = (byte)HatSubType.TopHat;
 			this.SpriteName = "Hat/TopHat";
 			this.subStr = "top";
 		}

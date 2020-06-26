@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 	public class SlamMobility : PowerMobility {
 
 		public SlamMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Slam;
 			this.IconTexture = "Power/Slam";
 			this.subStr = "slam";
 			this.SetActivationSettings(30, 1, 30);

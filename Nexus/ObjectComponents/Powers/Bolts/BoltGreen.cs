@@ -9,6 +9,8 @@ namespace Nexus.ObjectComponents {
 	public class BoltGreen : PowerBolt {
 
 		public BoltGreen( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.BoltGreen;
+			this.projSubType = (byte)ProjectileBoltSubType.Green;
 			this.IconTexture = "Weapon/BoltGreen";
 			this.subStr = "green";
 			this.SetActivationSettings(96, 3, 17);

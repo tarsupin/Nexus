@@ -6,7 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class PowerAttack : Power {
 
 		public string baseStr { get; protected set; }
-		protected byte subType;
+		protected byte projSubType; // The subtype of the projectile.
 		protected SoundEffect sound;
 
 		public PowerAttack( Character character ) : base( character ) {

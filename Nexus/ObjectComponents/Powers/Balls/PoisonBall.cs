@@ -7,7 +7,8 @@ namespace Nexus.ObjectComponents {
 	public class PoisonBall : PowerBall {
 
 		public PoisonBall( Character character ) : base( character ) {
-			this.subType = (byte) ProjectileBallSubType.Poison;
+			this.subType = (byte)PowerSubType.Poison;
+			this.projSubType = (byte) ProjectileBallSubType.Poison;
 			this.IconTexture = "Power/Slime";
 			this.baseStr = "magic";
 			this.subStr = "poison";

@@ -71,6 +71,7 @@ namespace Nexus.ObjectComponents {
 		// References
 		protected readonly Character character;
 
+		public byte subType; // The subtype of the power (e.g. "Axe", "Sword", "Slam", "Phase", etc)
 		public string IconTexture { get; protected set; }	// The texture path for the Power Icon (e.g. "Power/" + this.pool)
 		public string subStr { get; protected set; }
 

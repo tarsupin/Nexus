@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 	public class TeleportMobility : PowerMobility {
 
 		public TeleportMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Teleport;
 			this.IconTexture = "Power/Teleport";
 			this.subStr = "teleport";
 			this.SetActivationSettings(180, 1, 180);

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Nexus.ObjectComponents;
+using Nexus.Objects;
 using System.Collections.Generic;
 
 namespace Nexus.Gameplay {
@@ -52,7 +53,7 @@ namespace Nexus.Gameplay {
 			this.SetPosition(0, 0, (byte) DirCardinal.None);
 			this.SetLives();
 			this.SetWounds();
-			this.SetEquipment();
+			this.SetUpgrades(0, 0, 0, 0, 0, 0);
 			this.SetLevelStatus(new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>());
 		}
 
@@ -83,11 +84,24 @@ namespace Nexus.Gameplay {
 			this.head = head;
 		}
 
-		public void SetEquipment(byte suit = 0, byte hat = 0, byte powerAtt = 0, byte powerMob = 0) {
+		public void SetUpgrades(byte suit, byte hat, byte att, byte mob, byte health, byte armor) {
 			this.suit = suit;
 			this.hat = hat;
-			this.powerAtt = powerAtt;
-			this.powerMob = powerMob;
+			this.powerAtt = att;
+			this.powerMob = mob;
+			this.health = health;
+			this.armor = armor;
+		}
+
+		public void SetUpgradesByCharacter(Character character) {
+			this.SetUpgrades(
+				character.suit.subType,
+				character.hat.subType,
+				character.attackPower.subType,
+				character.mobilityPower.subType,
+				character.wounds.Health,
+				character.wounds.Armor
+			);
 		}
 
 		public void SetLevelStatus(Dictionary<byte, Dictionary<string, CampaignLevelStatus>> levelStatus) {
@@ -103,14 +117,14 @@ namespace Nexus.Gameplay {
 			return false;
 		}
 
-		public void ProcessLevelCompletion( byte zoneId, string levelId ) {
+		public void ProcessLevelCompletion( string levelId ) {
 
 			// Make sure the zone exists in this dictionary:
-			if(!this.levelStatus.ContainsKey(zoneId)) {
-				this.levelStatus.Add(zoneId, new Dictionary<string, CampaignLevelStatus>());
+			if(!this.levelStatus.ContainsKey(this.zoneId)) {
+				this.levelStatus.Add(this.zoneId, new Dictionary<string, CampaignLevelStatus>());
 			}
 
-			var levels = this.levelStatus[zoneId];
+			Dictionary<string, CampaignLevelStatus> levels = this.levelStatus[this.zoneId];
 
 			if(!levels.ContainsKey(levelId)) {
 				levels.Add(levelId, new CampaignLevelStatus());
@@ -124,10 +138,8 @@ namespace Nexus.Gameplay {
 
 		public void SaveCampaign() {
 
-			// Can only save a campaign if the world ID is assigned correctly.
-			if(this.worldId.Length == 0) { return; }
-
-			// TODO LOW PRIORITY: Verify that the world exists; not just that an ID is present.
+			// Verify that the world exists. Otherwise, cannot save the campaign.
+			if(!WorldContent.WorldExists(this.worldId)) { return; }
 
 			CampaignJson campaignJson = new CampaignJson {
 
@@ -177,16 +189,16 @@ namespace Nexus.Gameplay {
 				return;
 			}
 
-			CampaignJson camp = JsonConvert.DeserializeObject<CampaignJson>(json);
+			CampaignJson campaign = JsonConvert.DeserializeObject<CampaignJson>(json);
 
-			this.SetWorld(camp.worldId);
-			this.SetZone(camp.zoneId);
-			this.SetPosition(camp.curX, camp.curY, camp.lastDir);
-			this.SetLives(camp.lives);
-			this.SetWounds(camp.health, camp.armor);
-			this.SetHead(camp.head);
-			this.SetEquipment(camp.suit, camp.hat, camp.powerAtt, camp.powerMob);
-			this.SetLevelStatus(camp.levelStatus);
+			this.SetWorld(campaign.worldId);
+			this.SetZone(campaign.zoneId);
+			this.SetPosition(campaign.curX, campaign.curY, campaign.lastDir);
+			this.SetLives(campaign.lives);
+			this.SetWounds(campaign.health, campaign.armor);
+			this.SetHead(campaign.head);
+			this.SetUpgrades(campaign.suit, campaign.hat, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
+			this.SetLevelStatus(campaign.levelStatus);
 		}
 	}
 }

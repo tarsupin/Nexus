@@ -7,6 +7,8 @@ namespace Nexus.ObjectComponents {
 	public class BoltNecro : PowerBolt {
 
 		public BoltNecro(Character character) : base(character) {
+			this.subType = (byte)PowerSubType.BoltNecro;
+			this.projSubType = (byte)ProjectileBoltSubType.Necro;
 			this.SetActivationSettings(72, 2, 21);
 			this.IconTexture = "Weapon/BoltNecro";
 			this.subStr = "necro";

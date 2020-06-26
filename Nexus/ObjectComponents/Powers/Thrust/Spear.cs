@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 	public class Spear : PowerThrust {
 
 		public Spear( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Spear;
 			this.SetActivationSettings(120, 1, 120);
 			this.duration = 18;
 			this.speed = 17;
@@ -20,7 +21,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void Launch(GameObject actor, int startX, int startY, sbyte velX) {
-			var projectile = SpearProjectile.Create(actor.room, this.subType, FVector.Create(startX, startY), FVector.Create(velX, 0));
+			var projectile = SpearProjectile.Create(actor.room, this.projSubType, FVector.Create(startX, startY), FVector.Create(velX, 0));
 			projectile.SetActorID(actor);
 			projectile.SetEndLife(Systems.timer.Frame + this.duration);
 		}

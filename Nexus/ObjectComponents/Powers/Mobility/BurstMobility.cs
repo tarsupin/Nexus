@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 	public class BurstMobility : PowerMobility {
 
 		public BurstMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Burst;
 			this.IconTexture = "Power/Burst";
 			this.subStr = "burst";
 			this.SetActivationSettings(90, 2, 30);

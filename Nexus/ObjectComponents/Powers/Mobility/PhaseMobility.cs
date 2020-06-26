@@ -14,6 +14,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public PhaseMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Phase;
 			this.IconTexture = "Power/Phase";
 			this.subStr = "phase";
 			this.SetActivationSettings(45, 1, 45);

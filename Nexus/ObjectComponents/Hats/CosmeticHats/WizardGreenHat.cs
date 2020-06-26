@@ -5,6 +5,7 @@ namespace Nexus.ObjectComponents {
 	public class WizardGreenHat : Hat {
 
 		public WizardGreenHat() : base(HatRank.CosmeticHat) {
+			this.subType = (byte)HatSubType.WizGreen;
 			this.SpriteName = "Hat/WizGreenHat";
 		}
 	}

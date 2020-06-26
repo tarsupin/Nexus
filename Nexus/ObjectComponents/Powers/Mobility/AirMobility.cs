@@ -9,6 +9,7 @@ namespace Nexus.ObjectComponents {
 	public class AirMobility : PowerMobility {
 
 		public AirMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Air;
 			this.IconTexture = "Power/Air";
 			this.subStr = "air";
 			this.SetActivationSettings(90, 1, 90);

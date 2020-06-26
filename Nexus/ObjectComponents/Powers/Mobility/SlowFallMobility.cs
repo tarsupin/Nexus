@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 	public class SlowFallMobility : PowerMobility {
 
 		public SlowFallMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.SlowFall;
 			this.IconTexture = "Power/SlowFall";
 			this.subStr = "slowfall";
 		}

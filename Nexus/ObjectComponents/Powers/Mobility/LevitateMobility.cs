@@ -8,6 +8,7 @@ namespace Nexus.ObjectComponents {
 	public class LevitateMobility : PowerMobility {
 
 		public LevitateMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Levitate;
 			this.IconTexture = "Power/Levitate";
 			this.subStr = "levitate";
 			this.SetActivationSettings(210, 1, 210);

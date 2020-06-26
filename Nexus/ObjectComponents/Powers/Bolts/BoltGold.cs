@@ -7,6 +7,8 @@ namespace Nexus.ObjectComponents {
 	public class BoltGold : PowerBolt {
 
 		public BoltGold( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.BoltGold;
+			this.projSubType = (byte)ProjectileBoltSubType.Gold;
 			this.SetActivationSettings(72, 1, 72);
 			this.IconTexture = "Weapon/BoltGold";
 			this.subStr = "gold";

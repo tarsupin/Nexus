@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 	public class Axe : PowerThrown {
 
 		public Axe( Character character, WeaponAxeSubType subType ) : base( character ) {
+			this.subType = (byte)PowerSubType.Axe;
 			this.baseStr = "ranged";
 			this.subStr = "axe";
 			this.sound = Systems.sounds.axe;
@@ -23,7 +24,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void ApplySubType(WeaponAxeSubType subType) {
-			this.subType = (byte)subType;
+			this.projSubType = (byte)subType;
 
 			if(subType == WeaponAxeSubType.Axe) {
 				this.IconTexture = "Weapon/Axe";
@@ -50,7 +51,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
-			var projectile = AxeProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			var projectile = AxeProjectile.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
 		}
 	}

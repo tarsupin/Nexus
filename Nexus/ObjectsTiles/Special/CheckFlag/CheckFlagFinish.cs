@@ -26,11 +26,7 @@ namespace Nexus.Objects {
 			Systems.sounds.woohoo.Play();
 
 			// Complete the level.
-			Systems.handler.levelState.CompleteLevel();
-
-			// If you're in a campaign, update the level completion:
-			// TODO
-			//Systems.handler.campaignState.ProcessLevelCompletion();
+			Systems.handler.levelState.CompleteLevel(character);
 		}
 	}
 }

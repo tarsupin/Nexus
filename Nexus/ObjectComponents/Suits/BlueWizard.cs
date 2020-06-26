@@ -6,6 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class BlueWizard : Suit {
 
 		public BlueWizard() : base(SuitRank.PowerSuit, "BlueWizard", HatMap.WizBlue) {
+			this.subType = (byte)SuitSubType.BlueWizard;
 			this.baseStr = "wizard";
 			this.subStr = "blue";
 		}

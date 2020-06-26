@@ -6,6 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class Fedora : Hat {
 
 		public Fedora() : base(HatRank.PowerHat) {
+			this.subType = (byte)HatSubType.Fedora;
 			this.SpriteName = "Hat/Fedora";
 			this.subStr = "fedora";
 		}

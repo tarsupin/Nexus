@@ -6,6 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class AthleteMobility : PowerMobility {
 
 		public AthleteMobility( Character character ) : base( character ) {
+			this.subType = (byte)PowerSubType.Athlete;
 			this.IconTexture = "Power/Athlete";
 			this.subStr = "athlete";
 			this.SetActivationSettings(15, 1, 15);

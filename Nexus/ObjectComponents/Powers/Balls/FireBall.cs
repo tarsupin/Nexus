@@ -6,7 +6,8 @@ namespace Nexus.ObjectComponents {
 	public class FireBall : PowerBall {
 
 		public FireBall( Character character ) : base( character ) {
-			this.subType = (byte) ProjectileBallSubType.Fire;
+			this.subType = (byte)PowerSubType.Fire;
+			this.projSubType = (byte) ProjectileBallSubType.Fire;
 			this.IconTexture = "Power/Fire";
 			this.baseStr = "magic";
 			this.subStr = "fire";

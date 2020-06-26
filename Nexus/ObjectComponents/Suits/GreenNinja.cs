@@ -6,6 +6,7 @@ namespace Nexus.ObjectComponents {
 	public class GreenNinja : Suit {
 
 		public GreenNinja() : base(SuitRank.PowerSuit, "GreenNinja") {
+			this.subType = (byte)SuitSubType.GreenNinja;
 			this.baseStr = "ninja";
 			this.subStr = "green";
 		}

@@ -6,7 +6,8 @@ namespace Nexus.ObjectComponents {
 	public class WaterBall : PowerBall {
 
 		public WaterBall( Character character ) : base( character ) {
-			this.subType = (byte) ProjectileBallSubType.Water;
+			this.subType = (byte)PowerSubType.Water;
+			this.projSubType = (byte) ProjectileBallSubType.Water;
 			this.IconTexture = "Power/Water";
 			this.baseStr = "magic";
 			this.subStr = "water";
@@ -22,10 +23,10 @@ namespace Nexus.ObjectComponents {
 
 		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
 
-			var projectile = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			var projectile = ProjectileBall.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
 
-			var projectile2 = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.4), velY * FInt.Create(1.2)));
+			var projectile2 = ProjectileBall.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX * FInt.Create(1.4), velY * FInt.Create(1.2)));
 			projectile2.SetActorID(this.character);
 		}
 	}

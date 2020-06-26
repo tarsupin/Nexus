@@ -8,7 +8,8 @@ namespace Nexus.ObjectComponents {
 	public class Hammer : PowerThrown {
 
 		public Hammer( Character character, byte subType ) : base( character ) {
-			this.subType = (byte) subType;
+			this.subType = (byte)PowerSubType.Hammer;
+			this.projSubType = (byte) subType;
 			this.sound = Systems.sounds.axe;
 			this.IconTexture = "Weapon/Hammer";
 			this.baseStr = "ranged";
@@ -41,7 +42,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
-			var projectile = HammerProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			var projectile = HammerProjectile.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
 		}
 	}

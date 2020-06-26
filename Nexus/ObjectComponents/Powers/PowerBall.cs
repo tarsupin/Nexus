@@ -65,7 +65,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public virtual void Launch(int posX, int posY, FInt velX, FInt velY) {
-			ProjectileBall projectile = ProjectileBall.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX.RoundInt, velY.RoundInt));
+			ProjectileBall projectile = ProjectileBall.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX.RoundInt, velY.RoundInt));
 			projectile.SetActorID(this.character);
 		}
 	}

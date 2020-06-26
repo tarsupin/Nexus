@@ -5,6 +5,7 @@ namespace Nexus.ObjectComponents {
 	public class PooHat : Hat {
 
 		public PooHat() : base(HatRank.CosmeticHat) {
+			this.subType = (byte)HatSubType.PooHat;
 			this.SpriteName = "Hat/PooHat";
 		}
 	}

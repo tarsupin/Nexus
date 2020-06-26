@@ -7,7 +7,8 @@ using System;
 namespace Nexus.Gameplay {
 
 	public class FlagJson {
-		public bool active;			// True if flag is marked as active.
+		public bool active;         // TRUE if flag is marked as active.
+		public bool used;			// TRUE if flag was "used" (retry flag).
 		public byte roomId;			// # of the room (0 to 9)
 		public short gridX;			// The GridX position of the flag.
 		public short gridY;			// The GridY position of the flag.
@@ -51,6 +52,7 @@ namespace Nexus.Gameplay {
 
 			this.retryFlag = new FlagJson {
 				active = false,
+				used = false,
 				roomId = 0,
 				gridX = 0,
 				gridY = 0,
@@ -67,8 +69,20 @@ namespace Nexus.Gameplay {
 		}
 
 		// Complete Level
-		public void CompleteLevel() {
+		public void CompleteLevel(Character character) {
 			this.FullReset();
+
+			// Update Campaign Benefits, if applicable.
+			CampaignState campaign = Systems.handler.campaignState;
+
+			if(campaign.worldId.Length > 0) {
+				campaign.SetUpgradesByCharacter(character);
+				campaign.ProcessLevelCompletion(this.levelId);
+			}
+
+			// If you're in a campaign, update the level completion:
+			// TODO
+			//Systems.handler.campaignState.ProcessLevelCompletion();
 		}
 
 		// Time Reset

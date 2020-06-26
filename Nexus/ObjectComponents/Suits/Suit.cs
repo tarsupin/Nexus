@@ -82,6 +82,7 @@ namespace Nexus.ObjectComponents {
 		protected Atlas atlas;
 		public string baseStr { get; protected set; }
 		public string subStr { get; protected set; }
+		public byte subType { get; protected set; }
 		public readonly string texture;
 		public readonly Hat DefaultCosmeticHat; // A default, Cosmetic Hat associated with the Suit (such as Wizard Hats for Wizards).
 

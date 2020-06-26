@@ -6,7 +6,8 @@ namespace Nexus.ObjectComponents {
 	public class FrostBall : PowerBall {
 
 		public FrostBall( Character character ) : base( character ) {
-			this.subType = (byte) ProjectileBallSubType.Frost;
+			this.subType = (byte)PowerSubType.Frost;
+			this.projSubType = (byte) ProjectileBallSubType.Frost;
 			this.IconTexture = "Power/Frost";
 			this.baseStr = "magic";
 			this.subStr = "frost";

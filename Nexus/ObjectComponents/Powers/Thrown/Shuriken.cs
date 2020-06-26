@@ -14,7 +14,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public Shuriken( Character character, byte subType ) : base( character ) {
-			this.subType = (byte) subType;
+			this.projSubType = (byte) subType;
 			this.ApplySubType(subType);
 			this.sound = Systems.sounds.axe;
 			this.baseStr = "ranged";
@@ -30,15 +30,19 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void ApplySubType(byte subType) {
-			this.subType = (byte)subType;
+			this.projSubType = (byte)subType;
 
 			if(subType == (byte) ShurikenSubType.Green) {
+				this.subType = (byte)PowerSubType.ShurikenGreen;
 				this.IconTexture = "Weapon/ShurikenGreen";
 			} else if(subType == (byte) ShurikenSubType.Red) {
+				this.subType = (byte)PowerSubType.ShurikenRed;
 				this.IconTexture = "Weapon/ShurikenRed";
 			} else if(subType == (byte) ShurikenSubType.Blue) {
+				this.subType = (byte)PowerSubType.ShurikenBlue;
 				this.IconTexture = "Weapon/ShurikenBlue";
 			} else if(subType == (byte) ShurikenSubType.Yellow) {
+				this.subType = (byte)PowerSubType.ShurikenYellow;
 				this.IconTexture = "Weapon/ShurikenYellow";
 			}
 		}
@@ -64,7 +68,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void Launch(int posX, int posY, FInt velX, FInt velY) {
-			var projectile = ShurikenProjectile.Create(this.character.room, this.subType, FVector.Create(posX, posY), FVector.Create(velX, velY));
+			var projectile = ShurikenProjectile.Create(this.character.room, this.projSubType, FVector.Create(posX, posY), FVector.Create(velX, velY));
 			projectile.SetActorID(this.character);
 		}
 	}
