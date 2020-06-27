@@ -10,12 +10,6 @@ namespace Nexus.GameEngine {
 
 	public class LevelScene : Scene {
 
-		public enum LevelUIState : byte {
-			Playing,
-			Menu,
-			Console,
-		}
-
 		// References
 		public readonly LevelUI levelUI;
 		public readonly MenuUI menuUI;
@@ -23,9 +17,6 @@ namespace Nexus.GameEngine {
 
 		// Trackers
 		public int levelResetFrame = 0;
-
-		// State Handlers
-		public LevelUIState uiState = LevelUIState.Playing;
 
 		public LevelScene() : base() {
 
@@ -101,39 +92,33 @@ namespace Nexus.GameEngine {
 			this.RunSceneLoop();
 
 			// If Console UI is active:
-			if(this.uiState == LevelUIState.Console) {
+			if(this.uiState == UIState.Console) {
 
 				// Determine if the console needs to be closed (escape or tilde):
 				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.levelConsole.SetVisible(false);
-					this.uiState = LevelUIState.Playing;
+					this.uiState = UIState.Playing;
 				}
 
-				// Debug Console (only runs if visible)
-				else {
-					Systems.levelConsole.RunTick();
-					return;
-				}
-			}
-
-			// Menu UI is active:
-			else if(this.uiState == LevelUIState.Menu) {
-				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = LevelUIState.Playing; }
-				this.menuUI.RunTick();
+				Systems.levelConsole.RunTick();
 				return;
 			}
 
-			// Play UI is not active:
-			else {
+			// Menu UI is active:
+			else if(this.uiState == UIState.Menu) {
+				this.menuUI.RunTick(); // Also handles menu close option.
+				return;
+			}
 
-				// Open Menu (Start)
-				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = LevelUIState.Menu; }
+			// Play UI is active:
 
-				// Open Console (Tilde)
-				else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-					this.uiState = LevelUIState.Console;
-					Systems.levelConsole.Open();
-				}
+			// Open Menu (Start)
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Menu; }
+
+			// Open Console (Tilde)
+			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+				this.uiState = UIState.Console;
+				Systems.levelConsole.Open();
 			}
 
 			// Some Scenes will disable this, or limit behavior (such as for multiplayer).
@@ -241,9 +226,9 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw UI
-			if(this.uiState == LevelUIState.Menu) { this.menuUI.Draw(); }
-			else if(this.uiState == LevelUIState.Playing) { this.levelUI.Draw(); }
-			else if(this.uiState == LevelUIState.Console) { Systems.levelConsole.Draw(); }
+			if(this.uiState == UIState.Menu) { this.menuUI.Draw(); }
+			else if(this.uiState == UIState.Playing) { this.levelUI.Draw(); }
+			else if(this.uiState == UIState.Console) { Systems.levelConsole.Draw(); }
 		}
 
 		public virtual void RestartLevel(bool fullReset = false) {

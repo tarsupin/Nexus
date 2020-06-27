@@ -44,11 +44,11 @@ namespace Nexus.GameEngine {
 			else if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.EndLevel; }
 			else { this.opt = MenuOptionActive.Continue; }
 
-			// Check if an option was activated:
-			if(input.isPressed(IKey.AButton)) {
+			// Check if the start button was released.
+			if(!input.isDown(IKey.Start)) {
 
 				// Close the Menu
-				this.scene.uiState = this.scene.uiState = LevelScene.LevelUIState.Playing;
+				this.scene.uiState = this.scene.uiState = LevelScene.UIState.Playing;
 
 				if (this.opt == MenuOptionActive.Continue) { return; }
 				else if(this.opt == MenuOptionActive.Retry) { this.retry.ActivateIcon(); return; }

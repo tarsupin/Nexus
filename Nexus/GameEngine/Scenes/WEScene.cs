@@ -116,14 +116,40 @@ namespace Nexus.GameEngine {
 			// Update the Mouse State Every Tick
 			Cursor.UpdateMouseState();
 
+			// If Console UI is active:
+			if(this.uiState == UIState.Console) {
+
+				// Determine if the console needs to be closed (escape or tilde):
+				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+					Systems.worldEditConsole.SetVisible(false);
+					this.uiState = UIState.Playing;
+				}
+
+				Systems.worldEditConsole.RunTick();
+				return;
+			}
+
+			// Menu UI is active:
+			else if(this.uiState == UIState.Menu) {
+				// TODO: Editor Menu
+				// this.menuUI.RunTick();
+				if(!Systems.localServer.MyPlayer.input.isDown(IKey.Start)) { this.uiState = UIState.Playing; }
+				return;
+			}
+
+			// Play UI is active:
+
+			// Open Menu (Start)
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Menu; }
+
+			// Open Console (Tilde)
+			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+				this.uiState = UIState.Console;
+				Systems.worldEditConsole.Open();
+			}
+
 			// Run World UI Updates
 			this.weUI.RunTick();
-
-			// Debug Console (only runs if visible)
-			Systems.worldEditConsole.RunTick();
-
-			// Prevent other interactions if the console is visible.
-			if(Systems.worldEditConsole.visible) { return; }
 
 			// Check Input Updates
 			this.WorldEditorInput();

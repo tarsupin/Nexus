@@ -4,6 +4,15 @@ namespace Nexus.GameEngine {
 
 	public class Scene {
 
+		// UI Handler
+		public UIState uiState = UIState.Playing;
+
+		public enum UIState : byte {
+			Playing,
+			Menu,
+			Console,
+		}
+
 		public int idCounter;           // Tracks the last ID that was generated in the scene.
 
 		public Scene() {}

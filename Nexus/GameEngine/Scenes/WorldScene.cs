@@ -128,21 +128,47 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
-			// Update Character
-			this.character.RunTick();
+			// If Console UI is active:
+			if(this.uiState == UIState.Console) {
+
+				// Determine if the console needs to be closed (escape or tilde):
+				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+					Systems.worldConsole.SetVisible(false);
+					this.uiState = UIState.Playing;
+				}
+
+				Systems.worldConsole.RunTick();
+				return;
+			}
+
+			// Menu UI is active:
+			else if(this.uiState == UIState.Menu) {
+				// TODO: Editor Menu
+				// this.menuUI.RunTick();
+				if(!Systems.localServer.MyPlayer.input.isDown(IKey.Start)) { this.uiState = UIState.Playing; }
+				return;
+			}
+
+			// Play UI is active:
+
+			// Open Menu (Start)
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Menu; }
+
+			// Open Console (Tilde)
+			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+				this.uiState = UIState.Console;
+				Systems.worldConsole.Open();
+			}
 
 			// Run World UI Updates
 			this.worldUI.RunTick();
 
+			// Update Character
+			this.character.RunTick();
+
 			// Update Camera
 			Systems.camera.Follow(this.character.posX, this.character.posY, 100);
 			Systems.camera.StayBounded(0, this.xCount * (byte)WorldmapEnum.TileWidth, 0, this.yCount * (byte)WorldmapEnum.TileHeight);
-
-			// Debug Console (only runs if visible)
-			Systems.worldConsole.RunTick();
-
-			// Prevent other interactions if the console is visible.
-			if(Systems.worldConsole.visible) { return; }
 
 			// Check Input Updates
 			this.RunInputCheck();
