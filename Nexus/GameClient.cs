@@ -126,10 +126,13 @@ namespace Nexus {
 				// TODO: If no scene is transitioned correctly, this will fail. We need a default solution here.
 				// TODO: We also need levels to be somehow loaded into local data during installation. Unfamiliar with that process atm.
 				// Load a default level.
-				//SceneTransition.ToLevel("", "QCALQOD11");
+				SceneTransition.ToLevel("", "QCALQOD6");
 				//SceneTransition.ToLevel("", "TAWLALN10");
 
-				SceneTransition.ToWorld("Tarsupin");
+				// TEMPORARY: Need to reassign to level. // TODO
+				Systems.SetMouseVisible(true);
+
+				//SceneTransition.ToWorld("Tarsupin");
 				//SceneTransition.ToWorldEditor("Tarsupin");
 			};
 

@@ -96,6 +96,7 @@ namespace Nexus.GameEngine {
 			this.colors.RunColorTimers();
 			this.parallax.RunParallaxTick();
 			this.particleHandler.RunParticleTick();
+			this.scene.levelUI.RunTick();
 
 			// Object Coordination & Cleanup
 			this.AddObjectsMarkedForAddition();

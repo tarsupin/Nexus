@@ -121,6 +121,8 @@
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
+    <Compile Include="GameEngine\UIComponents\UIButton.cs" />
+    <Compile Include="GameEngine\UIHandlers\MenuUI.cs" />
     <Compile Include="GameEngine\UIHandlers\PowerUI.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WEShadowTile.cs" />
