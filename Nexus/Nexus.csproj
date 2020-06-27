@@ -120,6 +120,7 @@
     <Compile Include="GameEngine\SceneComponents\ColorToggles.cs" />
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
+    <Compile Include="GameEngine\UIComponents\UIButtonVolume.cs" />
     <Compile Include="GameEngine\UIComponents\UIIconWithText.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UIButton.cs" />

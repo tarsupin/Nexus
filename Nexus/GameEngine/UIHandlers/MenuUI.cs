@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using System;
 
 namespace Nexus.GameEngine {
 
@@ -14,7 +15,7 @@ namespace Nexus.GameEngine {
 
 		// Corner Menu
 		private readonly UIButton settings;
-		private readonly UIButton volume;
+		private readonly UIButtonVolume volume;
 		private readonly UIButton exit;
 
 		private readonly UIButton world;
@@ -40,8 +41,8 @@ namespace Nexus.GameEngine {
 
 			// Corner Menu
 			this.settings = new UIButton(null, "UI/Settings", 10, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
-			this.volume = new UIButton(null, "UI/Volume/On", 76, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
-			this.exit = new UIButton(null, "UI/Quit", 142, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+			this.volume = new UIButtonVolume(null, "UI/Volume/On", 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
+			this.exit = new UIButton(null, "UI/Quit", 142, 10, delegate () { Environment.Exit(0); } );
 
 			this.world = new UIButton(null, "UI/World", 10, bottomY, delegate () { WebHandler.LaunchURL("http://example.com"); } );
 			this.patreon = new UIButton(null, "UI/Social/Patreon", 76, bottomY, delegate () { WebHandler.LaunchURL("http://patreon.com"); } );

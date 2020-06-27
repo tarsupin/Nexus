@@ -133,7 +133,8 @@ namespace Nexus.GameEngine {
 			else if(this.uiState == UIState.Menu) {
 				// TODO: Editor Menu
 				// this.menuUI.RunTick();
-				if(!Systems.localServer.MyPlayer.input.isDown(IKey.Start)) { this.uiState = UIState.Playing; }
+				//if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Playing; }
+				this.uiState = UIState.Playing;
 				return;
 			}
 

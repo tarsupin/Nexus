@@ -6,11 +6,11 @@ namespace Nexus.GameEngine {
 
 	public class UIButton : UIComponent {
 
-		private static string[] ButtonSprite = new string[2] { "UI/Button/Up", "UI/Button/Down" };
+		protected static string[] ButtonSprite = new string[2] { "UI/Button/Up", "UI/Button/Down" };
 
-		private Atlas atlas;
-		private string SpriteName;
-		Action onClick;
+		protected Atlas atlas;
+		protected string SpriteName;
+		public Action onClick { get; protected set; }
 
 		// onClick = delegate() { doSomething(); };
 		public UIButton( UIComponent parent, string spriteName, short posX, short posY, Action onClick ) : base(parent) {
@@ -20,6 +20,10 @@ namespace Nexus.GameEngine {
 			this.SetRelativePosition(posX, posY);
 			this.SetWidth(56);
 			this.SetHeight(56);
+		}
+
+		public void UpdateSprite(string spriteName) {
+			this.SpriteName = spriteName;
 		}
 
 		public void RunTick() {

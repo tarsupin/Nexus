@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Xna.Framework.Media;
+using Newtonsoft.Json;
 using Nexus.Engine;
 
 namespace Nexus.Gameplay {
@@ -42,10 +43,24 @@ namespace Nexus.Gameplay {
 				this.SaveSettings();
 			}
 
-			this.UpdatedAudioSettings();
+			this.UpdateAudioSettings();
 		}
 
-		private void UpdatedAudioSettings() {
+		public void ToggleMute() {
+			this.Mute = !this.Mute;
+			this.UpdateAudioSettings();
+
+			// If muted, songs need to stop playing:
+			if(this.Mute) {
+				MediaPlayer.Pause();
+			} else {
+				MediaPlayer.Resume();
+			}
+
+			this.SaveSettings();
+		}
+
+		private void UpdateAudioSettings() {
 
 			if(this.Mute) {
 				this.SoundVolume = 0f;
