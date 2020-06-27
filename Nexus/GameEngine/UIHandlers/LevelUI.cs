@@ -19,21 +19,13 @@ namespace Nexus.GameEngine {
 
 		public LevelUI( LevelScene scene ) {
 			this.scene = scene;
-			this.menuUI = new MenuUI(this);
 			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
 			this.levelState = Systems.handler.levelState;
 		}
 
-		public void RunTick() {
-			this.menuUI.RunTick();
-		}
-
 		public void Draw() {
-
-			// Menu
-			this.menuUI.Draw();
 
 			// Coins / Gems
 			this.atlas.Draw("Treasure/Gem", 10, 10);

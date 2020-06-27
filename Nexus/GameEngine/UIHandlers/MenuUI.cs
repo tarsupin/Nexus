@@ -1,38 +1,57 @@
-﻿
-using Nexus.Engine;
+﻿using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
 	public class MenuUI {
 
-		private readonly LevelUI levelUI;
+		private readonly Scene scene;
+		private readonly MenuLevelUI menuLevelUI;
+
+		public enum MenuUIOption : byte {
+			Level,
+			World
+		}
+
+		// Corner Menu
+		private readonly UIButton settings;
+		private readonly UIButton volume;
+		private readonly UIButton exit;
+
+		private readonly UIButton world;
+		private readonly UIButton patreon;
 
 		// Social Buttons
 		private readonly UIButton discord;
-		private readonly UIButton patreon;
 		private readonly UIButton reddit;
-		private readonly UIButton twitch;
 		private readonly UIButton twitter;
-		private readonly UIButton world;
-		private readonly UIButton youtube;
 
-		// Volume
-		private readonly UIButton volume;
+		//private readonly UIButton youtube;
+		//private readonly UIButton twitch;
 
-		public MenuUI( LevelUI levelUI ) {
-			this.levelUI = levelUI;
+		public MenuUI(Scene scene, MenuUIOption menuUIOpt ) {
+			this.scene = scene;
+
+			if(menuUIOpt == MenuUIOption.Level) {
+				this.menuLevelUI = new MenuLevelUI((LevelScene) scene);
+			}
+
+			short rightX = (short)(Systems.screen.windowWidth - 56 - 10);
+			short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
+
+			// Corner Menu
+			this.settings = new UIButton(null, "UI/Settings", 10, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+			this.volume = new UIButton(null, "UI/Volume/On", 76, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+			this.exit = new UIButton(null, "UI/Quit", 142, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+
+			this.world = new UIButton(null, "UI/World", 10, bottomY, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+			this.patreon = new UIButton(null, "UI/Social/Patreon", 76, bottomY, delegate () { WebHandler.LaunchURL("http://patreon.com"); } );
 
 			// Create Social Buttons
-			this.discord = new UIButton(null, "UI/Social/Discord", 10, 10, delegate () { WebHandler.LaunchURL("http://discord.com"); } );
-			this.patreon = new UIButton(null, "UI/Social/Patreon", 80, 10, delegate () { WebHandler.LaunchURL("http://patreon.com"); } );
-			this.reddit = new UIButton(null, "UI/Social/Reddit", 180, 10, delegate () { WebHandler.LaunchURL("http://reddit.com"); } );
-			this.twitch = new UIButton(null, "UI/Social/Twitch", 280, 10, delegate () { WebHandler.LaunchURL("http://twitch.com"); } );
-			this.twitter = new UIButton(null, "UI/Social/Twitter", 380, 10, delegate () { WebHandler.LaunchURL("http://twitter.com"); } );
-			this.world = new UIButton(null, "UI/Social/World", 480, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
-			this.youtube = new UIButton(null, "UI/Social/YouTube", 580, 10, delegate () { WebHandler.LaunchURL("http://youtube.com"); } );
-
-			// Volume
-			this.volume = new UIButton(null, "UI/Volume/On", 680, 10, delegate () { WebHandler.LaunchURL("http://example.com"); } );
+			this.reddit = new UIButton(null, "UI/Social/Reddit", (short)(rightX - 66), bottomY, delegate () { WebHandler.LaunchURL("http://reddit.com"); } );
+			this.discord = new UIButton(null, "UI/Social/Discord", (short)(rightX - 132), bottomY, delegate () { WebHandler.LaunchURL("http://discord.com"); } );
+			this.twitter = new UIButton(null, "UI/Social/Twitter", rightX, bottomY, delegate () { WebHandler.LaunchURL("http://twitter.com"); } );
+			//this.youtube = new UIButton(null, "UI/Social/YouTube", 580, bottomY, delegate () { WebHandler.LaunchURL("http://youtube.com"); } );
+			//this.twitch = new UIButton(null, "UI/Social/Twitch", 280, bottomY, delegate () { WebHandler.LaunchURL("http://twitch.com"); } );
 		}
 
 		public void RunTick() {
@@ -40,32 +59,44 @@ namespace Nexus.GameEngine {
 			UIComponent.ComponentWithFocus = null;
 			Cursor.UpdateMouseState();
 
+			// Corner Menu
+			this.settings.RunTick();
+			this.volume.RunTick();
+			this.exit.RunTick();
+
+			this.world.RunTick();
+			this.patreon.RunTick();
+
+			// Center Menu
+			if(this.menuLevelUI is MenuLevelUI) { this.menuLevelUI.RunTick(); }
+
 			// Create Social Buttons
 			this.discord.RunTick();
-			this.patreon.RunTick();
 			this.reddit.RunTick();
-			this.twitch.RunTick();
 			this.twitter.RunTick();
-			this.world.RunTick();
-			this.youtube.RunTick();
-
-			// Volume
-			this.volume.RunTick();
+			//this.youtube.RunTick();
+			//this.twitch.RunTick();
 		}
 
 		public void Draw() {
 
+			// Corner Menu
+			this.settings.Draw();
+			this.volume.Draw();
+			this.exit.Draw();
+
+			this.world.Draw();
+			this.patreon.Draw();
+
+			// Center Menu
+			if(this.menuLevelUI is MenuLevelUI) { this.menuLevelUI.Draw(); }
+
 			// Draw Social Buttons
 			this.discord.Draw();
-			this.patreon.Draw();
 			this.reddit.Draw();
-			this.twitch.Draw();
 			this.twitter.Draw();
-			this.world.Draw();
-			this.youtube.Draw();
-
-			// Draw Volume Icons
-			this.volume.Draw();
+			//this.youtube.Draw();
+			//this.twitch.Draw();
 		}
 	}
 }

@@ -17,15 +17,17 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void ConsoleTeleport() {
-			string arg = ConsoleTrack.GetArgAsString();
+			string arg = ConsoleTrack.GetArgAsString(false);
 
 			if(arg == "coords") {
+				ConsoleTrack.instructionArgIndex++;
 				ConsoleLevel.ConsoleTeleportCoords();
 				return;
 			}
 			
 			// Secret "room" option.
 			if(arg == "room") {
+				ConsoleTrack.instructionArgIndex++;
 				ConsoleLevel.ConsoleTeleportRoom();
 				return;
 			}
@@ -33,7 +35,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.possibleTabs = "Options: coords, room, # #";
 			ConsoleTrack.helpText = "The grid square (e.g. \"10, 10\") to teleport to. Or `move coords` for exact precision.";
 			
-			int x = ConsoleTrack.GetArgAsInt(false) * (byte) TilemapEnum.TileWidth;
+			int x = ConsoleTrack.GetArgAsInt() * (byte) TilemapEnum.TileWidth;
 			int y = ConsoleTrack.GetArgAsInt() * (byte) TilemapEnum.TileHeight;
 
 			if(ConsoleTrack.activate && x > 0 && y > 0) {

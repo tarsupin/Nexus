@@ -63,6 +63,18 @@ namespace Nexus.Engine {
 		}
 
 		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
+		public void DrawWithColor(string spriteName, int posX, int posY, Color? color = null) {
+			SpriteFrame sprite = this.spriteList[spriteName];
+
+			spriteBatch.Draw(
+				texture: this.Texture,
+				position: new Vector2(posX + sprite.XOffset, posY + sprite.YOffset),
+				sourceRectangle: sprite.TextureRect,
+				color: color
+			);
+		}
+
+		// <param name="position">This should be where you want the pivot point of the sprite image to be rendered.</param>
 		public void DrawAdvanced(string spriteName, int posX, int posY, Color? color = null, float rotation = 0, float scale = 1, SpriteEffects spriteEffects = SpriteEffects.None) {
 			SpriteFrame sprite = this.spriteList[spriteName];
 			

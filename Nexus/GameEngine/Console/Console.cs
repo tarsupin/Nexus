@@ -46,19 +46,6 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 			InputClient input = Systems.input;
 
-			// Determine if the console is being set to visible, or hidden (with the tilde key)
-			if(input.LocalKeyPressed(Keys.OemTilde)) {
-				this.SetVisible(!this.visible);
-				if(this.visible) { this.Open(); }
-			}
-
-			if(!this.visible) { return; }
-
-			// Determine if the console needs to be closed with Escape key.
-			if(input.LocalKeyPressed(Keys.Escape)) {
-				this.SetVisible(false);
-			}
-
 			// Get Characters Pressed (doesn't assist with order)
 			string charsPressed = input.GetCharactersPressed();
 
