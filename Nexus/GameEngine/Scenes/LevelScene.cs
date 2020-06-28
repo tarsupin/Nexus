@@ -21,7 +21,7 @@ namespace Nexus.GameEngine {
 		public LevelScene() : base() {
 
 			// Create UI
-			this.levelUI = new LevelUI(this);
+			this.levelUI = new LevelUI();
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Level);
 
 			// Generate Each Room Class
@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Menu UI is active:
-			else if(this.uiState == UIState.Menu) {
+			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
 				this.menuUI.RunTick(); // Also handles menu close option.
 				return;
 			}
@@ -113,7 +113,7 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Menu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.SubMenu; }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
@@ -226,8 +226,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw UI
-			if(this.uiState == UIState.Menu) { this.menuUI.Draw(); }
-			else if(this.uiState == UIState.Playing) { this.levelUI.Draw(); }
+			if(this.uiState == UIState.Playing) { this.levelUI.Draw(); }
+			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
 			else if(this.uiState == UIState.Console) { Systems.levelConsole.Draw(); }
 		}
 

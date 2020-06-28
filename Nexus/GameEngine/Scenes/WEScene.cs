@@ -130,7 +130,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Menu UI is active:
-			else if(this.uiState == UIState.Menu) {
+			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
 				// TODO: Editor Menu
 				// this.menuUI.RunTick();
 				//if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Playing; }
@@ -141,7 +141,7 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Menu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.SubMenu; }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {

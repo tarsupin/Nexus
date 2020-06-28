@@ -124,7 +124,9 @@
     <Compile Include="GameEngine\UIComponents\UIIconWithText.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UIButton.cs" />
-    <Compile Include="GameEngine\UIHandlers\MenuLevelUI.cs" />
+    <Compile Include="GameEngine\UIHandlers\MainMenuUI.cs" />
+    <Compile Include="GameEngine\UIHandlers\ICenterMenu.cs" />
+    <Compile Include="GameEngine\UIHandlers\LevelMenuUI.cs" />
     <Compile Include="GameEngine\UIHandlers\MenuUI.cs" />
     <Compile Include="GameEngine\UIHandlers\PowerUI.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />

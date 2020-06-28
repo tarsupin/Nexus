@@ -9,16 +9,13 @@ namespace Nexus.GameEngine {
 
 	public class LevelUI {
 
-		private readonly LevelScene scene;
-		private readonly MenuUI menuUI;
 		private readonly PowerUI powerUI;
 		public Atlas atlas;
 		public Player myPlayer;
 		public readonly short bottomRow;
 		private readonly LevelState levelState;
 
-		public LevelUI( LevelScene scene ) {
-			this.scene = scene;
+		public LevelUI() {
 			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);

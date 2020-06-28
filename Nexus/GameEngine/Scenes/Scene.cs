@@ -9,7 +9,8 @@ namespace Nexus.GameEngine {
 
 		public enum UIState : byte {
 			Playing,
-			Menu,
+			MainMenu,
+			SubMenu,
 			Console,
 		}
 
