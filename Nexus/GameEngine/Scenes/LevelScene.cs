@@ -91,11 +91,14 @@ namespace Nexus.GameEngine {
 			// Single Player will only retrieve one player, while MP will review all players connected.
 			this.RunSceneLoop();
 
+			InputClient input = Systems.input;
+			PlayerInput playerInput = Systems.localServer.MyPlayer.input;
+
 			// If Console UI is active:
 			if(this.uiState == UIState.Console) {
 
 				// Determine if the console needs to be closed (escape or tilde):
-				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+				if(input.LocalKeyPressed(Keys.Escape) || input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.levelConsole.SetVisible(false);
 					this.uiState = UIState.Playing;
 				}
@@ -112,11 +115,13 @@ namespace Nexus.GameEngine {
 
 			// Play UI is active:
 
-			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.SubMenu; }
+			// Open Menu
+			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				this.uiState = UIState.MainMenu;
+			}
 
 			// Open Console (Tilde)
-			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+			else if(input.LocalKeyPressed(Keys.OemTilde)) {
 				this.uiState = UIState.Console;
 				Systems.levelConsole.Open();
 			}

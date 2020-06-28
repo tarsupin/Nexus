@@ -125,5 +125,12 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
+		// Go to Planet Selection Scene
+		public static bool ToPlanetSelection() {
+			Systems.scene.EndScene();
+			Systems.scene = new PlanetSelectScene();
+			Systems.scene.StartScene();
+			return true;
+		}
 	}
 }

@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 			Main,
 			Level,
 			World,
+			PlanetSelect,
 		}
 
 		// Corner Menu

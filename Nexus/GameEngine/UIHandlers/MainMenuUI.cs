@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 
 			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { this.scene.uiState = LevelScene.UIState.Playing; } );
 			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { } );
-			this.worlds = new UIIconWithText(null, "UI/MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { } );
+			this.worlds = new UIIconWithText(null, "UI/MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UIIconWithText(null, "UI/Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UIIconWithText(null, "UI/MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () {  } );
 			this.myWorld = new UIIconWithText(null, "UI/MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () {  } );
@@ -45,7 +45,7 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 
 			// Get User Input
-			PlayerInput input = Systems.localServer.MyCharacter.input;
+			PlayerInput input = Systems.localServer.MyPlayer.input;
 
 			// Determine which option is selected:
 			if(input.isDown(IKey.Right)) {
