@@ -7,6 +7,7 @@ using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -81,8 +82,11 @@ namespace Nexus.GameEngine {
 			string json = File.ReadAllText(planetPath);
 			WorldListFormat planetData = JsonConvert.DeserializeObject<WorldListFormat>(json);
 
+			// Build initial planets, which is composed of worlds that you're in the process of playing. Can remove them? Special options?
+			//this.planets.Add(0, new PlanetData("My World", "_local", 0, 0, 0, 0, 0));
+
 			// Load Planet Data
-			short listID = 0;
+			short listID = (short) this.planets.Count;
 
 			foreach(PlanetFormat planet in planetData.planets) {
 
@@ -98,7 +102,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Prepare Paging System
-			this.paging = new PagingSystem(7, 3, (short) this.planets.Count);
+			this.paging = new PagingSystem(7, 3, listID);
 		}
 
 		public override void StartScene() {
@@ -122,11 +126,8 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
-			// Menu UI is active:
-			if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				this.menuUI.RunTick();
-				return;
-			}
+			// Menu UI
+			this.menuUI.RunTick();
 
 			// Play UI is active:
 			InputClient input = Systems.input;
@@ -188,11 +189,11 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.DarkSlateGray);
 
 			short posX = 100;
-			short posY = 100;
+			short posY = 350;
 
 			// Draw Current Selection
-			short highlightX = (short)(this.paging.selectX * 200 + 100);
-			short highlightY = (short)(this.paging.selectY * 200 + 100);
+			short highlightX = (short)(this.paging.selectX * 200 + posX);
+			short highlightY = (short)(this.paging.selectY * 200 + posY);
 
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 170), Color.DarkRed);
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 150), Color.DarkSlateGray);
@@ -206,6 +207,9 @@ namespace Nexus.GameEngine {
 				posX += 200;
 				if(posX >= 1500) { posY += 200; posX = 100; }
 			}
+
+			// Draw Menu UI
+			this.menuUI.Draw();
 		}
 
 		public void DrawPlanet( PlanetData planetData, short posX, short posY ) {
