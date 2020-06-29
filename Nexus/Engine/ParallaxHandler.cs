@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Xna.Framework;
 using Nexus.GameEngine;
 using System;
 using System.Collections.Generic;
@@ -33,14 +34,17 @@ namespace Nexus.Engine {
 		public short totalHeight;				// Total height of the parallax.
 		public short skyLine;					// Reference point for Y-axis; where the high-area skyline starts (e.g. clouds).
 		public short horizon;					// Reference point for Y-axis; where the horizon starts.
-		public short groundLine;				// Reference point for Y-axis; where the ground "starts" for drawing purposes.
+		public short groundLine;                // Reference point for Y-axis; where the ground "starts" for drawing purposes.
 
-		public ParallaxHandler( RoomScene room, Atlas atlas, short groundLine, short horizon, short skyLine ) {
+		public Color horizonColor;
+
+		public ParallaxHandler( RoomScene room, Atlas atlas, short groundLine, short horizon, short skyLine, Color horizonColor ) {
 			this.room = room;
 			this.atlas = atlas;
 			this.groundLine = groundLine;
 			this.horizon = horizon;
 			this.skyLine = skyLine;
+			this.horizonColor = horizonColor;
 			this.loopObjects = new List<ParallaxLoopers>();
 		}
 
@@ -116,6 +120,11 @@ namespace Nexus.Engine {
 			int camX = camera.posX;
 			int camY = camera.posY;
 			short windowWidth = Systems.screen.windowWidth;
+
+			//// Draw Horizon
+			//if(this.horizonColor != null) {
+			//	Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, this.skyLine, Systems.screen.windowWidth, Systems.screen.windowHeight - this.horizon), this.horizonColor);
+			//}
 
 			// Draw all visible parallax objects:
 			foreach( ParallaxLoopers loopObject in this.loopObjects ) {

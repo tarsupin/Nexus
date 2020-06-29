@@ -117,7 +117,7 @@ namespace Nexus.GameEngine {
 
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.uiState = UIState.MainMenu;
+				this.uiState = UIState.SubMenu;
 			}
 
 			// Open Console (Tilde)
