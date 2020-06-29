@@ -299,6 +299,7 @@
     <Compile Include="Gameplay\Maps\FontAssets.cs" />
     <Compile Include="Gameplay\Maps\SoundAssets.cs" />
     <Compile Include="Gameplay\GameClasses\GameClass.cs" />
+    <Compile Include="Gameplay\Types\GameplayTypes.cs" />
     <Compile Include="Gameplay\Types\WorldTypes.cs" />
     <Compile Include="Gameplay\Types\TileTypes.cs" />
     <Compile Include="Gameplay\Types\ArenaTypes.cs" />

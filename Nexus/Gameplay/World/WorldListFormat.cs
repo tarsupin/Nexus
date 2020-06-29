@@ -86,21 +86,37 @@ namespace Nexus.Gameplay {
 
 	public class PlanetFormat {
 
-		[JsonProperty("planetID")]
-		public byte planetID { get; set; }
-
 		[JsonProperty("name")]
 		public string name { get; set; }
+
+		[JsonProperty("worldID")]
+		public string worldID { get; set; }
+
+		// PlanetInfo.PlanetID
+		[JsonProperty("planetID")]
+		public byte planetID { get; set; }
 		
+		// GameplayTypes.DifficultyMode
+		[JsonProperty("difficulty")]
+		public byte difficulty { get; set; }
+
+		// GameplayTypes.HardcoreMode
+		[JsonProperty("hardcore")]
+		public byte hardcore { get; set; }
+		
+		// HeadSubType
 		[JsonProperty("head")]
 		public byte head { get; set; }
 		
+		// SuitSubType
 		[JsonProperty("suit")]
 		public byte suit { get; set; }
 		
+		// HatSubType
 		[JsonProperty("hat")]
 		public byte hat { get; set; }
-		
+
+		// PlanetInfo.PlanetID
 		[JsonProperty("moons")]
 		public List<byte> moons { get; set; }
 	}
