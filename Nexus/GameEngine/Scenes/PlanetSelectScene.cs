@@ -191,8 +191,13 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update Moon Positions
-			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
-				PlanetData planet = this.planets[i];
+			this.UpdateMoonPositions(this.pagingFeatured, this.featured);
+			this.UpdateMoonPositions(this.paging, this.planets);
+		}
+
+		public void UpdateMoonPositions(PagingSystem paging, Dictionary<short, PlanetData> planets) {
+			for(short i = paging.MinVal; i < paging.MaxVal; i++) {
+				PlanetData planet = planets[i];
 
 				foreach(MoonData moon in planet.moons) {
 					moon.posX += moon.speed;
@@ -201,9 +206,7 @@ namespace Nexus.GameEngine {
 						moon.posX = 70;
 						moon.speed = (float)-Math.Abs(moon.speed);
 						moon.front = false;
-					}
-					
-					else if(moon.posX < -70) {
+					} else if(moon.posX < -70) {
 						moon.posX = -70;
 						moon.speed = (float)Math.Abs(moon.speed);
 						moon.front = true;
@@ -211,8 +214,7 @@ namespace Nexus.GameEngine {
 
 					if(moon.speed > 0) {
 						moon.posY = moon.lat - (float)Math.Sqrt(70 - Math.Abs(moon.posX)) * -3.2f;
-					}
-					else if(moon.speed < 0) {
+					} else if(moon.speed < 0) {
 						moon.posY = moon.lat + (float)Math.Sqrt(70 - Math.Abs(moon.posX)) * -3.2f;
 					}
 				}
