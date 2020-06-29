@@ -163,6 +163,9 @@ namespace Nexus.ObjectComponents {
 				case (byte)HatSubType.WizGreen: return HatMap.WizGreen;
 				case (byte)HatSubType.WizRed: return HatMap.WizRed;
 				case (byte)HatSubType.WizWhite: return HatMap.WizWhite;
+
+				// Base Cosmetic Hats
+				case (byte)HatSubType.PooHat: return HatMap.PooHat;
 			}
 
 			return null;

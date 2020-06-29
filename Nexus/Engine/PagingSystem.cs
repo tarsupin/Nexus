@@ -1,9 +1,14 @@
 ﻿
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using System;
+using System.Collections.Generic;
 
 namespace Nexus.Engine {
 
+	// By default, the paging sytem will wrap between a given number of rows and columns.
+	// You can assign Exit Rules to each Cardinal Direction [SetExitRule()], such as if you want the "up" direction to leave the paging area.
+	// If an exit direction leaves the paging area, it will change "exitDir" to the direction that was left.
 	public class PagingSystem {
 
 		// Paging Rules
@@ -11,13 +16,34 @@ namespace Nexus.Engine {
 		public readonly byte PerRow;
 		public readonly byte PerPage;
 
+		public enum PagingExitRule : byte {
+			Wrap,
+			NoWrap,
+			LeaveArea,
+		}
+
 		// Paging Selections
 		public short page = 0;
 		public byte numOnPage = 0;
 		public byte selectX = 0;
 		public byte selectY = 0;
+		public DirCardinal exitDir;	// NONE if currently inside the paging area. A direction means it exited paging area in that direction.
+
+		// Exit Controls - These define what happens when you exit the paging section.
+		// The default is to wrap to the other side of the paging section.
+		public Dictionary<DirCardinal, PagingExitRule> exits;
 
 		public PagingSystem(byte numRows, byte numCols, short numItems) {
+			
+			this.exits = new Dictionary<DirCardinal, PagingExitRule>() {
+				{ DirCardinal.Left, PagingExitRule.Wrap },
+				{ DirCardinal.Right, PagingExitRule.Wrap },
+				{ DirCardinal.Up, PagingExitRule.Wrap },
+				{ DirCardinal.Down, PagingExitRule.Wrap },
+			};
+
+			this.exitDir = DirCardinal.None;
+
 			this.PerRow = numRows;
 			this.PerPage = (byte)(numCols * numRows);
 			this.NumberOfItems = numItems;
@@ -32,6 +58,14 @@ namespace Nexus.Engine {
 		public short CurrentSelectionVal {
 			get { return (short)(this.page * this.PerPage + this.selectY * this.PerRow + this.selectX); }
 		}
+
+		// Assigns an exit rule to a particular direction.
+		public void SetExitRule(DirCardinal dir, PagingExitRule exitRule) {
+			this.exits[dir] = exitRule;
+		}
+
+		// This clears the exit direction. Use it when you've returned to the paging area.
+		public void ReturnToPagingArea() { this.exitDir = DirCardinal.None; }
 
 		// Optional Input Process
 		public bool PagingInput(PlayerInput playerInput) {
@@ -81,15 +115,27 @@ namespace Nexus.Engine {
 			// Moving Down
 			if(slotY == 1) {
 
-				// Wrap around, if applicable.
-				if(toCol >= cols) { this.selectY = 0; }
+				// Leaves Paging Section
+				if(toCol >= cols) {
+					PagingExitRule exitRule = this.exits[DirCardinal.Down];
+					if(exitRule == PagingExitRule.Wrap) { this.selectY = 0; }
+					else if(exitRule == PagingExitRule.NoWrap) { /* No Change. Resists the Movement. */ }
+					else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Down; }
+				}
 
 				// Standard Move
 				else if(toCol < cols - 1) { this.selectY++; }
 
 				// Standard Move to the final row.
 				else {
-					if(toRow >= finalRow) { this.selectY = 0; } else { this.selectY = (byte)(cols - 1); }
+					if(toRow >= finalRow) {
+						PagingExitRule exitRule = this.exits[DirCardinal.Down];
+						if(exitRule == PagingExitRule.Wrap) { this.selectY = 0; }
+						else if(exitRule == PagingExitRule.NoWrap) { this.selectX = (byte)(finalRow - 1); this.selectY = (byte)toCol; }
+						else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Down; }
+					} else {
+						this.selectY = (byte)(cols - 1);
+					}
 				}
 
 				return;
@@ -101,7 +147,12 @@ namespace Nexus.Engine {
 				// Wrap around, if applicable.
 				// This wrap is more complicated, since you have to handle the finalRow issue.
 				if(toCol < 0) {
-					if(toRow < finalRow) { this.selectY = (byte)(cols - 1); } else { this.selectY = (byte)(cols - 2); }
+					PagingExitRule exitRule = this.exits[DirCardinal.Up];
+					if(exitRule == PagingExitRule.Wrap) {
+						if(toRow < finalRow) { this.selectY = (byte)(cols - 1); } else { this.selectY = (byte)(cols - 2); }
+					}
+					else if(exitRule == PagingExitRule.NoWrap) { /* No Change. Resists the Movement. */ }
+					else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Up; }
 				}
 
 				// Standard Move
@@ -114,13 +165,33 @@ namespace Nexus.Engine {
 
 			// If we're not on the final row, or the final row is full:
 			if(toCol != (byte)(cols - 1) || finalRow == this.PerRow) {
-				if(toRow < 0) { this.selectX = (byte)(this.PerRow - 1); } else if(toRow >= this.PerRow) { this.selectX = 0; } else { this.selectX = (byte)toRow; }
+				if(toRow < 0) {
+					PagingExitRule exitRule = this.exits[DirCardinal.Left];
+					if(exitRule == PagingExitRule.Wrap) { this.selectX = (byte)(this.PerRow - 1); }
+					else if(exitRule == PagingExitRule.NoWrap) { /* Do nothing. No wrap. */ }
+					else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Left; }
+				}
+				else if(toRow >= this.PerRow) {
+					PagingExitRule exitRule = this.exits[DirCardinal.Right];
+					if(exitRule == PagingExitRule.Wrap) { this.selectX = 0; }
+					else if(exitRule == PagingExitRule.NoWrap) { /* Do nothing. No wrap. */ }
+					else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Right; }
+				} else { this.selectX = (byte)toRow; }
 				return;
 			}
 
 			// Otherwise, if we're on the final row:
-			if(toRow < 0) { this.selectX = (byte)(finalRow - 1); } else if(toRow >= finalRow) { this.selectX = 0; } else { this.selectX = (byte)toRow; }
+			if(toRow < 0) {
+				PagingExitRule exitRule = this.exits[DirCardinal.Left];
+				if(exitRule == PagingExitRule.Wrap) { this.selectX = (byte)(finalRow - 1); }
+				else if(exitRule == PagingExitRule.NoWrap) { /* Do nothing. No wrap. */ }
+				else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Left; }
+			} else if(toRow >= finalRow) {
+				PagingExitRule exitRule = this.exits[DirCardinal.Right];
+				if(exitRule == PagingExitRule.Wrap) { this.selectX = 0; }
+				else if(exitRule == PagingExitRule.NoWrap) { /* Do nothing. No wrap. */ }
+				else if(exitRule == PagingExitRule.LeaveArea) { this.exitDir = DirCardinal.Right; }
+			} else { this.selectX = (byte)toRow; }
 		}
-
 	}
 }

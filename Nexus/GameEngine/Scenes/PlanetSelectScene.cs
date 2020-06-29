@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Nexus.GameEngine {
 
@@ -64,9 +64,11 @@ namespace Nexus.GameEngine {
 		public Atlas atlas;
 		public readonly PlayerInput playerInput;
 		public readonly MenuUI menuUI;
-		public readonly PagingSystem paging;
+		public PagingSystem paging;
+		public PagingSystem pagingFeatured;
 
 		// Planets
+		public Dictionary<short, PlanetData> featured = new Dictionary<short, PlanetData>();
 		public Dictionary<short, PlanetData> planets = new Dictionary<short, PlanetData>();
 
 		public PlanetSelectScene() : base() {
@@ -76,33 +78,45 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.PlanetSelect);
 
+			// Load Planets and Featured Planets
+			this.LoadPlanets("FeaturedPlanets", this.featured);
+			this.LoadPlanets("Planets", this.planets);
+
+			// Prepare Featured Options Paging System (top section, one line, where it remembers your favorite / featured choices)
+			this.pagingFeatured = new PagingSystem(7, 1, (short)this.featured.Count);
+			this.pagingFeatured.SetExitRule(DirCardinal.Down, PagingSystem.PagingExitRule.LeaveArea);
+			this.pagingFeatured.SetExitRule(DirCardinal.Up, PagingSystem.PagingExitRule.NoWrap);
+
+			// Prepare Planet Paging System (full paging system)
+			this.paging = new PagingSystem(7, 2, (short)this.planets.Count);
+			this.paging.SetExitRule(DirCardinal.Up, PagingSystem.PagingExitRule.LeaveArea);
+			this.paging.SetExitRule(DirCardinal.Down, PagingSystem.PagingExitRule.NoWrap);
+			this.paging.exitDir = DirCardinal.Up;
+		}
+
+		public void LoadPlanets(string filename, Dictionary<short, PlanetData> planetDict) {
+
 			// Retrieve Planet Path + JSON Content
 			string listsDir = Path.Combine(Systems.filesLocal.localDir, "Lists");
-			string planetPath = Path.Combine(listsDir, "Planets.json");
+			string planetPath = Path.Combine(listsDir, filename + ".json");
 			string json = File.ReadAllText(planetPath);
 			WorldListFormat planetData = JsonConvert.DeserializeObject<WorldListFormat>(json);
 
-			// Build initial planets, which is composed of worlds that you're in the process of playing. Can remove them? Special options?
-			//this.planets.Add(0, new PlanetData("My World", "_local", 0, 0, 0, 0, 0));
-
 			// Load Planet Data
-			short listID = (short) this.planets.Count;
+			short listID = 0;
 
 			foreach(PlanetFormat planet in planetData.planets) {
 
 				// Add Planet
-				this.planets.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.head, planet.suit, planet.hat));
+				planetDict.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.head, planet.suit, planet.hat));
 
 				// Attach Moons to Planet
 				foreach(byte moonID in planet.moons) {
-					this.planets[listID].AddMoon(moonID);
+					planetDict[listID].AddMoon(moonID);
 				}
 
 				listID++;
 			}
-
-			// Prepare Paging System
-			this.paging = new PagingSystem(7, 3, listID);
 		}
 
 		public override void StartScene() {
@@ -132,9 +146,35 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 			InputClient input = Systems.input;
 
-			// Paging Input
-			if(this.paging.PagingInput(playerInput)) {
-				Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+			// Paging Input (only when in the paging area)
+			if(this.paging.exitDir == DirCardinal.None) {
+				if(this.paging.PagingInput(playerInput)) {
+					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+
+					// If Planet Paging is exited, go to the Featured Planets.
+					if(this.paging.exitDir == DirCardinal.Up) {
+						this.pagingFeatured.ReturnToPagingArea();
+
+						if(this.pagingFeatured.NumberOfItems > this.paging.selectX) {
+							this.pagingFeatured.selectX = this.paging.selectX;
+						}
+					}
+				}
+			}
+			
+			else {
+				if(this.pagingFeatured.PagingInput(playerInput)) {
+					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+
+					// If Featured Planet Paging is exited, go to Planet Paging.
+					if(this.pagingFeatured.exitDir == DirCardinal.Down) {
+						this.paging.ReturnToPagingArea();
+
+						if(this.paging.NumberOfItems > this.pagingFeatured.selectX) {
+							this.paging.selectX = this.pagingFeatured.selectX;
+						}
+					}
+				}
 			}
 
 			// Open Menu
@@ -188,15 +228,34 @@ namespace Nexus.GameEngine {
 			// Draw Background
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.DarkSlateGray);
 
+			// Draw Featured Paging Selection (if applicable)
+			if(this.pagingFeatured.exitDir == DirCardinal.None) {
+
+				short highlightX = (short)(this.pagingFeatured.selectX * 200 + 100);
+				short highlightY = (short)(this.pagingFeatured.selectY * 200 + 200);
+
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), Color.DarkRed);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), Color.DarkSlateGray);
+			}
+
+			// Draw Featured Planets
+			for(short i = this.pagingFeatured.MinVal; i < this.pagingFeatured.MaxVal; i++) {
+				PlanetData planet = this.featured[i];
+				this.DrawPlanet(planet, (short)(100 + i * 200), 200);
+			}
+
 			short posX = 100;
-			short posY = 350;
+			short posY = 450;
 
-			// Draw Current Selection
-			short highlightX = (short)(this.paging.selectX * 200 + posX);
-			short highlightY = (short)(this.paging.selectY * 200 + posY);
+			// Draw Current Paging Selection
+			if(this.paging.exitDir == DirCardinal.None) {
 
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 170), Color.DarkRed);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 150), Color.DarkSlateGray);
+				short highlightX = (short)(this.paging.selectX * 200 + posX);
+				short highlightY = (short)(this.paging.selectY * 250 + posY);
+
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), Color.DarkRed);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), Color.DarkSlateGray);
+			}
 
 			// Draw Planets
 			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
@@ -205,7 +264,7 @@ namespace Nexus.GameEngine {
 
 				// Update Next Position
 				posX += 200;
-				if(posX >= 1500) { posY += 200; posX = 100; }
+				if(posX >= 1500) { posY += 250; posX = 100; }
 			}
 
 			// Draw Menu UI
@@ -214,14 +273,34 @@ namespace Nexus.GameEngine {
 
 		public void DrawPlanet( PlanetData planetData, short posX, short posY ) {
 
+			// Draw Moons behind Planet:
 			foreach(MoonData moon in planetData.moons) {
 				if(!moon.front) { this.atlas.Draw(moon.sprite, posX + (short) moon.posX, posY + (short) moon.posY); }
 			}
 
+			// Draw Planet
 			this.atlas.DrawAdvanced(planetData.sprite, posX + 2, posY, Color.White, 0f, 4);
 
-			Systems.fonts.baseText.Draw(planetData.name, posX + 16 - (byte)Math.Floor(planetData.textSize.X * 0.5f), posY + 75, Color.White);
+			// Display Name
+			Systems.fonts.baseText.Draw(planetData.name, posX + 16 - (byte)Math.Floor(planetData.textSize.X * 0.5f), posY + 78, Color.White);
 
+			// Display Difficulty
+			short diffSize = (short) Systems.fonts.console.font.MeasureString(GameplayTypes.DiffName[(byte)planetData.diff]).X;
+			Systems.fonts.console.Draw(GameplayTypes.DiffName[(byte)planetData.diff], posX + 16 - (byte)Math.Floor(diffSize * 0.5f), posY + 103, Color.White);
+
+			// Display Character
+			if(planetData.head > 0 && planetData.suit > 0) {
+				Head.GetHeadBySubType(planetData.head).Draw(false, posX - 30, posY - 45, 0, 0);
+				Suit.GetSuitBySubType(planetData.suit).Draw("StandLeft", posX - 30, posY - 45, 0, 0);
+
+				if(planetData.hat > 0) {
+					Hat.GetHatBySubType(planetData.hat).Draw(false, posX - 30, posY - 45, 0, 0);
+				} else if(planetData.head == (byte)HeadSubType.PooHead) {
+					Hat.GetHatBySubType((byte)HatSubType.PooHat).Draw(false, posX - 30, posY - 45, 0, 0);
+				}
+			}
+
+			// Draw Moons in front of planet:
 			foreach(MoonData moon in planetData.moons) {
 				if(moon.front) { this.atlas.Draw(moon.sprite, posX + (short) moon.posX, posY + (short) moon.posY); }
 			}
