@@ -33,7 +33,7 @@ namespace Nexus.Gameplay {
 
 			// Update the World ID, or use existing World ID if applicable.
 			if(WorldContent.WorldExists(worldId)) { this.worldId = worldId; }
-			else if(!WorldContent.WorldExists(this.worldId)) { return false; }
+			else if(this.worldId == null || !WorldContent.WorldExists(this.worldId)) { return false; }
 
 			string localPath = WorldContent.GetLocalWorldPath(this.worldId);
 			string json = Systems.filesLocal.ReadFile(localPath);

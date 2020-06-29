@@ -28,18 +28,25 @@ namespace Nexus.Engine {
 		public short MinVal { get { return (short)(this.page * this.PerPage); } }
 		public short MaxVal { get { return Math.Min((short)(this.page * this.PerPage + this.PerPage), (short)this.NumberOfItems); } }
 
+		// Return the ID of the Current Selection:
+		public short CurrentSelectionVal {
+			get { return (short)(this.page * this.PerPage + this.selectY * this.PerRow + this.selectX); }
+		}
+
 		// Optional Input Process
-		public void PagingInput(PlayerInput playerInput) {
+		public bool PagingInput(PlayerInput playerInput) {
 			
 			// Selector Movement
-			if(playerInput.isPressed(IKey.Up)) { this.MoveSelector(0, -1); }
-			else if(playerInput.isPressed(IKey.Down)) { this.MoveSelector(0, 1); }
-			else if(playerInput.isPressed(IKey.Left)) { this.MoveSelector(-1, 0); }
-			else if(playerInput.isPressed(IKey.Right)) { this.MoveSelector(1, 0); }
+			if(playerInput.isPressed(IKey.Up)) { this.MoveSelector(0, -1); return true; }
+			if(playerInput.isPressed(IKey.Down)) { this.MoveSelector(0, 1); return true; }
+			if(playerInput.isPressed(IKey.Left)) { this.MoveSelector(-1, 0); return true; }
+			if(playerInput.isPressed(IKey.Right)) { this.MoveSelector(1, 0); return true; }
 
 			// Page Changing
-			else if(playerInput.isPressed(IKey.L1) || playerInput.isPressed(IKey.L2)) { this.ToPage(Math.Max((short) 0, (short)(this.page - 1))); }
-			else if(playerInput.isPressed(IKey.R1) || playerInput.isPressed(IKey.R2)) { this.ToPage((short)(this.page + 1)); }
+			if(playerInput.isPressed(IKey.L1) || playerInput.isPressed(IKey.L2)) { this.ToPage(Math.Max((short) 0, (short)(this.page - 1))); return true; }
+			if(playerInput.isPressed(IKey.R1) || playerInput.isPressed(IKey.R2)) { this.ToPage((short)(this.page + 1)); return true; }
+
+			return false;
 		}
 
 		public void ToPage(short pageNum) {

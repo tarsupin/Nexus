@@ -14,15 +14,19 @@ namespace Nexus.GameEngine {
 
 		public string name;
 		public string sprite;
+		public string worldID;
+		public byte diff;
 		public byte head;
 		public byte suit;
 		public byte hat;
 		public List<MoonData> moons;
 		public Vector2 textSize;
 
-		public PlanetData(string name, byte planetID, byte head = 0, byte suit = 0, byte hat = 0) {
+		public PlanetData(string name, string worldID, byte planetID, byte diff, byte head = 0, byte suit = 0, byte hat = 0) {
 			this.name = name;
+			this.worldID = worldID;
 			this.sprite = PlanetInfo.Planets[(byte) planetID];
+			this.diff = diff;
 			this.head = head;
 			this.suit = suit;
 			this.hat = hat;
@@ -83,7 +87,7 @@ namespace Nexus.GameEngine {
 			foreach(PlanetFormat planet in planetData.planets) {
 
 				// Add Planet
-				this.planets.Add(listID, new PlanetData(planet.name, planet.planetID, planet.head, planet.suit, planet.hat));
+				this.planets.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.head, planet.suit, planet.hat));
 
 				// Attach Moons to Planet
 				foreach(byte moonID in planet.moons) {
@@ -128,7 +132,9 @@ namespace Nexus.GameEngine {
 			InputClient input = Systems.input;
 
 			// Paging Input
-			this.paging.PagingInput(playerInput);
+			if(this.paging.PagingInput(playerInput)) {
+				Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+			}
 
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
@@ -137,7 +143,10 @@ namespace Nexus.GameEngine {
 
 			// Activate Node
 			else if(playerInput.isPressed(IKey.AButton) == true) {
-				// TODO: Do a thing here. Load Planet.
+				short curVal = this.paging.CurrentSelectionVal;
+				string worldID = this.planets[curVal].worldID;
+				SceneTransition.ToWorld(worldID);
+				return;
 			}
 
 			// Update Moon Positions
