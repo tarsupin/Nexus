@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Nexus.GameEngine {
 
@@ -45,7 +47,7 @@ namespace Nexus.GameEngine {
 			this.sprite = PlanetInfo.Planets[(byte) moonID];
 			this.lat = (short) CalcRandom.IntBetween(-10, 19);
 			this.speed = (float) CalcRandom.FloatBetween(0.15f, 0.8f);
-			this.posX = (short) CalcRandom.IntBetween(-50, 50);
+			this.posX = (short) CalcRandom.IntBetween(-65, 65);
 			this.posY = lat;
 			this.front = true;
 		}
@@ -53,15 +55,11 @@ namespace Nexus.GameEngine {
 
 	public class PlanetSelectScene : Scene {
 
-		// References
+		// References, Component
 		public Atlas atlas;
 		public readonly PlayerInput playerInput;
 		public readonly MenuUI menuUI;
-
-		// Paging & Selection
-		public short page = 0;
-		public byte selectX = 0;
-		public byte selectY = 0;
+		public readonly PagingSystem paging;
 
 		// Planets
 		public Dictionary<short, PlanetData> planets = new Dictionary<short, PlanetData>();
@@ -73,34 +71,30 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.PlanetSelect);
 
-			// Prepare Temporary Planet(s)
-			this.planets.Add(0, new PlanetData("Astaria", (byte) PlanetInfo.PlanetID.Grassland));
-			this.planets.Add(1, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
+			// Retrieve Planet Path + JSON Content
+			string listsDir = Path.Combine(Systems.filesLocal.localDir, "Lists");
+			string planetPath = Path.Combine(listsDir, "Planets.json");
+			string json = File.ReadAllText(planetPath);
+			WorldListFormat planetData = JsonConvert.DeserializeObject<WorldListFormat>(json);
 
-			// TEMP
-			this.planets.Add(2, new PlanetData("Tutorial", (byte) PlanetInfo.PlanetID.Ice));
-			this.planets.Add(3, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(4, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(5, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(6, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(7, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(8, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(9, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(10, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(11, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(12, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(13, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(14, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(15, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(16, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
-			this.planets.Add(17, new PlanetData("Grimland", (byte) PlanetInfo.PlanetID.Toxic));
+			// Load Planet Data
+			short listID = 0;
 
-			// Astaria
-			this.planets[0].AddMoon((byte)PlanetInfo.PlanetID.MoonBrown);
+			foreach(PlanetFormat planet in planetData.planets) {
 
-			// Grimland
-			this.planets[1].AddMoon((byte)PlanetInfo.PlanetID.MoonGreen);
-			this.planets[1].AddMoon((byte)PlanetInfo.PlanetID.MoonRed);
+				// Add Planet
+				this.planets.Add(listID, new PlanetData(planet.name, planet.planetID, planet.head, planet.suit, planet.hat));
+
+				// Attach Moons to Planet
+				foreach(byte moonID in planet.moons) {
+					this.planets[listID].AddMoon(moonID);
+				}
+
+				listID++;
+			}
+
+			// Prepare Paging System
+			this.paging = new PagingSystem(7, 3, (short) this.planets.Count);
 		}
 
 		public override void StartScene() {
@@ -133,23 +127,12 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 			InputClient input = Systems.input;
 
+			// Paging Input
+			this.paging.PagingInput(playerInput);
+
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 				this.uiState = UIState.MainMenu;
-			}
-
-			// Movement
-			else if(playerInput.isPressed(IKey.Up)) {
-				if(this.selectY > 0) { this.selectY--; }
-			}
-			else if(playerInput.isPressed(IKey.Down)) {
-				if(this.selectY < 2) { this.selectY++; }
-			}
-			else if(playerInput.isPressed(IKey.Left)) {
-				if(this.selectX > 0) { this.selectX--; }
-			}
-			else if(playerInput.isPressed(IKey.Right)) {
-				if(this.selectX < 6) { this.selectX++; }
 			}
 
 			// Activate Node
@@ -158,7 +141,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Update Moon Positions
-			for(short i = 0; i < this.planets.Count; i++) {
+			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
 				PlanetData planet = this.planets[i];
 
 				foreach(MoonData moon in planet.moons) {
@@ -199,14 +182,14 @@ namespace Nexus.GameEngine {
 			short posY = 100;
 
 			// Draw Current Selection
-			short highlightX = (short)(this.selectX * 200 + 100);
-			short highlightY = (short)(this.selectY * 200 + 100);
+			short highlightX = (short)(this.paging.selectX * 200 + 100);
+			short highlightY = (short)(this.paging.selectY * 200 + 100);
 
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 170), Color.DarkRed);
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 150), Color.DarkSlateGray);
 
 			// Draw Planets
-			for(short i = 0; i < this.planets.Count; i++) {
+			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
 				PlanetData planet = this.planets[i];
 				this.DrawPlanet(planet, posX, posY);
 
