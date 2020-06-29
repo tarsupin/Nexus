@@ -159,8 +159,11 @@ namespace Nexus.GameEngine {
 			this.CurrentRoom.Draw();
 
 			// Draw UI
-			this.editorUI.Draw();
-			Systems.editorConsole.Draw();
+			if(this.uiState == UIState.Console) {
+				Systems.editorConsole.Draw();
+			} else {
+				this.editorUI.Draw();
+			}
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {

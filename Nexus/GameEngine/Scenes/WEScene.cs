@@ -306,9 +306,12 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw UI
-			this.weUI.Draw();
-			this.DrawNodePaths(cam);
-			Systems.worldEditConsole.Draw();
+			if(this.uiState == UIState.Console) {
+				Systems.worldEditConsole.Draw();
+			} else {
+				this.weUI.Draw();
+				this.DrawNodePaths(cam);
+			}
 		}
 
 		private void DrawNodePaths(Camera cam) {

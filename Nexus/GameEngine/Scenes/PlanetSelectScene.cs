@@ -182,10 +182,22 @@ namespace Nexus.GameEngine {
 				this.uiState = UIState.MainMenu;
 			}
 
-			// Activate Node
+			// Activate Planet / World
 			else if(playerInput.isPressed(IKey.AButton) == true) {
-				short curVal = this.paging.CurrentSelectionVal;
-				string worldID = this.planets[curVal].worldID;
+				string worldID;
+
+				// If the featured list is active, load its worldID:
+				if(this.pagingFeatured.exitDir == DirCardinal.None) {
+					short curVal = this.pagingFeatured.CurrentSelectionVal;
+					worldID = this.featured[curVal].worldID;
+				}
+				
+				// Otherwise, load the worldID from the planet list.
+				else {
+					short curVal = this.paging.CurrentSelectionVal;
+					worldID = this.planets[curVal].worldID;
+				}
+
 				SceneTransition.ToWorld(worldID);
 				return;
 			}

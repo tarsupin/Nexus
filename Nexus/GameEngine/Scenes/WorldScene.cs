@@ -381,8 +381,11 @@ namespace Nexus.GameEngine {
 			this.character.Draw(camX, camY);
 
 			// Draw UI
-			this.worldUI.Draw();
-			Systems.worldConsole.Draw();
+			if(this.uiState == UIState.Console) {
+				Systems.worldConsole.Draw();
+			} else {
+				this.worldUI.Draw();
+			}
 		}
 
 		// NOTE: This is ROUGHLY a duplicate of World Editor (probably). Just need to add "Atlas".
