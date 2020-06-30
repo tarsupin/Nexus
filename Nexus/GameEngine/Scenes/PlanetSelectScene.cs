@@ -136,66 +136,69 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
-			// Menu UI
-			this.menuUI.RunTick();
-
-			// Play UI is active:
 			InputClient input = Systems.input;
 
-			// Paging Input (only when in the paging area)
-			if(this.paging.exitDir == DirCardinal.None) {
-				if(this.paging.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
-					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+			if(this.uiState == UIState.Playing) {
 
-					// If Planet Paging is exited, go to the Featured Planets.
-					if(this.paging.exitDir == DirCardinal.Up) {
-						this.pagingFeatured.ReturnToPagingArea();
+				// Paging Input (only when in the paging area)
+				if(this.paging.exitDir == DirCardinal.None) {
+					if(this.paging.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
+						Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 
-						if(this.pagingFeatured.NumberOfItems > this.paging.selectX) {
-							this.pagingFeatured.selectX = this.paging.selectX;
+						// If Planet Paging is exited, go to the Featured Planets.
+						if(this.paging.exitDir == DirCardinal.Up) {
+							this.pagingFeatured.ReturnToPagingArea();
+
+							if(this.pagingFeatured.NumberOfItems > this.paging.selectX) {
+								this.pagingFeatured.selectX = this.paging.selectX;
+							}
 						}
 					}
 				}
-			}
-			
-			else {
-				if(this.pagingFeatured.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
-					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+				
+				// Featured Paging Input (when in the featured paging area)
+				else {
+					if(this.pagingFeatured.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
+						Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 
-					// If Featured Planet Paging is exited, go to Planet Paging.
-					if(this.pagingFeatured.exitDir == DirCardinal.Down) {
-						this.paging.ReturnToPagingArea();
+						// If Featured Planet Paging is exited, go to Planet Paging.
+						if(this.pagingFeatured.exitDir == DirCardinal.Down) {
+							this.paging.ReturnToPagingArea();
 
-						if(this.paging.NumberOfItems > this.pagingFeatured.selectX) {
-							this.paging.selectX = this.pagingFeatured.selectX;
+							if(this.paging.NumberOfItems > this.pagingFeatured.selectX) {
+								this.paging.selectX = this.pagingFeatured.selectX;
+							}
 						}
 					}
 				}
+
+				// Activate Planet / World
+				if(playerInput.isPressed(IKey.AButton) == true) {
+					string worldID;
+
+					// If the featured list is active, load its worldID:
+					if(this.pagingFeatured.exitDir == DirCardinal.None) {
+						short curVal = this.pagingFeatured.CurrentSelectionVal;
+						worldID = this.featured[curVal].worldID;
+					}
+
+					// Otherwise, load the worldID from the planet list.
+					else {
+						short curVal = this.paging.CurrentSelectionVal;
+						worldID = this.planets[curVal].worldID;
+					}
+
+					SceneTransition.ToWorld(worldID);
+					return;
+				}
 			}
+
+			// Menu UI
+			this.menuUI.RunTick();
 
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 				this.uiState = UIState.MainMenu;
-			}
-
-			// Activate Planet / World
-			else if(playerInput.isPressed(IKey.AButton) == true) {
-				string worldID;
-
-				// If the featured list is active, load its worldID:
-				if(this.pagingFeatured.exitDir == DirCardinal.None) {
-					short curVal = this.pagingFeatured.CurrentSelectionVal;
-					worldID = this.featured[curVal].worldID;
-				}
-				
-				// Otherwise, load the worldID from the planet list.
-				else {
-					short curVal = this.paging.CurrentSelectionVal;
-					worldID = this.planets[curVal].worldID;
-				}
-
-				SceneTransition.ToWorld(worldID);
-				return;
 			}
 
 			// Update Moon Positions

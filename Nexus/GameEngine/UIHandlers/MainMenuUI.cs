@@ -62,7 +62,7 @@ namespace Nexus.GameEngine {
 			else if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.Worlds; }
 			else { this.opt = MenuOptionActive.Return; }
 
-			// Check if the start button was released.
+			// Check if the start button was pressed.
 			if(input.isPressed(IKey.AButton)) {
 
 				// Close the Menu

@@ -81,37 +81,38 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
+			// Paging Input (only when in the paging area)
+			InputClient input = Systems.input;
+
+			if(this.uiState == UIState.Playing) {
+				PagingPress pageInput = this.paging.PagingInput(playerInput);
+
+				if(pageInput != PagingPress.None) {
+					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
+
+					if(pageInput == PagingPress.PageChange) {
+
+						// Apply New Level Data
+						for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
+							this.ApplyLevelDataByNumber(i);
+						}
+					}
+				}
+
+				// Activate Planet / World
+				if(playerInput.isPressed(IKey.AButton) == true) {
+					short curVal = this.paging.CurrentSelectionVal;
+					SceneTransition.ToLevelEditor("", "__" + curVal.ToString(), curVal);
+					return;
+				}
+			}
+
 			// Menu UI
 			this.menuUI.RunTick();
 
-			// Play UI is active:
-			InputClient input = Systems.input;
-
-			// Paging Input (only when in the paging area)
-			PagingPress pageInput = this.paging.PagingInput(playerInput);
-
-			if(pageInput != PagingPress.None) {
-				Systems.sounds.click2.Play(0.5f, 0, 0.5f);
-
-				if(pageInput == PagingPress.PageChange) {
-
-					// Apply New Level Data
-					for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
-						this.ApplyLevelDataByNumber(i);
-					}
-				}
-			}
-			
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 				this.uiState = UIState.MainMenu;
-			}
-
-			// Activate Planet / World
-			else if(playerInput.isPressed(IKey.AButton) == true) {
-				short curVal = this.paging.CurrentSelectionVal;
-				SceneTransition.ToLevelEditor("", "__" + curVal.ToString(), curVal);
-				return;
 			}
 		}
 
@@ -158,9 +159,9 @@ namespace Nexus.GameEngine {
 				// Draw Level
 				this.atlas.DrawAdvanced(MyLevelsScene.openImg, posX - 5, posY, Color.White, 0f, 2);
 
-				// Draw Character
-				Head.GetHeadBySubType(6).Draw(false, posX - 30, posY - 15, 0, 0);
-				Suit.GetSuitBySubType(51).Draw("StandLeft", posX - 30, posY - 15, 0, 0);
+				//// Draw Character
+				//Head.GetHeadBySubType(6).Draw(false, posX - 30, posY - 15, 0, 0);
+				//Suit.GetSuitBySubType(51).Draw("StandLeft", posX - 30, posY - 15, 0, 0);
 
 				// Display Empty Level Slot
 				short emptySize = (short)Systems.fonts.baseText.font.MeasureString(MyLevelsScene.openSlot).X;
@@ -178,17 +179,17 @@ namespace Nexus.GameEngine {
 			short titleSize = (short)Systems.fonts.baseText.font.MeasureString(levelData.title).X;
 			Systems.fonts.baseText.Draw(levelData.title, posX + 16 - (byte)Math.Floor(titleSize * 0.5f), posY + 73, Color.White);
 
-			// Display Character
-			if(levelData.icon[0] > 0 && levelData.icon[1] > 0) {
-				Head.GetHeadBySubType(levelData.icon[0]).Draw(false, posX - 30, posY - 15, 0, 0);
-				Suit.GetSuitBySubType(levelData.icon[1]).Draw("StandLeft", posX - 30, posY - 15, 0, 0);
+			//// Display Character
+			//if(levelData.icon[0] > 0 && levelData.icon[1] > 0) {
+			//	Head.GetHeadBySubType(levelData.icon[0]).Draw(false, posX - 30, posY - 15, 0, 0);
+			//	Suit.GetSuitBySubType(levelData.icon[1]).Draw("StandLeft", posX - 30, posY - 15, 0, 0);
 
-				if(levelData.icon[2] > 0) {
-					Hat.GetHatBySubType(levelData.icon[2]).Draw(false, posX - 30, posY - 15, 0, 0);
-				} else if(levelData.icon[0] == (byte)HeadSubType.PooHead) {
-					Hat.GetHatBySubType((byte)HatSubType.PooHat).Draw(false, posX - 30, posY - 15, 0, 0);
-				}
-			}
+			//	if(levelData.icon[2] > 0) {
+			//		Hat.GetHatBySubType(levelData.icon[2]).Draw(false, posX - 30, posY - 15, 0, 0);
+			//	} else if(levelData.icon[0] == (byte)HeadSubType.PooHead) {
+			//		Hat.GetHatBySubType((byte)HatSubType.PooHat).Draw(false, posX - 30, posY - 15, 0, 0);
+			//	}
+			//}
 		}
 	}
 }
