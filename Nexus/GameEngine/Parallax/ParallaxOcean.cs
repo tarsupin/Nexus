@@ -11,7 +11,7 @@ namespace Nexus.Engine {
 			Atlas atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 
 			// Create Parallax Handler
-			ParallaxHandler pxHandler = new ParallaxHandler(room, atlas, 900, 778, 658, Color.Blue);
+			ParallaxHandler pxHandler = new ParallaxHandler(room, atlas, 900, 678, 558, Color.Blue);
 
 			// Build Ocean Background
 			// TODO HIGH PRIORITY: Also apply Y-axis movement.

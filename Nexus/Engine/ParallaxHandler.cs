@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 
@@ -74,6 +75,9 @@ namespace Nexus.Engine {
 			}
 
 			float y = CalcRandom.IntBetween(high, low);
+
+			// Need to adjust the Y position, since it is affected by the world gap above.
+			y += (float) TilemapEnum.GapUpPixel;
 
 			this.AddLoopingObject(spriteName, parallaxDist, x, y, xVelocity, width);
 		}

@@ -129,7 +129,8 @@ namespace Nexus {
 				//SceneTransition.ToLevel("", "QCALQOD6");
 				//SceneTransition.ToLevel("", "TAWLALN10");
 
-				SceneTransition.ToPlanetSelection();
+				//SceneTransition.ToPlanetSelection();
+				SceneTransition.ToMyLevels();
 
 				// TEMPORARY: Need to reassign to level. // TODO
 				Systems.SetMouseVisible(true);

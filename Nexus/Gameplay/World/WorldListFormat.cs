@@ -103,18 +103,10 @@ namespace Nexus.Gameplay {
 		// GameplayTypes.HardcoreMode
 		[JsonProperty("hardcore")]
 		public byte hardcore { get; set; }
-		
-		// HeadSubType
-		[JsonProperty("head")]
-		public byte head { get; set; }
-		
-		// SuitSubType
-		[JsonProperty("suit")]
-		public byte suit { get; set; }
-		
-		// HatSubType
-		[JsonProperty("hat")]
-		public byte hat { get; set; }
+
+		// Character Icon: HeadSubType, SuitSubType, HatSubType, ...
+		[JsonProperty("icon")]
+		public byte[] icon { get; set; }
 
 		// PlanetInfo.PlanetID
 		[JsonProperty("moons")]

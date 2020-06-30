@@ -17,20 +17,16 @@ namespace Nexus.GameEngine {
 		public string sprite;
 		public string worldID;
 		public byte diff;
-		public byte head;
-		public byte suit;
-		public byte hat;
+		public byte[] icon; // HeadSubType, SuitSubType, HatSubType
 		public List<MoonData> moons;
 		public Vector2 textSize;
 
-		public PlanetData(string name, string worldID, byte planetID, byte diff, byte head = 0, byte suit = 0, byte hat = 0) {
+		public PlanetData(string name, string worldID, byte planetID, byte diff, byte[] icon) {
 			this.name = name;
 			this.worldID = worldID;
 			this.sprite = PlanetInfo.Planets[(byte) planetID];
 			this.diff = diff;
-			this.head = head;
-			this.suit = suit;
-			this.hat = hat;
+			this.icon = icon;
 			this.moons = new List<MoonData>();
 			this.textSize = Systems.fonts.baseText.font.MeasureString(name);
 		}
@@ -108,7 +104,7 @@ namespace Nexus.GameEngine {
 			foreach(PlanetFormat planet in planetData.planets) {
 
 				// Add Planet
-				planetDict.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.head, planet.suit, planet.hat));
+				planetDict.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.icon));
 
 				// Attach Moons to Planet
 				foreach(byte moonID in planet.moons) {
@@ -148,7 +144,7 @@ namespace Nexus.GameEngine {
 
 			// Paging Input (only when in the paging area)
 			if(this.paging.exitDir == DirCardinal.None) {
-				if(this.paging.PagingInput(playerInput)) {
+				if(this.paging.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
 					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 
 					// If Planet Paging is exited, go to the Featured Planets.
@@ -163,7 +159,7 @@ namespace Nexus.GameEngine {
 			}
 			
 			else {
-				if(this.pagingFeatured.PagingInput(playerInput)) {
+				if(this.pagingFeatured.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
 					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 
 					// If Featured Planet Paging is exited, go to Planet Paging.
@@ -303,13 +299,13 @@ namespace Nexus.GameEngine {
 			Systems.fonts.console.Draw(GameplayTypes.DiffName[(byte)planetData.diff], posX + 16 - (byte)Math.Floor(diffSize * 0.5f), posY + 103, Color.White);
 
 			// Display Character
-			if(planetData.head > 0 && planetData.suit > 0) {
-				Head.GetHeadBySubType(planetData.head).Draw(false, posX - 30, posY - 45, 0, 0);
-				Suit.GetSuitBySubType(planetData.suit).Draw("StandLeft", posX - 30, posY - 45, 0, 0);
+			if(planetData.icon != null && planetData.icon[0] > 0 && planetData.icon[1] > 0) {
+				Head.GetHeadBySubType(planetData.icon[0]).Draw(false, posX - 30, posY - 45, 0, 0);
+				Suit.GetSuitBySubType(planetData.icon[1]).Draw("StandLeft", posX - 30, posY - 45, 0, 0);
 
-				if(planetData.hat > 0) {
-					Hat.GetHatBySubType(planetData.hat).Draw(false, posX - 30, posY - 45, 0, 0);
-				} else if(planetData.head == (byte)HeadSubType.PooHead) {
+				if(planetData.icon[2] > 0) {
+					Hat.GetHatBySubType(planetData.icon[2]).Draw(false, posX - 30, posY - 45, 0, 0);
+				} else if(planetData.icon[0] == (byte)HeadSubType.PooHead) {
 					Hat.GetHatBySubType((byte)HatSubType.PooHat).Draw(false, posX - 30, posY - 45, 0, 0);
 				}
 			}

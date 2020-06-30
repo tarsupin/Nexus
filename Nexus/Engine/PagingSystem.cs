@@ -22,6 +22,12 @@ namespace Nexus.Engine {
 			LeaveArea,
 		}
 
+		public enum PagingPress : byte {
+			None,
+			SelectionMove,
+			PageChange,
+		}
+
 		// Paging Selections
 		public short page = 0;
 		public byte numOnPage = 0;
@@ -68,19 +74,19 @@ namespace Nexus.Engine {
 		public void ReturnToPagingArea() { this.exitDir = DirCardinal.None; }
 
 		// Optional Input Process
-		public bool PagingInput(PlayerInput playerInput) {
+		public PagingPress PagingInput(PlayerInput playerInput) {
 			
 			// Selector Movement
-			if(playerInput.isPressed(IKey.Up)) { this.MoveSelector(0, -1); return true; }
-			if(playerInput.isPressed(IKey.Down)) { this.MoveSelector(0, 1); return true; }
-			if(playerInput.isPressed(IKey.Left)) { this.MoveSelector(-1, 0); return true; }
-			if(playerInput.isPressed(IKey.Right)) { this.MoveSelector(1, 0); return true; }
+			if(playerInput.isPressed(IKey.Up)) { this.MoveSelector(0, -1); return PagingPress.SelectionMove; }
+			if(playerInput.isPressed(IKey.Down)) { this.MoveSelector(0, 1); return PagingPress.SelectionMove; }
+			if(playerInput.isPressed(IKey.Left)) { this.MoveSelector(-1, 0); return PagingPress.SelectionMove; }
+			if(playerInput.isPressed(IKey.Right)) { this.MoveSelector(1, 0); return PagingPress.SelectionMove; }
 
 			// Page Changing
-			if(playerInput.isPressed(IKey.L1) || playerInput.isPressed(IKey.L2)) { this.ToPage(Math.Max((short) 0, (short)(this.page - 1))); return true; }
-			if(playerInput.isPressed(IKey.R1) || playerInput.isPressed(IKey.R2)) { this.ToPage((short)(this.page + 1)); return true; }
+			if(playerInput.isPressed(IKey.L1) || playerInput.isPressed(IKey.L2)) { this.ToPage(Math.Max((short) 0, (short)(this.page - 1))); return PagingPress.PageChange; }
+			if(playerInput.isPressed(IKey.R1) || playerInput.isPressed(IKey.R2)) { this.ToPage((short)(this.page + 1)); return PagingPress.PageChange; }
 
-			return false;
+			return PagingPress.None;
 		}
 
 		public void ToPage(short pageNum) {
@@ -89,8 +95,8 @@ namespace Nexus.Engine {
 			if(pageNum < 0) { pageNum = 0; }
 
 			// Cannot exceed max page:
-			else if(pageNum * this.PerPage > this.NumberOfItems) {
-				pageNum = (short)Math.Floor((float)this.NumberOfItems / (float)this.PerPage);
+			else if(pageNum * this.PerPage >= this.NumberOfItems) {
+				pageNum = (short) Math.Floor((float)(this.NumberOfItems - 1) / (float)this.PerPage);
 			}
 
 			// Update Page

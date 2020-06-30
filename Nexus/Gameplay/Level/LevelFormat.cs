@@ -18,15 +18,25 @@ namespace Nexus.Gameplay {
 		public string description { get; set; }
 
 		[JsonProperty("gameClass")]
-		public byte gameClass { get; set; }	// GameClassFlag enum
+		public byte gameClass { get; set; }		// GameClassFlag enum
 		
 		[JsonProperty("timeLimit")]
 		public short timeLimit { get; set; }	// In Seconds
 		
 		[JsonProperty("music")]
-		public byte music { get; set; }        // The Music Track ID. (MusicTrackEnum in Types/AssetTypes.cs)
+		public byte music { get; set; }        // The Music Track ID. (MusicTrack in Maps/MusicAssets.cs)
+
+		// Character Icon: HeadSubType, SuitSubType, HatSubType, ...
+		[JsonProperty("icon")]
+		public byte[] icon { get; set; }
 
 		[JsonProperty("rooms")]
 		public Dictionary<string, RoomFormat> rooms { get; set; }
+	}
+
+	public class LevelListFormat {
+
+		[JsonProperty("levels")]
+		public List<short> levels { get; set; }
 	}
 }

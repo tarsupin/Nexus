@@ -60,7 +60,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Go to Level Editor Scene
-		public static bool ToLevelEditor( string worldId, string levelId ) {
+		public static bool ToLevelEditor( string worldId, string levelId, short myLevelNum = 0 ) {
 			GameHandler handler = Systems.handler;
 
 			// Load Level to Edit (unless it's already loaded)
@@ -69,11 +69,19 @@ namespace Nexus.GameEngine {
 				// Get Level Path & Retrieve Level Data
 				if(!handler.levelContent.LoadLevelData(levelId)) {
 
-					#if debug
-					throw new Exception("Unable to load level data.");
-					#endif
+					// If this is a personal level, allow it to be created.
+					if(myLevelNum > 0 && myLevelNum < GameValues.MaxLevelsAllowedPerUser) {
+						handler.levelContent.data = LevelContent.BuildEmptyLevel(levelId);
+					}
+					
+					else {
 
-					return false;
+						#if debug
+						throw new Exception("Unable to load level data.");
+						#endif
+
+						return false;
+					}
 				}
 			}
 
@@ -82,8 +90,6 @@ namespace Nexus.GameEngine {
 
 			// End Old Level Scene
 			Systems.scene.EndScene();
-
-			// TODO HIGH PRIORITY: Editable Levels should be 1 to 100 on localhost. Then, can send those to server, which changes to a special hash.
 
 			// Editor Scene
 			Systems.scene = new EditorScene();
@@ -129,6 +135,14 @@ namespace Nexus.GameEngine {
 		public static bool ToPlanetSelection() {
 			Systems.scene.EndScene();
 			Systems.scene = new PlanetSelectScene();
+			Systems.scene.StartScene();
+			return true;
+		}
+
+		// Go to My Levels Scene
+		public static bool ToMyLevels() {
+			Systems.scene.EndScene();
+			Systems.scene = new MyLevelsScene();
 			Systems.scene.StartScene();
 			return true;
 		}

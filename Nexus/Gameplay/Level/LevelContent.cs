@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using static Nexus.Gameplay.MusicAssets;
 
 namespace Nexus.Gameplay {
 
@@ -49,12 +50,32 @@ namespace Nexus.Gameplay {
 			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
 		}
 
+		public static string GetFullLevelDir(string destPath, string levelId) {
+			return Path.Combine(destPath, levelId.Substring(0, 2));
+		}
+
 		public static string GetFullLevelPath(string levelId) {
 			return Path.Combine(LevelContent.levelPath, LevelContent.GetLocalLevelPath(levelId));
 		}
 
-		public string GetFullDestinationPath(string destPath, string levelId) {
+		public static string GetFullDestinationPath(string destPath, string levelId) {
 			return Path.Combine(destPath, LevelContent.GetLocalLevelPath(levelId));
+		}
+
+		public static LevelFormat GetLevelData(string levelId) {
+			if(levelId.Length == 0) { return null; }
+
+			// Make sure the level exists:
+			string fullLevelPath = LevelContent.GetFullLevelPath(levelId);
+			if(!File.Exists(fullLevelPath)) { return null; }
+
+			string json = File.ReadAllText(fullLevelPath);
+
+			// If there is no JSON content, end the attempt to load level:
+			if(json == "") { return null; }
+
+			// Load the Data
+			return JsonConvert.DeserializeObject<LevelFormat>(json);
 		}
 
 		public bool LoadLevelData(string levelId = "") {
@@ -84,35 +105,35 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
-		public bool BuildRoomData(byte roomID) {
-			string roomStr = roomID.ToString();
+		public static LevelFormat BuildEmptyLevel(string levelId) {
 
-			// Build Initial Room Format
-			if(!this.data.rooms.ContainsKey(roomStr)) {
-				this.data.rooms[roomStr] = new RoomFormat();
-			}
+			LevelFormat level = new LevelFormat {
+				id = levelId,
+				account = "",
+				title = "Unnamed Level",
+				description = "",
+				gameClass = (byte)GameClassFlag.LevelStandard,
+				timeLimit = 300,
+				music = (byte)MusicTrack.None,
+				icon = new byte[] { 0, 0, 0, 0, 0 },
+				rooms = new Dictionary<string, RoomFormat>() {
+					{ "0", LevelContent.BuildRoomData() }
+				}
+			};
 
-			// Main Layer
-			if(this.data.rooms[roomStr].main == null) {
-				this.data.rooms[roomStr].main = new Dictionary<string, Dictionary<string, ArrayList>>();
-			}
-			
-			// BG Layer
-			if(this.data.rooms[roomStr].bg == null) {
-				this.data.rooms[roomStr].bg = new Dictionary<string, Dictionary<string, ArrayList>>();
-			}
-			
-			// FG Layer
-			if(this.data.rooms[roomStr].fg == null) {
-				this.data.rooms[roomStr].fg = new Dictionary<string, Dictionary<string, ArrayList>>();
-			}
-			
-			// Obj Layer
-			if(this.data.rooms[roomStr].obj == null) {
-				this.data.rooms[roomStr].obj = new Dictionary<string, Dictionary<string, ArrayList>>();
-			}
+			return level;
+		}
 
-			return true;
+		public static RoomFormat BuildRoomData() {
+
+			RoomFormat room = new RoomFormat {
+				main = new Dictionary<string, Dictionary<string, ArrayList>>(),
+				bg = new Dictionary<string, Dictionary<string, ArrayList>>(),
+				fg = new Dictionary<string, Dictionary<string, ArrayList>>(),
+				obj = new Dictionary<string, Dictionary<string, ArrayList>>()
+			};
+
+			return room;
 		}
 
 		// Assign Level Data
@@ -123,23 +144,27 @@ namespace Nexus.Gameplay {
 		public void SetGameClass( GameClassFlag gameClass ) { this.data.gameClass = (byte) gameClass; }
 		public void SetMusicTrack( byte track ) { this.data.music = (byte) track; } // MusicTrack enum
 
-		public void SaveLevel( string destDir = null, string destLevelId = null ) {
+		public void SaveLevel( string baseDir = null, string destLevelId = null ) {
 
 			// Determine the Destination Path and Destination Level ID
-			if(destDir == null) { destDir = LevelContent.levelPath; }
+			if(baseDir == null) { baseDir = LevelContent.levelPath; }
 			if(destLevelId == null) { destLevelId = this.levelId; }
 
-			// Make sure the directory exists:
-			if(!Directory.Exists(destDir)) { Directory.CreateDirectory(destDir); }
-
 			// Can only save a level state if the level ID is assigned correctly.
-			if(destLevelId == null || destLevelId.Length == 0) { return; }
+			if(destLevelId.Length == 0) { return; }
 
-			// TODO LOW PRIORITY: Verify that the levelId exists; not just that an ID is present.
+			// Make sure the directory exists:
+			if(!Directory.Exists(baseDir)) { Directory.CreateDirectory(baseDir); }
+
+			// Make sure the level's directory exists:
+			string levelDir = LevelContent.GetFullLevelDir(baseDir, destLevelId);
+
+			if(!Directory.Exists(levelDir)) { Directory.CreateDirectory(levelDir); }
 
 			// Save State
-			string fullDestPath = this.GetFullDestinationPath(destDir, this.levelId);
+			string fullDestPath = LevelContent.GetFullDestinationPath(baseDir, destLevelId);
 			string json = JsonConvert.SerializeObject(this.data);
+
 			File.WriteAllText(fullDestPath, json);
 		}
 

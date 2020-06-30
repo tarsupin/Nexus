@@ -7,7 +7,7 @@ namespace Nexus.Gameplay {
 	public class RoomFormat {
 
 		[JsonProperty("music")]
-		public short music { get; set; }        // The Music Track ID. (MusicTrackEnum in Types/AssetTypes.cs)
+		public short music { get; set; }        // The Music Track ID. (MusicTrack in Maps/MusicAssets.cs)
 
 		[JsonProperty("bg")]
 		public Dictionary<string, Dictionary<string, ArrayList>> bg { get; set; }
