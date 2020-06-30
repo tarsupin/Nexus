@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 		// Static Values
 		public const string openSlot = "{ Open Slot }";
 		public const string openImg = "UI/MyLevels";
+		public const string activeImg = "Exclaim/Active";
 		public const short slotsAllowed = 28 * 4;
 
 		// References, Component
@@ -155,7 +156,7 @@ namespace Nexus.GameEngine {
 			if(!this.levels.ContainsKey(levelNum)) {
 
 				// Draw Level
-				this.atlas.DrawAdvanced(MyLevelsScene.openImg, posX, posY, Color.White, 0f, 2);
+				this.atlas.DrawAdvanced(MyLevelsScene.openImg, posX - 5, posY, Color.White, 0f, 2);
 
 				// Draw Character
 				Head.GetHeadBySubType(6).Draw(false, posX - 30, posY - 15, 0, 0);
@@ -171,7 +172,7 @@ namespace Nexus.GameEngine {
 			LevelFormat levelData = this.levels[levelNum];
 
 			// Draw Level
-			this.atlas.DrawAdvanced(MyLevelsScene.openImg, posX + 2, posY, Color.White, 0f, 2);
+			this.atlas.DrawAdvanced(MyLevelsScene.activeImg, posX - 5, posY, Color.White, 0f, 2);
 
 			// Display Name
 			short titleSize = (short)Systems.fonts.baseText.font.MeasureString(levelData.title).X;

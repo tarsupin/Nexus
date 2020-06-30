@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 			this.retry = new UIIconWithText(null, "UI/Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { this.scene.RestartLevel(false); } );
 			this.restart = new UIIconWithText(null, "UI/Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { this.scene.RestartLevel(true); } );
 			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { this.scene.uiState = Scene.UIState.MainMenu; } );
-			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () {  } );
+			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { this.scene.EndLevel(); } );
 		}
 
 		public void RunTick() {

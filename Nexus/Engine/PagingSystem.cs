@@ -104,8 +104,8 @@ namespace Nexus.Engine {
 			this.numOnPage = (byte)Math.Min(this.PerPage, (this.NumberOfItems - (pageNum * this.PerPage)));
 
 			// Reposition to Safe Selector Location:
-			this.selectX = 0;
-			this.selectY = 0;
+			if(this.numOnPage <= this.selectX) { this.selectX = (byte)(this.numOnPage - 1); }
+			if(this.numOnPage <= this.selectY * this.PerRow + this.selectX) { this.selectY = 0; }
 		}
 
 		// One of these values gets set as 0, the other is set to -1 or 1 to represent the direction of movement.

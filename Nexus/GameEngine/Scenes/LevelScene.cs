@@ -271,6 +271,18 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public virtual void EndLevel() {
+
+			// If there is an active world, return to the world stage.
+			if(Systems.handler.campaignState.worldId.Length > 0) {
+				SceneTransition.ToWorld(Systems.handler.campaignState.worldId);
+				return;
+			}
+
+			// Otherwise, go to the planet selection scene:
+			SceneTransition.ToPlanetSelection();
+		}
+
 		// NOTE: You probably want to call this from TransportAction - it will handle your room transitions correctly.
 		public void MoveCharacterToNewRoom(Character character, byte roomID) {
 
