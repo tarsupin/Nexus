@@ -10,6 +10,7 @@ namespace Nexus.GameEngine {
 	public class EditorScene : Scene {
 
 		public readonly EditorUI editorUI;
+		public readonly MenuUI menuUI;
 		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public byte roomNum = 0;
@@ -21,6 +22,7 @@ namespace Nexus.GameEngine {
 
 			// Create UI
 			this.editorUI = new EditorUI(this);
+			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Main);
 
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, EditorRoomScene>();
@@ -77,17 +79,14 @@ namespace Nexus.GameEngine {
 
 			// Menu UI is active:
 			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				// TODO: Editor Menu
-				// this.menuUI.RunTick();
-				//if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Playing; }
-				this.uiState = UIState.Playing;
+				this.menuUI.RunTick(); // Also handles menu close option.
 				return;
 			}
 
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.SubMenu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.MainMenu; }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
@@ -159,11 +158,9 @@ namespace Nexus.GameEngine {
 			this.CurrentRoom.Draw();
 
 			// Draw UI
-			if(this.uiState == UIState.Console) {
-				Systems.editorConsole.Draw();
-			} else {
-				this.editorUI.Draw();
-			}
+			if(this.uiState == UIState.Playing) { this.editorUI.Draw(); }
+			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
+			else if(this.uiState == UIState.Console) { Systems.editorConsole.Draw(); }
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {

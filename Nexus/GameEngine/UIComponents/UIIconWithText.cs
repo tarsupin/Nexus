@@ -59,7 +59,7 @@ namespace Nexus.GameEngine {
 			else {
 				this.atlas.DrawWithColor(UIIconWithText.BaseSprite, this.trueX, this.trueY, Color.White * 0.5f);
 				this.atlas.DrawWithColor(this.SpriteName, this.trueX, this.trueY, Color.White * 0.5f);
-				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White * 0.5f);
+				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White * 0.65f);
 			}
 		}
 	}

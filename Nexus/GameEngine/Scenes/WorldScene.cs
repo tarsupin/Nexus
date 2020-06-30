@@ -10,6 +10,7 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly WorldUI worldUI;
+		public readonly MenuUI menuUI;
 		public readonly PlayerInput playerInput;
 		public WorldChar character;
 		public CampaignState campaign;
@@ -33,6 +34,7 @@ namespace Nexus.GameEngine {
 
 			// Prepare Components
 			this.worldUI = new WorldUI(this);
+			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.World);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -143,17 +145,14 @@ namespace Nexus.GameEngine {
 
 			// Menu UI is active:
 			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				// TODO: Editor Menu
-				// this.menuUI.RunTick();
-				//if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.Playing; }
-				this.uiState = UIState.Playing;
+				this.menuUI.RunTick(); // Also handles menu close option.
 				return;
 			}
 
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.SubMenu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.MainMenu; }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
@@ -381,11 +380,9 @@ namespace Nexus.GameEngine {
 			this.character.Draw(camX, camY);
 
 			// Draw UI
-			if(this.uiState == UIState.Console) {
-				Systems.worldConsole.Draw();
-			} else {
-				this.worldUI.Draw();
-			}
+			if(this.uiState == UIState.Playing) { this.worldUI.Draw(); }
+			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
+			else if(this.uiState == UIState.Console) { Systems.worldConsole.Draw(); }
 		}
 
 		// NOTE: This is ROUGHLY a duplicate of World Editor (probably). Just need to add "Atlas".
