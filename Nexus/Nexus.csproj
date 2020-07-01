@@ -125,6 +125,7 @@
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\Scenes\MyLevelsScene.cs" />
     <Compile Include="GameEngine\Scenes\PlanetSelectScene.cs" />
+    <Compile Include="GameEngine\UIComponents\LoginBox.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
     <Compile Include="GameEngine\UIComponents\UIInput.cs" />
     <Compile Include="GameEngine\UIComponents\UIButton.cs" />

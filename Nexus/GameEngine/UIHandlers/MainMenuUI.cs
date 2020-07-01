@@ -27,6 +27,8 @@ namespace Nexus.GameEngine {
 		private readonly UIIconWithText myWorld;
 		private readonly UIIconWithText credits;
 
+		private readonly LoginBox loginBox;
+
 		public MainMenuUI(Scene scene) {
 			this.scene = scene;
 
@@ -40,6 +42,8 @@ namespace Nexus.GameEngine {
 			this.myLevels = new UIIconWithText(null, "UI/MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
 			this.myWorld = new UIIconWithText(null, "UI/MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
 			this.credits = new UIIconWithText(null, "UI/About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games/credits"); } );
+
+			this.loginBox = new LoginBox(null, 200, 200, 280, 300);
 		}
 
 		public void RunTick() {
@@ -90,6 +94,8 @@ namespace Nexus.GameEngine {
 			this.myLevels.RunTick();
 			this.myWorld.RunTick();
 			this.credits.RunTick();
+
+			this.loginBox.RunTick();
 		}
 
 		public void Draw() {
@@ -100,6 +106,8 @@ namespace Nexus.GameEngine {
 			this.myLevels.Draw(this.opt == MenuOptionActive.MyLevels);
 			this.myWorld.Draw(this.opt == MenuOptionActive.MyWorld);
 			this.credits.Draw(this.opt == MenuOptionActive.Credits);
+
+			this.loginBox.Draw();
 		}
 	}
 }

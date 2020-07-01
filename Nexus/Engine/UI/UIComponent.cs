@@ -142,7 +142,7 @@ namespace Nexus.Engine {
 			int mouseX = Cursor.MouseX;
 			int mouseY = Cursor.MouseY;
 
-			if(mouseX < this.x || mouseX > this.x + this.width || mouseY < this.y || mouseY > this.y + this.height) {
+			if(mouseX < this.trueX || mouseX > this.trueX + this.width || mouseY < this.trueY || mouseY > this.trueY + this.height) {
 
 				// Update Mouse State to "Off" or "Exited"
 				if(this.MouseOver == UIMouseOverState.On) { this.MouseOver = UIMouseOverState.Exited; } else { this.MouseOver = UIMouseOverState.Off; }
@@ -164,6 +164,11 @@ namespace Nexus.Engine {
 		}
 
 		private void AssignChildToComponent(UIComponent child) {
+
+			if(this.Children is List<UIComponent> == false) {
+				this.Children = new List<UIComponent>();
+			}
+
 			this.Children.Add(child);
 		}
 	}

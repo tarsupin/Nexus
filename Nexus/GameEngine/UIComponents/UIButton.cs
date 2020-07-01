@@ -7,8 +7,8 @@ namespace Nexus.GameEngine {
 
 	public class UIButton : UIComponent {
 
-		protected const string inactive = "UI/Button/Text";
 		protected const string active = "UI/Button/TextOn";
+		protected const string inactive = "UI/Button/Text";
 
 		protected Atlas atlas;
 		protected string text;
@@ -22,11 +22,11 @@ namespace Nexus.GameEngine {
 			this.onClick = onClick;
 
 			this.SetRelativePosition(posX, posY);
-			this.SetWidth(174);
+			this.SetWidth(124);
 			this.SetHeight(48);
 
 			// Prepare Center Text (X Offset)
-			Vector2 textSize = Systems.fonts.console.font.MeasureString(this.text);
+			Vector2 textSize = Systems.fonts.baseText.font.MeasureString(this.text);
 			this.xOffset = (short) Math.Floor(textSize.X * 0.5f);
 		}
 
@@ -48,13 +48,13 @@ namespace Nexus.GameEngine {
 			
 			if(UIComponent.ComponentWithFocus == this) {
 				this.atlas.Draw(UIButton.active, this.trueX, this.trueY);
+				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 + 1 - this.xOffset, this.trueY + 16 + 1, Color.DarkSlateGray);
 			}
 
 			else {
 				this.atlas.Draw(UIButton.inactive, this.trueX, this.trueY);
+				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 - this.xOffset, this.trueY + 16, Color.DarkSlateGray);
 			}
-
-			Systems.fonts.console.Draw(this.text, this.trueX + 87 - this.xOffset, this.trueY + 20, Color.DarkSlateGray);
 		}
 	}
 }

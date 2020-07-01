@@ -15,10 +15,10 @@ namespace Nexus.GameEngine {
 		protected const string BottomLeft = "UI/TextBox/BottomLeft";
 		protected const string BottomRight = "UI/TextBox/BottomRight";
 
-		protected const byte leftPad = 16;
-		protected const byte rightPad = 16;
-		protected const byte topPad = 16;
-		protected const byte botPad = 16;
+		protected const byte leftPad = 8;
+		protected const byte rightPad = 8;
+		protected const byte topPad = 8;
+		protected const byte botPad = 8;
 
 		protected Rectangle[] patches;
 		protected static Color bgColor;
@@ -38,12 +38,12 @@ namespace Nexus.GameEngine {
 			this.patches = this.CreatePatches(posX, posY, width, height);
 		}
 
-		private Rectangle[] CreatePatches(short x, short y, short w, short h) {
+		private Rectangle[] CreatePatches(short x, short y, short width, short height) {
 
-			int middleWidth = w - leftPad - rightPad;
-			int middleHeight = h - topPad - botPad;
-			int bottomY = y + h - botPad;
-			int rightX = x + w - rightPad;
+			int middleWidth = width - leftPad - rightPad;
+			int middleHeight = height - topPad - botPad;
+			int bottomY = y + height - botPad;
+			int rightX = x + width - rightPad;
 			int leftX = x + leftPad;
 			int topY = y + topPad;
 
@@ -85,8 +85,8 @@ namespace Nexus.GameEngine {
 			// Draw Top
 			this.atlas.DrawStretch(TextBox.Top, this.trueX + leftPad, this.trueY, this.width, topPad);
 			this.atlas.DrawStretch(TextBox.Bottom, this.trueX + leftPad, this.trueY + this.height + topPad, this.width, botPad);
-			this.atlas.DrawStretch(TextBox.Left, this.trueX, this.trueY + topPad, leftPad, this.width);
-			this.atlas.DrawStretch(TextBox.Right, this.trueX + this.width + rightPad, this.trueY + topPad, rightPad, this.width);
+			this.atlas.DrawStretch(TextBox.Left, this.trueX, this.trueY + topPad, leftPad, this.height);
+			this.atlas.DrawStretch(TextBox.Right, this.trueX + this.width + rightPad, this.trueY + topPad, rightPad, this.height);
 
 			// Draw Corners
 			this.atlas.Draw(TextBox.TopLeft, this.trueX, this.trueY);

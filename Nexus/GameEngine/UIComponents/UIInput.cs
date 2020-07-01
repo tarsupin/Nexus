@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 				this.atlas.Draw(UIInput.outline, this.trueX, this.trueY);
 			}
 
-			Systems.fonts.console.Draw("Test", this.trueX + 20, this.trueY + 20, Color.DarkSlateGray);
+			Systems.fonts.console.Draw("Test This Thing", this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
 		}
 	}
 }
