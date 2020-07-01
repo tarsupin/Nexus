@@ -60,7 +60,7 @@ namespace Nexus.Gameplay {
 			};
 
 			zone1.tiles[0] = new byte[1][];
-			zone1.tiles[0][0] = new byte[6];
+			zone1.tiles[0][0] = new byte[7] { 20, 0, 0, 0, 0, 0, 0 };
 
 			WorldFormat world = new WorldFormat {
 				id = worldId,
@@ -123,7 +123,7 @@ namespace Nexus.Gameplay {
 
 				// Loop through X Data
 				for(byte x = width; x < newWidth; x++) {
-					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0, 0 };
+					zone.tiles[y][x] = new byte[] { 20, 0, 0, 0, 0, 0, 0 };
 				}
 			}
 
@@ -152,7 +152,7 @@ namespace Nexus.Gameplay {
 				
 				// Loop through X Data
 				for(byte x = 0; x < width; x++) {
-					zone.tiles[y][x] = new byte[] { 0, 0, 0, 0, 0, 0, 0 };
+					zone.tiles[y][x] = new byte[] { 20, 0, 0, 0, 0, 0, 0 };
 				}
 			}
 

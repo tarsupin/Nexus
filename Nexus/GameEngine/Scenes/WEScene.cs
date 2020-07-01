@@ -56,6 +56,10 @@ namespace Nexus.GameEngine {
 
 		public WEScene() : base() {
 
+			// UI State
+			this.mouseAlwaysVisible = true;
+			this.SetUIState(UIState.Playing);
+
 			// Prepare Components
 			this.weUI = new WE_UI(this);
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Main);
