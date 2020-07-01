@@ -32,6 +32,10 @@ namespace Nexus.GameEngine {
 
 		public WorldScene() : base() {
 
+			// UI State
+			this.mouseAlwaysVisible = false;
+			this.SetUIState(UIState.Playing);
+
 			// Prepare Components
 			this.worldUI = new WorldUI(this);
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.World);
@@ -136,7 +140,7 @@ namespace Nexus.GameEngine {
 				// Determine if the console needs to be closed (escape or tilde):
 				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.worldConsole.SetVisible(false);
-					this.uiState = UIState.Playing;
+					this.SetUIState(UIState.Playing);
 				}
 
 				Systems.worldConsole.RunTick();
@@ -152,11 +156,11 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.MainMenu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.uiState = UIState.Console;
+				this.SetUIState(UIState.Console);
 				Systems.worldConsole.Open();
 			}
 

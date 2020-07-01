@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { this.scene.uiState = LevelScene.UIState.Playing; } );
+			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { this.scene.SetUIState(Scene.UIState.Playing); } );
 			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { } );
 			this.worlds = new UIIconWithText(null, "UI/MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UIIconWithText(null, "UI/Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
@@ -66,7 +66,7 @@ namespace Nexus.GameEngine {
 			if(input.isPressed(IKey.AButton)) {
 
 				// Close the Menu
-				this.scene.uiState = LevelScene.UIState.Playing;
+				this.scene.SetUIState(Scene.UIState.Playing);
 
 				if (this.opt == MenuOptionActive.Return) { return; }
 				else if(this.opt == MenuOptionActive.Log) { this.log.ActivateIcon(); return; }
@@ -78,7 +78,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(input.isPressed(IKey.Start)) {
-				this.scene.uiState = LevelScene.UIState.Playing;
+				this.scene.SetUIState(Scene.UIState.Playing);
 				return;
 			}
 

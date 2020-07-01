@@ -69,6 +69,10 @@ namespace Nexus.GameEngine {
 
 		public PlanetSelectScene() : base() {
 
+			// UI State
+			this.mouseAlwaysVisible = true;
+			this.SetUIState(UIState.Playing);
+
 			// Prepare Components
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -198,7 +202,7 @@ namespace Nexus.GameEngine {
 
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.uiState = UIState.MainMenu;
+				this.SetUIState(UIState.MainMenu);
 			}
 
 			// Update Moon Positions

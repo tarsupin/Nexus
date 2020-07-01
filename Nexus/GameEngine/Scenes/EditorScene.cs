@@ -20,6 +20,10 @@ namespace Nexus.GameEngine {
 			// References
 			this.levelContent = Systems.handler.levelContent;
 
+			// UI State
+			this.mouseAlwaysVisible = true;
+			this.SetUIState(UIState.Playing);
+
 			// Create UI
 			this.editorUI = new EditorUI(this);
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Main);
@@ -70,7 +74,7 @@ namespace Nexus.GameEngine {
 				// Determine if the console needs to be closed (escape or tilde):
 				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.editorConsole.SetVisible(false);
-					this.uiState = UIState.Playing;
+					this.SetUIState(UIState.Playing);
 				}
 
 				Systems.editorConsole.RunTick();
@@ -86,11 +90,11 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.MainMenu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.uiState = UIState.Console;
+				this.SetUIState(UIState.Console);
 				Systems.editorConsole.Open();
 			}
 

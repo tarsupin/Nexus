@@ -124,7 +124,7 @@ namespace Nexus.GameEngine {
 				// Determine if the console needs to be closed (escape or tilde):
 				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.worldEditConsole.SetVisible(false);
-					this.uiState = UIState.Playing;
+					this.SetUIState(UIState.Playing);
 				}
 
 				Systems.worldEditConsole.RunTick();
@@ -140,11 +140,11 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.uiState = UIState.MainMenu; }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.uiState = UIState.Console;
+				this.SetUIState(UIState.Console);
 				Systems.worldEditConsole.Open();
 			}
 

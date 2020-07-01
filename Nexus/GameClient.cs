@@ -132,9 +132,6 @@ namespace Nexus {
 				SceneTransition.ToPlanetSelection();
 				//SceneTransition.ToMyLevels();
 
-				// TEMPORARY: Need to reassign to level. // TODO
-				Systems.SetMouseVisible(true);
-
 				//SceneTransition.ToWorld("Tarsupin");
 				//SceneTransition.ToWorldEditor("Tarsupin");
 			};

@@ -20,6 +20,10 @@ namespace Nexus.GameEngine {
 
 		public LevelScene() : base() {
 
+			// UI State
+			this.mouseAlwaysVisible = false;
+			this.SetUIState(UIState.Playing);
+
 			// Create UI
 			this.levelUI = new LevelUI();
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Level);
@@ -100,7 +104,7 @@ namespace Nexus.GameEngine {
 				// Determine if the console needs to be closed (escape or tilde):
 				if(input.LocalKeyPressed(Keys.Escape) || input.LocalKeyPressed(Keys.OemTilde)) {
 					Systems.levelConsole.SetVisible(false);
-					this.uiState = UIState.Playing;
+					this.SetUIState(UIState.Playing);
 				}
 
 				Systems.levelConsole.RunTick();
@@ -117,12 +121,12 @@ namespace Nexus.GameEngine {
 
 			// Open Menu
 			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.uiState = UIState.SubMenu;
+				this.SetUIState(UIState.SubMenu);
 			}
 
 			// Open Console (Tilde)
 			else if(input.LocalKeyPressed(Keys.OemTilde)) {
-				this.uiState = UIState.Console;
+				this.SetUIState(UIState.Console);
 				Systems.levelConsole.Open();
 			}
 

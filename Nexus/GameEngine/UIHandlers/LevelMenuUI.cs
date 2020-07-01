@@ -32,7 +32,7 @@ namespace Nexus.GameEngine {
 			this.cont = new UIIconWithText(null, "UI/Continue", "Continue", centerX, centerY, delegate () {} );
 			this.retry = new UIIconWithText(null, "UI/Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { this.scene.RestartLevel(false); } );
 			this.restart = new UIIconWithText(null, "UI/Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { this.scene.RestartLevel(true); } );
-			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { this.scene.uiState = Scene.UIState.MainMenu; } );
+			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { this.scene.SetUIState(Scene.UIState.MainMenu); } );
 			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { this.scene.EndLevel(); } );
 		}
 
@@ -52,7 +52,7 @@ namespace Nexus.GameEngine {
 			if(input.isPressed(IKey.AButton)) {
 
 				// Close the Menu
-				this.scene.uiState = LevelScene.UIState.Playing;
+				this.scene.SetUIState(Scene.UIState.Playing);
 
 				if (this.opt == MenuOptionActive.Continue) { return; }
 				else if(this.opt == MenuOptionActive.Retry) { this.retry.ActivateIcon(); return; }
@@ -62,7 +62,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(input.isPressed(IKey.Start)) {
-				this.scene.uiState = LevelScene.UIState.Playing;
+				this.scene.SetUIState(Scene.UIState.Playing);
 				return;
 			}
 

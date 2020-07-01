@@ -1,6 +1,5 @@
 ﻿
 using Nexus.Engine;
-using static Nexus.GameEngine.Scene;
 
 namespace Nexus.GameEngine {
 
@@ -15,7 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateWorldFuncButton() {
 			Systems.worldEditConsole.Open();
-			Systems.scene.uiState = UIState.Console;
+			Systems.scene.SetUIState(Scene.UIState.Console);
 		}
 	}
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
 	public class Scene {
 
 		// UI Handler
+		public bool mouseAlwaysVisible = false;
 		public UIState uiState = UIState.Playing;
 
 		public enum UIState : byte {
@@ -24,6 +25,13 @@ namespace Nexus.GameEngine {
 		public virtual void StartScene() { }
 		public virtual void ResetScene() { }
 		public virtual void EndScene() { }
+
+		public void SetUIState(UIState uiState) {
+			this.uiState = uiState;
+
+			if(uiState == UIState.SubMenu || uiState == UIState.MainMenu || this.mouseAlwaysVisible) { Systems.SetMouseVisible(true); }
+			else { Systems.SetMouseVisible(false); }
+		}
 
 		public virtual void RunTick() { }
 		public virtual void Draw() { }
