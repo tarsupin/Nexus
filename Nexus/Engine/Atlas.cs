@@ -116,6 +116,18 @@ namespace Nexus.Engine {
 			);
 		}
 
+		// This uses "destinationRectangle" instead of position, to allow stretching of the image:
+		public void DrawStretch(string spriteName, int posX, int posY, int width, int height) {
+			SpriteFrame sprite = this.spriteList[spriteName];
+
+			spriteBatch.Draw(
+				texture: this.Texture,
+				destinationRectangle: new Rectangle(posX, posY, width, height),
+				sourceRectangle: sprite.TextureRect,
+				color: null
+			);
+		}
+
 		public void DrawFaceLeft(string spriteName, int posX, int posY) {
 			this.DrawRotation(spriteName, posX, posY, Rot270Deg, new Vector2(48, 0));
 		}

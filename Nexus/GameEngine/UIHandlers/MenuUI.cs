@@ -19,17 +19,17 @@ namespace Nexus.GameEngine {
 		}
 
 		// Corner Menu
-		private readonly UIButton settings;
-		private readonly UIButtonVolume volume;
-		private readonly UIButton exit;
+		private readonly UIIcon settings;
+		private readonly UIIconVolume volume;
+		private readonly UIIcon exit;
 
-		private readonly UIButton world;
-		private readonly UIButton patreon;
+		private readonly UIIcon world;
+		private readonly UIIcon patreon;
 
 		// Social Buttons
-		private readonly UIButton discord;
-		private readonly UIButton reddit;
-		private readonly UIButton twitter;
+		private readonly UIIcon discord;
+		private readonly UIIcon reddit;
+		private readonly UIIcon twitter;
 
 		//private readonly UIButton youtube;
 		//private readonly UIButton twitch;
@@ -48,17 +48,17 @@ namespace Nexus.GameEngine {
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu
-			this.settings = new UIButton(null, "UI/Settings", 10, 10, delegate () {  } );
-			this.volume = new UIButtonVolume(null, "UI/Volume/On", 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
-			this.exit = new UIButton(null, "UI/Quit", 142, 10, delegate () { Environment.Exit(0); } );
+			this.settings = new UIIcon(null, "UI/Settings", 10, 10, delegate () {  } );
+			this.volume = new UIIconVolume(null, "UI/Volume/On", 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
+			this.exit = new UIIcon(null, "UI/Quit", 142, 10, delegate () { Environment.Exit(0); } );
 
-			this.world = new UIButton(null, "UI/World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
-			this.patreon = new UIButton(null, "UI/Social/Patreon", (short)(midX + 33), 10, delegate () { WebHandler.LaunchURL("https://www.patreon.com/Nexus_Games"); } );
+			this.world = new UIIcon(null, "UI/World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
+			this.patreon = new UIIcon(null, "UI/Social/Patreon", (short)(midX + 33), 10, delegate () { WebHandler.LaunchURL("https://www.patreon.com/Nexus_Games"); } );
 
 			// Create Social Buttons
-			this.reddit = new UIButton(null, "UI/Social/Reddit", (short)(rightX - 66), 10, delegate () { WebHandler.LaunchURL("https://www.reddit.com/r/NexusGames/"); } );
-			this.discord = new UIButton(null, "UI/Social/Discord", (short)(rightX - 132), 10, delegate () { WebHandler.LaunchURL("https://discord.gg/Wx5sGcr"); } );
-			this.twitter = new UIButton(null, "UI/Social/Twitter", rightX, 10, delegate () { WebHandler.LaunchURL("https://twitter.com/scionax"); } );
+			this.reddit = new UIIcon(null, "UI/Social/Reddit", (short)(rightX - 66), 10, delegate () { WebHandler.LaunchURL("https://www.reddit.com/r/NexusGames/"); } );
+			this.discord = new UIIcon(null, "UI/Social/Discord", (short)(rightX - 132), 10, delegate () { WebHandler.LaunchURL("https://discord.gg/Wx5sGcr"); } );
+			this.twitter = new UIIcon(null, "UI/Social/Twitter", rightX, 10, delegate () { WebHandler.LaunchURL("https://twitter.com/scionax"); } );
 			//this.youtube = new UIButton(null, "UI/Social/YouTube", 580, 10, delegate () { WebHandler.LaunchURL("http://youtube.com"); } );
 			//this.twitch = new UIButton(null, "UI/Social/Twitch", 280, 10, delegate () { WebHandler.LaunchURL("http://twitch.com"); } );
 		}

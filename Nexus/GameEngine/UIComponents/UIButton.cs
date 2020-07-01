@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 
@@ -6,24 +7,27 @@ namespace Nexus.GameEngine {
 
 	public class UIButton : UIComponent {
 
-		protected static string[] ButtonSprite = new string[2] { "UI/Button/Up", "UI/Button/Down" };
+		protected const string inactive = "UI/Button/Text";
+		protected const string active = "UI/Button/TextOn";
 
 		protected Atlas atlas;
-		protected string SpriteName;
+		protected string text;
+		private short xOffset;
 		public Action onClick { get; protected set; }
 
 		// onClick = delegate() { doSomething(); };
-		public UIButton( UIComponent parent, string spriteName, short posX, short posY, Action onClick ) : base(parent) {
+		public UIButton( UIComponent parent, string text, short posX, short posY, Action onClick ) : base(parent) {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-			this.SpriteName = spriteName;
+			this.text = text;
 			this.onClick = onClick;
-			this.SetRelativePosition(posX, posY);
-			this.SetWidth(56);
-			this.SetHeight(56);
-		}
 
-		public void UpdateSprite(string spriteName) {
-			this.SpriteName = spriteName;
+			this.SetRelativePosition(posX, posY);
+			this.SetWidth(174);
+			this.SetHeight(48);
+
+			// Prepare Center Text (X Offset)
+			Vector2 textSize = Systems.fonts.console.font.MeasureString(this.text);
+			this.xOffset = (short) Math.Floor(textSize.X * 0.5f);
 		}
 
 		public void RunTick() {
@@ -37,22 +41,20 @@ namespace Nexus.GameEngine {
 			}
 			
 			// If the Mouse just exited this component:
-			else if(this.MouseOver == UIMouseOverState.Exited) {
-				
-			}
+			//else if(this.MouseOver == UIMouseOverState.Exited) {}
 		}
 
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIButton.ButtonSprite[1], this.trueX, this.trueY);
-				this.atlas.Draw(this.SpriteName, this.trueX + 1, this.trueY + 1);
+				this.atlas.Draw(UIButton.active, this.trueX, this.trueY);
 			}
 
 			else {
-				this.atlas.Draw(UIButton.ButtonSprite[0], this.trueX, this.trueY);
-				this.atlas.Draw(this.SpriteName, this.trueX, this.trueY);
+				this.atlas.Draw(UIButton.inactive, this.trueX, this.trueY);
 			}
+
+			Systems.fonts.console.Draw(this.text, this.trueX + 87 - this.xOffset, this.trueY + 20, Color.DarkSlateGray);
 		}
 	}
 }

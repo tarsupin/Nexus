@@ -41,11 +41,9 @@ namespace Nexus.GameEngine {
 					this.onActivate();
 				}
 			}
-			
+
 			// If the Mouse just exited this component:
-			else if(this.MouseOver == UIMouseOverState.Exited) {
-				
-			}
+			//else if(this.MouseOver == UIMouseOverState.Exited) {}
 		}
 
 		public void Draw(bool showFocus = false) {
