@@ -69,8 +69,14 @@ namespace Nexus.Gameplay {
 				username = "",
 				version = 0,
 				zones = new WorldZoneFormat[] { zone1 },
+				//start = new StartNodeFormat {
+				//	character = 0,
+				//	zoneId = 0,
+				//	x = 0,
+				//	y = 0,
+				//},
 			};
-			
+
 			return world;
 		}
 

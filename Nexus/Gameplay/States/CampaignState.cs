@@ -185,10 +185,17 @@ namespace Nexus.Gameplay {
 				this.worldId = worldId;
 
 				// Starting Details
-				this.head = start.character;
-				this.curX = start.x;
-				this.curY = start.y;
-				this.zoneId = start.zoneId;
+				if(start != null) {
+					this.head = start.character;
+					this.curX = start.x;
+					this.curY = start.y;
+					this.zoneId = start.zoneId;
+				} else {
+					this.head = 1;
+					this.curX = 3;
+					this.curY = 3;
+					this.zoneId = 0;
+				}
 
 				return;
 			}

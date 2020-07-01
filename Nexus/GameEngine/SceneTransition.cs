@@ -72,6 +72,7 @@ namespace Nexus.GameEngine {
 					// If this is a personal level, allow it to be created.
 					if(myLevelNum > 0 && myLevelNum < GameValues.MaxLevelsAllowedPerUser) {
 						handler.levelContent.data = LevelContent.BuildEmptyLevel(levelId);
+						handler.levelContent.levelId = levelId;
 					}
 					
 					else {
@@ -113,6 +114,7 @@ namespace Nexus.GameEngine {
 					// If this is a personal world, allow it to be created.
 					if(worldId == "__World") {
 						handler.worldContent.data = WorldContent.BuildEmptyWorld(worldId);
+						handler.worldContent.worldId = worldId;
 					}
 					
 					else {
