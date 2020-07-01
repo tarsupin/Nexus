@@ -78,8 +78,12 @@ namespace Nexus.GameEngine {
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.PlanetSelect);
 
+			// Prepare Default Featured Planets (Choose World, My World)
+			this.featured.Add(0, new PlanetData("My World", "__World", 0, 0, new byte[] { 0, 0, 0 }));
+			this.featured.Add(1, new PlanetData("Load World", "__Load", 0, 0, new byte[] { 0, 0, 0 }));
+
 			// Load Planets and Featured Planets
-			this.LoadPlanets("FeaturedPlanets", this.featured);
+			this.LoadPlanets("FeaturedPlanets", this.featured, 2);
 			this.LoadPlanets("Planets", this.planets);
 
 			// Prepare Featured Options Paging System (top section, one line, where it remembers your favorite / featured choices)
@@ -94,7 +98,7 @@ namespace Nexus.GameEngine {
 			this.paging.exitDir = DirCardinal.Up;
 		}
 
-		public void LoadPlanets(string filename, Dictionary<short, PlanetData> planetDict) {
+		public void LoadPlanets(string filename, Dictionary<short, PlanetData> planetDict, short listID = 0) {
 
 			// Retrieve Planet Path + JSON Content
 			string listsDir = Path.Combine(Systems.filesLocal.localDir, "Lists");
@@ -103,8 +107,6 @@ namespace Nexus.GameEngine {
 			WorldListFormat planetData = JsonConvert.DeserializeObject<WorldListFormat>(json);
 
 			// Load Planet Data
-			short listID = 0;
-
 			foreach(PlanetFormat planet in planetData.planets) {
 
 				// Add Planet
@@ -190,6 +192,18 @@ namespace Nexus.GameEngine {
 					else {
 						short curVal = this.paging.CurrentSelectionVal;
 						worldID = this.planets[curVal].worldID;
+					}
+
+					// If WorldID is "__World", go to your personal world.
+					if(worldID == "__World") {
+						SceneTransition.ToWorldEditor("__World");
+						return;
+					}
+
+					// If WorldID is "__Load", allow loading of a user generated world.
+					else if(worldID == "__Load") {
+						// TODO: DO THING
+						return;
 					}
 
 					SceneTransition.ToWorld(worldID);

@@ -49,8 +49,8 @@ namespace Nexus.GameEngine {
 		};
 
 		// Grid Limits
-		public byte xCount = 45;		// 1400 / 32 = 45
-		public byte yCount = 29;		// 900 / 32 = 28.125
+		public byte xCount = (byte) WorldmapEnum.MinWidth;		// 1400 / 32 = 45
+		public byte yCount = (byte) WorldmapEnum.MinHeight;		// 900 / 32 = 28.125
 		public int mapWidth = 0;
 		public int mapHeight = 0;
 
@@ -100,9 +100,12 @@ namespace Nexus.GameEngine {
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
 
+			if(this.xCount < (byte) WorldmapEnum.MinWidth) { this.ResizeWidth((byte) WorldmapEnum.MinWidth); }
+			if(this.yCount < (byte) WorldmapEnum.MinHeight) { this.ResizeHeight((byte) WorldmapEnum.MinHeight); }
+
 			// Prepare Map Size
-			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
-			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
+			this.mapWidth = this.xCount * (byte) WorldmapEnum.TileWidth;
+			this.mapHeight = this.yCount * (byte) WorldmapEnum.TileHeight;
 
 			// Update Camera Bounds
 			Systems.camera.UpdateScene(this);

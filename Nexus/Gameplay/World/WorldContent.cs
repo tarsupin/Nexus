@@ -2,6 +2,7 @@
 using Nexus.Engine;
 using Nexus.ObjectComponents;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Nexus.Gameplay {
@@ -51,9 +52,26 @@ namespace Nexus.Gameplay {
 			return "Worlds/" + worldId.Substring(0, 2) + "/" + worldId + ".json";
 		}
 
-		private WorldFormat BuildWorldStruct() {
-			WorldFormat worldStructure = new WorldFormat();
-			return worldStructure;
+		public static WorldFormat BuildEmptyWorld(string worldId) {
+
+			WorldZoneFormat zone1 = new WorldZoneFormat() {
+				tiles = new byte[1][][],
+				nodes = new Dictionary<string, string>(),
+			};
+
+			zone1.tiles[0] = new byte[1][];
+			zone1.tiles[0][0] = new byte[6];
+
+			WorldFormat world = new WorldFormat {
+				id = worldId,
+				name = "Unnamed World",
+				description = "",
+				username = "",
+				version = 0,
+				zones = new WorldZoneFormat[] { zone1 },
+			};
+			
+			return world;
 		}
 
 		public void SaveWorld() {

@@ -2,7 +2,7 @@
 namespace Nexus.Gameplay {
 
 	public static class GameplayTypes {
-		public static string[] DiffName = new string[] { "Easy", "Normal", "Hard", "Expert", "Master" };
+		public static string[] DiffName = new string[] { "", "Easy", "Normal", "Hard", "Expert", "Master" };
 		public static string[] HardcoreName = new string[] { "Softcore", "Mediumcore", "Hardcore", "Punishing", "Brutal", "Nightmare", "Hell" };
 
 		public static string[] HardcoreDesc = new string[] {
@@ -17,11 +17,12 @@ namespace Nexus.Gameplay {
 	}
 
 	public enum DifficultyMode : short {
-		Easy = 0,		// Casual Gamers should be able to play through with a high success rate.
-		Normal = 1,		// Casual Gamers should feel a challenge, but nothing too overwhelming.
-		Hard = 2,		// Casual Gamers may have a hard time beating these levels, but could do it with practice.
-		Expert = 3,		// Built for more experienced players with high skill levels.
-		Master = 4,		// Built for genuine experts at the game. Very difficult.
+		NotApplicable = 0,		// Casual Gamers should be able to play through with a high success rate.
+		Easy = 1,				// Casual Gamers should be able to play through with a high success rate.
+		Normal = 2,				// Casual Gamers should feel a challenge, but nothing too overwhelming.
+		Hard = 3,				// Casual Gamers may have a hard time beating these levels, but could do it with practice.
+		Expert = 4,				// Built for more experienced players with high skill levels.
+		Master = 5,				// Built for genuine experts at the game. Very difficult.
 	}
 	
 	public enum HardcoreMode : short {

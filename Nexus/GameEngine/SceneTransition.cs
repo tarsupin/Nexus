@@ -109,12 +109,19 @@ namespace Nexus.GameEngine {
 
 				// Get World Path & Retrieve World Data
 				if(!handler.worldContent.LoadWorldData(worldId)) {
+					
+					// If this is a personal world, allow it to be created.
+					if(worldId == "__World") {
+						handler.worldContent.data = WorldContent.BuildEmptyWorld(worldId);
+					}
+					
+					else {
+						#if debug
+						throw new Exception("Unable to load world data.");
+						#endif
 
-					#if debug
-					throw new Exception("Unable to load world data.");
-					#endif
-
-					return false;
+						return false;
+					}
 				}
 			}
 
