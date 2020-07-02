@@ -85,6 +85,7 @@
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Particles\ParticleFree.cs" />
     <Compile Include="Engine\PagingSystem.cs" />
+    <Compile Include="Engine\UIHandler.cs" />
     <Compile Include="Engine\WebHandler.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
@@ -125,7 +126,7 @@
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\Scenes\MyLevelsScene.cs" />
     <Compile Include="GameEngine\Scenes\PlanetSelectScene.cs" />
-    <Compile Include="GameEngine\UIComponents\LoginBox.cs" />
+    <Compile Include="GameEngine\UIMenus\LoginMenu.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
     <Compile Include="GameEngine\UIComponents\UIInput.cs" />
     <Compile Include="GameEngine\UIComponents\UIButton.cs" />
@@ -133,10 +134,11 @@
     <Compile Include="GameEngine\UIComponents\UIIconWithText.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UIIcon.cs" />
-    <Compile Include="GameEngine\UIHandlers\MainMenuUI.cs" />
-    <Compile Include="GameEngine\UIHandlers\ICenterMenu.cs" />
-    <Compile Include="GameEngine\UIHandlers\LevelMenuUI.cs" />
-    <Compile Include="GameEngine\UIHandlers\MenuUI.cs" />
+    <Compile Include="GameEngine\UIMenus\EmptyMenu.cs" />
+    <Compile Include="GameEngine\UIMenus\MainMenu.cs" />
+    <Compile Include="GameEngine\UIMenus\IMenu.cs" />
+    <Compile Include="GameEngine\UIMenus\LevelMenu.cs" />
+    <Compile Include="GameEngine\UIHandlers\CornerMenuUI.cs" />
     <Compile Include="GameEngine\UIHandlers\PowerUI.cs" />
     <Compile Include="GameEngine\World\NodeData.cs" />
     <Compile Include="GameEngine\World\WEShadowTile.cs" />

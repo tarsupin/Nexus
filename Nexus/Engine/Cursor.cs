@@ -35,6 +35,8 @@ namespace Nexus.Engine {
 		}
 
 		public static void UpdateMouseState() {
+			if(!Systems.game.IsMouseVisible) { return; }
+
 			Cursor.mouseStatePrev = Cursor.mouseState;
 			Cursor.mouseState = Mouse.GetState();
 

@@ -25,12 +25,6 @@ namespace Nexus.Engine {
 		public static readonly FilesLocal filesLocal = new FilesLocal();
 		public static readonly LocalServer localServer = new LocalServer();
 
-		// Consoles
-		public static readonly WorldConsole worldConsole = new WorldConsole();
-		public static readonly WorldEditConsole worldEditConsole = new WorldEditConsole();
-		public static readonly LevelConsole levelConsole = new LevelConsole();
-		public static readonly EditorConsole editorConsole = new EditorConsole();
-
 		// Graphics, Audio, and Assets
 		public static ScreenSys screen;
 		public static GameMapper mapper;
@@ -82,10 +76,6 @@ namespace Nexus.Engine {
 
 		public static void AddFonts( GameClient game ) {
 			Systems.fonts = new FontAssets(game);
-		}
-
-		public static void SetMouseVisible(bool visible) {
-			Systems.game.IsMouseVisible = visible;
 		}
 	}
 }

@@ -4,17 +4,7 @@ namespace Nexus.GameEngine {
 
 	public class Scene {
 
-		// UI Handler
-		public bool mouseAlwaysVisible = false;
-		public UIState uiState = UIState.Playing;
-
-		public enum UIState : byte {
-			Playing,
-			MainMenu,
-			SubMenu,
-			Console,
-		}
-
+		// Scene Counter
 		public int idCounter;           // Tracks the last ID that was generated in the scene.
 
 		public Scene() {}
@@ -25,14 +15,6 @@ namespace Nexus.GameEngine {
 		public virtual void StartScene() { }
 		public virtual void ResetScene() { }
 		public virtual void EndScene() { }
-
-		public void SetUIState(UIState uiState) {
-			this.uiState = uiState;
-			UIComponent.ComponentSelected = null;
-
-			if(uiState == UIState.SubMenu || uiState == UIState.MainMenu || this.mouseAlwaysVisible) { Systems.SetMouseVisible(true); }
-			else { Systems.SetMouseVisible(false); }
-		}
 
 		public virtual void RunTick() { }
 		public virtual void Draw() { }

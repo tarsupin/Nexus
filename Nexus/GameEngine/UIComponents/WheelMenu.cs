@@ -22,13 +22,12 @@ namespace Nexus.GameEngine {
 		public WheelMenu( UIComponent parent, short posX, short posY ) : base(parent) {
 
 			this.size = (byte) WheelMenuEnum.Size;
-			this.width = (short) (this.size * 3);
-			this.height = (short) (this.size * 3);
+			this.SetWidth((short)(this.size * 3));
+			this.SetHeight((short)(this.size * 3));
 
 			// posX, posY describes the center of the wheel.
 			// x, y describes the top-left corner of the wheel.
-			this.x = (short) (posX - (byte) WheelMenuEnum.Size - (byte) WheelMenuEnum.HalfSize);
-			this.y = (short) (posY - (byte) WheelMenuEnum.Size - (byte) WheelMenuEnum.HalfSize);
+			this.SetRelativePosition((short)(posX - (byte)WheelMenuEnum.Size - (byte)WheelMenuEnum.HalfSize), (short)(posY - (byte)WheelMenuEnum.Size - (byte)WheelMenuEnum.HalfSize));
 
 			// Prepare Menu Options
 			this.menuOptions = new Dictionary<byte, ContextMenuOpt>();

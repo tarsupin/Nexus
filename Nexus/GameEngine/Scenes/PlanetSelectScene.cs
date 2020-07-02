@@ -8,6 +8,7 @@ using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -59,7 +60,6 @@ namespace Nexus.GameEngine {
 		// References, Component
 		public Atlas atlas;
 		public readonly PlayerInput playerInput;
-		public readonly MenuUI menuUI;
 		public PagingSystem paging;
 		public PagingSystem pagingFeatured;
 
@@ -70,13 +70,12 @@ namespace Nexus.GameEngine {
 		public PlanetSelectScene() : base() {
 
 			// UI State
-			this.mouseAlwaysVisible = true;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(true, true);
+			UIHandler.SetMenu(null, true);
 
 			// Prepare Components
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.PlanetSelect);
 
 			// Prepare Default Featured Planets (Choose World, My World)
 			this.featured.Add(0, new PlanetData("My World", "__World", 0, 0, new byte[] { 0, 0, 0 }));
@@ -142,9 +141,13 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
-			InputClient input = Systems.input;
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
+			Cursor.UpdateMouseState();
+			UIHandler.cornerMenu.RunTick();
 
-			if(this.uiState == UIState.Playing) {
+			// Playing State
+			if(UIHandler.uiState == UIState.Playing) {
 
 				// Paging Input (only when in the paging area)
 				if(this.paging.exitDir == DirCardinal.None) {
@@ -161,7 +164,7 @@ namespace Nexus.GameEngine {
 						}
 					}
 				}
-				
+
 				// Featured Paging Input (when in the featured paging area)
 				else {
 					if(this.pagingFeatured.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
@@ -209,16 +212,17 @@ namespace Nexus.GameEngine {
 					SceneTransition.ToWorld(worldID);
 					return;
 				}
-			}
 
-			// Menu UI
-			this.menuUI.RunTick();
+				InputClient input = Systems.input;
 
-			// Open Menu
-			if(this.uiState == UIState.Playing) {
 				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-					this.SetUIState(UIState.MainMenu);
+					UIHandler.SetMenu(UIHandler.mainMenu, true);
 				}
+			}
+			
+			// Menu State
+			else {
+				UIHandler.menu.RunTick();
 			}
 
 			// Update Moon Positions
@@ -300,8 +304,9 @@ namespace Nexus.GameEngine {
 				if(posX >= 1500) { posY += 250; posX = 100; }
 			}
 
-			// Draw Menu UI
-			this.menuUI.Draw();
+			// Draw UI
+			UIHandler.cornerMenu.Draw();
+			UIHandler.menu.Draw();
 		}
 
 		public void DrawPlanet( PlanetData planetData, short posX, short posY ) {

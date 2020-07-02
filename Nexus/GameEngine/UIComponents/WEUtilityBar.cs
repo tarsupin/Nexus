@@ -33,10 +33,10 @@ namespace Nexus.GameEngine {
 
 		public WEUtilityBar( UIComponent parent, WEScene scene, short posX, short posY ) : base(parent) {
 			this.scene = scene;
-			this.x = posX;
-			this.y = posY;
-			this.width = ((byte) WorldmapEnum.TileWidth + 2) * (byte) WEUtilityBarEnum.BarTiles;
-			this.height = (byte) WorldmapEnum.TileHeight;
+
+			this.SetRelativePosition(posX, posY);
+			this.SetWidth(((byte)WorldmapEnum.TileWidth + 2) * (byte)WEUtilityBarEnum.BarTiles);
+			this.SetHeight((byte)WorldmapEnum.TileHeight);
 		}
 
 		public void RunTick() {

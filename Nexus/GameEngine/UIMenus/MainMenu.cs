@@ -2,9 +2,7 @@
 
 namespace Nexus.GameEngine {
 
-	public class MainMenuUI : ICenterMenu {
-
-		private readonly Scene scene;
+	public class MainMenu : IMenu {
 
 		private enum MenuOptionActive : byte {
 			Return,		// Center
@@ -27,36 +25,23 @@ namespace Nexus.GameEngine {
 		private readonly UIIconWithText myWorld;
 		private readonly UIIconWithText credits;
 
-		private readonly LoginBox loginBox;
-
-		public MainMenuUI(Scene scene) {
-			this.scene = scene;
+		public MainMenu() {
 
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { this.scene.SetUIState(Scene.UIState.Playing); } );
+			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
 
-			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () {
-				this.scene.SetUIState(Scene.UIState.MainMenu);
-			} );
+			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { UIHandler.SetMenu(UIHandler.loginMenu, true); } );
 
 			this.worlds = new UIIconWithText(null, "UI/MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UIIconWithText(null, "UI/Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UIIconWithText(null, "UI/MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
 			this.myWorld = new UIIconWithText(null, "UI/MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
 			this.credits = new UIIconWithText(null, "UI/About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games/credits"); } );
-
-			this.loginBox = new LoginBox(null, 200, 200, 280, 300);
 		}
 
 		public void RunTick() {
-
-			// Check if Login Box is running:
-			if(UIComponent.ComponentSelected == this.loginBox) {
-				this.loginBox.RunTick();
-				return;
-			}
 
 			// Get User Input
 			PlayerInput input = Systems.localServer.MyPlayer.input;
@@ -80,7 +65,7 @@ namespace Nexus.GameEngine {
 			if(input.isPressed(IKey.AButton)) {
 
 				// Close the Menu
-				this.scene.SetUIState(Scene.UIState.Playing);
+				UIHandler.SetMenu(null, false);
 
 				if (this.opt == MenuOptionActive.Return) { return; }
 				else if(this.opt == MenuOptionActive.Log) { this.log.ActivateIcon(); return; }
@@ -92,7 +77,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(input.isPressed(IKey.Start)) {
-				this.scene.SetUIState(Scene.UIState.Playing);
+				UIHandler.SetMenu(null, false);
 				return;
 			}
 
@@ -107,13 +92,6 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
-
-			// Check if Login Box is running:
-			if(UIComponent.ComponentSelected == this.loginBox) {
-				this.loginBox.Draw();
-				return;
-			}
-
 			this.ret.Draw(this.opt == MenuOptionActive.Return);
 			this.log.Draw(this.opt == MenuOptionActive.Log);
 			this.worlds.Draw(this.opt == MenuOptionActive.Worlds);

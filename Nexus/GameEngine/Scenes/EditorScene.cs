@@ -3,6 +3,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using static Nexus.Engine.UIHandler;
 using static Nexus.GameEngine.FuncTool;
 
 namespace Nexus.GameEngine {
@@ -10,7 +11,6 @@ namespace Nexus.GameEngine {
 	public class EditorScene : Scene {
 
 		public readonly EditorUI editorUI;
-		public readonly MenuUI menuUI;
 		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public byte roomNum = 0;
@@ -21,12 +21,11 @@ namespace Nexus.GameEngine {
 			this.levelContent = Systems.handler.levelContent;
 
 			// UI State
-			this.mouseAlwaysVisible = true;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(true, false);
+			UIHandler.SetMenu(null, false);
 
 			// Create UI
 			this.editorUI = new EditorUI(this);
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Main);
 
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, EditorRoomScene>();
@@ -46,7 +45,7 @@ namespace Nexus.GameEngine {
 			Systems.camera.UpdateScene(this.CurrentRoom);
 			Systems.camera.SetInputMoveSpeed(15);
 
-			Systems.SetMouseVisible(true);
+			UIHandler.SetMouseVisible(true);
 			Cursor.UpdateMouseState();
 
 			// End Music
@@ -65,37 +64,31 @@ namespace Nexus.GameEngine {
 			// Update Timer
 			Systems.timer.RunTick();
 
-			// Update the Mouse State Every Tick
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
 			Cursor.UpdateMouseState();
+			UIHandler.cornerMenu.RunTick();
 
-			// If Console UI is active:
-			if(this.uiState == UIState.Console) {
+			// Menu State
+			if(UIHandler.uiState == UIState.Menu) {
+				UIHandler.menu.RunTick();
+				return; // Prevents editor ui, editor input, etc.
+			}
 
-				// Determine if the console needs to be closed (escape or tilde):
-				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-					Systems.editorConsole.SetVisible(false);
-					this.SetUIState(UIState.Playing);
+			// Playing State
+			else {
+
+				// Open Menu (Start)
+				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
+
+				// Open Console (Tilde)
+				else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+					UIHandler.SetMenu(UIHandler.editorConsole, true);
 				}
-
-				Systems.editorConsole.RunTick();
-				return;
 			}
 
-			// Menu UI is active:
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				this.menuUI.RunTick(); // Also handles menu close option.
-				return;
-			}
-
-			// Play UI is active:
-
-			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
-
-			// Open Console (Tilde)
-			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.SetUIState(UIState.Console);
-				Systems.editorConsole.Open();
+			if(Cursor.MouseX > 100 && Cursor.MouseY > 100) {
+				var a = 1;
 			}
 
 			// Update UI Components
@@ -162,18 +155,16 @@ namespace Nexus.GameEngine {
 			this.CurrentRoom.Draw();
 
 			// Draw UI
-			if(this.uiState == UIState.Playing) { this.editorUI.Draw(); }
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
-			else if(this.uiState == UIState.Console) { Systems.editorConsole.Draw(); }
+			if(UIHandler.uiState == UIState.Playing) { this.editorUI.Draw(); }
+			UIHandler.cornerMenu.Draw();
+			UIHandler.menu.Draw();
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {
 			string roomStr = newRoomId.ToString();
 
-			// Build Initial Room Format
-			if(!Systems.handler.levelContent.data.rooms.ContainsKey(roomStr)) {
-				Systems.handler.levelContent.data.rooms[roomStr] = new RoomFormat();
-			}
+			// Make sure the room is actually empty.
+			if(Systems.handler.levelContent.data.rooms.ContainsKey(roomStr)) { return; }
 
 			// If there is no data for the room, create an empty object for it.
 			Systems.handler.levelContent.data.rooms[roomStr] = LevelContent.BuildRoomData();

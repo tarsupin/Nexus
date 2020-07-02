@@ -71,28 +71,31 @@ namespace Nexus.GameEngine {
 			if(fullResize) {
 				this.leftWidth = this.GetLeftWidth();
 				this.rightWidth = this.GetRightWidth();
-				this.width = (short)(this.leftWidth + 20 + this.rightWidth);
+				this.SetWidth((short)(this.leftWidth + 20 + this.rightWidth));
 			}
 
-			this.height = (short)(this.numberOptsToShow * ParamMenu.SlotHeight - 1);
+			this.SetHeight((short)(this.numberOptsToShow * ParamMenu.SlotHeight - 1));
 
 			// x, y describes the top-left corner of the context menu.
 			// Will reposition the menu if it would overlap other content:
 			if(fullResize) {
+				short xPos;
 
 				// Readjust x coord, since we're right-aligning it.
 				if(this.actionParams) {
-					this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX + (byte)TilemapEnum.TileWidth);
+					xPos = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX + (byte)TilemapEnum.TileWidth);
 				} else {
-					this.x = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX - this.width);
-					if(this.x < 5) { this.x = 5; }
+					xPos = (short)((WandData.gridX * (byte)TilemapEnum.TileWidth) - Systems.camera.posX - this.width);
+					if(xPos < 5) { xPos = 5; }
 				}
-				this.splitPos = (short)(this.x + this.leftWidth + 10);
+				this.splitPos = (short)(xPos + this.leftWidth + 10);
+				this.SetRelativeX(xPos);
 			}
 
-			this.y = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
-			if(this.y < 50) { this.y = 50; }
-			if(this.y + this.height > Systems.screen.windowHeight - 50) { this.y = (short)(Systems.screen.windowHeight - 50 - this.height); }
+			short yPos = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
+			if(yPos < 50) { yPos = 50; }
+			if(yPos + this.height > Systems.screen.windowHeight - 50) { yPos = (short)(Systems.screen.windowHeight - 50 - this.height); }
+			this.SetRelativeY(yPos);
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Nexus.GameEngine {
 
-	public class Console : UIComponent {
+	public class Console : IMenu {
 
 		public LinkedList<string> consoleLines = new LinkedList<string>(); // Tracks the last twenty lines that have been typed.
 		public sbyte lineNum = 0;
@@ -20,23 +20,12 @@ namespace Nexus.GameEngine {
 		public Dictionary<string, Action> consoleDict;     // A dictionary of base commands for the console.
 		public string baseHelperText = "";
 
-		public Console() : base(null) {
+		public Console() {}
 
-		}
-
-		public void SetEnabled(bool enabled) { this.enabled = enabled; if(!this.enabled) { this.SetVisible(false); } }
-
-
-		public virtual void OnFirstOpen() {
-			this.beenOpened = true;
-		}
-
-		public virtual void OnOpen() {
-			
-		}
+		public virtual void OnFirstOpen() { this.beenOpened = true; }
+		public virtual void OnOpen() {}
 
 		public void Open() {
-			this.SetVisible(true);
 			ConsoleTrack.ResetValues();
 			ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
 			if(!this.beenOpened) { this.OnFirstOpen(); }
@@ -80,6 +69,11 @@ namespace Nexus.GameEngine {
 			// Enter - Process the instruction.
 			else if(input.LocalKeyPressed(Keys.Enter)) {
 				ConsoleTrack.activate = true; // The instruction is meant to run (rather than just reveal new text hints).
+			}
+			
+			// Close Console (Tilde, Escape)
+			else if(input.LocalKeyPressed(Keys.OemTilde) || input.LocalKeyPressed(Keys.Escape)) {
+				UIHandler.SetMenu(null, false);
 			}
 
 			// If there was no input provided, end here.
@@ -203,8 +197,6 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
-			if(!this.visible) { return; }
-
 			FontClass consoleFont = Systems.fonts.console;
 
 			// Draw Console Background

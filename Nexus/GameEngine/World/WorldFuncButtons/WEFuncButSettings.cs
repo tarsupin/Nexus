@@ -13,8 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			Systems.worldEditConsole.Open();
-			Systems.scene.SetUIState(Scene.UIState.Console);
+			UIHandler.SetMenu(UIHandler.worldEditConsole, true);
 		}
 	}
 }

@@ -1,22 +1,9 @@
 ﻿using Nexus.Engine;
 using System;
-using static Nexus.GameEngine.Scene;
 
 namespace Nexus.GameEngine {
 
-	public class MenuUI {
-
-		// References
-		private readonly Scene scene;
-		private readonly ICenterMenu mainMenu;
-		private readonly ICenterMenu subMenu;
-
-		public enum MenuUIOption : byte {
-			Main,
-			Level,
-			World,
-			PlanetSelect,
-		}
+	public class CornerMenuUI {
 
 		// Corner Menu
 		private readonly UIIcon settings;
@@ -34,14 +21,7 @@ namespace Nexus.GameEngine {
 		//private readonly UIButton youtube;
 		//private readonly UIButton twitch;
 
-		public MenuUI( Scene scene, MenuUIOption menuUIOpt ) {
-			this.scene = scene;
-
-			this.mainMenu = new MainMenuUI(scene);
-
-			if(menuUIOpt == MenuUIOption.Level) {
-				this.subMenu = new LevelMenuUI((LevelScene) scene);
-			}
+		public CornerMenuUI() {
 
 			short midX = (short)(Systems.screen.windowHalfWidth - 28);
 			short rightX = (short)(Systems.screen.windowWidth - 56 - 10);
@@ -64,8 +44,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			UIComponent.ComponentWithFocus = null;
-			Cursor.UpdateMouseState();
+			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
 			this.settings.RunTick();
@@ -74,10 +53,6 @@ namespace Nexus.GameEngine {
 
 			this.world.RunTick();
 			this.patreon.RunTick();
-
-			// Center Menu
-			if(this.scene.uiState == UIState.MainMenu) { this.mainMenu.RunTick(); }
-			else if(this.subMenu is ICenterMenu) { this.subMenu.RunTick(); }
 
 			// Create Social Buttons
 			this.discord.RunTick();
@@ -88,6 +63,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
+			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
 			this.settings.Draw();
@@ -96,10 +72,6 @@ namespace Nexus.GameEngine {
 
 			this.world.Draw();
 			this.patreon.Draw();
-
-			// Center Menu
-			if(this.scene.uiState == UIState.MainMenu) { this.mainMenu.Draw(); }
-			else if(this.subMenu is ICenterMenu) { this.subMenu.Draw(); }
 
 			// Draw Social Buttons
 			this.discord.Draw();

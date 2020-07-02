@@ -3,6 +3,7 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -10,7 +11,6 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly WorldUI worldUI;
-		public readonly MenuUI menuUI;
 		public readonly PlayerInput playerInput;
 		public WorldChar character;
 		public CampaignState campaign;
@@ -33,12 +33,11 @@ namespace Nexus.GameEngine {
 		public WorldScene() : base() {
 
 			// UI State
-			this.mouseAlwaysVisible = false;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(false, false);
+			UIHandler.SetMenu(null, false);
 
 			// Prepare Components
 			this.worldUI = new WorldUI(this);
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.World);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -134,34 +133,25 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0); // TODO: Update LocalServer so frames are interpreted and assigned here.
 			}
 
-			// If Console UI is active:
-			if(this.uiState == UIState.Console) {
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
+			Cursor.UpdateMouseState();
+			UIHandler.cornerMenu.RunTick();
 
-				// Determine if the console needs to be closed (escape or tilde):
-				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-					Systems.worldConsole.SetVisible(false);
-					this.SetUIState(UIState.Playing);
-				}
-
-				Systems.worldConsole.RunTick();
-				return;
-			}
-
-			// Menu UI is active:
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				this.menuUI.RunTick(); // Also handles menu close option.
+			// Menu State
+			if(UIHandler.uiState == UIState.Menu) {
+				UIHandler.menu.RunTick();
 				return;
 			}
 
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.SetUIState(UIState.Console);
-				Systems.worldConsole.Open();
+				UIHandler.SetMenu(UIHandler.worldConsole, true);
 			}
 
 			// Run World UI Updates
@@ -384,9 +374,9 @@ namespace Nexus.GameEngine {
 			this.character.Draw(camX, camY);
 
 			// Draw UI
-			if(this.uiState == UIState.Playing) { this.worldUI.Draw(); }
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
-			else if(this.uiState == UIState.Console) { Systems.worldConsole.Draw(); }
+			if(UIHandler.uiState == UIState.Playing) { this.worldUI.Draw(); }
+			UIHandler.cornerMenu.Draw();
+			UIHandler.menu.Draw();
 		}
 
 		// NOTE: This is ROUGHLY a duplicate of World Editor (probably). Just need to add "Atlas".

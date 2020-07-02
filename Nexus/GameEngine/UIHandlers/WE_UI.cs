@@ -49,14 +49,10 @@ namespace Nexus.GameEngine {
 
 			// Draw Editor UI Components
 			this.gridUI.DrawGridOverlay(Systems.camera.posX, Systems.camera.posY, this.scene.xCount, this.scene.yCount);
-
-			// Disability visibility of certain UI components if the console is visible.
-			if(!Systems.worldEditConsole.visible) {
-				this.DrawCurrentGridSquare();
-				this.utilityBar.Draw();
-				this.scroller.Draw();
-				this.weMenu.Draw();
-			}
+			this.DrawCurrentGridSquare();
+			this.utilityBar.Draw();
+			this.scroller.Draw();
+			this.weMenu.Draw();
 
 			// Alert Text
 			if(Cursor.MouseY > 75) {

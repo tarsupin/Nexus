@@ -7,6 +7,7 @@ using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 using static Nexus.Engine.PagingSystem;
+using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -21,7 +22,6 @@ namespace Nexus.GameEngine {
 		// References, Component
 		public Atlas atlas;
 		public readonly PlayerInput playerInput;
-		public readonly MenuUI menuUI;
 		public PagingSystem paging;
 
 		// Levels
@@ -30,13 +30,12 @@ namespace Nexus.GameEngine {
 		public MyLevelsScene() : base() {
 
 			// UI State
-			this.mouseAlwaysVisible = true;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(true, true);
+			UIHandler.SetMenu(null, true);
 
 			// Prepare Components
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.PlanetSelect);
 
 			// Prepare Level Paging System (full paging system)
 			this.paging = new PagingSystem(7, 4, (short) MyLevelsScene.slotsAllowed);
@@ -88,7 +87,13 @@ namespace Nexus.GameEngine {
 			// Paging Input (only when in the paging area)
 			InputClient input = Systems.input;
 
-			if(this.uiState == UIState.Playing) {
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
+			Cursor.UpdateMouseState();
+			UIHandler.cornerMenu.RunTick();
+
+			// Playing State
+			if(UIHandler.uiState == UIState.Playing) {
 				PagingPress pageInput = this.paging.PagingInput(playerInput);
 
 				if(pageInput != PagingPress.None) {
@@ -109,14 +114,16 @@ namespace Nexus.GameEngine {
 					SceneTransition.ToLevelEditor("", "__" + curVal.ToString(), curVal);
 					return;
 				}
+
+				// Open Menu
+				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+					UIHandler.SetMenu(UIHandler.mainMenu, true);
+				}
 			}
-
-			// Menu UI
-			this.menuUI.RunTick();
-
-			// Open Menu
-			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.SetUIState(UIState.MainMenu);
+			
+			// Menu State
+			else {
+				UIHandler.menu.RunTick();
 			}
 		}
 
@@ -149,7 +156,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw Menu UI
-			this.menuUI.Draw();
+			UIHandler.cornerMenu.Draw();
+			UIHandler.menu.Draw();
 		}
 
 		public void DrawLevel( short levelNum, short posX, short posY ) {

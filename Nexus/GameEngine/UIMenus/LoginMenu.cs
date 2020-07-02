@@ -3,7 +3,7 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class LoginBox : UIComponent {
+	public class LoginMenu : IMenu {
 
 		// Login Components
 		private readonly TextBox textBox;
@@ -12,17 +12,12 @@ namespace Nexus.GameEngine {
 		private readonly UIButton loginButton;
 		private readonly UIButton registerButton;
 
-		public LoginBox( UIComponent parent, short posX, short posY, short width, short height ) : base(parent) {
-
-			this.SetRelativePosition(posX, posY);
-			this.SetWidth(width);
-			this.SetHeight(height);
-
-			this.textBox = new TextBox(this, 0, 0, width, height);
-			this.loginInput = new UIInput(this, 20, 20);
-			this.passInput = new UIInput(this, 20, 120);
-			this.loginButton = new UIButton(this, "Login", 20, 220, null);
-			this.registerButton = new UIButton(this, "Register", 152, 220, null);
+		public LoginMenu( short posX, short posY, short width, short height ) : base() {
+			this.textBox = new TextBox(null, posX, posY, width, height);
+			this.loginInput = new UIInput(this.textBox, 20, 20);
+			this.passInput = new UIInput(this.textBox, 20, 120);
+			this.loginButton = new UIButton(this.textBox, "Login", 20, 220, null);
+			this.registerButton = new UIButton(this.textBox, "Register", 152, 220, null);
 		}
 
 		public void RunTick() {
@@ -51,8 +46,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Mouse Handling
-			if(this.IsMouseOver()) {
-				UIComponent.ComponentWithFocus = this;
+			if(this.textBox.IsMouseOver()) {
+				UIComponent.ComponentWithFocus = this.textBox;
 
 				// Mouse Clicked
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {

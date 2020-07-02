@@ -1,7 +1,7 @@
 ﻿
 namespace Nexus.GameEngine {
 
-	public interface ICenterMenu  {
+	public interface IMenu  {
 		void RunTick();
 		void Draw();
 	}

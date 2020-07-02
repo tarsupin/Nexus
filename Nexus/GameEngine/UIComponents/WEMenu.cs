@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 
 namespace Nexus.GameEngine {
@@ -22,8 +21,8 @@ namespace Nexus.GameEngine {
 
 			// Resize Option
 			else if(menuOpt == 6) {
-				Systems.worldEditConsole.Open();
-				Systems.worldEditConsole.SetInstructionText("resize ");
+				UIHandler.worldEditConsole.Open();
+				UIHandler.worldEditConsole.SetInstructionText("resize ");
 				ChatConsole.SendMessage("--------------------", Color.White);
 				ChatConsole.SendMessage("Resize the World Map", Color.Red);
 				ChatConsole.SendMessage("--------------------", Color.White);

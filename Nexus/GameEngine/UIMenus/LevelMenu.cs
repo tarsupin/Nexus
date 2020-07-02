@@ -2,9 +2,7 @@
 
 namespace Nexus.GameEngine {
 
-	public class LevelMenuUI : ICenterMenu {
-
-		private readonly LevelScene scene;
+	public class LevelMenu : IMenu {
 
 		private enum MenuOptionActive : byte {
 			Continue,
@@ -23,17 +21,16 @@ namespace Nexus.GameEngine {
 		private readonly UIIconWithText toMain;
 		private readonly UIIconWithText endLevel;
 
-		public LevelMenuUI(LevelScene scene) {
-			this.scene = scene;
+		public LevelMenu() {
 
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
 			this.cont = new UIIconWithText(null, "UI/Continue", "Continue", centerX, centerY, delegate () {} );
-			this.retry = new UIIconWithText(null, "UI/Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { this.scene.RestartLevel(false); } );
-			this.restart = new UIIconWithText(null, "UI/Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { this.scene.RestartLevel(true); } );
-			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { this.scene.SetUIState(Scene.UIState.MainMenu); } );
-			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { this.scene.EndLevel(); } );
+			this.retry = new UIIconWithText(null, "UI/Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
+			this.restart = new UIIconWithText(null, "UI/Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
+			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
+			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { ((LevelScene)Systems.scene).EndLevel(); } );
 		}
 
 		public void RunTick() {
@@ -52,7 +49,7 @@ namespace Nexus.GameEngine {
 			if(input.isPressed(IKey.AButton)) {
 
 				// Close the Menu
-				this.scene.SetUIState(Scene.UIState.Playing);
+				UIHandler.SetMenu(null, false);
 
 				if (this.opt == MenuOptionActive.Continue) { return; }
 				else if(this.opt == MenuOptionActive.Retry) { this.retry.ActivateIcon(); return; }
@@ -62,7 +59,7 @@ namespace Nexus.GameEngine {
 			}
 
 			else if(input.isPressed(IKey.Start)) {
-				this.scene.SetUIState(Scene.UIState.Playing);
+				UIHandler.SetMenu(null, false);
 				return;
 			}
 

@@ -14,8 +14,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateWorldFuncButton() {
-			Systems.worldEditConsole.Open();
-			Systems.scene.SetUIState(Scene.UIState.Console);
+			UIHandler.SetMenu(UIHandler.worldEditConsole, true);
 			ChatConsole.SendMessage("--------------------", Color.White);
 			ChatConsole.SendMessage("Log on to nexus.games for assistance on building worlds and levels. You'll need to register an account to share your work online.", Color.Green);
 			ChatConsole.SendMessage("--------------------", Color.White);

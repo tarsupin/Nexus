@@ -5,6 +5,7 @@ using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System;
+using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -12,7 +13,6 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly LevelUI levelUI;
-		public readonly MenuUI menuUI;
 		public RoomScene[] rooms;
 
 		// Trackers
@@ -21,12 +21,11 @@ namespace Nexus.GameEngine {
 		public LevelScene() : base() {
 
 			// UI State
-			this.mouseAlwaysVisible = false;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(false, false);
+			UIHandler.SetMenu(null, false);
 
 			// Create UI
 			this.levelUI = new LevelUI();
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Level);
 
 			// Generate Each Room Class
 			this.rooms = new RoomScene[8];
@@ -98,36 +97,21 @@ namespace Nexus.GameEngine {
 			InputClient input = Systems.input;
 			PlayerInput playerInput = Systems.localServer.MyPlayer.input;
 
-			// If Console UI is active:
-			if(this.uiState == UIState.Console) {
+			UIHandler.cornerMenu.RunTick();
 
-				// Determine if the console needs to be closed (escape or tilde):
-				if(input.LocalKeyPressed(Keys.Escape) || input.LocalKeyPressed(Keys.OemTilde)) {
-					Systems.levelConsole.SetVisible(false);
-					this.SetUIState(UIState.Playing);
+			// Menu State
+			if(UIHandler.uiState == UIState.Menu) {
+				UIHandler.menu.RunTick();
+				return;
+			}
+
+			// Playing State
+			else {
+
+				// Open Menu
+				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+					UIHandler.SetMenu(UIHandler.levelMenu, true);
 				}
-
-				Systems.levelConsole.RunTick();
-				return;
-			}
-
-			// Menu UI is active:
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				this.menuUI.RunTick(); // Also handles menu close option.
-				return;
-			}
-
-			// Play UI is active:
-
-			// Open Menu
-			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.SetUIState(UIState.SubMenu);
-			}
-
-			// Open Console (Tilde)
-			else if(input.LocalKeyPressed(Keys.OemTilde)) {
-				this.SetUIState(UIState.Console);
-				Systems.levelConsole.Open();
 			}
 
 			// Some Scenes will disable this, or limit behavior (such as for multiplayer).
@@ -209,14 +193,14 @@ namespace Nexus.GameEngine {
 			// Change Active Debug Mode (press F8)
 			InputClient input = Systems.input;
 
-			if(input.LocalKeyPressed(Keys.F1)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF1); }
-			else if(input.LocalKeyPressed(Keys.F2)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF2); }
-			else if(input.LocalKeyPressed(Keys.F3)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF3); }
-			else if(input.LocalKeyPressed(Keys.F4)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF4); }
-			else if(input.LocalKeyPressed(Keys.F5)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF5); }
-			else if(input.LocalKeyPressed(Keys.F6)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF6); }
-			else if(input.LocalKeyPressed(Keys.F7)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF7); }
-			else if(input.LocalKeyPressed(Keys.F8)) { Systems.levelConsole.SendCommand(Systems.settings.input.macroF8); }
+			if(input.LocalKeyPressed(Keys.F1)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF1); }
+			else if(input.LocalKeyPressed(Keys.F2)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF2); }
+			else if(input.LocalKeyPressed(Keys.F3)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF3); }
+			else if(input.LocalKeyPressed(Keys.F4)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF4); }
+			else if(input.LocalKeyPressed(Keys.F5)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF5); }
+			else if(input.LocalKeyPressed(Keys.F6)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF6); }
+			else if(input.LocalKeyPressed(Keys.F7)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF7); }
+			else if(input.LocalKeyPressed(Keys.F8)) { UIHandler.levelConsole.SendCommand(Systems.settings.input.macroF8); }
 
 			//else if(input.LocalKeyPressed(Keys.F5)) { DebugConfig.ResetDebugValues(); }
 			//else if(input.LocalKeyPressed(Keys.F6)) { DebugConfig.ToggleDebugFrames(); }
@@ -235,9 +219,11 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw UI
-			if(this.uiState == UIState.Playing) { this.levelUI.Draw(); }
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
-			else if(this.uiState == UIState.Console) { Systems.levelConsole.Draw(); }
+			if(UIHandler.uiState == UIState.Playing) { this.levelUI.Draw(); }
+			else {
+				UIHandler.cornerMenu.Draw();
+			}
+			UIHandler.menu.Draw();
 		}
 
 		public virtual void RestartLevel(bool fullReset = false) {

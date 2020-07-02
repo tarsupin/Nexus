@@ -4,6 +4,7 @@ using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
+using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -11,7 +12,6 @@ namespace Nexus.GameEngine {
 
 		// References
 		public readonly WE_UI weUI;
-		public readonly MenuUI menuUI;
 		public readonly PlayerInput playerInput;
 		public CampaignState campaign;
 		public Atlas atlas;
@@ -57,12 +57,11 @@ namespace Nexus.GameEngine {
 		public WEScene() : base() {
 
 			// UI State
-			this.mouseAlwaysVisible = true;
-			this.SetUIState(UIState.Playing);
+			UIHandler.SetUIOptions(true, false);
+			UIHandler.SetMenu(null, false);
 
 			// Prepare Components
 			this.weUI = new WE_UI(this);
-			this.menuUI = new MenuUI(this, MenuUI.MenuUIOption.Main);
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
@@ -81,7 +80,7 @@ namespace Nexus.GameEngine {
 			Systems.camera.SetInputMoveSpeed(15);
 
 			// Add Mouse Behavior
-			Systems.SetMouseVisible(true);
+			UIHandler.SetMouseVisible(true);
 			Cursor.UpdateMouseState();
 		}
 
@@ -122,37 +121,25 @@ namespace Nexus.GameEngine {
 				player.Value.input.UpdateKeyStates(0);
 			}
 
-			// Update the Mouse State Every Tick
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
 			Cursor.UpdateMouseState();
+			UIHandler.cornerMenu.RunTick();
 
-			// If Console UI is active:
-			if(this.uiState == UIState.Console) {
-
-				// Determine if the console needs to be closed (escape or tilde):
-				if(Systems.input.LocalKeyPressed(Keys.Escape) || Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-					Systems.worldEditConsole.SetVisible(false);
-					this.SetUIState(UIState.Playing);
-				}
-
-				Systems.worldEditConsole.RunTick();
-				return;
-			}
-
-			// Menu UI is active:
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) {
-				this.menuUI.RunTick(); // Also handles menu close option.
+			// Menu State
+			if(UIHandler.uiState == UIState.Menu) {
+				UIHandler.menu.RunTick();
 				return;
 			}
 
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { this.SetUIState(UIState.MainMenu); }
+			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				this.SetUIState(UIState.Console);
-				Systems.worldEditConsole.Open();
+				UIHandler.SetMenu(UIHandler.worldEditConsole, true);
 			}
 
 			// Run World UI Updates
@@ -313,9 +300,9 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.weUI.Draw();
-			if(this.uiState == UIState.Playing) { this.DrawNodePaths(cam); }
-			else if(this.uiState == UIState.SubMenu || this.uiState == UIState.MainMenu) { this.menuUI.Draw(); }
-			else if(this.uiState == UIState.Console) { Systems.worldEditConsole.Draw(); }
+			if(UIHandler.uiState == UIState.Playing) { this.DrawNodePaths(cam); }
+			UIHandler.cornerMenu.Draw();
+			UIHandler.menu.Draw();
 		}
 
 		private void DrawNodePaths(Camera cam) {

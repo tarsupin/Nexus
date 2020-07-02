@@ -26,9 +26,9 @@ namespace Nexus.GameEngine {
 
 				// If the wand clicked on a node, then we can attempt to assign a level.
 				if(NodeData.IsObjectANode(wtData[5])) {
-					Systems.worldEditConsole.Open();
-					scene.SetUIState(UIState.Console);
-					Systems.worldEditConsole.SetInstructionText("setLevel " + gridX.ToString() + " " + gridY.ToString() + " ");
+					UIHandler.SetMenu(UIHandler.worldEditConsole, true);
+					UIHandler.worldEditConsole.Open();
+					UIHandler.worldEditConsole.SetInstructionText("setLevel " + gridX.ToString() + " " + gridY.ToString() + " ");
 					ChatConsole.SendMessage("--------------------", Color.White);
 					ChatConsole.SendMessage("Assign a Level ID to this Node. It can be any valid level, including official levels or levels created by other players. The original author will be credited with the level design.", Color.Red);
 					ChatConsole.SendMessage("--------------------", Color.White);
