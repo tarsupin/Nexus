@@ -64,7 +64,6 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-
 			UIComponent.ComponentWithFocus = null;
 			Cursor.UpdateMouseState();
 

@@ -36,7 +36,11 @@ namespace Nexus.GameEngine {
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
 			this.ret = new UIIconWithText(null, "UI/Back", "Return", centerX, centerY, delegate () { this.scene.SetUIState(Scene.UIState.Playing); } );
-			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { } );
+
+			this.log = new UIIconWithText(null, "UI/Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () {
+				this.scene.SetUIState(Scene.UIState.MainMenu);
+			} );
+
 			this.worlds = new UIIconWithText(null, "UI/MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UIIconWithText(null, "UI/Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UIIconWithText(null, "UI/MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
@@ -47,6 +51,12 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
+
+			// Check if Login Box is running:
+			if(UIComponent.ComponentSelected == this.loginBox) {
+				this.loginBox.RunTick();
+				return;
+			}
 
 			// Get User Input
 			PlayerInput input = Systems.localServer.MyPlayer.input;
@@ -94,11 +104,16 @@ namespace Nexus.GameEngine {
 			this.myLevels.RunTick();
 			this.myWorld.RunTick();
 			this.credits.RunTick();
-
-			this.loginBox.RunTick();
 		}
 
 		public void Draw() {
+
+			// Check if Login Box is running:
+			if(UIComponent.ComponentSelected == this.loginBox) {
+				this.loginBox.Draw();
+				return;
+			}
+
 			this.ret.Draw(this.opt == MenuOptionActive.Return);
 			this.log.Draw(this.opt == MenuOptionActive.Log);
 			this.worlds.Draw(this.opt == MenuOptionActive.Worlds);
@@ -106,8 +121,6 @@ namespace Nexus.GameEngine {
 			this.myLevels.Draw(this.opt == MenuOptionActive.MyLevels);
 			this.myWorld.Draw(this.opt == MenuOptionActive.MyWorld);
 			this.credits.Draw(this.opt == MenuOptionActive.Credits);
-
-			this.loginBox.Draw();
 		}
 	}
 }

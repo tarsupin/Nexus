@@ -215,8 +215,10 @@ namespace Nexus.GameEngine {
 			this.menuUI.RunTick();
 
 			// Open Menu
-			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				this.SetUIState(UIState.MainMenu);
+			if(this.uiState == UIState.Playing) {
+				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+					this.SetUIState(UIState.MainMenu);
+				}
 			}
 
 			// Update Moon Positions

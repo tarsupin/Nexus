@@ -28,6 +28,7 @@ namespace Nexus.GameEngine {
 
 		public void SetUIState(UIState uiState) {
 			this.uiState = uiState;
+			UIComponent.ComponentSelected = null;
 
 			if(uiState == UIState.SubMenu || uiState == UIState.MainMenu || this.mouseAlwaysVisible) { Systems.SetMouseVisible(true); }
 			else { Systems.SetMouseVisible(false); }
