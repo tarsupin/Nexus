@@ -6,8 +6,9 @@ namespace Nexus.GameEngine {
 	public class CornerMenuUI {
 
 		// Corner Menu
-		private readonly UIIcon settings;
-		private readonly UIIconVolume volume;
+		//private readonly UIIcon settings;
+		private readonly ToggleMusic music;
+		private readonly ToggleVolume volume;
 		private readonly UIIcon exit;
 
 		private readonly UIIcon world;
@@ -28,8 +29,9 @@ namespace Nexus.GameEngine {
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu
-			this.settings = new UIIcon(null, "UI/Settings", 10, 10, delegate () {  } );
-			this.volume = new UIIconVolume(null, "UI/Volume/On", 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
+			//this.settings = new UIIcon(null, "UI/Settings", 10, 10, delegate () {  } );
+			this.music = new ToggleMusic(null, 10, 10, delegate () { Systems.settings.audio.ToggleMusic(); });
+			this.volume = new ToggleVolume(null, 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
 			this.exit = new UIIcon(null, "UI/Quit", 142, 10, delegate () { Environment.Exit(0); } );
 
 			this.world = new UIIcon(null, "UI/World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
@@ -47,7 +49,8 @@ namespace Nexus.GameEngine {
 			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
-			this.settings.RunTick();
+			//this.settings.RunTick();
+			this.music.RunTick();
 			this.volume.RunTick();
 			this.exit.RunTick();
 
@@ -66,7 +69,8 @@ namespace Nexus.GameEngine {
 			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
-			this.settings.Draw();
+			//this.settings.Draw();
+			this.music.Draw();
 			this.volume.Draw();
 			this.exit.Draw();
 

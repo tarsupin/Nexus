@@ -97,6 +97,9 @@ namespace Nexus.GameEngine {
 			InputClient input = Systems.input;
 			PlayerInput playerInput = Systems.localServer.MyPlayer.input;
 
+			// Update UI
+			UIComponent.ComponentWithFocus = null;
+			Cursor.UpdateMouseState();
 			UIHandler.cornerMenu.RunTick();
 
 			// Menu State

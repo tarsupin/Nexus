@@ -126,11 +126,12 @@
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\Scenes\MyLevelsScene.cs" />
     <Compile Include="GameEngine\Scenes\PlanetSelectScene.cs" />
+    <Compile Include="GameEngine\UIComponents\ToggleMusic.cs" />
     <Compile Include="GameEngine\UIMenus\LoginMenu.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
     <Compile Include="GameEngine\UIComponents\UIInput.cs" />
     <Compile Include="GameEngine\UIComponents\UIButton.cs" />
-    <Compile Include="GameEngine\UIComponents\UIIconVolume.cs" />
+    <Compile Include="GameEngine\UIComponents\ToggleVolume.cs" />
     <Compile Include="GameEngine\UIComponents\UIIconWithText.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UIIcon.cs" />

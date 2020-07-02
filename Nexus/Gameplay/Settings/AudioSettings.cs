@@ -8,7 +8,8 @@ namespace Nexus.Gameplay {
 		public byte MasterValue;		// 0 to 100, 100 is maximum
 		public byte SoundValue;			// 0 to 100
 		public byte MusicValue;			// 0 to 100
-		public bool Mute;               // TRUE if currently muted.
+		public bool Mute;				// TRUE if currently muted.
+		public bool MusicMute;			// TRUE if music is currently muted.
 
 		public float SoundVolume = 0f;
 		public float MusicVolume = 0f;
@@ -29,47 +30,58 @@ namespace Nexus.Gameplay {
 				this.SoundValue = audioSettings.SoundValue;
 				this.MusicValue = audioSettings.MusicValue;
 				this.Mute = audioSettings.Mute;
+				this.MusicMute = audioSettings.MusicMute;
+
+				this.UpdateAudioSettings(false);
+			}
 
 			// Assign Generic Settings & Create Audio Settings
-			} else {
+			else {
 
 				// Assign Generic Settings
 				this.MasterValue = 50;
 				this.SoundValue = 50;
 				this.MusicValue = 50;
 				this.Mute = false;
+				this.MusicMute = false;
 
 				// Create Audio Settings
-				this.SaveSettings();
+				this.UpdateAudioSettings(true);
 			}
-
-			this.UpdateAudioSettings();
 		}
 
 		public void ToggleMute() {
 			this.Mute = !this.Mute;
-			this.UpdateAudioSettings();
+			this.UpdateAudioSettings(true);
+		}
 
-			// If muted, songs need to stop playing:
+		public void ToggleMusic() {
+			this.MusicMute = !this.MusicMute;
+			this.UpdateAudioSettings(true);
+		}
+
+		private void UpdateAudioSettings(bool save = false) {
+
+			this.SoundVolume = (float)this.SoundValue / 100f * (float)this.MasterValue / 100f;
+			this.MusicVolume = (float)this.MusicValue / 100f * (float)this.MasterValue / 100f;
+
 			if(this.Mute) {
+				this.SoundVolume = 0f;
+				this.MusicVolume = 0f;
+			}
+			
+			else if(this.MusicMute) {
+				this.MusicVolume = 0f;
+			}
+
+			// If music is muted or unable to play, songs need to stop:
+			if(this.MusicMute || this.Mute || this.MusicVolume == 0 || this.MasterValue == 0) {
 				MediaPlayer.Pause();
 			} else {
 				MediaPlayer.Resume();
 			}
 
-			this.SaveSettings();
-		}
-
-		private void UpdateAudioSettings() {
-
-			if(this.Mute) {
-				this.SoundVolume = 0f;
-				this.MusicVolume = 0f;
-				return;
-			}
-
-			this.SoundVolume = (float)this.SoundValue / 100f * (float)this.MasterValue / 100f;
-			this.MusicVolume = (float)this.MusicValue / 100f * (float)this.MasterValue / 100f;
+			if(save) { this.SaveSettings(); }
 		}
 
 		public void SaveSettings() {

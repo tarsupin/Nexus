@@ -63,6 +63,12 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
+			// If the left mouse button was clicked, we leave the menu one way or another.
+			// It might click on an object below, but if not, we clicked off of the menu.
+			else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				UIHandler.SetMenu(null, false);
+			}
+
 			// Center Menu
 			this.cont.RunTick();
 			this.retry.RunTick();
