@@ -112,6 +112,11 @@ namespace Nexus.GameEngine {
 				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 					UIHandler.SetMenu(UIHandler.levelMenu, true);
 				}
+
+				// Open Console (Tilde)
+				else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+					UIHandler.levelConsole.Open();
+				}
 			}
 
 			// Some Scenes will disable this, or limit behavior (such as for multiplayer).

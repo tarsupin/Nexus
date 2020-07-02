@@ -44,8 +44,10 @@ namespace Nexus.Engine {
 		public bool hasParent;					// TRUE if the component has a parent set.
 
 		// Positioning
-		protected short x, y;					// The relative offset of its parent component.
-		protected short trueX, trueY;			// The true position (on screen) of the UI Component.
+		public short x { get; protected set; }			// The relative offset of its parent component.
+		public short y { get; protected set; }			// The relative offset of its parent component.
+		public short trueX { get; protected set; }		// The true position (on screen) of the UI Component.
+		public short trueY { get; protected set; }		// The true position (on screen) of the UI Component.
 
 		public short ParentX { get { return this.Parent.trueX; } }
 		public short ParentY { get { return this.Parent.trueY; } }

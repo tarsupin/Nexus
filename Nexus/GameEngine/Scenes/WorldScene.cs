@@ -151,7 +151,7 @@ namespace Nexus.GameEngine {
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-				UIHandler.SetMenu(UIHandler.worldConsole, true);
+				UIHandler.worldConsole.Open();
 			}
 
 			// Run World UI Updates

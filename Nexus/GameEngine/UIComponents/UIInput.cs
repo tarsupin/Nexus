@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 	public class UIInput : UIComponent {
 
-		protected const byte charsVisible = 26;
+		public const byte charsVisible = 26;
 		protected const string box = "UI/Input/Box";
 		protected const string over = "UI/Input/Over";
 		protected const string outline = "UI/Input/Outline";

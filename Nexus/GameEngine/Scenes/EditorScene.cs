@@ -83,7 +83,7 @@ namespace Nexus.GameEngine {
 
 				// Open Console (Tilde)
 				else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
-					UIHandler.SetMenu(UIHandler.editorConsole, true);
+					UIHandler.editorConsole.Open();
 				}
 			}
 

@@ -26,6 +26,7 @@ namespace Nexus.GameEngine {
 		public virtual void OnOpen() {}
 
 		public void Open() {
+			UIHandler.SetMenu(this, true);
 			ConsoleTrack.ResetValues();
 			ConsoleTrack.PrepareTabLookup(this.consoleDict, "", this.baseHelperText);
 			if(!this.beenOpened) { this.OnFirstOpen(); }
@@ -49,6 +50,11 @@ namespace Nexus.GameEngine {
 				if(input.LocalKeyPressed(Keys.Back)) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 					this.backspaceFrame = Systems.timer.Frame + 10;
+
+					// If held shift or control, remove the full line.
+					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
+						ConsoleTrack.instructionText = "";
+					}
 				}
 
 				else if(this.backspaceFrame < Systems.timer.Frame) {

@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
 	public class LoginMenu : IMenu {
+
+		public const string passBlock = "********************************"; // 32 long (should only need UIInput.charsVisible)
 
 		// Login Components
 		private readonly TextBox textBox;
@@ -12,53 +15,61 @@ namespace Nexus.GameEngine {
 		private readonly UIButton loginButton;
 		private readonly UIButton registerButton;
 
-		public LoginMenu( short posX, short posY, short width, short height ) : base() {
-			this.textBox = new TextBox(null, posX, posY, width, height);
-			this.loginInput = new UIInput(this.textBox, 20, 20);
-			this.passInput = new UIInput(this.textBox, 20, 120);
+		public LoginMenu(short width, short height) : base() {
+
+			short centerX = (short)(Systems.screen.windowHalfWidth - (short)(width * 0.5));
+			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
+
+			this.textBox = new TextBox(null, centerX, centerY, width, height);
+			this.loginInput = new UIInput(this.textBox, 20, 50);
+			this.passInput = new UIInput(this.textBox, 20, 135);
 			this.loginButton = new UIButton(this.textBox, "Login", 20, 220, null);
 			this.registerButton = new UIButton(this.textBox, "Register", 152, 220, null);
 		}
 
 		public void RunTick() {
 
+			// Handle Key Presses
+			InputClient input = Systems.input;
+
+			// Check if the menu should be closed:
+			if(input.LocalKeyPressed(Keys.Escape)) {
+				UIHandler.SetMenu(null, false);
+				return;
+			}
+
 			// Key Handling
 			if(UIComponent.ComponentSelected == this.loginInput || UIComponent.ComponentSelected == this.passInput) {
-
-				// Handle Key Presses
-				InputClient input = Systems.input;
 
 				// Get Characters Pressed (doesn't assist with order)
 				string charsPressed = input.GetCharactersPressed();
 
+				UIInput comp = (UIInput)UIComponent.ComponentSelected;
+
 				if(charsPressed.Length > 0) {
-					((UIInput)UIComponent.ComponentSelected).SetText(((UIInput)UIComponent.ComponentSelected).text + charsPressed);
+					comp.SetText(comp.text + charsPressed);
 				}
 
-				// Determine if the console needs to be closed (escape or tilde):
-				if(input.LocalKeyPressed(Keys.Tab)) {
-					if(UIComponent.ComponentSelected == this.loginInput) {
-						UIComponent.ComponentSelected = this.passInput;
+				// Backspace (+Shift, +Control)
+				if(input.LocalKeyPressed(Keys.Back)) {
+					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
+						comp.SetText("");
 					} else {
-						UIComponent.ComponentSelected = this.loginInput;
+						comp.SetText(comp.text.Substring(0, comp.text.Length - 1));
 					}
 				}
 			}
 
-			// Mouse Handling
-			if(this.textBox.IsMouseOver()) {
-				UIComponent.ComponentWithFocus = this.textBox;
-
-				// Mouse Clicked
-				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-
+			// Tab Between Options
+			if(input.LocalKeyPressed(Keys.Tab)) {
+				if(UIComponent.ComponentSelected == this.loginInput) {
+					UIComponent.ComponentSelected = this.passInput;
+				} else {
+					UIComponent.ComponentSelected = this.loginInput;
 				}
 			}
 
-			// If the Mouse just exited this component:
-			//else if(this.MouseOver == UIMouseOverState.Exited) {}
-
-			//this.textBox.RunTick();
+			this.textBox.RunTick();
 			this.loginInput.RunTick();
 			this.passInput.RunTick();
 			this.loginButton.RunTick();
@@ -67,8 +78,14 @@ namespace Nexus.GameEngine {
 
 		public void Draw() {
 			this.textBox.Draw();
+
+			Systems.fonts.baseText.Draw("Username", this.textBox.trueX + 28, this.textBox.trueY + 26, Color.Black);
 			this.loginInput.Draw();
+
+			// LoginMenu.passBlock.Substring(0, Math.Min(UIInput.charsVisible, this.passInput.text.Length)
+			Systems.fonts.baseText.Draw("Password", this.textBox.trueX + 28, this.textBox.trueY + 110, Color.Black);
 			this.passInput.Draw();
+
 			this.loginButton.Draw();
 			this.registerButton.Draw();
 		}
