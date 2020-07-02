@@ -120,11 +120,11 @@ namespace Nexus.Gameplay {
 		EnemiesLand,
 		EnemiesFly,
 		Interactives,
-		Upgrades,
+		Gadgets,
 		Collectables,
+		Upgrades,
 		Decor,
 		Prompts,
-		Gadgets,
 		Scripting,
 	}
 

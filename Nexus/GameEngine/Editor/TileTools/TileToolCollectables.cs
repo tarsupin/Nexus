@@ -173,7 +173,6 @@ namespace Nexus.GameEngine {
 					subType = (byte) GoodieSubType.Plus20,
 				},
 			});
-
 		}
 	}
 }

@@ -382,6 +382,9 @@
     <Compile Include="ObjectComponents\Hats\AngelHat.cs" />
     <Compile Include="ObjectComponents\Behavior\FlightBehavior.cs" />
     <Compile Include="ObjectComponents\Powers\Balls\RockBall.cs" />
+    <Compile Include="ObjectComponents\Shoes\WingShoes.cs" />
+    <Compile Include="ObjectComponents\Shoes\SpikeShoes.cs" />
+    <Compile Include="ObjectComponents\Shoes\DashingShoes.cs" />
     <Compile Include="ObjectComponents\Powers\Bolts\BoltNecro.cs" />
     <Compile Include="ObjectComponents\Powers\Bolts\BoltGold.cs" />
     <Compile Include="ObjectComponents\Powers\Bolts\BoltGreen.cs" />
@@ -389,6 +392,7 @@
     <Compile Include="ObjectComponents\Powers\Mobility\TeleportMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\PhaseMobility.cs" />
     <Compile Include="ObjectComponents\Powers\Mobility\LeapMobility.cs" />
+    <Compile Include="ObjectComponents\Shoes\Shoes.cs" />
     <Compile Include="ObjectComponents\Powers\PowerThrust.cs" />
     <Compile Include="ObjectComponents\Powers\Thrown\Grenade.cs" />
     <Compile Include="ObjectComponents\Powers\Thrust\Dagger.cs" />

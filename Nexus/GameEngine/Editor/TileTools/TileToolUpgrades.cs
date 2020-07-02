@@ -1,5 +1,6 @@
 ﻿using Nexus.Gameplay;
 using Nexus.ObjectComponents;
+using static Nexus.Objects.Goodie;
 
 namespace Nexus.GameEngine {
 
@@ -108,6 +109,10 @@ namespace Nexus.GameEngine {
 			// Power (Thrown)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
+					tileId = (byte)TileEnum.CollectablePower,
+					subType = (byte)PowerSubType.RandomThrown
+				},
+				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.CollectablePower,
 					subType = (byte) PowerSubType.Axe,
 				},
@@ -132,9 +137,21 @@ namespace Nexus.GameEngine {
 					subType = (byte)PowerSubType.ShurikenYellow,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte)TileEnum.CollectablePower,
-					subType = (byte)PowerSubType.RandomThrown
+					tileId = (byte) TileEnum.CollectablePower,
+					subType = (byte) PowerSubType.Grenade,
 				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.CollectablePower,
+					subType = (byte) PowerSubType.GrenadePack,
+				},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.Chakram,
+				//},
+				//new EditorPlaceholder() {
+				//	tileId = (byte) TileEnum.CollectablePower,
+				//	subType = (byte) PowerSubType.ChakramPack,
+				//},
 			});
 
 			// Power (Weapon)
@@ -228,27 +245,24 @@ namespace Nexus.GameEngine {
 				//	subType = (byte) PowerSubType.BoltNecro,
 				//},
 			});
-			
-			// Power (Packs)
+
+
+			// Goodies (Shoes)
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Chakram,
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.DashingShoe,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.ChakramPack,
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.SpikeShoe,
 				},
 				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.Grenade,
-				},
-				new EditorPlaceholder() {
-					tileId = (byte) TileEnum.CollectablePower,
-					subType = (byte) PowerSubType.GrenadePack,
+					tileId = (byte) TileEnum.Goodie,
+					subType = (byte) GoodieSubType.WingShoe,
 				},
 			});
-			
+
 			// Mobility Power
 			this.placeholders.Add(new EditorPlaceholder[] {
 				//new EditorPlaceholder() {

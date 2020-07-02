@@ -21,6 +21,7 @@ namespace Nexus.Objects {
 		public Suit suit;
 		public Head head;
 		public Hat hat;
+		public Shoes shoes;
 		public PowerAttack attackPower;
 		public PowerMobility mobilityPower;
 
@@ -174,6 +175,7 @@ namespace Nexus.Objects {
 
 			if(this.hat is Hat && this.hat.IsPowerHat) { this.hat.DestroyHat(this, false); disable = true; }
 			if(this.suit is Suit && this.suit.IsPowerSuit) { this.suit.DestroySuit(this, false); disable = true; }
+			if(this.shoes is Shoes) { this.shoes.RemoveShoes(this); disable = true; }
 			if(this.attackPower is PowerAttack) { this.attackPower.EndPower(); disable = true; }
 			if(this.mobilityPower is PowerMobility) { this.mobilityPower.EndPower(); disable = true; }
 
@@ -232,9 +234,8 @@ namespace Nexus.Objects {
 		private void OnFloorUpdate() {
 
 			// Character Movement & Handling
-			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt) 1 : this.stats.SlowSpeedMult);
+			FInt speedMult = (this.shoes is Shoes || this.input.isDown(IKey.XButton)) ? FInt.Create(1) : this.stats.SlowSpeedMult;
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
-			// TODO LOW PRIORITY: add * status.friction
 
 			// Movement Right
 			if(this.input.isDown(IKey.Right)) {
@@ -312,6 +313,9 @@ namespace Nexus.Objects {
 						if(status.action is Action) { status.action.LandsOnGround(this); }
 						status.jumpsUsed = 0;
 					}
+
+					// Update Shoes
+					if(this.shoes is Shoes) { this.shoes.TouchWall(); }
 				}
 			}
 		}
@@ -321,7 +325,7 @@ namespace Nexus.Objects {
 			// NOTE: Character momentum is allowed to exceed run speed, but not by character's own force.
 
 			// Character Movement & Handling
-			FInt speedMult = (this.input.isDown(IKey.XButton) ? (FInt)1 : this.stats.SlowSpeedMult);
+			FInt speedMult = (this.shoes is Shoes || this.input.isDown(IKey.XButton)) ? FInt.Create(1) : this.stats.SlowSpeedMult;
 			FInt maxSpeed = this.stats.RunMaxSpeed * speedMult;
 
 			// Maximum Fall Speed

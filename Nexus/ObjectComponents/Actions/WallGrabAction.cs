@@ -46,6 +46,9 @@ namespace Nexus.ObjectComponents {
 					status.leaveWall = Systems.timer.Frame + 4;
 				}
 			}
+
+			// Update Shoes
+			if(character.shoes is Shoes) { character.shoes.TouchWall(); }
 		}
 
 		public override void RunAction( Character character ) {

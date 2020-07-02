@@ -51,7 +51,7 @@ namespace Nexus.ObjectComponents {
 			Action action = character.status.action;
 
 			if(action is SlamAction) {
-				((SlamAction)action).CauseSlam(character);
+				SlamAction.CauseSlam();
 			}
 
 			return true;

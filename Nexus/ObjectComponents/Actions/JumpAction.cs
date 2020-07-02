@@ -37,7 +37,7 @@ namespace Nexus.ObjectComponents {
 			status.actionNum1 = (sbyte) (stats.JumpStrength + extraStrength);
 			status.actionNum2 = (sbyte) (stats.JumpDuration + extraDuration - minimumDuration);
 			status.actionBool1 = true; // TRUE if the Jump Key is down
-			status.actionBool2 = character.input.isDown(IKey.XButton); // TRUE if the Run Key is down
+			status.actionBool2 = character.input.isDown(IKey.XButton) || character.shoes is Shoes; // TRUE if the Run Key is down
 
 			// Jump Sound
 			if(playSound) { Systems.sounds.jump.Play(); }
@@ -66,13 +66,13 @@ namespace Nexus.ObjectComponents {
 			if(status.actionBool1 && !input.isDown(IKey.AButton)) { status.actionBool1 = false; }
 
 			// Deactivate "RUN" marker if the character has released the run button.
-			if(status.actionBool2 && !input.isDown(IKey.XButton)) { status.actionBool2 = false; }
+			if(status.actionBool2 && (!input.isDown(IKey.XButton) && character.shoes is Shoes == false)) { status.actionBool2 = false; }
 
 			CharacterStats stats = character.stats;
 			Physics physics = character.physics;
 
 			// JUMP STRENGTH x0.6 (if not jumping), xSlowSpeed (if not running)
-			FInt jumpStrength = status.actionNum1 * (status.actionBool1 ? (FInt) 1 : FInt.Create(0.6)) * (status.actionBool2 ? (FInt) 1 : stats.SlowSpeedMult);
+			FInt jumpStrength = status.actionNum1 * (status.actionBool1 ? FInt.Create(1) : FInt.Create(0.6)) * (status.actionBool2 ? FInt.Create(1) : stats.SlowSpeedMult);
 
 			// Vertical Movement
 			physics.velocity.Y = 0 - jumpStrength;

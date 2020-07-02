@@ -1,7 +1,7 @@
-﻿using System;
-using Nexus.Engine;
+﻿using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 
 namespace Nexus.Objects {
 
@@ -9,20 +9,22 @@ namespace Nexus.Objects {
 
 		public enum GoodieSubType : byte {
 
+			// Health
 			Apple = 0,
 			Pear = 1,
 			Pack1 = 2,
 
+			// Shields
 			ShieldWood = 3,
 			ShieldBlue = 4,
-			
-			RingMagic = 5,		// Magi
-			AmuletMagic = 6,	// Magi 2
-			
+			ShieldWhite = 23,
+
+			// Invincibility
 			Shiny = 7,
 			Stars = 8,
 			GodMode = 9,
 			
+			// Timers
 			Plus5 = 10,
 			Plus10 = 11,
 			Plus20 = 12,
@@ -39,7 +41,9 @@ namespace Nexus.Objects {
 			Soup = 21,
 			Pack2 = 22,
 
-			ShieldWhite = 23,
+			// Jewelry
+			RingMagic = 5,      // Magi
+			AmuletMagic = 6,    // Magi 2
 
 			RingFire = 24,			// Fire
 			NeckFire = 25,			// Fire
@@ -50,6 +54,11 @@ namespace Nexus.Objects {
 			RingHawk = 30,          // Reserved
 			RingDruid = 31,         // Reserved
 			RingEye = 32,           // Reserved
+
+			// Shoes
+			DashingShoe = 33,
+			SpikeShoe = 34,
+			WingShoe = 35,
 		}
 
 		public Goodie() : base() {
@@ -58,7 +67,9 @@ namespace Nexus.Objects {
 			this.moveParamSet = Params.ParamMap["Collectable"];
 
 			// Helper Texts
-			this.titles = new string[33];
+			this.titles = new string[36];
+
+			// Health
 			this.titles[(byte)GoodieSubType.Apple] = "Apple";
 			this.titles[(byte)GoodieSubType.Pear] = "Pear";
 			this.titles[(byte)GoodieSubType.Melon] = "Melon";
@@ -66,10 +77,12 @@ namespace Nexus.Objects {
 			this.titles[(byte)GoodieSubType.Pack1] = "Health Pack";
 			this.titles[(byte)GoodieSubType.Pack2] = "Health Pack";
 
+			// Shields
 			this.titles[(byte)GoodieSubType.ShieldWood] = "Wood Shield";
 			this.titles[(byte)GoodieSubType.ShieldWhite] = "White Shield";
 			this.titles[(byte)GoodieSubType.ShieldBlue] = "Power Shield";
 
+			// Jewelry
 			this.titles[(byte)GoodieSubType.RingMagic] = "Magic Ring";
 			this.titles[(byte)GoodieSubType.AmuletMagic] = "Magic Amulet";
 			this.titles[(byte)GoodieSubType.RingFire] = "Fire Ring";
@@ -82,10 +95,12 @@ namespace Nexus.Objects {
 			//this.titles[(byte)GoodieSubType.RingDruid] = "Ring";
 			//this.titles[(byte)GoodieSubType.RingEye] = "Ring";
 			
+			// Invincibility
 			this.titles[(byte)GoodieSubType.Shiny] = "Shiny Potion";
 			this.titles[(byte)GoodieSubType.Stars] = "Star Potion";
 			this.titles[(byte)GoodieSubType.GodMode] = "God Mode Collectable";
 
+			// Timers
 			this.titles[(byte)GoodieSubType.Plus5] = "+5 Timer";
 			this.titles[(byte)GoodieSubType.Plus10] = "+10 Timer";
 			this.titles[(byte)GoodieSubType.Plus20] = "+20 Timer";
@@ -98,18 +113,27 @@ namespace Nexus.Objects {
 			this.titles[(byte)GoodieSubType.Key] = "Key";
 			this.titles[(byte)GoodieSubType.Blood] = "Blood Potion";
 
-			this.descriptions = new string[33];
+			// Shoes
+			this.titles[(byte)GoodieSubType.DashingShoe] = "Dashing Shoe";
+			this.titles[(byte)GoodieSubType.SpikeShoe] = "Spike Shoe";
+			this.titles[(byte)GoodieSubType.WingShoe] = "Wing Shoe";
+
+			this.descriptions = new string[36];
+
+			// Health
 			this.descriptions[(byte)GoodieSubType.Apple] = "Grants +1 Health";
 			this.descriptions[(byte)GoodieSubType.Pear] = "Grants +1 Health";
 			this.descriptions[(byte)GoodieSubType.Melon] = "Grants +2 Health";
 			this.descriptions[(byte)GoodieSubType.Soup] = "Grants +2 Health";
 			this.descriptions[(byte)GoodieSubType.Pack1] = "Grants Full Health";
 			this.descriptions[(byte)GoodieSubType.Pack2] = "Grants Full Health";
-
+			
+			// Shields
 			this.descriptions[(byte)GoodieSubType.ShieldWood] = "Grants +1 Shield";
 			this.descriptions[(byte)GoodieSubType.ShieldWhite] = "Grants +2 Shields";
 			this.descriptions[(byte)GoodieSubType.ShieldBlue] = "Grants Full Shields";
 
+			// Jewelry
 			this.descriptions[(byte)GoodieSubType.RingMagic] = "Grants a magical shield.";
 			this.descriptions[(byte)GoodieSubType.AmuletMagic] = "Grants a powerful magical shield.";
 			this.descriptions[(byte)GoodieSubType.RingFire] = "Grants a magical fire shield.";
@@ -122,10 +146,12 @@ namespace Nexus.Objects {
 			//this.descriptions[(byte)GoodieSubType.RingDruid] = ".";
 			//this.descriptions[(byte)GoodieSubType.RingEye] = ".";
 
+			// Invincibility
 			this.descriptions[(byte)GoodieSubType.Shiny] = "Makes the character invulnerable for ten seconds.";
 			this.descriptions[(byte)GoodieSubType.Stars] = "Makes the character invulnerable and deadly on contact for ten seconds.";
 			this.descriptions[(byte)GoodieSubType.GodMode] = "Makes the character invulnerable.";
 
+			// Timers
 			this.descriptions[(byte)GoodieSubType.Plus5] = "Adds +5 seconds to the current timer.";
 			this.descriptions[(byte)GoodieSubType.Plus10] = "Adds +10 seconds to the current timer.";
 			this.descriptions[(byte)GoodieSubType.Plus20] = "Adds +20 seconds to the current timer.";
@@ -137,6 +163,11 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)GoodieSubType.Explosive] = "Damages all enemies on the screen.";
 			this.descriptions[(byte)GoodieSubType.Key] = "Used to unlock things including doors, chests, etc.";
 			this.descriptions[(byte)GoodieSubType.Blood] = "Unknown.";
+
+			// Shoes
+			this.descriptions[(byte)GoodieSubType.DashingShoe] = "Character always runs and has a new dash power.";
+			this.descriptions[(byte)GoodieSubType.SpikeShoe] = "Character always runs, has a new dash power, and can climb walls.";
+			this.descriptions[(byte)GoodieSubType.WingShoe] = "Character always runs and has dual air-dash.";
 		}
 
 		public override void Collect(RoomScene room, Character character, short gridX, short gridY) {
@@ -208,9 +239,14 @@ namespace Nexus.Objects {
 
 				// Explosive
 				case (byte)GoodieSubType.Explosive: TNT.DetonateTNT(character); break;
+
+				// Shoes
+				case (byte)GoodieSubType.DashingShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Dashing); break;
+				case (byte)GoodieSubType.SpikeShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Spike); break;
+				case (byte)GoodieSubType.WingShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Wing); break;
 			}
 
-			// SubTypes that can be maxed out, and therefore not collected.
+			// SubTypes that can be maxed out, and therefore not collected at times.
 			switch(subType) {
 
 				// Key Collection
@@ -317,7 +353,7 @@ namespace Nexus.Objects {
 		}
 
 		private void CreateTextures() {
-			this.Texture = new string[33];
+			this.Texture = new string[36];
 			
 			// Health Goodies
 			this.Texture[(byte) GoodieSubType.Apple] = "Health/Apple";
@@ -363,6 +399,11 @@ namespace Nexus.Objects {
 			this.Texture[(byte) GoodieSubType.Explosive] = "Goodie/Explosive";
 			this.Texture[(byte) GoodieSubType.Key] = "Goodie/Key";
 			this.Texture[(byte) GoodieSubType.Blood] = "Goodie/Blood";
+
+			// Shoe Goodies
+			this.Texture[(byte) GoodieSubType.DashingShoe] = "Shoes/Red";
+			this.Texture[(byte) GoodieSubType.SpikeShoe] = "Shoes/Spike";
+			this.Texture[(byte) GoodieSubType.WingShoe] = "Shoes/Wing";
 		}
 	}
 }
