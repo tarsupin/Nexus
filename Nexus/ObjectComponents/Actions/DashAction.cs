@@ -93,7 +93,7 @@ namespace Nexus.ObjectComponents {
 			character.physics.touch.ResetTouch();
 
 			// Assign a Character Trail
-			character.nameplate.SetCharacterTrail(0.5f, 0.02f, 1);
+			character.nameplate.SetCharacterTrail(0.5f, 0.02f, 1, 10);
 		}
 
 		public void RestrictXMovement(CharacterStatus status) {

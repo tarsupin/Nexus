@@ -27,7 +27,8 @@ namespace Nexus.ObjectComponents {
 		private float trailAlpha = 0f;
 		private float trailAlphaDecay = 0f;
 		private int trailLast = 0;			// The frame that a particle was most recently placed.
-		private byte trailRate = 0;			// The number of frames to wait before placing a new particle.
+		private byte trailRate = 0;         // The number of frames to wait before placing a new particle.
+		private byte trailDuration = 0;		// The # of frames that the effect will last.
 
 		public Nameplate(Character character, string name, bool nameVisible = false, bool hpVisible = false) {
 			this.character = character;
@@ -58,10 +59,12 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public void SetCharacterTrail(float alphaStart, float alphaDecay, byte trailRate) {
+		public void SetCharacterTrail(float alphaStart, float alphaDecay, byte trailRate, byte trailDuration) {
 			this.trailAlpha = alphaStart;
 			this.trailAlphaDecay = -Math.Abs(alphaDecay);
 			this.trailRate = trailRate;
+			this.trailLast = 0;
+			this.trailDuration = trailDuration;
 		}
 
 		//public void SetOffsetDown() {
@@ -91,7 +94,8 @@ namespace Nexus.ObjectComponents {
 
 			// Draw Character Trail
 			if(this.trailAlpha > 0 && this.trailLast < Systems.timer.Frame + this.trailRate) {
-				StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + 8, this.trailAlpha);
+				StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + this.trailDuration, this.trailAlpha, this.trailAlphaDecay);
+				this.trailLast = Systems.timer.Frame;
 				this.trailAlpha += this.trailAlphaDecay;
 			}
 		}
