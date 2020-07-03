@@ -32,7 +32,7 @@ namespace Nexus.Objects {
 			if(this.attack.AttackThisFrame()) {
 				ProjectileEnemy projectile = ProjectileEnemy.Create(room, (byte)ProjectileEnemySubType.Fire, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.MidY + 4), FVector.Create(this.FaceRight ? this.attSpeed : -this.attSpeed, 0));
 				projectile.physics.SetGravity(this.gravity);
-				Systems.sounds.flame.Play(0.6f, 0, 0);
+				this.room.PlaySound(Systems.sounds.flame, 0.6f, this.posX + 16, this.posY + 16);
 			}
 		}
 

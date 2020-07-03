@@ -34,7 +34,7 @@ namespace Nexus.ObjectComponents {
 			character.physics.velocity.X = FInt.Create((stats.WallJumpXStrength + extraStrength) * (dir == DirCardinal.Right ? -1 : 1));
 			character.physics.velocity.Y -= stats.WallJumpYStrength;
 
-			Systems.sounds.jump.Play(0.7f, 0, 0);
+			character.room.PlaySound(Systems.sounds.jump, 0.7f, character.posX + 16, character.posY + 16);
 		}
 
 		public override void RunAction( Character character ) {

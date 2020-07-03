@@ -42,7 +42,7 @@ namespace Nexus.Objects {
 				obj.BounceUp(this.posX + this.bounds.MidX, 8, 0, 5);
 			}
 
-			Systems.sounds.spring.Play(0.4f, 0, 0);
+			this.room.PlaySound(Systems.sounds.spring, 0.4f, this.posX + 16, this.posY + 16);
 
 			return base.CollideObjUp(obj);
 		}
@@ -61,7 +61,7 @@ namespace Nexus.Objects {
 			}
 
 			obj.BounceUp(this.posX + this.bounds.MidX, -9, 0, 5);
-			Systems.sounds.spring.Play(0.4f, 0, 0);
+			this.room.PlaySound(Systems.sounds.spring, 0.4f, this.posX + 16, this.posY + 16);
 
 			this.physics.touch.TouchDown();
 			this.physics.AlignUp(obj);

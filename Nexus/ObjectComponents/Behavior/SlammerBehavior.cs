@@ -88,7 +88,7 @@ namespace Nexus.ObjectComponents {
 
 				// If Slammer has completed its maximum journey.
 				if(this.actor.posY >= this.endY) {
-					this.EndSlam();
+					this.EndSlam(this.actor);
 					return;
 				}
 			}
@@ -109,14 +109,14 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
-		public void EndSlam() {
+		public void EndSlam(GameObject actor) {
 			this.state = SlammerState.ResetDelay;
 			this.physics.velocity.Y = FInt.Create(0);
 			this.fallAccel = FInt.Create(0);
 			this.resetFrame = Systems.timer.Frame + this.resetDelay;
 
 			// Sound the Thud.
-			Systems.sounds.thudWhomp.Play();
+			actor.room.PlaySound(Systems.sounds.thudWhomp, 0.5f, actor.posX + 16, actor.posY + 16);
 		}
 
 		private void SlammerHasReset() {

@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 
 			// The sound plays even if the phase fails so that the player can recognize it triggered.
 			if(ps != PhaseSuccess.NoAction) {
-				Systems.sounds.pop.Play();
+				this.character.room.PlaySound(Systems.sounds.pop, 1f, this.character.posX + 16, this.character.posY + 16);
 				return true;
 			}
 

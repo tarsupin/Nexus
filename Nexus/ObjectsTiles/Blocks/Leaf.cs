@@ -107,7 +107,7 @@ namespace Nexus.Objects {
 					room.tilemap.SetMainTile(gridX, gridY, 0, 0);
 				}
 
-				Systems.sounds.thudTap.Play();
+				room.PlaySound(Systems.sounds.thudTap, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			}
 
 			// Reform Event

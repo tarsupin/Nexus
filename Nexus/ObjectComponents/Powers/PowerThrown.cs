@@ -52,7 +52,8 @@ namespace Nexus.ObjectComponents {
 				velY += character.physics.velocity.Y * this.multMomentum * FInt.Create(0.5);
 			}
 
-			this.sound.Play();
+			// Play Sound
+			character.room.PlaySound(this.sound, 1f, posX, posY);
 
 			// Launch Projectile
 			this.Launch(posX, posY, velX, velY);

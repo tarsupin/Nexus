@@ -27,7 +27,7 @@ namespace Nexus.Objects {
 
 		public override void CollidePosDown(int posY) {
 			base.CollidePosUp(posY);
-			((SlammerBehavior)this.behavior).EndSlam();
+			((SlammerBehavior)this.behavior).EndSlam(this);
 		}
 		
 		public override bool CollideObjUp(GameObject obj) {

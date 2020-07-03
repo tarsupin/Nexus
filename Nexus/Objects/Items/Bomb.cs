@@ -87,14 +87,14 @@ namespace Nexus.Objects {
 				if(obj is Character) {
 					Character character = (Character)obj;
 					ActionMap.Jump.StartAction(character, 0, 0, 4, true, false);
-					Systems.sounds.thudTap.Play();
+					this.room.PlaySound(Systems.sounds.thudTap, 1f, this.posX + 16, this.posY + 16);
 					this.BeginTimer();
 				}
 				
 				else if(obj is Enemy) {
 					Enemy enemy = (Enemy)obj;
 					enemy.BounceUp(enemy.posX + enemy.bounds.MidX, 2);
-					Systems.sounds.thudTap.Play();
+					this.room.PlaySound(Systems.sounds.thudTap, 1f, this.posX + 16, this.posY + 16);
 					this.BeginTimer();
 				}
 			}
@@ -145,7 +145,7 @@ namespace Nexus.Objects {
 			ExplodeEmitter.BoxExplosion(room, "Particles/GrenadeFrag", midX, midY, 20, 15);
 			ExplodeEmitter.BoxExplosion(room, "Particles/GrenadeFrag", midX, midY, 70, 50);
 
-			Systems.sounds.explosion.Play(0.4f, 0, 0);
+			room.PlaySound(Systems.sounds.explosion, 0.4f, midX, midY);
 
 			// Camera Shake
 			Systems.camera.BeginCameraShake(35, 6);

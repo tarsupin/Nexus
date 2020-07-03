@@ -33,7 +33,7 @@ namespace Nexus.Objects {
 			// Check if an attack needs to be made:
 			if(this.attack.AttackThisFrame()) {
 				ProjectileEarth projectile = ProjectileEarth.Create(room, (byte)ProjectileEarthSubType.Earth, FVector.Create(this.posX + this.bounds.MidX - 10, this.posY + this.bounds.Bottom - 10), FVector.Create(0, this.attSpeed));
-				Systems.sounds.rock.Play(0.4f, 0, 0);
+				this.room.PlaySound(Systems.sounds.rock, 0.4f, this.posX + 16, this.posY + 16);
 			}
 		}
 

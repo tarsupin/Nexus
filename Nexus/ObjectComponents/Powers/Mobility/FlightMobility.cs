@@ -23,11 +23,11 @@ namespace Nexus.ObjectComponents {
 
 			if(status.action is FlightAction) {
 				status.action.EndAction(this.character);
-				Systems.sounds.wooshSubtle.Play(0.5f, 0, 0);
+				this.character.room.PlaySound(Systems.sounds.wooshSubtle, 0.5f, this.character.posX + 16, this.character.posY + 16);
 
 			} else {
 				ActionMap.Flight.StartAction(character);
-				Systems.sounds.wooshDeep.Play();
+				this.character.room.PlaySound(Systems.sounds.wooshDeep, 1f, this.character.posX + 16, this.character.posY + 16);
 			}
 
 			return true;

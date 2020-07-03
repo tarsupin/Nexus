@@ -90,7 +90,7 @@ namespace Nexus.Objects {
 				if(this.regenEnergy >= this.regenFrames) {
 					if(this.regenAlpha != 1) {
 						this.regenAlpha = 1;
-						Systems.sounds.pop.Play(0.25f, 0, 0);
+						this.room.PlaySound(Systems.sounds.pop, 0.25f, this.posX + 16, this.posY + 16);
 					}
 				} else {
 					this.regenAlpha = (float)((float)regenEnergy / (float)regenFrames * 0.50);

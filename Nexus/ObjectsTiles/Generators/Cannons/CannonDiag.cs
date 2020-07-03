@@ -53,7 +53,7 @@ namespace Nexus.Objects {
 				ProjectileBullet.Create(room, (byte)0, pos, FVector.Create(0 - angleSpeed, 0 - angleSpeed));
 			}
 
-			Systems.sounds.cannonFire.Play();
+			room.PlaySound(Systems.sounds.cannonFire, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

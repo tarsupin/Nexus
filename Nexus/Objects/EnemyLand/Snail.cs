@@ -44,7 +44,7 @@ namespace Nexus.Objects {
 		}
 
 		public override bool GetJumpedOn(Character character, sbyte bounceStrength = 3) {
-			Systems.sounds.shellBoop.Play(0.3f, 0f, 0f);
+			this.room.PlaySound(Systems.sounds.shellBoop, 0.3f, this.posX + 16, this.posY + 16);
 			ActionMap.Jump.StartAction(character, bounceStrength, 0, 4, true);
 			return this.ReceiveWound();
 		}

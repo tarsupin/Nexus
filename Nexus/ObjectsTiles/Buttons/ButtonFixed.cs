@@ -81,7 +81,7 @@ namespace Nexus.Objects {
 					
 					// Play a quiet 'click' noise if it doesn't get triggered.
 					else {
-						Systems.sounds.click3.Play(0.7f, 0, 0);
+						room.PlaySound(Systems.sounds.click3, 0.7f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 					}
 				}
 			}

@@ -24,7 +24,7 @@ namespace Nexus.Objects {
 
 		protected override void TouchFlag(RoomScene room, Character character, short gridX, short gridY) {
 			if(Systems.handler.levelState.SetCheckpoint(room.roomID, gridX, gridY)) {
-				Systems.sounds.flag.Play();
+				room.PlaySound(Systems.sounds.flag, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				this.ReceiveFlagUpgrades(room, character, gridX, gridY);
 			}
 		}

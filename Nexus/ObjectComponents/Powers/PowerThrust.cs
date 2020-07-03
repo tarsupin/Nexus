@@ -31,7 +31,8 @@ namespace Nexus.ObjectComponents {
 
 			sbyte velX = (this.character.FaceRight ? (sbyte)this.speed : (sbyte)-this.speed);
 
-			this.sound.Play();
+			// Play Sound
+			character.room.PlaySound(this.sound, 1f, startX, startY);
 
 			// Launch Projectile
 			this.Launch(character, startX, startY, velX);

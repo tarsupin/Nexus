@@ -78,7 +78,7 @@ namespace Nexus.Objects {
 						this.ShootBolt(rotation - attSpread, midX, midY);
 					}
 
-					Systems.sounds.bolt.Play(0.6f, 0, 0);
+					this.room.PlaySound(Systems.sounds.bolt, 0.6f, this.posX + 16, this.posY + 16);
 				}
 			}
 		}

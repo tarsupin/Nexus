@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 		protected override void TouchFlag(RoomScene room, Character character, short gridX, short gridY) {
 
 			// Play Victory Sound
-			Systems.sounds.woohoo.Play();
+			room.PlaySound(Systems.sounds.woohoo, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			// Complete the level.
 			Systems.handler.levelState.CompleteLevel(character);

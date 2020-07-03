@@ -47,13 +47,13 @@ namespace Nexus.Objects {
 
 					// Remove the Key, Unlock the Chest.
 					if(!character.trailKeys.RemoveKey()) {
-						Systems.sounds.click3.Play();
+						room.PlaySound(Systems.sounds.click3, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 						return false;
 					}
 
-					Systems.sounds.unlock.Play();
+					room.PlaySound(Systems.sounds.unlock, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				} else {
-					Systems.sounds.click2.Play(0.5f, 0, 0);
+					room.PlaySound(Systems.sounds.click2, 0.5f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				}
 
 				this.OpenChest(room, gridX, gridY);

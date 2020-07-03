@@ -157,7 +157,7 @@ namespace Nexus.Objects {
 			//this.scene.addToActiveObjects(child); // Add the child to the scene immediately.
 			//this.children.push(child); // Track the child for spawn identification.
 
-			Systems.sounds.pop.Play(0.25f, 1, 1);
+			room.PlaySound(Systems.sounds.pop, 0.25f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

@@ -46,7 +46,7 @@ namespace Nexus.Objects {
 
 		public override bool GetJumpedOn( Character character, sbyte bounceStrength = 0 ) {
 			this.Destroy(); // Can automatically destroy Boom, since it gets replaced with an item.
-			Systems.sounds.thudWhop.Play();
+			this.room.PlaySound(Systems.sounds.thudWhop, 1f, this.posX + 16, this.posY + 16);
 
 			// Create Bomb in Boom's Place
 			Bomb bomb = new Bomb(this.room, (byte) BombSubType.Bomb, FVector.Create(this.posX, this.posY), new Dictionary<string, short>() { { "on", 1 } });

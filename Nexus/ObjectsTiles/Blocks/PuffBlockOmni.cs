@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 
 			ActionMap.FastMove.StartAction(character, 10);
 
-			Systems.sounds.air.Play();
+			room.PlaySound(Systems.sounds.air, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			return true;
 		}

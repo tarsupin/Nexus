@@ -107,7 +107,7 @@ namespace Nexus.ObjectComponents {
 			ActionMap.Dash.StartAction(this.character, directionHor, directionVert);
 
 			// Play the "Air" sound.
-			Systems.sounds.air.Play(0.2f, 0, 0);
+			this.character.room.PlaySound(Systems.sounds.air, 0.2f, this.character.posX + 16, this.character.posY + 16);
 		}
 
 		public bool CanActivate() {

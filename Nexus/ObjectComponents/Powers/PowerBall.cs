@@ -22,14 +22,15 @@ namespace Nexus.ObjectComponents {
 			// Make sure the power can be activated
 			if(!this.CanActivate()) { return false; }
 
-			this.sound.Play();
-
 			// References
 			Character character = this.character;
 
 			// Determine Starting Position of Projectile relative to Character
 			int posX = character.posX + character.bounds.MidX + (character.FaceRight ? 10 : -30);
 			int posY = character.posY + character.bounds.Top + 5;
+
+			// Play Sound
+			character.room.PlaySound(this.sound, 1f, posX, posY);
 
 			// Check if the tile placement is blocked:
 			TilemapLevel tilemap = this.character.room.tilemap;

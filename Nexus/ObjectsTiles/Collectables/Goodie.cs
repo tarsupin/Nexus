@@ -296,23 +296,23 @@ namespace Nexus.Objects {
 
 		private void GetHealth(Character character, byte health) {
 			character.wounds.AddHealth(health);
-			Systems.sounds.food.Play();
+			character.room.PlaySound(Systems.sounds.food, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		private void GetArmor(Character character, byte armor) {
 			character.wounds.AddArmor(armor);
-			Systems.sounds.collectSubtle.Play();
+			character.room.PlaySound(Systems.sounds.collectSubtle, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		private void GetMagiShield(Character character, byte subType, byte ballCount, byte radius, short regenFrames = 0) {
 			character.magiShield.SetShield(subType, ballCount, radius, regenFrames);
-			Systems.sounds.shield.Play();
+			character.room.PlaySound(Systems.sounds.shield, 1f, character.posX + 16, character.posY + 16);
 		}
 		
 		private void GetInvincible(Character character, int frames) {
 			character.wounds.SetInvincible(frames);
 			//Systems.sounds.collectSubtle.Play();
-			Systems.sounds.potion.Play();
+			character.room.PlaySound(Systems.sounds.potion, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		private void SetTime(Character character, bool isAdditive, byte timeVal) {
@@ -329,27 +329,27 @@ namespace Nexus.Objects {
 
 				// Sound of collectable is based on whether it was positive or negative.
 				if(origFramesLeft > levelState.FramesRemaining) {
-					Systems.sounds.collectDisable.Play();
+					character.room.PlaySound(Systems.sounds.collectDisable, 1f, character.posX + 16, character.posY + 16);
 				} else {
-					Systems.sounds.timer2.Play();
+					character.room.PlaySound(Systems.sounds.timer2, 1f, character.posX + 16, character.posY + 16);
 				}
 			}
 
 			// If the Collectable SETS the timer, rather than ADDS.
 			else {
 				levelState.timeShift += timeVal * 60;
-				Systems.sounds.timer2.Play();
+				character.room.PlaySound(Systems.sounds.timer2, 1f, character.posX + 16, character.posY + 16);
 			}
 		}
 
 		private void RunDisrupt(Character character) {
 			character.DisableAbilities();
-			Systems.sounds.collectDisable.Play();
+			character.room.PlaySound(Systems.sounds.collectDisable, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		private void CollectKey(Character character) {
 			character.trailKeys.AddKey();
-			Systems.sounds.collectKey.Play();
+			character.room.PlaySound(Systems.sounds.collectKey, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		private void CreateTextures() {

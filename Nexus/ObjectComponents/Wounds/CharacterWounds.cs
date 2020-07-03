@@ -90,7 +90,7 @@ namespace Nexus.ObjectComponents {
 			if(this.IsInvincible && forceDmg == false) { return false; }
 
 			// Wound Sound
-			Systems.sounds.wound.Play();
+			this.character.room.PlaySound(Systems.sounds.wound, 1f, this.character.posX + 16, this.character.posY + 16);
 
 			// Damage will be soaked by Armor, if available. Occurs before damaging equipment (e.g. Suit, Hat, etc.)
 			if(this.Armor > 0) {
@@ -145,7 +145,7 @@ namespace Nexus.ObjectComponents {
 			if(this.character.status.action is Action) { this.character.status.action = null; }
 
 			// Play Death Sound
-			Systems.sounds.crack.Play();
+			this.character.room.PlaySound(Systems.sounds.crack, 1f, this.character.posX + 16, this.character.posY + 16);
 
 			// Assign the character's death frame. This will affect things different in Single Player and Multiplayer.
 			this.character.deathFrame = Systems.timer.Frame;

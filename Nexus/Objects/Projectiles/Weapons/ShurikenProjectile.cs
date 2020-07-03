@@ -72,7 +72,7 @@ namespace Nexus.Objects {
 				particle.vel.X = (float)this.physics.velocity.X.ToDouble() * 0.35f + CalcRandom.FloatBetween(-1, 1);
 			}
 
-			Systems.sounds.shellThud.Play(0.4f, 0, 0);
+			this.room.PlaySound(Systems.sounds.shellThud, 0.4f, this.posX + 16, this.posY + 16);
 		}
 
 		// Return Projectile to the Pool

@@ -76,7 +76,7 @@ namespace Nexus.Objects {
 		}
 
 		public virtual bool ReceiveWound() {
-			Systems.sounds.splat1.Play();
+			this.room.PlaySound(Systems.sounds.splat1, 1f, this.posX + 16, this.posY + 16);
 			return this.Die(DeathResult.Knockout);
 		}
 

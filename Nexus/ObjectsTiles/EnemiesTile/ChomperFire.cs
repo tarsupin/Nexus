@@ -90,7 +90,7 @@ namespace Nexus.Objects {
 				}
 			}
 
-			Systems.sounds.flame.Play(0.6f, 0, 0);
+			room.PlaySound(Systems.sounds.flame, 0.6f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			return true;
 		}

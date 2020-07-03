@@ -36,9 +36,9 @@ namespace Nexus.ObjectComponents {
 			character.physics.velocity.X = FInt.Create(0);
 		}
 
-		public static void CauseSlam() {
+		public static void CauseSlam(Character character) {
 			Systems.camera.BeginCameraShake(8, 5);
-			Systems.sounds.thudWhomp.Play(0.3f, 0, 0);
+			character.room.PlaySound(Systems.sounds.thudWhomp, 0.3f, character.posX + 16, character.posY + 16);
 		}
 	}
 }

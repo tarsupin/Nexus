@@ -37,7 +37,7 @@ namespace Nexus.Objects {
 				// Swap to an Inactive Block
 				room.tilemap.SetTileSubType(gridX, gridY, (byte)ExclaimBlockSubType.Inactive);
 
-				Systems.sounds.shellThud.Play();
+				room.PlaySound(Systems.sounds.shellThud, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			}
 
 			return base.RunImpact(room, actor, gridX, gridY, dir);

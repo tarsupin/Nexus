@@ -45,7 +45,7 @@ namespace Nexus.Objects {
 		}
 
 		public override bool ReceiveWound() {
-			Systems.sounds.crack.Play();
+			this.room.PlaySound(Systems.sounds.crack, 1f, this.posX + 16, this.posY + 16);
 			this.Destroy(); // Can automatically destroy Bones, since it just disappears while bones are left behind.
 			//this.Die(DeathResult.Special);
 

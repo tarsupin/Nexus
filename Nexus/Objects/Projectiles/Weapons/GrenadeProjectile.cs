@@ -55,7 +55,7 @@ namespace Nexus.Objects {
 				physics.velocity.Y = FInt.Create(-3);
 			}
 
-			Systems.sounds.shellThud.Play(0.4f, 0, 0);
+			this.room.PlaySound(Systems.sounds.shellThud, 0.4f, this.posX + 16, this.posY + 16);
 		}
 
 		public override void RunTick() {

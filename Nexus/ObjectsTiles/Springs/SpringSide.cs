@@ -26,10 +26,10 @@ namespace Nexus.Objects {
 
 			if(subType == (byte)SpringSideSubType.Left && dir == DirCardinal.Right) {
 				this.BounceSide(actor, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, 20);
-				Systems.sounds.spring.Play(0.4f, 0, 0);
+				room.PlaySound(Systems.sounds.spring, 0.4f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			} else if(subType == (byte)SpringSideSubType.Right && dir == DirCardinal.Left) {
 				this.BounceSide(actor, gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, -20);
-				Systems.sounds.spring.Play(0.4f, 0, 0);
+				room.PlaySound(Systems.sounds.spring, 0.4f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			}
 
 			return true;

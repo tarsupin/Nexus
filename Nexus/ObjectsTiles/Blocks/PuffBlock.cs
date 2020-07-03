@@ -71,7 +71,7 @@ namespace Nexus.Objects {
 			// Draw Overlap Particle
 			BurstEmitter.AirPuff(room, character.posX + character.bounds.MidX, character.posY + character.bounds.MidY, hor, vert, 18);
 
-			Systems.sounds.air.Play();
+			room.PlaySound(Systems.sounds.air, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			return true;
 		}

@@ -40,7 +40,9 @@ namespace Nexus.ObjectComponents {
 			status.actionBool2 = character.input.isDown(IKey.XButton) || character.shoes is Shoes; // TRUE if the Run Key is down
 
 			// Jump Sound
-			if(playSound) { Systems.sounds.jump.Play(); }
+			if(playSound) {
+				character.room.PlaySound(Systems.sounds.jump, 1f, character.posX + 16, character.posY + 16);
+			}
 		}
 
 		public static bool CanJump( Character character ) {

@@ -17,7 +17,7 @@ namespace Nexus.Objects {
 
 			// The door is locked. Must have a key, or prevent entry.
 			if(!character.trailKeys.HasKey) {
-				Systems.sounds.click3.Play();
+				room.PlaySound(Systems.sounds.click3, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				return false;
 			}
 
@@ -28,7 +28,7 @@ namespace Nexus.Objects {
 			(RoomScene destRoom, short gridX, short gridY) doorLink = Door.GetLinkingDoor(room, subType, gridX, gridY);
 
 			if(doorLink.gridX == 0 && doorLink.gridY == 0) {
-				Systems.sounds.collectDisable.Play(0.4f, 0, 0);
+				room.PlaySound(Systems.sounds.collectDisable, 0.4f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				return false;
 			}
 

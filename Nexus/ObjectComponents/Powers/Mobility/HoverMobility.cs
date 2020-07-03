@@ -21,7 +21,7 @@ namespace Nexus.ObjectComponents {
 
 			// Start the Hover Action
 			ActionMap.Hover.StartAction(this.character, false);
-			Systems.sounds.wooshDeep.Play();
+			this.character.room.PlaySound(Systems.sounds.wooshDeep, 1f, this.character.posX + 16, this.character.posY + 16);
 			return true;
 		}
 	}

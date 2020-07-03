@@ -50,7 +50,7 @@ namespace Nexus.Objects {
 
 			// Display Particle Effect
 			ExplodeEmitter.BoxExplosion(room, "Particles/WoodFrag", gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
-			Systems.sounds.brickBreak.Play();
+			room.PlaySound(Systems.sounds.brickBreak, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			// Destroy Brick Tile
 			room.tilemap.SetMainTile(gridX, gridY, 0, 0);

@@ -116,7 +116,7 @@ namespace Nexus.ObjectComponents {
 			item.physics.velocity.Y = FInt.Create(-item.ThrowStrength);
 
 			// Play Throw Sound
-			Systems.sounds.wooshSubtle.Play();
+			this.character.room.PlaySound(Systems.sounds.wooshSubtle, 1f, this.character.posX + 16, this.character.posY + 16);
 
 			// No longer holding object:
 			this.ResetHeldItem();
@@ -146,7 +146,7 @@ namespace Nexus.ObjectComponents {
 			}
 
 			// Play Kick Sound
-			Systems.sounds.shellBoop.Play(0.3f, 0, 0);
+			this.character.room.PlaySound(Systems.sounds.shellBoop, 0.3f, this.character.posX + 16, this.character.posY + 16);
 
 			this.ResetHeldItem();
 		}
@@ -196,7 +196,7 @@ namespace Nexus.ObjectComponents {
 			item.physics.velocity.Y = FInt.Create(-1.5);
 
 			// Play Drop Sound
-			Systems.sounds.wooshSubtle.Play(0.5f, 0, 0);
+			this.character.room.PlaySound(Systems.sounds.wooshSubtle, 0.5f, this.character.posX + 16, this.character.posY + 16);
 
 			this.ResetHeldItem();
 		}

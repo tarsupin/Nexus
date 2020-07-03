@@ -45,7 +45,7 @@ namespace Nexus.Objects {
 
 		public static void DetonateTNT(RoomScene room, int posX, int posY, short width, short height) {
 			Systems.camera.BeginCameraShake(13, 7);
-			Systems.sounds.explosion.Play();
+			room.PlaySound(Systems.sounds.explosion, 1f, posX + (int) Math.Round(width * 0.5), posY + (int) Math.Round(height * 0.5));
 
 			List<GameObject> objects = CollideRect.FindAllObjectsTouchingArea(
 				room.objects[(byte)LoadOrder.Enemy], posX, posY, width, height

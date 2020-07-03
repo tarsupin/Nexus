@@ -65,7 +65,7 @@ namespace Nexus.ObjectComponents {
 			Action action = character.status.action;
 
 			if(action is SlamAction) {
-				SlamAction.CauseSlam();
+				SlamAction.CauseSlam(character);
 			}
 			
 			else if(action is DashAction && character.status.actionNum2 > 8) {

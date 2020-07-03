@@ -136,7 +136,7 @@ namespace Nexus.Objects {
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			Power.AssignPower(character, subType);
 
-			Systems.sounds.collectSubtle.Play();
+			room.PlaySound(Systems.sounds.collectSubtle, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			base.Collect(room, character, gridX, gridY);
 		}
 

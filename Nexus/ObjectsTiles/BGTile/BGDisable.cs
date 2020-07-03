@@ -22,6 +22,7 @@ namespace Nexus.Objects {
 
 				if(character.DisableAbilities()) {
 					Systems.sounds.disableCollectable.Play();
+					room.PlaySound(Systems.sounds.disableCollectable, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				}
 			}
 

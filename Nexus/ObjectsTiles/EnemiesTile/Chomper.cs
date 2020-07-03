@@ -56,7 +56,7 @@ namespace Nexus.Objects {
 		public void DestroyChomper(RoomScene room, short gridX, short gridY) {
 			room.tilemap.ClearMainLayer(gridX, gridY);
 			DeathEmitter.Knockout(room, this.KnockoutName, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
-			Systems.sounds.splat1.Play();
+			room.PlaySound(Systems.sounds.splat1, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {

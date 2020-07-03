@@ -37,7 +37,7 @@ namespace Nexus.Objects {
 			if(newDir == DirCardinal.None) { return; }
 
 			// Collect Coins
-			Systems.sounds.coin.Play(0.6f, 0, 0);
+			room.PlaySound(Systems.sounds.coin, 0.6f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			if(subType == (byte)CoinsSubType.Coin) {
 				Systems.handler.levelState.AddCoins(character, 1);

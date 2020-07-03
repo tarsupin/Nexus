@@ -68,12 +68,14 @@ namespace Nexus.Objects {
 
 			// Make sure the matching door is valid.
 			if(arrivalExit.gridX == 0 && arrivalExit.gridY == 0) {
-				Systems.sounds.collectDisable.Play(0.4f, 0, 0); // No matching door exists. Can announce error.
+
+				// No matching door exists. Can announce error.
+				room.PlaySound(Systems.sounds.collectDisable, 0.4f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 				return false;
 			}
 
 			// Open Door
-			Systems.sounds.door.Play();
+			room.PlaySound(Systems.sounds.door, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			// Transport Character to Destination Door
 			ActionMap.Transport.StartAction(character, arrivalExit.destRoom.roomID, arrivalExit.gridX * (byte)TilemapEnum.TileWidth + 6, arrivalExit.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight * 2 - character.bounds.Bottom);
@@ -95,7 +97,7 @@ namespace Nexus.Objects {
 
 			// Remove the Key, Unlock the Door.
 			if(requiresKey) { character.trailKeys.RemoveKey(); }
-			Systems.sounds.unlock.Play();
+			room.PlaySound(Systems.sounds.unlock, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			// Change Door to Unlocked
 			room.tilemap.SetMainTile(gridX, gridY, (byte)TileEnum.Door, subTypeId);

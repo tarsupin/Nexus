@@ -22,7 +22,7 @@ namespace Nexus.ObjectComponents {
 			status.actionBool1 = slideRight;
 			status.nextSlide = status.actionEnds + character.stats.SlideWaitDuration;
 
-			Systems.sounds.slide.Play();
+			character.room.PlaySound(Systems.sounds.slide, 1f, character.posX + 16, character.posY + 16);
 		}
 
 		public static bool IsAbleToSlide( Character character, bool slideRight ) {

@@ -60,7 +60,7 @@ namespace Nexus.Objects {
 
 			// Bounce sound when it's sufficiently high enough.
 			if(velY > 2) {
-				Systems.sounds.shellThud.Play((float)Math.Min(0.8f, velY.ToDouble() * 0.1f), 0, 0);
+				this.room.PlaySound(Systems.sounds.shellThud, (float)Math.Min(0.8f, velY.ToDouble() * 0.1f), this.posX + 16, this.posY + 16);
 			} else {
 				this.physics.velocity.Y = FInt.Create(0);
 			}
@@ -78,7 +78,7 @@ namespace Nexus.Objects {
 
 			// Bounce sound when it's sufficiently high enough.
 			if(velX < 2) {
-				Systems.sounds.shellThud.Play((float)Math.Min(0.6f, Math.Abs(velX.ToDouble()) * 0.1f), 0, 0);
+				this.room.PlaySound(Systems.sounds.shellThud, (float)Math.Min(0.6f, Math.Abs(velX.ToDouble()) * 0.1f), this.posX + 16, this.posY + 16);
 			} else {
 				this.physics.velocity.X = FInt.Create(0);
 			}
@@ -96,7 +96,7 @@ namespace Nexus.Objects {
 
 			// Bounce sound when it's sufficiently high enough.
 			if(velX > 2) {
-				Systems.sounds.shellThud.Play((float)Math.Min(0.6f, velX.ToDouble() * 0.1f), 0, 0);
+				this.room.PlaySound(Systems.sounds.shellThud, (float)Math.Min(0.6f, velX.ToDouble() * 0.1f), this.posX + 16, this.posY + 16);
 			} else {
 				this.physics.velocity.X = FInt.Create(0);
 			}

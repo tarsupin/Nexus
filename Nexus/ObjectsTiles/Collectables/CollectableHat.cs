@@ -43,7 +43,7 @@ namespace Nexus.Objects {
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			Hat.AssignToCharacter(character, subType, true);
 
-			Systems.sounds.collectBweep.Play();
+			room.PlaySound(Systems.sounds.collectBweep, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			base.Collect(room, character, gridX, gridY);
 		}
 

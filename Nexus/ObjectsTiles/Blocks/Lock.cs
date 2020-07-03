@@ -25,7 +25,7 @@ namespace Nexus.Objects {
 
 				// Unlock if Character had a key.
 				if(hadKey) {
-					Systems.sounds.unlock.Play();
+					room.PlaySound(Systems.sounds.unlock, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 					this.DestroyLockGroup(room, gridX, gridY);
 					return false;
 				}

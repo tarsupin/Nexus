@@ -21,7 +21,7 @@ namespace Nexus.ObjectComponents {
 
 			// Start the Levitation Action (same as Hover, but isn't restricted to horizontal movement)
 			ActionMap.Hover.StartAction(this.character, true);
-			Systems.sounds.wooshDeep.Play();
+			this.character.room.PlaySound(Systems.sounds.wooshDeep, 1f, this.character.posX + 16, this.character.posY + 16);
 			return true;
 		}
 	}

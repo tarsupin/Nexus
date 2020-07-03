@@ -60,7 +60,7 @@ namespace Nexus.Objects {
 				}
 
 				BlockTile.DamageAbove(room, gridX, gridY);
-				Systems.sounds.thudHit.Play(0.7f, 0f, 0f);
+				room.PlaySound(Systems.sounds.thudHit, 0.7f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 			}
 
 			// Slam-Down Action can break bricks.
@@ -81,7 +81,7 @@ namespace Nexus.Objects {
 			// Display Particle Effect
 			byte subType = room.tilemap.GetMainSubType(gridX, gridY);
 			ExplodeEmitter.BoxExplosion(room, "Particles/Brick" + (subType == (byte)BrickSubType.Gray ? "Gray" : ""), gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.HalfWidth, gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.HalfHeight);
-			Systems.sounds.brickBreak.Play();
+			room.PlaySound(Systems.sounds.brickBreak, 1f, gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
 
 			// Destroy Brick Tile
 			room.tilemap.SetMainTile(gridX, gridY, 0, 0);

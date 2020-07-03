@@ -31,7 +31,7 @@ namespace Nexus.ObjectComponents {
 			// Start the Slam Action
 			ActionMap.Teleport.StartAction(this.character);
 
-			Systems.sounds.click1.Play();
+			this.character.room.PlaySound(Systems.sounds.click1, 1f, this.character.posX + 16, this.character.posY + 16);
 
 			return true;
 		}
@@ -49,7 +49,7 @@ namespace Nexus.ObjectComponents {
 
 			// Make sure teleportation is within world bounds.
 			if(yCoord < (byte)TilemapEnum.GapUpPixel || yCoord > this.character.room.Height + (byte)TilemapEnum.GapUpPixel || xCoord < (byte)TilemapEnum.GapLeftPixel || xCoord > this.character.room.Width + (byte)TilemapEnum.GapRightPixel) {
-				Systems.sounds.disableCollectable.Play(0.5f, 0, 0);
+				this.character.room.PlaySound(Systems.sounds.disableCollectable, 0.5f, this.character.posX + 16, this.character.posY + 16);
 				return;
 			}
 
@@ -66,7 +66,7 @@ namespace Nexus.ObjectComponents {
 
 			// If all positions are blocked, prevent teleport.
 			if(upLeft && upRight && downLeft && downRight) {
-				Systems.sounds.disableCollectable.Play(0.5f, 0, 0);
+				this.character.room.PlaySound(Systems.sounds.disableCollectable, 0.5f, this.character.posX + 16, this.character.posY + 16);
 				return;
 			}
 
@@ -76,7 +76,7 @@ namespace Nexus.ObjectComponents {
 			if(upLeft && upRight) { yMid += 12; }
 			if(downLeft && downRight) { yMid -= 12; }
 
-			Systems.sounds.pop.Play();
+			this.character.room.PlaySound(Systems.sounds.pop, 1f, this.character.posX + 16, this.character.posY + 16);
 
 			// Teleport Character
 			this.character.physics.MoveToPos(xMid, yMid);

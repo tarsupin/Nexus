@@ -358,23 +358,23 @@ namespace Nexus.GameEngine {
 			if(character.room.roomID != this.roomID) { return; }
 
 			// Determine the approximate distance from the character / screen.
-			float pan = 0f;
 			int midX = Systems.camera.posX + Systems.camera.halfWidth;
+			float pan = 0f;
 
 			if(midX > posX) {
 				int diff = midX - posX;
-
-				if(diff < 400) { pan = 1f; }
-				else if(diff > 1300) { return; }
-				else { pan = 1 - Spectrum.GetPercentFromValue(diff, 400, 1300); }
+				if(diff > 1300) { return; }
+				if(diff > 400) { pan = 1 - Spectrum.GetPercentFromValue(diff, 400, 1300); }
 			}
 
 			else if(midX < posX) {
 				int diff = posX - midX;
+				if(diff > 1300) { return; }
+				if(diff > 400) { pan = Spectrum.GetPercentFromValue(diff, 400, 1300); }
+			}
 
-				if(diff < 400) { pan = 1f; }
-				else if(diff > 1300) { return; }
-				else { pan = Spectrum.GetPercentFromValue(diff, 400, 1300); }
+			if(Math.Abs(pan) < 0.5) {
+				volume *= (pan * 2);
 			}
 
 			// Play the sound:

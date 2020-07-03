@@ -58,7 +58,7 @@ namespace Nexus.Objects {
 
 		public override void Destroy() {
 			EndBounceParticle.SetParticle(this.room, Systems.mapper.atlas[(byte)AtlasGroup.Objects], this.SpriteName, new Vector2(this.posX + this.bounds.Left - 2, this.posY + this.bounds.Top - 10), Systems.timer.Frame + 40);
-			Systems.sounds.shellBoop.Play(0.15f, 0, 0);
+			this.room.PlaySound(Systems.sounds.shellBoop, 0.15f, this.posX + 16, this.posY + 16);
 			base.Destroy();
 		}
 
@@ -148,7 +148,7 @@ namespace Nexus.Objects {
 				// Start Shell Moving
 				int xDiff = CollideDetect.GetRelativeX(this, obj);
 				this.physics.velocity.X = FInt.Create(xDiff > 0 ? this.KickStrength : -this.KickStrength);
-				Systems.sounds.shellBoop.Play(0.2f, 0, 0);
+				this.room.PlaySound(Systems.sounds.shellBoop, 0.2f, this.posX + 16, this.posY + 16);
 				this.animate.SetAnimation(null, this.physics.velocity.X > 0 ? AnimCycleMap.Cycle4 : AnimCycleMap.Cycle4Reverse, 7, 1);
 
 				return false;
@@ -175,13 +175,13 @@ namespace Nexus.Objects {
 		public override void CollidePosLeft(int posX) {
 			this.BounceBack(posX);
 			this.physics.touch.TouchLeft();
-			Systems.sounds.shellThud.Play(0.6f, 0, 0);
+			this.room.PlaySound(Systems.sounds.shellThud, 0.6f, this.posX + 16, this.posY + 16);
 		}
 
 		public override void CollidePosRight(int posX) {
 			this.BounceBack(posX);
 			this.physics.touch.TouchRight();
-			Systems.sounds.shellThud.Play(0.6f, 0, 0);
+			this.room.PlaySound(Systems.sounds.shellThud, 0.6f, this.posX + 16, this.posY + 16);
 		}
 
 		public override void CollidePosDown(int posY) {

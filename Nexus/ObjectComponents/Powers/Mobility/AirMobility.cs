@@ -55,7 +55,7 @@ namespace Nexus.ObjectComponents {
 
 			// Display the "Air" particle event and play the "Air" sound.
 			BurstEmitter.AirPuff(this.character.room, this.character.posX + this.character.bounds.MidX, this.character.posY + this.character.bounds.MidY, directionHor, directionVert, 18);
-			Systems.sounds.air.Play(0.5f, 0, 0);
+			this.character.room.PlaySound(Systems.sounds.air, 0.5f, this.character.posX + 16, this.character.posY + 16);
 			return true;
 		}
 	}
