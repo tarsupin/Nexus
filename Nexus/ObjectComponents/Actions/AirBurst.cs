@@ -40,9 +40,8 @@ namespace Nexus.ObjectComponents {
 				character.physics.velocity.Y = FInt.Create(0);
 			}
 
-			// REPLACE THIS SYSTEM WITH THESE LINES. MORE EFFICIENT.
-			//character.status.actionNum1 = (directionVert != 0 ? 16 : 19) * directionHor;
-			//character.status.actionNum2 = (directionHor != 0 ? 14 : 18) * directionVert;
+			character.status.actionNum1 = (directionVert != 0 ? 16 : 19) * directionHor;
+			character.status.actionNum2 = (directionHor != 0 ? 14 : 18) * directionVert;
 
 			// Update Physics
 			character.physics.touch.ResetTouch();
@@ -58,16 +57,8 @@ namespace Nexus.ObjectComponents {
 			}
 
 			Physics physics = character.physics;
-
-			// If there is horizontal burst, set horizontal movement accordingly:
-			if(character.status.actionNum1 != 0) {
-				physics.velocity.X = (character.status.actionNum2 != 0 ? FInt.Create(14) : FInt.Create(18)) * character.status.actionNum1;
-			}
-
-			// If there is vertical burst, set vertical movement accordingly:
-			if(character.status.actionNum2 != 0) {
-				physics.velocity.Y = (character.status.actionNum1 != 0 ? FInt.Create(16) : FInt.Create(19)) * character.status.actionNum2;
-			}
+			physics.velocity.X = FInt.Create(character.status.actionNum1);
+			physics.velocity.Y = FInt.Create(character.status.actionNum2);
 		}
 
 		public override void EndAction(Character character) {
