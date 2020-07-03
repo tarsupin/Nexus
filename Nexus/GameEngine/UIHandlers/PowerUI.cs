@@ -21,32 +21,36 @@ namespace Nexus.GameEngine {
 			short posX = (short)(Systems.screen.windowHalfWidth + (byte)(TilemapEnum.HalfWidth));
 
 			// Power Positioning
-			if(character.mobilityPower != null) { posX -= (byte)(TilemapEnum.HalfWidth + 8); }
-			if(character.attackPower != null) { posX -= (byte)(TilemapEnum.HalfWidth + 8); }
-			if(character.magiShield.IconTexture != null) { posX -= (byte)(TilemapEnum.HalfWidth + 8); }
-
-			// Passive Power
-
+			if(character.mobilityPower != null) { posX -= (byte)(TilemapEnum.HalfWidth + 16); }
+			if(character.attackPower != null) { posX -= (byte)(TilemapEnum.HalfWidth + 16); }
+			if(character.magiShield.IconTexture != null) { posX -= (byte)(TilemapEnum.HalfWidth + 16); }
 
 			// Mobility Power
 			if(character.mobilityPower != null) {
+				atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.mobilityPower.IconTexture, posX, topRow);
-				posX += (byte)(TilemapEnum.TileWidth + 8);
+				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
 			// Attack Power
 			if(character.attackPower != null) {
+				atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.attackPower.IconTexture, posX, topRow);
-				posX += (byte)(TilemapEnum.TileWidth + 8);
+				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
 			// Magi-Shield
 			if(character.magiShield.IconTexture != null) {
+				atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.magiShield.IconTexture, posX, topRow);
-				//posX += (byte)(TilemapEnum.TileWidth + 8);
+				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
-			// Passive Power
+			// Dashing Power / Shoes
+			if(character.shoes != null) {
+				atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
+				atlas.Draw(character.shoes.IconTexture, posX, topRow);
+			}
 		}
 	}
 }

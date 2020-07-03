@@ -6,7 +6,8 @@ namespace Nexus.GameEngine {
 
 	public class UIIcon : UIComponent {
 
-		protected static string[] ButtonSprite = new string[2] { "UI/Button/Up", "UI/Button/Down" };
+		public const string Up = "UI/Button/Up";
+		public const string Down = "UI/Button/Down";
 
 		protected Atlas atlas;
 		protected string SpriteName;
@@ -43,12 +44,12 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIIcon.ButtonSprite[1], this.trueX, this.trueY);
+				this.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
 				this.atlas.Draw(this.SpriteName, this.trueX + 1, this.trueY + 1);
 			}
 
 			else {
-				this.atlas.Draw(UIIcon.ButtonSprite[0], this.trueX, this.trueY);
+				this.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
 				this.atlas.Draw(this.SpriteName, this.trueX, this.trueY);
 			}
 		}

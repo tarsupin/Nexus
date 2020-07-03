@@ -16,12 +16,12 @@ namespace Nexus.GameEngine {
 			bool isMuted = Systems.settings.audio.Mute;
 
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(ToggleVolume.ButtonSprite[1], this.trueX, this.trueY);
+				this.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
 				this.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX + 1, this.trueY + 1);
 			}
 
 			else {
-				this.atlas.Draw(ToggleVolume.ButtonSprite[0], this.trueX, this.trueY);
+				this.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
 				this.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX, this.trueY);
 			}
 		}
