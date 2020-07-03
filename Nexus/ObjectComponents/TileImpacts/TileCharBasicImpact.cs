@@ -10,12 +10,22 @@ namespace Nexus.ObjectComponents {
 
 			if(dir == DirCardinal.Right) {
 				if(facing == DirCardinal.None || facing == DirCardinal.Left) {
+
+					if(character.status.action is DashAction && character.status.actionNum1 > 8) {
+						DashAction.CauseSlam();
+					}
+
 					ActionMap.WallGrab.StartAction(character, DirCardinal.Right);
 				}
 			}
 			
 			else if(dir == DirCardinal.Left) {
 				if(facing == DirCardinal.None || facing == DirCardinal.Right) {
+
+					if(character.status.action is DashAction && character.status.actionNum1 < -8) {
+						DashAction.CauseSlam();
+					}
+
 					ActionMap.WallGrab.StartAction(character, DirCardinal.Left);
 				}
 			}
@@ -41,6 +51,10 @@ namespace Nexus.ObjectComponents {
 				character.status.action.EndAction(character);
 			}
 
+			else if(action is DashAction && character.status.actionNum2 < -8) {
+				DashAction.CauseSlam();
+			}
+
 			return true;
 		}
 
@@ -52,6 +66,10 @@ namespace Nexus.ObjectComponents {
 
 			if(action is SlamAction) {
 				SlamAction.CauseSlam();
+			}
+			
+			else if(action is DashAction && character.status.actionNum2 > 8) {
+				DashAction.CauseSlam();
 			}
 
 			return true;

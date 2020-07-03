@@ -8,7 +8,7 @@ namespace Nexus.ObjectComponents {
 			this.subType = (byte) ShoeSubType.Wing;
 			this.IconTexture = "Shoes/Wing";
 			this.subStr = "wing";
-			this.duration = 11;
+			this.duration = 12;
 		}
 	}
 }

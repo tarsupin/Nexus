@@ -172,8 +172,8 @@ namespace Nexus.Engine {
 			this.shakeStrength = strength;
 		}
 
-		public bool IsShaking() {
-			return this.shakeEnd > Systems.timer.Frame;
+		public bool IsShaking(byte offset = 0) {
+			return this.shakeEnd + offset > Systems.timer.Frame;
 		}
 
 		public int GetCameraShakeOffsetX() {

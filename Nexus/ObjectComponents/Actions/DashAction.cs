@@ -29,7 +29,7 @@ namespace Nexus.ObjectComponents {
 			// Begin Action
 			status.action = ActionMap.Dash;
 			status.actionEnds = Systems.timer.Frame + character.shoes.duration;
-			status.actionBool1 = false;
+			status.actionBool1 = false;		// Switch Consumed
 
 			int velX = character.physics.velocity.X.RoundInt;
 
@@ -59,7 +59,7 @@ namespace Nexus.ObjectComponents {
 				} else if(directionVert == 1) {
 					character.physics.velocity.Y = FInt.Create(-4);
 				} else {
-					character.physics.velocity.Y = FInt.Create(-8);
+					character.physics.velocity.Y = FInt.Create(-6);
 				}
 			}
 			
@@ -101,6 +101,12 @@ namespace Nexus.ObjectComponents {
 			// Temporary: This prevents character from dashing through blocks.
 			if(status.actionNum1 > 15) { status.actionNum1 = 15; }
 			if(status.actionNum1 < -15) { status.actionNum1 = -15; }
+		}
+
+		public static void CauseSlam() {
+			if(Systems.camera.IsShaking(10)) { return; }
+			Systems.camera.BeginCameraShake(8, 5);
+			Systems.sounds.thudWhomp.Play(0.3f, 0, 0);
 		}
 
 		public override void RunAction( Character character ) {
