@@ -12,10 +12,12 @@ namespace Nexus.Engine {
 		// Camera Traits
 		public int posX;
 		public int posY;
-		public short width;				// Width of the Camera (in pixels).
-		public short height;				// Height of the Camera (in pixels).
-		private int midX;					// X offset to center the Camera.
-		private int midY;                   // Y offset to center the Camera.
+		
+		public short width { get; private set; }		// Width of the Camera (in pixels).
+		public short height { get; private set; }		// Height of the Camera (in pixels).
+		public int halfWidth { get; private set; }		// X offset to center the Camera.
+		public int halfHeight { get; private set; }		// Y offset to center the Camera.
+
 		private int rightX;					// X position on the right of the camera.
 		private int bottomY;				// Y position at the bottom of the camera.
 		private BoundsCamera bounds;		// Limits of how far within the scene the camera can travel.
@@ -50,8 +52,8 @@ namespace Nexus.Engine {
 		}
 
 		public void SetSize( short width, short height ) {
-			this.midX = (int) Math.Floor((double)(width * 0.5));
-			this.midY = (int) Math.Floor((double)(height * 0.5));
+			this.halfWidth = (int) Math.Floor((double)(width * 0.5));
+			this.halfHeight = (int) Math.Floor((double)(height * 0.5));
 			this.width = width;
 			this.height = height;
 		}
@@ -90,8 +92,8 @@ namespace Nexus.Engine {
 
 		// Camera Movement
 		public void CenterAtPosition( int posX, int posY ) {
-			this.posX = posX - this.midX;
-			this.posY = posY - this.midY;
+			this.posX = posX - this.halfWidth;
+			this.posY = posY - this.halfHeight;
 		}
 
 		public void CutToPosition( int posX, int posY ) {
@@ -116,8 +118,8 @@ namespace Nexus.Engine {
 		public void Follow( int posX, int posY, int leewayX = 0, int leewayY = 0 ) {
 
 			int dist;
-			int centerX = posX - this.midX;
-			int centerY = posY - this.midY;
+			int centerX = posX - this.halfWidth;
+			int centerY = posY - this.halfHeight;
 
 			// Follow X-Axis
 			if(this.posX < centerX - leewayX) {

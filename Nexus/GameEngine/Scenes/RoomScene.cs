@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
@@ -347,6 +348,37 @@ namespace Nexus.GameEngine {
 
 			// Clear the list of any objects being marked for removal.
 			this.markedForRemoval.Clear();
+		}
+
+		// Play a sound, but only if it's local to the character, and the distance relative to them.
+		public void PlaySound(SoundEffect sound, float volume, int posX, int posY) {
+			Character character = Systems.localServer.MyCharacter;
+
+			// Do not play this sound if they're not in the same room.
+			if(character.room.roomID != this.roomID) { return; }
+
+			// Determine the approximate distance from the character / screen.
+			float pan = 0f;
+			int midX = Systems.camera.posX + Systems.camera.halfWidth;
+
+			if(midX > posX) {
+				int diff = midX - posX;
+
+				if(diff < 400) { pan = 1f; }
+				else if(diff > 1300) { return; }
+				else { pan = 1 - Spectrum.GetPercentFromValue(diff, 400, 1300); }
+			}
+
+			else if(midX < posX) {
+				int diff = posX - midX;
+
+				if(diff < 400) { pan = 1f; }
+				else if(diff > 1300) { return; }
+				else { pan = Spectrum.GetPercentFromValue(diff, 400, 1300); }
+			}
+
+			// Play the sound:
+			sound.Play(volume, 0f, pan);
 		}
 	}
 }
