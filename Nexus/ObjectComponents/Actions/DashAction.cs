@@ -13,7 +13,7 @@ namespace Nexus.ObjectComponents {
 	public class DashAction : Action {
 
 		public DashAction() : base() {
-			this.endsOnLanding = true;
+			this.endsOnLanding = false;
 		}
 
 		public void StartAction( Character character, sbyte directionHor, sbyte directionVert ) {
@@ -98,15 +98,28 @@ namespace Nexus.ObjectComponents {
 
 		public void RestrictXMovement(CharacterStatus status) {
 
-			// Temporary: This prevents character from dashing through blocks.
+			// Possibly Temporary: This prevents character from dashing through blocks. Could be fixed with collision changes?
+			// Might be due to character bounds being 16 pixels? 15 works exactly. 16 doesn't. Something with MidX relative values?
 			if(status.actionNum1 > 15) { status.actionNum1 = 15; }
 			if(status.actionNum1 < -15) { status.actionNum1 = -15; }
 		}
 
-		public static void CauseSlam() {
+		public static void CauseSlam(Character character, DirCardinal dir) {
 			if(Systems.camera.IsShaking(10)) { return; }
 			Systems.camera.BeginCameraShake(8, 5);
 			Systems.sounds.thudWhomp.Play(0.3f, 0, 0);
+
+			// Reverse Horizontal
+			if(dir == DirCardinal.Left || dir == DirCardinal.Right) {
+				character.status.actionNum1 = (int) Math.Round((float)(-character.status.actionNum1) * 0.75f);
+				//character.physics.velocity.X = character.physics.velocity.X.Inverse * FInt.Create(0.75);
+			}
+
+			// Reverse Vertical
+			else if(dir == DirCardinal.Up || dir == DirCardinal.Down) {
+				character.status.actionNum2 = (int)Math.Round((float)(-character.status.actionNum2) * 0.75f);
+				//character.physics.velocity.Y = character.physics.velocity.Y.Inverse * FInt.Create(0.75);
+			}
 		}
 
 		public override void RunAction( Character character ) {
@@ -132,20 +145,20 @@ namespace Nexus.ObjectComponents {
 				// Add Vertical Shift
 				if(character.input.isReleased(IKey.Right) || character.input.isPressed(IKey.Left)) {
 					if(status.actionNum2 < 0) {
-						status.actionNum2 -= 4;
+						status.actionNum2 -= 7;
 					} else if(status.actionNum2 > 0) {
-						status.actionNum2 += 4;
+						status.actionNum2 += 7;
 					}
-					status.actionNum1 -= 4;
+					status.actionNum1 -= 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Left) || character.input.isPressed(IKey.Right)) {
 					if(status.actionNum2 < 0) {
-						status.actionNum2 -= 4;
+						status.actionNum2 -= 7;
 					} else if(status.actionNum2 > 0) {
-						status.actionNum2 += 4;
+						status.actionNum2 += 7;
 					}
-					status.actionNum1 += 4;
+					status.actionNum1 += 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				}
@@ -153,20 +166,20 @@ namespace Nexus.ObjectComponents {
 				// Add Horizontal Shift
 				if(character.input.isReleased(IKey.Up) || character.input.isPressed(IKey.Down)) {
 					if(status.actionNum1 < 0) {
-						status.actionNum1 -= 4;
+						status.actionNum1 -= 7;
 					} else if(status.actionNum1 > 0) {
-						status.actionNum1 += 4;
+						status.actionNum1 += 7;
 					}
-					status.actionNum2 += 4;
+					status.actionNum2 += 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Down) || character.input.isPressed(IKey.Up)) {
 					if(status.actionNum1 < 0) {
-						status.actionNum1 -= 4;
+						status.actionNum1 -= 7;
 					} else if(status.actionNum1 > 0) {
-						status.actionNum1 += 4;
+						status.actionNum1 += 7;
 					}
-					status.actionNum2 -= 4;
+					status.actionNum2 -= 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				}
