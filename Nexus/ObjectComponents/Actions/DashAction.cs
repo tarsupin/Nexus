@@ -91,6 +91,9 @@ namespace Nexus.ObjectComponents {
 
 			// Update Physics
 			character.physics.touch.ResetTouch();
+
+			// Assign a Character Trail
+			character.nameplate.SetCharacterTrail(0.5f, 0.02f, 1);
 		}
 
 		public void RestrictXMovement(CharacterStatus status) {
@@ -167,9 +170,6 @@ namespace Nexus.ObjectComponents {
 			Physics physics = character.physics;
 			physics.velocity.X = FInt.Create(status.actionNum1);
 			physics.velocity.Y = FInt.Create(status.actionNum2) + physics.gravity.Inverse;
-
-			// Draw Dash Particles
-			//StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + 8);
 		}
 
 		public override void EndAction(Character character) {

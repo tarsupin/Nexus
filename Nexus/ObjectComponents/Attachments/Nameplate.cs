@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
+using System;
 
 namespace Nexus.ObjectComponents {
 
@@ -10,6 +12,7 @@ namespace Nexus.ObjectComponents {
 		private readonly Character character;
 		private readonly Atlas atlas;
 
+		// Draw Name and HP
 		private string name;
 		private bool nameVisible = false;
 		private bool hpVisible = false;
@@ -19,6 +22,12 @@ namespace Nexus.ObjectComponents {
 
 		private sbyte xHP = 0;
 		private sbyte yHP = 0;
+
+		// Draw Character Trail
+		private float trailAlpha = 0f;
+		private float trailAlphaDecay = 0f;
+		private int trailLast = 0;			// The frame that a particle was most recently placed.
+		private byte trailRate = 0;			// The number of frames to wait before placing a new particle.
 
 		public Nameplate(Character character, string name, bool nameVisible = false, bool hpVisible = false) {
 			this.character = character;
@@ -49,6 +58,12 @@ namespace Nexus.ObjectComponents {
 			}
 		}
 
+		public void SetCharacterTrail(float alphaStart, float alphaDecay, byte trailRate) {
+			this.trailAlpha = alphaStart;
+			this.trailAlphaDecay = -Math.Abs(alphaDecay);
+			this.trailRate = trailRate;
+		}
+
 		//public void SetOffsetDown() {
 		//	Vector2 fontSize = Systems.fonts.console.font.MeasureString(this.name);
 		//	this.xName = (sbyte)(character.bounds.MidX - (fontSize.X * 0.5));
@@ -72,6 +87,12 @@ namespace Nexus.ObjectComponents {
 				for(byte i = 0; i < hpShown; i++) {
 					this.atlas.Draw(armor > i ? "Icon/ShieldBit" : "Icon/HPBit", this.character.posX + this.xHP - camX + (i * 18), this.character.posY + this.yHP - camY);
 				}
+			}
+
+			// Draw Character Trail
+			if(this.trailAlpha > 0 && this.trailLast < Systems.timer.Frame + this.trailRate) {
+				StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + 8, this.trailAlpha);
+				this.trailAlpha += this.trailAlphaDecay;
 			}
 		}
 	}

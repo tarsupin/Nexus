@@ -10,9 +10,9 @@ namespace Nexus.Engine {
 
 		public static ObjectPool<ParticleFree> pool = new ObjectPool<ParticleFree>(() => new ParticleFree());
 
-		public Atlas atlas;         // Reference to the atlas used (for texturing particles).
-		public string spriteName;   // Name of the sprite to draw all particles with.
-		public float gravity;       // Gravity to apply to particles each tick.
+		public Atlas atlas;			// Reference to the atlas used (for texturing particles).
+		public string spriteName;	// Name of the sprite to draw all particles with.
+		public float gravity;		// Gravity to apply to particles each tick.
 
 		public Vector2 pos;
 		public Vector2 vel;
@@ -21,10 +21,10 @@ namespace Nexus.Engine {
 		public float rotationSpeed;
 
 		// Lifespan & Fading
-		public int frameEnd;       // The frame # that indicates the end of the particle's life.
-		public int fadeStart;      // The frame # that indicates the particle should begin to fade.
-		public float alphaStart;    // The amount of alpha to apply at max visibility (0 to 1). Typically 1.
-		public float alphaEnd;      // The amount of alpha to apply at min visibility (0 to 1). Typically 0.
+		public int frameEnd;		// The frame # that indicates the end of the particle's life.
+		public int fadeStart;		// The frame # that indicates the particle should begin to fade.
+		public float alphaStart;	// The amount of alpha to apply at max visibility (0 to 1). Typically 1.
+		public float alphaEnd;		// The amount of alpha to apply at min visibility (0 to 1). Typically 0.
 
 		public bool HasExpired { get { return this.frameEnd < Systems.timer.Frame; } }
 
