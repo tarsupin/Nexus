@@ -9,5 +9,10 @@ namespace Nexus.ObjectComponents {
 			this.IconTexture = "Shoes/Spike";
 			this.subStr = "spike";
 		}
+
+		public override void UpdateCharacterStats(Character character) {
+			character.stats.CanWallJump = true;
+			character.stats.CanWallGrab = true;
+		}
 	}
 }

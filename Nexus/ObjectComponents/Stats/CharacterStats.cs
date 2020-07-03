@@ -103,6 +103,11 @@ namespace Nexus.ObjectComponents {
 			if(this.character.hat is Hat) {
 				this.character.hat.UpdateCharacterStats(this.character);
 			}
+			
+			// Update Shoe Abilities (if applicable)
+			if(this.character.shoes is Shoes) {
+				this.character.shoes.UpdateCharacterStats(this.character);
+			}
 
 			// TODO: Do below
 			// Update Stats by Cheats

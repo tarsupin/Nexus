@@ -7,6 +7,7 @@ namespace Nexus.ObjectComponents {
 
 	// status.actionNum1 (physics.velocity.X)
 	// status.actionNum2 (physics.velocity.Y)
+	// status.actionNum3 (launch frame)				// The frame that the dash was activated.
 	// status.actionBool1 (switch used)				// TRUE if the character has used their "switch" direction during the dash.
 
 	public class DashAction : Action {
@@ -16,12 +17,18 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void StartAction( Character character, sbyte directionHor, sbyte directionVert ) {
-			this.EndLastActionIfActive(character);
+			
+			// Don't allow this action to work if the character doesn't have shoes.
+			if(character.shoes == null) { return; }
 
 			CharacterStatus status = character.status;
+			Action lastAction = status.action;
 
+			this.EndLastActionIfActive(character);
+
+			// Begin Action
 			status.action = ActionMap.Dash;
-			status.actionEnds = Systems.timer.Frame + Shoes.duration;
+			status.actionEnds = Systems.timer.Frame + character.shoes.duration;
 			status.actionBool1 = false;
 
 			int velX = character.physics.velocity.X.RoundInt;
@@ -69,9 +76,28 @@ namespace Nexus.ObjectComponents {
 			
 			status.actionNum1 = character.physics.velocity.X.ToInt();
 			status.actionNum2 = character.physics.velocity.Y.ToInt();
+			status.actionNum3 = Systems.timer.Frame;
+
+			this.RestrictXMovement(character.status);
+
+			// Switch Movement if Wall Grabbing
+			if(lastAction is WallGrabAction) {
+				if(status.grabDir == DirCardinal.Left) {
+					if(status.actionNum1 < 0) { status.actionNum1 = -status.actionNum1; }
+				} else if(status.grabDir == DirCardinal.Right) {
+					if(status.actionNum1 > 0) { status.actionNum1 = -status.actionNum1; }
+				}
+			}
 
 			// Update Physics
 			character.physics.touch.ResetTouch();
+		}
+
+		public void RestrictXMovement(CharacterStatus status) {
+
+			// Temporary: This prevents character from dashing through blocks.
+			if(status.actionNum1 > 15) { status.actionNum1 = 15; }
+			if(status.actionNum1 < -15) { status.actionNum1 = -15; }
 		}
 
 		public override void RunAction( Character character ) {
@@ -92,7 +118,7 @@ namespace Nexus.ObjectComponents {
 			// If the character hasn't used their "switch" in the dash yet.
 			// "Switch" allows them to shift directions (somewhat) during the dash.
 			// Making a switch also increases the duration by a very small amount.
-			if(!status.actionBool1 && status.actionEnds != Systems.timer.Frame + Shoes.duration) {
+			if(!status.actionBool1 && Systems.timer.Frame != status.actionNum3) {
 
 				// Add Vertical Shift
 				if(character.input.isReleased(IKey.Right) || character.input.isPressed(IKey.Left)) {
@@ -103,6 +129,7 @@ namespace Nexus.ObjectComponents {
 					}
 					status.actionNum1 -= 4;
 					status.actionBool1 = true;
+					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Left) || character.input.isPressed(IKey.Right)) {
 					if(status.actionNum2 < 0) {
 						status.actionNum2 -= 4;
@@ -111,6 +138,7 @@ namespace Nexus.ObjectComponents {
 					}
 					status.actionNum1 += 4;
 					status.actionBool1 = true;
+					this.RestrictXMovement(character.status);
 				}
 
 				// Add Horizontal Shift
@@ -122,6 +150,7 @@ namespace Nexus.ObjectComponents {
 					}
 					status.actionNum2 += 4;
 					status.actionBool1 = true;
+					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Down) || character.input.isPressed(IKey.Up)) {
 					if(status.actionNum1 < 0) {
 						status.actionNum1 -= 4;
@@ -130,6 +159,7 @@ namespace Nexus.ObjectComponents {
 					}
 					status.actionNum2 -= 4;
 					status.actionBool1 = true;
+					this.RestrictXMovement(character.status);
 				}
 			}
 
@@ -140,6 +170,15 @@ namespace Nexus.ObjectComponents {
 
 			// Draw Dash Particles
 			//StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + 8);
+		}
+
+		public override void EndAction(Character character) {
+			base.EndAction(character);
+
+			// Reduce the speed of the character after the dash effect.
+			Physics physics = character.physics;
+			physics.velocity.X *= FInt.Create(0.5f);
+			physics.velocity.Y *= FInt.Create(0.5f);
 		}
 	}
 }

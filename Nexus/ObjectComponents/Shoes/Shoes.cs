@@ -20,7 +20,6 @@ namespace Nexus.ObjectComponents {
 
 		// Constants
 		public const byte cooldown = 20;	// # of frames AFTER the duration of the action has expired.
-		public const byte duration = 8;		// # of frames the effect lasts. Will also end on touch (wall or ground).
 
 		// References
 		protected readonly Character character;
@@ -30,22 +29,29 @@ namespace Nexus.ObjectComponents {
 		public string subStr { get; protected set; }    // Used for console. The texture path for the Power Icon (e.g. "Power/" + this.pool)
 
 		// Mechanics
+		public byte duration;			// # of frames the effect lasts. Will also end on touch (wall or ground).
 		protected int lastHeld;			// The last frame that you triggered / activated a dash.
 		protected bool dashReset;		// TRUE if you've touched the ground (or wall) since your last dash.
 
 		public Shoes( Character character ) {
+			this.duration = 8;
 			this.character = character;
 			this.lastHeld = 0;
 			this.dashReset = true;
 		}
 
 		public static void AssignShoe(Character character, byte subType) {
+
+			// Prepare Shoe
 			switch(subType) {
 				case (byte) ShoeSubType.Dashing: character.shoes = new DashingShoes(character); break;
 				case (byte) ShoeSubType.Spike: character.shoes = new SpikeShoes(character); break;
 				case (byte) ShoeSubType.Wing: character.shoes = new WingShoes(character); break;
 				default: character.shoes = null; break;
 			}
+
+			// Reset Character Stats
+			character.stats.ResetCharacterStats();
 		}
 
 		public void RemoveShoes(Character character) {
@@ -55,6 +61,8 @@ namespace Nexus.ObjectComponents {
 		public void SetLastHeld(int frame) {
 			this.lastHeld = frame;
 		}
+
+		public virtual void UpdateCharacterStats(Character character) { }
 
 		public void ActivateDash() {
 

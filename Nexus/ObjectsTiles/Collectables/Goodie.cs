@@ -165,9 +165,9 @@ namespace Nexus.Objects {
 			this.descriptions[(byte)GoodieSubType.Blood] = "Unknown.";
 
 			// Shoes
-			this.descriptions[(byte)GoodieSubType.DashingShoe] = "Character always runs and has a new dash power.";
-			this.descriptions[(byte)GoodieSubType.SpikeShoe] = "Character always runs, has a new dash power, and can climb walls.";
-			this.descriptions[(byte)GoodieSubType.WingShoe] = "Character always runs and has dual air-dash.";
+			this.descriptions[(byte)GoodieSubType.DashingShoe] = "Character always runs and gains the dash maneuver.";
+			this.descriptions[(byte)GoodieSubType.SpikeShoe] = "Character always runs, gains a dash maneuver, and can grab walls.";
+			this.descriptions[(byte)GoodieSubType.WingShoe] = "Character always runs and gains a longer dash maneuver.";
 		}
 
 		public override void Collect(RoomScene room, Character character, short gridX, short gridY) {

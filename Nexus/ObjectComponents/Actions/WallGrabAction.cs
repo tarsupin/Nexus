@@ -78,7 +78,7 @@ namespace Nexus.ObjectComponents {
 			else {
 
 				// Make sure character is still holding and not touching ground (important!)
-				if(!input.isDown(IKey.XButton) || physics.touch.toBottom) {
+				if((!input.isDown(IKey.XButton) && character.shoes == null) || physics.touch.toBottom) {
 					this.EndAction(character);
 				}
 
