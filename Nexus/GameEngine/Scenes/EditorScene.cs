@@ -4,6 +4,7 @@ using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 using static Nexus.Engine.UIHandler;
+using static Nexus.GameEngine.FuncButton;
 using static Nexus.GameEngine.FuncTool;
 
 namespace Nexus.GameEngine {
@@ -87,10 +88,6 @@ namespace Nexus.GameEngine {
 				}
 			}
 
-			if(Cursor.MouseX > 100 && Cursor.MouseY > 100) {
-				var a = 1;
-			}
-
 			// Update UI Components
 			this.editorUI.RunTick();
 
@@ -127,6 +124,9 @@ namespace Nexus.GameEngine {
 
 			// Open Wheel Menu
 			if(input.LocalKeyPressed(Keys.Tab)) { this.editorUI.contextMenu.OpenMenu(); }
+
+			// Button Mappings
+			else if(input.LocalKeyPressed(Keys.P)) { FuncButton.funcButtonMap[(byte)FuncButtonEnum.Play].ActivateFuncButton(); }
 
 			// If holding shift down, increase camera movement speed by 3.
 			byte moveMult = (input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift)) ? (byte)3 : (byte)1;

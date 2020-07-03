@@ -12,16 +12,16 @@ namespace Nexus.GameEngine {
 
 		public ParamsContents() {
 			this.rules.Add(new LabeledParam("content", "Content Type", this.contentGroup, (byte)0));
-			this.rules.Add(new DictParam("id", "Goodie", GameEngine.ParamTrack.Goodies, (byte)GoodieSubType.Apple));
-			this.rules.Add(new DictParam("id", "Suit", GameEngine.ParamTrack.Suits, (byte)SuitSubType.RandomSuit));
-			this.rules.Add(new DictParam("id", "Hat", GameEngine.ParamTrack.Hats, (byte)HatSubType.RandomPowerHat));
-			this.rules.Add(new DictParam("id", "Timers", GameEngine.ParamTrack.Timers, (byte)GoodieSubType.Plus5));
-			this.rules.Add(new DictParam("id", "Mobility Power", GameEngine.ParamTrack.MobPowers, (byte)PowerSubType.RandomPotion));
-			this.rules.Add(new DictParam("id", "Weapon", GameEngine.ParamTrack.Weapons, (byte)PowerSubType.RandomWeapon));
-			this.rules.Add(new DictParam("id", "Spells", GameEngine.ParamTrack.Spells, (byte)PowerSubType.RandomBook));
-			this.rules.Add(new DictParam("id", "Thrown", GameEngine.ParamTrack.Thrown, (byte)PowerSubType.RandomThrown));
-			this.rules.Add(new DictParam("id", "Bolts", GameEngine.ParamTrack.Bolts, (byte)PowerSubType.RandomBolt));
-			this.rules.Add(new DictParam("id", "Stacks", GameEngine.ParamTrack.Stacks, (byte)PowerSubType.Chakram));
+			this.rules.Add(new DictParam("id", "Goodie", ParamTrack.Goodies, (byte)GoodieSubType.Apple));
+			this.rules.Add(new DictParam("id", "Suit", ParamTrack.Suits, (byte)SuitSubType.RandomSuit));
+			this.rules.Add(new DictParam("id", "Hat", ParamTrack.Hats, (byte)HatSubType.RandomPowerHat));
+			this.rules.Add(new DictParam("id", "Timers", ParamTrack.Timers, (byte)GoodieSubType.Plus5));
+			this.rules.Add(new DictParam("id", "Mobility Power", ParamTrack.MobPowers, (byte)PowerSubType.RandomPotion));
+			this.rules.Add(new DictParam("id", "Weapon", ParamTrack.Weapons, (byte)PowerSubType.RandomWeapon));
+			this.rules.Add(new DictParam("id", "Spells", ParamTrack.Spells, (byte)PowerSubType.RandomBook));
+			this.rules.Add(new DictParam("id", "Thrown", ParamTrack.Thrown, (byte)PowerSubType.RandomThrown));
+			this.rules.Add(new DictParam("id", "Bolts", ParamTrack.Bolts, (byte)PowerSubType.RandomBolt));
+			this.rules.Add(new DictParam("id", "Stacks", ParamTrack.Stacks, (byte)PowerSubType.Chakram));
 		}
 
 		// Returning `true` means it ran a custom menu update. `false` means the menu needs to be updated manually.

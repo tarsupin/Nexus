@@ -19,6 +19,11 @@ namespace Nexus.GameEngine {
 		public static string[] AssignHatList = new string[] { "Default Hat", "Remove Hat", "Angel Hat", "Bamboo Hat", "Cowboy Hat", "Feathered Hat", "Fedora", "Hard Hat", "Ranger Hat", "Spikey Hat", "Top Hat" };
 
 		public static byte[] AssignHatIDs = new byte[] { (byte)HatSubType.None, (byte)HatSubType.None, (byte)HatSubType.AngelHat, (byte)HatSubType.BambooHat, (byte)HatSubType.CowboyHat, (byte)HatSubType.FeatheredHat, (byte)HatSubType.Fedora, (byte)HatSubType.HardHat, (byte)HatSubType.RangerHat, (byte)HatSubType.SpikeyHat, (byte)HatSubType.TopHat };
+		
+		// Shoee Assignment
+		public static string[] AssignShoeList = new string[] { "Default Shoes", "Remove Shoes", "Dashing Shoes", "Spiked Shoes", "Winged Shoes" };
+
+		public static byte[] AssignShoeIDs = new byte[] { (byte)ShoeSubType.None, (byte)ShoeSubType.None, (byte)ShoeSubType.Dashing, (byte)ShoeSubType.Spike, (byte)ShoeSubType.Wing };
 
 		// Mobility Power Assignment
 		public static string[] AssignMobilityList = new string[] { "Default Mobility Power", "Remove Mobility Power", "Air", "Burst", "Flight", "Hover", "Leap", "Levitate", "Phase", "Slam", "Slow Fall", "Teleport" };
