@@ -133,9 +133,13 @@ namespace Nexus.ObjectComponents {
 				}
 			}
 
+			// Update Physics
 			Physics physics = character.physics;
 			physics.velocity.X = FInt.Create(status.actionNum1);
 			physics.velocity.Y = FInt.Create(status.actionNum2) + physics.gravity.Inverse;
+
+			// Draw Dash Particles
+			//StayFadeParticle.SetCharFadeParticle(character.room, character, Systems.timer.Frame + 8);
 		}
 	}
 }

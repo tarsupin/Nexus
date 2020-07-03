@@ -35,7 +35,7 @@ namespace Nexus.ObjectComponents {
 	public class Head {
 
 		protected readonly Atlas atlas;
-		protected readonly string SpriteName;       // Name of the base sprite to draw.
+		public readonly string SpriteName;       // Name of the base sprite to draw.
 		public string subStr { get; protected set; }
 		public readonly Hat DefaultCosmeticHat;		// A default, Cosmetic Hat associated with the Head (such as Wizard Hats for Wizards).
 
