@@ -1,4 +1,6 @@
 ﻿using Nexus.Engine;
+using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Objects;
 
 namespace Nexus.ObjectComponents {
@@ -18,7 +20,7 @@ namespace Nexus.ObjectComponents {
 
 		// Constants
 		public const byte cooldown = 20;	// # of frames AFTER the duration of the action has expired.
-		public const byte duration = 30;	// # of frames the effect lasts. Will also end on touch (wall or ground).
+		public const byte duration = 8;		// # of frames the effect lasts. Will also end on touch (wall or ground).
 
 		// References
 		protected readonly Character character;
@@ -28,16 +30,12 @@ namespace Nexus.ObjectComponents {
 		public string subStr { get; protected set; }    // Used for console. The texture path for the Power Icon (e.g. "Power/" + this.pool)
 
 		// Mechanics
-		protected int lastTrigger;		// The last frame that you triggered / activated a dash.
-		protected int lastHeld;			// The last frame that you were holding an active dash.
+		protected int lastHeld;			// The last frame that you triggered / activated a dash.
 		protected bool dashReset;		// TRUE if you've touched the ground (or wall) since your last dash.
-		protected bool isActive;
 
 		public Shoes( Character character ) {
 			this.character = character;
-			this.lastTrigger = 0;
 			this.lastHeld = 0;
-			this.isActive = false;
 			this.dashReset = true;
 		}
 
@@ -54,28 +52,54 @@ namespace Nexus.ObjectComponents {
 			character.shoes = null;
 		}
 
-		public void ActivateDash() {
-			if(!this.CanActivate()) { return; }
-			this.lastTrigger = Systems.timer.Frame;
-			this.isActive = true;
-			this.dashReset = false;
+		public void SetLastHeld(int frame) {
+			this.lastHeld = frame;
 		}
 
-		public bool MaintainDash() {
-			if(!this.isActive) { return false; }
+		public void ActivateDash() {
 
+			// Verify Dash can be activated.
+			if(!this.CanActivate()) { return; }
+
+			// Set Trackers for Re-Activation
 			this.lastHeld = Systems.timer.Frame;
+			this.dashReset = false;
 
-			// End the dash once the duration runs out.
-			if(Systems.timer.Frame > this.lastTrigger + Shoes.duration) {
-				this.ReleaseDash();
+			// Prepare Direction
+			sbyte directionHor = 0;
+			sbyte directionVert = 0;
+
+			// Character Input determines which way the air burst effect occurs.
+			PlayerInput input = this.character.input;
+
+			if(input.isDown(IKey.Up)) {
+				directionVert = -1;
+			} else if(input.isDown(IKey.Down)) {
+				directionVert = 1;
 			}
 
-			return this.isActive;
-		}
+			if(input.isDown(IKey.Left)) {
+				directionHor = -1;
+			} else if(input.isDown(IKey.Right)) {
+				directionHor = 1;
+			}
 
-		public void ReleaseDash() {
-			this.isActive = false;
+			// Default to Upward Direction
+			if(directionHor == 0 && directionVert == 0) {
+				directionVert = -1;
+			}
+
+			// If the character is standing on ground, it interferes with actions; fix that.
+			if(this.character.physics.touch.toBottom) {
+				this.character.physics.touch.ResetTouch();
+				this.character.physics.MoveToPosY(this.character.posY - 1);
+			}
+
+			// Trigger the Air Burst Action
+			ActionMap.Dash.StartAction(this.character, directionHor, directionVert);
+
+			// Play the "Air" sound.
+			Systems.sounds.air.Play(0.2f, 0, 0);
 		}
 
 		public bool CanActivate() {
@@ -83,8 +107,11 @@ namespace Nexus.ObjectComponents {
 			// Cannot activate this power while holding an item:
 			if(this.character.heldItem.IsHeld) { return false; }
 
-			// Cannot activate if it's already active, or if you haven't reset the dash with a ground or wall touch.
-			if(this.isActive || !this.dashReset) { return false; }
+			// Cannot activate if it's already active.
+			if(this.character.status.action is DashAction) { return false; }
+
+			// Cannot activate if you haven't reset the dash with a ground or wall touch.
+			if(!this.dashReset) { return false; }
 
 			// Delay if the cooldown hasn't passed yet.
 			if(Systems.timer.Frame < this.lastHeld + Shoes.cooldown) { return false; }

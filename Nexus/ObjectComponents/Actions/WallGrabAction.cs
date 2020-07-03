@@ -29,6 +29,9 @@ namespace Nexus.ObjectComponents {
 				this.EndLastActionIfActive(character);
 				status.action = ActionMap.WallGrab;
 				status.grabDir = dir; // Saves the direction of the grab for consistency in leap direction.
+
+				// Update Shoes
+				if(character.shoes is Shoes) { character.shoes.TouchWall(); }
 			}
 			
 			// If character can Slide on Walls
@@ -45,10 +48,10 @@ namespace Nexus.ObjectComponents {
 				else {
 					status.leaveWall = Systems.timer.Frame + 4;
 				}
-			}
 
-			// Update Shoes
-			if(character.shoes is Shoes) { character.shoes.TouchWall(); }
+				// Update Shoes
+				if(character.shoes is Shoes) { character.shoes.TouchWall(); }
+			}
 		}
 
 		public override void RunAction( Character character ) {

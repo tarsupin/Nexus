@@ -218,6 +218,11 @@ namespace Nexus.Objects {
 				this.mobilityPower.Activate();
 			}
 
+			// Activate Dash Action
+			else if(this.shoes is Shoes && this.input.isPressed(IKey.XButton)) {
+				this.shoes.ActivateDash();
+			}
+
 			// Process Actions
 			if(this.status.action is Action) {
 				this.status.action.RunAction(this);

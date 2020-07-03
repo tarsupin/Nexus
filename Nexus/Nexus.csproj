@@ -324,6 +324,7 @@
     <Compile Include="Gameplay\Level\LevelContent.cs" />
     <Compile Include="Gameplay\Types\CollisionTypes.cs" />
     <Compile Include="Gameplay\Types\SubTypes.cs" />
+    <Compile Include="ObjectComponents\Actions\DashAction.cs" />
     <Compile Include="ObjectComponents\Actions\TransportAction.cs" />
     <Compile Include="ObjectComponents\Actions\TeleportAction.cs" />
     <Compile Include="ObjectComponents\Actions\OnMoverAction.cs" />

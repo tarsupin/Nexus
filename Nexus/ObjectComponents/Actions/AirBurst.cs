@@ -31,18 +31,22 @@ namespace Nexus.ObjectComponents {
 
 			// End Momentum if instructed to (such as for Puff Blocks)
 			if(endMomentum) {
-				character.physics.velocity.X = (FInt) 0;
-				character.physics.velocity.Y = (FInt) 0;
+				character.physics.velocity.X = FInt.Create(0);
+				character.physics.velocity.Y = FInt.Create(0);
 			}
 
 			// If we're doing a horizontal burst, set the character so that they have no Y Momentum:
 			else if(directionVert == 0) {
-				character.physics.velocity.Y = (FInt) 0;
+				character.physics.velocity.Y = FInt.Create(0);
 			}
+
+			// REPLACE THIS SYSTEM WITH THESE LINES. MORE EFFICIENT.
+			//character.status.actionNum1 = (directionVert != 0 ? 16 : 19) * directionHor;
+			//character.status.actionNum2 = (directionHor != 0 ? 14 : 18) * directionVert;
 
 			// Update Physics
 			character.physics.touch.ResetTouch();
-			character.physics.SetGravity((FInt) 0);
+			character.physics.SetGravity(FInt.Create(0));
 		}
 
 		public override void RunAction( Character character ) {
@@ -57,12 +61,12 @@ namespace Nexus.ObjectComponents {
 
 			// If there is horizontal burst, set horizontal movement accordingly:
 			if(character.status.actionNum1 != 0) {
-				physics.velocity.X = (FInt) (character.status.actionNum2 != 0 ? 14 : 18) * character.status.actionNum1;
+				physics.velocity.X = (character.status.actionNum2 != 0 ? FInt.Create(14) : FInt.Create(18)) * character.status.actionNum1;
 			}
 
 			// If there is vertical burst, set vertical movement accordingly:
 			if(character.status.actionNum2 != 0) {
-				physics.velocity.Y = (FInt)(character.status.actionNum1 != 0 ? 16 : 19) * character.status.actionNum2;
+				physics.velocity.Y = (character.status.actionNum1 != 0 ? FInt.Create(16) : FInt.Create(19)) * character.status.actionNum2;
 			}
 		}
 
