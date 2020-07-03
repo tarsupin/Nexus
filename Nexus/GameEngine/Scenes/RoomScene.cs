@@ -352,10 +352,9 @@ namespace Nexus.GameEngine {
 
 		// Play a sound, but only if it's local to the character, and the distance relative to them.
 		public void PlaySound(SoundEffect sound, float volume, int posX, int posY) {
-			Character character = Systems.localServer.MyCharacter;
 
 			// Do not play this sound if they're not in the same room.
-			if(character.room.roomID != this.roomID) { return; }
+			if(Systems.localServer.MyCharacter.room.roomID != this.roomID) { return; }
 
 			// Determine the approximate distance from the character / screen.
 			int midX = Systems.camera.posX + Systems.camera.halfWidth;
@@ -363,18 +362,18 @@ namespace Nexus.GameEngine {
 
 			if(midX > posX) {
 				int diff = midX - posX;
-				if(diff > 1300) { return; }
-				if(diff > 400) { pan = 1 - Spectrum.GetPercentFromValue(diff, 400, 1300); }
+				if(diff > 1400) { return; }
+				if(diff > 250) { pan = 0 - Spectrum.GetPercentFromValue(diff, 250, 1400); }
 			}
 
 			else if(midX < posX) {
 				int diff = posX - midX;
-				if(diff > 1300) { return; }
-				if(diff > 400) { pan = Spectrum.GetPercentFromValue(diff, 400, 1300); }
+				if(diff > 1400) { return; }
+				if(diff > 250) { pan = Spectrum.GetPercentFromValue(diff, 250, 1400); }
 			}
 
-			if(Math.Abs(pan) < 0.5) {
-				volume *= (pan * 2);
+			if(Math.Abs(pan) > 0.1) {
+				volume = Math.Min(volume, volume * (1f - Math.Abs(pan)));
 			}
 
 			// Play the sound:
