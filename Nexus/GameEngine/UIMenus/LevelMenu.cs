@@ -14,6 +14,8 @@ namespace Nexus.GameEngine {
 
 		private MenuOptionActive opt = MenuOptionActive.Continue;
 
+		private readonly TextBox textBox;
+
 		// Center Menu
 		private readonly UIIconWithText cont;
 		private readonly UIIconWithText retry;
@@ -22,6 +24,8 @@ namespace Nexus.GameEngine {
 		private readonly UIIconWithText endLevel;
 
 		public LevelMenu() {
+
+			this.textBox = new TextBox(null, (short)(Systems.screen.windowHalfWidth - 150 - 16), (short)(Systems.screen.windowHalfHeight - 150 - 16), 316, 328);
 
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
@@ -78,6 +82,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
+			this.textBox.Draw();
 			this.cont.Draw(this.opt == MenuOptionActive.Continue);
 			this.retry.Draw(this.opt == MenuOptionActive.Retry);
 			this.restart.Draw(this.opt == MenuOptionActive.Restart);

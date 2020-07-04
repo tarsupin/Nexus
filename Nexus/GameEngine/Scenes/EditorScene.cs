@@ -156,7 +156,7 @@ namespace Nexus.GameEngine {
 			this.CurrentRoom.Draw();
 
 			// Draw UI
-			if(UIHandler.uiState == UIState.Playing) { this.editorUI.Draw(); }
+			this.editorUI.Draw();
 			UIHandler.cornerMenu.Draw();
 			UIHandler.menu.Draw();
 		}

@@ -11,8 +11,8 @@ namespace Nexus.GameEngine {
 		private readonly ToggleVolume volume;
 		private readonly UIIcon exit;
 
-		private readonly UIIcon world;
-		private readonly UIIcon patreon;
+		//private readonly UIIcon world;
+		//private readonly UIIcon patreon;
 
 		// Social Buttons
 		private readonly UIIcon discord;
@@ -34,8 +34,8 @@ namespace Nexus.GameEngine {
 			this.volume = new ToggleVolume(null, 76, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
 			this.exit = new UIIcon(null, "UI/Quit", 142, 10, delegate () { Environment.Exit(0); } );
 
-			this.world = new UIIcon(null, "UI/World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
-			this.patreon = new UIIcon(null, "UI/Social/Patreon", (short)(midX + 33), 10, delegate () { WebHandler.LaunchURL("https://www.patreon.com/Nexus_Games"); } );
+			//this.world = new UIIcon(null, "UI/World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
+			//this.patreon = new UIIcon(null, "UI/Social/Patreon", (short)(midX + 33), 10, delegate () { WebHandler.LaunchURL("https://www.patreon.com/Nexus_Games"); } );
 
 			// Create Social Buttons
 			this.reddit = new UIIcon(null, "UI/Social/Reddit", (short)(rightX - 66), 10, delegate () { WebHandler.LaunchURL("https://www.reddit.com/r/NexusGames/"); } );
@@ -54,8 +54,8 @@ namespace Nexus.GameEngine {
 			this.volume.RunTick();
 			this.exit.RunTick();
 
-			this.world.RunTick();
-			this.patreon.RunTick();
+			//this.world.RunTick();
+			//this.patreon.RunTick();
 
 			// Create Social Buttons
 			this.discord.RunTick();
@@ -74,8 +74,8 @@ namespace Nexus.GameEngine {
 			this.volume.Draw();
 			this.exit.Draw();
 
-			this.world.Draw();
-			this.patreon.Draw();
+			//this.world.Draw();
+			//this.patreon.Draw();
 
 			// Draw Social Buttons
 			this.discord.Draw();
