@@ -31,7 +31,8 @@ namespace Nexus.GameEngine {
 			{ (byte) SlotGroup.Collectables, new TileToolCollectables() },
 			{ (byte) SlotGroup.Decor, new TileToolDecor() },
 			{ (byte) SlotGroup.Prompts, new TileToolPrompts() },
-			{ (byte) SlotGroup.Gadgets, new TileToolGadgets() },
+			{ (byte) SlotGroup.Fixtures, new TileToolFixtures() },
+			{ (byte) SlotGroup.Items, new TileToolItems() },
 			{ (byte) SlotGroup.Scripting, new TileToolScripting() },
 		};
 

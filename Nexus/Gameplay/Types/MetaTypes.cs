@@ -120,12 +120,13 @@ namespace Nexus.Gameplay {
 		EnemiesLand,
 		EnemiesFly,
 		Interactives,
-		Gadgets,
+		Fixtures,
+		Items,
 		Collectables,
 		Upgrades,
+		Scripting,
 		Decor,
 		Prompts,
-		Scripting,
 	}
 
 	// The World TIle Slot Groups
