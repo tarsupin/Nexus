@@ -116,8 +116,8 @@ namespace Nexus.Gameplay {
 				timeLimit = 300,
 				music = (byte)MusicTrack.None,
 				icon = new byte[] { 0, 0, 0, 0, 0 },
-				rooms = new Dictionary<string, RoomFormat>() {
-					{ "0", LevelContent.BuildRoomData() }
+				rooms = new List<RoomFormat>() {
+					LevelContent.BuildRoomData()
 				}
 			};
 
@@ -224,7 +224,7 @@ namespace Nexus.Gameplay {
 			}
 		}
 
-		public void DeleteTile(string roomID, short gridX, short gridY) {
+		public void DeleteTile(byte roomID, short gridX, short gridY) {
 			RoomFormat roomData = this.data.rooms[roomID];
 
 			string strX = gridX.ToString();
@@ -236,7 +236,7 @@ namespace Nexus.Gameplay {
 			if(roomData.bg.ContainsKey(strY)) { roomData.bg[strY].Remove(strX); }
 		}
 
-		public void DeleteTileOnLayer(LayerEnum layerEnum, string roomID, short gridX, short gridY) {
+		public void DeleteTileOnLayer(LayerEnum layerEnum, byte roomID, short gridX, short gridY) {
 			RoomFormat roomData = this.data.rooms[roomID];
 
 			string strX = gridX.ToString();

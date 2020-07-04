@@ -548,6 +548,7 @@
     <Compile Include="Objects\Items\SpringHeld.cs" />
     <Compile Include="Objects\Projectiles\ProjectileEnemy.cs" />
     <Compile Include="Objects\Projectiles\Weapons\ThrustProjectile.cs" />
+    <Compile Include="Scripts\LevelConvert-V2.cs" />
     <Compile Include="Scripts\LevelConvert-V1.cs" />
     <Compile Include="Scripts\LevelConvert.cs" />
     <Compile Include="ObjectsTiles\Special\CheckFlag\CheckFlagCheckpoint.cs" />

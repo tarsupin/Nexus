@@ -10,7 +10,7 @@ namespace Nexus.Gameplay {
 
 	public static class RoomGenerate {
 
-		public static void GenerateRoom(RoomScene room, LevelContent levelContent, string roomId) {
+		public static void GenerateRoom(RoomScene room, LevelContent levelContent, byte roomId) {
 
 			// NOTE: If room properties are NULL, the LevelFormat probably broke and it needs to be updated (or level data was invalid structure).
 			RoomFormat roomData = levelContent.data.rooms[roomId];

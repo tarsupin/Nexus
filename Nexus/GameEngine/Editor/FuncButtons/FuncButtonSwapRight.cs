@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			EditorScene scene = (EditorScene)Systems.scene;
-			if(scene.roomNum < 8) {
+			if(scene.curRoomID < 8) {
 				scene.SwapRoomOrder();
 			}
 		}

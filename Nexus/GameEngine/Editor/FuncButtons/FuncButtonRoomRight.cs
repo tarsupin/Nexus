@@ -14,8 +14,8 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			EditorScene scene = (EditorScene)Systems.scene;
-			if(scene.roomNum < 9) {
-				scene.SwitchRoom((byte)(scene.roomNum + 1));
+			if(scene.curRoomID < 9) {
+				scene.SwitchRoom((byte)(scene.curRoomID + 1));
 			}
 		}
 	}

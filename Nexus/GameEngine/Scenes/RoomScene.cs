@@ -62,7 +62,7 @@ namespace Nexus.GameEngine {
 
 			// Build Tilemap with Correct Dimensions
 			short xCount, yCount;
-			RoomGenerate.DetectRoomSize(Systems.handler.levelContent.data.rooms[roomID.ToString()], out xCount, out yCount);
+			RoomGenerate.DetectRoomSize(Systems.handler.levelContent.data.rooms[roomID], out xCount, out yCount);
 
 			this.tilemap = new TilemapLevel(xCount, yCount);
 
@@ -73,7 +73,7 @@ namespace Nexus.GameEngine {
 			this.queueEvents = new QueueEvent(this);
 
 			// Generate Room Content (Tiles, Objects)
-			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID.ToString());
+			RoomGenerate.GenerateRoom(this, Systems.handler.levelContent, roomID);
 
 			// Prepare the Full Track System
 			this.trackSys.SetupTrackSystem();

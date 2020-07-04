@@ -30,8 +30,7 @@ namespace Nexus.GameEngine {
 			// Generate Each Room Class
 			this.rooms = new RoomScene[8];
 
-			foreach(var roomKey in Systems.handler.levelContent.data.rooms.Keys) {
-				byte roomID = Byte.Parse(roomKey);
+			for(byte roomID = 0; roomID < Systems.handler.levelContent.data.rooms.Count; roomID++) {
 				this.rooms[roomID] = new RoomScene(this, roomID);
 			}
 

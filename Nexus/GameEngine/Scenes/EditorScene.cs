@@ -15,7 +15,7 @@ namespace Nexus.GameEngine {
 		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public ObjectLimiter limiter;
-		public byte roomNum = 0;
+		public byte curRoomID = 0;
 
 		public EditorScene() : base() {
 
@@ -33,9 +33,8 @@ namespace Nexus.GameEngine {
 			// Generate Each Room
 			this.rooms = new Dictionary<byte, EditorRoomScene>();
 
-			foreach(var roomKey in this.levelContent.data.rooms.Keys) {
-				byte parsedKey = Byte.Parse(roomKey);
-				this.rooms[parsedKey] = new EditorRoomScene(this, roomKey);
+			for(byte nextRoomID = 0; nextRoomID < this.levelContent.data.rooms.Count; nextRoomID++) {
+				this.rooms[nextRoomID] = new EditorRoomScene(this, nextRoomID);
 			}
 		}
 
@@ -55,7 +54,7 @@ namespace Nexus.GameEngine {
 			Systems.music.StopMusic();
 		}
 
-		public EditorRoomScene CurrentRoom { get { return this.rooms[this.roomNum]; } }
+		public EditorRoomScene CurrentRoom { get { return this.rooms[this.curRoomID]; } }
 
 		public override void RunTick() {
 
@@ -163,17 +162,16 @@ namespace Nexus.GameEngine {
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {
-			string roomStr = newRoomId.ToString();
 
 			// Make sure the room is actually empty.
-			if(Systems.handler.levelContent.data.rooms.ContainsKey(roomStr)) { return; }
+			if(Systems.handler.levelContent.data.rooms.Count > newRoomId) { return; }
 
 			// If there is no data for the room, create an empty object for it.
-			Systems.handler.levelContent.data.rooms[roomStr] = LevelContent.BuildRoomData();
+			Systems.handler.levelContent.data.rooms.Add(LevelContent.BuildRoomData());
 
 			// We must generate the room scene as well:
 			if(!this.rooms.ContainsKey(newRoomId)) {
-				this.rooms[newRoomId] = new EditorRoomScene(this, newRoomId.ToString());
+				this.rooms[newRoomId] = new EditorRoomScene(this, newRoomId);
 			}
 		}
 
@@ -181,19 +179,19 @@ namespace Nexus.GameEngine {
 		public void SwapRoomOrder() {
 
 			// Cannot swap this room if the room is at the far end.
-			if(this.roomNum >= 7) { return; }
+			if(this.curRoomID >= 7) { return; }
 
-			byte newRoomId = (byte) (this.roomNum + 1);
+			byte newRoomId = (byte) (this.curRoomID + 1);
 
 			this.PrepareEmptyRoom(newRoomId);
 
 			// Swap Rooms Accordingly
-			var tempRoomData = Systems.handler.levelContent.data.rooms[newRoomId.ToString()];
-			Systems.handler.levelContent.data.rooms[newRoomId.ToString()] = Systems.handler.levelContent.data.rooms[this.roomNum.ToString()];
-			Systems.handler.levelContent.data.rooms[this.roomNum.ToString()] = tempRoomData;
+			var tempRoomData = Systems.handler.levelContent.data.rooms[newRoomId];
+			Systems.handler.levelContent.data.rooms[newRoomId] = Systems.handler.levelContent.data.rooms[this.curRoomID];
+			Systems.handler.levelContent.data.rooms[this.curRoomID] = tempRoomData;
 
-			var tempRoom = this.rooms[this.roomNum];
-			this.rooms[this.roomNum] = this.rooms[newRoomId];
+			var tempRoom = this.rooms[this.curRoomID];
+			this.rooms[this.curRoomID] = this.rooms[newRoomId];
 			this.rooms[newRoomId] = tempRoom;
 
 			this.SwitchRoom(newRoomId);
@@ -203,7 +201,7 @@ namespace Nexus.GameEngine {
 			newRoomId = Math.Max((byte) 0, Math.Min((byte) 9, newRoomId)); // Number must be between 0 and 9
 
 			this.PrepareEmptyRoom(newRoomId);
-			this.roomNum = newRoomId;
+			this.curRoomID = newRoomId;
 
 			// Important Components
 			Systems.camera.UpdateScene(this.CurrentRoom);

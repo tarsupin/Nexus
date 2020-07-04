@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		// References
 		public readonly EditorScene scene;
 		public LevelContent levelContent;
-		public string roomID;
+		public byte roomID;
 
 		// Editor Data
 		public short xCount { get; private set; }
@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 		private int mapWidth;
 		private int mapHeight;
 
-		public EditorRoomScene(EditorScene scene, string roomID) : base() {
+		public EditorRoomScene(EditorScene scene, byte roomID) : base() {
 
 			// References
 			this.scene = scene;
@@ -252,7 +252,7 @@ namespace Nexus.GameEngine {
 				else if(ph.objectId > 0) {
 
 					// Check the Object Limiter before placing the tile.
-					if(this.scene.limiter.AddObject(this.scene.roomNum, ph.objectId)) {
+					if(this.scene.limiter.AddObject(this.scene.curRoomID, ph.objectId)) {
 						this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, LayerEnum.obj, gridX, gridY, ph.objectId, ph.subType, null);
 					}
 					
@@ -279,7 +279,7 @@ namespace Nexus.GameEngine {
 					byte objectID = (byte)roomData.obj[strY][strX][0];
 					//byte subTypeID = (byte) roomData.obj[strY][strX][1];
 
-					this.scene.limiter.RemoveObject(this.scene.roomNum, objectID);
+					this.scene.limiter.RemoveObject(this.scene.curRoomID, objectID);
 				}
 			}
 		}

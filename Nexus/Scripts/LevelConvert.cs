@@ -20,7 +20,7 @@ namespace Nexus.Scripts {
 		public string deliveryPath = "";
 
 		// Conversion Tracking Values - Use these to know which values to change from the root json (curLevelJson)
-		protected static string curRoomId;
+		protected static byte curRoomId;
 		protected static string curRoomLayerId;
 		protected static short curGridY;
 		protected static short curGridX;
@@ -49,7 +49,7 @@ namespace Nexus.Scripts {
 			LevelContent.SetLevelPath();
 		}
 
-		protected void ProcessLevel( string levelId ) {
+		protected virtual void ProcessLevel( string levelId ) {
 			System.Console.WriteLine("Processing Level ID: " + levelId);
 
 			// Load the Level Content
@@ -60,9 +60,9 @@ namespace Nexus.Scripts {
 				throw new Exception("Level content was not loaded correctly.");
 			}
 
-			foreach(KeyValuePair<string, RoomFormat> roomKVP in this.levelContent.data.rooms) {
-				LevelConvert.curRoomId = roomKVP.Key;
-				RoomFormat roomData = roomKVP.Value;
+			for(byte roomID = 0; roomID < this.levelContent.data.rooms.Count; roomID++) {
+				LevelConvert.curRoomId = roomID;
+				RoomFormat roomData = this.levelContent.data.rooms[roomID];
 
 				if(roomData.obj != null) {
 					LevelConvert.curRoomLayerId = "obj";

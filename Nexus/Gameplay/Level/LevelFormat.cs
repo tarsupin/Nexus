@@ -31,7 +31,7 @@ namespace Nexus.Gameplay {
 		public byte[] icon { get; set; }
 
 		[JsonProperty("rooms")]
-		public Dictionary<string, RoomFormat> rooms { get; set; }
+		public List<RoomFormat> rooms { get; set; }
 	}
 
 	public class LevelListFormat {

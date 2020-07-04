@@ -82,7 +82,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw((Cursor.TileGridX + 1) + ", " + (Cursor.TileGridY + 1), 12, 5, Color.White);
 
 			// Room Counter (Which Room)
-			Systems.fonts.counter.Draw("Room #" + (this.scene.roomNum + 1).ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
+			Systems.fonts.counter.Draw("Room #" + (this.scene.curRoomID + 1).ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
 		}
 
 		public void DrawCurrentGridSquare() {
