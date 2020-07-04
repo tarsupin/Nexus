@@ -240,7 +240,17 @@ namespace Nexus.GameEngine {
 					RoomFormat roomData = this.levelContent.data.rooms[this.roomID];
 
 					if(ph.layerEnum == LayerEnum.main) {
-						this.PlaceTile(roomData.main, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
+
+						// Check the Tile Limiter before placing the tile.
+						if(this.scene.limiter.AddLimitTile(this.scene.curRoomID, ph.tileId, ph.subType)) {
+							this.PlaceTile(roomData.main, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
+						}
+
+						// If the Object Limiter failed, display the error message.
+						else {
+							this.scene.editorUI.alertText.SetNotice("Limit Reached", ObjectLimiter.LastFailMessage, 240);
+						}
+
 					} else  if(ph.layerEnum == LayerEnum.bg) {
 						this.PlaceTile(roomData.bg, ph.layerEnum, gridX, gridY, ph.tileId, ph.subType, null);
 					} else  if(ph.layerEnum == LayerEnum.fg) {
@@ -252,7 +262,7 @@ namespace Nexus.GameEngine {
 				else if(ph.objectId > 0) {
 
 					// Check the Object Limiter before placing the tile.
-					if(this.scene.limiter.AddObject(this.scene.curRoomID, ph.objectId)) {
+					if(this.scene.limiter.AddLimitObject(this.scene.curRoomID, ph.objectId)) {
 						this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, LayerEnum.obj, gridX, gridY, ph.objectId, ph.subType, null);
 					}
 					
@@ -269,16 +279,27 @@ namespace Nexus.GameEngine {
 		// Run Object Limiter Removal When Deleting Objects
 		public void RunLimiterDeletion(LayerEnum layerEnum, short gridX, short gridY) {
 
-			if(layerEnum == LayerEnum.obj) {
+			if(layerEnum == LayerEnum.main) {
+				RoomFormat roomData = this.levelContent.data.rooms[roomID];
+
+				string strX = gridX.ToString();
+				string strY = gridY.ToString();
+
+				if(roomData.main.ContainsKey(strY) && roomData.main[strY].ContainsKey(strX)) {
+					byte tileId = byte.Parse(roomData.main[strY][strX][0].ToString());
+					byte subType = byte.Parse(roomData.main[strY][strX][1].ToString());
+					this.scene.limiter.RemoveLimitTile(this.scene.curRoomID, tileId, subType);
+				}
+			}
+
+			else if(layerEnum == LayerEnum.obj) {
 				RoomFormat roomData = this.levelContent.data.rooms[roomID];
 
 				string strX = gridX.ToString();
 				string strY = gridY.ToString();
 
 				if(roomData.obj.ContainsKey(strY) && roomData.obj[strY].ContainsKey(strX)) {
-					byte objectID = (byte)roomData.obj[strY][strX][0];
-					//byte subTypeID = (byte) roomData.obj[strY][strX][1];
-
+					byte objectID = byte.Parse(roomData.obj[strY][strX][0].ToString());
 					this.scene.limiter.RemoveObject(this.scene.curRoomID, objectID);
 				}
 			}
@@ -286,6 +307,7 @@ namespace Nexus.GameEngine {
 
 		public void DeleteTile(short gridX, short gridY) {
 			if(!this.ConfirmPlace(gridX, gridY)) { return; }
+			this.RunLimiterDeletion(LayerEnum.main, gridX, gridY);
 			this.RunLimiterDeletion(LayerEnum.obj, gridX, gridY);
 			this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 		}
