@@ -83,7 +83,7 @@ namespace Nexus.GameEngine {
 			EditorTools.SetTileToolBySlotGroup(EditorUI.currentSlotGroup);
 			EditorTools.UpdateHelperText();
 			this.CloseMenu();
-			DrawTracker.AttemptDraw((short) Cursor.TileGridX, (short) Cursor.TileGridY);
+			DrawTracker.AttemptPlace((short) Cursor.TileGridX, (short) Cursor.TileGridY);
 		}
 
 		public byte GetContextOpt( int posX, int posY ) {

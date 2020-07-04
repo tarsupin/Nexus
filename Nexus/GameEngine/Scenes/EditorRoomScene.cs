@@ -33,6 +33,9 @@ namespace Nexus.GameEngine {
 			short xCount, yCount;
 			RoomGenerate.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
+			// Initialize Object Limiter Count
+			//this.scene.limiter.RunRoomCount();
+
 			// Sizing
 			this.xCount = xCount;
 			this.yCount = yCount;
@@ -173,14 +176,14 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public bool ConfirmDraw(short gridX, short gridY) {
+		public bool ConfirmPlace(short gridX, short gridY) {
 
 			// Make sure deletion is in valid location:
 			if(gridY < 0 || gridY > this.yCount) { return false; }
 			if(gridX < 0 || gridX > this.xCount) { return false; }
 
 			// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
-			if(!DrawTracker.AttemptDraw(gridX, gridY)) { return false; }
+			if(!DrawTracker.AttemptPlace(gridX, gridY)) { return false; }
 
 			return true;
 		}
@@ -228,7 +231,7 @@ namespace Nexus.GameEngine {
 			if(Cursor.mouseState.LeftButton == ButtonState.Pressed) {
 
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
-				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return;}
+				if(!DrawTracker.AttemptPlace(gridX, gridY)) { return;}
 
 				EditorPlaceholder ph = tool.CurrentPlaceholder;
 
@@ -247,20 +250,49 @@ namespace Nexus.GameEngine {
 
 				// Place Object
 				else if(ph.objectId > 0) {
-					this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, LayerEnum.obj, gridX, gridY, ph.objectId, ph.subType, null);
+
+					// Check the Object Limiter before placing the tile.
+					if(this.scene.limiter.AddObject(this.scene.roomNum, ph.objectId)) {
+						this.PlaceTile(this.levelContent.data.rooms[this.roomID].obj, LayerEnum.obj, gridX, gridY, ph.objectId, ph.subType, null);
+					}
+					
+					// If the Object Limiter failed, display the error message.
+					else {
+						this.scene.editorUI.alertText.SetNotice("Limit Reached", ObjectLimiter.LastFailMessage, 240);
+					}
 				}
 
 				return;
 			}
 		}
 
+		// Run Object Limiter Removal When Deleting Objects
+		public void RunLimiterDeletion(LayerEnum layerEnum, short gridX, short gridY) {
+
+			if(layerEnum == LayerEnum.obj) {
+				RoomFormat roomData = this.levelContent.data.rooms[roomID];
+
+				string strX = gridX.ToString();
+				string strY = gridY.ToString();
+
+				if(roomData.obj.ContainsKey(strY) && roomData.obj[strY].ContainsKey(strX)) {
+					byte objectID = (byte)roomData.obj[strY][strX][0];
+					//byte subTypeID = (byte) roomData.obj[strY][strX][1];
+
+					this.scene.limiter.RemoveObject(this.scene.roomNum, objectID);
+				}
+			}
+		}
+
 		public void DeleteTile(short gridX, short gridY) {
-			if(!this.ConfirmDraw(gridX, gridY)) { return; }
+			if(!this.ConfirmPlace(gridX, gridY)) { return; }
+			this.RunLimiterDeletion(LayerEnum.obj, gridX, gridY);
 			this.levelContent.DeleteTile(this.roomID, gridX, gridY);
 		}
 
 		public void DeleteTileOnLayer(LayerEnum layerEnum, short gridX, short gridY) {
-			if(!this.ConfirmDraw(gridX, gridY)) { return; }
+			if(!this.ConfirmPlace(gridX, gridY)) { return; }
+			this.RunLimiterDeletion(layerEnum, gridX, gridY);
 			this.levelContent.DeleteTileOnLayer(layerEnum, this.roomID, gridX, gridY);
 		}
 
@@ -280,7 +312,8 @@ namespace Nexus.GameEngine {
 			//	};
 			//}
 
-			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, paramList);
+			// Need to run object delimiter on the layer that you're overwriting.
+			this.RunLimiterDeletion(layerEnum, gridX, gridY);
 
 			// If placing on 'obj' or 'main' layer, delete the other:
 			if(layerEnum == LayerEnum.main) {
@@ -288,6 +321,8 @@ namespace Nexus.GameEngine {
 			} else if(layerEnum == LayerEnum.obj) {
 				this.DeleteTileOnLayer(LayerEnum.main, gridX, gridY);
 			}
+
+			this.levelContent.SetTile(layerData, gridX, gridY, tileId, subType, paramList);
 		}
 
 		public void CloneTile(short gridX, short gridY) {

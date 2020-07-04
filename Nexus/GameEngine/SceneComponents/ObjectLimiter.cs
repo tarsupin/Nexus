@@ -1,5 +1,4 @@
-﻿using Nexus.Gameplay;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Nexus.Engine {
@@ -8,12 +7,12 @@ namespace Nexus.Engine {
 	public class ObjectLimiter {
 
 		// Maximum Limits
-		public const short MaxObjectsPerLevel = 800;		// Total Items + Enemies + Platforms (Per Level)
+		public const short MaxObjectsPerLevel = 800;        // Total Items + Enemies + Platforms (Per Level)
 		public const short MaxItemsPerLevel = 300;
 		public const short MaxEnemiesPerLevel = 600;
 		public const short MaxPlatformsPerLevel = 600;
 
-		public const short MaxObjectsPerRoom = 500;			// Total Items + Enemies + Platforms (Per Room)
+		public const short MaxObjectsPerRoom = 500;         // Total Items + Enemies + Platforms (Per Room)
 		public const short MaxItemsPerRoom = 200;
 		public const short MaxEnemiesPerRoom = 350;
 		public const short MaxPlatformsPerRoom = 350;
@@ -21,16 +20,11 @@ namespace Nexus.Engine {
 		public enum SpecialRule : byte {
 			None = 0,
 			OnlyInFirstRoom = 1,
+			Doors = 2,
 		}
 
 		// Static Trackers
 		public static string LastFailMessage = "";
-
-		// byte[]: [0] Limit Per Room, [1] Limit Per Level, [2] Special Rule
-		public static Dictionary<byte, byte[]> objRules = new Dictionary<byte, byte[]>() {
-			{ (byte) ObjectEnum.Character, new byte[] { 1, 1, (byte) SpecialRule.OnlyInFirstRoom } },
-			{ (byte) ObjectEnum.ClusterDot, new byte[] { 20, 20, (byte) SpecialRule.None } },
-		};
 
 		// Object Count: <roomID, item counts>
 		// Item Counts: [0] # of objects total, [1] # of Items, [2] # of Enemies, [3] # of Platforms
@@ -73,29 +67,9 @@ namespace Nexus.Engine {
 			return "GameObject";
 		}
 
-		private bool PassSpecialLimitations(byte roomID, byte objectID) {
-			if(!ObjectLimiter.objRules.ContainsKey(objectID)) { return true; }
-
-			byte[] rules = ObjectLimiter.objRules[objectID];
-
-			// Limit Per Room
-			if(rules[0] > 0) {
-
-			}
-
-			// TODO: Temporary. Remove this. Needs a way to return false somewhere in this method.
-			// Just allowing now to test the object limiter.
-			return true;
-		}
-
 		// Returns TRUE if you can add an object to the room.
 		private bool CanAddObjectToRoom(byte roomID, byte objectID) {
 			if(roomID > 7) { return false; }
-
-			// Check if there are special limitations to the object:
-			if(!this.PassSpecialLimitations(roomID, objectID)) {
-				return false;
-			}
 
 			string objName = this.GetClassNameFromObjectID(objectID);
 			short[] roomCounter = this.roomCounts[roomID];
@@ -171,8 +145,8 @@ namespace Nexus.Engine {
 		}
 
 		// Attempt to add an object to the limiter.
-		public bool AddObject(byte roomID, byte objectID) {
-			if(!this.CanAddObjectToRoom(roomID, objectID)) { return false; }
+		public bool AddObject(byte roomID, byte objectID, bool bypass = false) {
+			if(!bypass && !this.CanAddObjectToRoom(roomID, objectID)) { return false; }
 
 			string objName = this.GetClassNameFromObjectID(objectID);
 
@@ -201,7 +175,7 @@ namespace Nexus.Engine {
 
 			short[] roomCounter = this.roomCounts[roomID];
 
-			// Make sure there are sufficient objects in the room so it doesn't break the result.
+			// Make sure there are sufficient OBJECTS (ANY TYPE) in the room so it doesn't break the result.
 			if(roomCounter[0] < 1) {
 				#if debug
 					throw new Exception("Inaccurate count. There should be 0 objects in the room.");
@@ -214,7 +188,7 @@ namespace Nexus.Engine {
 				// Make sure there are sufficient ITEMS in the room so it doesn't break the result.
 				if(roomCounter[1] < 1) {
 					#if debug
-						throw new Exception("Inaccurate count. There should be 0 objects in the room.");
+						throw new Exception("Inaccurate count. There should be 0 items in the room.");
 					#endif
 					return;
 				}
@@ -226,9 +200,9 @@ namespace Nexus.Engine {
 			else if(objName == "Enemy") {
 				
 				// Make sure there are sufficient ENEMIES in the room so it doesn't break the result.
-				if(roomCounter[1] < 1) {
+				if(roomCounter[2] < 1) {
 					#if debug
-						throw new Exception("Inaccurate count. There should be 0 objects in the room.");
+						throw new Exception("Inaccurate count. There should be 0 enemies in the room.");
 					#endif
 					return;
 				}
@@ -239,16 +213,16 @@ namespace Nexus.Engine {
 
 			else if(objName == "Platform") {
 				
-				// Make sure there are sufficient ENEMIES in the room so it doesn't break the result.
-				if(roomCounter[2] < 1) {
+				// Make sure there are sufficient PLATFORMS in the room so it doesn't break the result.
+				if(roomCounter[3] < 1) {
 					#if debug
-						throw new Exception("Inaccurate count. There should be 0 objects in the room.");
+						throw new Exception("Inaccurate count. There should be 0 platforms in the room.");
 					#endif
 					return;
 				}
 
 				roomCounter[0]--;
-				roomCounter[2]--;
+				roomCounter[3]--;
 			}
 		}
 	}

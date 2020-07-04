@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 		public static short gridX = 0;
 		public static short gridY = 0;
 
-		public static bool AttemptDraw( short gridX, short gridY ) {
+		public static bool AttemptPlace( short gridX, short gridY ) {
 			int curFrame = Systems.timer.Frame;
 
 			// If the last draw occurred within the last 100ms on this tile, return early to prevent repeat draws:

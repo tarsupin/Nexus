@@ -233,7 +233,7 @@ namespace Nexus.GameEngine {
 				if(gridY > this.yCount) { return; }
 
 				// Prevent repeat-draws on the same tile (e.g. within the last 100ms).
-				if(!DrawTracker.AttemptDraw(gridX, gridY)) { return; }
+				if(!DrawTracker.AttemptPlace(gridX, gridY)) { return; }
 
 				// Prevent drawing when a component is selected.
 				if(UIComponent.ComponentWithFocus != null) { return; }

@@ -14,12 +14,14 @@ namespace Nexus.GameEngine {
 		public readonly EditorUI editorUI;
 		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
+		public ObjectLimiter limiter;
 		public byte roomNum = 0;
 
 		public EditorScene() : base() {
 
 			// References
 			this.levelContent = Systems.handler.levelContent;
+			this.limiter = new ObjectLimiter();
 
 			// UI State
 			UIHandler.SetUIOptions(true, false);
@@ -179,7 +181,7 @@ namespace Nexus.GameEngine {
 		public void SwapRoomOrder() {
 
 			// Cannot swap this room if the room is at the far end.
-			if(this.roomNum > 8) { return; }
+			if(this.roomNum >= 7) { return; }
 
 			byte newRoomId = (byte) (this.roomNum + 1);
 
