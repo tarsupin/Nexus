@@ -34,7 +34,7 @@ namespace Nexus.GameEngine {
 			RoomGenerate.DetectRoomSize(this.levelContent.data.rooms[roomID], out xCount, out yCount);
 
 			// Initialize Object Limiter Count
-			//this.scene.limiter.RunRoomCount();
+			this.scene.limiter.RunRoomCount(roomID, this.levelContent.data.rooms[roomID]);
 
 			// Sizing
 			this.xCount = xCount;

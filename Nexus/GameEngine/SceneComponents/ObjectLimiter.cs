@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nexus.Gameplay;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Nexus.Engine {
@@ -6,16 +8,28 @@ namespace Nexus.Engine {
 	// Add an ObjectLimiter class to the Editor. It will track / disallow certain items based on number in the room, level, or other rules.
 	public class ObjectLimiter {
 
-		// Maximum Limits
-		public const short MaxObjectsPerLevel = 800;        // Total Items + Enemies + Platforms (Per Level)
-		public const short MaxItemsPerLevel = 300;
-		public const short MaxEnemiesPerLevel = 600;
-		public const short MaxPlatformsPerLevel = 600;
+		//// Maximum Limits
+		//public const short MaxObjectsPerLevel = 800;        // Total Items + Enemies + Platforms (Per Level)
+		//public const short MaxItemsPerLevel = 300;
+		//public const short MaxEnemiesPerLevel = 600;
+		//public const short MaxPlatformsPerLevel = 600;
 
-		public const short MaxObjectsPerRoom = 500;         // Total Items + Enemies + Platforms (Per Room)
-		public const short MaxItemsPerRoom = 200;
-		public const short MaxEnemiesPerRoom = 350;
-		public const short MaxPlatformsPerRoom = 350;
+		//public const short MaxObjectsPerRoom = 500;         // Total Items + Enemies + Platforms (Per Room)
+		//public const short MaxItemsPerRoom = 200;
+		//public const short MaxEnemiesPerRoom = 350;
+		//public const short MaxPlatformsPerRoom = 350;
+
+		// TODO: TEMPORARY TEST
+		// Maximum Limits
+		public const short MaxObjectsPerLevel = 8;        // Total Items + Enemies + Platforms (Per Level)
+		public const short MaxItemsPerLevel = 3;
+		public const short MaxEnemiesPerLevel = 6;
+		public const short MaxPlatformsPerLevel = 6;
+
+		public const short MaxObjectsPerRoom = 5;         // Total Items + Enemies + Platforms (Per Room)
+		public const short MaxItemsPerRoom = 2;
+		public const short MaxEnemiesPerRoom = 3;
+		public const short MaxPlatformsPerRoom = 3;
 
 		public enum SpecialRule : byte {
 			None = 0,
@@ -53,6 +67,25 @@ namespace Nexus.Engine {
 		public short CountEnemiesInRoom(byte roomID) { return this.roomCounts.ContainsKey(roomID) ? this.roomCounts[roomID][2] : (short) 0; }
 		public short CountPlatformsInRoom(byte roomID) { return this.roomCounts.ContainsKey(roomID) ? this.roomCounts[roomID][3] : (short) 0; }
 
+		public void RunRoomCount(byte roomID, RoomFormat room) {
+			if(roomID > 7) { return; }
+
+			// Need to loop through room objects, adding any that apply:
+
+			// Loop through YData within the Layer Provided:
+			foreach(KeyValuePair<string, Dictionary<string, ArrayList>> yData in room.obj) {
+				short gridY = short.Parse(yData.Key);
+
+				// Loop through XData
+				foreach(KeyValuePair<string, ArrayList> xData in yData.Value) {
+					byte objectID = byte.Parse(xData.Value[0].ToString());
+
+					// Add the object to the list, if applicable.
+					this.AddObject(roomID, objectID, true);
+				}
+			}
+		}
+
 		private string GetClassNameFromObjectID(byte objectID) {
 
 			Type classType;
@@ -87,7 +120,7 @@ namespace Nexus.Engine {
 					return false;
 				}
 
-				if(this.CountItemsInLevel > ObjectLimiter.MaxItemsPerLevel) {
+				if(this.CountItemsInLevel >= ObjectLimiter.MaxItemsPerLevel) {
 					ObjectLimiter.LastFailMessage = "Have reached the limit of " + ObjectLimiter.MaxItemsPerLevel + " items per level.";
 					return false;
 				}
@@ -106,7 +139,7 @@ namespace Nexus.Engine {
 					return false;
 				}
 
-				if(this.CountEnemiesInLevel > ObjectLimiter.MaxEnemiesPerLevel) {
+				if(this.CountEnemiesInLevel >= ObjectLimiter.MaxEnemiesPerLevel) {
 					ObjectLimiter.LastFailMessage = "Have reached the limit of " + ObjectLimiter.MaxEnemiesPerLevel + " enemies per level.";
 					return false;
 				}
@@ -125,7 +158,7 @@ namespace Nexus.Engine {
 					return false;
 				}
 
-				if(this.CountPlatformsInLevel > ObjectLimiter.MaxPlatformsPerLevel) {
+				if(this.CountPlatformsInLevel >= ObjectLimiter.MaxPlatformsPerLevel) {
 					ObjectLimiter.LastFailMessage = "Have reached the limit of " + ObjectLimiter.MaxPlatformsPerLevel + " platforms per level.";
 					return false;
 				}
@@ -136,7 +169,7 @@ namespace Nexus.Engine {
 			}
 
 			// Total Object Limits
-			if(this.CountObjectsInLevel > ObjectLimiter.MaxObjectsPerLevel) {
+			if(this.CountObjectsInLevel >= ObjectLimiter.MaxObjectsPerLevel) {
 				ObjectLimiter.LastFailMessage = "Have reached the limit of " + ObjectLimiter.MaxObjectsPerLevel + " total objects per level.";
 				return false;
 			}
