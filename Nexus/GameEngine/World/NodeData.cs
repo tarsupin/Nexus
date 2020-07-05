@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
@@ -128,71 +129,93 @@ namespace Nexus.GameEngine {
 		}
 
 		public static (byte objectId, byte gridX, byte gridY) LocateNodeConnection(WorldContent worldContent, WorldZoneFormat zone, byte gridX, byte gridY, DirCardinal dir) {
-
-			// Is the node allowed to connect? If not, return early.
-			var baseNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, dir);
+			var matchNode = NodeData.LocateNearestNode(worldContent, zone, gridX, gridY, dir);
 
 			if(dir == DirCardinal.Up) {
-				if(!NodeData.IsDirectionAllowed(baseNode.objectId, DirCardinal.Down)) { return (0, 0, 0); }
-				if(baseNode.objectId > 0) {
-					var revNode = NodeData.LocateNearestNode(worldContent, zone, baseNode.gridX, baseNode.gridY, DirCardinal.Down);
+
+				// If the matching node cannot connect in this direction, it doesn't. Return early.
+				if(!NodeData.IsDirectionAllowed(matchNode.objectId, DirCardinal.Down)) { return (0, 0, 0); }
+
+				if(matchNode.objectId > 0) {
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, matchNode.gridX, matchNode.gridY, DirCardinal.Down);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
-					if(revNode.objectId == 0) { return baseNode; }
+					if(revNode.objectId == 0) { return matchNode; }
 
 					// If alternative node is on the same X level, it matches this one.
-					if(baseNode.gridX == gridX) { return baseNode; }
+					if(matchNode.gridX == gridX) { return matchNode; }
+
+					// If matching node is NOT on the same X level, but its reverse is, the reverse is chosen.
+					else if(matchNode.gridX == revNode.gridX) { return (0, 0, 0); }
 
 					// If alternative node is further away than this one, it matches this one.
-					if(revNode.gridY > gridY) { return baseNode; }
+					if(revNode.gridY > gridY) { return matchNode; }
 				}
 			}
 
 			else if(dir == DirCardinal.Left) {
-				if(!NodeData.IsDirectionAllowed(baseNode.objectId, DirCardinal.Right)) { return (0, 0, 0); }
-				if(baseNode.objectId > 0) {
-					var revNode = NodeData.LocateNearestNode(worldContent, zone, baseNode.gridX, baseNode.gridY, DirCardinal.Right);
+
+				// If the matching node cannot connect in this direction, it doesn't. Return early.
+				if(!NodeData.IsDirectionAllowed(matchNode.objectId, DirCardinal.Right)) { return (0, 0, 0); }
+
+				if(matchNode.objectId > 0) {
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, matchNode.gridX, matchNode.gridY, DirCardinal.Right);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
-					if(revNode.objectId == 0) { return baseNode; }
+					if(revNode.objectId == 0) { return matchNode; }
 
 					// If alternative node is on the same Y level, it matches this one.
-					if(baseNode.gridY == gridY) { return baseNode; }
+					if(matchNode.gridY == gridY) { return matchNode; }
+
+					// If matching node is NOT on the same Y level, but its reverse is, the reverse is chosen.
+					else if(matchNode.gridY == revNode.gridY) { return (0, 0, 0); }
 
 					// If alternative node is further away than this one, it matches this one.
-					if(revNode.gridX > gridX) { return baseNode; }
+					if(revNode.gridX > gridX) { return matchNode; }
 				}
 			}
 
 			else if(dir == DirCardinal.Right) {
-				if(!NodeData.IsDirectionAllowed(baseNode.objectId, DirCardinal.Left)) { return (0, 0, 0); }
-				if(baseNode.objectId > 0) {
-					var revNode = NodeData.LocateNearestNode(worldContent, zone, baseNode.gridX, baseNode.gridY, DirCardinal.Left);
+
+				// If the matching node cannot connect in this direction, it doesn't. Return early.
+				if(!NodeData.IsDirectionAllowed(matchNode.objectId, DirCardinal.Left)) { return (0, 0, 0); }
+
+				if(matchNode.objectId > 0) {
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, matchNode.gridX, matchNode.gridY, DirCardinal.Left);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
-					if(revNode.objectId == 0) { return baseNode; }
+					if(revNode.objectId == 0) { return matchNode; }
 
 					// If alternative node is on the same Y level, it matches this one.
-					if(baseNode.gridY == gridY) { return baseNode; }
+					if(matchNode.gridY == gridY) { return matchNode; }
+
+					// If matching node is NOT on the same Y level, but its reverse is, the reverse is chosen.
+					else if(matchNode.gridY == revNode.gridY) { return (0, 0, 0); }
 
 					// If alternative node is further away than this one, it matches this one.
-					if(revNode.gridX < gridX) { return baseNode; }
+					if(revNode.gridX < gridX) { return matchNode; }
 				}
 			}
 
 			else if(dir == DirCardinal.Down) {
-				if(!NodeData.IsDirectionAllowed(baseNode.objectId, DirCardinal.Up)) { return (0, 0, 0); }
-				if(baseNode.objectId > 0) {
-					var revNode = NodeData.LocateNearestNode(worldContent, zone, baseNode.gridX, baseNode.gridY, DirCardinal.Up);
+
+				// If the matching node cannot connect in this direction, it doesn't. Return early.
+				if(!NodeData.IsDirectionAllowed(matchNode.objectId, DirCardinal.Up)) { return (0, 0, 0); }
+
+				if(matchNode.objectId > 0) {
+					var revNode = NodeData.LocateNearestNode(worldContent, zone, matchNode.gridX, matchNode.gridY, DirCardinal.Up);
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
-					if(revNode.objectId == 0) { return baseNode; }
+					if(revNode.objectId == 0) { return matchNode; }
 
 					// If alternative node is on the same X level, it matches this one.
-					if(baseNode.gridX == gridX) { return baseNode; }
+					if(matchNode.gridX == gridX) { return matchNode; }
+
+					// If matching node is NOT on the same X level, but its reverse is, the reverse is chosen.
+					else if(matchNode.gridX == revNode.gridX) { return (0, 0, 0); }
 
 					// If alternative node is further away than this one, it matches this one.
-					if(revNode.gridY < gridY) { return baseNode; }
+					if(revNode.gridY < gridY) { return matchNode; }
 				}
 			}
 
@@ -225,13 +248,14 @@ namespace Nexus.GameEngine {
 						if(tuple.objectId != 0) {
 							int dist1 = Math.Abs(gridX - tuple.gridX);
 							int dist2 = Math.Abs(gridX - x);
-							if(dist1 < dist2) { continue; } else { tuple.gridX = (byte)x; tuple.gridY = (byte)y; }
-						} else {
-							tuple.objectId = objectId;
-							tuple.gridX = (byte)x;
-							tuple.gridY = (byte)y;
+							if(dist1 < dist2) { continue; }
 						}
+
+						tuple.objectId = objectId;
+						tuple.gridX = (byte)x;
+						tuple.gridY = (byte)y;
 					}
+
 					xRange++;
 
 					// If a node is located, end test.
@@ -262,13 +286,14 @@ namespace Nexus.GameEngine {
 						if(tuple.objectId != 0) {
 							int dist1 = Math.Abs(gridX - tuple.gridX);
 							int dist2 = Math.Abs(gridX - x);
-							if(dist1 < dist2) { continue; } else { tuple.gridX = (byte)x; tuple.gridY = (byte)y; }
-						} else {
-							tuple.objectId = objectId;
-							tuple.gridX = (byte)x;
-							tuple.gridY = (byte)y;
+							if(dist1 < dist2) { continue; }
 						}
+
+						tuple.objectId = objectId;
+						tuple.gridX = (byte)x;
+						tuple.gridY = (byte)y;
 					}
+
 					xRange++;
 
 					// If a node is located, end test.
@@ -299,13 +324,14 @@ namespace Nexus.GameEngine {
 						if(tuple.objectId != 0) {
 							int dist1 = Math.Abs(gridY - tuple.gridY);
 							int dist2 = Math.Abs(gridY - y);
-							if(dist1 < dist2) { continue; } else { tuple.gridY = (byte)y; tuple.gridX = (byte)x; }
-						} else {
-							tuple.objectId = objectId;
-							tuple.gridX = (byte)x;
-							tuple.gridY = (byte)y;
+							if(dist1 < dist2) { continue; }
 						}
+
+						tuple.objectId = objectId;
+						tuple.gridX = (byte)x;
+						tuple.gridY = (byte)y;
 					}
+
 					yRange++;
 
 					// If a node is located, end test.
@@ -336,13 +362,14 @@ namespace Nexus.GameEngine {
 						if(tuple.objectId != 0) {
 							int dist1 = Math.Abs(gridY - tuple.gridY);
 							int dist2 = Math.Abs(gridY - y);
-							if(dist1 < dist2) { continue; } else { tuple.gridY = (byte)y; tuple.gridX = (byte)x; }
-						} else {
-							tuple.objectId = objectId;
-							tuple.gridX = (byte)x;
-							tuple.gridY = (byte)y;
+							if(dist1 < dist2) { continue; }
 						}
+
+						tuple.objectId = objectId;
+						tuple.gridX = (byte)x;
+						tuple.gridY = (byte)y;
 					}
+
 					yRange++;
 
 					// If a node is located, end test.

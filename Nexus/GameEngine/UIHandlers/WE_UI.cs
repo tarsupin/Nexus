@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
 
@@ -65,6 +66,11 @@ namespace Nexus.GameEngine {
 
 			// Zone Counter (Which Zone)
 			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);
+
+			// Debug Render
+			if(DebugConfig.Debug) {
+				DebugConfig.DrawDebugNotes();
+			}
 		}
 
 		public void DrawCurrentGridSquare() {

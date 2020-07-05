@@ -30,7 +30,9 @@ namespace Nexus.GameEngine {
 
 				// Get the macro substring:
 				string macroStr = headStr + suitStr + hatStr + mobStr + attStr + healthStr + armorStr + " move room " + character.room.roomID + " " + character.posX + " " + character.posY;
+				
 				DebugConfig.AddDebugNote(macroStr);
+
 				// Apply the macro to the appropriate function:
 				if(currentIns == "f1") { Systems.settings.input.macroF1 = macroStr; }
 				else if(currentIns == "f2") { Systems.settings.input.macroF2 = macroStr; }
