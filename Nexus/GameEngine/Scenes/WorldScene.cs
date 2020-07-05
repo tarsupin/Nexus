@@ -299,7 +299,7 @@ namespace Nexus.GameEngine {
 			var connectNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, this.character.curX, this.character.curY, dir);
 
 			// Verify that a connection node exists:
-			if(!connectNode.hasNode) { return false; }
+			if(connectNode.objectId == 0) { return false; }
 
 			// Perform Movement
 			this.character.TravelPath(connectNode.gridX, connectNode.gridY, dir);

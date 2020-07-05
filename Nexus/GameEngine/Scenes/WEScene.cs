@@ -358,28 +358,28 @@ namespace Nexus.GameEngine {
 
 			if(dotDirs.up) {
 				var upNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Up);
-				if(upNode.hasNode) {
+				if(upNode.objectId != 0) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(upNode.gridX * tw + (tw * 0.5)) - camX, (int)(upNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.left) {
 				var leftNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Left);
-				if(leftNode.hasNode) {
+				if(leftNode.objectId != 0) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(leftNode.gridX * tw + (tw * 0.5)) - camX, (int)(leftNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.right) {
 				var rightNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Right);
-				if(rightNode.hasNode) {
+				if(rightNode.objectId != 0) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(rightNode.gridX * tw + (tw * 0.5)) - camX, (int)(rightNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}
 
 			if(dotDirs.down) {
 				var downNode = NodeData.LocateNodeConnection(this.worldContent, this.currentZone, gX, gY, DirCardinal.Down);
-				if(downNode.hasNode) {
+				if(downNode.objectId != 0) {
 					this.atlas.DrawLine(gxPos - camX, gyPos - camY, (int)(downNode.gridX * tw + (tw * 0.5)) - camX, (int)(downNode.gridY * th + (th * 0.5)) - camY);
 				}
 			}

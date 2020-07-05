@@ -24,6 +24,7 @@ namespace Nexus.GameEngine {
 			// UI Components
 			this.gridUI = new GridOverlay(null, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
 			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.alertText.SetColors(Color.White, Color.DarkSlateBlue);
 			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
