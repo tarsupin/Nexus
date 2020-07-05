@@ -25,8 +25,9 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void ResizeWidth() {
+			int currentWidth = ((EditorRoomScene)Systems.scene).xCount;
 			ConsoleTrack.possibleTabs = "Example: `resize hor 250`";
-			ConsoleTrack.helpText = "Resize the level's width, in tiles. Minimum width is 30.";
+			ConsoleTrack.helpText = "Resize the level's width between " + (byte)TilemapEnum.MinWidth + " and " + (short)TilemapEnum.MaxTilesWide + ". Currently at " + currentWidth + ".";
 
 			// Prepare Width
 			int getWidth = ConsoleTrack.GetArgAsInt();
@@ -41,8 +42,9 @@ namespace Nexus.GameEngine {
 		}
 		
 		public static void ResizeHeight() {
+			int currentHeight = ((EditorRoomScene)Systems.scene).yCount;
 			ConsoleTrack.possibleTabs = "Example: `resize vert 180`";
-			ConsoleTrack.helpText = "Resize the level's height, in tiles. Minimum height is 19.";
+			ConsoleTrack.helpText = "Resize the level's height between " + (byte)TilemapEnum.MinHeight + " and " + (short)TilemapEnum.MaxTilesHigh + ". Currently at " + currentHeight + ".";
 
 			// Prepare Height
 			int getHeight = ConsoleTrack.GetArgAsInt();
@@ -69,8 +71,10 @@ namespace Nexus.GameEngine {
 		}
 		
 		public static void ResizeCustom() {
+			int currentWidth = ((EditorRoomScene)Systems.scene).xCount;
+			int currentHeight = ((EditorRoomScene)Systems.scene).yCount;
 			ConsoleTrack.possibleTabs = "Example: `resize custom 100 35`";
-			ConsoleTrack.helpText = "Resize a room to be a custom size. Add width and height (in that order).";
+			ConsoleTrack.helpText = "Resize a room to be a custom width and height (in that order). Currently at " + currentWidth + ", " + currentHeight + ".";
 
 			// Prepare Height
 			int getWidth = ConsoleTrack.GetArgAsInt();

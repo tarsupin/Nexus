@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using Nexus.Objects;
 
 namespace Nexus.GameEngine {
 
@@ -104,6 +105,7 @@ namespace Nexus.GameEngine {
 			if(EditorTools.tileTool != null) {
 				EditorPlaceholder ph = EditorTools.tileTool.CurrentPlaceholder;
 
+				// Display Tile Helper Text
 				if(ph.tileId > 0) {
 
 					// If there's an error here, we need to add the value to TileDict.
@@ -118,6 +120,15 @@ namespace Nexus.GameEngine {
 						editorScene.editorUI.noticeText.SetNotice(tile.title, tile.description);
 						return;
 					}
+				}
+
+				// Display Object Helper Text
+				if(ph.objectId > 0) {
+					string title = ShadowTile.ObjHelpText[ph.objectId][ph.subType][0];
+					string desc = ShadowTile.ObjHelpText[ph.objectId][ph.subType][1];
+
+					editorScene.editorUI.noticeText.SetNotice(title, desc);
+					return;
 				}
 			}
 

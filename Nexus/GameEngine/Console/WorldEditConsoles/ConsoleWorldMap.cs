@@ -14,14 +14,16 @@ namespace Nexus.GameEngine {
 
 			// Width Option
 			if(currentIns == "width") {
+				int currentWidth = ((WEScene)Systems.scene).xCount;
 				ConsoleTrack.possibleTabs = "Example: resize width 60";
-				ConsoleTrack.helpText = "Choose a width between " + (byte)WorldmapEnum.MinWidth + " and " + (byte)WorldmapEnum.MaxWidth;
+				ConsoleTrack.helpText = "Choose a width between " + (byte)WorldmapEnum.MinWidth + " and " + (byte)WorldmapEnum.MaxWidth + ". Currently at " + currentWidth + ".";
 			}
 
 			// Height Option
 			else if(currentIns == "height") {
+				int currentHeight = ((WEScene)Systems.scene).yCount;
 				ConsoleTrack.possibleTabs = "Example: resize height 60";
-				ConsoleTrack.helpText = "Choose a height between " + (byte)WorldmapEnum.MinHeight + " and " + (byte)WorldmapEnum.MaxHeight;
+				ConsoleTrack.helpText = "Choose a height between " + (byte)WorldmapEnum.MinHeight + " and " + (byte)WorldmapEnum.MaxHeight + ". Currently at " + currentHeight + ".";
 			}
 
 			else { return; }
@@ -137,13 +139,17 @@ namespace Nexus.GameEngine {
 
 					// If the location is a valid node, we can attempt to add a level ID.
 					if(NodeData.IsObjectANode(wtData[5])) {
+						string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 						string levelId = ConsoleTrack.GetArg();
-						ConsoleTrack.helpText = "Assign a level ID to the specified node. Enter the Level ID.";
+						ConsoleTrack.helpText = "Assign a level ID to the specified node.";
+
+						if(zone.nodes.ContainsKey(coordStr)) {
+							ConsoleTrack.helpText += " Current level ID is: " + zone.nodes[coordStr];
+						}
 
 						// If the console was activated:
 						if(ConsoleTrack.activate) {
-							int coordInt = Coords.MapToInt(gridX, gridY);
-							zone.nodes[coordInt.ToString()] = levelId;
+							zone.nodes[coordStr] = levelId;
 							return;
 						}
 					}

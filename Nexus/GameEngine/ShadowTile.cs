@@ -274,6 +274,260 @@ namespace Nexus.Objects {
 				{  (byte) ClusterDotSubType.Basic, "Cluster/Basic" },
 			}},
 		};
+
+		public static Dictionary<byte, Dictionary<byte, string[]>> ObjHelpText = new Dictionary<byte, Dictionary<byte, string[]>> {
+
+			//////////////////////////
+			////// LAND ENEMIES //////
+			//////////////////////////
+
+			// Moosh
+			{ (byte) ObjectEnum.Moosh, new Dictionary<byte, string[]> {
+				{  (byte) MooshSubType.Brown, new string[] { "Brown Moosh", "Small enemy that performs a long jump when it sees a character." } },
+				{  (byte) MooshSubType.Purple, new string[] { "Purple Moosh", "Small enemy that performs a tall jump when it sees a character." } },
+				{  (byte) MooshSubType.White, new string[] { "White Moosh", "Small enemy that constantly hops." } },
+			}},
+
+			// Shroom
+			{ (byte) ObjectEnum.Shroom, new Dictionary<byte, string[]> {
+				{  (byte) ShroomSubType.Black, new string[2] { "Black Shroom", "Remains in one spot, hopping up and down." }  },
+				{  (byte) ShroomSubType.Purple, new string[2] { "Purple Shroom", "Remains still, then leaps when it sees a character." }  },
+				{  (byte) ShroomSubType.Red, new string[2] { "Red Shroom", "Walks back and forth." }  },
+			}},
+
+			// Bug
+			{ (byte) ObjectEnum.Bug, new Dictionary<byte, string[]> {
+				{  (byte) BugSubType.Bug, new string[2] { "Bug", "" } },
+			}},
+
+			// Goo
+			{ (byte) ObjectEnum.Goo, new Dictionary<byte, string[]> {
+				{  (byte) GooSubType.Green, new string[2] { "Green Goo", "Walks back and forth. Moves slowly." } },
+				{  (byte) GooSubType.Orange, new string[2] { "Orange Goo", "Walks back and forth. Moves quickly." } },
+				{  (byte) GooSubType.Blue, new string[2] { "Blue Goo", "Remains in one spot, hopping up and down." } },
+			}},
+
+			// Liz
+			{ (byte) ObjectEnum.Liz, new Dictionary<byte, string[]> {
+				{  (byte) LizSubType.Liz, new string[2] { "Liz", "Walks back and forth. Will charge if it sees a character." } },
+			}},
+
+			// Snek
+			{ (byte) ObjectEnum.Snek, new Dictionary<byte, string[]> {
+				{  (byte) SnekSubType.Snek, new string[2] { "Snek", "Walks back and forth." } },
+				{  (byte) SnekSubType.Wurm, new string[2] { "Wurm", "Walks back and forth." } },
+			}},
+
+			// Octo
+			{ (byte) ObjectEnum.Octo, new Dictionary<byte, string[]> {
+				{  (byte) OctoSubType.Octo, new string[2] { "Octo", "Walks back and forth." } },
+			}},
+
+			// Bones
+			{ (byte) ObjectEnum.Bones, new Dictionary<byte, string[]> {
+				{  (byte) BonesSubType.Bones, new string[2] { "Bones", "Walks back and forth. Shatters into bones if jumped on." } },
+			}},
+
+			// Turtle
+			{ (byte) ObjectEnum.Turtle, new Dictionary<byte, string[]> {
+				{  (byte) TurtleSubType.Red, new string[2] { "Turtle", "Walks back and forth. Leaves a shell when jumped on." } },
+			}},
+
+			// Snail
+			{ (byte) ObjectEnum.Snail, new Dictionary<byte, string[]> {
+				{  (byte) SnailSubType.Snail, new string[2] { "Snail", "Walks back and forth. Leaves a shell when jumped on." } },
+			}},
+
+			// Boom
+			{ (byte) ObjectEnum.Boom, new Dictionary<byte, string[]> {
+				{  (byte) BoomSubType.Boom, new string[2] { "Boom", "Walks back and forth. Leaves an active bomb when jumped on." } },
+			}},
+
+			// Poke
+			{ (byte) ObjectEnum.Poke, new Dictionary<byte, string[]> {
+				{  (byte) PokeSubType.Poke, new string[2] { "Poke", "Walks back and forth. Tall enemy." } },
+			}},
+
+			// Lich
+			{ (byte) ObjectEnum.Lich, new Dictionary<byte, string[]> {
+				{  (byte) LichSubType.Lich, new string[2] { "Lich", "Large enemy. Walks back and forth." } },
+			}},
+
+			////////////////////////////
+			////// FLIGHT ENEMIES //////
+			////////////////////////////
+
+			// Buzz
+			{ (byte) ObjectEnum.Buzz, new Dictionary<byte, string[]> {
+				{  (byte) BuzzSubType.Buzz, new string[2] { "Buzz", "Flying creature. Can jump on top of it." } },
+			}},
+
+			// Ghost
+			{ (byte) ObjectEnum.Ghost, new Dictionary<byte, string[]> {
+				{  (byte) GhostSubType.Norm, new string[2] { "Ghost", "Can chase. Cannot be killed. Causes damage on contact." } },
+				{  (byte) GhostSubType.Hide, new string[2] { "Intangible Ghost", "Deals no damage. Typically used as a cluster. Can chase." } },
+				{  (byte) GhostSubType.Hat, new string[2] { "Helmet Ghost", "Can chase and damage characters. Characters can safely bounce on top of it." } },
+				{  (byte) GhostSubType.Slimer, new string[2] { "Slimer", "A solid ghost." } },
+			}},
+			
+			// FlairElectric
+			{ (byte) ObjectEnum.FlairNormal, new Dictionary<byte, string[]> {
+				{  (byte) FlairNormalSubType.Normal, new string[2] { "Flair", "Flying creature that can be damaged." } },
+			}},
+			
+			// FlairElectric
+			{ (byte) ObjectEnum.FlairElectric, new Dictionary<byte, string[]> {
+				{  (byte) FlairElectricSubType.Normal, new string[2] { "Electric Flair", "Flying creature, can be damaged. Shoots electric balls." } },
+			}},
+
+			// FlairFire
+			{ (byte) ObjectEnum.FlairFire, new Dictionary<byte, string[]> {
+				{  (byte) FlairFireSubType.Normal, new string[2] { "Fire Flair", "Flying creature, can be damaged. Shoots fireballs." } },
+			}},
+			
+			// FlairPoison
+			{ (byte) ObjectEnum.FlairPoison, new Dictionary<byte, string[]> {
+				{  (byte) FlairPoisonSubType.Normal, new string[2] { "Poison Flair", "Flying creature, can be damaged. Shoots poison balls downward." } },
+			}},
+			
+			// ElementalAir
+			{ (byte) ObjectEnum.ElementalAir, new Dictionary<byte, string[]> {
+				{  (byte) ElementalAirSubType.Left, new string[2] { "Air Elemental", "Flying creature, cannot be harmed." } },
+				{  (byte) ElementalAirSubType.Right, new string[2] { "Air Elemental", "Flying creature, cannot be harmed." } },
+			}},
+
+			// ElementalEarth
+			{ (byte) ObjectEnum.ElementalEarth, new Dictionary<byte, string[]> {
+				{  (byte) ElementalEarthSubType.Left, new string[2] { "Earth Elemental", "Flying creature, cannot be harmed. Shoots earth projectiles downward." } },
+				{  (byte) ElementalEarthSubType.Right, new string[2] { "Earth Elemental", "Flying creature, cannot be harmed. Shoots earth projectiles downward." } },
+			}},
+
+			// ElementalFire
+			{ (byte) ObjectEnum.ElementalFire, new Dictionary<byte, string[]> {
+				{  (byte) ElementalFireSubType.Left, new string[2] { "Fire Elemental", "Flying creature, cannot be harmed. Shoots fireballs." } },
+				{  (byte) ElementalFireSubType.Right, new string[2] { "Fire Elemental", "Flying creature, cannot be harmed. Shoots fireballs." } },
+			}},
+			
+			// Saw
+			{ (byte) ObjectEnum.Saw, new Dictionary<byte, string[]> {
+				{  (byte) SawSubType.Small, new string[2] { "Small Saw", "Flying movement, damages characters on touch." } },
+				{  (byte) SawSubType.Large, new string[2] { "Large Saw", "Flying movement, damages characters on touch." } },
+				{  (byte) SawSubType.LethalSmall, new string[2] { "Small Lethal Saw", "Flying movement, kills characters on touch." } },
+				{  (byte) SawSubType.LethalLarge, new string[2] { "Large Lethal Saw", "Flying movement, kills characters on touch." } },
+			}},
+			
+			// Slammer
+			{ (byte) ObjectEnum.Slammer, new Dictionary<byte, string[]> {
+				{  (byte) SlammerSubType.Slammer, new string[2] { "Slammer", "Large enemy. Acts like a solid block but will slam down on characters." } },
+			}},
+			
+			// HoveringEye
+			{ (byte) ObjectEnum.HoveringEye, new Dictionary<byte, string[]> {
+				{  (byte) HoveringEyeSubType.Eye, new string[2] { "Hovering Eye", "Flying motion. Fires projectiles directly at nearby characters." } },
+			}},
+
+			// Bouncer
+			{ (byte) ObjectEnum.Bouncer, new Dictionary<byte, string[]> {
+				{  (byte) BouncerSubType.Normal, new string[2] { "Bouncer", "Bounces off of walls at 90 degree angles." } },
+			}},
+			
+			// Dire
+			{ (byte) ObjectEnum.Dire, new Dictionary<byte, string[]> {
+				{  (byte) DireSubType.Dire, new string[2] { "Dire", "A large flying creature." } },
+			}},
+
+			///////////////////////////////
+			////// DYNAMIC PLATFORMS //////
+			///////////////////////////////
+			
+			// PlatformDip
+			{ (byte) ObjectEnum.PlatformDip, new Dictionary<byte, string[]> {
+				{  (byte) PlatformSubTypes.W1, new string[2] { "Dip Platform", "Will dip down when used, but returns back to its original position." } },
+				{  (byte) PlatformSubTypes.W2, new string[2] { "Dip Platform", "Will dip down when used, but returns back to its original position." } },
+			}},
+			
+			// PlatformDelay
+			{ (byte) ObjectEnum.PlatformDelay, new Dictionary<byte, string[]> {
+				{  (byte) PlatformSubTypes.W1, new string[2] { "Delay Platform", "Falls after a short delay once landed on." } },
+				{  (byte) PlatformSubTypes.W2, new string[2] { "Delay Platform", "Falls after a short delay once landed on." } },
+			}},
+			
+			// PlatformFall
+			{ (byte) ObjectEnum.PlatformFall, new Dictionary<byte, string[]> {
+				{  (byte) PlatformSubTypes.W1, new string[2] { "Falling Platform", "Begins to fall once landed on." } },
+				{  (byte) PlatformSubTypes.W2, new string[2] { "Falling Platform", "Begins to fall once landed on." } },
+			}},
+			
+			// PlatformMove
+			{ (byte) ObjectEnum.PlatformMove, new Dictionary<byte, string[]> {
+				{  (byte) PlatformSubTypes.W1, new string[2] { "Moving Platform", "Assign flying behaviors, tracks, clusters, and other controls." } },
+				{  (byte) PlatformSubTypes.W2, new string[2] { "Moving Platform", "Assign flying behaviors, tracks, clusters, and other controls." } },
+			}},
+
+			///////////////////
+			////// ITEMS //////
+			///////////////////
+			
+			// Shell
+			{ (byte) ObjectEnum.Shell, new Dictionary<byte, string[]> {
+				{  (byte) ShellSubType.Green, new string[2] { "Green Shell", "A standard shell. Throw it, kick it, drop it, toss it." } },
+				{  (byte) ShellSubType.GreenWing, new string[2] { "Winged Shell", "A light shell. Stays airborne longer, less affected by gravity." } },
+				{  (byte) ShellSubType.Heavy, new string[2] { "Heavy Shell", "A heavy shell. Doesn't stay airborne as long." } },
+				{  (byte) ShellSubType.Red, new string[2] { "Red Shell", "A standard shell. Throw it, kick it, drop it, toss it." } },
+			}},
+			
+			// Boulder
+			{ (byte) ObjectEnum.Boulder, new Dictionary<byte, string[]> {
+				{  (byte) BoulderSubType.Boulder, new string[2] { "Boulder", "A solid item that acts like a moveable block." } },
+			}},
+			
+			// Bomb
+			{ (byte) ObjectEnum.Bomb, new Dictionary<byte, string[]> {
+				{  (byte) BombSubType.Bomb, new string[2] { "Bomb", "An item that can be set to explode for significant damage." } },
+			}},
+			
+			// TNT
+			{ (byte) ObjectEnum.TNT, new Dictionary<byte, string[]> {
+				{  (byte) TNTSubType.TNT, new string[2] { "TNT", "Damages all enemies on the screen when activated while held." } },
+			}},
+			
+			// Orb
+			{ (byte) ObjectEnum.OrbItem, new Dictionary<byte, string[]> {
+				{  (byte) OrbSubType.Magic, new string[2] { "Orb", "A mysterious orb with intreguing qualities." } },
+			}},
+
+			// Sport Ball
+			{ (byte) ObjectEnum.SportBall, new Dictionary<byte, string[]> {
+				{  (byte) SportBallSubType.Fire, new string[2] { "Fire Sport Ball", "A very bouncy, very reactive sports ball." } },
+				{  (byte) SportBallSubType.Earth, new string[2] { "Earth Sport Ball", "A heavier sports ball, less bouncy." } },
+				{  (byte) SportBallSubType.Forest, new string[2] { "Forest Sport Ball", "A bouncy, reactive sports ball." } },
+				{  (byte) SportBallSubType.Water, new string[2] { "Water Sport Ball", "A slightly slower sports ball." } },
+			}},
+			
+			// Spring - Standard
+			{ (byte) ObjectEnum.SpringHeld, new Dictionary<byte, string[]> {
+				{  (byte) SpringHeldSubType.Norm, new string[2] { "Mobile Spring", "A spring that can be picked up and moved." } },
+			}},
+
+			// Button - Standard
+			{ (byte) ObjectEnum.ButtonHeld, new Dictionary<byte, string[]> {
+				{  (byte) ButtonSubTypes.BR, new string[2] { "Mobile Blue-Red Button", "A mobile button that toggles the Blue-Red colors when activated." } },
+				{  (byte) ButtonSubTypes.GY, new string[2] { "Mobile Green-Yellow Button", "A mobile button that toggles the Green-Yellow colors when activated." } },
+			}},
+			
+			/////////////////////////////
+			////// SPECIAL OBJECTS //////
+			/////////////////////////////
+			
+			{ (byte) ObjectEnum.Character, new Dictionary<byte, string[]> {
+				{  (byte) 0, new string[2] { "Character", "The starting location of a character." } },
+			}},
+
+			// Special Objects
+			{ (byte) ObjectEnum.ClusterDot, new Dictionary<byte, string[]> {
+				{  (byte) ClusterDotSubType.Basic, new string[2] { "Mobile Cluster", "An invisible, flying object that ONLY acts as a cluster for other objects." } },
+			}},
+		};
 		
 		public static void Draw(byte index, byte subType, Dictionary<string, short> paramList, int posX, int posY) {
 

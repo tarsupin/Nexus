@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			// Resize Option
 			else if(menuOpt == 6) {
 				UIHandler.worldEditConsole.Open();
-				UIHandler.worldEditConsole.SetInstructionText("resize ");
+				UIHandler.worldEditConsole.SendCommand("resize ", false);
 				ChatConsole.SendMessage("--------------------", Color.White);
 				ChatConsole.SendMessage("Resize the World Map", Color.Red);
 				ChatConsole.SendMessage("--------------------", Color.White);

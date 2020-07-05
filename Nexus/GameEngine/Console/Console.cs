@@ -89,10 +89,6 @@ namespace Nexus.GameEngine {
 			this.SendCommand(ConsoleTrack.instructionText, false);
 		}
 
-		public void SetInstructionText(string insText) {
-			ConsoleTrack.instructionText = insText;
-		}
-
 		public void SendCommand(string insText, bool setActivate = true) {
 			if(setActivate) { ConsoleTrack.activate = true; } // The instruction is meant to run (rather than just reveal new text hints).
 			ConsoleTrack.instructionText = insText;
