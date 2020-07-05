@@ -112,9 +112,15 @@ namespace Nexus.GameEngine {
 
 			// Update Camera Bounds
 			Systems.camera.UpdateScene(this);
+
+			// Reset Timer
+			Systems.timer.ResetTimer();
 		}
 
 		public override void RunTick() {
+
+			// Update Timer
+			Systems.timer.RunTick();
 
 			// Loop through every player and update inputs for this frame tick:
 			foreach(var player in Systems.localServer.players) {
@@ -300,9 +306,31 @@ namespace Nexus.GameEngine {
 
 			// Draw UI
 			this.weUI.Draw();
-			if(UIHandler.uiState == UIState.Playing) { this.DrawNodePaths(cam); }
+			if(UIHandler.uiState == UIState.Playing) {
+				this.DrawNodePaths(cam);
+				this.DrawNodeInfo();
+			}
 			UIHandler.cornerMenu.Draw();
 			UIHandler.menu.Draw();
+		}
+
+		private void DrawNodeInfo() {
+			byte gridX = (byte)Cursor.MiniGridX;
+			byte gridY = (byte)Cursor.MiniGridY;
+
+			// Get the Current Tile
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
+
+			// If the Current Tile is a Playablee Node:
+			if(NodeData.IsObjectANode(wtData[5], false, false, true)) {
+				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
+
+				if(this.currentZone.nodes.ContainsKey(coordStr)) {
+					this.weUI.alertText.SetNotice("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
+				} else {
+					this.weUI.alertText.SetNotice("No Level Assigned", gridX + ", " + gridY, 120);
+				}
+			}
 		}
 
 		private void DrawNodePaths(Camera cam) {
