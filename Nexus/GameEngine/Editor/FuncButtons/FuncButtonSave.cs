@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			Systems.handler.levelContent.SaveLevel();
+			((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("Level Saved", "Level has been saved.");
 		}
 	}
 }
