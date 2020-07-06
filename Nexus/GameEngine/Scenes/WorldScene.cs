@@ -83,9 +83,8 @@ namespace Nexus.GameEngine {
 			// Reset Timer
 			Systems.timer.ResetTimer();
 
-			// Begin New Music Track
-			// TODO: MUSIC HERE
-			//Systems.music.SomeTrack.Play();
+			// Play or Stop Music
+			Systems.music.Play(this.worldData.music);
 		}
 
 		public override void EndScene() {

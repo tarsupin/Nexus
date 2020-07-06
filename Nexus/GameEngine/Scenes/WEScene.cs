@@ -103,6 +103,9 @@ namespace Nexus.GameEngine {
 
 			// Reset Timer
 			Systems.timer.ResetTimer();
+
+			// End Music
+			Systems.music.StopMusic();
 		}
 
 		private void UpdateZoneValues() {

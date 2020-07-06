@@ -37,10 +37,8 @@ namespace Nexus.GameEngine {
 			// Restart the level, generate all rooms.
 			this.RestartLevel(true);
 
-			// Play Music
-			if(Systems.handler.levelContent.data.music > 0) {
-				Systems.music.Play((byte) Systems.handler.levelContent.data.music);
-			}
+			// Play or Stop Music
+			Systems.music.Play((byte) Systems.handler.levelContent.data.music);
 		}
 
 		protected virtual void LoadMyPlayer() {

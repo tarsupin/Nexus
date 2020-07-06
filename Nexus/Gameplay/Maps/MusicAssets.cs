@@ -88,8 +88,17 @@ namespace Nexus.Gameplay {
 
 		public void Play(byte track) {
 
-			// Make sure the track exists:
-			if(!MusicAssets.TrackNames.ContainsKey(track)) { return; }
+			// If the volume is 0, prevent all playing of music:
+			if(Systems.settings.audio.MusicVolume <= 0) {
+				this.StopMusic();
+				return;
+			}
+
+			// Verify the track exists, or prevent playing music:
+			if(!MusicAssets.TrackNames.ContainsKey(track)) {
+				this.StopMusic();
+				return;
+			}
 
 			// Load the Music Track
 			this.currentTrack = this.content.Load<Song>(MusicAssets.TrackNames[track]);

@@ -124,6 +124,9 @@ namespace Nexus.GameEngine {
 
 			// Reset Timer
 			Systems.timer.ResetTimer();
+
+			// Play or Stop Music
+			Systems.music.Play((byte)MusicAssets.MusicTrack.Journey);
 		}
 
 		public override void EndScene() {
