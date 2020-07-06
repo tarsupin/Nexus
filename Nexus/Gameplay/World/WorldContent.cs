@@ -53,14 +53,7 @@ namespace Nexus.Gameplay {
 		}
 
 		public static WorldFormat BuildEmptyWorld(string worldId) {
-
-			WorldZoneFormat zone1 = new WorldZoneFormat() {
-				tiles = new byte[1][][],
-				nodes = new Dictionary<string, string>(),
-			};
-
-			zone1.tiles[0] = new byte[1][];
-			zone1.tiles[0][0] = new byte[7] { 20, 0, 0, 0, 0, 0, 0 };
+			WorldZoneFormat zone = WorldContent.BuildEmptyZone();
 
 			WorldFormat world = new WorldFormat {
 				id = worldId,
@@ -71,7 +64,7 @@ namespace Nexus.Gameplay {
 				lives = 30,
 				version = 0,
 				music = 0,
-				zones = new WorldZoneFormat[] { zone1 },
+				zones = new List<WorldZoneFormat>() { zone },
 				//start = new StartNodeFormat {
 				//	character = 0,
 				//	zoneId = 0,
@@ -83,6 +76,18 @@ namespace Nexus.Gameplay {
 			return world;
 		}
 
+		public static WorldZoneFormat BuildEmptyZone() {
+
+			WorldZoneFormat zone = new WorldZoneFormat() {
+				tiles = new byte[1][][],
+				nodes = new Dictionary<string, string>(),
+			};
+
+			zone.tiles[0] = new byte[1][];
+			zone.tiles[0][0] = new byte[7] { 20, 0, 0, 0, 0, 0, 0 };
+
+			return zone;
+		}
 
 		// Assign World Data
 		public void SetAccount(string account) { this.data.account = account; }
@@ -110,7 +115,7 @@ namespace Nexus.Gameplay {
 		}
 
 		public WorldZoneFormat GetWorldZone(byte zoneId) {
-			if(this.data.zones.Length <= zoneId) { return null; }
+			if(this.data.zones.Count <= zoneId) { return null; }
 			return this.data.zones[zoneId];
 		}
 

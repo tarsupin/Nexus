@@ -99,22 +99,27 @@ namespace Nexus.GameEngine {
 			// Start the Default WETool
 			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte) WorldSlotGroup.Terrain], 0);
 
+			this.UpdateZoneValues();
+
+			// Reset Timer
+			Systems.timer.ResetTimer();
+		}
+
+		private void UpdateZoneValues() {
+
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
 
-			if(this.xCount < (byte) WorldmapEnum.MinWidth) { this.ResizeWidth((byte) WorldmapEnum.MinWidth); }
-			if(this.yCount < (byte) WorldmapEnum.MinHeight) { this.ResizeHeight((byte) WorldmapEnum.MinHeight); }
+			if(this.xCount < (byte)WorldmapEnum.MinWidth) { this.ResizeWidth((byte)WorldmapEnum.MinWidth); }
+			if(this.yCount < (byte)WorldmapEnum.MinHeight) { this.ResizeHeight((byte)WorldmapEnum.MinHeight); }
 
 			// Prepare Map Size
-			this.mapWidth = this.xCount * (byte) WorldmapEnum.TileWidth;
-			this.mapHeight = this.yCount * (byte) WorldmapEnum.TileHeight;
+			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
+			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
 
 			// Update Camera Bounds
 			Systems.camera.UpdateScene(this);
-
-			// Reset Timer
-			Systems.timer.ResetTimer();
 		}
 
 		public override void RunTick() {
@@ -534,9 +539,26 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void SwitchZone(byte zoneId) {
-			if(this.worldData.zones.Length > zoneId) {
-				this.campaign.zoneId = zoneId;
+		private void PrepareEmptyZone(byte newZoneId) {
+
+			// Make sure the room is actually empty.
+			if(this.worldData.zones.Count > newZoneId) { return; }
+
+			// If there is no data for the room, create an empty object for it.
+			this.worldData.zones.Add(WorldContent.BuildEmptyZone());
+		}
+
+		public void SwitchZone(byte newZoneId) {
+			newZoneId = Math.Max((byte)0, Math.Min((byte)(WorldmapEnum.MaxZones - 1), newZoneId));
+
+			this.PrepareEmptyZone(newZoneId);
+
+			// Important Components
+			Systems.camera.UpdateScene(this);
+
+			if(this.worldData.zones.Count > newZoneId) {
+				this.campaign.zoneId = newZoneId;
+				this.UpdateZoneValues();
 			}
 		}
 		
@@ -544,8 +566,8 @@ namespace Nexus.GameEngine {
 			byte curZoneId = this.campaign.zoneId;
 
 			// Make sure Swapping this zone is legal.
-			if(curZoneId > 8) { return; }
-			if(this.worldData.zones.Length <= curZoneId) { return; }
+			if(curZoneId >= (byte)(WorldmapEnum.MaxZones - 1)) { return; }
+			if(this.worldData.zones.Count <= curZoneId + 1) { return; }
 			if(this.worldData.zones[curZoneId+1] is WorldZoneFormat == false) { return; }
 			if(this.worldData.zones[curZoneId+1].tiles is byte[][][] == false) { return; }
 
@@ -553,6 +575,7 @@ namespace Nexus.GameEngine {
 			var temp = this.currentZone;
 			this.worldData.zones[curZoneId] = this.worldData.zones[curZoneId + 1];
 			this.worldData.zones[curZoneId + 1] = temp;
+			this.UpdateZoneValues();
 		}
 
 		public void CloneTile(byte gridX, byte gridY) {

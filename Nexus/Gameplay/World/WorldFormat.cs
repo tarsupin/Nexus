@@ -30,7 +30,7 @@ namespace Nexus.Gameplay {
 		public byte music { get; set; }
 		
 		[JsonProperty("zones")]
-		public WorldZoneFormat[] zones { get; set; }
+		public List<WorldZoneFormat> zones { get; set; }
 
 		[JsonProperty("start")]
 		public StartNodeFormat start { get; set; }

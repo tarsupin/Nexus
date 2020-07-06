@@ -142,6 +142,9 @@ namespace Nexus.GameEngine {
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(revNode.objectId == 0) { return matchNode; }
 
+					// If the Matching Node's Connection connects back, it matches.
+					if(revNode.gridX == gridX && revNode.gridY == gridY) { return matchNode; }
+
 					// If alternative node is on the same X level, it matches this one.
 					if(matchNode.gridX == gridX) { return matchNode; }
 
@@ -163,6 +166,9 @@ namespace Nexus.GameEngine {
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(revNode.objectId == 0) { return matchNode; }
+
+					// If the Matching Node's Connection connects back, it matches.
+					if(revNode.gridX == gridX && revNode.gridY == gridY) { return matchNode; }
 
 					// If alternative node is on the same Y level, it matches this one.
 					if(matchNode.gridY == gridY) { return matchNode; }
@@ -186,6 +192,9 @@ namespace Nexus.GameEngine {
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(revNode.objectId == 0) { return matchNode; }
 
+					// If the Matching Node's Connection connects back, it matches.
+					if(revNode.gridX == gridX && revNode.gridY == gridY) { return matchNode; }
+
 					// If alternative node is on the same Y level, it matches this one.
 					if(matchNode.gridY == gridY) { return matchNode; }
 
@@ -207,6 +216,9 @@ namespace Nexus.GameEngine {
 
 					// If the discovered node has no alternative to connect to, it matches with this one.
 					if(revNode.objectId == 0) { return matchNode; }
+
+					// If the Matching Node's Connection connects back, it matches.
+					if(revNode.gridX == gridX && revNode.gridY == gridY) { return matchNode; }
 
 					// If alternative node is on the same X level, it matches this one.
 					if(matchNode.gridX == gridX) { return matchNode; }

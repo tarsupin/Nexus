@@ -13,6 +13,9 @@ namespace Nexus.Gameplay {
 
 		MaxWidth = 120,			// <= 200, avoid crossing byte threshold for range modifiers.
 		MaxHeight = 120,		// <= 200, avoid crossing byte threshold for range modifiers.
+
+		// Zone Limits
+		MaxZones = 6,
 	}
 
 	public enum WorldTileStack : byte {
