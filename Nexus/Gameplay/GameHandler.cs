@@ -17,7 +17,6 @@ namespace Nexus.Gameplay {
 		public readonly EditorState editorState;
 		public readonly LevelState levelState;
 		public readonly PlaylistState playlistState;
-		public readonly WorldState worldState;
 
 		public GameHandler(string saveId) {
 			this.saveId = saveId;
@@ -35,7 +34,6 @@ namespace Nexus.Gameplay {
 			this.editorState = new EditorState(this);
 			this.levelState = new LevelState(this);
 			this.playlistState = new PlaylistState(this);
-			this.worldState = new WorldState(this);
 		}
 
 		// Save Game State

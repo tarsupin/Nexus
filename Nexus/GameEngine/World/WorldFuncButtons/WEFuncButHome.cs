@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Home";
 			this.title = "Home";
-			this.description = "Switches to the 'home' room, where the level begins.";
+			this.description = "Switches to the 'home' zone, where the world begins.";
 		}
 
 		public override void ActivateWorldFuncButton() {

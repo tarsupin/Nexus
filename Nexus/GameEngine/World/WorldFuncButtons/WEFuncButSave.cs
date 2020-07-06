@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Save";
 			this.title = "Save";
-			this.description = "Saves the level.";
+			this.description = "Saves the world.";
 		}
 
 		public override void ActivateWorldFuncButton() {

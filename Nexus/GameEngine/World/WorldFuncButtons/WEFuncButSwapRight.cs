@@ -7,8 +7,8 @@ namespace Nexus.GameEngine {
 		public WEFuncButSwapRight() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/MoveRight";
-			this.title = "Swap Room Position";
-			this.description = "Swaps the current room with the room to the right (+1 ID higher).";
+			this.title = "Swap Zone Position";
+			this.description = "Swaps the current zone with the zone to the right (+1 ID higher).";
 		}
 
 		public override void ActivateWorldFuncButton() {

@@ -3,13 +3,13 @@ using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
-	public class WEFuncButRoomRight : WEFuncBut {
+	public class WEFuncButZoneRight : WEFuncBut {
 
-		public WEFuncButRoomRight() : base() {
+		public WEFuncButZoneRight() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Right";
-			this.title = "Switch Room Right";
-			this.description = "Switches the active editing room to one room ID higher.";
+			this.title = "Switch Zone Right";
+			this.description = "Switches the active editing zone to one zone ID higher.";
 		}
 
 		public override void ActivateWorldFuncButton() {

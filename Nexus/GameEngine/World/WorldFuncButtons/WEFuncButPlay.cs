@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 			this.keyChar = "p";
 			this.spriteName = "Icons/Small/Play";
 			this.title = "Play";
-			this.description = "Saves the level, then initiates a playthrough.";
+			this.description = "Saves the world, then initiates a playthrough.";
 		}
 
 		public override void ActivateWorldFuncButton() {

@@ -28,10 +28,11 @@ namespace Nexus.Gameplay {
 		public byte armor;				// Armor Wounds Available.
 		
 		// Character Equipment
-		public byte suit;				// Suit Equipped (e.g. SuitType.BlackNinja)
-		public byte hat;				// Hat Equipped (e.g. HatType.TopHat)
-		public byte powerAtt;			// Attack Power (e.g. AttackPowerType.Chakram)
-		public byte powerMob;           // Mobility Power (e.g. MobilityPowerType.Levitate)
+		public byte suit;				// Suit Equipped (e.g. SuitSubType.BlackNinja)
+		public byte hat;				// Hat Equipped (e.g. HatSubType.TopHat)
+		public byte shoes;				// Shoes Equipped (e.g. ShoeSubType.Spike)
+		public byte powerAtt;			// Attack Power (e.g. AttackPowerSubType.Chakram)
+		public byte powerMob;           // Mobility Power (e.g. MobilityPowerSubType.Levitate)
 
 		// Nodes Completed / Status
 		public Dictionary<byte, Dictionary<string, CampaignLevelStatus>> levelStatus = new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>();
@@ -53,7 +54,7 @@ namespace Nexus.Gameplay {
 			this.SetPosition(0, 0, (byte) DirCardinal.None);
 			this.SetLives();
 			this.SetWounds();
-			this.SetUpgrades(0, 0, 0, 0, 0, 0);
+			this.SetUpgrades(0, 0, 0, 0, 0, 0, 0);
 			this.SetLevelStatus(new Dictionary<byte, Dictionary<string, CampaignLevelStatus>>());
 		}
 
@@ -84,9 +85,10 @@ namespace Nexus.Gameplay {
 			this.head = head;
 		}
 
-		public void SetUpgrades(byte suit, byte hat, byte att, byte mob, byte health, byte armor) {
+		public void SetUpgrades(byte suit, byte hat, byte shoes, byte att, byte mob, byte health, byte armor) {
 			this.suit = suit;
 			this.hat = hat;
+			this.shoes = shoes;
 			this.powerAtt = att;
 			this.powerMob = mob;
 			this.health = health;
@@ -97,6 +99,7 @@ namespace Nexus.Gameplay {
 			this.SetUpgrades(
 				character.suit == null ? (byte) 0 : character.suit.subType,
 				character.hat == null ? (byte) 0 : character.hat.subType,
+				character.shoes == null ? (byte) 0 : character.shoes.subType,
 				character.attackPower == null ? (byte) 0 : character.attackPower.subType,
 				character.mobilityPower == null ? (byte) 0 : character.mobilityPower.subType,
 				character.wounds.Health,
@@ -163,6 +166,7 @@ namespace Nexus.Gameplay {
 				// Character Equipment
 				suit = this.suit,
 				hat = this.hat,
+				shoes = this.shoes,
 				powerAtt = this.powerAtt,
 				powerMob = this.powerMob,
 				
@@ -208,7 +212,7 @@ namespace Nexus.Gameplay {
 			this.SetLives(campaign.lives);
 			this.SetWounds(campaign.health, campaign.armor);
 			this.SetHead(campaign.head);
-			this.SetUpgrades(campaign.suit, campaign.hat, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
+			this.SetUpgrades(campaign.suit, campaign.hat, campaign.shoes, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
 			this.SetLevelStatus(campaign.levelStatus);
 		}
 	}

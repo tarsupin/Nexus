@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 				campaign.SetLives(campaign.lives);
 				campaign.SetWounds(campaign.health, campaign.armor);
 				campaign.SetHead(campaign.head);
-				campaign.SetUpgrades(campaign.suit, campaign.hat, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
+				campaign.SetUpgrades(campaign.suit, campaign.hat, campaign.shoes, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
 				campaign.SetLevelStatus(campaign.levelStatus);
 
 				// Update Campaign Positions

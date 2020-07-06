@@ -1,5 +1,6 @@
 ﻿using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -47,80 +48,146 @@ namespace Nexus.GameEngine {
 			{ "height", "Change the world map's height." },
 		};
 
-		public static void SetValue() {
+		public static void SetMode() {
 			string currentIns = ConsoleTrack.GetArgAsString();
-			int curVal = ConsoleTrack.GetArgAsInt();
 
-			ConsoleTrack.PrepareTabLookup(valueOpts, currentIns, "Set World Campaign Values");
+			ConsoleTrack.PrepareTabLookup(modeOpts, currentIns, "Set the campaign mode for this world.");
 
-			// Name Option
-			if(currentIns == "name") {
-				ConsoleTrack.possibleTabs = "Example: setValue name \"My World Name\"";
-				ConsoleTrack.helpText = "Choose a name for your world.";
+			// If an option is selected:
+			if(modeOpts.ContainsKey(currentIns)) {
+				ConsoleTrack.helpText = modeOpts[currentIns].ToString();
+				ConsoleTrack.possibleTabs = "";
 			}
 
-			// Lives Option
-			else if(currentIns == "lives") {
-				ConsoleTrack.possibleTabs = "Example: setValue lives 30";
-				ConsoleTrack.helpText = "Choose the number of lives to start with. Between 1 and 99.";
-			}
-
-			// Character Option
-			else if(currentIns == "character") {
-				ConsoleTrack.possibleTabs = "Example: setValue character Ryu";
-				ConsoleTrack.helpText = ".";
-			}
-
-			if(valueOpts.ContainsKey(currentIns)) {
-				valueOpts[currentIns].Invoke();
+			if(ConsoleTrack.activate) {
+				WEScene scene = (WEScene)Systems.scene;
+				scene.weUI.alertText.SetNotice("Unavailable During Alpha", "These game modes cannot be set during the alpha release.", 300);
 				return;
 			}
 		}
 
-		public static readonly Dictionary<string, System.Action> valueOpts = new Dictionary<string, System.Action>() {
-			{ "name", ConsoleWorldMap.SetName },
-			{ "lives", ConsoleWorldMap.SetLives },
-			{ "character", ConsoleWorldMap.SetCharacter },
+		public static readonly Dictionary<string, object> modeOpts = new Dictionary<string, object>() {
+			{ "softcore", GameplayTypes.HardcoreDesc[0] },
+			{ "mediumcore", GameplayTypes.HardcoreDesc[1] },
+			{ "hardcore", GameplayTypes.HardcoreDesc[2] },
+			{ "punishing", GameplayTypes.HardcoreDesc[3] },
+			{ "brutal", GameplayTypes.HardcoreDesc[4] },
+			{ "nightmare", GameplayTypes.HardcoreDesc[5] },
+			{ "hell", GameplayTypes.HardcoreDesc[6] },
 		};
 
-		private static void SetName() {
-			string insString = ConsoleTrack.instructionText;
+		public static void SetLives() {
+			short lives = (short) ConsoleTrack.GetArgAsInt();
+			WEScene scene = (WEScene)Systems.scene;
+
+			ConsoleTrack.possibleTabs = "Example: `lives 50`";
+			ConsoleTrack.helpText = "Set the number of lives you start with: 1 to 500. Currently: " + scene.worldData.lives;
 
 			if(ConsoleTrack.activate) {
-				System.Console.WriteLine(insString);
-			}
-		}
-
-		private static void SetLives() {
-			byte lives = (byte) ConsoleTrack.GetArgAsInt();
-
-			if(ConsoleTrack.activate) {
-				if(lives > 0 && lives < 100) {
-					System.Console.WriteLine("Assign Lives: " + lives);
+				if(lives < 1 || lives > 500) {
+					scene.weUI.alertText.SetNotice("Cannot Set Lives", "Lives must be set between 1 and 500.", 240);
 					return;
 				}
+
+				scene.worldContent.data.lives = lives;
+				scene.weUI.alertText.SetNotice("Set World Lives", "Set to \"" + lives + "\" lives.", 240);
 			}
 		}
 
-		private static void SetCharacter() {
-			string charName = ConsoleTrack.GetArgAsString();
+		public static void SetName() {
+			string text = Sanitize.Title(ConsoleTrack.instructionText.Substring(4).TrimStart());
+			WEScene scene = (WEScene)Systems.scene;
 
-			ConsoleTrack.PrepareTabLookup(characterOpts, charName, "Assign a character archetype for this world campaign.");
+			if(text.Length > 0) {
+				ConsoleTrack.instructionText = "name " + text.Substring(0, Math.Min(text.Length, 24));
+			}
 
+			short remain = (short)(24 - text.Length);
+
+			ConsoleTrack.possibleTabs = "Example: `name My World`";
+			ConsoleTrack.helpText = "Provide a world name. Currently: \"" + scene.worldData.name + "\". " + remain.ToString() + " characters remaining.";
+
+			// Activate the Instruction
 			if(ConsoleTrack.activate) {
-				if(characterOpts.ContainsKey(charName)) {
-					System.Console.WriteLine("Assign Character " + charName);
+
+				// Prevent Rename if it exceeds name length.
+				if(text.Length > 24) {
+					scene.weUI.alertText.SetNotice("Unable to Rename Level", "Title must be 24 characters or less.", 240);
 					return;
 				}
+
+				scene.worldContent.data.name = text;
+				scene.weUI.alertText.SetNotice("New World Title", "Title Set: \"" + text + "\"", 240);
 			}
 		}
 
-		public static readonly Dictionary<string, object> characterOpts = new Dictionary<string, object>() {
-			{ "carl", "carl" },
-			{ "poo", "poo" },
-			{ "ryu", "ryu" },
-		};
+		public static void SetDescription() {
+			string text = Sanitize.Description(ConsoleTrack.instructionText.Substring(4).TrimStart());
+			WEScene scene = (WEScene)Systems.scene;
 
+			if(text.Length > 0) {
+				ConsoleTrack.instructionText = "desc " + text.Substring(0, Math.Min(text.Length, 72));
+			}
+
+			short remain = (short)(72 - text.Length);
+
+			ConsoleTrack.possibleTabs = "Example: `desc This world is awesome. You will love it.`";
+			ConsoleTrack.helpText = "Provide a description. Currently: \"" + scene.worldData.description + "\". " + remain.ToString() + " characters remaining.";
+
+			// Activate the Instruction
+			if(ConsoleTrack.activate) {
+
+				// Prevent Rename if it exceeds name length.
+				if(text.Length > 72) {
+					scene.weUI.alertText.SetNotice("Unable to Set Description", "World description must be 72 characters or less.", 240);
+					return;
+				}
+
+				scene.worldContent.data.description = text;
+				scene.weUI.alertText.SetNotice("New World Description", "Description Set: \"" + text + "\"", 240);
+			}
+		}
+
+		public static void SetMusicTrack() {
+			string currentIns = ConsoleTrack.GetArgAsString();
+			WEScene scene = (WEScene)Systems.scene;
+
+			// Update the tab lookup.
+			ConsoleTrack.PrepareTabLookup(ConsoleEditData.TrackCategory, currentIns, "Choose a music category for the track to play.");
+
+			if(!ConsoleEditData.TrackCategory.ContainsKey(currentIns)) { return; }
+
+			// Remove Music From Level
+			if(currentIns == "none") {
+				scene.worldContent.data.music = 0;
+				scene.weUI.alertText.SetNotice("Removed Music Track", "", 240);
+				return;
+			}
+
+			Dictionary<string, object> trackCat = ConsoleEditData.TrackLookup[currentIns];
+
+			string trackName = ConsoleTrack.GetArgAsString();
+			ConsoleTrack.PrepareTabLookup(trackCat, trackName, "Set a music track for the world.");
+
+			if(MusicAssets.TrackNames.ContainsKey(scene.worldContent.data.music)) {
+				ConsoleTrack.helpText += "Currently: \"" + MusicAssets.TrackNames[scene.worldContent.data.music].Replace("Music/", "") + "\".";
+			}
+
+			// Activate the Instruction
+			if(ConsoleTrack.activate) {
+
+				if(trackCat.ContainsKey(trackName)) {
+					byte track = (byte)trackCat[trackName];
+					scene.worldContent.data.music = (byte)track;
+					scene.weUI.alertText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
+					return;
+				}
+
+				// Prevent Rename if it exceeds name length.
+				scene.weUI.alertText.SetNotice("Unable to Set Music Track", "Designated music track doesn't exist.", 240);
+			}
+		}
+		
 		public static void SetLevel() {
 			byte gridX = (byte) ConsoleTrack.GetArgAsInt();
 			ConsoleTrack.possibleTabs = "Example: setLevel 10 10 MyLevelID";

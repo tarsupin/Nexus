@@ -64,10 +64,13 @@ namespace Nexus.Gameplay {
 
 			WorldFormat world = new WorldFormat {
 				id = worldId,
+				account = "",
+				mode = (byte) HardcoreMode.SoftCore,
 				name = "Unnamed World",
 				description = "",
-				username = "",
+				lives = 30,
 				version = 0,
+				music = 0,
 				zones = new WorldZoneFormat[] { zone1 },
 				//start = new StartNodeFormat {
 				//	character = 0,
@@ -79,6 +82,15 @@ namespace Nexus.Gameplay {
 
 			return world;
 		}
+
+
+		// Assign World Data
+		public void SetAccount(string account) { this.data.account = account; }
+		public void SetMode(byte mode) { this.data.mode = mode; }
+		public void SetName(string name) { this.data.name = name; }
+		public void SetDescription(string desc) { this.data.description = desc; }
+		public void SetLives(short lives) { this.data.lives = lives; }
+		public void SetMusicTrack(byte track) { this.data.music = (byte)track; } // MusicTrack enum
 
 		public void SaveWorld() {
 

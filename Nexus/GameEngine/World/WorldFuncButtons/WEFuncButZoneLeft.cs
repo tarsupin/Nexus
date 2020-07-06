@@ -2,13 +2,13 @@
 
 namespace Nexus.GameEngine {
 
-	public class WEFuncButRoomLeft : WEFuncBut {
+	public class WEFuncButZoneLeft : WEFuncBut {
 
-		public WEFuncButRoomLeft() : base() {
+		public WEFuncButZoneLeft() : base() {
 			this.keyChar = "";
 			this.spriteName = "Icons/Small/Left";
-			this.title = "Switch Room Left";
-			this.description = "Switches the active editing room to one room ID lower.";
+			this.title = "Switch Zone Left";
+			this.description = "Switches the active editing zone to one zone ID lower.";
 		}
 
 		public override void ActivateWorldFuncButton() {

@@ -23,9 +23,6 @@ namespace Nexus.GameEngine {
 			// Get World Path & Retrieve World Data
 			if(!handler.worldContent.LoadWorldData(worldId)) { return false; }
 
-			// Update the World State
-			handler.worldState.FullWorldReset();
-
 			// End Old World Scene
 			Systems.scene.EndScene();
 
@@ -126,9 +123,6 @@ namespace Nexus.GameEngine {
 					}
 				}
 			}
-
-			// Update the World State
-			handler.worldState.FullWorldReset();
 
 			// End Old World Scene
 			Systems.scene.EndScene();

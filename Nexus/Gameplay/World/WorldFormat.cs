@@ -8,17 +8,26 @@ namespace Nexus.Gameplay {
 		[JsonProperty("id")]
 		public string id { get; set; }
 
+		[JsonProperty("account")]
+		public string account { get; set; }
+
+		[JsonProperty("mode")]
+		public byte mode { get; set; }
+
 		[JsonProperty("name")]
 		public string name { get; set; }
 		
 		[JsonProperty("description")]
 		public string description { get; set; }
-		
-		[JsonProperty("username")]
-		public string username { get; set; }
+
+		[JsonProperty("lives")]
+		public short lives { get; set; }
 		
 		[JsonProperty("version")]
 		public short version { get; set; }
+		
+		[JsonProperty("music")]
+		public byte music { get; set; }
 		
 		[JsonProperty("zones")]
 		public WorldZoneFormat[] zones { get; set; }

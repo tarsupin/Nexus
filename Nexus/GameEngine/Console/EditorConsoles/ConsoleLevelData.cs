@@ -51,7 +51,7 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(text.Length > 72) {
-					((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Rename Level", "Level Name must be 72 characters or less.", 240);
+					((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Set Description", "Level description must be 72 characters or less.", 240);
 					return;
 				}
 
@@ -89,10 +89,12 @@ namespace Nexus.GameEngine {
 
 			if(!ConsoleEditData.TrackCategory.ContainsKey(currentIns)) { return; }
 
+			EditorScene scene = (EditorScene)Systems.scene;
+
 			// Remove Music From Level
 			if(currentIns == "none") {
-				((EditorScene)Systems.scene).levelContent.SetMusicTrack(0);
-				((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("Removed Music Track", "", 240);
+				scene.levelContent.SetMusicTrack(0);
+				scene.editorUI.noticeText.SetNotice("Removed Music Track", "", 240);
 				return;
 			}
 
@@ -101,18 +103,22 @@ namespace Nexus.GameEngine {
 			string trackName = ConsoleTrack.GetArgAsString();
 			ConsoleTrack.PrepareTabLookup(trackCat, trackName, "Set a music track for the level.");
 
+			if(MusicAssets.TrackNames.ContainsKey(scene.levelContent.data.music)) {
+				ConsoleTrack.helpText += "Currently: \"" + MusicAssets.TrackNames[scene.levelContent.data.music].Replace("Music/", "") + "\".";
+			}
+
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 
 				if(trackCat.ContainsKey(trackName)) {
 					byte track = (byte) trackCat[trackName];
-					((EditorScene)Systems.scene).levelContent.SetMusicTrack((byte) track);
-					((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
+					scene.levelContent.SetMusicTrack((byte) track);
+					scene.editorUI.noticeText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
 					return;
 				}
 
 				// Prevent Rename if it exceeds name length.
-				((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Set Music Track", "Designated music track doesn't exist.", 240);
+				scene.editorUI.alertText.SetNotice("Unable to Set Music Track", "Designated music track doesn't exist.", 240);
 			}
 		}
 

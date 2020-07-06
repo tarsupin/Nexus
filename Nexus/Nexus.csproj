@@ -233,8 +233,8 @@
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButInfo.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButPlay.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButRedo.cs" />
-    <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButRoomLeft.cs" />
-    <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButRoomRight.cs" />
+    <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButZoneLeft.cs" />
+    <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButZoneRight.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButSave.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButMove.cs" />
     <Compile Include="GameEngine\World\WorldFuncButtons\WEFuncButSettings.cs" />
@@ -642,7 +642,6 @@
     <Compile Include="Gameplay\States\EditorState.cs" />
     <Compile Include="Gameplay\States\LevelState.cs" />
     <Compile Include="Gameplay\GameHandler.cs" />
-    <Compile Include="Gameplay\World\WorldState.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />
     <Compile Include="Gameplay\Maps\GameMapper.cs" />
     <Compile Include="GameEngine\GameObject.cs" />
