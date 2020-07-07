@@ -25,7 +25,13 @@ namespace Nexus.Objects {
 
 			if(dir == DirCardinal.Down) {
 				this.GetJumpedOn(character);
-			} else {
+			}
+
+			else if(character.hat is SpikeyHat && dir == DirCardinal.Up) {
+				this.ReceiveWound();
+			}
+			
+			else {
 				character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			}
 
