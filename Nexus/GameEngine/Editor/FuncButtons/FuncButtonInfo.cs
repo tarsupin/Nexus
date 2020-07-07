@@ -1,4 +1,6 @@
 ﻿
+using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonInfo : FuncButton {
@@ -11,7 +13,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public override void ActivateFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Help");
+			UIHandler.SetMenu(UIHandler.guideMenu, false);
 		}
 	}
 }

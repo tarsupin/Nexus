@@ -7,6 +7,7 @@ namespace Nexus.Engine {
 
 	public static class TextHelper {
 
+		// Multiline Text Helper
 		public static string[] WrapTextSplit(SpriteFont spriteFont, string text, float maxLineWidth) {
 
 			List<string> contents = new List<string>();

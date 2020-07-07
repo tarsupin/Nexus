@@ -130,6 +130,7 @@
     <Compile Include="GameEngine\Scenes\MyLevelsScene.cs" />
     <Compile Include="GameEngine\Scenes\PlanetSelectScene.cs" />
     <Compile Include="GameEngine\UIComponents\ToggleMusic.cs" />
+    <Compile Include="GameEngine\UIMenus\EditorGuideMenu.cs" />
     <Compile Include="GameEngine\UIMenus\LoginMenu.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
     <Compile Include="GameEngine\UIComponents\UIInput.cs" />
