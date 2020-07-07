@@ -203,6 +203,7 @@ namespace Nexus.GameEngine {
 
 			// Update the Campaign's Position
 			this.campaign.SetPosition(gridX, gridY, (byte) this.character.lastDir);
+			this.campaign.SaveCampaign();
 
 			// Check if Node type is Automatic Travel Dot.
 			if(isAutoDot) {

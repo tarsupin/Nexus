@@ -14,6 +14,7 @@ namespace Nexus.Objects {
 
 		public Slammer(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Slammer].meta;
+			this.ProjectileResist = DamageStrength.InstantKill;
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
@@ -63,9 +64,6 @@ namespace Nexus.Objects {
 
 			return Impact.StandardImpact(character, this, dir);
 		}
-
-		// Slammers Ignore Projectiles
-		public override bool RunProjectileImpact(Projectile projectile) { return false; }
 
 		private void AssignSubType( byte subType ) {
 			this.SpriteName = "Slammer/Standard";

@@ -134,9 +134,6 @@ namespace Nexus.Gameplay {
 
 			this.levelStatus[this.zoneId][levelId].won = true;
 
-			// Reposition Character on World
-
-
 			// Save Campaign (to Local Storage)
 			this.SaveCampaign();
 		}

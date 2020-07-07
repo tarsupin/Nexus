@@ -68,6 +68,5 @@ namespace Nexus.Objects {
 				this.SetSpriteName("Goo/Blue/" + (this.FaceRight ? "Right" : "Left") + (this.State == (byte)CommonState.Wait ? "2" : "1"));
 			}
 		}
-
 	}
 }
