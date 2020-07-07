@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 
 		public override void ActivateCannon(RoomScene room, byte subType, short gridX, short gridY, byte cannonSpeed) {
 
-			FVector pos = FVector.Create(gridX * (byte)TilemapEnum.TileWidth, gridY * (byte)TilemapEnum.TileHeight);
+			FVector pos = FVector.Create(gridX * (byte)TilemapEnum.TileWidth + Cannon.xOffset, gridY * (byte)TilemapEnum.TileHeight + Cannon.xOffset);
 			FInt angleSpeed = FInt.Create(cannonSpeed * 0.707);
 
 			// Left

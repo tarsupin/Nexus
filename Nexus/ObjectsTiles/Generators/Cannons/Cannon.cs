@@ -7,6 +7,9 @@ namespace Nexus.Objects {
 
 	public class Cannon : BlockTile {
 
+		public const byte xOffset = 8;
+		public const byte yOffset = 8;
+
 		public Cannon() : base() {
 			this.setupRules = SetupRules.SetupTile;
 			this.collides = true;
