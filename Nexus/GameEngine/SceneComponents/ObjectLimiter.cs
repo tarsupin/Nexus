@@ -39,6 +39,8 @@ namespace Nexus.Engine {
 		public const short MaxEnemiesPerRoom = 350;
 		public const short MaxPlatformsPerRoom = 350;
 
+		public const short MaxCharacters = 16;
+
 		// Static Trackers
 		public static string LastFailMessage = "";
 
@@ -46,15 +48,18 @@ namespace Nexus.Engine {
 		// Item Counts: [0] # of objects total, [1] # of Items, [2] # of Enemies, [3] # of Platforms
 		public Dictionary<byte, short[]> roomObjects;
 		public Dictionary<byte, TileLimits> roomTiles;
+		public short charCount;
 
 		public ObjectLimiter() {
+			this.charCount = 0;
+
 			this.roomObjects = new Dictionary<byte, short[]>() {
-				{  0, new short[4] { 0, 0, 0, 0 } },
-				{  1, new short[4] { 0, 0, 0, 0 } },
-				{  2, new short[4] { 0, 0, 0, 0 } },
-				{  3, new short[4] { 0, 0, 0, 0 } },
-				{  4, new short[4] { 0, 0, 0, 0 } },
-				{  5, new short[4] { 0, 0, 0, 0 } },
+				{  0, new short[4] },
+				{  1, new short[4] },
+				{  2, new short[4] },
+				{  3, new short[4] },
+				{  4, new short[4] },
+				{  5, new short[4] },
 			};
 
 			this.roomTiles = new Dictionary<byte, TileLimits>() {
@@ -281,6 +286,21 @@ namespace Nexus.Engine {
 			string objName = this.GetClassNameFromObjectID(objectID);
 			short[] roomCounter = this.roomObjects[roomID];
 
+			// Character
+			if(objectID == (byte)ObjectEnum.Character) {
+
+				// Can only place Character in the first room.
+				if(roomID != 0) {
+					ObjectLimiter.LastFailMessage = "Characters can only be placed in the first room.";
+					return false;
+				}
+
+				if(this.charCount >= ObjectLimiter.MaxCharacters) {
+					ObjectLimiter.LastFailMessage = "Reached maximum of " + ObjectLimiter.MaxCharacters + " Character Starting Positions.";
+					return false;
+				}
+			}
+
 			// Item Limits
 			if(objName == "Item") {
 
@@ -354,6 +374,11 @@ namespace Nexus.Engine {
 		// Attempt to add an object to the limiter.
 		public bool AddLimitObject(byte roomID, byte objectID, bool bypass = false) {
 			if(!bypass && !this.CanAddLimitObjectToRoom(roomID, objectID)) { return false; }
+			
+			if(objectID == (byte)ObjectEnum.Character) {
+				this.charCount++;
+				return true;
+			}
 
 			string objName = this.GetClassNameFromObjectID(objectID);
 
@@ -377,6 +402,11 @@ namespace Nexus.Engine {
 
 		public void RemoveObject(byte roomID, byte objectID) {
 			if(roomID > 5) { return; }
+
+			if(objectID == (byte)ObjectEnum.Character) {
+				this.charCount--;
+				return;
+			}
 
 			string objName = this.GetClassNameFromObjectID(objectID);
 

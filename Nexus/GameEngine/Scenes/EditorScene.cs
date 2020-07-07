@@ -181,6 +181,12 @@ namespace Nexus.GameEngine {
 			// Cannot swap this room if the room is at the far end.
 			if(this.curRoomID >= 7) { return; }
 
+			// If we're in the first room, make sure there are no characters. Otherwise, disallow swap:
+			if(curRoomID == 0 && this.limiter.charCount > 0) {
+				this.editorUI.alertText.SetNotice("Cannot Swap Room", "Character starting positions must remain in the first room.", 240);
+				return;
+			}
+
 			byte newRoomId = (byte) (this.curRoomID + 1);
 
 			this.PrepareEmptyRoom(newRoomId);
@@ -189,10 +195,6 @@ namespace Nexus.GameEngine {
 			var tempRoomData = Systems.handler.levelContent.data.rooms[newRoomId];
 			Systems.handler.levelContent.data.rooms[newRoomId] = Systems.handler.levelContent.data.rooms[this.curRoomID];
 			Systems.handler.levelContent.data.rooms[this.curRoomID] = tempRoomData;
-
-			var tempRoom = this.rooms[this.curRoomID];
-			this.rooms[this.curRoomID] = this.rooms[newRoomId];
-			this.rooms[newRoomId] = tempRoom;
 
 			this.SwitchRoom(newRoomId);
 		}
