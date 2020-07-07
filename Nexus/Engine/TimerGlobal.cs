@@ -8,7 +8,8 @@ namespace Nexus.Engine {
 
 		public Stopwatch stopwatch;						// A global stopwatch reference.
 
-		public int Frame { get; protected set; }       // The current frame.
+		public int Frame { get; protected set; }        // The current game or scene frame.
+		public int UniFrame { get; protected set; }     // A universal / menu frame. Always ticking, even while paused.
 
 		public byte frame60Modulus;						// Cycles through 60 per second, then loops back to 0.
 		public byte frame16Modulus;						// Cycles through 16 frames, then loops back to 0.
@@ -48,6 +49,8 @@ namespace Nexus.Engine {
 			this.beatModTrack = 0;
 			this.beatFrame = false;
 		}
+
+		public void RunUniTick() { this.UniFrame += 1; }
 
 		public void RunTick() {
 

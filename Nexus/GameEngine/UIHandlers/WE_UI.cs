@@ -62,10 +62,10 @@ namespace Nexus.GameEngine {
 			this.weMenu.Draw();
 
 			// Alert Text
-			this.alertText.Draw(Systems.timer.Frame);
+			this.alertText.DrawAlertFrame();
 
 			if(Cursor.MouseY > 75) {
-				this.noticeText.Draw(Systems.timer.Frame);
+				this.noticeText.DrawAlertFrame();
 			}
 
 			// Coordinate Tracker

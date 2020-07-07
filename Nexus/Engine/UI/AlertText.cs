@@ -35,7 +35,7 @@ namespace Nexus.GameEngine {
 			this.measureText = Systems.fonts.console.font.MeasureString(this.text);
 			
 			if(duration > 0) {
-				this.fadeStart = Systems.timer.Frame + (short)(duration * 0.2);
+				this.fadeStart = Systems.timer.UniFrame + (short)(duration * 0.2);
 				this.fadeEnd = this.fadeStart + duration;
 			} else {
 				this.fadeStart = 0;
@@ -45,21 +45,20 @@ namespace Nexus.GameEngine {
 
 		public void ClearNotice() { this.title = ""; }
 		
-		public void Draw( int frame = 0 ) {
+		public void DrawAlertFrame() {
 
 			// Draw Alert (if applicable)
 			if(this.title.Length == 0) { return; }
 
 			// Fade Mechanic
-			// If we're sending frames to this draw method, it's because it might fade over time. Run a fade test.
-			if(frame > 0 && fadeEnd > 0) {
+			if(this.fadeEnd > 0) {
 
 				// End Draw if frame is after frame end.
-				if(frame > fadeEnd) { return; }
+				if(Systems.timer.UniFrame > this.fadeEnd) { return; }
 
 				// Draw Fade Effect during the fade itself.
-				if(fadeStart < frame) {
-					this.alpha = 1 - Spectrum.GetPercentFromValue(frame, fadeStart, fadeEnd);
+				if(fadeStart < Systems.timer.UniFrame) {
+					this.alpha = 1 - Spectrum.GetPercentFromValue(Systems.timer.UniFrame, this.fadeStart, this.fadeEnd);
 					if(this.alpha < 0) { return; }
 				}
 			}

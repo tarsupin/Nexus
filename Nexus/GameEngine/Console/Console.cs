@@ -49,7 +49,7 @@ namespace Nexus.GameEngine {
 				// After a hard delete (just pressed), wait 10 frames rather than 3.
 				if(input.LocalKeyPressed(Keys.Back)) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
-					this.backspaceFrame = Systems.timer.Frame + 10;
+					this.backspaceFrame = Systems.timer.UniFrame + 10;
 
 					// If held shift or control, remove the full line.
 					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
@@ -57,11 +57,11 @@ namespace Nexus.GameEngine {
 					}
 				}
 
-				else if(this.backspaceFrame < Systems.timer.Frame) {
+				else if(this.backspaceFrame < Systems.timer.UniFrame) {
 					ConsoleTrack.instructionText = ConsoleTrack.instructionText.Substring(0, ConsoleTrack.instructionText.Length - 1);
 
 					// Delete a character every 3 frames.
-					this.backspaceFrame = Systems.timer.Frame + 3;
+					this.backspaceFrame = Systems.timer.UniFrame + 3;
 				}
 			}
 

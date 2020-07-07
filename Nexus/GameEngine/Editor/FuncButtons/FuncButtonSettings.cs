@@ -1,4 +1,5 @@
-﻿
+﻿using Nexus.Engine;
+
 namespace Nexus.GameEngine {
 
 	public class FuncButtonSettings : FuncButton {
@@ -7,11 +8,11 @@ namespace Nexus.GameEngine {
 			this.keyChar = "";
 			this.spriteName = "Icons/Settings";
 			this.title = "Settings";
-			this.description = "No behavior at this time.";
+			this.description = "Opens the level console to edit important settings.";
 		}
 
 		public override void ActivateFuncButton() {
-			System.Console.WriteLine("Activated Function Button: Settings");
+			UIHandler.editorConsole.Open();
 		}
 	}
 }

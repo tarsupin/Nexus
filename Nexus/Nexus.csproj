@@ -104,7 +104,6 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleLevel.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleMacro.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleDebug.cs" />
-    <Compile Include="GameEngine\Console\EditorConsoles\ConsoleTileWand.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleStats.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsolePowers.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleWounds.cs" />

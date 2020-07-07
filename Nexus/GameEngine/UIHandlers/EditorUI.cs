@@ -77,8 +77,8 @@ namespace Nexus.GameEngine {
 			this.actParamMenu.Draw();
 
 			// Alert Text
-			this.alertText.Draw(Systems.timer.Frame);
-			if(Cursor.MouseY > 75) { this.noticeText.Draw(Systems.timer.Frame); }
+			this.alertText.DrawAlertFrame();
+			if(Cursor.MouseY > 75) { this.noticeText.DrawAlertFrame(); }
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw((Cursor.TileGridX + 1) + ", " + (Cursor.TileGridY + 1), 12, 5, Color.White);
