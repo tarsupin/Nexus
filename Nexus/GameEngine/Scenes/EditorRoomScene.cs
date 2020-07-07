@@ -133,16 +133,12 @@ namespace Nexus.GameEngine {
 
 		private void DrawObjectLayer(Dictionary<string, Dictionary<string, ArrayList>> layerData) {
 			Camera cam = Systems.camera;
-			
+
 			short startX = Math.Max((short)0, cam.GridX);
 			short startY = Math.Max((short)0, cam.GridY);
 
-			// Must adjust for the World Gaps (Resistance Barrier)
-			if(startX < (byte)TilemapEnum.GapLeft) { startX = (byte)TilemapEnum.GapLeft; }
-			if(startY < (byte)TilemapEnum.GapUp) { startY = (byte)TilemapEnum.GapUp; }
-
-			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1); // 30 is view size. +1 is to render the edge.
-			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1); // 18 is view size. +1 is to render the edge.
+			short gridX = (short)(startX + (byte)TilemapEnum.MinWidth + 1); // +1 is to render the edge.
+			short gridY = (short)(startY + (byte)TilemapEnum.MinHeight + 1); // +1 is to render the edge.
 
 			if(gridX > this.xCount) { gridX = this.xCount; } // Must limit to room size.
 			if(gridY > this.yCount) { gridY = this.yCount; } // Must limit to room size.
