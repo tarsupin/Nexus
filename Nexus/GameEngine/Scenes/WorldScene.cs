@@ -202,33 +202,33 @@ namespace Nexus.GameEngine {
 			if(!isNode) { throw new Exception("Arrived at a destination that was not indicated as a node. That should not be possible."); }
 
 			// Update the Campaign's Position
-			this.campaign.SetPosition(gridX, gridY, (byte) this.character.lastDir);
+			this.campaign.SetPosition(gridX, gridY, (byte) this.campaign.lastDir);
 			this.campaign.SaveCampaign();
 
 			// Check if Node type is Automatic Travel Dot.
 			if(isAutoDot) {
 
 				// We need to automatically travel. Take the route that wasn't taken last time:
-				DirCardinal lastDir = this.character.lastDir;
+				byte lastDir = this.campaign.lastDir;
 				DirCardinal nextDir = DirCardinal.None;
 
 				// Determine the next intended route:
 				var nodeDirs = NodeData.GetDotDirections(wtData[5]);
 
-				if(nodeDirs.up && lastDir != DirCardinal.Down) { nextDir = DirCardinal.Up; }
-				else if(nodeDirs.down && lastDir != DirCardinal.Up) { nextDir = DirCardinal.Down; }
-				else if(nodeDirs.right && lastDir != DirCardinal.Left) { nextDir = DirCardinal.Right; }
-				else if(nodeDirs.left && lastDir != DirCardinal.Right) { nextDir = DirCardinal.Left; }
+				if(nodeDirs.up && lastDir != (byte) DirCardinal.Down) { nextDir = DirCardinal.Up; }
+				else if(nodeDirs.down && lastDir != (byte) DirCardinal.Up) { nextDir = DirCardinal.Down; }
+				else if(nodeDirs.right && lastDir != (byte) DirCardinal.Left) { nextDir = DirCardinal.Right; }
+				else if(nodeDirs.left && lastDir != (byte) DirCardinal.Right) { nextDir = DirCardinal.Left; }
 
 				// Attempt to travel in that direction:
 				bool success = this.TryTravel(nextDir);
 
 				// If the Auto-Travel fails, we need to return back.
 				if(!success) {
-					if(lastDir == DirCardinal.Left) { this.TryTravel(DirCardinal.Right); }
-					else if(lastDir == DirCardinal.Right) { this.TryTravel(DirCardinal.Left); }
-					else if(lastDir == DirCardinal.Up) { this.TryTravel(DirCardinal.Down); }
-					else if(lastDir == DirCardinal.Down) { this.TryTravel(DirCardinal.Up); }
+					if(lastDir == (byte) DirCardinal.Left) { this.TryTravel(DirCardinal.Right); }
+					else if(lastDir == (byte) DirCardinal.Right) { this.TryTravel(DirCardinal.Left); }
+					else if(lastDir == (byte) DirCardinal.Up) { this.TryTravel(DirCardinal.Down); }
+					else if(lastDir == (byte) DirCardinal.Down) { this.TryTravel(DirCardinal.Up); }
 				}
 
 				return;
@@ -288,11 +288,11 @@ namespace Nexus.GameEngine {
 				if(levelId != "" && !this.campaign.IsLevelWon(this.campaign.zoneId, levelId)) {
 
 					// The level hasn't been completed, so it is restricted in all directions except from where you came.
-					var lastDir = this.character.lastDir;
-					if(lastDir == DirCardinal.Left && dir != DirCardinal.Right) { return false; }
-					if(lastDir == DirCardinal.Right && dir != DirCardinal.Left) { return false; }
-					if(lastDir == DirCardinal.Up && dir != DirCardinal.Down) { return false; }
-					if(lastDir == DirCardinal.Down && dir != DirCardinal.Up) { return false; }
+					var lastDir = this.campaign.lastDir;
+					if(lastDir == (byte) DirCardinal.Left && dir != DirCardinal.Right) { return false; }
+					if(lastDir == (byte) DirCardinal.Right && dir != DirCardinal.Left) { return false; }
+					if(lastDir == (byte) DirCardinal.Up && dir != DirCardinal.Down) { return false; }
+					if(lastDir == (byte) DirCardinal.Down && dir != DirCardinal.Up) { return false; }
 				}
 			}
 
@@ -306,7 +306,8 @@ namespace Nexus.GameEngine {
 			if(connectNode.objectId == 0) { return false; }
 
 			// Perform Movement
-			this.character.TravelPath(connectNode.gridX, connectNode.gridY, dir);
+			this.character.TravelPath(connectNode.gridX, connectNode.gridY);
+			this.campaign.lastDir = (byte) dir;
 
 			return true;
 		}
@@ -317,7 +318,7 @@ namespace Nexus.GameEngine {
 			if(zoneId == this.campaign.zoneId) { return; }
 
 			// Update Campaign Positions
-			this.campaign.lastDir = (byte)DirCardinal.None;
+			this.campaign.lastDir = (byte) DirCardinal.None;
 			this.campaign.curX = gridX;
 			this.campaign.curY = gridY;
 			this.campaign.zoneId = zoneId;

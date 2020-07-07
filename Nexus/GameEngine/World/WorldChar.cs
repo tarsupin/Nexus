@@ -33,7 +33,6 @@ namespace Nexus.GameEngine {
 		public byte curY = 0;
 		private byte willArriveX = 0;
 		private byte willArriveY = 0;
-		public DirCardinal lastDir = DirCardinal.None;
 
 		public WorldChar(WorldScene scene) {
 			this.scene = scene;
@@ -75,12 +74,11 @@ namespace Nexus.GameEngine {
 			this.posY = this.curY * (byte)WorldmapEnum.TileHeight - 20;
 		}
 
-		public void TravelPath( byte toGridX, byte toGridY, DirCardinal dirMoved ) {
+		public void TravelPath( byte toGridX, byte toGridY ) {
 
 			// Assign Travel Data
 			this.willArriveX = toGridX;
 			this.willArriveY = toGridY;
-			this.lastDir = dirMoved;
 			this.startTime = Systems.timer.Frame;
 			this.startX = this.posX;
 			this.startY = this.posY;
