@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using static Nexus.GameEngine.Scene;
 
 namespace Nexus.GameEngine {
 
@@ -24,6 +23,18 @@ namespace Nexus.GameEngine {
 
 				byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
 
+				// If the wand clicked on a warp, then we can attempt to assign a warp link ID.
+				if(NodeData.IsObjectAWarp(wtData[5])) {
+					UIHandler.SetMenu(UIHandler.worldEditConsole, true);
+					UIHandler.worldEditConsole.Open();
+					UIHandler.worldEditConsole.SendCommand("setWarp " + gridX.ToString() + " " + gridY.ToString() + " ", false);
+					ChatConsole.SendMessage("--------------------", Color.White);
+					ChatConsole.SendMessage("Assign a Link ID to this Warp Node. Must be a number between 1 and 20. Warps that share the same ID will link to each other. ", Color.Red);
+					ChatConsole.SendMessage("--------------------", Color.White);
+					ChatConsole.SendMessage("Example: setWarp " + gridX.ToString() + " " + gridY.ToString() + " 1", Color.Green);
+					ChatConsole.SendMessage("--------------------", Color.White);
+				}
+
 				// If the wand clicked on a node, then we can attempt to assign a level.
 				if(NodeData.IsObjectANode(wtData[5], false, false, true)) {
 					UIHandler.SetMenu(UIHandler.worldEditConsole, true);
@@ -42,10 +53,5 @@ namespace Nexus.GameEngine {
 				scene.CloneTile((byte) Cursor.MiniGridX, (byte) Cursor.MiniGridY);
 			}
 		}
-	}
-
-	// Stores data related to a selected object and the wand param menu currently open.
-	public static class WorldWandData {
-
 	}
 }

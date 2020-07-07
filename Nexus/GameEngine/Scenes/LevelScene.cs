@@ -4,7 +4,6 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
-using System;
 using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
@@ -17,8 +16,12 @@ namespace Nexus.GameEngine {
 
 		// Trackers
 		public int levelResetFrame = 0;
+		public bool isSinglePlayer;
 
 		public LevelScene() : base() {
+
+			// Defaults
+			this.isSinglePlayer = true;
 
 			// UI State
 			UIHandler.SetUIOptions(false, false);
@@ -34,6 +37,9 @@ namespace Nexus.GameEngine {
 				this.rooms[roomID] = new RoomScene(this, roomID);
 			}
 
+			// If we're on single player, 
+			Systems.localServer.ResetPlayers();
+
 			// Restart the level, generate all rooms.
 			this.RestartLevel(true);
 
@@ -42,7 +48,9 @@ namespace Nexus.GameEngine {
 		}
 
 		protected virtual void LoadMyPlayer() {
-			Systems.localServer.ResetPlayers();
+
+			// If we're on single player, 
+			Systems.localServer.ResetPlayersSoft();
 
 			// Assign All Characters according to the match rules:
 			foreach(var character in this.rooms[0].objects[(byte)LoadOrder.Character]) {

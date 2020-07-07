@@ -5,7 +5,11 @@ namespace Nexus.GameEngine {
 
 	public class ArenaScene : LevelScene {
 
-		public ArenaScene() : base() {}
+		public ArenaScene() : base() {
+		
+			// Defaults
+			this.isSinglePlayer = false;
+		}
 
 		protected override void LoadMyPlayer() {
 			base.LoadMyPlayer();

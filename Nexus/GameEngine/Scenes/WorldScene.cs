@@ -101,12 +101,6 @@ namespace Nexus.GameEngine {
 				this.WorldObjects.Add(entry.Key, (string)entry.Value.Clone());
 			}
 
-			// Update Values that must be changed from the original Mapper version:
-
-			// Nodes
-			//this.WorldObjects[(byte)OTerrainObjects.NodePoint] = "NodePoint";
-			//this.WorldObjects[(byte)OTerrainObjects.NodeMove] = "NodeMove";
-
 			// Dots
 			this.WorldObjects[(byte)OTerrainObjects.Dot_All] = "NodePoint";
 			this.WorldObjects[(byte)OTerrainObjects.Dot_ULR] = "NodePoint";
@@ -146,7 +140,12 @@ namespace Nexus.GameEngine {
 			// Play UI is active:
 
 			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
+			InputClient input = Systems.input;
+
+			// Open Menu
+			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				UIHandler.SetMenu(UIHandler.mainMenu, true);
+			}
 
 			// Open Console (Tilde)
 			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
@@ -168,22 +167,13 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunInputCheck() {
-			InputClient input = Systems.input;
 
 			// Get the Local Keys Held Down
 			//Keys[] localKeys = input.GetAllLocalKeysDown();
 			//if(localKeys.Length == 0) { return; }
 
-			// Menu-Specific Key Presses
-			// if(this.game.menu.isOpen) { return this.game.menu.onKeyDown( key, iKeyPressed ); }
-
-			// Open Menu
-			if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
-				// TODO: Open a context menu here.
-			}
-
 			// Movement
-			else if(playerInput.isDown(IKey.Up)) { this.TryTravel(DirCardinal.Up); }
+			if(playerInput.isDown(IKey.Up)) { this.TryTravel(DirCardinal.Up); }
 			else if(playerInput.isDown(IKey.Down)) { this.TryTravel(DirCardinal.Down); }
 			else if(playerInput.isDown(IKey.Left)) { this.TryTravel(DirCardinal.Left); }
 			else if(playerInput.isDown(IKey.Right)) { this.TryTravel(DirCardinal.Right); }
@@ -238,24 +228,36 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			// Check for Auto-Warps
+			bool isWarp = NodeData.IsObjectAWarp(wtData[5]);
+
+			// Check for Auto-Warps (to new World Zones)
+			if(isWarp) {
+				string curStr = Coords.MapToInt(gridX, gridY).ToString();
+
+				// Scan for any warp that has the same warp link:
+				for(byte zoneID = 0; zoneID < this.worldData.zones.Count; zoneID++) {
+					WorldZoneFormat zone = this.worldData.zones[zoneID];
+					var nodes = zone.nodes;
+
+					foreach(var node in nodes) {
 
 
-			//// AUTO-TRAVEL : Attempt to automatically determine a direction when one is not provided.
-			//if(dir == DirCardinal.None) {
+						// TODO: THE CURSTR AND grid.x == gridX && grid.y == gridY could be messing this up.
+							// ALSO CHECK ZONE ID AND SUCH... ???
 
-			//	// Check for Auto-Warps (to new World Zones)
-			//	if(curNode.type >= NodeType.Warp && curNode.warp > 0) {
+						// If we have a warp that matches the current warp link ID:
+						if(node.Value == curStr) {
+							var grid = Coords.GetFromInt(int.Parse(node.Key));
 
-			//		// If we're supposed to leave the warp (after an arrival)
-			//		if(!leaveSpot) {
-			//			dir = this.GetAutoDir(curNode, 0);
-			//		} else {
-			//			this.ActivateWarp(curNode.zone, curNode.warp);
-			//			return;
-			//		}
-			//	}
+							// Make sure the warp we found isn't referencing itself:
+							if(grid.x == gridX && grid.y == gridY) { continue; }
 
+							// We located a separate node to link to:
+							this.ActivateWarp(zoneID, (byte) grid.x, (byte) grid.y);
+						}
+					}
+				}
+			}
 		}
 
 		public bool TryTravel( DirCardinal dir = DirCardinal.None) {
@@ -306,14 +308,19 @@ namespace Nexus.GameEngine {
 			return true;
 		}
 
-		public void ActivateWarp( byte zoneId, short warpId ) {
+		public void ActivateWarp( byte zoneId, byte gridX, byte gridY ) {
 
 			// Ignore the warp if it goes to its own zone.
 			if(zoneId == this.campaign.zoneId) { return; }
 
-			// TODO: FINISH
-			// Find the warp in the designated zone:
-			//short nodeId = this.zones.();
+			// Update Campaign Positions
+			this.campaign.lastDir = (byte)DirCardinal.None;
+			this.campaign.curX = gridX;
+			this.campaign.curY = gridY;
+			this.campaign.zoneId = zoneId;
+
+			// Update Character
+			this.character.SetCharacter(campaign);
 		}
 
 		public bool ActivateNode() {

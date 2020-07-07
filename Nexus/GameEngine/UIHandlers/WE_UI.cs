@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 		private readonly GridOverlay gridUI;
 		private readonly WEUtilityBar utilityBar;
 		private readonly WEScroller scroller;
+		public readonly AlertText noticeText;
 		public readonly AlertText alertText;
 		public readonly WEMenu weMenu;
 
@@ -24,10 +25,14 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
-			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.alertText.SetColors(Color.White, Color.DarkSlateBlue);
 			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
+
+			// Notice + Alert Text
+			this.noticeText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.noticeText.SetColors(Color.White, Color.DarkSlateBlue);
+			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
+			this.alertText.SetColors(Color.White, Color.Red);
 
 			// Tab Menu - WorldTileTool Listings
 			this.weMenu = new WEMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f), 4, 2);
@@ -57,8 +62,10 @@ namespace Nexus.GameEngine {
 			this.weMenu.Draw();
 
 			// Alert Text
+			this.alertText.Draw(Systems.timer.Frame);
+
 			if(Cursor.MouseY > 75) {
-				this.alertText.Draw(Systems.timer.Frame);
+				this.noticeText.Draw(Systems.timer.Frame);
 			}
 
 			// Coordinate Tracker

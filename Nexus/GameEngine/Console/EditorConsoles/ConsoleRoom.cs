@@ -25,7 +25,8 @@ namespace Nexus.GameEngine {
 		};
 
 		public static void ResizeWidth() {
-			int currentWidth = ((EditorRoomScene)Systems.scene).xCount;
+			EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
+			int currentWidth = scene.xCount;
 			ConsoleTrack.possibleTabs = "Example: `resize hor 250`";
 			ConsoleTrack.helpText = "Resize the level's width between " + (byte)TilemapEnum.MinWidth + " and " + (short)TilemapEnum.MaxTilesWide + ". Currently at " + currentWidth + ".";
 
@@ -36,13 +37,13 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.activate) {
 				if(getWidth < (byte)TilemapEnum.MinWidth) { getWidth = (byte)TilemapEnum.MinWidth; }
 				if(getWidth > (short)TilemapEnum.MaxTilesWide) { getWidth = (short)TilemapEnum.MaxTilesWide; }
-				EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
 				scene.ResizeWidth((short) getWidth);
 			}
 		}
 		
 		public static void ResizeHeight() {
-			int currentHeight = ((EditorRoomScene)Systems.scene).yCount;
+			EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
+			int currentHeight = scene.yCount;
 			ConsoleTrack.possibleTabs = "Example: `resize vert 180`";
 			ConsoleTrack.helpText = "Resize the level's height between " + (byte)TilemapEnum.MinHeight + " and " + (short)TilemapEnum.MaxTilesHigh + ". Currently at " + currentHeight + ".";
 
@@ -53,7 +54,6 @@ namespace Nexus.GameEngine {
 			if(ConsoleTrack.activate) {
 				if(getHeight < (byte)TilemapEnum.MinHeight) { getHeight = (byte)TilemapEnum.MinHeight; }
 				if(getHeight > (short)TilemapEnum.MaxTilesHigh) { getHeight = (short)TilemapEnum.MaxTilesHigh; }
-				EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
 				scene.ResizeHeight((short)getHeight);
 			}
 		}

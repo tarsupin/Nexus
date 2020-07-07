@@ -40,6 +40,10 @@ namespace Nexus.GameEngine {
 				else if(currentIns == "height" && curVal >= (byte)WorldmapEnum.MinHeight && curVal <= (byte)WorldmapEnum.MaxHeight) {
 					scene.ResizeHeight((byte)curVal);
 				}
+				
+				else {
+					scene.weUI.alertText.SetNotice("Resize Not Allowed", "Resize must be within the allowed range.", 240);
+				}
 			}
 		}
 
@@ -90,7 +94,7 @@ namespace Nexus.GameEngine {
 				}
 
 				scene.worldContent.data.lives = lives;
-				scene.weUI.alertText.SetNotice("Set World Lives", "Set to \"" + lives + "\" lives.", 240);
+				scene.weUI.noticeText.SetNotice("Set World Lives", "Set to \"" + lives + "\" lives.", 240);
 			}
 		}
 
@@ -117,7 +121,7 @@ namespace Nexus.GameEngine {
 				}
 
 				scene.worldContent.data.name = text;
-				scene.weUI.alertText.SetNotice("New World Title", "Title Set: \"" + text + "\"", 240);
+				scene.weUI.noticeText.SetNotice("New World Title", "Title Set: \"" + text + "\"", 240);
 			}
 		}
 
@@ -144,7 +148,7 @@ namespace Nexus.GameEngine {
 				}
 
 				scene.worldContent.data.description = text;
-				scene.weUI.alertText.SetNotice("New World Description", "Description Set: \"" + text + "\"", 240);
+				scene.weUI.noticeText.SetNotice("New World Description", "Description Set: \"" + text + "\"", 240);
 			}
 		}
 
@@ -179,7 +183,7 @@ namespace Nexus.GameEngine {
 				if(trackCat.ContainsKey(trackName)) {
 					byte track = (byte)trackCat[trackName];
 					scene.worldContent.data.music = (byte)track;
-					scene.weUI.alertText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
+					scene.weUI.noticeText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
 					return;
 				}
 
@@ -236,6 +240,67 @@ namespace Nexus.GameEngine {
 			// If gridX has not been assigned:
 			else {
 				ConsoleTrack.helpText = "Assign a level ID to a node at the specified X, Y coordinate. Enter the X position.";
+			}
+		}
+
+		public static void SetWarp() {
+			byte gridX = (byte) ConsoleTrack.GetArgAsInt();
+			ConsoleTrack.possibleTabs = "Example: setWarp 10 10 1";
+
+			// If gridX is assigned:
+			if(ConsoleTrack.instructionList.Count >= 2) {
+				byte gridY = (byte)ConsoleTrack.GetArgAsInt();
+
+				// If gridY is assigned:
+				if(ConsoleTrack.instructionList.Count >= 3) {
+
+					// Check if this X, Y grid is a valid warp.
+					WEScene scene = (WEScene) Systems.scene;
+					WorldZoneFormat zone = scene.currentZone;
+					byte[] wtData = scene.worldContent.GetWorldTileData(zone, gridX, gridY);
+
+					// If the location is a valid node, we can attempt to add a level ID.
+					if(NodeData.IsObjectAWarp(wtData[5])) {
+						string coordStr = Coords.MapToInt(gridX, gridY).ToString();
+						byte linkID = (byte) ConsoleTrack.GetArgAsInt();
+						ConsoleTrack.helpText = "Assign a warp link ID (1-20). Teleports to a warp with the same warp link ID.";
+
+						if(zone.nodes.ContainsKey(coordStr)) {
+							byte getLinkId;
+							byte.TryParse(zone.nodes[coordStr].Replace("_warp", ""), out getLinkId);
+							ConsoleTrack.helpText += " Currently: " + getLinkId;
+						}
+
+						// If the console was activated:
+						if(ConsoleTrack.activate) {
+
+							// Error if the values aren't allowed:
+							if(linkID < 1 || linkID > 20) {
+								scene.weUI.alertText.SetNotice("Invalid Warp Link", "Warp Link ID must be set between 1 and 20.", 240);
+								return;
+							}
+
+							scene.weUI.noticeText.SetNotice("Warp Set", "Warp Link ID assigned as " + linkID.ToString() + ".", 240);
+							zone.nodes[coordStr] = "_warp" + linkID.ToString();
+							return;
+						}
+					}
+
+					// If the location is invalid:
+					else {
+						ConsoleTrack.helpText = "WARNING! There is not a warp at " + gridX.ToString() + ", " + gridY.ToString();
+					}
+				}
+
+				// If gridY has not been assigned:
+				else {
+					ConsoleTrack.helpText = "Assign a link ID to a warp at the specified X, Y coordinate. Enter the Y position.";
+				}
+			}
+			
+			// If gridX has not been assigned:
+			else {
+				ConsoleTrack.helpText = "Assign a link ID to a warp at the specified X, Y coordinate. Enter the X position.";
 			}
 		}
 	}

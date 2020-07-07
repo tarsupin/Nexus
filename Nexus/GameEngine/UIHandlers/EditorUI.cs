@@ -24,12 +24,13 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight);
-			this.noticeText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
 
 			// Alert Texts
+			this.noticeText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.noticeText.SetColors(Color.White, Color.DarkSlateBlue);
+			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
 			this.alertText.SetColors(Color.White, Color.Red);
 
 			// Tab Menu - TileTool Listings

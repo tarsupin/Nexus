@@ -119,30 +119,35 @@ namespace Nexus.Engine {
 				if(subType == (byte)DoorSubType.Blue) {
 					if(tileLimits.DoorBlue < 2) { tileLimits.DoorBlue++; return true; }
 					ObjectLimiter.LastFailMessage = "Have reached the limit of Blue Doors for this room (2).";
+					return false;
 				}
 
 				// Red Doors
 				else if(subType == (byte)DoorSubType.Red) {
 					if(tileLimits.DoorRed < 2) { tileLimits.DoorRed++; return true; }
 					ObjectLimiter.LastFailMessage = "Have reached the limit of Red Doors for this room (2).";
+					return false;
 				}
 
 				// Green Doors
 				else if(subType == (byte)DoorSubType.Green) {
 					if(tileLimits.DoorGreen < 2) { tileLimits.DoorGreen++; return true; }
 					ObjectLimiter.LastFailMessage = "Have reached the limit of Green Doors for this room (2).";
+					return false;
 				}
 
 				// Yellow Doors
 				else if(subType == (byte)DoorSubType.Yellow) {
 					if(tileLimits.DoorYellow < 2) { tileLimits.DoorYellow++; return true; }
 					ObjectLimiter.LastFailMessage = "Have reached the limit of Yellow Doors for this room (2).";
+					return false;
 				}
 
 				// Open Doors
 				else if(subType == (byte)DoorSubType.Open) {
 					if(tileLimits.DoorOpen < 1) { tileLimits.DoorOpen++; return true; }
 					ObjectLimiter.LastFailMessage = "Have reached the limit of Open Doors for this room (1).";
+					return false;
 				}
 			}
 
@@ -150,33 +155,38 @@ namespace Nexus.Engine {
 			else if(tileID == (byte)TileEnum.CannonDiagonal || tileID == (byte)TileEnum.CannonHorizontal || tileID == (byte)TileEnum.CannonVertical || tileID == (byte)TileEnum.Placer || tileID == (byte)TileEnum.ChomperFire) {
 				if(tileLimits.Generators < 80) { tileLimits.Generators++; return true; }
 				ObjectLimiter.LastFailMessage = "Have reached the limit of Object Generation Tiles for this room (80).";
+				return false;
 			}
 
 			// Checkpoints (Red)
 			else if(tileID == (byte)TileEnum.CheckFlagCheckpoint) {
 				if(tileLimits.CheckpointRed < 3) { tileLimits.CheckpointRed++; return true; }
 				ObjectLimiter.LastFailMessage = "Have reached the limit of Red Checkpoints for this room (3).";
+				return false;
 			}
 
 			// Checkpoints (White, Pass)
 			else if(tileID == (byte)TileEnum.CheckFlagPass) {
 				if(tileLimits.CheckpointPass < 3) { tileLimits.CheckpointPass++; return true; }
 				ObjectLimiter.LastFailMessage = "Have reached the limit of White Checkpoints for this room (3).";
+				return false;
 			}
 
 			// Checkpoints (Blue, Retry)
 			else if(tileID == (byte)TileEnum.CheckFlagRetry) {
 				if(tileLimits.CheckpointRetry < 3) { tileLimits.CheckpointRetry++; return true; }
 				ObjectLimiter.LastFailMessage = "Have reached the limit of Retry Flags for this room (3).";
+				return false;
 			}
 
 			// Checkpoints (Finish)
 			else if(tileID == (byte)TileEnum.CheckFlagFinish) {
 				if(tileLimits.CheckpointFinish < 3) { tileLimits.CheckpointFinish++; return true; }
 				ObjectLimiter.LastFailMessage = "Have reached the limit of Finish Flags for this room (3).";
+				return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		public bool RemoveLimitTile(byte roomID, byte tileID, byte subType) {
@@ -189,55 +199,65 @@ namespace Nexus.Engine {
 				// Blue Doors
 				if(subType == (byte)DoorSubType.Blue) {
 					if(tileLimits.DoorBlue > 0) { tileLimits.DoorBlue--; return true; }
+					return false;
 				}
 
 				// Red Doors
 				else if(subType == (byte)DoorSubType.Red) {
 					if(tileLimits.DoorRed > 0) { tileLimits.DoorRed--; return true; }
+					return false;
 				}
 
 				// Green Doors
 				else if(subType == (byte)DoorSubType.Green) {
 					if(tileLimits.DoorGreen > 0) { tileLimits.DoorGreen--; return true; }
+					return false;
 				}
 
 				// Yellow Doors
 				else if(subType == (byte)DoorSubType.Yellow) {
 					if(tileLimits.DoorYellow > 0) { tileLimits.DoorYellow--; return true; }
+					return false;
 				}
 
 				// Open Doors
 				else if(subType == (byte)DoorSubType.Open) {
 					if(tileLimits.DoorOpen > 0) { tileLimits.DoorOpen--; return true; }
+					return false;
 				}
 			}
 
 			// Object Generation Tiles (Cannons, Placers, Fire Chompers)
 			else if(tileID == (byte)TileEnum.CannonDiagonal || tileID == (byte)TileEnum.CannonHorizontal || tileID == (byte)TileEnum.CannonVertical || tileID == (byte)TileEnum.Placer || tileID == (byte)TileEnum.ChomperFire) {
 				if(tileLimits.Generators > 0) { tileLimits.Generators--; return true; }
+				return false;
 			}
 
 			// Checkpoints (Red)
 			else if(tileID == (byte)TileEnum.CheckFlagCheckpoint) {
 				if(tileLimits.CheckpointRed > 0) { tileLimits.CheckpointRed--; return true; }
+				return false;
 			}
 
 			// Checkpoints (White, Pass)
 			else if(tileID == (byte)TileEnum.CheckFlagPass) {
 				if(tileLimits.CheckpointPass > 0) { tileLimits.CheckpointPass--; return true; }
+				return false;
 			}
 
 			// Checkpoints (Blue, Retry)
 			else if(tileID == (byte)TileEnum.CheckFlagRetry) {
 				if(tileLimits.CheckpointRetry > 0) { tileLimits.CheckpointRetry--; return true; }
+				return false;
 			}
 
 			// Checkpoints (Finish)
 			else if(tileID == (byte)TileEnum.CheckFlagFinish) {
 				if(tileLimits.CheckpointFinish > 0) { tileLimits.CheckpointFinish--; return true; }
+				return false;
 			}
 
-			return false;
+			return true;
 		}
 
 		private string GetClassNameFromObjectID(byte objectID) {

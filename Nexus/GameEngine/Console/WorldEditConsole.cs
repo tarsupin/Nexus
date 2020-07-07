@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 			this.consoleDict = new Dictionary<string, Action>() {
 				{ "resize", ConsoleWorldMap.ResizeMap },
 				{ "setlevel", ConsoleWorldMap.SetLevel },
+				{ "setwarp", ConsoleWorldMap.SetWarp },
 				
 				// Set World Data
 				{ "name", ConsoleWorldMap.SetName },

@@ -53,6 +53,15 @@ namespace Nexus.GameEngine {
 			this.MyPlayerId = 1;
 		}
 
+		// Doesn't rebuild the players; maintains the PlayerInput.
+		// Doing this (instead of ResetPlayers) will avoid a bug where you lose control of the input on reset.
+		public void ResetPlayersSoft() {
+			foreach(var player in this.players) {
+				player.Value.character = null;
+			}
+			this.MyPlayerId = 1;
+		}
+
 		/**********************
 		****** Game Data ******
 		***********************/

@@ -77,6 +77,10 @@ namespace Nexus.GameEngine {
 			return false;
 		}
 
+		public static bool IsObjectAWarp(byte objectId) {
+			return objectId == (byte)OTerrainObjects.NodeWarp;
+		}
+
 		public static bool IsObjectABlockingNode( byte objectId ) {
 			return objectId == (byte)OTerrainObjects.NodeStrict || objectId == (byte)OTerrainObjects.NodeCasual;
 		}

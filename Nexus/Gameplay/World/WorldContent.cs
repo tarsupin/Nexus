@@ -84,7 +84,7 @@ namespace Nexus.Gameplay {
 			};
 
 			zone.tiles[0] = new byte[1][];
-			zone.tiles[0][0] = new byte[7] { 20, 0, 0, 0, 0, 0, 0 };
+			zone.tiles[0][0] = new byte[6] { 20, 0, 0, 0, 0, 0 };
 
 			return zone;
 		}

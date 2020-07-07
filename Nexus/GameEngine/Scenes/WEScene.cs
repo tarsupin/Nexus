@@ -334,9 +334,22 @@ namespace Nexus.GameEngine {
 				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
-					this.weUI.alertText.SetNotice("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetNotice("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
 				} else {
-					this.weUI.alertText.SetNotice("No Level Assigned", gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetNotice("No Level Assigned", gridX + ", " + gridY, 120);
+				}
+			}
+
+			// If the Current Tile is a Warp:
+			else if(NodeData.IsObjectAWarp(wtData[5])) {
+				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
+
+				if(this.currentZone.nodes.ContainsKey(coordStr)) {
+					byte getLinkId;
+					byte.TryParse(this.currentZone.nodes[coordStr].Replace("_warp", ""), out getLinkId);
+					this.weUI.noticeText.SetNotice("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
+				} else {
+					this.weUI.noticeText.SetNotice("No Warp Link", gridX + ", " + gridY, 120);
 				}
 			}
 		}
@@ -398,12 +411,14 @@ namespace Nexus.GameEngine {
 			this.xCount = this.worldContent.SetZoneWidth(this.currentZone, newWidth);
 			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
 			Systems.camera.UpdateScene(this);
+			this.weUI.noticeText.SetNotice("Resized Width", "New zone width is " + this.xCount + ".", 240);
 		}
 
 		public void ResizeHeight(byte newHeight = 0) {
 			this.yCount = this.worldContent.SetZoneHeight(this.currentZone, newHeight);
 			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
 			Systems.camera.UpdateScene(this);
+			this.weUI.noticeText.SetNotice("Resized Height", "New zone height is " + this.yCount + ".", 240);
 		}
 
 		// Place World Tile
