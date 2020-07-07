@@ -39,9 +39,9 @@ namespace Nexus.Gameplay {
 			else {
 
 				// Assign Generic Settings
-				this.MasterValue = 50;
-				this.SoundValue = 50;
-				this.MusicValue = 50;
+				this.MasterValue = 80;
+				this.SoundValue = 100;
+				this.MusicValue = 40;
 				this.Mute = false;
 				this.MusicMute = false;
 

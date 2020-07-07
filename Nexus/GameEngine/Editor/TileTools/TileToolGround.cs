@@ -285,27 +285,27 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.S,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.H1,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.H2,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.H3,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.V1,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeDecor,
@@ -320,17 +320,17 @@ namespace Nexus.GameEngine {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.FUL,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.FU,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeGrass,
 					subType = (byte) GroundSubTypes.FUR,
-					layerEnum = LayerEnum.bg,
+					layerEnum = LayerEnum.main,
 				},
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.LedgeDecor,
