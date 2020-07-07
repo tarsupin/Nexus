@@ -70,6 +70,17 @@ namespace Nexus.GameEngine {
 				throw new Exception("Unable to load world. No world data available.");
 			}
 
+			this.ResetZone();
+
+			// Reset Timer
+			Systems.timer.ResetTimer();
+
+			// Play or Stop Music
+			Systems.music.Play(this.worldData.music);
+		}
+
+		private void ResetZone() {
+
 			// Update Grid Limits
 			this.xCount = this.worldContent.GetWidthOfZone(this.currentZone);
 			this.yCount = this.worldContent.GetHeightOfZone(this.currentZone);
@@ -79,12 +90,6 @@ namespace Nexus.GameEngine {
 
 			// Update Character
 			this.character.SetCharacter(this.campaign);
-
-			// Reset Timer
-			Systems.timer.ResetTimer();
-
-			// Play or Stop Music
-			Systems.music.Play(this.worldData.music);
 		}
 
 		public override void EndScene() {
@@ -233,6 +238,7 @@ namespace Nexus.GameEngine {
 			// Check for Auto-Warps (to new World Zones)
 			if(isWarp) {
 				string curStr = Coords.MapToInt(gridX, gridY).ToString();
+				string origNodeVal = this.currentZone.nodes[curStr];
 
 				// Scan for any warp that has the same warp link:
 				for(byte zoneID = 0; zoneID < this.worldData.zones.Count; zoneID++) {
@@ -241,12 +247,8 @@ namespace Nexus.GameEngine {
 
 					foreach(var node in nodes) {
 
-
-						// TODO: THE CURSTR AND grid.x == gridX && grid.y == gridY could be messing this up.
-							// ALSO CHECK ZONE ID AND SUCH... ???
-
 						// If we have a warp that matches the current warp link ID:
-						if(node.Value == curStr) {
+						if(node.Value == origNodeVal) {
 							var grid = Coords.GetFromInt(int.Parse(node.Key));
 
 							// Make sure the warp we found isn't referencing itself:
@@ -319,8 +321,7 @@ namespace Nexus.GameEngine {
 			this.campaign.curY = gridY;
 			this.campaign.zoneId = zoneId;
 
-			// Update Character
-			this.character.SetCharacter(campaign);
+			this.ResetZone();
 		}
 
 		public bool ActivateNode() {
