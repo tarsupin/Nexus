@@ -136,6 +136,17 @@ namespace Nexus.GameEngine {
 			foreach(var obj in objectGroup) {
 				Character character = (Character)obj.Value;
 
+				// If the character is frozen from a reset, prevent them from running any actions.
+				if(character.frozenFrame >= Systems.timer.Frame) {
+
+					// If we're on the release frame, provide a sound:
+					if(character.frozenFrame == Systems.timer.Frame) {
+						character.room.PlaySound(Systems.sounds.pop, 0.7f, Systems.camera.posX + Systems.camera.halfWidth, Systems.camera.posY + Systems.camera.halfHeight);
+					}
+
+					continue;
+				}
+
 				character.RunTick();
 
 				CollideTile.RunTileCollision(character);

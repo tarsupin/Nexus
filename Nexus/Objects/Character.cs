@@ -33,6 +33,7 @@ namespace Nexus.Objects {
 
 		// Survival
 		public int deathFrame = 0;      // The frame that the character died.
+		public int frozenFrame = 0;		// The frame that the character is frozen until (after resets, etc).
 
 		public Character(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 			this.Meta = Systems.mapper.ObjectMetaData[(byte)ObjectEnum.Character].meta;
@@ -47,7 +48,7 @@ namespace Nexus.Objects {
 			// Default Stats & Statuses
 			this.stats = new CharacterStats(this);
 			this.status = new CharacterStatus();
-			this.wounds = new CharacterWounds(this, Systems.timer);
+			this.wounds = new CharacterWounds(this);
 
 			// Attachments
 			this.trailKeys = new TrailingKeys(this);

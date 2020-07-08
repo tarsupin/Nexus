@@ -9,7 +9,6 @@ namespace Nexus.ObjectComponents {
 
 		// References
 		private readonly Character character;
-		private readonly TimerGlobal timer;
 
 		// Wound Settings
 		public byte InvincibleDuration;     // The # of ticks after getting damaged the character is invicible.
@@ -23,9 +22,8 @@ namespace Nexus.ObjectComponents {
 		public byte Armor { get; protected set; }	// Each health soaks one damage, only after equipment is lost.
 		public byte Health { get; protected set; }	// Each armor soaks one damage, prior to equipment loss (thus preventing Suit and Hat loss).
 
-		public CharacterWounds(Character character, TimerGlobal timer) {
+		public CharacterWounds(Character character) {
 			this.character = character;
-			this.timer = timer;
 			this.ResetWoundSettings();
 		}
 
@@ -33,7 +31,7 @@ namespace Nexus.ObjectComponents {
 		public bool HasMaxArmor { get { return this.Armor == this.ArmorMaximum; } }
 
 		public bool IsInvincible {
-			get { return this.Invincible >= this.timer.Frame; }
+			get { return this.Invincible >= Systems.timer.Frame; }
 		}
 
 		public void ResetWoundSettings() {
@@ -45,7 +43,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void WoundsDeathReset() {
-			this.Invincible = this.timer.Frame + this.InvincibleDuration;
+			this.Invincible = Systems.timer.Frame + this.InvincibleDuration;
 			this.Armor = ArmorAfterDeath;
 			this.Health = HealthAfterDeath;
 		}
@@ -73,7 +71,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void SetInvincible( int duration ) {
-			this.Invincible = this.timer.Frame + duration;
+			this.Invincible = Systems.timer.Frame + duration;
 		}
 
 		public bool ReceiveWoundDamage( DamageStrength damageStrength, bool forceDmg = false ) {

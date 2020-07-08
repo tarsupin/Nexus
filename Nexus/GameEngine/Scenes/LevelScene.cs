@@ -304,6 +304,9 @@ namespace Nexus.GameEngine {
 				levelState.checkpoint.active = false;
 				ActionMap.Transport.StartAction(Systems.localServer.MyCharacter, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
 			}
+
+			// Freeze Character for brief moment:
+			Systems.localServer.MyCharacter.frozenFrame = Systems.timer.Frame + 25;
 		}
 
 		public virtual void EndLevel() {

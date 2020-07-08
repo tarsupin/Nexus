@@ -22,7 +22,7 @@ namespace Nexus.GameEngine {
 			particle.alphaEnd = alphaDecay;
 			particle.frameEnd = frameEnd;
 			room.particleHandler.AddParticle(particle);
-
+			 
 			// Draw Head
 			StayFadeParticle headPart = StayFadeParticle.stayPool.GetObject();
 			headPart.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Objects];

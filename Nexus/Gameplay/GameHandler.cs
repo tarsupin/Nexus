@@ -14,7 +14,6 @@ namespace Nexus.Gameplay {
 
 		// Game State Classes
 		public readonly CampaignState campaignState;
-		public readonly EditorState editorState;
 		public readonly LevelState levelState;
 		public readonly PlaylistState playlistState;
 
