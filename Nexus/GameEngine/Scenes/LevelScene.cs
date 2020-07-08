@@ -21,6 +21,7 @@ namespace Nexus.GameEngine {
 		public LevelScene() : base() {
 
 			// Defaults
+
 			this.isSinglePlayer = true;
 
 			// UI State
@@ -135,6 +136,11 @@ namespace Nexus.GameEngine {
 
 			// Run Each Room in Level
 			this.RunRoomLoop();
+
+			// If the time runs out:
+			if(Systems.handler.levelState.FramesRemaining <= 0) {
+				Systems.localServer.MyCharacter.wounds.ReceiveWoundDamage(DamageStrength.InstantKill, true);
+			}
 		}
 
 		protected virtual void RunRoomLoop() {
