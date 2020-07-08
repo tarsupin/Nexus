@@ -153,13 +153,13 @@ namespace Nexus.ObjectComponents {
 		// --- Return TRUE if crossed a threshold. Used for checking if a new grid square was entered. --- //
 		public bool CrossedThresholdUp(int posY) { int top = this.actor.posY + this.actor.bounds.Top; return top <= posY && top - this.intend.Y.RoundInt >= posY; }
 		public bool CrossedThresholdDown(int posY) { int bottom = this.actor.posY + this.actor.bounds.Bottom - 1; return bottom >= posY && bottom - this.intend.Y.RoundInt <= posY; }
-		public bool CrossedThresholdLeft(int posX) { int left = this.actor.posX + this.actor.bounds.Left; return left <= posX && left - this.intend.X.RoundInt >= posX; }
-		public bool CrossedThresholdRight(int posX) { int right = this.actor.posX + this.actor.bounds.Right; return right >= posX && right - this.intend.X.RoundInt <= posX; }
+		//public bool CrossedThresholdLeft(int posX) { int left = this.actor.posX + this.actor.bounds.Left; return left <= posX && left - this.intend.X.RoundInt >= posX; }
+		//public bool CrossedThresholdRight(int posX) { int right = this.actor.posX + this.actor.bounds.Right; return right >= posX - 6 && right - this.intend.X.RoundInt <= posX - 6; }
 
 		// --- Return the distance of how far a threshold was crossed. -- //
-		public int CrossedThresholdUpDist(int posY) { return this.actor.posY + this.actor.bounds.Top - posY; }
-		public int CrossedThresholdDownDist(int posY) { return this.actor.posY + this.actor.bounds.Bottom - posY; }
-		public int CrossedThresholdLeftDist(int posX) { return this.actor.posX + this.actor.bounds.Left - posX; }
-		public int CrossedThresholdRightDist(int posX) { return this.actor.posX + this.actor.bounds.Right - posX; }
+		//public int CrossedThresholdUpDist(int posY) { return this.actor.posY + this.actor.bounds.Top - posY; }
+		//public int CrossedThresholdDownDist(int posY) { return this.actor.posY + this.actor.bounds.Bottom - posY; }
+		//public int CrossedThresholdLeftDist(int posX) { return this.actor.posX + this.actor.bounds.Left - posX; }
+		//public int CrossedThresholdRightDist(int posX) { return this.actor.posX + this.actor.bounds.Right - posX; }
 	}
 }

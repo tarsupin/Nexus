@@ -134,8 +134,6 @@ namespace Nexus.GameEngine {
 
 						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns POSITIVE value
 						if(xOverlap > velX.RoundInt) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down); }
-
-						DebugConfig.AddDebugNote("xOverlap: " + xOverlap + "  ,  velX: " + velX.RoundInt + " , YOverlap: " + yOverlap + "  ,  velY: " + velY.RoundInt);
 					}
 				}
 

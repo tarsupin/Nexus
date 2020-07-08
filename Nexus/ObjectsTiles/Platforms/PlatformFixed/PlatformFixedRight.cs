@@ -21,7 +21,7 @@ namespace Nexus.Objects {
 		public override bool RunImpact(RoomScene room, GameObject actor, short gridX, short gridY, DirCardinal dir) {
 
 			// Actor must cross the LEFT threshold for this ledge; otherwise, it shouldn't compute any collision.
-			if(!actor.physics.CrossedThresholdLeft(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth)) { return false; }
+			//if(!actor.physics.CrossedThresholdLeft(gridX * (byte)TilemapEnum.TileWidth + (byte)TilemapEnum.TileWidth)) { return false; }
 
 			if(actor is Projectile) {
 				if(!CollideTileFacing.RunImpactTest(dir, DirCardinal.Right)) { return false; }

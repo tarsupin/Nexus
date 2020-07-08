@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 			if(!ToggleBlock.TogCollides(room, this.toggleBR, this.isOn)) { return false; }
 
 			// Actor must cross the RIGHT threshold for this ledge; otherwise, it shouldn't compute any collision.
-			if(!actor.physics.CrossedThresholdRight(gridX * (byte)TilemapEnum.TileWidth)) { return false; }
+			//if(!actor.physics.CrossedThresholdRight(gridX * (byte)TilemapEnum.TileWidth)) { return false; }
 
 			if(actor is Projectile) {
 				if(!CollideTileFacing.RunImpactTest(dir, DirCardinal.Left)) { return false; }
