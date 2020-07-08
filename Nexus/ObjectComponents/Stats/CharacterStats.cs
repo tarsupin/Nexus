@@ -108,11 +108,6 @@ namespace Nexus.ObjectComponents {
 			if(this.character.shoes is Shoes) {
 				this.character.shoes.UpdateCharacterStats(this.character);
 			}
-
-			// TODO: Do below
-			// Update Stats by Cheats
-			// Update Stats by Game Mode
-			// Update Stats by Character Archetype
 		}
 	}
 }

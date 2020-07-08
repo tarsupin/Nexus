@@ -40,10 +40,6 @@ namespace Nexus.Objects {
 
 		public virtual bool RunProjectileImpact(Projectile projectile) {
 
-			// TODO:
-			// If the enemy ignores projectiles, they should pass through without being destroyed.
-			// if(enemy.collision.ignores.projectiles) { return false; }
-
 			// Can only be damaged if the projectile was cast by a Character.
 			if(projectile.ByCharacterId == 0) { return false; }
 

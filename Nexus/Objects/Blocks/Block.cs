@@ -13,10 +13,6 @@ namespace Nexus.Objects {
 
 		public virtual bool RunProjectileImpact(Projectile projectile) {
 
-			// TODO:
-			// Must be a projectile created by a character.
-			// if(!projectile.ignoreCharacter) { return false; }
-
 			// Some projectiles get destroyed on collision.
 			if(projectile.CollisionType == ProjectileCollisionType.DestroyOnCollide) {
 				projectile.Destroy();

@@ -30,8 +30,6 @@ namespace Nexus.GameEngine {
 
 		public Activity Activity { get; protected set; }
 
-		// TODO: TrackInstructions (rules for dealing with tracks; not everything needs this, but... ???)
-
 		// Metadata
 		public int id { get; protected set; }
 		public IMetaData Meta { get; protected set; }

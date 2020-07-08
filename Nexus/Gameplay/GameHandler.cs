@@ -31,7 +31,6 @@ namespace Nexus.Gameplay {
 
 			// State
 			this.campaignState = new CampaignState(this);
-			this.editorState = new EditorState(this);
 			this.levelState = new LevelState(this);
 			this.playlistState = new PlaylistState(this);
 		}

@@ -639,7 +639,6 @@
     <Compile Include="Gameplay\Settings\MultiplayerSettings.cs" />
     <Compile Include="Gameplay\Settings\GraphicSettings.cs" />
     <Compile Include="Gameplay\States\PlaylistState.cs" />
-    <Compile Include="Gameplay\States\EditorState.cs" />
     <Compile Include="Gameplay\States\LevelState.cs" />
     <Compile Include="Gameplay\GameHandler.cs" />
     <Compile Include="Gameplay\States\CampaignState.cs" />

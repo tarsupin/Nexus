@@ -96,65 +96,30 @@ namespace Nexus.GameEngine {
 				},
 			});
 
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ToggleOnMobile,
-			//		subType = (byte) Something.Blue,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ToggleOnMobile,
-			//		subType = (byte) Something.Green,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ToggleOffMobile,
-			//		subType = (byte) Something.Red,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ToggleOffMobile,
-			//		subType = (byte) Something.Yellow,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonHeld,
-			//		subType = (byte) Something.BR,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonHeld,
-			//		subType = (byte) Something.GY,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonFixed,
-			//		subType = (byte) Something.BR,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonFixed,
-			//		subType = (byte) Something.GY,
-			//	},
-			//});
-
-			// TODO LOW PRIORITY: FINISH
-			//this.placeholders.Add(new EditorPlaceholder[] {
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonTimed,
-			//		subType = (byte) Something.BR,
-			//	},
-			//	new EditorPlaceholder() {
-			//		tileId = (byte) TileEnum.ButtonTimed,
-			//		subType = (byte) Something.GY,
-			//	},
-			//});
+			this.placeholders.Add(new EditorPlaceholder[] {
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ButtonHeld,
+					subType = (byte) ButtonSubTypes.BR,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					objectId = (byte) ObjectEnum.ButtonHeld,
+					subType = (byte) ButtonSubTypes.GY,
+					layerEnum = LayerEnum.obj,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonFixedBRUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonFixedGYUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonTimedBRUp,
+				},
+				new EditorPlaceholder() {
+					tileId = (byte) TileEnum.ButtonTimedGYUp,
+				},
+			});
 
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {

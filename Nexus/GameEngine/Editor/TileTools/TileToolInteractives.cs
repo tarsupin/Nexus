@@ -105,7 +105,6 @@ namespace Nexus.GameEngine {
 			//	},
 			//});
 
-			// TODO LOW PRIORITY: FINISH
 			this.placeholders.Add(new EditorPlaceholder[] {
 				new EditorPlaceholder() {
 					tileId = (byte) TileEnum.Chest,

@@ -2,7 +2,6 @@
 
 namespace Nexus.ObjectComponents {
 
-	// TODO: Undecided Power
 	public class Fedora : Hat {
 
 		public Fedora() : base(HatRank.PowerHat) {
@@ -12,6 +11,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void UpdateCharacterStats(Character character) {
+			// TODO: Undecided Power
 			System.Console.WriteLine("GRANT NEW POWER TO FEDORA");
 		}
 	}

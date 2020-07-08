@@ -2,7 +2,6 @@
 
 namespace Nexus.ObjectComponents {
 
-	// TODO: Undecided Power; was originally fast-cast, but that makes more sense as a sorcery hat or something. Could be double weapon speed (handheld, etc).
 	public class RangerHat : Hat {
 
 		public RangerHat() : base(HatRank.PowerHat) {
@@ -12,6 +11,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public override void UpdateCharacterStats(Character character) {
+			// TODO: Undecided Power; was originally fast-cast, but that makes more sense as a sorcery hat or something. Could be double weapon dist (handheld, etc).
 			System.Console.WriteLine("GRANT NEW POWER TO RANGER HAT");
 		}
 	}
