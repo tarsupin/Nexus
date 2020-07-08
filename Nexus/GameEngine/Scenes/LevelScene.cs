@@ -22,7 +22,6 @@ namespace Nexus.GameEngine {
 		public LevelScene() : base() {
 
 			// Defaults
-
 			this.isSinglePlayer = true;
 
 			// UI State

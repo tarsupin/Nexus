@@ -1,5 +1,4 @@
 ﻿
-using Newtonsoft.Json;
 using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Objects;
@@ -93,7 +92,7 @@ namespace Nexus.Gameplay {
 			this.timer.ResetTimer();
 			this.frameStarted = this.timer.Frame;
 			this.timeShift = 0;
-			this.timeLimit = Systems.handler == null ? 300 * 60 : Systems.handler.levelContent.data.timeLimit * 60;
+			this.timeLimit = (Systems.handler == null || Systems.handler.levelContent.data.timeLimit == 0) ? 300 * 60 : Systems.handler.levelContent.data.timeLimit * 60;
 		}
 
 		// Time Elapsed and Remaining

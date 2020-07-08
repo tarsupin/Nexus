@@ -362,6 +362,12 @@ namespace Nexus.GameEngine {
 			// Determine the approximate distance from the character / screen.
 			int midX = Systems.camera.posX + Systems.camera.halfWidth;
 			int midY = Systems.camera.posY + Systems.camera.halfHeight;
+
+			float dist = TrigCalc.GetDistance(midX, midY, posX, posY);
+
+			// If the sound is too far away, no sound emits:
+			if(dist > 1400) { return; }
+
 			float pan = 0f;
 
 			if(midX > posX) {
@@ -377,7 +383,6 @@ namespace Nexus.GameEngine {
 			}
 
 			// Volume
-			float dist = TrigCalc.GetDistance(midX, midY, posX, posY);
 			float perDist = Spectrum.GetPercentFromValue(dist, 250, 1400);
 			volume = Math.Min(volume, volume * (1f - Math.Abs(perDist))) * Systems.settings.audio.SoundVolume;
 
