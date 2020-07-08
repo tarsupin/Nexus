@@ -86,7 +86,7 @@ namespace Nexus.GameEngine {
 		public static void RunTileCollision(GameObject actor) {
 
 			// Don't run collision if the actor is designated not to collide.
-			if(actor.Activity <= Activity.NoTileCollide) { return; }
+			if(actor.CollideVal <= CollideEnum.NoTileCollide) { return; }
 
 			// Determine Tiles Potentially Touched
 			short gridX = actor.GridX;

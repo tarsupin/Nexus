@@ -43,15 +43,15 @@ namespace Nexus.GameEngine {
 		}
 
 		public bool EnemyHitsEnemy(Enemy enemy, Enemy enemy2, DirCardinal dir) {
-			if(enemy.Activity <= Activity.NoTileCollide) { return false; }
-			if(enemy2.Activity <= Activity.NoTileCollide) { return false; }
+			if(enemy.CollideVal <= CollideEnum.NoTileCollide) { return false; }
+			if(enemy2.CollideVal <= CollideEnum.NoTileCollide) { return false; }
 			return Impact.StandardImpact(enemy, enemy2, dir);
 		}
 
 		public bool EnemyHitsPlatform(Enemy enemy, Platform platform) {
 
 			// If the enemy doesn't collide with tiles, they don't collide with platforms.
-			if(enemy.Activity <= Activity.NoTileCollide) { return false; }
+			if(enemy.CollideVal <= CollideEnum.NoTileCollide) { return false; }
 
 			DirCardinal dir = CollideDetect.GetDirectionOfCollision(enemy, platform);
 			if(dir != DirCardinal.Down) { return false; }

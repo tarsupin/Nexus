@@ -19,7 +19,7 @@ namespace Nexus.Objects {
 			// Physics + Collisions
 			this.physics = new Physics(this);
 			this.physics.SetGravity(FInt.Create(0));
-			this.SetActivity(Activity.NoTileCollide);
+			this.SetCollide(CollideEnum.NoTileCollide);
 		}
 
 		public virtual void ActivatePlatform() {}

@@ -6,12 +6,11 @@ using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
-	public enum Activity : byte {
+	public enum CollideEnum : byte {
 		Inactive = 0,               // The object is inactive, not visible, etc. No reason to run updates.
 		NoCollide = 1,				// The object requires updates, but don't run collision.
 		NoTileCollide = 2,			// The object requires updates, but doesn't collide with tiles.
-		Active = 3,                 // The object is currently active; usually visible to a player (multiplayer-ready). Needs to run updates.
-		ForceActive = 4,            // The object is forced to be active through the whole level. Always run updates.
+		Standard = 4,				// The object is forced to coollide.
 	}
 
 	public enum CommonState : byte {
@@ -28,7 +27,7 @@ namespace Nexus.GameEngine {
 
 	public class GameObject {
 
-		public Activity Activity { get; protected set; }
+		public CollideEnum CollideVal { get; protected set; }
 
 		// Metadata
 		public int id { get; protected set; }
@@ -60,7 +59,7 @@ namespace Nexus.GameEngine {
 			this.posX = pos.X.RoundInt;
 			this.posY = pos.Y.RoundInt;
 
-			this.SetActivity(Activity.Active);
+			this.SetCollide(CollideEnum.Standard);
 		}
 
 		public virtual void RunTick() {
@@ -82,11 +81,9 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		// Run this method to change an actor's current activity.
-		public void SetActivity( Activity activity ) {
-			if(this.Activity != Activity.ForceActive) {
-				this.Activity = activity;
-			}
+		// Run this method to change an actor's current collision type.
+		public void SetCollide( CollideEnum collideVal ) {
+			this.CollideVal = collideVal;
 		}
 		
 		// Run this method to change an actor's facing direction.

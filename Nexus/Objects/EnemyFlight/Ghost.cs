@@ -20,7 +20,7 @@ namespace Nexus.Objects {
 
 			// Physics, Collisions, etc.
 			this.physics = new Physics(this);
-			this.SetActivity(Activity.NoTileCollide);
+			this.SetCollide(CollideEnum.NoTileCollide);
 
 			this.AssignSubType(subType);
 			this.AssignBoundsByAtlas(2, 2, -2, -2);

@@ -70,7 +70,7 @@ namespace Nexus.GameEngine {
 			foreach( var obj in objects ) {
 
 				// Object must be capable of colliding, or don't add it to the array.
-				if(obj.Value.Activity <= Activity.NoCollide) { continue; }
+				if(obj.Value.CollideVal <= CollideEnum.NoCollide) { continue; }
 
 				objList.Add(obj.Value);
 			}
