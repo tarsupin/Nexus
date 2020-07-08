@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Config;
 using Nexus.Engine;
 using Nexus.Gameplay;
@@ -138,8 +139,34 @@ namespace Nexus.GameEngine {
 			this.RunRoomLoop();
 
 			// If the time runs out:
-			if(Systems.handler.levelState.FramesRemaining <= 0) {
-				Systems.localServer.MyCharacter.wounds.ReceiveWoundDamage(DamageStrength.InstantKill, true);
+			int framesRemain = Systems.handler.levelState.FramesRemaining;
+			if(framesRemain <= 600) {
+				Character mychar = Systems.localServer.MyCharacter;
+
+				// Play Tick Sounds to Alert Player
+				if(framesRemain <= 300) {
+					int m8 = Systems.timer.frame60Modulus % 15;
+
+					if(m8 == 0) {
+						mychar.room.PlaySound(Systems.sounds.timer1, 1f, Systems.camera.posX + Systems.camera.halfWidth, Systems.camera.posY + Systems.camera.halfHeight);
+					} else if(m8 == 8) {
+						mychar.room.PlaySound(Systems.sounds.timer2, 1f, Systems.camera.posX + Systems.camera.halfWidth, Systems.camera.posY + Systems.camera.halfHeight);
+					}
+				}
+
+				else if(Systems.timer.IsBeatFrame) {
+
+					if(Systems.timer.beat4Modulus % 2 == 0) {
+						mychar.room.PlaySound(Systems.sounds.timer1, 1f, Systems.camera.posX + Systems.camera.halfWidth, Systems.camera.posY + Systems.camera.halfHeight);
+					} else {
+						mychar.room.PlaySound(Systems.sounds.timer2, 1f, Systems.camera.posX + Systems.camera.halfWidth, Systems.camera.posY + Systems.camera.halfHeight);
+					}
+
+				}
+
+				if(framesRemain <= 0) {
+					mychar.wounds.ReceiveWoundDamage(DamageStrength.InstantKill, true);
+				}
 			}
 		}
 
