@@ -290,8 +290,12 @@ namespace Nexus.GameEngine {
 			// Retrieves the local player (as opposed to other players connected online, who may also be linked up).
 			this.LoadMyPlayer();
 
+			Character character = Systems.localServer.MyCharacter;
+
 			// Update Camera Limitations
-			Systems.camera.UpdateScene(this.rooms[Systems.localServer.MyCharacter.room.roomID], (byte)TilemapEnum.GapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.GapLeft * (byte)TilemapEnum.TileWidth);
+			Systems.camera.UpdateScene(this.rooms[character.room.roomID], (byte)TilemapEnum.GapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.GapLeft * (byte)TilemapEnum.TileWidth);
+
+			Systems.camera.CutToPosition(character.posX, character.posY);
 
 			// Reset Level State, Maintain Checkpoints.
 			LevelState levelState = Systems.handler.levelState;
@@ -302,11 +306,11 @@ namespace Nexus.GameEngine {
 
 			if(checkpoint.active) {
 				levelState.checkpoint.active = false;
-				ActionMap.Transport.StartAction(Systems.localServer.MyCharacter, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
+				ActionMap.Transport.StartAction(character, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
 			}
 
 			// Freeze Character for brief moment:
-			Systems.localServer.MyCharacter.frozenFrame = Systems.timer.Frame + 25;
+			character.frozenFrame = Systems.timer.Frame + 25;
 		}
 
 		public virtual void EndLevel() {
