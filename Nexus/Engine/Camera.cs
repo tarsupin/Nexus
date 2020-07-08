@@ -38,8 +38,8 @@ namespace Nexus.Engine {
 		public short GridX { get { return (short)Math.Floor((double)this.posX / (short)TilemapEnum.TileWidth); } }
 		public short GridY { get { return (short)Math.Floor((double)this.posY / (short)TilemapEnum.TileHeight); } }
 		
-		public short WorldX { get { return (short)Math.Floor((double)this.posX / (short)WorldmapEnum.TileWidth); } }
-		public short WorldY { get { return (short)Math.Floor((double)this.posY / (short)WorldmapEnum.TileHeight); } }
+		public byte WorldX { get { return (byte)Math.Floor((double)this.posX / (byte)WorldmapEnum.TileWidth); } }
+		public byte WorldY { get { return (byte)Math.Floor((double)this.posY / (byte)WorldmapEnum.TileHeight); } }
 
 		public void UpdateScene( Scene scene, int top = 0, int left = 0, int right = 0, int bottom = 0) {
 			this.scene = scene;
@@ -80,12 +80,10 @@ namespace Nexus.Engine {
 		public void StayBounded(int left = 0, int right = 0, int top = 0, int bottom = 0) {
 			if(this.posX < left) { this.posX = left; }
 			else if(this.posX + this.width > right) { this.posX = right - this.width; }
-			if(this.posY < top) {
-				this.posY = top;
-			}
-			else if(this.posY + this.height > bottom) {
-				this.posY = bottom - this.height;
-			}
+			
+			if(this.posY < top) { this.posY = top; }
+			else if(this.posY + this.height > bottom) { this.posY = bottom - this.height; }
+			
 			this.rightX = this.posX + this.width;
 			this.bottomY = this.posY + this.height;
 		}
