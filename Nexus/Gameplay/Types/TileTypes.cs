@@ -11,13 +11,13 @@ namespace Nexus.Gameplay {
 		HalfWidth = 24,
 		HalfHeight = 24,
 
-		// World Gaps - the amount of grid tiles above and below the world lines.
+		// Barrier Gaps - the amount of grid tiles above and below the barrier lines.
 		GapLeft = 1,
 		GapRight = 1,
 		GapUp = 3,
 		GapDown = 2,
 
-		// World Gaps in Pixels
+		// Barrier Gaps in Pixels
 		GapLeftPixel = TilemapEnum.GapLeft * TilemapEnum.TileWidth,
 		GapRightPixel = TilemapEnum.GapRight * TilemapEnum.TileWidth,
 		GapUpPixel = TilemapEnum.GapUp * TilemapEnum.TileHeight,

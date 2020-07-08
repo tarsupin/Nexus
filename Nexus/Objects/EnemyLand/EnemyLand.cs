@@ -1,5 +1,8 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
+using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
 namespace Nexus.Objects {
@@ -11,7 +14,26 @@ namespace Nexus.Objects {
 		public EnemyLand(RoomScene room, byte subType, FVector pos, Dictionary<string, short> paramList) : base(room, subType, pos, paramList) {
 
 		}
-		
+
+		public override void RunTick() {
+			if(this.behavior is Behavior) { this.behavior.RunTick(); }
+
+			// Standard Physics
+			this.physics.RunPhysicsTick();
+
+			// Animations, if applicable.
+			if(this.animate is Animate) {
+				this.animate.RunAnimationTick(Systems.timer);
+			}
+
+			// Check if the enemy is about to run off of a cliff:
+			if(Systems.timer.IsTickFrame && this.physics.touch.toFloor) {
+				if(!CollideTile.IsBlockingCoord(this.room.tilemap, this.posX + this.bounds.MidX + (this.FaceRight ? 16 : -16), this.posY + this.bounds.Bottom + 10, DirCardinal.Down)) {
+					this.SetDirection(!this.FaceRight);
+				}
+			}
+		}
+
 		public override bool CollideObjLeft(GameObject obj) {
 			if(!base.CollideObjLeft(obj)) { return false; }
 			this.WalkRight();

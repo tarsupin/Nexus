@@ -51,6 +51,10 @@ namespace Nexus.GameEngine {
 				return true;
 			}
 
+			if(tileObj is Ledge) {
+				return dir == DirCardinal.Down;
+			}
+
 			// Tile may be blocking against specific directions:
 			if(dir == DirCardinal.Up) {
 				if(tileObj is PlatformFixedDown) { return true; }
