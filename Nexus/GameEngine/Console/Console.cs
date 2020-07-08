@@ -206,7 +206,7 @@ namespace Nexus.GameEngine {
 
 			// Draw Console Text
 			string consoleString = "> " + ConsoleTrack.instructionText;
-			consoleFont.Draw(consoleString + (Systems.timer.tick20Modulus < 10 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
+			consoleFont.Draw(consoleString + (Systems.timer.UniFrame % 40 < 20 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
 
 			// Draw Console Tab Highlight, if applicable
 			if(ConsoleTrack.tabLookup.Length > 0) {

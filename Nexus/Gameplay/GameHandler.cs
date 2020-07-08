@@ -36,13 +36,6 @@ namespace Nexus.Gameplay {
 			this.playlistState = new PlaylistState(this);
 		}
 
-		// Save Game State
-		public void SaveGameState() {
-			this.campaignState.SaveCampaign();
-			this.editorState.SaveEditor();
-			this.levelState.SaveLevelState();
-		}
-
 		public void GameStateWrite(string stateName, string json) {
 			Systems.filesLocal.WriteFile("Saves/" + this.saveId + "/" + stateName + ".json", json);
 		}

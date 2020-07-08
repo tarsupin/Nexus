@@ -38,6 +38,7 @@ namespace Nexus.Gameplay {
 		// References
 		private readonly GameHandler handler;
 		private readonly TimerGlobal timer;
+		private int timeLimit;
 
 		public LevelState(GameHandler handler) {
 			this.handler = handler;
@@ -84,8 +85,7 @@ namespace Nexus.Gameplay {
 			}
 
 			// If we arrive here, there was no world to return to.
-			// TODO URGEN: Figure out what to do here.
-			// Original: this.game.menu.loadLevelComplete();
+			SceneTransition.ToPlanetSelection();
 		}
 
 		// Time Reset
@@ -93,12 +93,11 @@ namespace Nexus.Gameplay {
 			this.timer.ResetTimer();
 			this.frameStarted = this.timer.Frame;
 			this.timeShift = 0;
+			this.timeLimit = Systems.handler == null ? 300 * 60 : Systems.handler.levelContent.data.timeLimit * 60;
 		}
 
 		// Time Elapsed and Remaining
-		public int FramesElapsed { get { return this.timer.Frame - this.frameStarted; } }
-		public short TimeElapsed { get { return (short) Math.Ceiling((double) this.FramesElapsed / 60); } }
-		public int FramesRemaining { get { return (300 * 60) + this.frameStarted + this.timeShift - this.timer.Frame; } }
+		public int FramesRemaining { get { return this.timeLimit + this.frameStarted + this.timeShift - this.timer.Frame; } }
 		public short TimeRemaining { get { return (short) Math.Ceiling((double) this.FramesRemaining / 60); } }
 
 		// Performs a Full Level Reset (back to beginning, lose all checkpoints)
@@ -156,45 +155,6 @@ namespace Nexus.Gameplay {
 			this.retryFlag.roomId = roomId;
 
 			return true;
-		}
-
-		public void SaveLevelState() {
-
-			// Can only save a level state if the level ID is assigned correctly.
-			if(this.levelId.Length == 0) { return; }
-
-			// TODO LOW PRIORITY: Verify that the levelId exists; not just that an ID is present.
-
-			LevelJson levelJson = new LevelJson {
-				levelId = this.levelId,
-				roomId = this.roomId,
-				coins = this.coins,
-				timeShift = this.timeShift,
-				checkpoint = this.checkpoint,
-				retryFlag = this.retryFlag,
-			};
-
-			// Save State
-			string json = JsonConvert.SerializeObject(levelJson);
-			this.handler.GameStateWrite("Level", json);
-		}
-
-		public void LoadLevelState() {
-			string json = this.handler.GameStateRead("Level");
-
-			// If there is no JSON content, load an empty state:
-			if(json == "") {
-				this.FullReset();
-				return;
-			}
-
-			LevelJson level = JsonConvert.DeserializeObject<LevelJson>(json);
-
-			this.SetLevel(level.levelId, level.roomId);
-			this.SetCoins(null, level.coins);
-			this.SetCheckpoint(level.checkpoint.roomId, level.checkpoint.gridX, level.checkpoint.gridY);
-			this.SetRetry(level.checkpoint.roomId, level.checkpoint.gridX, level.checkpoint.gridY);
-			this.timeShift = level.timeShift;
 		}
 	}
 }
