@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.Objects;
 
@@ -127,8 +128,14 @@ namespace Nexus.GameEngine {
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!down && !right) {
-						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth);
-						CollideTile.RunGridTest(actor, gridX2, gridY2, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Right);
+
+						int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight); // Returns POSITIVE value
+						if(yOverlap > velY.RoundInt) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Right); return; }
+
+						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns POSITIVE value
+						if(xOverlap > velX.RoundInt) { CollideTile.RunGridTest(actor, gridX2, gridY2, DirCardinal.Down); }
+
+						DebugConfig.AddDebugNote("xOverlap: " + xOverlap + "  ,  velX: " + velX.RoundInt + " , YOverlap: " + yOverlap + "  ,  velY: " + velY.RoundInt);
 					}
 				}
 
@@ -141,8 +148,12 @@ namespace Nexus.GameEngine {
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!down && !left) {
-						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
-						CollideTile.RunGridTest(actor, gridX, gridY2, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Down : DirCardinal.Left);
+
+						int yOverlap = actor.posY + actor.bounds.Bottom - (gridY2 * (byte)TilemapEnum.TileHeight); // Returns POSITIVE value
+						if(yOverlap > velY.RoundInt) { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Left); return; }
+
+						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns NEGATIVE value
+						if(xOverlap < velX.RoundInt) { CollideTile.RunGridTest(actor, gridX, gridY2, DirCardinal.Down); }
 					}
 				}
 
@@ -171,8 +182,12 @@ namespace Nexus.GameEngine {
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!up && !right) {
-						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte) TilemapEnum.TileWidth); // Returns positive value, e.g. 5
-						CollideTile.RunGridTest(actor, gridX2, gridY, xOverlap > actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Right);
+
+						int yOverlap = actor.posY + actor.bounds.Top - (gridY2 * (byte)TilemapEnum.TileHeight); // Returns NEGATIVE value
+						if(yOverlap < velY.RoundInt) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Right); return; }
+
+						int xOverlap = actor.posX + actor.bounds.Right - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns POSITIVE value
+						if(xOverlap > velX.RoundInt) { CollideTile.RunGridTest(actor, gridX2, gridY, DirCardinal.Up); }
 					}
 				}
 
@@ -185,8 +200,12 @@ namespace Nexus.GameEngine {
 
 					// Test against corner if neither of the above collided. Direction of collision based on momentum.
 					if(!up && !left) {
-						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns negative value, e.g. -5
-						CollideTile.RunGridTest(actor, gridX, gridY, xOverlap < actor.physics.intend.X.RoundInt ? DirCardinal.Up : DirCardinal.Left);
+
+						int yOverlap = actor.posY + actor.bounds.Top - (gridY2 * (byte)TilemapEnum.TileHeight); // Returns NEGATIVE value
+						if(yOverlap < velY.RoundInt) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Left); return; }
+
+						int xOverlap = actor.posX + actor.bounds.Left - (gridX2 * (byte)TilemapEnum.TileWidth); // Returns NEGATIVE value
+						if(xOverlap < velX.RoundInt) { CollideTile.RunGridTest(actor, gridX, gridY, DirCardinal.Up); }
 					}
 				}
 
