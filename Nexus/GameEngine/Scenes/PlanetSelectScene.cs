@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		public PlanetData(string name, string worldID, byte planetID, byte diff, byte[] icon) {
 			this.name = name;
 			this.worldID = worldID;
-			this.sprite = PlanetInfo.Planets[(byte) planetID];
+			this.sprite = PlanetInfo.Planets[(byte)planetID];
 			this.diff = diff;
 			this.icon = icon;
 			this.moons = new List<MoonData>();
@@ -46,12 +46,23 @@ namespace Nexus.GameEngine {
 		public bool front;
 
 		public MoonData(byte moonID) {
-			this.sprite = PlanetInfo.Planets[(byte) moonID];
-			this.lat = (short) CalcRandom.IntBetween(-10, 19);
-			this.speed = (float) CalcRandom.FloatBetween(0.15f, 0.8f);
-			this.posX = (short) CalcRandom.IntBetween(-65, 65);
+			this.sprite = PlanetInfo.Planets[(byte)moonID];
+			this.lat = (short)CalcRandom.IntBetween(-10, 19);
+			this.speed = (float)CalcRandom.FloatBetween(0.15f, 0.8f);
+			this.posX = (short)CalcRandom.IntBetween(-65, 65);
 			this.posY = lat;
 			this.front = true;
+		}
+	}
+
+	public class StarData {
+		public readonly short posX;
+		public readonly short posY;
+		public readonly bool bright;
+		public StarData(short posX, short posY, bool isBright) {
+			this.posX = posX;
+			this.posY = posY;
+			this.bright = isBright;
 		}
 	}
 
@@ -61,11 +72,15 @@ namespace Nexus.GameEngine {
 		public Atlas atlas;
 		public readonly PlayerInput playerInput;
 		public PagingSystem paging;
-		public PagingSystem pagingFeatured;
 
-		// Planets
-		public Dictionary<short, PlanetData> featured = new Dictionary<short, PlanetData>();
+		// Screen UI
+		public Texture2D logo;
+		public const string versionBlurb = "Early Alpha Release";
+		public readonly short versionBlurbHalf;
+
+		// Planets + Stars
 		public Dictionary<short, PlanetData> planets = new Dictionary<short, PlanetData>();
+		public List<StarData> stars = new List<StarData>();
 
 		public PlanetSelectScene() : base() {
 
@@ -77,24 +92,16 @@ namespace Nexus.GameEngine {
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 
-			// Prepare Default Featured Planets (Choose World, My World)
-			this.featured.Add(0, new PlanetData("My World", "__World", 0, 0, new byte[] { 0, 0, 0 }));
-			this.featured.Add(1, new PlanetData("Load World", "__Load", 0, 0, new byte[] { 0, 0, 0 }));
+			// Screen UI
+			this.logo = Systems.game.Content.Load<Texture2D>("Images/creo-logo");
+			this.versionBlurbHalf = (short)(Systems.fonts.console.font.MeasureString(PlanetSelectScene.versionBlurb).X * 0.5f);
 
-			// Load Planets and Featured Planets
-			this.LoadPlanets("FeaturedPlanets", this.featured, 2);
+			// Prepare Space
 			this.LoadPlanets("Planets", this.planets);
+			this.GenerateStars();
 
-			// Prepare Featured Options Paging System (top section, one line, where it remembers your favorite / featured choices)
-			this.pagingFeatured = new PagingSystem(7, 1, (short)this.featured.Count);
-			this.pagingFeatured.SetExitRule(DirCardinal.Down, PagingSystem.PagingExitRule.LeaveArea);
-			this.pagingFeatured.SetExitRule(DirCardinal.Up, PagingSystem.PagingExitRule.NoWrap);
-
-			// Prepare Planet Paging System (full paging system)
-			this.paging = new PagingSystem(7, 2, (short)this.planets.Count);
-			this.paging.SetExitRule(DirCardinal.Up, PagingSystem.PagingExitRule.LeaveArea);
-			this.paging.SetExitRule(DirCardinal.Down, PagingSystem.PagingExitRule.NoWrap);
-			this.paging.exitDir = DirCardinal.Up;
+			// Prepare Planet Paging System
+			this.paging = new PagingSystem(5, 2, (short)this.planets.Count);
 		}
 
 		public void LoadPlanets(string filename, Dictionary<short, PlanetData> planetDict, short listID = 0) {
@@ -117,6 +124,34 @@ namespace Nexus.GameEngine {
 				}
 
 				listID++;
+			}
+		}
+
+		public void GenerateStars() {
+
+			// Generate Random Stars
+			for(byte starIndex = 0; starIndex < 200; starIndex++) {
+				short posX = CalcRandom.ShortBetween(0, Systems.screen.screenWidth);
+				short posY = CalcRandom.ShortBetween(0, Systems.screen.screenHeight);
+				StarData star = new StarData(posX, posY, false);
+				this.stars.Add(star);
+			}
+
+			// Generate Clusters
+			for(byte clusterIndex = 0; clusterIndex < 3; clusterIndex++) {
+				short clusX = CalcRandom.ShortBetween(50, (short)(Systems.screen.screenWidth - 50));
+				short clusY = CalcRandom.ShortBetween(50, (short)(Systems.screen.screenHeight - 50));
+
+				// Generate Random Stars
+				for(byte starIndex = 0; starIndex < 35; starIndex++) {
+					short posX = CalcRandom.ShortBetween((short)(clusX - 140), (short)(clusX + 140));
+					short posY = CalcRandom.ShortBetween((short)(clusY - 140), (short)(clusY + 140));
+
+					if(posX > 0 && posY > 0 && posX < Systems.screen.screenWidth && posY < Systems.screen.screenHeight) {
+						StarData star = new StarData(posX, posY, false);
+						this.stars.Add(star);
+					}
+				}
 			}
 		}
 
@@ -153,64 +188,17 @@ namespace Nexus.GameEngine {
 			if(UIHandler.uiState == UIState.Playing) {
 
 				// Paging Input (only when in the paging area)
-				if(this.paging.exitDir == DirCardinal.None) {
-					if(this.paging.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
-						Systems.sounds.click2.Play(0.5f, 0, 0.5f);
-
-						// If Planet Paging is exited, go to the Featured Planets.
-						if(this.paging.exitDir == DirCardinal.Up) {
-							this.pagingFeatured.ReturnToPagingArea();
-
-							if(this.pagingFeatured.NumberOfItems > this.paging.selectX) {
-								this.pagingFeatured.selectX = this.paging.selectX;
-							}
-						}
-					}
-				}
-
-				// Featured Paging Input (when in the featured paging area)
-				else {
-					if(this.pagingFeatured.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
-						Systems.sounds.click2.Play(0.5f, 0, 0.5f);
-
-						// If Featured Planet Paging is exited, go to Planet Paging.
-						if(this.pagingFeatured.exitDir == DirCardinal.Down) {
-							this.paging.ReturnToPagingArea();
-
-							if(this.paging.NumberOfItems > this.pagingFeatured.selectX) {
-								this.paging.selectX = this.pagingFeatured.selectX;
-							}
-						}
-					}
+				if(this.paging.PagingInput(playerInput) != PagingSystem.PagingPress.None) {
+					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 				}
 
 				// Activate Planet / World
 				if(playerInput.isPressed(IKey.AButton) == true) {
 					string worldID;
 
-					// If the featured list is active, load its worldID:
-					if(this.pagingFeatured.exitDir == DirCardinal.None) {
-						short curVal = this.pagingFeatured.CurrentSelectionVal;
-						worldID = this.featured[curVal].worldID;
-					}
-
 					// Otherwise, load the worldID from the planet list.
-					else {
-						short curVal = this.paging.CurrentSelectionVal;
-						worldID = this.planets[curVal].worldID;
-					}
-
-					// If WorldID is "__World", go to your personal world.
-					if(worldID == "__World") {
-						SceneTransition.ToWorldEditor("__World");
-						return;
-					}
-
-					// If WorldID is "__Load", allow loading of a user generated world.
-					else if(worldID == "__Load") {
-						// TODO: DO THING
-						return;
-					}
+					short curVal = this.paging.CurrentSelectionVal;
+					worldID = this.planets[curVal].worldID;
 
 					SceneTransition.ToWorld(worldID);
 					return;
@@ -222,14 +210,13 @@ namespace Nexus.GameEngine {
 					UIHandler.SetMenu(UIHandler.mainMenu, true);
 				}
 			}
-			
+
 			// Menu State
 			else {
 				UIHandler.menu.RunTick();
 			}
 
 			// Update Moon Positions
-			this.UpdateMoonPositions(this.pagingFeatured, this.featured);
 			this.UpdateMoonPositions(this.paging, this.planets);
 		}
 
@@ -259,6 +246,10 @@ namespace Nexus.GameEngine {
 			}
 		}
 
+		public void DrawStar(StarData star) {
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(star.posX, star.posY, 3, 3), UIHandler.starColor);
+		}
+
 		public override void Draw() {
 
 			// SamplerState.PointClamp will force Sprites to draw without blurring effect. Without this, all scaling upward is blurry.
@@ -266,36 +257,26 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
 			// Draw Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.DarkSlateGray);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), UIHandler.spaceBG);
 
-			// Draw Featured Paging Selection (if applicable)
-			if(this.pagingFeatured.exitDir == DirCardinal.None) {
+			// Draw Scene UI
+			Systems.spriteBatch.Draw(this.logo, new Vector2(Systems.screen.windowHalfWidth - 298, 50), Color.White);
+			Systems.fonts.console.Draw(PlanetSelectScene.versionBlurb, Systems.screen.windowHalfWidth - this.versionBlurbHalf, 150, Color.White);
 
-				short highlightX = (short)(this.pagingFeatured.selectX * 200 + 100);
-				short highlightY = (short)(this.pagingFeatured.selectY * 200 + 200);
-
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), Color.DarkRed);
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), Color.DarkSlateGray);
+			// Draw Stars
+			for(short starIndex = 0; starIndex < this.stars.Count; starIndex++) {
+				this.DrawStar(this.stars[starIndex]);
 			}
 
-			// Draw Featured Planets
-			for(short i = this.pagingFeatured.MinVal; i < this.pagingFeatured.MaxVal; i++) {
-				PlanetData planet = this.featured[i];
-				this.DrawPlanet(planet, (short)(100 + i * 200), 200);
-			}
+			short posX = 280;
+			short posY = 350;
 
-			short posX = 100;
-			short posY = 450;
+			// Draw Paging Selection
+			short highlightX = (short)(this.paging.selectX * 200 + posX);
+			short highlightY = (short)(this.paging.selectY * 275 + posY);
 
-			// Draw Current Paging Selection
-			if(this.paging.exitDir == DirCardinal.None) {
-
-				short highlightX = (short)(this.paging.selectX * 200 + posX);
-				short highlightY = (short)(this.paging.selectY * 250 + posY);
-
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), Color.DarkRed);
-				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), Color.DarkSlateGray);
-			}
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), UIHandler.spaceBG);
 
 			// Draw Planets
 			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
@@ -304,7 +285,16 @@ namespace Nexus.GameEngine {
 
 				// Update Next Position
 				posX += 200;
-				if(posX >= 1500) { posY += 250; posX = 100; }
+				if(posX >= 1180) { posY += 275; posX = 280; }
+			}
+
+			// Draw Indicators
+			if(this.paging.MinVal > 0) {
+				this.atlas.Draw("UI/Arrow/Left", 70, 500);
+			}
+
+			if(this.paging.MaxVal < this.paging.NumberOfItems) {
+				this.atlas.Draw("UI/Arrow/Right", 1280, 500);
 			}
 
 			// Draw UI
@@ -312,11 +302,11 @@ namespace Nexus.GameEngine {
 			UIHandler.menu.Draw();
 		}
 
-		public void DrawPlanet( PlanetData planetData, short posX, short posY ) {
+		public void DrawPlanet(PlanetData planetData, short posX, short posY) {
 
 			// Draw Moons behind Planet:
 			foreach(MoonData moon in planetData.moons) {
-				if(!moon.front) { this.atlas.Draw(moon.sprite, posX + (short) moon.posX, posY + (short) moon.posY); }
+				if(!moon.front) { this.atlas.Draw(moon.sprite, posX + (short)moon.posX, posY + (short)moon.posY); }
 			}
 
 			// Draw Planet
@@ -326,7 +316,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.baseText.Draw(planetData.name, posX + 16 - (byte)Math.Floor(planetData.textSize.X * 0.5f), posY + 78, Color.White);
 
 			// Display Difficulty
-			short diffSize = (short) Systems.fonts.console.font.MeasureString(GameplayTypes.DiffName[(byte)planetData.diff]).X;
+			short diffSize = (short)Systems.fonts.console.font.MeasureString(GameplayTypes.DiffName[(byte)planetData.diff]).X;
 			Systems.fonts.console.Draw(GameplayTypes.DiffName[(byte)planetData.diff], posX + 16 - (byte)Math.Floor(diffSize * 0.5f), posY + 103, Color.White);
 
 			// Display Character
@@ -343,7 +333,7 @@ namespace Nexus.GameEngine {
 
 			// Draw Moons in front of planet:
 			foreach(MoonData moon in planetData.moons) {
-				if(moon.front) { this.atlas.Draw(moon.sprite, posX + (short) moon.posX, posY + (short) moon.posY); }
+				if(moon.front) { this.atlas.Draw(moon.sprite, posX + (short)moon.posX, posY + (short)moon.posY); }
 			}
 		}
 	}

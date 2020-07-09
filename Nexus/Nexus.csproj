@@ -127,6 +127,7 @@
     <Compile Include="GameEngine\SceneComponents\QueueEvent.cs" />
     <Compile Include="GameEngine\ScenesGames\ArenaScene.cs" />
     <Compile Include="GameEngine\Scenes\MyLevelsScene.cs" />
+    <Compile Include="GameEngine\Scenes\PlanetSelectOld.cs" />
     <Compile Include="GameEngine\Scenes\PlanetSelectScene.cs" />
     <Compile Include="GameEngine\UIComponents\ToggleMusic.cs" />
     <Compile Include="GameEngine\UIMenus\EditorGuideMenu.cs" />
@@ -678,6 +679,9 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\creo-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <MonoGameContentReference Include="Content\Content.mgcb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MonoGameContentReference>

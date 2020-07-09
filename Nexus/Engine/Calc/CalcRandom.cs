@@ -13,5 +13,13 @@ namespace Nexus.Engine {
 		public static float FloatBetween( float min, float max ) {
 			return (float) Rand.NextDouble() * (max - min) + min;
 		}
+
+		public static short ShortBetween(short min, short max) {
+			return (short)Rand.Next(min, max);
+		}
+
+		public static bool RandomBool() {
+			return (float) Rand.NextDouble() > 0.5f ? true : false;
+		}
 	}
 }

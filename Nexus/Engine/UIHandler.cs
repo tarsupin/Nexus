@@ -1,4 +1,5 @@
-﻿using Nexus.GameEngine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.GameEngine;
 
 namespace Nexus.Engine {
 
@@ -26,6 +27,11 @@ namespace Nexus.Engine {
 		public static readonly MainMenu mainMenu = new MainMenu();
 		public static readonly LevelMenu levelMenu = new LevelMenu();
 		public static readonly LoginMenu loginMenu = new LoginMenu(280, 300);
+
+		// Colors
+		public static Color spaceBG = new Color(18, 24, 58);
+		public static Color starColor = new Color(58, 63, 90);
+		public static Color selector = Color.DarkRed;
 
 		public static void SetUIOptions(bool mouseAlwaysVisible, bool cornerMenuAlwaysVisible) {
 			UIHandler.mouseAlwaysVisible = mouseAlwaysVisible;
