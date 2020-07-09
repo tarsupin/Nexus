@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 		private short yEnd;					// Y-Grid that selection ends at.
 
 		public FuncToolSelect() : base() {
-			this.spriteName = "Icons/Move";
+			this.spriteName = "Move";
 			this.title = "Selection Tool";
 			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will delete.";
 		}
@@ -173,7 +173,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw Selection Icon
-			this.atlas.Draw(this.spriteName, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			UIHandler.atlas.Draw(this.spriteName, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

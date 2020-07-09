@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 			this.weMenu.SetMenuOption((byte) 3, Systems.mapper.atlas[(byte)AtlasGroup.World], "MountainBrown/s", "Coverage");
 			this.weMenu.SetMenuOption((byte) 4, Systems.mapper.atlas[(byte)AtlasGroup.World], "Objects/Pyramid1", "Objects");
 			this.weMenu.SetMenuOption((byte) 5, Systems.mapper.atlas[(byte)AtlasGroup.World], "Objects/NodeStrict", "Nodes");
-			this.weMenu.SetMenuOption((byte) 6, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Icons/Move", "Resize");
+			this.weMenu.SetMenuOption((byte) 6, UIHandler.atlas, "Move", "Resize");
 		}
 
 		public void RunTick() {

@@ -1,23 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.Engine;
-using Nexus.Gameplay;
 using System;
 
 namespace Nexus.GameEngine {
 
 	public class UIButton : UIComponent {
 
-		protected const string active = "UI/Button/TextOn";
-		protected const string inactive = "UI/Button/Text";
+		protected const string active = "Button/TextOn";
+		protected const string inactive = "Button/Text";
 
-		protected Atlas atlas;
 		protected string text;
 		private short xOffset;
 		public Action onClick { get; protected set; }
 
 		// onClick = delegate() { doSomething(); };
 		public UIButton( UIComponent parent, string text, short posX, short posY, Action onClick ) : base(parent) {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.text = text;
 			this.onClick = onClick;
 
@@ -47,12 +44,12 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIButton.active, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIButton.active, this.trueX, this.trueY);
 				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 + 1 - this.xOffset, this.trueY + 16 + 1, Color.DarkSlateGray);
 			}
 
 			else {
-				this.atlas.Draw(UIButton.inactive, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIButton.inactive, this.trueX, this.trueY);
 				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 - this.xOffset, this.trueY + 16, Color.DarkSlateGray);
 			}
 		}

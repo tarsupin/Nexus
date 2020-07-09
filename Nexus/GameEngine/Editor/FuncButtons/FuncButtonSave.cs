@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonSave() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Save";
+			this.spriteName = "Save";
 			this.title = "Save";
 			this.description = "Saves the level.";
 		}

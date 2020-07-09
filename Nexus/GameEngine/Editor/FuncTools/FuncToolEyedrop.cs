@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 	public class FuncToolEyedrop : FuncTool {
 
 		public FuncToolEyedrop() : base() {
-			this.spriteName = "Icons/Eyedrop";
+			this.spriteName = "Eyedrop";
 			this.title = "Eyedrop";
 			this.description = "Clones a tile - same behavior as right clicking a tile.";
 		}

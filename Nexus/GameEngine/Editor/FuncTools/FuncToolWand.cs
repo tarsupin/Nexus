@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 	public class FuncToolWand : FuncTool {
 
 		public FuncToolWand() : base() {
-			this.spriteName = "Icons/Wand";
+			this.spriteName = "Wand";
 			this.title = "Wand";
 			this.description = "An advanced tool that allows you to modify properties on game objects.";
 		}

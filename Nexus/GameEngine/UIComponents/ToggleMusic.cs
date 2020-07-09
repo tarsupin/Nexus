@@ -5,8 +5,8 @@ namespace Nexus.GameEngine {
 
 	public class ToggleMusic : UIIcon {
 
-		private static string on = "UI/Music/On";
-		private static string off = "UI/Music/Off";
+		private static string on = "Music/On";
+		private static string off = "Music/Off";
 
 		// onClick = delegate() { doSomething(); };
 		public ToggleMusic( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleMusic.on, posX, posY, onClick) {}
@@ -16,13 +16,13 @@ namespace Nexus.GameEngine {
 			bool isMuted = Systems.settings.audio.MusicMute;
 
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
-				this.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX + 1, this.trueY + 1);
+				UIHandler.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX + 1, this.trueY + 1);
 			}
 
 			else {
-				this.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
-				this.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX, this.trueY);
 			}
 		}
 	}

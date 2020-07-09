@@ -7,17 +7,14 @@ namespace Nexus.GameEngine {
 	public class UIInput : UIComponent {
 
 		public const byte charsVisible = 26;
-		protected const string box = "UI/Input/Box";
-		protected const string over = "UI/Input/Over";
-		protected const string outline = "UI/Input/Outline";
-
-		protected Atlas atlas;
+		protected const string box = "Input/Box";
+		protected const string over = "Input/Over";
+		protected const string outline = "Input/Outline";
 
 		private readonly short maxLen;
 		public string text { get; protected set; }
 
 		public UIInput( UIComponent parent, short posX, short posY, short maxLen = 45 ) : base(parent) {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.maxLen = maxLen;
 			this.text = "";
 
@@ -52,16 +49,16 @@ namespace Nexus.GameEngine {
 			string cursor = "";
 
 			if(UIComponent.ComponentWithFocus == this || UIComponent.ComponentSelected == this) {
-				this.atlas.Draw(UIInput.over, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIInput.over, this.trueX, this.trueY);
 
 				if(UIComponent.ComponentSelected == this) {
-					this.atlas.Draw(UIInput.outline, this.trueX, this.trueY);
+					UIHandler.atlas.Draw(UIInput.outline, this.trueX, this.trueY);
 
 					if(Systems.timer.beat4Modulus % 2 == 0) { cursor = "|"; }
 				}
 
 			} else {
-				this.atlas.Draw(UIInput.box, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIInput.box, this.trueX, this.trueY);
 			}
 
 			if(this.text.Length > UIInput.charsVisible) {

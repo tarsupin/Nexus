@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButZoneRight() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Right";
+			this.spriteName = "Small/Right";
 			this.title = "Switch Zone Right";
 			this.description = "Switches the active editing zone to one zone ID higher.";
 		}

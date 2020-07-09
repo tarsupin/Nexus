@@ -6,14 +6,14 @@ namespace Nexus.GameEngine {
 
 	public class TextBox : UIComponent {
 
-		protected const string Top = "UI/TextBox/Top";
-		protected const string Left = "UI/TextBox/Left";
-		protected const string Right = "UI/TextBox/Right";
-		protected const string Bottom = "UI/TextBox/Bottom";
-		protected const string TopLeft = "UI/TextBox/TopLeft";
-		protected const string TopRight = "UI/TextBox/TopRight";
-		protected const string BottomLeft = "UI/TextBox/BottomLeft";
-		protected const string BottomRight = "UI/TextBox/BottomRight";
+		protected const string Top = "TextBox/Top";
+		protected const string Left = "TextBox/Left";
+		protected const string Right = "TextBox/Right";
+		protected const string Bottom = "TextBox/Bottom";
+		protected const string TopLeft = "TextBox/TopLeft";
+		protected const string TopRight = "TextBox/TopRight";
+		protected const string BottomLeft = "TextBox/BottomLeft";
+		protected const string BottomRight = "TextBox/BottomRight";
 
 		protected const byte leftPad = 8;
 		protected const byte rightPad = 8;
@@ -23,11 +23,8 @@ namespace Nexus.GameEngine {
 		protected Rectangle[] patches;
 		protected static Color bgColor;
 
-		protected Atlas atlas;
-
 		// onSubmit = delegate() { doSomething(); };
 		public TextBox( UIComponent parent, short posX, short posY, short width, short height ) : base(parent) {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 
 			this.SetRelativePosition(posX, posY);
 			this.SetWidth(width);
@@ -83,16 +80,16 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + leftPad - 4, this.trueY + topPad - 4, this.width + 8, this.height + 8), TextBox.bgColor);
 
 			// Draw Top
-			this.atlas.DrawStretch(TextBox.Top, this.trueX + leftPad, this.trueY, this.width, topPad);
-			this.atlas.DrawStretch(TextBox.Bottom, this.trueX + leftPad, this.trueY + this.height + topPad, this.width, botPad);
-			this.atlas.DrawStretch(TextBox.Left, this.trueX, this.trueY + topPad, leftPad, this.height);
-			this.atlas.DrawStretch(TextBox.Right, this.trueX + this.width + rightPad, this.trueY + topPad, rightPad, this.height);
+			UIHandler.atlas.DrawStretch(TextBox.Top, this.trueX + leftPad, this.trueY, this.width, topPad);
+			UIHandler.atlas.DrawStretch(TextBox.Bottom, this.trueX + leftPad, this.trueY + this.height + topPad, this.width, botPad);
+			UIHandler.atlas.DrawStretch(TextBox.Left, this.trueX, this.trueY + topPad, leftPad, this.height);
+			UIHandler.atlas.DrawStretch(TextBox.Right, this.trueX + this.width + rightPad, this.trueY + topPad, rightPad, this.height);
 
 			// Draw Corners
-			this.atlas.Draw(TextBox.TopLeft, this.trueX, this.trueY);
-			this.atlas.Draw(TextBox.TopRight, this.trueX + this.width + rightPad, this.trueY);
-			this.atlas.Draw(TextBox.BottomLeft, this.trueX, this.trueY + this.height + botPad);
-			this.atlas.Draw(TextBox.BottomRight, this.trueX + this.width + rightPad, this.trueY + this.height + botPad);
+			UIHandler.atlas.Draw(TextBox.TopLeft, this.trueX, this.trueY);
+			UIHandler.atlas.Draw(TextBox.TopRight, this.trueX + this.width + rightPad, this.trueY);
+			UIHandler.atlas.Draw(TextBox.BottomLeft, this.trueX, this.trueY + this.height + botPad);
+			UIHandler.atlas.Draw(TextBox.BottomRight, this.trueX + this.width + rightPad, this.trueY + this.height + botPad);
 		}
 	}
 }

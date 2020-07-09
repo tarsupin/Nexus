@@ -79,6 +79,7 @@ namespace Nexus.Gameplay {
 		Tiles = 0,
 		Objects = 1,
 		World = 2,
+		UI = 3,
 	}
 
 	public enum LayerEnum : byte {

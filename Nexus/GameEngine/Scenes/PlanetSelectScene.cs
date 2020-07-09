@@ -290,11 +290,11 @@ namespace Nexus.GameEngine {
 
 			// Draw Indicators
 			if(this.paging.MinVal > 0) {
-				this.atlas.Draw("UI/Arrow/Left", 70, 500);
+				UIHandler.atlas.Draw("Arrow/Left", 70, 500);
 			}
 
 			if(this.paging.MaxVal < this.paging.NumberOfItems) {
-				this.atlas.Draw("UI/Arrow/Right", 1280, 500);
+				UIHandler.atlas.Draw("Arrow/Right", 1280, 500);
 			}
 
 			// Draw UI

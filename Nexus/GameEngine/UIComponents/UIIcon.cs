@@ -1,21 +1,18 @@
 ﻿using Nexus.Engine;
-using Nexus.Gameplay;
 using System;
 
 namespace Nexus.GameEngine {
 
 	public class UIIcon : UIComponent {
 
-		public const string Up = "UI/Button/Up";
-		public const string Down = "UI/Button/Down";
+		public const string Up = "Button/Up";
+		public const string Down = "Button/Down";
 
-		protected Atlas atlas;
 		protected string SpriteName;
 		public Action onClick { get; protected set; }
 
 		// onClick = delegate() { doSomething(); };
 		public UIIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick ) : base(parent) {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.SpriteName = spriteName;
 			this.onClick = onClick;
 			this.SetRelativePosition(posX, posY);
@@ -44,13 +41,13 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
-				this.atlas.Draw(this.SpriteName, this.trueX + 1, this.trueY + 1);
+				UIHandler.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 5, this.trueY + 5);
 			}
 
 			else {
-				this.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
-				this.atlas.Draw(this.SpriteName, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 4, this.trueY + 4);
 			}
 		}
 	}

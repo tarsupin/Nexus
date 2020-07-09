@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButZoneLeft() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Left";
+			this.spriteName = "Small/Left";
 			this.title = "Switch Zone Left";
 			this.description = "Switches the active editing zone to one zone ID lower.";
 		}

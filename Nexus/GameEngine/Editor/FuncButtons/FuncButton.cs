@@ -7,7 +7,6 @@ namespace Nexus.GameEngine {
 
 	public class FuncButton {
 
-		public Atlas atlas;
 		public string keyChar;
 		public string spriteName;
 		public string title;
@@ -51,14 +50,12 @@ namespace Nexus.GameEngine {
 			{ (byte) FuncButtonEnum.Play, new FuncButtonPlay() },
 		};
 
-		public FuncButton() {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-		}
+		public FuncButton() {}
 
 		public virtual void ActivateFuncButton() {}
 
 		public void DrawFunctionTile(int posX, int posY) {
-			this.atlas.Draw(this.spriteName, posX, posY);
+			UIHandler.atlas.Draw(this.spriteName, posX, posY);
 
 			if(keyChar.Length > 0) {
 				Systems.fonts.baseText.Draw(keyChar, posX + 2, posY + (byte) TilemapEnum.TileHeight - 18, Color.DarkOrange);

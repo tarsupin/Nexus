@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonInfo() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Info";
+			this.spriteName = "Info";
 			this.title = "Editor Help";
 			this.description = "Provides help for using the editor.";
 		}

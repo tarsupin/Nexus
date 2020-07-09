@@ -30,11 +30,11 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.cont = new UIIconWithText(null, "UI/Continue", "Continue", centerX, centerY, delegate () {} );
-			this.retry = new UIIconWithText(null, "UI/Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
-			this.restart = new UIIconWithText(null, "UI/Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
-			this.toMain = new UIIconWithText(null, "UI/Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
-			this.endLevel = new UIIconWithText(null, "UI/Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { ((LevelScene)Systems.scene).EndLevel(); } );
+			this.cont = new UIIconWithText(null, "Continue", "Continue", centerX, centerY, delegate () {} );
+			this.retry = new UIIconWithText(null, "Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
+			this.restart = new UIIconWithText(null, "Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
+			this.toMain = new UIIconWithText(null, "Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
+			this.endLevel = new UIIconWithText(null, "Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { ((LevelScene)Systems.scene).EndLevel(); } );
 		}
 
 		public void RunTick() {

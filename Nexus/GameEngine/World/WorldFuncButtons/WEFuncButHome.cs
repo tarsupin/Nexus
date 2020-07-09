@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButHome() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Home";
+			this.spriteName = "Small/Home";
 			this.title = "Home";
 			this.description = "Switches to the 'home' zone, where the world begins.";
 		}

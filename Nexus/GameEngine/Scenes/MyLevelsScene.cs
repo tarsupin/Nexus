@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 using static Nexus.Engine.PagingSystem;
@@ -15,12 +14,11 @@ namespace Nexus.GameEngine {
 
 		// Static Values
 		public const string openSlot = "{ Open Slot }";
-		public const string openImg = "UI/MyLevels";
+		public const string openImg = "MyLevels";
 		public const string activeImg = "Exclaim/Active";
 		public const short slotsAllowed = 28 * 4;
 
 		// References, Component
-		public Atlas atlas;
 		public readonly PlayerInput playerInput;
 		public PagingSystem paging;
 
@@ -35,7 +33,6 @@ namespace Nexus.GameEngine {
 
 			// Prepare Components
 			this.playerInput = Systems.localServer.MyPlayer.input;
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 
 			// Prepare Level Paging System (full paging system)
 			this.paging = new PagingSystem(7, 4, (short) MyLevelsScene.slotsAllowed);
@@ -172,7 +169,7 @@ namespace Nexus.GameEngine {
 			if(!this.levels.ContainsKey(levelNum)) {
 
 				// Draw Level
-				this.atlas.DrawAdvanced(MyLevelsScene.openImg, posX - 5, posY, Color.White, 0f, 2);
+				UIHandler.atlas.DrawAdvanced(MyLevelsScene.openImg, posX - 5, posY, Color.White, 0f, 2);
 
 				//// Draw Character
 				//Head.GetHeadBySubType(6).Draw(false, posX - 30, posY - 15, 0, 0);
@@ -188,7 +185,7 @@ namespace Nexus.GameEngine {
 			LevelFormat levelData = this.levels[levelNum];
 
 			// Draw Level
-			this.atlas.DrawAdvanced(MyLevelsScene.activeImg, posX - 5, posY, Color.White, 0f, 2);
+			Systems.mapper.atlas[(byte)AtlasGroup.Tiles].DrawAdvanced(MyLevelsScene.activeImg, posX - 5, posY, Color.White, 0f, 2);
 
 			// Display Name
 			short titleSize = (short)Systems.fonts.baseText.font.MeasureString(levelData.title).X;

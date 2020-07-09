@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		private sbyte yOffset;				// Y-offset to drag the blueprint at, respective to the cursor.
 
 		public FuncToolBlueprint() : base() {
-			this.spriteName = "Icons/Blueprint";
+			this.spriteName = "Blueprint";
 			this.title = "Blueprint Tool";
 			this.description = "Click to place the selected blueprint. Cancel with delete or by changing tools.";
 		}

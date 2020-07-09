@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 	public class FuncToolEraser : FuncTool {
 
 		public FuncToolEraser() : base() {
-			this.spriteName = "Icons/Eraser";
+			this.spriteName = "Eraser";
 			this.title = "Eraser";
 			this.description = "Erases tiles.";
 		}

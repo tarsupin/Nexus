@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonRedo() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Redo";
+			this.spriteName = "Redo";
 			this.title = "Redo";
 			this.description = "No behavior at this time.";
 		}

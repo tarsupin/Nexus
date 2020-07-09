@@ -7,10 +7,9 @@ namespace Nexus.GameEngine {
 
 	public class UIIconWithText : UIComponent {
 
-		private static string BaseSprite = "UI/Button/Up";
+		private static string BaseSprite = "Button/Up";
 		private static FontClass font = Systems.fonts.console;
 
-		private Atlas atlas;
 		private string SpriteName;
 		private string text;
 		private short xOffset;
@@ -18,7 +17,6 @@ namespace Nexus.GameEngine {
 
 		// onActivate = delegate() { doSomething(); };
 		public UIIconWithText( UIComponent parent, string spriteName, string text, short posX, short posY, Action onActivate ) : base(parent) {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.SpriteName = spriteName;
 			this.text = text;
 			this.onActivate = onActivate;
@@ -49,14 +47,14 @@ namespace Nexus.GameEngine {
 		public void Draw(bool showFocus = false) {
 			
 			if(showFocus || UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIIconWithText.BaseSprite, this.trueX, this.trueY);
-				this.atlas.Draw(this.SpriteName, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIIconWithText.BaseSprite, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 4, this.trueY + 4);
 				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White);
 			}
 
 			else {
-				this.atlas.DrawWithColor(UIIconWithText.BaseSprite, this.trueX, this.trueY, Color.White * 0.5f);
-				this.atlas.DrawWithColor(this.SpriteName, this.trueX, this.trueY, Color.White * 0.5f);
+				UIHandler.atlas.DrawWithColor(UIIconWithText.BaseSprite, this.trueX, this.trueY, Color.White * 0.5f);
+				UIHandler.atlas.DrawWithColor(this.SpriteName, this.trueX + 4, this.trueY + 4, Color.White * 0.5f);
 				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White * 0.65f);
 			}
 		}

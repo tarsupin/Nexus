@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButEyedrop() : base() {
 			this.keyChar = "c";
-			this.spriteName = "Icons/Small/Eyedrop";
+			this.spriteName = "Small/Eyedrop";
 			this.title = "Eyedrop";
 			this.description = "Clones a tile - same behavior as right clicking a tile.";
 		}

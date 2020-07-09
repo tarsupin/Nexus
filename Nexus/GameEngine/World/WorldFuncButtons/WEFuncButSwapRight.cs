@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButSwapRight() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/MoveRight";
+			this.spriteName = "Small/MoveRight";
 			this.title = "Swap Zone Position";
 			this.description = "Swaps the current zone with the zone to the right (+1 ID higher).";
 		}

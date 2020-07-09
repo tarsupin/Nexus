@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonSelect() : base() {
 			this.keyChar = "v";
-			this.spriteName = "Icons/Move";
+			this.spriteName = "Move";
 			this.title = "Selection Tool";
 			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will end.";
 		}

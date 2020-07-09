@@ -14,6 +14,9 @@ namespace Nexus.Engine {
 
 		public enum UIState : byte { Playing, Menu }
 
+		// UI Atlas
+		public static Atlas atlas;
+
 		// Consoles
 		public static readonly WorldConsole worldConsole = new WorldConsole();
 		public static readonly WorldEditConsole worldEditConsole = new WorldEditConsole();

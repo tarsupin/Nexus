@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonRoomLeft() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Left";
+			this.spriteName = "Left";
 			this.title = "Switch Room Left";
 			this.description = "Switches the active editing room to one room ID lower.";
 		}

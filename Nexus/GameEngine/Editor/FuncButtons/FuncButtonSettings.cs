@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 
 		public FuncButtonSettings() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Settings";
+			this.spriteName = "Settings";
 			this.title = "Settings";
 			this.description = "Opens the level console to edit important settings.";
 		}

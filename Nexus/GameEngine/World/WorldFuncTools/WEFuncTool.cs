@@ -29,13 +29,12 @@ namespace Nexus.GameEngine {
 			{ Keys.E, (byte) WEFuncToolEnum.Wand },
 		};
 
-		public Atlas atlas;
 		public string spriteName;
 		public string title;
 		public string description;
 
 		public WEFuncTool() {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+			
 		}
 
 		public virtual void RunTick(WEScene scene) {
@@ -43,7 +42,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public virtual void DrawWorldFuncTool() {
-			this.atlas.Draw(this.spriteName, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
+			UIHandler.atlas.Draw(this.spriteName, Cursor.MiniGridX * (byte)WorldmapEnum.TileWidth - Systems.camera.posX, Cursor.MiniGridY * (byte)WorldmapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

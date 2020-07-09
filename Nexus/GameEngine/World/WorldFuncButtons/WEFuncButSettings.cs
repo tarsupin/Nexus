@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButSettings() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Settings";
+			this.spriteName = "Small/Settings";
 			this.title = "Settings";
 			this.description = "No behavior at this time.";
 		}

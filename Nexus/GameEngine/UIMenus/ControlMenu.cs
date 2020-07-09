@@ -7,7 +7,6 @@ namespace Nexus.GameEngine {
 
 	public class ControlMenu : IMenu {
 
-		private readonly Atlas atlas;
 		private readonly TextBox textBox;
 
 		public ControlMenu(short width, short height) : base() {
@@ -15,7 +14,6 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - (short)(width * 0.5));
 			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
 
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
 			this.textBox = new TextBox(null, centerX, centerY, width, height);
 		}
 
@@ -53,27 +51,29 @@ namespace Nexus.GameEngine {
 		}
 
 		public void DrawNavigationPad(short groupX, short groupY) {
-			this.atlas.Draw("Prompt/DPad/Up", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
-			this.atlas.Draw("Prompt/Button/L1", this.textBox.trueX + groupX - 50, this.textBox.trueY + groupY);
-			this.atlas.Draw("Prompt/DPad/Left", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("Prompt/DPad/Down", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("Prompt/DPad/Right", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
+			Atlas tileAtlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+			tileAtlas.Draw("Prompt/DPad/Up", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
+			tileAtlas.Draw("Prompt/Button/L1", this.textBox.trueX + groupX - 50, this.textBox.trueY + groupY);
+			tileAtlas.Draw("Prompt/DPad/Left", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
+			tileAtlas.Draw("Prompt/DPad/Down", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
+			tileAtlas.Draw("Prompt/DPad/Right", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
 		}
 
 		public void DrawActionPad(short groupX, short groupY) {
-			this.atlas.Draw("Prompt/Button/Y", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
-			this.atlas.Draw("Prompt/Button/R1", this.textBox.trueX + groupX + 50, this.textBox.trueY + groupY);
-			this.atlas.Draw("Prompt/Button/X", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("Prompt/Button/A", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("Prompt/Button/B", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
+			Atlas tileAtlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
+			tileAtlas.Draw("Prompt/Button/Y", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
+			tileAtlas.Draw("Prompt/Button/R1", this.textBox.trueX + groupX + 50, this.textBox.trueY + groupY);
+			tileAtlas.Draw("Prompt/Button/X", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
+			tileAtlas.Draw("Prompt/Button/A", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
+			tileAtlas.Draw("Prompt/Button/B", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
 		}
 
 		public void DrawNavigationKeys(short groupX, short groupY) {
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
-			this.atlas.DrawAdvanced("UI/Key", this.textBox.trueX + groupX - 50, this.textBox.trueY + groupY, Color.White * 0.5f);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
+			UIHandler.atlas.DrawAdvanced("Key", this.textBox.trueX + groupX - 50, this.textBox.trueY + groupY, Color.White * 0.5f);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
 
 			Systems.fonts.baseText.Draw("W", this.textBox.trueX + groupX + 14, this.textBox.trueY + groupY + 15, Color.Black);
 			Systems.fonts.baseText.Draw("Q", this.textBox.trueX + groupX - 50 + 16, this.textBox.trueY + groupY + 15, Color.Black * 0.5f);
@@ -83,11 +83,11 @@ namespace Nexus.GameEngine {
 		}
 
 		public void DrawActionKeys(short groupX, short groupY) {
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
-			this.atlas.DrawAdvanced("UI/Key", this.textBox.trueX + groupX + 50, this.textBox.trueY + groupY, Color.White * 0.5f);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
-			this.atlas.Draw("UI/Key", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX, this.textBox.trueY + groupY);
+			UIHandler.atlas.DrawAdvanced("Key", this.textBox.trueX + groupX + 50, this.textBox.trueY + groupY, Color.White * 0.5f);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX - 50 + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX + 6, this.textBox.trueY + groupY + 50);
+			UIHandler.atlas.Draw("Key", this.textBox.trueX + groupX + 50 + 6, this.textBox.trueY + groupY + 50);
 
 			Systems.fonts.baseText.Draw("I", this.textBox.trueX + groupX + 21, this.textBox.trueY + groupY + 15, Color.Black);
 			Systems.fonts.baseText.Draw("O", this.textBox.trueX + groupX + 50 + 16, this.textBox.trueY + groupY + 15, Color.Black * 0.5f);

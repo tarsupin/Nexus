@@ -7,7 +7,6 @@ namespace Nexus.GameEngine {
 
 	public class WEScroller : UIComponent {
 
-		public Atlas atlas;
 		public WEScene scene;
 
 		private enum WEScrollerEnum : byte {
@@ -16,12 +15,9 @@ namespace Nexus.GameEngine {
 
 		public WEScroller( UIComponent parent, WEScene scene, short posX, short posY) : base(parent) {
 			this.scene = scene;
-
 			this.SetRelativePosition(posX, posY);
 			this.SetWidth((byte)WorldmapEnum.TileWidth + 4);
 			this.SetHeight((short)Systems.screen.windowHeight);
-
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 		}
 
 		public void RunTick() {
@@ -66,14 +62,14 @@ namespace Nexus.GameEngine {
 				// Highlight the active color
 				short my = (short) Snap.GridFloor(tileHeight, WETools.WETileTool.subIndex * tileHeight - this.y);
 				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
-				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].DrawAdvanced("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2, Color.White * 0.7f);
+				UIHandler.atlas.DrawAdvanced("Small/Brush", this.x, this.y + my * tileHeight + 2, Color.White * 0.7f);
 			}
 
 			// Hovering Visual
 			if(UIComponent.ComponentWithFocus is WEScroller) {
 				short my = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
 				//Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
-				Systems.mapper.atlas[(byte)AtlasGroup.Tiles].Draw("Icons/Small/Brush", this.x, this.y + my * tileHeight + 2);
+				UIHandler.atlas.Draw("Small/Brush", this.x, this.y + my * tileHeight + 2);
 			}
 		}
 	}

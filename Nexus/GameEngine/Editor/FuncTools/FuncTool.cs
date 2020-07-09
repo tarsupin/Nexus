@@ -32,21 +32,18 @@ namespace Nexus.GameEngine {
 			{ Keys.E, (byte) FuncToolEnum.Wand },
 		};
 
-		public Atlas atlas;
 		public string spriteName;
 		public string title;
 		public string description;
 
-		public FuncTool() {
-			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.Tiles];
-		}
+		public FuncTool() {}
 
 		public virtual void RunTick(EditorRoomScene scene) {
 			if(UIComponent.ComponentWithFocus != null) { return; }
 		}
 
 		public virtual void DrawFuncTool() {
-			this.atlas.Draw(this.spriteName, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
+			UIHandler.atlas.Draw(this.spriteName, Cursor.TileGridX * (byte)TilemapEnum.TileWidth - Systems.camera.posX, Cursor.TileGridY * (byte)TilemapEnum.TileHeight - Systems.camera.posY);
 		}
 	}
 }

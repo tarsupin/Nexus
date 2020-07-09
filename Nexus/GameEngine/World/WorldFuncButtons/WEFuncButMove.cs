@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButMove() : base() {
 			this.keyChar = "v";
-			this.spriteName = "Icons/Small/Move";
+			this.spriteName = "Small/Move";
 			this.title = "Selection Tool";
 			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will end.";
 		}

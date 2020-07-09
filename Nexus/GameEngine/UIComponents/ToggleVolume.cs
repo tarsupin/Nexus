@@ -5,8 +5,8 @@ namespace Nexus.GameEngine {
 
 	public class ToggleVolume : UIIcon {
 
-		private static string volOn = "UI/Volume/On";
-		private static string volOff = "UI/Volume/Off";
+		private static string volOn = "Volume/On";
+		private static string volOff = "Volume/Off";
 
 		// onClick = delegate() { doSomething(); };
 		public ToggleVolume( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleVolume.volOn, posX, posY, onClick) {}
@@ -16,13 +16,13 @@ namespace Nexus.GameEngine {
 			bool isMuted = Systems.settings.audio.Mute;
 
 			if(UIComponent.ComponentWithFocus == this) {
-				this.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
-				this.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX + 1, this.trueY + 1);
+				UIHandler.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX + 5, this.trueY + 5);
 			}
 
 			else {
-				this.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
-				this.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(isMuted == true ? ToggleVolume.volOff : this.SpriteName, this.trueX + 4, this.trueY + 4);
 			}
 		}
 	}

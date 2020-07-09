@@ -8,7 +8,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButInfo() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Info";
+			this.spriteName = "Small/Info";
 			this.title = "Editor Help";
 			this.description = "Provides help for using the editor.";
 		}

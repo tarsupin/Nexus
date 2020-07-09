@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 
 		public WEFuncButSave() : base() {
 			this.keyChar = "";
-			this.spriteName = "Icons/Small/Save";
+			this.spriteName = "Small/Save";
 			this.title = "Save";
 			this.description = "Saves the world.";
 		}

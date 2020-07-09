@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Nexus.Engine;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 using Nexus.Scripts;
 using System;
 
@@ -43,10 +44,11 @@ namespace Nexus {
 
 			// Load Systems
 			Systems.AddGame(this);
-			Systems.AddGraphics(this, this.graphics, this.spriteBatch);
 			Systems.AddFonts(this);
+			Systems.AddGraphics(this, this.graphics, this.spriteBatch);
 			Systems.screen.ResizeWindowToBestFit();
 			Systems.AddAudio(this);
+			Systems.AddUIHandler();
 
 			// Resize Window
 			Window.AllowUserResizing = true;

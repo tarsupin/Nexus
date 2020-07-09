@@ -78,10 +78,11 @@ namespace Nexus.Gameplay {
 		public GameMapper(GameClient game, SpriteBatch spriteBatch) {
 
 			// Create Atlas List
-			this.atlas = new Atlas[3];
+			this.atlas = new Atlas[4];
 			this.atlas[(byte) AtlasGroup.Tiles] = new Atlas(game, spriteBatch, "Atlas/Tiles.png");
 			this.atlas[(byte) AtlasGroup.Objects] = new Atlas(game, spriteBatch, "Atlas/Objects.png");
 			this.atlas[(byte) AtlasGroup.World] = new Atlas(game, spriteBatch, "Atlas/World.png");
+			this.atlas[(byte) AtlasGroup.UI] = new Atlas(game, spriteBatch, "Atlas/UI.png");
 
 			// Need to assign Object Atlas to Shadow Tile so that it can replicate the Object imagery.
 			ShadowTile.atlas = this.atlas[(byte) AtlasGroup.Objects];

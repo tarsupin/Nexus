@@ -7,7 +7,7 @@ namespace Nexus.GameEngine {
 	public class WEFuncToolEraser : WEFuncTool {
 
 		public WEFuncToolEraser() : base() {
-			this.spriteName = "Icons/Small/Eraser";
+			this.spriteName = "Small/Eraser";
 			this.title = "Eraser";
 			this.description = "Erases tiles.";
 		}
