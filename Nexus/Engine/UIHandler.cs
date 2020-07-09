@@ -21,6 +21,7 @@ namespace Nexus.Engine {
 		public static readonly EditorConsole editorConsole = new EditorConsole();
 
 		// GUI, Menus
+		public static readonly ControlMenu controlMenu = new ControlMenu(725, 400);
 		public static readonly EditorGuideMenu guideMenu = new EditorGuideMenu(725, 400);
 		public static readonly EmptyMenu emptyMenu = new EmptyMenu();
 		public static readonly CornerMenuUI cornerMenu = new CornerMenuUI();
