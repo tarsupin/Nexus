@@ -23,7 +23,7 @@ namespace Nexus.Objects {
 			return false;
 		}
 
-		protected virtual bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) { return false; }
+		public virtual bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) { return false; }
 
 		// Detectors don't get rendered.
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {}

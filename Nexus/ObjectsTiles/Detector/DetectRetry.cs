@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.DetectRetry;
 		}
 
-		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {
+		public override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {
 			if(actor.GridY < gridY) { return false; }
 			return Systems.mapper.TileDict[(byte)TileEnum.CheckFlagRetry].RunImpact(actor.room, actor, gridX, (short)(gridY - 1), dir);
 		}

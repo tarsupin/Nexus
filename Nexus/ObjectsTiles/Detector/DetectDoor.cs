@@ -10,7 +10,7 @@ namespace Nexus.Objects {
 			this.tileId = (byte)TileEnum.DetectDoor;
 		}
 
-		protected override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {
+		public override bool RunSpecialDetection(RoomScene room, Character actor, short gridX, short gridY, DirCardinal dir) {
 			if(actor.GridY < gridY) { return false; }
 
 			// Identify the tile above (check if it's a door or a locked door)
