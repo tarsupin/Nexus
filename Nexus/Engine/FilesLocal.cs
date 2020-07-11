@@ -3,8 +3,8 @@ using System.IO;
 
 namespace Nexus.Engine {
 
-	// Local Dir: C:\Users\MyUser\AppData\Local\NexusGames\Nexus
-	// Roaming Dir: C:\Users\MyUser\AppData\Roaming\NexusGames\Nexus
+	// Local Dir: C:\Users\MyUser\AppData\Local\NexusGames\Creo
+	// Roaming Dir: C:\Users\MyUser\AppData\Roaming\NexusGames\Creo
 
 	public class FilesLocal {
 
@@ -12,8 +12,8 @@ namespace Nexus.Engine {
 		public readonly string roamingDir;			// Points to your Roaming Directory.
 
 		public FilesLocal() {
-			this.localDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NexusGames/Nexus");
-			this.roamingDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NexusGames/Nexus");
+			this.localDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NexusGames/Creo");
+			this.roamingDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NexusGames/Creo");
 
 			// Ensure Local & Roaming Root Directories Exist.
 			this.MakeDirectory("");

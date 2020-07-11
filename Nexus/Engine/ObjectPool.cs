@@ -41,7 +41,6 @@ namespace Nexus.Engine {
 		// ReturnObject stores back the object back to pool.
 		public void ReturnObject(T item) {
 			_objects.Add(item);
-			var a = 1;
 		}
 	}
 }

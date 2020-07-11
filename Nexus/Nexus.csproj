@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nexus</RootNamespace>
-    <AssemblyName>Nexus</AssemblyName>
+    <AssemblyName>Application</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -110,6 +110,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
     <Compile Include="Engine\UI\AlertText.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolItems.cs" />
+    <Compile Include="GameEngine\ServerCommands.cs" />
     <Compile Include="GameEngine\GameValues.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxMountains.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsUpgrades.cs" />

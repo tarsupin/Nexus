@@ -100,8 +100,7 @@
 //		public void LoadPlanets(string filename, Dictionary<short, PlanetDataOld> planetDict, short listID = 0) {
 
 //			// Retrieve Planet Path + JSON Content
-//			string listsDir = Path.Combine(Systems.filesLocal.localDir, "Lists");
-//			string planetPath = Path.Combine(listsDir, filename + ".json");
+//			string planetPath = Path.Combine(Systems.filesLocal.localDir, filename + ".json");
 //			string json = File.ReadAllText(planetPath);
 //			WorldListFormat planetDataOld = JsonConvert.DeserializeObject<WorldListFormat>(json);
 

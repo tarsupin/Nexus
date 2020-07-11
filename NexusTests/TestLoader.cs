@@ -37,7 +37,6 @@ namespace NexusTests {
 
 			// State Components
 			Debug.Assert(Systems.handler.campaignState is CampaignState);
-			Debug.Assert(Systems.handler.editorState is EditorState);
 			Debug.Assert(Systems.handler.levelContent is LevelContent);
 			Debug.Assert(Systems.handler.levelState is LevelState);
 		}
