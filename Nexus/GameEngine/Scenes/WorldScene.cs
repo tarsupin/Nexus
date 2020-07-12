@@ -5,6 +5,7 @@ using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
@@ -328,7 +329,7 @@ namespace Nexus.GameEngine {
 			this.ResetZone();
 		}
 
-		public bool ActivateNode() {
+		public async Task<bool> ActivateNode() {
 
 			// Can only activate if the character is at a Node.
 			if(!this.character.IsAtNode) { return false; }
@@ -345,22 +346,32 @@ namespace Nexus.GameEngine {
 			int coordId = Coords.MapToInt(this.character.curX, this.character.curY);
 			string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
 
-			// If the level is valid, we can enter the level.
-			if(NodeData.IsLevelValid(levelId)) {
-				bool isWon = this.campaign.IsLevelWon(this.campaign.zoneId, levelId);
+			if(levelId.Length == 0) { return false; }
 
-				// Grant Character Their World Equipment On Casual or Beaten Nodes (after scene generated)
-				if(!isWon && (wtData[5] != (byte)OTerrainObjects.NodeCasual && wtData[5] != (byte)OTerrainObjects.NodeWon)) {
-					CampaignState campaign = Systems.handler.campaignState;
-					campaign.SetUpgrades(0, 0, 0, 0, 0, 0, 0);
-					campaign.SaveCampaign();
+			// Check if Level exists in file system.
+			if(!LevelContent.LevelExists(levelId)) {
+				bool success = await WebHandler.LevelRequest(levelId);
+				
+				// If the level failed to be located (including online), delete the reference to it from the zone.
+				if(!success) {
+					this.currentZone.nodes.Remove(coordId.ToString());
+					this.campaign.SaveCampaign();
+					return false;
 				}
-
-				SceneTransition.ToLevel(this.worldData.id, levelId);
-				return true;
 			}
 
-			return false;
+			// If the level is valid, we can enter the level.
+			bool isWon = this.campaign.IsLevelWon(this.campaign.zoneId, levelId);
+
+			// Grant Character Their World Equipment On Casual or Beaten Nodes (after scene generated)
+			if(!isWon && (wtData[5] != (byte)OTerrainObjects.NodeCasual && wtData[5] != (byte)OTerrainObjects.NodeWon)) {
+				CampaignState campaign = Systems.handler.campaignState;
+				campaign.SetUpgrades(0, 0, 0, 0, 0, 0, 0);
+				campaign.SaveCampaign();
+			}
+
+			SceneTransition.ToLevel(this.worldData.id, levelId);
+			return true;
 		}
 
 		public override void Draw() {

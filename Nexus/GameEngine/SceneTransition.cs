@@ -39,8 +39,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Download a World
-		public static async Task<bool> DownloadWorld(string worldId) {
-			if(!WebHandler.IsLoggedIn()) { return false; }
+		private static async Task<bool> DownloadWorld(string worldId) {
 			bool success = await WebHandler.WorldRequest(worldId);
 			if(success) { SceneTransition.ToWorld(worldId); }
 			return true;
@@ -67,8 +66,7 @@ namespace Nexus.GameEngine {
 		}
 		
 		// Download a Level
-		public static async Task<bool> DownloadLevel( string worldId, string levelId ) {
-			if(!WebHandler.IsLoggedIn()) { return false; }
+		private static async Task<bool> DownloadLevel( string worldId, string levelId ) {
 			bool success = await WebHandler.LevelRequest(levelId);
 			if(success) { SceneTransition.ToLevel(worldId, levelId); }
 			return true;

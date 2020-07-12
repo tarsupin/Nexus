@@ -77,8 +77,13 @@ namespace Nexus.Engine {
 					return false;
 				}
 
+				// Load Level Data
 				LevelFormat levelData = JsonConvert.DeserializeObject<LevelFormat>(json);
 				Systems.handler.levelContent.LoadLevelData(levelData);
+
+				// Save Level
+				Systems.handler.levelContent.SaveLevel();
+
 				return true;
 
 			} catch (Exception ex) {
@@ -133,8 +138,13 @@ namespace Nexus.Engine {
 					return false;
 				}
 
+				// Load World
 				WorldFormat worldData = JsonConvert.DeserializeObject<WorldFormat>(json);
 				Systems.handler.worldContent.LoadWorldData(worldData);
+
+				// Save World
+				Systems.handler.worldContent.SaveWorld();
+
 				return true;
 
 			} catch(Exception ex) {

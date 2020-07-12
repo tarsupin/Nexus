@@ -8,24 +8,6 @@ namespace Nexus.GameEngine {
 
 	public static class NodeData {
 
-		// ----------------------- //
-		// --- Level Detection --- //
-		// ----------------------- //
-		
-		public static bool IsLevelValid( string levelId ) {
-
-			// Make sure a Level ID is provided.
-			if(levelId.Length == 0) { return false; }
-
-			// Check if Level exists in file system.
-			if(LevelContent.LevelExists(levelId)) { return true; }
-
-			// If it doesn't exist in the file system, check if it's online:
-			// TODO URGENT: Download Levels from Online.
-
-			return false;
-		}
-
 		// ---------------------- //
 		// --- Node Detection --- //
 		// ---------------------- //
