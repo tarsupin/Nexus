@@ -44,6 +44,19 @@ namespace Nexus.GameEngine {
 			// Restart the level, generate all rooms.
 			this.RestartLevel(true);
 
+			// Update Character with World Map abilities
+			Character character = Systems.localServer.MyCharacter;
+			CampaignState campaign = Systems.handler.campaignState;
+
+			// Update Character Equipment
+			Suit.AssignToCharacter(character, campaign.suit, true);
+			Hat.AssignToCharacter(character, campaign.hat, true);
+			Shoes.AssignShoe(character, campaign.shoes);
+			PowerAttack.AssignPower(character, campaign.powerAtt);
+			PowerMobility.AssignPower(character, campaign.powerMob);
+			character.wounds.SetHealth(campaign.health);
+			character.wounds.SetArmor(campaign.armor);
+
 			// Play or Stop Music
 			Systems.music.Play((byte) Systems.handler.levelContent.data.music);
 		}

@@ -58,10 +58,6 @@ namespace Nexus.Gameplay {
 			return Path.Combine(LevelContent.levelPath, LevelContent.GetLocalLevelPath(levelId));
 		}
 
-		public static string GetFullDestinationPath(string destPath, string levelId) {
-			return Path.Combine(destPath, LevelContent.GetLocalLevelPath(levelId));
-		}
-
 		public static LevelFormat GetLevelData(string levelId) {
 			if(levelId.Length == 0) { return null; }
 
@@ -162,7 +158,7 @@ namespace Nexus.Gameplay {
 			if(!Directory.Exists(levelDir)) { Directory.CreateDirectory(levelDir); }
 
 			// Save State
-			string fullDestPath = LevelContent.GetFullDestinationPath(baseDir, destLevelId);
+			string fullDestPath = Path.Combine(baseDir, LevelContent.GetLocalLevelPath(destLevelId));
 			string json = JsonConvert.SerializeObject(this.data);
 
 			File.WriteAllText(fullDestPath, json);

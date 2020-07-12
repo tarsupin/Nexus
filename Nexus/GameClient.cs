@@ -69,6 +69,7 @@ namespace Nexus {
 			Systems.input.PreProcess();
 			Systems.timer.RunUniTick();
 			Systems.scene.RunTick();
+			SceneTransition.RunTransition();
 
 			base.Update(gameTime);
 

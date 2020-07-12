@@ -48,6 +48,12 @@ namespace Nexus.Gameplay {
 			return true;
 		}
 
+		public bool LoadWorldData(WorldFormat worldData) {
+			this.data = worldData;
+			this.worldId = worldData.id;
+			return true;
+		}
+
 		public static string GetLocalWorldPath(string worldId) {
 			return "Worlds/" + worldId.Substring(0, 2) + "/" + worldId + ".json";
 		}

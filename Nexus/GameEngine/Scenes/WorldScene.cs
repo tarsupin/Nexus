@@ -347,24 +347,16 @@ namespace Nexus.GameEngine {
 
 			// If the level is valid, we can enter the level.
 			if(NodeData.IsLevelValid(levelId)) {
-				bool levelBuilt = SceneTransition.ToLevel(this.worldData.id, levelId);
 				bool isWon = this.campaign.IsLevelWon(this.campaign.zoneId, levelId);
 
 				// Grant Character Their World Equipment On Casual or Beaten Nodes (after scene generated)
-				if(levelBuilt && (isWon || wtData[5] == (byte)OTerrainObjects.NodeCasual || wtData[5] == (byte)OTerrainObjects.NodeWon)) {
-					Character character = Systems.localServer.MyCharacter;
+				if(!isWon && (wtData[5] != (byte)OTerrainObjects.NodeCasual && wtData[5] != (byte)OTerrainObjects.NodeWon)) {
 					CampaignState campaign = Systems.handler.campaignState;
-
-					// Update Character Equipment
-					Suit.AssignToCharacter(character, campaign.suit, true);
-					Hat.AssignToCharacter(character, campaign.hat, true);
-					Shoes.AssignShoe(character, campaign.shoes);
-					PowerAttack.AssignPower(character, campaign.powerAtt);
-					PowerMobility.AssignPower(character, campaign.powerMob);
-					character.wounds.SetHealth(campaign.health);
-					character.wounds.SetArmor(campaign.armor);
+					campaign.SetUpgrades(0, 0, 0, 0, 0, 0, 0);
+					campaign.SaveCampaign();
 				}
 
+				SceneTransition.ToLevel(this.worldData.id, levelId);
 				return true;
 			}
 
