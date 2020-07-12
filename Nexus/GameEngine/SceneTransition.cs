@@ -32,7 +32,10 @@ namespace Nexus.GameEngine {
 			if(Systems.scene is WorldScene && worldId == handler.worldContent.worldId) { return; }
 
 			// Get World Path & Retrieve World Data
-			if(!handler.worldContent.LoadWorldData(worldId)) { return; }
+			if(!handler.worldContent.LoadWorldData(worldId)) {
+				_ = SceneTransition.DownloadWorld(worldId);
+				return;
+			}
 
 			// Prepare Next Scene
 			SceneTransition.nextScene = new WorldScene();

@@ -79,6 +79,7 @@ namespace Nexus.Engine {
 
 				// Load Level Data
 				LevelFormat levelData = JsonConvert.DeserializeObject<LevelFormat>(json);
+				levelData.id = levelId;
 				Systems.handler.levelContent.LoadLevelData(levelData);
 
 				// Save Level
@@ -140,6 +141,7 @@ namespace Nexus.Engine {
 
 				// Load World
 				WorldFormat worldData = JsonConvert.DeserializeObject<WorldFormat>(json);
+				worldData.id = worldId;
 				Systems.handler.worldContent.LoadWorldData(worldData);
 
 				// Save World
