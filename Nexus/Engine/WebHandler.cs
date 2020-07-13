@@ -3,8 +3,11 @@ using Newtonsoft.Json;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,26 +37,107 @@ namespace Nexus.Engine {
 			return "";
 		}
 
+		// ----------------- //
+		// -- Web Helpers -- //
+		// ----------------- //
+
+		// PostJSON - Instructions:
+		// var data = new { name = "Foo", val = "Bar" };
+		// HttpResponseMessage response = await WebHandler.PostJSON(new Uri(GameValues.CreoAPI + "login"), data);
+		// if(response == null || response.IsSuccessStatusCode == false) { return false; }
+		// string contents = await response.Content.ReadAsStringAsync();
+		// object json = JsonConvert.DeserializeObject(contents);
+		public static async Task<HttpResponseMessage> PostJSON(Uri uri, object data) {
+			try {
+				string myContent = JsonConvert.SerializeObject(data);
+				byte[] buffer = Encoding.UTF8.GetBytes(myContent);
+				ByteArrayContent byteContent = new ByteArrayContent(buffer);
+				byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+				return await Systems.httpClient.PostAsync(uri, byteContent);
+			} catch (Exception ex) {
+				return null;
+			}
+		}
+
+		// cookie.Name, cookie.Value
+		//public static IEnumerable<Cookie> GetAvailableCookies(string url) {
+		//	return Systems.cookieContainer.GetCookies(new Uri(url)).Cast<Cookie>();
+		//}
+
+		private static IEnumerable<string> GetCookieStringsFromResponse(HttpResponseMessage response) {
+			return response.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value;
+		}
+
+		// Dictionary<string, string> cookies = GetCookiesFromResponse(response);
+		private static Dictionary<string, string> GetCookiesFromResponse(HttpResponseMessage response) {
+			IEnumerable<string> cookieStrs = GetCookieStringsFromResponse(response);
+
+			if(cookieStrs == null) return new Dictionary<string, string>();
+
+			Dictionary<string, string> cookies = new Dictionary<string, string>();
+
+			// Split the cookies:
+			foreach(string cookieStr in cookieStrs) {
+				string[] split = cookieStr.Split(';');
+				string[] cData = split[0].Split('=');
+				cookies.Add(cData[0], cData[1]);
+			}
+
+			return cookies;
+		}
+
 		// -------------------- //
 		// -- Login Commands -- //
 		// -------------------- //
 
 		public static bool IsLoggedIn() {
-			return false;
+			if(GameValues.User.Length == 0) { return false; }
+			if(GameValues.Token.Length == 0) { return false; }
+			return true;
 		}
 
-		public static void LoginRequest(string username, string passHash) {
-			using(WebClient wc = new WebClient()) {
-				var json = wc.DownloadString(GameValues.CreoAPI + "login");
+		public class LoginFormat {
+			[JsonProperty("success")]
+			public bool success { get; set; }
+			[JsonProperty("reason")]
+			public string reason { get; set; }
+		}
+
+		public static async Task<bool> LoginRequest(string username, string password) {
+			var data = new { username, password };
+
+			// All checks have passed. Request the Level.
+			try {
+
+				// Run the Login Request
+				Uri uri = new Uri(GameValues.CreoAPI + "login");
+				HttpResponseMessage response = await WebHandler.PostJSON(uri, data);
+				if(response == null || response.IsSuccessStatusCode == false) { return false; }
+				
+				// Extract the contents from the response.
+				string contents = await response.Content.ReadAsStringAsync();
+				LoginFormat json = JsonConvert.DeserializeObject<LoginFormat>(contents);
+
+				if(json.success == false) {
+					// json.reason // Could apply this here. Set to static or something.
+					return false;
+				}
+
+				// Save Login Cookies
+				Dictionary<string, string> cookies = GetCookiesFromResponse(response);
+				WebHandler.SaveLoginCookies(cookies);
+
+				// Verify the Cookies Were Sent
+				return WebHandler.IsLoggedIn();
+
+			} catch(Exception ex) {
+				return false;
 			}
 		}
 
-		public static void LoginResponse(object response) {
-
-		}
-
-		private static void _SaveLoginData() {
-
+		private static void SaveLoginCookies(Dictionary<string, string> cookies) {
+			if(cookies.ContainsKey("User")) { GameValues.User = cookies["User"]; }
+			if(cookies.ContainsKey("Token")) { GameValues.Token = cookies["Token"]; }
 		}
 
 		// -------------------- //
@@ -88,11 +172,14 @@ namespace Nexus.Engine {
 				return true;
 
 			} catch (Exception ex) {
-				throw ex;
+				return false;
 			}
 		}
 
 		public static async Task<string> LevelPublishRequestAsync(string levelId) {
+
+			// Must be logged in:
+			if(!WebHandler.IsLoggedIn()) { return "fail"; }
 
 			// Make sure we have the level loaded:
 			if(Systems.handler.levelContent == null || Systems.handler.levelContent.levelId != levelId) {
@@ -111,11 +198,18 @@ namespace Nexus.Engine {
 
 			// All checks have passed. Attempt to publish the level.
 			try {
+
+				// Prepare Cookies to Send
+				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("User", GameValues.User));
+				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("Token", GameValues.Token));
+
+				// Run the Level Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.levelContent.data), Encoding.UTF8, "application/json");
-				var response = await Systems.httpClient.PostAsync(GameValues.CreoAPI + "level/" + levelId, content);
+				var response = await Systems.httpClient.PostAsync(GameValues.CreoAPI + "level/" + levelNum, content);
 				return await response.Content.ReadAsStringAsync();
+
 			} catch(Exception ex) {
-				throw ex;
+				return "fail";
 			}
 		}
 
@@ -150,7 +244,7 @@ namespace Nexus.Engine {
 				return true;
 
 			} catch(Exception ex) {
-				throw ex;
+				return false;
 			}
 		}
 
@@ -166,11 +260,17 @@ namespace Nexus.Engine {
 
 			// All checks have passed. Attempt to publish the world.
 			try {
+
+				// Prepare Cookies to Send
+				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("User", GameValues.User));
+				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("Token", GameValues.Token));
+
+				// Run the World Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.worldContent.data), Encoding.UTF8, "application/json");
 				var response = await Systems.httpClient.PostAsync(GameValues.CreoAPI + "world/" + worldId, content);
 				return await response.Content.ReadAsStringAsync();
 			} catch(Exception ex) {
-				throw ex;
+				return "fail";
 			}
 		}
 	}

@@ -128,6 +128,10 @@ namespace Nexus {
 
 				// Standard Game Loading Screen
 				SceneTransition.ToPlanetSelection();
+
+				// TODO: REMOVE
+				_ = WebHandler.LoginRequest("nerdyelf1", "password");
+
 			};
 
 			using(var game = new GameClient(gameLoadInstructions)) {

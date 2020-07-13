@@ -3,6 +3,9 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using static Nexus.Engine.UIHandler;
 using static Nexus.GameEngine.FuncButton;
 using static Nexus.GameEngine.FuncTool;
@@ -36,6 +39,22 @@ namespace Nexus.GameEngine {
 			for(byte nextRoomID = 0; nextRoomID < this.levelContent.data.rooms.Count; nextRoomID++) {
 				this.rooms[nextRoomID] = new EditorRoomScene(this, nextRoomID);
 			}
+
+			// TODO: TEMPORARY. REMOVE.
+			// TODO: TEMPORARY. REMOVE.
+			// TODO: TEMPORARY. REMOVE.
+			// TODO: TEMPORARY. REMOVE.
+			// TODO: TEMPORARY. REMOVE.
+			_ = this.RunTemporaryDeleteThing();
+		}
+
+		private async Task<bool> RunTemporaryDeleteThing() {
+
+			// TODO: TEMPORARY. REMOVE.
+			if(Systems.handler.levelContent.levelId == "__7") {
+				var a = await WebHandler.LevelPublishRequestAsync("__7");
+			}
+			return true;
 		}
 
 		public override void StartScene() {

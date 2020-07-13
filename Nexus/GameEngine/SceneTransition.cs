@@ -25,7 +25,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Go to World Scene
-		public static void ToWorld( string worldId ) {
+		public static void ToWorld( string worldId, bool finalTest = false ) {
 			GameHandler handler = Systems.handler;
 
 			// If we're already in a World Scene, verify that we're loading a different world from our current one.
@@ -33,7 +33,7 @@ namespace Nexus.GameEngine {
 
 			// Get World Path & Retrieve World Data
 			if(!handler.worldContent.LoadWorldData(worldId)) {
-				_ = SceneTransition.DownloadWorld(worldId);
+				if(finalTest == false) { _ = SceneTransition.DownloadWorld(worldId); }
 				return;
 			}
 
@@ -44,12 +44,12 @@ namespace Nexus.GameEngine {
 		// Download a World
 		private static async Task<bool> DownloadWorld(string worldId) {
 			bool success = await WebHandler.WorldRequest(worldId);
-			if(success) { SceneTransition.ToWorld(worldId); }
+			if(success) { SceneTransition.ToWorld(worldId, true); }
 			return true;
 		}
 
 		// Go to Level Scene (In World)
-		public static void ToLevel( string worldId, string levelId, bool runMenu = false ) {
+		public static void ToLevel( string worldId, string levelId, bool runMenu = false, bool finalTest = false ) {
 			GameHandler handler = Systems.handler;
 
 			// If we're already in a Level Scene, verify that we're loading a level that's different from our current one.
@@ -57,7 +57,7 @@ namespace Nexus.GameEngine {
 			
 			// Get Level Path & Retrieve Level Data
 			if(!handler.levelContent.LoadLevelData(levelId)) {
-				_ = SceneTransition.DownloadLevel(worldId, levelId);
+				if(finalTest == false) { _ = SceneTransition.DownloadLevel(worldId, levelId); }
 				return;
 			}
 
@@ -71,7 +71,7 @@ namespace Nexus.GameEngine {
 		// Download a Level
 		private static async Task<bool> DownloadLevel( string worldId, string levelId ) {
 			bool success = await WebHandler.LevelRequest(levelId);
-			if(success) { SceneTransition.ToLevel(worldId, levelId); }
+			if(success) { SceneTransition.ToLevel(worldId, levelId, false, true); }
 			return true;
 		}
 

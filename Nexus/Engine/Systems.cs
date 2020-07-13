@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Net;
 using System.Net.Http;
 
 namespace Nexus.Engine {
@@ -25,7 +26,11 @@ namespace Nexus.Engine {
 		public static readonly TimerGlobal timer = new TimerGlobal();
 		public static readonly FilesLocal filesLocal = new FilesLocal();
 		public static readonly LocalServer localServer = new LocalServer();
-		public static readonly HttpClient httpClient = new HttpClient();
+
+		// Web Handlers
+		public static HttpClient httpClient; // Systems.httpClient.DefaultRequestHeaders.Add("token", token);
+		//public static readonly HttpClient httpClient = new HttpClient(); // Systems.httpClient.DefaultRequestHeaders.Add("token", token);
+		public static readonly CookieContainer cookieContainer = new CookieContainer();
 
 		// Graphics, Audio, and Assets
 		public static ScreenSys screen;
@@ -47,6 +52,13 @@ namespace Nexus.Engine {
 
 		public static void AddGame( GameClient game ) {
 			Systems.game = game;
+
+			// Prepare HTTP Client Handler.
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = Systems.cookieContainer;
+			handler.UseCookies = true;
+			handler.UseDefaultCredentials = false;
+			Systems.httpClient = new HttpClient(handler);
 		}
 
 		public static void AddGraphics( GameClient game, GraphicsDeviceManager graphics, SpriteBatch spriteBatch ) {
