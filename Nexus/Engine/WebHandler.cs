@@ -86,13 +86,31 @@ namespace Nexus.Engine {
 			return cookies;
 		}
 
+		// Set Cookies
+		private static void AttachLoginCookiesToRequest(string url) {
+			Uri serverUri = new Uri(url);
+
+			// Prepare Cookies to Send
+			Cookie userCookie = new Cookie("User", Systems.settings.login.User);
+			Cookie tokenCookie = new Cookie("Token", Systems.settings.login.Token);
+
+			// Set Cookies to Secure if we're sending over https.
+			if(url.IndexOf("https://") > -1) {
+				userCookie.Secure = true;
+				tokenCookie.Secure = true;
+			}
+
+			Systems.cookieContainer.Add(serverUri, userCookie);
+			Systems.cookieContainer.Add(serverUri, tokenCookie);
+		}
+
 		// -------------------- //
 		// -- Login Commands -- //
 		// -------------------- //
 
 		public static bool IsLoggedIn() {
-			if(GameValues.User.Length == 0) { return false; }
-			if(GameValues.Token.Length == 0) { return false; }
+			if(Systems.settings.login.User.Length == 0) { return false; }
+			if(Systems.settings.login.Token.Length == 0) { return false; }
 			return true;
 		}
 
@@ -136,8 +154,10 @@ namespace Nexus.Engine {
 		}
 
 		private static void SaveLoginCookies(Dictionary<string, string> cookies) {
-			if(cookies.ContainsKey("User")) { GameValues.User = cookies["User"]; }
-			if(cookies.ContainsKey("Token")) { GameValues.Token = cookies["Token"]; }
+			if(!cookies.ContainsKey("User") || !cookies.ContainsKey("Token")) { return; }
+			Systems.settings.login.User = cookies["User"];
+			Systems.settings.login.Token = cookies["Token"];
+			Systems.settings.login.SaveSettings();
 		}
 
 		// -------------------- //
@@ -199,9 +219,8 @@ namespace Nexus.Engine {
 			// All checks have passed. Attempt to publish the level.
 			try {
 
-				// Prepare Cookies to Send
-				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("User", GameValues.User));
-				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("Token", GameValues.Token));
+				// Attach Login Cookies
+				WebHandler.AttachLoginCookiesToRequest(GameValues.CreoAPI);
 
 				// Run the Level Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.levelContent.data), Encoding.UTF8, "application/json");
@@ -261,9 +280,8 @@ namespace Nexus.Engine {
 			// All checks have passed. Attempt to publish the world.
 			try {
 
-				// Prepare Cookies to Send
-				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("User", GameValues.User));
-				Systems.cookieContainer.Add(new Uri(GameValues.CreoAPI), new Cookie("Token", GameValues.Token));
+				// Attach Login Cookies
+				WebHandler.AttachLoginCookiesToRequest(GameValues.CreoAPI);
 
 				// Run the World Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.worldContent.data), Encoding.UTF8, "application/json");

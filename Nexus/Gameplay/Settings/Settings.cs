@@ -6,6 +6,7 @@ namespace Nexus.Gameplay {
 		public readonly AudioSettings audio;
 		public readonly GraphicSettings graphics;
 		public readonly KeySettings input;
+		public readonly LoginSettings login;
 		public readonly MultiplayerSettings multiplayer;
 
 		public Settings() {
@@ -16,6 +17,7 @@ namespace Nexus.Gameplay {
 			this.audio = new AudioSettings();
 			this.graphics = new GraphicSettings();
 			this.input = new KeySettings();
+			this.login = new LoginSettings();
 			this.multiplayer = new MultiplayerSettings();
 		}
 	}
