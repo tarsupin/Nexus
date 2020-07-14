@@ -1,21 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-/*
- * Methods needed:
- *	RenderChildren()
- *	RenderSelf()
- *	onClick/onActivate()
- */
-
 namespace Nexus.Engine {
-
-	public enum UIChangeFlag : byte {
-		Position,
-		Size,
-		IsVisible,
-		IsSelected,
-	}
 
 	// Mouse Overlay State
 	public enum UIMouseOverState {
@@ -41,16 +27,11 @@ namespace Nexus.Engine {
 		public UIComponent Parent { get; protected set; }
 		public List<UIComponent> Children { get; protected set; }
 
-		public bool hasParent;					// TRUE if the component has a parent set.
-
 		// Positioning
 		public short x { get; protected set; }			// The relative offset of its parent component.
 		public short y { get; protected set; }			// The relative offset of its parent component.
 		public short trueX { get; protected set; }		// The true position (on screen) of the UI Component.
 		public short trueY { get; protected set; }		// The true position (on screen) of the UI Component.
-
-		public short ParentX { get { return this.Parent.trueX; } }
-		public short ParentY { get { return this.Parent.trueY; } }
 
 		public short MidX { get { return (short) (this.trueX + Math.Floor(this.width / 2d)); } }
 		public short MidY { get { return (short) (this.trueX + Math.Floor(this.width / 2d)); } }
@@ -58,9 +39,6 @@ namespace Nexus.Engine {
 		// Sizing
 		public short width;
 		public short height;
-
-		public short ParentWidth { get { return this.Parent.width; } }
-		public short ParentHeight { get { return this.Parent.height; } }
 
 		// Interactive Properties
 		public bool visible;
@@ -87,8 +65,8 @@ namespace Nexus.Engine {
 		}
 
 		public void UpdateTruePosition() {
-			this.trueX = (short) (this.x + (this.hasParent ? this.Parent.trueX : 0));
-			this.trueY = (short) (this.y + (this.hasParent ? this.Parent.trueY : 0));
+			this.trueX = (short) (this.x + (this.Parent is UIComponent ? this.Parent.trueX : 0));
+			this.trueY = (short) (this.y + (this.Parent is UIComponent ? this.Parent.trueY : 0));
 
 			// Children Must Update Their Positions
 			if(this.Children is List<UIComponent>) {
@@ -97,34 +75,13 @@ namespace Nexus.Engine {
 		}
 
 		// Sizing
-		public void SetWidth(short width) { this.width = width; this.TriggerChange( UIChangeFlag.Size ); }
-		public void SetHeight(short height) { this.height = height; this.TriggerChange( UIChangeFlag.Size ); }
-
-		public void SetWidthToParent() { if(this.x != 0) { this.SetRelativeX(0); }; this.SetWidth(this.Parent.width); }
-		public void SetHeightToParent() { if(this.y != 0) { this.SetRelativeY(0); }; this.SetHeight(this.Parent.height); }
-
-		// Loop through every child and run their OnParentResize() behavior.
-		private void TriggerChange( UIChangeFlag flag ) {
-			if(this.Children == null) { return; }
-			foreach(UIComponent child in this.Children) { child.OnParentChange( flag ); }
-			if(this.hasParent) { this.Parent.OnChildChange( flag ); }
-		}
-
-		// Reactions
-		public virtual void OnParentChange( UIChangeFlag flag ) { /* Method that triggers when the parent component changes. */ }
-		public virtual void OnChildChange( UIChangeFlag flag ) { /* Method that triggers when a child component changes. */ }
+		public void SetWidth(short width) { this.width = width; }
+		public void SetHeight(short height) { this.height = height; }
 
 		// Interactive Properties
 		public void SetVisible( bool visible ) {
 			if(this.visible == visible) { return; }
 			this.visible = visible;
-			this.TriggerChange( UIChangeFlag.IsVisible );
-		}
-
-		public void SetSelected( bool selected ) {
-			if(this.IsSelected == selected) { return; }
-			UIComponent.ComponentSelected.id = this.id;
-			this.TriggerChange( UIChangeFlag.IsSelected );
 		}
 
 		// Mouse Detection
@@ -161,7 +118,6 @@ namespace Nexus.Engine {
 		// Attach a Component to a Parent.
 		private void AssignComponentToParent(UIComponent parent) {
 			this.Parent = parent;
-			this.hasParent = true;
 			parent.AssignChildToComponent(this);
 		}
 

@@ -79,13 +79,16 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Calc\Coords.cs" />
     <Compile Include="Engine\FPCalc\FPTrigCalc.cs" />
+    <Compile Include="Engine\UI\UINotifications.cs" />
     <Compile Include="Engine\Helpers\TextHelper.cs" />
     <Compile Include="Engine\ChatConsole.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Particles\ParticleFree.cs" />
     <Compile Include="Engine\PagingSystem.cs" />
+    <Compile Include="Engine\GlobalUI.cs" />
     <Compile Include="Engine\UIHandler.cs" />
+    <Compile Include="Engine\UI\UITypes.cs" />
     <Compile Include="Engine\WebHandler.cs" />
     <Compile Include="Engine\Sanitize.cs" />
     <Compile Include="GameEngine\Collision\CollideRect.cs" />
@@ -266,7 +269,6 @@
     <Compile Include="GameEngine\UIComponents\ParamMenu.cs" />
     <Compile Include="GameEngine\UIComponents\EditorScroller.cs" />
     <Compile Include="GameEngine\UIComponents\ContextMenu.cs" />
-    <Compile Include="GameEngine\UIComponents\WheelMenu.cs" />
     <Compile Include="GameEngine\UIComponents\UtilityBar.cs" />
     <Compile Include="GameEngine\UIComponents\GridOverlay.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileTool.cs" />
