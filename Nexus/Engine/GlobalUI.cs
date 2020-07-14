@@ -11,14 +11,26 @@ namespace Nexus.Engine {
 	//		- Alert + Confirmation Boxes (May Lock Screen + Require Interaction)
 	//		- Right Click Menu
 	// GlobalUI also has a .LocalSettings value that allows overwriting GlobalUI settings, positions, visibility, etc.
-	public static class GlobalUI {
+	public class GlobalUI : UIComponent {
+		public UIContainNotifications notifyBox;
 
-		// Notifications
-		public static List<UINotifications> notifications = new List<UINotifications>();
-		public static UINotificationSettings notificationSettings = new UINotificationSettings();
+		public GlobalUI() : base(null) {
+			this.SetHeight(Systems.screen.windowHeight);
+			this.SetWidth(Systems.screen.windowWidth);
+			this.notifyBox = new UIContainNotifications(this);
+			this.UpdateTheme();
+		}
 
-		public static void RunGlobalUITick() {
+		public void UpdateTheme() {
+			this.notifyBox.RunThemeUpdate();
+		}
 
+		public void RunTick() {
+			this.notifyBox.RunTick();
+		}
+
+		public void Draw() {
+			this.notifyBox.Draw();
 		}
 	}
 }

@@ -91,9 +91,5 @@ namespace Nexus.Engine {
 		public static void AddFonts( GameClient game ) {
 			Systems.fonts = new FontAssets(game);
 		}
-
-		public static void AddUIHandler() {
-			UIHandler.atlas = Systems.mapper.atlas[(byte)AtlasGroup.UI];
-		}
 	}
 }

@@ -1,6 +1,13 @@
 ﻿
 namespace Nexus.Engine {
 
+	public enum UIMouseOverState {
+		Off,
+		Entered,
+		On,
+		Exited,
+	}
+
 	public enum UIHorPosition : byte {
 		Left,
 		Center,
@@ -11,5 +18,12 @@ namespace Nexus.Engine {
 		Top,
 		Center,
 		Bottom,
+	}
+
+	public enum UIAlertType : byte {
+		Normal,
+		Error,
+		Warning,
+		Success,
 	}
 }

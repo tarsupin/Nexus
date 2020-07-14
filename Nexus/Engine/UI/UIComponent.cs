@@ -3,14 +3,6 @@ using System.Collections.Generic;
 
 namespace Nexus.Engine {
 
-	// Mouse Overlay State
-	public enum UIMouseOverState {
-		Off,
-		Entered,
-		On,
-		Exited,
-	}
-
 	public class UIComponent {
 
 		// Static Settings

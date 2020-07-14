@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Nexus.GameEngine;
+using Nexus.Gameplay;
 
 namespace Nexus.Engine {
 
@@ -13,6 +14,12 @@ namespace Nexus.Engine {
 		public static IMenu menu { get; private set; }
 
 		public enum UIState : byte { Playing, Menu }
+
+		// Theme
+		public static UITheme theme { get; private set; }
+
+		// Global Component
+		public static GlobalUI globalUI;
 
 		// UI Atlas
 		public static Atlas atlas;
@@ -36,6 +43,12 @@ namespace Nexus.Engine {
 		public static Color spaceBG = new Color(18, 24, 58);
 		public static Color starColor = new Color(58, 63, 90);
 		public static Color selector = Color.DarkRed;
+
+		public static void Setup() {
+			UIHandler.atlas = Systems.mapper.atlas[(byte)AtlasGroup.UI];
+			UIHandler.theme = new UITheme();
+			UIHandler.globalUI = new GlobalUI();
+		}
 
 		public static void SetUIOptions(bool mouseAlwaysVisible, bool cornerMenuAlwaysVisible) {
 			UIHandler.mouseAlwaysVisible = mouseAlwaysVisible;
