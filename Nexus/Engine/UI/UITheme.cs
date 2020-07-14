@@ -33,8 +33,8 @@ namespace Nexus.Engine {
 
 		// Sizes
 		public readonly short ContainerHeight = 700;	// The height of the container.
-		public readonly short ItemWidth = 300;         // The inner width of notifications; adds some extra width for boundaries.
-		public readonly short NotifGap = 12;			// The gap size (margin) between notifications.
+		public readonly short ItemWidth = 320;			// The inner width of notifications; adds some extra width for boundaries.
+		public readonly short NotifGap = 10;			// The gap size (margin) between notifications.
 
 		// Font
 		public readonly Color FontColor = Color.White;

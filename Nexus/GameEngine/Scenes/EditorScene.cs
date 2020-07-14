@@ -43,9 +43,6 @@ namespace Nexus.GameEngine {
 			// TODO: REMOVE REMOVE
 			// TODO: REMOVE REMOVE
 			UIHandler.globalUI.notifyBox.AddIncomingNotification(UIAlertType.Success, "Success", "some text for you", 400);
-			UIHandler.globalUI.notifyBox.AddIncomingNotification(UIAlertType.Error, "Error", "Some ERROR text for you.", 500);
-			UIHandler.globalUI.notifyBox.AddIncomingNotification(UIAlertType.Warning, "Warning", "A quick warning.", 200);
-			UIHandler.globalUI.notifyBox.AddIncomingNotification(UIAlertType.Normal, "Normal", "Normal is as normal does.", 300);
 		}
 
 		public override void StartScene() {

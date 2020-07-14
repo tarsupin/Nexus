@@ -69,7 +69,7 @@ namespace Nexus.Engine {
 			if(this.incomingNotif is UINotification) {
 
 				// Update the Incoming Notification's Y Total Movement.
-				this.incomingMoved += 8;
+				this.incomingMoved += 2;
 
 				// We need to snap the Incoming Notification into place once it arrives.
 				if(this.incomingMoved > this.incomingNotif.height) {
@@ -117,16 +117,18 @@ namespace Nexus.Engine {
 			if(this.incomingNotif is UINotification) {
 
 				// Determine the starting position for the incoming notification:
-				int incPosY = this.startY + (this.comesFromTop ? -this.incomingNotif.height : 0);
+				int incPosY = this.startY + (this.comesFromTop ? -this.incomingNotif.height + this.incomingMoved : -this.incomingMoved);
 
 				// Draw the Incoming Notification
-				this.incomingNotif.Draw(posY);
+				this.incomingNotif.Draw(incPosY);
 
 				// Adjust the position of the next notification in line.
-				if(this.comesFromTop) {
-					posY = incPosY + this.incomingNotif.height + theme.NotifGap;
-				} else {
-					posY = incPosY - this.notifications.First.Value.height - theme.NotifGap;
+				if(this.notifications.Count > 0) {
+					if(this.comesFromTop) {
+						posY = incPosY + this.incomingNotif.height + theme.NotifGap;
+					} else {
+						posY = incPosY - this.notifications.First.Value.height - theme.NotifGap;
+					}
 				}
 			}
 
