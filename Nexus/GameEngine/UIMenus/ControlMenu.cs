@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// If we clicked off of the menu, exit.
-			//if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked && !this.textBox.IsMouseOver()) {
+			//if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked && this.textBox.MouseOver != UIMouseOverState.On) {
 			//	UIHandler.SetMenu(null, false);
 			//}
 

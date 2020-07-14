@@ -10,7 +10,7 @@ namespace Nexus.GameEngine {
 	public class ParamMenu : UIComponent {
 
 		protected static byte SlotHeight = 30;      // The height of each slot.
-
+		
 		public bool actionParams;           // FALSE if this is the "Move Param" menu, TRUE if this is the "Action Param" menu.
 		public Params paramSet;				// The param set loaded into this menu.
 
@@ -32,6 +32,8 @@ namespace Nexus.GameEngine {
 		// This is important because some rules might not be loaded at times, such as with the "Flight" wand menu - rules change based on the Flight type.
 		public byte[] menuOptRuleIds = new byte[15] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+		public bool visible = false;
+
 		public ParamMenu( UIComponent parent, bool actionParams = false ) : base(parent) {
 
 			this.actionParams = actionParams;
@@ -41,12 +43,12 @@ namespace Nexus.GameEngine {
 				ParamMenu.font = Systems.fonts.console;
 			}
 
-			this.SetVisible(false);
+			this.visible = false;
 		}
 
 		// Rebuild the ParamMenu design:
 		public void LoadParamMenu() {
-			this.SetVisible(false);
+			this.visible = false;
 
 			// If the wand returned params, check if this menu corresponds to the params shown:
 			if(this.actionParams) {
@@ -58,7 +60,7 @@ namespace Nexus.GameEngine {
 			}
 
 			this.ResizeMenu(true);
-			this.SetVisible(true);
+			this.visible = true;
 
 			// Update the Menu Options (custom, if applicable)
 			if(!this.paramSet.RunCustomMenuUpdate()) {
@@ -208,7 +210,8 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			if(this.IsMouseOver()) {
+			this.MouseOver = this.GetMouseOverState();
+			if(this.MouseOver == UIMouseOverState.On) {
 				UIComponent.ComponentWithFocus = this;
 
 				this.optionSelected = this.GetMenuSelection(Cursor.MouseY);
@@ -236,11 +239,11 @@ namespace Nexus.GameEngine {
 		}
 
 		public void OpenMenu() {
-			this.SetVisible(true);
+			this.visible = true;
 		}
 
 		public void CloseMenu() {
-			this.SetVisible(false);
+			this.visible = false;
 		}
 
 		public virtual void Draw() {

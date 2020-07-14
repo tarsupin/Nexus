@@ -24,6 +24,7 @@ namespace Nexus.GameEngine {
 		private readonly byte yCount;
 		private readonly byte size;
 		private readonly int count;
+		private bool visible = false;
 		private static FontClass font;
 		private static byte iconOffset = (byte)((byte)ContextMenuEnum.HalfSize - (byte)Math.Floor((byte)TilemapEnum.TileWidth * 0.5f));
 
@@ -68,7 +69,8 @@ namespace Nexus.GameEngine {
 			if(!this.visible) { return; }
 			else if(!Systems.input.LocalKeyDown(Keys.Tab)) { this.CloseMenu(); return; }
 
-			if(this.IsMouseOver()) {
+			this.MouseOver = this.GetMouseOverState();
+			if(this.MouseOver == UIMouseOverState.On) {
 				UIComponent.ComponentWithFocus = this;
 
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
@@ -111,13 +113,11 @@ namespace Nexus.GameEngine {
 		}
 
 		public void OpenMenu() {
-			//byte offset = (byte)ContextMenuEnum.Size + (byte)ContextMenuEnum.HalfSize;
-			//Cursor.SetPos(this.x + offset, this.y + offset);
-			this.SetVisible(true);
+			this.visible = true;
 		}
 
 		public void CloseMenu() {
-			this.SetVisible(false);
+			this.visible = false;
 		}
 
 		public void Draw() {

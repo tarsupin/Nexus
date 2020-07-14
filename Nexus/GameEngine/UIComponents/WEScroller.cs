@@ -21,7 +21,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			if(this.IsMouseOver()) { UIComponent.ComponentWithFocus = this; }
+			this.MouseOver = this.GetMouseOverState();
+			if(this.MouseOver == UIMouseOverState.On) { UIComponent.ComponentWithFocus = this; }
 
 			// Mouse Scroll (if WorldTileTool is selected as active tool)
 			if(WETools.WETileTool is WETileTool == true) {

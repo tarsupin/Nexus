@@ -28,7 +28,8 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
-			if(this.IsMouseOver()) {
+			this.MouseOver = this.GetMouseOverState();
+			if(this.MouseOver == UIMouseOverState.On) {
 				UIComponent.ComponentWithFocus = this;
 
 				// Mouse Clicked

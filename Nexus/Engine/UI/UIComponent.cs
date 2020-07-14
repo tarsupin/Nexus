@@ -41,7 +41,6 @@ namespace Nexus.Engine {
 		public short height;
 
 		// Interactive Properties
-		public bool visible;
 		public bool IsSelected { get { return UIComponent.ComponentSelected.id == this.id; } }
 		public UIMouseOverState MouseOver;
 
@@ -78,15 +77,9 @@ namespace Nexus.Engine {
 		public void SetWidth(short width) { this.width = width; }
 		public void SetHeight(short height) { this.height = height; }
 
-		// Interactive Properties
-		public void SetVisible( bool visible ) {
-			if(this.visible == visible) { return; }
-			this.visible = visible;
-		}
-
 		// Mouse Detection
 		public UIComponent GetHoverComponent() {
-			if(!this.IsMouseOver()) { return null; }
+			if(this.MouseOver != UIMouseOverState.On) { return null; }
 
 			// Loop through children and get more refined answer, if applicable.
 			foreach(UIComponent child in this.Children) {
@@ -97,22 +90,17 @@ namespace Nexus.Engine {
 			return this;
 		}
 
-		public bool IsMouseOver() {
+		public UIMouseOverState GetMouseOverState() {
 			int mouseX = Cursor.MouseX;
 			int mouseY = Cursor.MouseY;
 
+			// If the Mouse is not over this component, set Mouse State to "Off" or "Exited"
 			if(mouseX < this.trueX || mouseX > this.trueX + this.width || mouseY < this.trueY || mouseY > this.trueY + this.height) {
-
-				// Update Mouse State to "Off" or "Exited"
-				if(this.MouseOver == UIMouseOverState.On) { this.MouseOver = UIMouseOverState.Exited; } else { this.MouseOver = UIMouseOverState.Off; }
-
-				return false;
+				return this.MouseOver == UIMouseOverState.On ? UIMouseOverState.Exited : UIMouseOverState.Off;
 			}
 
-			// Update Mouse State to "On" or "Entered"
-			if(this.MouseOver == UIMouseOverState.Off) { this.MouseOver = UIMouseOverState.Entered; } else { this.MouseOver = UIMouseOverState.On; }
-
-			return true;
+			// Otherwise, set Mouse State to "On" or "Entered"
+			return this.MouseOver == UIMouseOverState.Off ? UIMouseOverState.Entered : UIMouseOverState.On;
 		}
 
 		// Attach a Component to a Parent.
