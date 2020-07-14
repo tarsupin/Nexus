@@ -80,8 +80,9 @@ namespace Nexus.GameEngine {
 
 			// x, y describes the top-left corner of the context menu.
 			// Will reposition the menu if it would overlap other content:
+			short xPos = this.x;
+
 			if(fullResize) {
-				short xPos;
 
 				// Readjust x coord, since we're right-aligning it.
 				if(this.actionParams) {
@@ -91,13 +92,13 @@ namespace Nexus.GameEngine {
 					if(xPos < 5) { xPos = 5; }
 				}
 				this.splitPos = (short)(xPos + this.leftWidth + 10);
-				this.SetRelativeX(xPos);
 			}
 
 			short yPos = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
 			if(yPos < 50) { yPos = 50; }
 			if(yPos + this.height > Systems.screen.windowHeight - 50) { yPos = (short)(Systems.screen.windowHeight - 50 - this.height); }
-			this.SetRelativeY(yPos);
+
+			this.SetRelativePosition(xPos, yPos);
 		}
 
 		// Identifies the width that the left side should be by determining the width of the largest string.

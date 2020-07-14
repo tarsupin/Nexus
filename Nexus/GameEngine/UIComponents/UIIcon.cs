@@ -15,9 +15,9 @@ namespace Nexus.GameEngine {
 		public UIIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick ) : base(parent) {
 			this.SpriteName = spriteName;
 			this.onClick = onClick;
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(56);
 			this.SetHeight(56);
+			this.SetRelativePosition(posX, posY);
 		}
 
 		public void UpdateSprite(string spriteName) {

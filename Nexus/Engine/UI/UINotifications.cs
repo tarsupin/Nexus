@@ -31,7 +31,8 @@ namespace Nexus.Engine {
 		public readonly Color FontColor = Color.White;
 
 		// Positioning
-		public readonly UIPosition screenPos;
+		public readonly UIHorPosition xRel;
+		public readonly UIVertPosition yRel;
 		public readonly short xOffset = 50;
 		public readonly short yOffset = 50;
 	}

@@ -53,13 +53,31 @@ namespace Nexus.Engine {
 			}
 		}
 
-		// Positioning
-		public void SetRelativeX(short x) { if(this.x != x) { this.x = x; this.UpdateTruePosition(); }; }
-		public void SetRelativeY(short y) { if(this.y != y) { this.y = y; this.UpdateTruePosition(); }; }
+		// Sizing
+		public void SetWidth(short width) { this.width = width; }
+		public void SetHeight(short height) { this.height = height; }
 
-		public void SetRelativePosition( short x, short y ) {
-			this.x = x;
-			this.y = y;
+		// Positioning
+		public void SetRelativePosition( short xOffset, short yOffset, UIHorPosition xRel = UIHorPosition.Left, UIVertPosition yRel = UIVertPosition.Top ) {
+
+			// Set X Position
+			if(xRel == UIHorPosition.Left) {
+				this.x = xOffset;
+			} else if(xRel == UIHorPosition.Right) {
+				this.x = (short)((this.Parent is UIComponent ? this.Parent.width : Systems.screen.windowWidth) - this.width - xOffset);
+			} else if(xRel == UIHorPosition.Center) {
+				this.x = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.width / 2f) : Systems.screen.windowHalfWidth) - Math.Floor(this.width / 2f) - xOffset);
+			}
+			
+			// Set Y Position
+			if(yRel == UIVertPosition.Top) {
+				this.y = yOffset;
+			} else if(yRel == UIVertPosition.Bottom) {
+				this.y = (short)((this.Parent is UIComponent ? this.Parent.height : Systems.screen.windowHeight) - this.height - yOffset);
+			} else if(yRel == UIVertPosition.Center) {
+				this.y = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.height / 2f) : Systems.screen.windowHalfHeight) - Math.Floor(this.height / 2f) - yOffset);
+			}
+
 			this.UpdateTruePosition();
 		}
 
@@ -72,10 +90,6 @@ namespace Nexus.Engine {
 				foreach(UIComponent child in this.Children) { child.UpdateTruePosition(); }
 			}
 		}
-
-		// Sizing
-		public void SetWidth(short width) { this.width = width; }
-		public void SetHeight(short height) { this.height = height; }
 
 		// Mouse Detection
 		public UIComponent GetHoverComponent() {

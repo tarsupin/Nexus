@@ -18,9 +18,9 @@ namespace Nexus.GameEngine {
 			this.text = text;
 			this.onClick = onClick;
 
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(124);
 			this.SetHeight(48);
+			this.SetRelativePosition(posX, posY);
 
 			// Prepare Center Text (X Offset)
 			Vector2 textSize = Systems.fonts.baseText.font.MeasureString(this.text);

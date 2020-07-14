@@ -20,9 +20,9 @@ namespace Nexus.GameEngine {
 			this.SpriteName = spriteName;
 			this.text = text;
 			this.onActivate = onActivate;
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(56);
 			this.SetHeight(56);
+			this.SetRelativePosition(posX, posY);
 
 			Vector2 textSize = UIIconWithText.font.font.MeasureString(this.text);
 			this.xOffset = (short)Math.Floor(textSize.X * 0.5f);

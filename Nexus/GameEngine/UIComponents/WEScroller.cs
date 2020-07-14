@@ -15,9 +15,9 @@ namespace Nexus.GameEngine {
 
 		public WEScroller( UIComponent parent, WEScene scene, short posX, short posY) : base(parent) {
 			this.scene = scene;
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth((byte)WorldmapEnum.TileWidth + 4);
 			this.SetHeight((short)Systems.screen.windowHeight);
+			this.SetRelativePosition(posX, posY);
 		}
 
 		public void RunTick() {

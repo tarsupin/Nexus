@@ -18,9 +18,9 @@ namespace Nexus.GameEngine {
 			this.maxLen = maxLen;
 			this.text = "";
 
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(260);
 			this.SetHeight(40);
+			this.SetRelativePosition(posX, posY);
 		}
 
 		public void SetText(string newText) {

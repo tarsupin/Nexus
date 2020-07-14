@@ -26,9 +26,9 @@ namespace Nexus.GameEngine {
 		// onSubmit = delegate() { doSomething(); };
 		public TextBox( UIComponent parent, short posX, short posY, short width, short height ) : base(parent) {
 
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(width);
 			this.SetHeight(height);
+			this.SetRelativePosition(posX, posY);
 
 			TextBox.bgColor = new Color(148, 169, 170);
 

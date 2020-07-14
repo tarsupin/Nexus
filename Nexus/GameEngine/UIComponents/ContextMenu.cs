@@ -43,12 +43,12 @@ namespace Nexus.GameEngine {
 			this.count = xCount * yCount;
 			this.size = (byte)ContextMenuEnum.Size;
 
+			this.SetWidth((short)(this.size * this.xCount));
+			this.SetHeight((short)(this.size * this.yCount));
+
 			// posX, posY describes the center of the context menu.
 			// x, y describes the top-left corner of the context menu.
 			this.SetRelativePosition((short)(posX - (byte)ContextMenuEnum.HalfSize * this.xCount), (short)(posY - (byte)ContextMenuEnum.HalfSize * this.yCount));
-
-			this.SetWidth((short)(this.size * this.xCount));
-			this.SetHeight((short)(this.size * this.yCount));
 
 			// Prepare Menu Options
 			this.menuOptions = new Dictionary<byte, ContextMenuOpt>();

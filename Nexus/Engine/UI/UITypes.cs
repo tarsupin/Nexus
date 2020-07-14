@@ -1,15 +1,15 @@
 ﻿
 namespace Nexus.Engine {
 
-	public enum UIPosition : byte {
-		TopLeft,
-		TopCenter,
-		TopRight,
+	public enum UIHorPosition : byte {
 		Left,
 		Center,
-		Right,
-		BottomLeft,
-		BottomCenter,
-		BottomRight,
+		Right
+	}
+
+	public enum UIVertPosition : byte {
+		Top,
+		Center,
+		Bottom,
 	}
 }

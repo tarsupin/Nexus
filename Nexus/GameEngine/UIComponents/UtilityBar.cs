@@ -31,9 +31,9 @@ namespace Nexus.GameEngine {
 		};
 
 		public UtilityBar( UIComponent parent, short posX, short posY ) : base(parent) {
-			this.SetRelativePosition(posX, posY);
 			this.SetWidth(((byte)TilemapEnum.TileWidth + 2) * (byte)UtilityBarEnum.BarTiles);
 			this.SetHeight((byte)TilemapEnum.TileHeight);
+			this.SetRelativePosition(posX, posY);
 		}
 
 		public void RunTick() {
