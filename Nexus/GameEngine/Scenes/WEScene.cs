@@ -334,9 +334,9 @@ namespace Nexus.GameEngine {
 				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
-					this.weUI.statusText.SetText("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
+					UIHandler.RunToolTip(coordStr, "Level " + this.currentZone.nodes[coordStr], "Tile Position: " + gridX + ", " + gridY, UIPrimaryDirection.Top);
 				} else {
-					this.weUI.statusText.SetText("No Level Assigned", gridX + ", " + gridY, 120);
+					UIHandler.RunToolTip(coordStr, "No Level Assigned", "Assign Tile (" + gridX + ", " + gridY + ") With Wand Tool.", UIPrimaryDirection.Top);
 				}
 			}
 
@@ -347,9 +347,9 @@ namespace Nexus.GameEngine {
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
 					byte getLinkId;
 					byte.TryParse(this.currentZone.nodes[coordStr].Replace("_warp", ""), out getLinkId);
-					this.weUI.statusText.SetText("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
+					UIHandler.RunToolTip(coordStr, "Warp Link ID Set To #" + getLinkId, "Tile Position: " + gridX + ", " + gridY, UIPrimaryDirection.Top);
 				} else {
-					this.weUI.statusText.SetText("No Warp Link", gridX + ", " + gridY, 120);
+					UIHandler.RunToolTip(coordStr, "No Warp Link", "Assign Tile (" + gridX + ", " + gridY + ") With Wand Tool.", UIPrimaryDirection.Top);
 				}
 			}
 		}
