@@ -52,8 +52,9 @@ namespace Nexus.GameEngine {
 					WorldFuncBut = buttonMap[barIndex];
 
 					// Draw the Helper Text associated with the Function Button
-					WEScene WEScene = (WEScene)Systems.scene;
-					WEScene.weUI.noticeText.SetText(WorldFuncBut.title, WorldFuncBut.description);
+					//WEScene WEScene = (WEScene)Systems.scene;
+					//WEScene.weUI.noticeText.SetText(WorldFuncBut.title, WorldFuncBut.description);
+					UIHandler.RunToolTip(WorldFuncBut.title, WorldFuncBut.title, WorldFuncBut.description, UIPrimaryDirection.Top);
 				}
 
 				// Mouse was pressed

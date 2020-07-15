@@ -20,6 +20,15 @@ namespace Nexus.Engine {
 		Bottom,
 	}
 
+	public enum UIPrimaryDirection : byte {
+		None,
+		Top,
+		Left,
+		Center,
+		Right,
+		Bottom,
+	}
+
 	public enum UIAlertType : byte {
 		Normal,
 		Error,

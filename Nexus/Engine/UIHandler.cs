@@ -84,9 +84,9 @@ namespace Nexus.Engine {
 		}
 
 		// Tool Tips
-		public static void RunToolTip(string id, string title, string text) {
+		public static void RunToolTip(string id, string title, string text, UIPrimaryDirection dir) {
 			if(!UIHandler.globalUI.toolTip._MaintainToolTip(id)) {
-				UIHandler.globalUI.toolTip._CreateToolTip(id, title, text);
+				UIHandler.globalUI.toolTip._CreateToolTip(id, title, text, dir);
 				UIHandler.globalUI.toolTip._MaintainToolTip(id);
 			}
 		}

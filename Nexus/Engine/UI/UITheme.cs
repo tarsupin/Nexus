@@ -54,6 +54,7 @@ namespace Nexus.Engine {
 
 	public class UIThemeToolTip {
 		public readonly short ItemWidth = 320;
+		public readonly short CursorGap = 20;               // The gap (in pixels) between the cursor and tooltip.
 		public readonly short EndDuration = 12;
 	}
 
