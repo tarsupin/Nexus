@@ -77,5 +77,9 @@ namespace Nexus.Engine {
 		public static void SetMouseVisible(bool visible) {
 			Systems.game.IsMouseVisible = visible;
 		}
+
+		public static void AddNotification(UIAlertType type, string title, string text, int duration = 0) {
+			UIHandler.globalUI.notifyBox.AddIncomingNotification(type, title, text, duration);
+		}
 	}
 }

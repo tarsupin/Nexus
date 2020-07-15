@@ -26,10 +26,10 @@ namespace Nexus.Engine {
 			// TODO: TEMP. REMOVE
 			// TODO: TEMP. REMOVE
 			// TODO: TEMP. REMOVE
-			this.AddIncomingNotification(UIAlertType.Success, "Success", "some text for you", 400);
-			this.AddIncomingNotification(UIAlertType.Error, "Error", "Some ERROR text for you.", 500);
-			this.AddIncomingNotification(UIAlertType.Warning, "Warning", "A quick warning.", 200);
-			this.AddIncomingNotification(UIAlertType.Normal, "Normal", "Normal is as normal does.", 300);
+			this.AddIncomingNotification(UIAlertType.Success, "Success", "some text for you", 4000);
+			this.AddIncomingNotification(UIAlertType.Error, "Error", "Some ERROR text for you. Normal is as normal does. Normal is as normal does. some text for you some text for you", 5000);
+			this.AddIncomingNotification(UIAlertType.Warning, "Warning", "A quick warning.", 2000);
+			this.AddIncomingNotification(UIAlertType.Normal, "Normal", "Normal is as normal does. But now let's see what else happens.", 3000);
 		}
 
 		public void AddIncomingNotification(UIAlertType type, string title, string text, int duration = 0) {
@@ -133,14 +133,19 @@ namespace Nexus.Engine {
 			}
 
 			// Loop through Notifications
-			foreach(var notif in this.notifications) {
+			for(var i = 0; i < this.notifications.Count; i++) {
+				UINotification notif = this.notifications.ElementAt(i);
+
 				notif.Draw(posY);
 
 				// Update the position of the next notification.
-				if(this.comesFromTop) {
-					posY = posY + notif.height + theme.NotifGap;
-				} else {
-					posY = posY - notif.height - theme.NotifGap;
+				if(i + 1 < this.notifications.Count) {
+					UINotification next = i + 1 < this.notifications.Count ? this.notifications.ElementAt(i + 1) : null;
+					if(this.comesFromTop) {
+						posY = posY + next.height + theme.NotifGap;
+					} else {
+						posY = posY - next.height - theme.NotifGap;
+					}
 				}
 			}
 		}

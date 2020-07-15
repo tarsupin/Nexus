@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 			// TODO: REMOVE REMOVE
 			// TODO: REMOVE REMOVE
 			// TODO: REMOVE REMOVE
-			UIHandler.globalUI.notifyBox.AddIncomingNotification(UIAlertType.Success, "Success", "some text for you", 400);
+			UIHandler.AddNotification(UIAlertType.Success, "Success", "some text for you", 400);
 		}
 
 		public override void StartScene() {

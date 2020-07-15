@@ -6,19 +6,12 @@ namespace Nexus.Engine {
 	public class UINotification : UIComponent {
 
 		// Essentials
-		private UIAlertType type;		// The type of alert, which can affect colors and behavior.
 		private string title;           // The title or main text for the notification.
-		private string text;            // Less important text or minor details to support the notification title.
+		private string[] text;			// Description for the notification.
 
 		// Colors
 		private Color bg;
 		private Color outline;
-
-		// Measurements of Notification
-		private short titleHeight;
-		private short titleWidth;
-		private short textHeight;
-		private short textWidth;
 
 		// Ending Effects (Specifics of the exit are up to the Notification Handler)
 		public int exitFrame { get; private set; }		// Marks the frame where the notification will begin to exit (fade, exit right, etc).
@@ -29,11 +22,6 @@ namespace Nexus.Engine {
 		public short[] paramNums;
 
 		public UINotification(UIComponent parent, UIAlertType type, string title, string text, int exitFrame, short[] paramNums = null) : base(parent) {
-
-			// Essentials
-			this.type = type;
-			this.title = title;
-			this.text = text;
 
 			// Type Themee
 			var theme = UIHandler.theme;
@@ -59,18 +47,19 @@ namespace Nexus.Engine {
 			}
 
 			// Measure Strings
-			Vector2 measureTitle = UIHandler.theme.smallHeaderFont.font.MeasureString(this.title);
-			Vector2 measureText = UIHandler.theme.normalFont.font.MeasureString(this.text);
+			Vector2 measureTitle = UIHandler.theme.smallHeaderFont.font.MeasureString(title);
+			Vector2 measureText = UIHandler.theme.normalFont.font.MeasureString(text);
 
-			this.titleWidth = (short) measureTitle.X;
-			this.titleHeight = (short) measureTitle.Y;
-			this.textWidth = (short) measureText.X;
-			this.textHeight = (short) measureText.Y;
+			// Text + Multi-Line Handler
+			this.title = title;
+			this.text = TextHelper.WrapTextSplit(UIHandler.theme.normalFont.font, text, parent.width - 16 - 16);
 
+			// Behaviors
 			this.exitFrame = exitFrame;
 			this.paramNums = paramNums;
 
-			this.SetHeight((short)(this.titleHeight + this.textHeight + 10 + 10 + 10));
+			// Size Setup
+			this.SetHeight((short)(measureTitle.Y + measureText.Y * this.text.Length + 10 + 10 + 6));
 			this.SetWidth(parent.width);
 		}
 
@@ -90,7 +79,11 @@ namespace Nexus.Engine {
 			// Draw Notice
 			var theme = UIHandler.theme;
 			Systems.fonts.baseText.Draw(this.title, posX + 10, posY + 10, theme.notifs.FontColor * transition);
-			Systems.fonts.console.Draw(this.text, posX + 10, posY + 35, theme.notifs.FontColor * transition);
+
+			// Draw Each Text Line
+			for(byte i = 0; i < this.text.Length; i++) {
+				Systems.fonts.console.Draw(this.text[i], posX + 10, posY + 35 + (i * 17), theme.notifs.FontColor * transition);
+			}
 		}
 	}
 }
