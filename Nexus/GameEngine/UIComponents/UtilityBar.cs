@@ -49,9 +49,7 @@ namespace Nexus.GameEngine {
 				if(buttonMap.ContainsKey(barIndex)) {
 					funcButton = buttonMap[barIndex];
 
-					// Draw the Helper Text associated with the Function Button
-					//EditorScene editorScene = (EditorScene)Systems.scene;
-					//editorScene.editorUI.noticeText.SetText(funcButton.title, funcButton.description);
+					// Draw the Tool Tip associated with the Function Button
 					UIHandler.RunToolTip(funcButton.title, funcButton.title, funcButton.description, UIPrimaryDirection.Top);
 				}
 

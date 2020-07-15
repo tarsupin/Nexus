@@ -59,23 +59,12 @@ namespace Nexus.GameEngine {
 		public static void ClearWorldTempTool() {
 			if(WETools.WETempTool != null) {
 				WETools.WETempTool = null;
-
-				// Update Helper Text (if applicable)
-				WETools.UpdateHelperText();
 			}
 		}
 
 		public static void UpdateHelperText() {
 			if(Systems.scene is WEScene == false) { return; }
 			WEScene WEScene = (WEScene) Systems.scene;
-
-			// Function Tool Helper Text
-			WEFuncTool tool = WETools.WETempTool != null ? WETools.WETempTool : WETools.WEFuncTool;
-
-			if(tool != null) {
-				WEScene.weUI.noticeText.SetText(tool.title, tool.description);
-				return;
-			}
 
 			// Tile Tool Helper Text
 			if(WETools.WETileTool != null) {

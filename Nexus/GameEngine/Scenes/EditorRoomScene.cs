@@ -41,6 +41,9 @@ namespace Nexus.GameEngine {
 			this.yCount = yCount;
 			this.mapWidth = xCount * (byte)TilemapEnum.TileWidth;
 			this.mapHeight = yCount * (byte)TilemapEnum.TileHeight;
+
+			// Initial Setup
+			EditorUI.currentSlotGroup = 1;
 		}
 
 		public override int Width { get { return this.mapWidth; } }

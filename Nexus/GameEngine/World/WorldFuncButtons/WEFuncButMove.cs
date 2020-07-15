@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 			this.keyChar = "v";
 			this.spriteName = "Small/Move";
 			this.title = "Selection Tool";
-			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will end.";
+			this.description = "Drag and move selections. Ctrl+C will copy, Ctrl+X will cut, Delete will delete.";
 		}
 
 		public override void ActivateWorldFuncButton() {

@@ -204,6 +204,8 @@ namespace Nexus.GameEngine {
 			Systems.handler.levelContent.data.rooms[this.curRoomID] = tempRoomData;
 
 			this.SwitchRoom(newRoomId);
+
+			UIHandler.AddNotification(UIAlertType.Success, "Switched Room", "Swapped Room #" + (this.curRoomID + 1) + " with Room #" + (newRoomId + 1) + ".", 180);
 		}
 
 		public void SwitchRoom(byte newRoomId) {
@@ -212,7 +214,7 @@ namespace Nexus.GameEngine {
 			this.PrepareEmptyRoom(newRoomId);
 			this.curRoomID = newRoomId;
 
-			UIHandler.AddNotification(UIAlertType.Success, "Switched Room", "Now viewing room #" + (newRoomId + 1) + ".", 180);
+			UIHandler.AddNotification(UIAlertType.Normal, "Switched Room", "Now viewing room #" + (newRoomId + 1) + ".", 180);
 
 			// Important Components
 			Systems.camera.UpdateScene(this.CurrentRoom);

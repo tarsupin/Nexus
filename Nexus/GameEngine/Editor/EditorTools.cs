@@ -83,23 +83,12 @@ namespace Nexus.GameEngine {
 		public static void ClearTempTool() {
 			if(EditorTools.tempTool != null) {
 				EditorTools.tempTool = null;
-
-				// Update Helper Text (if applicable)
-				EditorTools.UpdateHelperText();
 			}
 		}
 
 		public static void UpdateHelperText() {
 			if(Systems.scene is EditorScene == false) { return; }
 			EditorScene editorScene = (EditorScene) Systems.scene;
-
-			// Function Tool Helper Text
-			FuncTool tool = EditorTools.tempTool != null ? EditorTools.tempTool : EditorTools.funcTool;
-
-			if(tool != null) {
-				editorScene.editorUI.noticeText.SetText(tool.title, tool.description);
-				return;
-			}
 
 			// Tile Tool Helper Text
 			if(EditorTools.tileTool != null) {
