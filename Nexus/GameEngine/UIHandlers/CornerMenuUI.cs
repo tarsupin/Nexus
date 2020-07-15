@@ -29,18 +29,18 @@ namespace Nexus.GameEngine {
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu
-			this.settings = new UIIcon(null, "Settings", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); } );
+			this.settings = new UIIcon(null, "Settings", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); }, "Controls", "View the Keys and Gamepad Controls." );
 			this.music = new ToggleMusic(null, 76, 10, delegate () { Systems.settings.audio.ToggleMusic(); });
 			this.volume = new ToggleVolume(null, 142, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
-			this.exit = new UIIcon(null, "Quit", 208, 10, delegate () { Environment.Exit(0); } );
+			this.exit = new UIIcon(null, "Quit", 208, 10, delegate () { Environment.Exit(0); }, "Quit Game", "Exit the Game." );
 
 			//this.world = new UIIcon(null, "World", (short)(midX - 33), 10, delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			//this.patreon = new UIIcon(null, "Social/Patreon", (short)(midX + 33), 10, delegate () { WebHandler.LaunchURL("https://www.patreon.com/Nexus_Games"); } );
 
 			// Create Social Buttons
-			this.reddit = new UIIcon(null, "Social/Reddit", (short)(rightX - 66), 10, delegate () { WebHandler.LaunchURL("https://www.reddit.com/r/NexusGames/"); } );
-			this.discord = new UIIcon(null, "Social/Discord", (short)(rightX - 132), 10, delegate () { WebHandler.LaunchURL("https://discord.gg/Wx5sGcr"); } );
-			this.twitter = new UIIcon(null, "Social/Twitter", rightX, 10, delegate () { WebHandler.LaunchURL("https://twitter.com/scionax"); } );
+			this.twitter = new UIIcon(null, "Social/Twitter", (short)(rightX - 132), 10, delegate () { WebHandler.LaunchURL("https://twitter.com/scionax"); }, "Scionax's Twitter", "Follow me on Twitter to help our community grow.");
+			this.discord = new UIIcon(null, "Social/Discord", (short)(rightX - 66), 10, delegate () { WebHandler.LaunchURL("https://discord.gg/Wx5sGcr"); }, "Discord Community", "Opens a link to join our Discord Community.");
+			this.reddit = new UIIcon(null, "Social/Reddit", rightX, 10, delegate () { WebHandler.LaunchURL("https://www.reddit.com/r/NexusGames/"); }, "Reddit Community", "Opens a link to the Reddit Community." );
 			//this.youtube = new UIButton(null, "Social/YouTube", 580, 10, delegate () { WebHandler.LaunchURL("http://youtube.com"); } );
 			//this.twitch = new UIButton(null, "Social/Twitch", 280, 10, delegate () { WebHandler.LaunchURL("http://twitch.com"); } );
 		}
@@ -58,9 +58,9 @@ namespace Nexus.GameEngine {
 			//this.patreon.RunTick();
 
 			// Create Social Buttons
+			this.twitter.RunTick();
 			this.discord.RunTick();
 			this.reddit.RunTick();
-			this.twitter.RunTick();
 			//this.youtube.RunTick();
 			//this.twitch.RunTick();
 		}
@@ -78,9 +78,9 @@ namespace Nexus.GameEngine {
 			//this.patreon.Draw();
 
 			// Draw Social Buttons
+			this.twitter.Draw();
 			this.discord.Draw();
 			this.reddit.Draw();
-			this.twitter.Draw();
 			//this.youtube.Draw();
 			//this.twitch.Draw();
 		}

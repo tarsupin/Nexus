@@ -11,13 +11,21 @@ namespace Nexus.GameEngine {
 		protected string SpriteName;
 		public Action onClick { get; protected set; }
 
+		// Used for Tool Tips (Optional)
+		protected string title;
+		protected string desc;
+
 		// onClick = delegate() { doSomething(); };
-		public UIIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick ) : base(parent) {
+		public UIIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick, string title, string desc ) : base(parent) {
 			this.SpriteName = spriteName;
 			this.onClick = onClick;
 			this.SetWidth(56);
 			this.SetHeight(56);
 			this.SetRelativePosition(posX, posY);
+
+			// Apply ToolTip Text
+			this.title = title;
+			this.desc = desc;
 		}
 
 		public void UpdateSprite(string spriteName) {
@@ -28,6 +36,11 @@ namespace Nexus.GameEngine {
 			this.MouseOver = this.GetMouseOverState();
 			if(this.MouseOver == UIMouseOverState.On) {
 				UIComponent.ComponentWithFocus = this;
+
+				// Run Tool TIp
+				if(this.title.Length > 0) {
+					UIHandler.RunToolTip(this.title, this.title, this.desc, UIPrimaryDirection.None);
+				}
 
 				// Mouse Clicked
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {

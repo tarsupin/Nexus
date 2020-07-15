@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 		private static string volOff = "Volume/Off";
 
 		// onClick = delegate() { doSomething(); };
-		public ToggleVolume( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleVolume.volOn, posX, posY, onClick) {}
+		public ToggleVolume( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleVolume.volOn, posX, posY, onClick, "Volume Toggle", "Toggles the volume on or off.") {}
 
 		public new void Draw() {
 

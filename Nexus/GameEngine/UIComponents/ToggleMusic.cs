@@ -9,7 +9,7 @@ namespace Nexus.GameEngine {
 		private static string off = "Music/Off";
 
 		// onClick = delegate() { doSomething(); };
-		public ToggleMusic( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleMusic.on, posX, posY, onClick) {}
+		public ToggleMusic( UIComponent parent, short posX, short posY, Action onClick ) : base(parent, ToggleMusic.on, posX, posY, onClick, "Music Toggle", "Toggles the music on or off.") {}
 
 		public new void Draw() {
 
