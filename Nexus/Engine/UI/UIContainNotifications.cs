@@ -85,7 +85,7 @@ namespace Nexus.Engine {
 					int finalFrame = notif.exitFrame + UIHandler.theme.notifs.exitDuration;
 
 					// Draw Fade Effect during the fade itself.
-					notif.transition = 1 - Spectrum.GetPercentFromValue(Systems.timer.UniFrame, notif.exitFrame, finalFrame);
+					notif.alpha = 1 - Spectrum.GetPercentFromValue(Systems.timer.UniFrame, notif.exitFrame, finalFrame);
 
 					// Delete the notification if their exit has finalized.
 					if(Systems.timer.UniFrame > finalFrame) {

@@ -15,13 +15,9 @@ namespace Nexus.Engine {
 
 		// Ending Effects (Specifics of the exit are up to the Notification Handler)
 		public int exitFrame { get; private set; }		// Marks the frame where the notification will begin to exit (fade, exit right, etc).
-		public float transition = 1;
+		public float alpha = 1;
 
-		// Action Parameters
-		// If the notification is clicked, it can provide parameters for the resulting action called.
-		public short[] paramNums;
-
-		public UINotification(UIComponent parent, UIAlertType type, string title, string text, int exitFrame, short[] paramNums = null) : base(parent) {
+		public UINotification(UIComponent parent, UIAlertType type, string title, string text, int exitFrame) : base(parent) {
 
 			// Type Themee
 			var theme = UIHandler.theme;
@@ -56,7 +52,6 @@ namespace Nexus.Engine {
 
 			// Behaviors
 			this.exitFrame = exitFrame;
-			this.paramNums = paramNums;
 
 			// Size Setup
 			this.SetHeight((short)(measureTitle.Y + measureText.Y * this.text.Length + 10 + 10 + 6));
@@ -68,21 +63,21 @@ namespace Nexus.Engine {
 			int posX = this.Parent.trueX;
 
 			// Draw Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, this.width, this.height), this.bg * transition);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, this.width, this.height), this.bg * alpha);
 
 			// Draw Outlines
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, this.width - 4, 1), this.outline * transition);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + this.height - 3, this.width - 4, 1), this.outline * transition);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, 1, this.height - 4), this.outline * transition);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + this.width - 3, posY + 2, 1, this.height - 4), this.outline * transition);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, this.width - 4, 1), this.outline * alpha);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + this.height - 3, this.width - 4, 1), this.outline * alpha);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, 1, this.height - 4), this.outline * alpha);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + this.width - 3, posY + 2, 1, this.height - 4), this.outline * alpha);
 
 			// Draw Notice
 			var theme = UIHandler.theme;
-			Systems.fonts.baseText.Draw(this.title, posX + 10, posY + 10, theme.notifs.FontColor * transition);
+			Systems.fonts.baseText.Draw(this.title, posX + 10, posY + 10, theme.NormFG * alpha);
 
 			// Draw Each Text Line
 			for(byte i = 0; i < this.text.Length; i++) {
-				Systems.fonts.console.Draw(this.text[i], posX + 10, posY + 35 + (i * 17), theme.notifs.FontColor * transition);
+				Systems.fonts.console.Draw(this.text[i], posX + 10, posY + 35 + (i * 17), theme.NormFG * alpha);
 			}
 		}
 	}

@@ -79,6 +79,7 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Calc\Coords.cs" />
     <Compile Include="Engine\FPCalc\FPTrigCalc.cs" />
+    <Compile Include="Engine\UI\UIToolTip.cs" />
     <Compile Include="Engine\UI\UITheme.cs" />
     <Compile Include="Engine\UI\UIContainNotifications.cs" />
     <Compile Include="Engine\UI\UINotification.cs" />

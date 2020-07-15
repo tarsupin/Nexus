@@ -7,6 +7,7 @@ namespace Nexus.Engine {
 
 		// Sub-Themes
 		public readonly UIThemeNotifications notifs = new UIThemeNotifications();
+		public readonly UIThemeToolTip tooltips = new UIThemeToolTip();
 
 		// Background Colors
 		public readonly Color NormBG = new Color(55, 55, 55, 205);
@@ -20,7 +21,10 @@ namespace Nexus.Engine {
 		public readonly Color WarningOutline = Color.White;
 		public readonly Color SuccessOutline = Color.White;
 
-		// Font
+		// Font Colors
+		public readonly Color NormFG = Color.White;
+
+		// Fonts
 		public readonly FontClass headerFont = Systems.fonts.baseText;
 		public readonly FontClass smallHeaderFont = Systems.fonts.baseText;
 		public readonly FontClass bigFont = Systems.fonts.console;
@@ -36,9 +40,6 @@ namespace Nexus.Engine {
 		public readonly short ItemWidth = 320;			// The inner width of notifications; adds some extra width for boundaries.
 		public readonly short NotifGap = 10;			// The gap size (margin) between notifications.
 
-		// Font
-		public readonly Color FontColor = Color.White;
-
 		// Positioning
 		public readonly UIHorPosition xRel = UIHorPosition.Right;
 		public readonly UIVertPosition yRel = UIVertPosition.Bottom;
@@ -47,5 +48,10 @@ namespace Nexus.Engine {
 
 		// Exit Behavior
 		public readonly short exitDuration = 40;
+	}
+
+	public class UIThemeToolTip {
+		public readonly short ItemWidth = 320;
+		public readonly short EndDuration = 12;
 	}
 }

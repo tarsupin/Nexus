@@ -78,8 +78,19 @@ namespace Nexus.Engine {
 			Systems.game.IsMouseVisible = visible;
 		}
 
+		// Notifications
 		public static void AddNotification(UIAlertType type, string title, string text, int duration = 0) {
 			UIHandler.globalUI.notifyBox.AddIncomingNotification(type, title, text, duration);
+		}
+
+		// Tool Tips
+		public static bool MaintainToolTip(string id) {
+			return UIHandler.globalUI.toolTip._MaintainToolTip(id);
+		}
+
+		public static void CreateToolTip(string id, string title, string text) {
+			UIHandler.globalUI.toolTip._CreateToolTip(id, title, text);
+			UIHandler.MaintainToolTip(id);
 		}
 	}
 }

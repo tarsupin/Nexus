@@ -78,6 +78,11 @@ namespace Nexus.GameEngine {
 			Cursor.UpdateMouseState();
 			UIHandler.cornerMenu.RunTick();
 
+			// TODO: TEMPORARY. REMOVE THIS
+			// TODO: TEMPORARY. REMOVE THIS
+			// TODO: TEMPORARY. REMOVE THIS
+			if(!UIHandler.MaintainToolTip("exit")) { UIHandler.CreateToolTip("exit", "Testing Thing", "This is a test. Such a test. Wow, doge is a test. What the test."); }
+
 			// Menu State
 			if(UIHandler.uiState == UIState.Menu) {
 				UIHandler.menu.RunTick();
