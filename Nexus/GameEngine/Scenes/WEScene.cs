@@ -334,9 +334,9 @@ namespace Nexus.GameEngine {
 				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
-					this.weUI.noticeText.SetText("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
+					this.weUI.statusText.SetText("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
 				} else {
-					this.weUI.noticeText.SetText("No Level Assigned", gridX + ", " + gridY, 120);
+					this.weUI.statusText.SetText("No Level Assigned", gridX + ", " + gridY, 120);
 				}
 			}
 
@@ -347,9 +347,9 @@ namespace Nexus.GameEngine {
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
 					byte getLinkId;
 					byte.TryParse(this.currentZone.nodes[coordStr].Replace("_warp", ""), out getLinkId);
-					this.weUI.noticeText.SetText("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
+					this.weUI.statusText.SetText("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
 				} else {
-					this.weUI.noticeText.SetText("No Warp Link", gridX + ", " + gridY, 120);
+					this.weUI.statusText.SetText("No Warp Link", gridX + ", " + gridY, 120);
 				}
 			}
 		}

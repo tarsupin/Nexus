@@ -75,13 +75,13 @@ namespace Nexus.GameEngine {
 					// Object ID
 					if(WEShadowTile.HelpText.ContainsKey(ph.obj)) {
 						string[] help = WEShadowTile.HelpText[ph.obj];
-						WEScene.weUI.noticeText.SetText(help[0], help[1]);
+						WEScene.weUI.statusText.SetText(help[0], help[1]);
 						return;
 					}
 				}
 			}
 
-			WEScene.weUI.noticeText.ClearStatus();
+			WEScene.weUI.statusText.ClearStatus();
 		}
 	}
 }

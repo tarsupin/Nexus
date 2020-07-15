@@ -13,8 +13,7 @@ namespace Nexus.GameEngine {
 		private readonly GridOverlay gridUI;
 		private readonly WEUtilityBar utilityBar;
 		private readonly WEScroller scroller;
-		public readonly UIStatusText noticeText;
-		public readonly UIStatusText alertText;
+		public readonly UIStatusText statusText;
 		public readonly WEMenu weMenu;
 
 		public static byte curWESlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
@@ -27,10 +26,7 @@ namespace Nexus.GameEngine {
 			this.gridUI = new GridOverlay(null, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
 			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
-
-			// Notice + Alert Text
-			this.noticeText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.alertText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
+			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
 
 			// Tab Menu - WorldTileTool Listings
 			this.weMenu = new WEMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f), 4, 2);
@@ -59,12 +55,7 @@ namespace Nexus.GameEngine {
 			this.scroller.Draw();
 			this.weMenu.Draw();
 
-			// Alert Text
-			this.alertText.DrawAlertFrame();
-
-			if(Cursor.MouseY > 75) {
-				this.noticeText.DrawAlertFrame();
-			}
+			if(Cursor.MouseY > 75) { this.statusText.Draw(); }
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw(Cursor.MiniGridX + ", " + Cursor.MiniGridY, 12, 5, Color.White);

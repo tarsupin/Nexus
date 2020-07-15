@@ -48,7 +48,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void DrawAlertFrame() {
+		public void Draw() {
 
 			// Draw Alert (if applicable)
 			if(this.title.Length == 0) { return; }

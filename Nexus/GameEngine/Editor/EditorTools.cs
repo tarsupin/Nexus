@@ -101,12 +101,12 @@ namespace Nexus.GameEngine {
 					TileObject tile = Systems.mapper.TileDict[ph.tileId];
 
 					if(tile.titles != null) {
-						editorScene.editorUI.noticeText.SetText(tile.titles[ph.subType], tile.descriptions[ph.subType]);
+						editorScene.editorUI.statusText.SetText(tile.titles[ph.subType], tile.descriptions[ph.subType]);
 						return;
 					}
 
 					else if(tile.title.Length > 0) {
-						editorScene.editorUI.noticeText.SetText(tile.title, tile.description);
+						editorScene.editorUI.statusText.SetText(tile.title, tile.description);
 						return;
 					}
 				}
@@ -116,12 +116,12 @@ namespace Nexus.GameEngine {
 					string title = ShadowTile.ObjHelpText[ph.objectId][ph.subType][0];
 					string desc = ShadowTile.ObjHelpText[ph.objectId][ph.subType][1];
 
-					editorScene.editorUI.noticeText.SetText(title, desc);
+					editorScene.editorUI.statusText.SetText(title, desc);
 					return;
 				}
 			}
 
-			editorScene.editorUI.noticeText.ClearStatus();
+			editorScene.editorUI.statusText.ClearStatus();
 		}
 	}
 }

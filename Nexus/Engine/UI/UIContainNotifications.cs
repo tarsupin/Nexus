@@ -20,16 +20,6 @@ namespace Nexus.Engine {
 
 		public UIContainNotifications(UIComponent parent) : base(parent) {
 			this.RunThemeUpdate();
-
-			// TODO: TEMP. REMOVE
-			// TODO: TEMP. REMOVE
-			// TODO: TEMP. REMOVE
-			// TODO: TEMP. REMOVE
-			// TODO: TEMP. REMOVE
-			this.AddIncomingNotification(UIAlertType.Success, "Success", "some text for you", 4000);
-			this.AddIncomingNotification(UIAlertType.Error, "Error", "Some ERROR text for you. Normal is as normal does. Normal is as normal does. some text for you some text for you", 5000);
-			this.AddIncomingNotification(UIAlertType.Warning, "Warning", "A quick warning.", 2000);
-			this.AddIncomingNotification(UIAlertType.Normal, "Normal", "Normal is as normal does. But now let's see what else happens.", 3000);
 		}
 
 		public void AddIncomingNotification(UIAlertType type, string title, string text, int duration = 0) {

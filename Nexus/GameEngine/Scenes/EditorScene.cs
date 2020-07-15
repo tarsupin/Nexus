@@ -36,13 +36,6 @@ namespace Nexus.GameEngine {
 			for(byte nextRoomID = 0; nextRoomID < this.levelContent.data.rooms.Count; nextRoomID++) {
 				this.rooms[nextRoomID] = new EditorRoomScene(this, nextRoomID);
 			}
-
-			// TODO: REMOVE REMOVE
-			// TODO: REMOVE REMOVE
-			// TODO: REMOVE REMOVE
-			// TODO: REMOVE REMOVE
-			// TODO: REMOVE REMOVE
-			UIHandler.AddNotification(UIAlertType.Success, "Success", "some text for you", 400);
 		}
 
 		public override void StartScene() {

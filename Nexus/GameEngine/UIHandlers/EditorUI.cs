@@ -11,8 +11,7 @@ namespace Nexus.GameEngine {
 		private readonly UtilityBar utilityBar;
 		private readonly EditorScroller scroller;
 		public readonly GridOverlay gridUI;
-		public readonly UIStatusText noticeText;
-		public readonly UIStatusText alertText;
+		public readonly UIStatusText statusText;
 		public readonly ContextMenu contextMenu;
 		public readonly ParamMenu moveParamMenu;
 		public readonly ParamMenu actParamMenu;
@@ -26,10 +25,7 @@ namespace Nexus.GameEngine {
 			this.gridUI = new GridOverlay(null, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight);
 			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
-
-			// Alert Texts
-			this.noticeText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.alertText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
+			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
 
 			// Tab Menu - TileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
@@ -74,9 +70,7 @@ namespace Nexus.GameEngine {
 			this.moveParamMenu.Draw();
 			this.actParamMenu.Draw();
 
-			// Alert Text
-			this.alertText.DrawAlertFrame();
-			if(Cursor.MouseY > 75) { this.noticeText.DrawAlertFrame(); }
+			if(Cursor.MouseY > 75) { this.statusText.Draw(); }
 
 			// Coordinate Tracker
 			Systems.fonts.counter.Draw((Cursor.TileGridX + 1) + ", " + (Cursor.TileGridY + 1), 12, 5, Color.White);
