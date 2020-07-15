@@ -139,11 +139,11 @@ namespace Nexus.Engine {
 				notif.Draw(posY);
 
 				// Update the position of the next notification.
-				if(i + 1 < this.notifications.Count) {
-					UINotification next = i + 1 < this.notifications.Count ? this.notifications.ElementAt(i + 1) : null;
-					if(this.comesFromTop) {
-						posY = posY + next.height + theme.NotifGap;
-					} else {
+				if(this.comesFromTop) {
+					posY = posY + notif.height + theme.NotifGap;
+				} else {
+					if(i + 1 < this.notifications.Count) {
+						UINotification next = this.notifications.ElementAt(i + 1);
 						posY = posY - next.height - theme.NotifGap;
 					}
 				}
