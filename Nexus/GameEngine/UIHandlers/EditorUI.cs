@@ -11,8 +11,8 @@ namespace Nexus.GameEngine {
 		private readonly UtilityBar utilityBar;
 		private readonly EditorScroller scroller;
 		public readonly GridOverlay gridUI;
-		public readonly AlertText noticeText;
-		public readonly AlertText alertText;
+		public readonly UIStatusText noticeText;
+		public readonly UIStatusText alertText;
 		public readonly ContextMenu contextMenu;
 		public readonly ParamMenu moveParamMenu;
 		public readonly ParamMenu actParamMenu;
@@ -28,10 +28,8 @@ namespace Nexus.GameEngine {
 			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
 
 			// Alert Texts
-			this.noticeText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.noticeText.SetColors(Color.White, Color.DarkSlateBlue);
-			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
-			this.alertText.SetColors(Color.White, Color.Red);
+			this.noticeText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.alertText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
 
 			// Tab Menu - TileTool Listings
 			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));

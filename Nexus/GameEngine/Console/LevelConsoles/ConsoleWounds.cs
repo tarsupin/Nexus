@@ -1,4 +1,5 @@
-﻿using Nexus.Gameplay;
+﻿using Nexus.Engine;
+using Nexus.Gameplay;
 
 namespace Nexus.GameEngine {
 
@@ -10,6 +11,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				byte health = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
+				UIHandler.AddNotification(UIAlertType.Success, "Health Granted", "Granted " + health + " Health to Character.", 180);
 				ConsoleTrack.character.wounds.SetHealth(health);
 			}
 		}
@@ -20,6 +22,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				byte armor = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : (byte)100;
+				UIHandler.AddNotification(UIAlertType.Success, "Armor Granted", "Granted " + armor + " Armor to Character.", 180);
 				ConsoleTrack.character.wounds.SetArmor(armor);
 			}
 		}
@@ -30,6 +33,7 @@ namespace Nexus.GameEngine {
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
 				int duration = ConsoleTrack.instructionList.Count >= 2 ? (byte)ConsoleTrack.GetArgAsInt() : 60;
+				UIHandler.AddNotification(UIAlertType.Success, "Invincibility Granted", "Granted Invincibility for " + duration + " Seconds.", 180);
 				ConsoleTrack.character.wounds.SetInvincible(duration * 60);
 			}
 		}
@@ -39,6 +43,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Warning, "Damage Inflicted", "Recieved 1 Wound Damage.", 180);
 				ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.Standard);
 			}
 		}
@@ -48,6 +53,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Warning, "Killed Self", "Character chose to respawn.", 180);
 				ConsoleTrack.character.wounds.ReceiveWoundDamage(DamageStrength.InstantKill);
 			}
 		}

@@ -51,7 +51,7 @@ namespace Nexus.GameEngine {
 
 					// Draw the Helper Text associated with the Function Button
 					EditorScene editorScene = (EditorScene)Systems.scene;
-					editorScene.editorUI.noticeText.SetNotice(funcButton.title, funcButton.description);
+					editorScene.editorUI.noticeText.SetText(funcButton.title, funcButton.description);
 				}
 
 				// Mouse was pressed

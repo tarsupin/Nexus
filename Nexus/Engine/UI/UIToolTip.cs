@@ -3,7 +3,7 @@
 namespace Nexus.Engine {
 
 	// The correct way to maintain (and create) a tool tip:
-	// if(!UIHandler.MaintainToolTip("exit")) { UIHandler.CreateToolTip(...); }
+	// UIHandler.RunToolTip("testId", "Testing", "This is a test.");
 
 	// Note: There should only be one of these created.
 	public class UIToolTip : UIComponent {
@@ -21,7 +21,7 @@ namespace Nexus.Engine {
 		public UIToolTip(UIComponent parent) : base(parent) {}
 
 		// Use this method to see if the tool tip needs to be rebuilt (is new). If it already exists, update it's end frame.
-		// Use UIHandler.MaintainToolTip() instead of this method.
+		// Use UIHandler.RunToolTip() instead of this method.
 		public bool _MaintainToolTip( string uid ) {
 
 			// Don't rebuild a tool tip that already exists. Instead, update the end frame.
@@ -35,7 +35,7 @@ namespace Nexus.Engine {
 
 		// The uid is a unique identifier to prevent re-building a tool tip on every frame.
 		// This method will NOT update the endFrame (to avoid programmers trying to run it without "_MaintainToolTip"). Use "_MaintainToolTip" to determine if this is needed.
-		// Use UIHandler.CreateToolTip() instead of this method.
+		// Use UIHandler.RunToolTip() instead of this method.
 		public void _CreateToolTip( string uid, string title, string text ) {
 			this.uid = uid;
 

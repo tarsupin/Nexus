@@ -1,4 +1,5 @@
-﻿using Nexus.ObjectComponents;
+﻿using Nexus.Engine;
+using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -41,6 +42,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.PrepareTabLookup(weaponCodes, currentIns, "Assign a weapon to the character; e.g. `power weapon spear`");
 
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Weapon Granted", "Granted Weapon to Character.", 180);
 
 				if(weaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(weaponCodes[currentIns].ToString());
@@ -68,6 +70,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.PrepareTabLookup(rangedWeaponCodes, currentIns, "Assign a ranged weapon to the character; e.g. `power ranged axe`");
 
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Weapon Granted", "Granted Ranged Weapon to Character.", 180);
 
 				if(rangedWeaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(rangedWeaponCodes[currentIns].ToString());
@@ -100,6 +103,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.PrepareTabLookup(wandWeaponCodes, currentIns, "Assign a wand to the character; e.g. `power wand blue`");
 
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Wand Granted", "Granted Wand to Character.", 180);
 
 				if(wandWeaponCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(wandWeaponCodes[currentIns].ToString());
@@ -125,6 +129,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.PrepareTabLookup(magicCodes, currentIns, "Assign magic power to the character; e.g. `power magic fire`");
 
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Magic Granted", "Granted Magic Spell to Character.", 180);
 
 				if(magicCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(magicCodes[currentIns].ToString());
@@ -154,6 +159,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.PrepareTabLookup(mobilityCodes, currentIns, "Assign mobility power to the character; e.g. `power mobility levitate`");
 
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Mobility Granted", "Granted Mobility Power to Character.", 180);
 
 				if(mobilityCodes.ContainsKey(currentIns)) {
 

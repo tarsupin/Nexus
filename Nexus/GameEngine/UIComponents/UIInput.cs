@@ -23,7 +23,7 @@ namespace Nexus.GameEngine {
 			this.SetRelativePosition(posX, posY);
 		}
 
-		public void SetText(string newText) {
+		public void SetInputText(string newText) {
 			if(newText.Length > this.maxLen) { return; }
 			this.text = newText;
 		}

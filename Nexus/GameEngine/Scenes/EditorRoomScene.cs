@@ -244,7 +244,7 @@ namespace Nexus.GameEngine {
 
 						// If the Object Limiter failed, display the error message.
 						else {
-							this.scene.editorUI.alertText.SetNotice("Limit Reached", ObjectLimiter.LastFailMessage, 240);
+							UIHandler.AddNotification(UIAlertType.Error, "Limit Reached", ObjectLimiter.LastFailMessage, 240);
 						}
 
 					} else  if(ph.layerEnum == LayerEnum.bg) {
@@ -264,7 +264,7 @@ namespace Nexus.GameEngine {
 					
 					// If the Object Limiter failed, display the error message.
 					else {
-						this.scene.editorUI.alertText.SetNotice("Limit Reached", ObjectLimiter.LastFailMessage, 240);
+						UIHandler.AddNotification(UIAlertType.Error, "Limit Reached", ObjectLimiter.LastFailMessage, 240);
 					}
 				}
 
@@ -379,7 +379,7 @@ namespace Nexus.GameEngine {
 
 			// Prevent Resize if over room size limit:
 			if(newWidth * this.yCount > (short)TilemapEnum.MaxTilesTotal) {
-				this.scene.editorUI.alertText.SetNotice("Unable to Resize Width", "Maximum Room Size Limit is " + (short)TilemapEnum.MaxTilesTotal, 240);
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Resize", "Maximum tiles cannot exceed " + (short)TilemapEnum.MaxTilesTotal + " in total.", 240);
 				return;
 			}
 
@@ -397,14 +397,14 @@ namespace Nexus.GameEngine {
 			Systems.camera.UpdateScene(this);
 
 			// Set Notice of Update:
-			this.scene.editorUI.noticeText.SetNotice("Room Has Been Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
+			UIHandler.AddNotification(UIAlertType.Success, "Room Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
 		}
 
 		public void ResizeHeight(short newHeight = 0) {
 
 			// Prevent Resize if over room size limit:
 			if(newHeight * this.xCount > (short)TilemapEnum.MaxTilesTotal) {
-				this.scene.editorUI.alertText.SetNotice("Unable to Resize Height", "Maximum Room Size Limit is " + (short)TilemapEnum.MaxTilesTotal, 240);
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Resize", "Maximum tiles cannot exceed " + (short)TilemapEnum.MaxTilesTotal + " in total.", 240);
 				return;
 			}
 
@@ -422,7 +422,7 @@ namespace Nexus.GameEngine {
 			Systems.camera.UpdateScene(this);
 
 			// Set Notice of Update:
-			this.scene.editorUI.noticeText.SetNotice("Room Has Been Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
+			UIHandler.AddNotification(UIAlertType.Success, "Room Resized", "New Size: " + this.xCount.ToString() + " Tiles x " + this.yCount.ToString() + " Tiles.", 240);
 		}
 	}
 }

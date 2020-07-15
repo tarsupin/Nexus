@@ -47,15 +47,15 @@ namespace Nexus.GameEngine {
 				UIInput comp = (UIInput)UIComponent.ComponentSelected;
 
 				if(charsPressed.Length > 0) {
-					comp.SetText(comp.text + charsPressed);
+					comp.SetInputText(comp.text + charsPressed);
 				}
 
 				// Backspace (+Shift, +Control)
 				if(input.LocalKeyPressed(Keys.Back)) {
 					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
-						comp.SetText("");
+						comp.SetInputText("");
 					} else {
-						comp.SetText(comp.text.Substring(0, comp.text.Length - 1));
+						comp.SetInputText(comp.text.Substring(0, comp.text.Length - 1));
 					}
 				}
 			}

@@ -42,7 +42,7 @@ namespace Nexus.GameEngine {
 				}
 				
 				else {
-					scene.weUI.alertText.SetNotice("Resize Not Allowed", "Resize must be within the allowed range.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Resize", "Resize must be within the allowed range.", 240);
 				}
 			}
 		}
@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 
 			if(ConsoleTrack.activate) {
 				WEScene scene = (WEScene)Systems.scene;
-				scene.weUI.alertText.SetNotice("Unavailable During Alpha", "These game modes cannot be set during the alpha release.", 300);
+				UIHandler.AddNotification(UIAlertType.Warning, "Unavailable - Alpha", "These game modes cannot be set during the alpha release.", 300);
 				return;
 			}
 		}
@@ -89,12 +89,12 @@ namespace Nexus.GameEngine {
 
 			if(ConsoleTrack.activate) {
 				if(lives < 1 || lives > 500) {
-					scene.weUI.alertText.SetNotice("Cannot Set Lives", "Lives must be set between 1 and 500.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Lives", "Lives must be set between 1 and 500.", 240);
 					return;
 				}
 
 				scene.worldContent.data.lives = lives;
-				scene.weUI.noticeText.SetNotice("Set World Lives", "Set to \"" + lives + "\" lives.", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "Lives Set", "World campaign assigned to have \"" + lives + "\" lives.", 240);
 			}
 		}
 
@@ -116,12 +116,12 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(text.Length > 24) {
-					scene.weUI.alertText.SetNotice("Unable to Rename Level", "Title must be 24 characters or less.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Title", "Title must be 24 characters or less.", 240);
 					return;
 				}
 
 				scene.worldContent.data.name = text;
-				scene.weUI.noticeText.SetNotice("New World Title", "Title Set: \"" + text + "\"", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "New World Title", "World title set to: \"" + text + "\"", 240);
 			}
 		}
 
@@ -143,12 +143,12 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(text.Length > 72) {
-					scene.weUI.alertText.SetNotice("Unable to Set Description", "World description must be 72 characters or less.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Description", "World description must be 72 characters or less.", 240);
 					return;
 				}
 
 				scene.worldContent.data.description = text;
-				scene.weUI.noticeText.SetNotice("New World Description", "Description Set: \"" + text + "\"", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "New World Description", "Description Set: \"" + text + "\"", 240);
 			}
 		}
 
@@ -164,7 +164,7 @@ namespace Nexus.GameEngine {
 			// Remove Music From Level
 			if(currentIns == "none") {
 				scene.worldContent.data.music = 0;
-				scene.weUI.alertText.SetNotice("Removed Music Track", "", 240);
+				UIHandler.AddNotification(UIAlertType.Warning, "Removed Music Track", "World currently has no music assigned.", 240);
 				return;
 			}
 
@@ -183,12 +183,12 @@ namespace Nexus.GameEngine {
 				if(trackCat.ContainsKey(trackName)) {
 					byte track = (byte)trackCat[trackName];
 					scene.worldContent.data.music = (byte)track;
-					scene.weUI.noticeText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
+					UIHandler.AddNotification(UIAlertType.Success, "Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
 					return;
 				}
 
 				// Prevent Rename if it exceeds name length.
-				scene.weUI.alertText.SetNotice("Unable to Set Music Track", "Designated music track doesn't exist.", 240);
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Music Track", "Designated music track doesn't exist.", 240);
 			}
 		}
 		
@@ -276,11 +276,11 @@ namespace Nexus.GameEngine {
 
 							// Error if the values aren't allowed:
 							if(linkID < 1 || linkID > 20) {
-								scene.weUI.alertText.SetNotice("Invalid Warp Link", "Warp Link ID must be set between 1 and 20.", 240);
+								UIHandler.AddNotification(UIAlertType.Error, "Invalid Warp Link", "Warp Link ID must be set between 1 and 20.", 240);
 								return;
 							}
 
-							scene.weUI.noticeText.SetNotice("Warp Set", "Warp Link ID assigned as " + linkID.ToString() + ".", 240);
+							UIHandler.AddNotification(UIAlertType.Success, "Warp Set", "Warp Link ID assigned as " + linkID.ToString() + ".", 240);
 							zone.nodes[coordStr] = "_warp" + linkID.ToString();
 							return;
 						}

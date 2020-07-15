@@ -25,12 +25,12 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(text.Length > 24) {
-					((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Rename Level", "Title must be 24 characters or less.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Title", "Title must be 24 characters or less.", 240);
 					return;
 				}
 
 				((EditorScene)Systems.scene).levelContent.SetTitle(text);
-				((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("New Level Title", "Title Set: \"" + text + "\"", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "New Level Title", "Title set to: \"" + text + "\"", 240);
 			}
 		}
 		
@@ -51,12 +51,12 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(text.Length > 72) {
-					((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Set Description", "Level description must be 72 characters or less.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Description", "Level description must be 72 characters or less.", 240);
 					return;
 				}
 
 				((EditorScene)Systems.scene).levelContent.SetDescription(text);
-				((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("New Level Description", "Description Set: \"" + text + "\"", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "New Description", "Description set to: \"" + text + "\"", 240);
 			}
 		}
 
@@ -72,12 +72,12 @@ namespace Nexus.GameEngine {
 
 				// Prevent Rename if it exceeds name length.
 				if(seconds < 10 || seconds > 500) {
-					((EditorScene)Systems.scene).editorUI.alertText.SetNotice("Unable to Set Time Limit", "Time Limit must be between 10 and 500 seconds.", 240);
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid Time Limit", "Time Limit must be between 10 and 500 seconds.", 240);
 					return;
 				}
 
 				((EditorScene)Systems.scene).levelContent.SetTimeLimit(seconds);
-				((EditorScene)Systems.scene).editorUI.noticeText.SetNotice("New Time Limit", "Time Limit set to " + seconds + ".", 240);
+				UIHandler.AddNotification(UIAlertType.Success, "New Time Limit", "Time Limit set to " + seconds + ".", 240);
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace Nexus.GameEngine {
 			// Remove Music From Level
 			if(currentIns == "none") {
 				scene.levelContent.SetMusicTrack(0);
-				scene.editorUI.noticeText.SetNotice("Removed Music Track", "", 240);
+				UIHandler.AddNotification(UIAlertType.Warning, "Removed Music Track", "Level currently has no music assigned.", 240);
 				return;
 			}
 
@@ -113,12 +113,12 @@ namespace Nexus.GameEngine {
 				if(trackCat.ContainsKey(trackName)) {
 					byte track = (byte) trackCat[trackName];
 					scene.levelContent.SetMusicTrack((byte) track);
-					scene.editorUI.noticeText.SetNotice("Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
+					UIHandler.AddNotification(UIAlertType.Success, "Set Music Track", "Music Track set to " + MusicAssets.TrackNames[track].Replace("Music/", "") + ".", 240);
 					return;
 				}
 
 				// Prevent Rename if it exceeds name length.
-				scene.editorUI.alertText.SetNotice("Unable to Set Music Track", "Designated music track doesn't exist.", 240);
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Music Track", "Designated music track doesn't exist.", 240);
 			}
 		}
 

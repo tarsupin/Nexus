@@ -114,7 +114,7 @@
     <Compile Include="GameEngine\Console\LevelConsoles\ConsolePowers.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleWounds.cs" />
     <Compile Include="GameEngine\Console\LevelConsoles\ConsoleEquipment.cs" />
-    <Compile Include="Engine\UI\AlertText.cs" />
+    <Compile Include="Engine\UI\UIStatusText.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolItems.cs" />
     <Compile Include="GameEngine\GameValues.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxMountains.cs" />

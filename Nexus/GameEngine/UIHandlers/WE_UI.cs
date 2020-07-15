@@ -13,8 +13,8 @@ namespace Nexus.GameEngine {
 		private readonly GridOverlay gridUI;
 		private readonly WEUtilityBar utilityBar;
 		private readonly WEScroller scroller;
-		public readonly AlertText noticeText;
-		public readonly AlertText alertText;
+		public readonly UIStatusText noticeText;
+		public readonly UIStatusText alertText;
 		public readonly WEMenu weMenu;
 
 		public static byte curWESlotGroup; // Tracks which wheel menu is currently selected (relevant for the Utility Bar).
@@ -29,10 +29,8 @@ namespace Nexus.GameEngine {
 			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
 
 			// Notice + Alert Text
-			this.noticeText = new AlertText(null, (short)Systems.screen.windowHalfWidth, 5);
-			this.noticeText.SetColors(Color.White, Color.DarkSlateBlue);
-			this.alertText = new AlertText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
-			this.alertText.SetColors(Color.White, Color.Red);
+			this.noticeText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.alertText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, Systems.screen.windowHalfHeight);
 
 			// Tab Menu - WorldTileTool Listings
 			this.weMenu = new WEMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f), 4, 2);

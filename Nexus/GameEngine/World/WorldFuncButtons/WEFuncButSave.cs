@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateWorldFuncButton() {
 			Systems.handler.worldContent.SaveWorld();
-			((WEScene)Systems.scene).weUI.noticeText.SetNotice("World Saved", "World has been saved.");
+			UIHandler.AddNotification(UIAlertType.Success, "World Saved", "This world has been saved.", 180);
 		}
 	}
 }

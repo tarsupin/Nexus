@@ -329,14 +329,14 @@ namespace Nexus.GameEngine {
 			// Get the Current Tile
 			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, gridX, gridY);
 
-			// If the Current Tile is a Playablee Node:
+			// If the Current Tile is a Playable Node:
 			if(NodeData.IsObjectANode(wtData[5], false, false, true)) {
 				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
-					this.weUI.noticeText.SetNotice("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetText("Level " + this.currentZone.nodes[coordStr], gridX + ", " + gridY, 120);
 				} else {
-					this.weUI.noticeText.SetNotice("No Level Assigned", gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetText("No Level Assigned", gridX + ", " + gridY, 120);
 				}
 			}
 
@@ -347,9 +347,9 @@ namespace Nexus.GameEngine {
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
 					byte getLinkId;
 					byte.TryParse(this.currentZone.nodes[coordStr].Replace("_warp", ""), out getLinkId);
-					this.weUI.noticeText.SetNotice("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetText("Warp Link ID Set To #" + getLinkId, gridX + ", " + gridY, 120);
 				} else {
-					this.weUI.noticeText.SetNotice("No Warp Link", gridX + ", " + gridY, 120);
+					this.weUI.noticeText.SetText("No Warp Link", gridX + ", " + gridY, 120);
 				}
 			}
 		}
@@ -411,14 +411,14 @@ namespace Nexus.GameEngine {
 			this.xCount = this.worldContent.SetZoneWidth(this.currentZone, newWidth);
 			this.mapWidth = this.xCount * (byte)WorldmapEnum.TileWidth;
 			Systems.camera.UpdateScene(this);
-			this.weUI.noticeText.SetNotice("Resized Width", "New zone width is " + this.xCount + ".", 240);
+			UIHandler.AddNotification(UIAlertType.Success, "Resized Width", "New zone width is " + this.xCount + ".", 240);
 		}
 
 		public void ResizeHeight(byte newHeight = 0) {
 			this.yCount = this.worldContent.SetZoneHeight(this.currentZone, newHeight);
 			this.mapHeight = this.yCount * (byte)WorldmapEnum.TileHeight;
 			Systems.camera.UpdateScene(this);
-			this.weUI.noticeText.SetNotice("Resized Height", "New zone height is " + this.yCount + ".", 240);
+			UIHandler.AddNotification(UIAlertType.Success, "Resized Height", "New zone height is " + this.yCount + ".", 240);
 		}
 
 		// Place World Tile

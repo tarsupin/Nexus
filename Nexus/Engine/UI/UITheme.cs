@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Engine {
@@ -8,12 +9,13 @@ namespace Nexus.Engine {
 		// Sub-Themes
 		public readonly UIThemeNotifications notifs = new UIThemeNotifications();
 		public readonly UIThemeToolTip tooltips = new UIThemeToolTip();
+		public readonly UIThemeStatus status = new UIThemeStatus();
 
 		// Background Colors
-		public readonly Color NormBG = new Color(55, 55, 55, 205);
-		public readonly Color ErrorBG = new Color(120, 55, 55, 205);
-		public readonly Color WarningBG = new Color(120, 120, 55, 205);
-		public readonly Color SuccessBG = new Color(55, 120, 55, 205);
+		public readonly Color NormBG = new Color(55, 55, 55, 220);
+		public readonly Color ErrorBG = new Color(120, 55, 55, 220);
+		public readonly Color WarningBG = new Color(120, 120, 55, 220);
+		public readonly Color SuccessBG = new Color(55, 120, 55, 220);
 
 		// Outline Colors
 		public readonly Color NormOutline = Color.White;
@@ -53,5 +55,11 @@ namespace Nexus.Engine {
 	public class UIThemeToolTip {
 		public readonly short ItemWidth = 320;
 		public readonly short EndDuration = 12;
+	}
+
+	public class UIThemeStatus {
+		public readonly short EndDuration = 30;
+		public readonly Color bg = Color.White;
+		public readonly Color fg = Color.DarkSlateBlue;
 	}
 }

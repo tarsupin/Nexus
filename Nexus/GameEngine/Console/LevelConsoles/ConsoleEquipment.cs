@@ -1,4 +1,5 @@
-﻿using Nexus.ObjectComponents;
+﻿using Nexus.Engine;
+using Nexus.ObjectComponents;
 using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
@@ -64,6 +65,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Ninja Suit", "Added Ninja Suit to Character.", 180);
 
 				// Apply the Suit
 				if(suitNinjaCodes.ContainsKey(currentIns)) {
@@ -93,6 +95,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Wizard Suit", "Added Wizard Suit to Character.", 180);
 
 				// Apply the Suit
 				if(suitWizardCodes.ContainsKey(currentIns)) {
@@ -121,6 +124,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Hat", "Added Hat to Character.", 180);
 
 				// Apply the Hat
 				if(hatCodes.ContainsKey(currentIns)) {
@@ -193,6 +197,7 @@ namespace Nexus.GameEngine {
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
+				UIHandler.AddNotification(UIAlertType.Success, "Key", "Granted Key to Character.", 180);
 				ConsoleTrack.character.trailKeys.AddKey();
 			}
 		}

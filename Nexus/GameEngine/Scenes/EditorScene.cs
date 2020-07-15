@@ -78,11 +78,6 @@ namespace Nexus.GameEngine {
 			Cursor.UpdateMouseState();
 			UIHandler.cornerMenu.RunTick();
 
-			// TODO: TEMPORARY. REMOVE THIS
-			// TODO: TEMPORARY. REMOVE THIS
-			// TODO: TEMPORARY. REMOVE THIS
-			if(!UIHandler.MaintainToolTip("exit")) { UIHandler.CreateToolTip("exit", "Testing Thing", "This is a test. Such a test. Wow, doge is a test. What the test."); }
-
 			// Menu State
 			if(UIHandler.uiState == UIState.Menu) {
 				UIHandler.menu.RunTick();
@@ -195,7 +190,7 @@ namespace Nexus.GameEngine {
 
 			// If we're in the first room, make sure there are no characters. Otherwise, disallow swap:
 			if(curRoomID == 0 && this.limiter.charCount > 0) {
-				this.editorUI.alertText.SetNotice("Cannot Swap Room", "Character starting positions must remain in the first room.", 240);
+				UIHandler.AddNotification(UIAlertType.Error, "Cannot Swap Room", "Character starting positions must remain in the first room.", 360);
 				return;
 			}
 
@@ -216,6 +211,8 @@ namespace Nexus.GameEngine {
 
 			this.PrepareEmptyRoom(newRoomId);
 			this.curRoomID = newRoomId;
+
+			UIHandler.AddNotification(UIAlertType.Success, "Switched Room", "Now viewing room #" + (newRoomId + 1) + ".", 180);
 
 			// Important Components
 			Systems.camera.UpdateScene(this.CurrentRoom);

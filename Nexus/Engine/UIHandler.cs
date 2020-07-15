@@ -84,13 +84,11 @@ namespace Nexus.Engine {
 		}
 
 		// Tool Tips
-		public static bool MaintainToolTip(string id) {
-			return UIHandler.globalUI.toolTip._MaintainToolTip(id);
-		}
-
-		public static void CreateToolTip(string id, string title, string text) {
-			UIHandler.globalUI.toolTip._CreateToolTip(id, title, text);
-			UIHandler.MaintainToolTip(id);
+		public static void RunToolTip(string id, string title, string text) {
+			if(!UIHandler.globalUI.toolTip._MaintainToolTip(id)) {
+				UIHandler.globalUI.toolTip._CreateToolTip(id, title, text);
+				UIHandler.globalUI.toolTip._MaintainToolTip(id);
+			}
 		}
 	}
 }
