@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
+// TODO: Build UIButton
+// TODO: This class is currently incomplete. It requires a hover-over effect in RunTick(), interactive feature, etc.
+
 namespace Nexus.Engine {
 
 	public class UIButton : UIComponent {
@@ -38,8 +41,17 @@ namespace Nexus.Engine {
 			this.titleWidth = (short) UIHandler.theme.bigFont.font.MeasureString(title).X;
 
 			// Size Setup
-			this.SetHeight(80);
-			this.SetWidth(120);
+			this.SetHeight(bTheme.Height);
+			this.SetWidth(bTheme.Width);
+		}
+
+		public void RunTick() {
+			this.MouseOver = this.GetMouseOverState();
+
+			// If clicked while hovering over the button:
+			if(this.MouseOver == UIMouseOverState.On && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+
+			}
 		}
 
 		public void Draw() {
@@ -48,18 +60,26 @@ namespace Nexus.Engine {
 			UIThemeButton bTheme = theme.button;
 
 			// Draw Buttons
-			int posY = this.trueX;
-
+			int posX = this.trueX;
+			int posY = this.trueY;
+			
 			// Confirm Button
-			int posX = this.trueX + 60;
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, bTheme.Width, bTheme.Height), this.bg);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, bTheme.Width - 2, 2), Color.White);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY + bTheme.Height - 2, bTheme.Width - 2, 2), Color.White);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, 2, bTheme.Height - 2), Color.White);
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + bTheme.Width - 2, posY, 2, bTheme.Height - 2), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, bTheme.Width, bTheme.Height), this.MouseOver == UIMouseOverState.On ? this.hover : this.bg);
+			
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, bTheme.Width, 2), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY + bTheme.Height, bTheme.Width, 2), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, 2, bTheme.Height), Color.White);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + bTheme.Width, posY, 2, bTheme.Height + 2), Color.White);
+
+			if(this.MouseOver == UIMouseOverState.On) {
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, bTheme.Width - 3, 3), Color.DarkSlateGray);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, 3, bTheme.Height - 3), Color.DarkSlateGray);
+				posX += 2;
+				posY += 2;
+			}
 
 			// Draw Notice
-			Systems.fonts.baseText.Draw(this.title, posX + 10, posY + 10, theme.NormFG);
+			theme.bigFont.Draw(this.title, posX + (this.width / 2) - (this.titleWidth / 2), posY + 15, Color.White);
 		}
 	}
 }

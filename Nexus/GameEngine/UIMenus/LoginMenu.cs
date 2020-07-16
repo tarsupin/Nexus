@@ -54,7 +54,7 @@ namespace Nexus.GameEngine {
 				if(input.LocalKeyPressed(Keys.Back)) {
 					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
 						comp.SetInputText("");
-					} else {
+					} else if(comp.text.Length > 0) {
 						comp.SetInputText(comp.text.Substring(0, comp.text.Length - 1));
 					}
 				}

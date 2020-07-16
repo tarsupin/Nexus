@@ -4,9 +4,11 @@ namespace Nexus.Engine {
 	// UIGlobal contains the globally recognized UI features, such as:
 	//		- Notification Popups
 	//		- Tool Tips
-	//		- Alert + Confirmation Boxes (May Lock Screen + Require Interaction)
+	//		- Text Box and/or Message Box (Usable for NPCs, but also for other notices; can see Confirmation Box for basic structure)
+	//		- Confirmation Boxes (May Lock Screen + Require Interaction)
 	//		- Right Click Menu
 	//		- Navigation Bars
+	//		- Status Bar?
 	public class UIGlobal : UIComponent {
 		public UIContainNotifications notifyBox;
 		public UIToolTip toolTip;

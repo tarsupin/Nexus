@@ -30,7 +30,7 @@ namespace Nexus.Engine {
 		// Fonts
 		public readonly FontClass headerFont = Systems.fonts.baseText;
 		public readonly FontClass smallHeaderFont = Systems.fonts.baseText;
-		public readonly FontClass bigFont = Systems.fonts.console;
+		public readonly FontClass bigFont = Systems.fonts.baseText;
 		public readonly FontClass normalFont = Systems.fonts.console;
 		public readonly FontClass smallFont = Systems.fonts.console;
 		public readonly FontClass consoleFont = Systems.fonts.console;
@@ -75,16 +75,16 @@ namespace Nexus.Engine {
 
 	public class UIThemeButton {
 		public readonly short Height = 50;
-		public readonly short Width = 120;
+		public readonly short Width = 140;
 
 		// Background Colors
 		public readonly Color NormalBG = new Color(55, 55, 55, 255);
-		public readonly Color RejectBG = new Color(120, 55, 55, 255);
-		public readonly Color AcceptBG = new Color(55, 120, 55, 255);
+		public readonly Color RejectBG = new Color(140, 55, 55, 255);
+		public readonly Color AcceptBG = new Color(55, 140, 55, 255);
 
 		// Outline Colors
-		public readonly Color NormalHover = new Color(65, 65, 65, 255);
-		public readonly Color RejectHover = new Color(130, 65, 65, 255);
-		public readonly Color AcceptHover = new Color(65, 130, 65, 255);
+		public readonly Color NormalHover = new Color(20, 20, 20, 255);
+		public readonly Color RejectHover = new Color(145, 20, 20, 255);
+		public readonly Color AcceptHover = new Color(20, 145, 20, 255);
 	}
 }

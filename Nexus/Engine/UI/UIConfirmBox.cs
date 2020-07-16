@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
+// TODO: Build UIConfirmBox
+// TODO: This class is currently incomplete. It requires buttons, interactive confirmations, responses, etc.
+
 namespace Nexus.Engine {
 
 	public class UIConfirmBox : UIComponent {
@@ -36,10 +39,35 @@ namespace Nexus.Engine {
 
 			this.SetHeight(height);
 			this.SetWidth(cTheme.Width);
+
+			// TODO: REMOVE. TEMPORARY TEST.
+			this.SetButtonsConfirmDeny("AgreeSay", "RejectItYeah");
+		}
+
+		public void SetButtonsConfirmDeny(string yesTitle = "Yes", string noTitle = "No") {
+			UIThemeConfirmBox cTheme = UIHandler.theme.confirm;
+
+			short midHor = (short)(this.width / 2);
+
+			UIButton button1 = new UIButton(this, UIConfirmType.Approve, yesTitle);
+			button1.SetRelativePosition((short)(midHor - button1.width - 10), (short)(this.midLine + cTheme.HeightGaps));
+
+			UIButton button2 = new UIButton(this, UIConfirmType.Reject, noTitle);
+			button2.SetRelativePosition((short)(midHor + 10), (short)(this.midLine + cTheme.HeightGaps));
+		}
+
+		public void SetButtonOk(string okTitle = "OK") {
+			UIButton button = new UIButton(this, UIConfirmType.Normal, okTitle);
 		}
 
 		public void RunTick() {
 
+			// Draw Children
+			foreach(UIComponent child in this.Children) {
+				if(child is UIButton) {
+					((UIButton)child).RunTick();
+				}
+			}
 		}
 
 		public void Draw() {
@@ -64,6 +92,13 @@ namespace Nexus.Engine {
 
 			// Draw Midline
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + 60, this.midLine, this.width - 120, 1), theme.fg);
+
+			// Draw Children
+			foreach(UIComponent child in this.Children) {
+				if(child is UIButton) {
+					((UIButton)child).Draw();
+				}
+			}
 		}
 	}
 }
