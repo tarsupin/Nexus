@@ -19,7 +19,7 @@ namespace Nexus.Engine {
 
 		public UINotification(UIComponent parent, UIAlertType type, string title, string text, int exitFrame) : base(parent) {
 
-			// Type Themee
+			// Type Theme
 			var theme = UIHandler.theme;
 
 			if(type == UIAlertType.Error) {

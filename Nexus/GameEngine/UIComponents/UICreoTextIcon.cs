@@ -5,7 +5,7 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public class UIIconWithText : UIComponent {
+	public class UICreoTextIcon : UIComponent {
 
 		private static string BaseSprite = "Button/Up";
 		private static FontClass font = Systems.fonts.console;
@@ -16,7 +16,7 @@ namespace Nexus.GameEngine {
 		Action onActivate;
 
 		// onActivate = delegate() { doSomething(); };
-		public UIIconWithText( UIComponent parent, string spriteName, string text, short posX, short posY, Action onActivate ) : base(parent) {
+		public UICreoTextIcon( UIComponent parent, string spriteName, string text, short posX, short posY, Action onActivate ) : base(parent) {
 			this.SpriteName = spriteName;
 			this.text = text;
 			this.onActivate = onActivate;
@@ -24,7 +24,7 @@ namespace Nexus.GameEngine {
 			this.SetHeight(56);
 			this.SetRelativePosition(posX, posY);
 
-			Vector2 textSize = UIIconWithText.font.font.MeasureString(this.text);
+			Vector2 textSize = UICreoTextIcon.font.font.MeasureString(this.text);
 			this.xOffset = (short)Math.Floor(textSize.X * 0.5f);
 		}
 
@@ -48,15 +48,15 @@ namespace Nexus.GameEngine {
 		public void Draw(bool showFocus = false) {
 			
 			if(showFocus || UIComponent.ComponentWithFocus == this) {
-				UIHandler.atlas.Draw(UIIconWithText.BaseSprite, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoTextIcon.BaseSprite, this.trueX, this.trueY);
 				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 4, this.trueY + 4);
-				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White);
+				UICreoTextIcon.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White);
 			}
 
 			else {
-				UIHandler.atlas.DrawWithColor(UIIconWithText.BaseSprite, this.trueX, this.trueY, Color.White * 0.5f);
+				UIHandler.atlas.DrawWithColor(UICreoTextIcon.BaseSprite, this.trueX, this.trueY, Color.White * 0.5f);
 				UIHandler.atlas.DrawWithColor(this.SpriteName, this.trueX + 4, this.trueY + 4, Color.White * 0.5f);
-				UIIconWithText.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White * 0.65f);
+				UICreoTextIcon.font.Draw(this.text, this.trueX + 28 - this.xOffset, this.trueY + 66, Color.White * 0.65f);
 			}
 		}
 	}

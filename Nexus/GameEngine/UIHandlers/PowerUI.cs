@@ -27,28 +27,28 @@ namespace Nexus.GameEngine {
 
 			// Mobility Power
 			if(character.mobilityPower != null) {
-				UIHandler.atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
+				UIHandler.atlas.Draw(UICreoIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.mobilityPower.IconTexture, posX, topRow);
 				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
 			// Attack Power
 			if(character.attackPower != null) {
-				UIHandler.atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
+				UIHandler.atlas.Draw(UICreoIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.attackPower.IconTexture, posX, topRow);
 				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
 			// Magi-Shield
 			if(character.magiShield.IconTexture != null) {
-				UIHandler.atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
+				UIHandler.atlas.Draw(UICreoIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.magiShield.IconTexture, posX, topRow);
 				posX += (byte)(TilemapEnum.TileWidth + 16);
 			}
 
 			// Dashing Power / Shoes
 			if(character.shoes != null) {
-				UIHandler.atlas.Draw(UIIcon.Down, posX - 4, topRow - 4);
+				UIHandler.atlas.Draw(UICreoIcon.Down, posX - 4, topRow - 4);
 				atlas.Draw(character.shoes.IconTexture, posX, topRow);
 			}
 		}

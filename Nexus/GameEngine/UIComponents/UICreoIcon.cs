@@ -3,7 +3,7 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public class UIIcon : UIComponent {
+	public class UICreoIcon : UIComponent {
 
 		public const string Up = "Button/Up";
 		public const string Down = "Button/Down";
@@ -16,7 +16,7 @@ namespace Nexus.GameEngine {
 		protected string desc;
 
 		// onClick = delegate() { doSomething(); };
-		public UIIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick, string title, string desc ) : base(parent) {
+		public UICreoIcon( UIComponent parent, string spriteName, short posX, short posY, Action onClick, string title, string desc ) : base(parent) {
 			this.SpriteName = spriteName;
 			this.onClick = onClick;
 			this.SetWidth(56);
@@ -55,12 +55,12 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				UIHandler.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoIcon.Down, this.trueX, this.trueY);
 				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 5, this.trueY + 5);
 			}
 
 			else {
-				UIHandler.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoIcon.Up, this.trueX, this.trueY);
 				UIHandler.atlas.Draw(this.SpriteName, this.trueX + 4, this.trueY + 4);
 			}
 		}

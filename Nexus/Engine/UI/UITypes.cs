@@ -1,6 +1,8 @@
 ﻿
 namespace Nexus.Engine {
 
+	public enum UIState : byte { Playing, Menu }
+
 	public enum UIMouseOverState {
 		Off,
 		Entered,

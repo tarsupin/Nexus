@@ -17,11 +17,11 @@ namespace Nexus.GameEngine {
 		private readonly TextBox textBox;
 
 		// Center Menu
-		private readonly UIIconWithText cont;
-		private readonly UIIconWithText retry;
-		private readonly UIIconWithText restart;
-		private readonly UIIconWithText toMain;
-		private readonly UIIconWithText endLevel;
+		private readonly UICreoTextIcon cont;
+		private readonly UICreoTextIcon retry;
+		private readonly UICreoTextIcon restart;
+		private readonly UICreoTextIcon toMain;
+		private readonly UICreoTextIcon endLevel;
 
 		public LevelMenu() {
 
@@ -30,11 +30,11 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.cont = new UIIconWithText(null, "Continue", "Continue", centerX, centerY, delegate () {} );
-			this.retry = new UIIconWithText(null, "Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
-			this.restart = new UIIconWithText(null, "Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
-			this.toMain = new UIIconWithText(null, "Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
-			this.endLevel = new UIIconWithText(null, "Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { ((LevelScene)Systems.scene).EndLevel(); } );
+			this.cont = new UICreoTextIcon(null, "Continue", "Continue", centerX, centerY, delegate () {} );
+			this.retry = new UICreoTextIcon(null, "Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
+			this.restart = new UICreoTextIcon(null, "Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
+			this.toMain = new UICreoTextIcon(null, "Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
+			this.endLevel = new UICreoTextIcon(null, "Exit", "End Level", centerX, (short)(centerY + 66 + 50), delegate () { ((LevelScene)Systems.scene).EndLevel(); } );
 		}
 
 		public void RunTick() {

@@ -4,7 +4,7 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public class UIButton : UIComponent {
+	public class UICreoButton : UIComponent {
 
 		protected const string active = "Button/TextOn";
 		protected const string inactive = "Button/Text";
@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		public Action onClick { get; protected set; }
 
 		// onClick = delegate() { doSomething(); };
-		public UIButton( UIComponent parent, string text, short posX, short posY, Action onClick ) : base(parent) {
+		public UICreoButton( UIComponent parent, string text, short posX, short posY, Action onClick ) : base(parent) {
 			this.text = text;
 			this.onClick = onClick;
 
@@ -45,12 +45,12 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 			
 			if(UIComponent.ComponentWithFocus == this) {
-				UIHandler.atlas.Draw(UIButton.active, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoButton.active, this.trueX, this.trueY);
 				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 + 1 - this.xOffset, this.trueY + 16 + 1, Color.DarkSlateGray);
 			}
 
 			else {
-				UIHandler.atlas.Draw(UIButton.inactive, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoButton.inactive, this.trueX, this.trueY);
 				Systems.fonts.baseText.Draw(this.text, this.trueX + 62 - this.xOffset, this.trueY + 16, Color.DarkSlateGray);
 			}
 		}

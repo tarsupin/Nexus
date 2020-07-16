@@ -4,7 +4,7 @@ using Nexus.Gameplay;
 
 namespace Nexus.GameEngine {
 
-	public class UIInput : UIComponent {
+	public class UICreoInput : UIComponent {
 
 		public const byte charsVisible = 26;
 		protected const string box = "Input/Box";
@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 		private readonly short maxLen;
 		public string text { get; protected set; }
 
-		public UIInput( UIComponent parent, short posX, short posY, short maxLen = 45 ) : base(parent) {
+		public UICreoInput( UIComponent parent, short posX, short posY, short maxLen = 45 ) : base(parent) {
 			this.maxLen = maxLen;
 			this.text = "";
 
@@ -50,20 +50,20 @@ namespace Nexus.GameEngine {
 			string cursor = "";
 
 			if(UIComponent.ComponentWithFocus == this || UIComponent.ComponentSelected == this) {
-				UIHandler.atlas.Draw(UIInput.over, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoInput.over, this.trueX, this.trueY);
 
 				if(UIComponent.ComponentSelected == this) {
-					UIHandler.atlas.Draw(UIInput.outline, this.trueX, this.trueY);
+					UIHandler.atlas.Draw(UICreoInput.outline, this.trueX, this.trueY);
 
 					if(Systems.timer.beat4Modulus % 2 == 0) { cursor = "|"; }
 				}
 
 			} else {
-				UIHandler.atlas.Draw(UIInput.box, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoInput.box, this.trueX, this.trueY);
 			}
 
-			if(this.text.Length > UIInput.charsVisible) {
-				Systems.fonts.console.Draw(this.text.Substring(this.text.Length - UIInput.charsVisible) + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
+			if(this.text.Length > UICreoInput.charsVisible) {
+				Systems.fonts.console.Draw(this.text.Substring(this.text.Length - UICreoInput.charsVisible) + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
 			} else {
 				Systems.fonts.console.Draw(this.text + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
 			}

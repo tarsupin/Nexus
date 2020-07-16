@@ -19,13 +19,13 @@ namespace Nexus.GameEngine {
 		TextBox textBox;
 
 		// Center Menu
-		private readonly UIIconWithText ret;
-		private readonly UIIconWithText log;
-		private readonly UIIconWithText worlds;
-		private readonly UIIconWithText community;
-		private readonly UIIconWithText myLevels;
-		private readonly UIIconWithText myWorld;
-		private readonly UIIconWithText credits;
+		private readonly UICreoTextIcon ret;
+		private readonly UICreoTextIcon log;
+		private readonly UICreoTextIcon worlds;
+		private readonly UICreoTextIcon community;
+		private readonly UICreoTextIcon myLevels;
+		private readonly UICreoTextIcon myWorld;
+		private readonly UICreoTextIcon credits;
 
 		public MainMenu() {
 
@@ -34,15 +34,15 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.ret = new UIIconWithText(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
+			this.ret = new UICreoTextIcon(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
 
-			this.log = new UIIconWithText(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { UIHandler.SetMenu(UIHandler.loginMenu, true); } );
+			this.log = new UICreoTextIcon(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { UIHandler.SetMenu(UIHandler.loginMenu, true); } );
 
-			this.worlds = new UIIconWithText(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
-			this.community = new UIIconWithText(null, "Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
-			this.myLevels = new UIIconWithText(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
-			this.myWorld = new UIIconWithText(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
-			this.credits = new UIIconWithText(null, "About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games/credits"); } );
+			this.worlds = new UICreoTextIcon(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
+			this.community = new UICreoTextIcon(null, "Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
+			this.myLevels = new UICreoTextIcon(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
+			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
+			this.credits = new UICreoTextIcon(null, "About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games/credits"); } );
 		}
 
 		public void RunTick() {

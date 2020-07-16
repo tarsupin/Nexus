@@ -9,6 +9,7 @@ namespace Nexus.Engine {
 		// Sub-Themes
 		public readonly UIThemeNotifications notifs = new UIThemeNotifications();
 		public readonly UIThemeToolTip tooltips = new UIThemeToolTip();
+		public readonly UIThemeConfirmBox confirm = new UIThemeConfirmBox();
 		public readonly UIThemeStatus status = new UIThemeStatus();
 
 		// Background Colors
@@ -62,5 +63,15 @@ namespace Nexus.Engine {
 		public readonly short EndDuration = 30;
 		public readonly Color bg = Color.White;
 		public readonly Color fg = Color.DarkSlateBlue;
+	}
+
+	public class UIThemeConfirmBox {
+		public readonly short Width = 400;
+		public readonly short MinHeight = 250;
+		public readonly short HeightGaps = 20;
+		public readonly short ButtonHeight = 55;
+		public readonly short ButtonWidth = 120;
+		public readonly Color bg = new Color(55, 55, 55, 255);
+		public readonly Color fg = Color.White;
 	}
 }

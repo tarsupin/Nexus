@@ -3,7 +3,7 @@ using System;
 
 namespace Nexus.GameEngine {
 
-	public class ToggleMusic : UIIcon {
+	public class ToggleMusic : UICreoIcon {
 
 		private static string on = "Music/On";
 		private static string off = "Music/Off";
@@ -16,12 +16,12 @@ namespace Nexus.GameEngine {
 			bool isMuted = Systems.settings.audio.MusicMute;
 
 			if(UIComponent.ComponentWithFocus == this) {
-				UIHandler.atlas.Draw(UIIcon.Down, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoIcon.Down, this.trueX, this.trueY);
 				UIHandler.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX + 1, this.trueY + 1);
 			}
 
 			else {
-				UIHandler.atlas.Draw(UIIcon.Up, this.trueX, this.trueY);
+				UIHandler.atlas.Draw(UICreoIcon.Up, this.trueX, this.trueY);
 				UIHandler.atlas.Draw(isMuted == true ? ToggleMusic.off : this.SpriteName, this.trueX, this.trueY);
 			}
 		}

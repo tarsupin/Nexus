@@ -1,0 +1,68 @@
+﻿using Microsoft.Xna.Framework;
+
+namespace Nexus.Engine {
+
+	public class UIConfirmBox : UIComponent {
+
+		// Essentials
+		private string title;           // The title or main text for the confirmation box.
+		private string[] text;          // Description for the confirmation box.
+
+		private short midLine;
+		private short titleHalfWidth;
+
+		public UIConfirmBox(UIComponent parent) : base(parent) {}
+
+		public void SetConfirmBox(string title, string text) {
+
+			// Confirm Box Theme
+			UIThemeConfirmBox theme = UIHandler.theme.confirm;
+
+			// Measure Strings
+			Vector2 measureTitle = UIHandler.theme.smallHeaderFont.font.MeasureString(title);
+			Vector2 measureText = UIHandler.theme.normalFont.font.MeasureString(text);
+
+			this.titleHalfWidth = (short)(measureTitle.X / 2);
+
+			// Text + Multi-Line Handler
+			this.title = title;
+			this.text = TextHelper.WrapTextSplit(UIHandler.theme.normalFont.font, text, theme.Width - 16 - 16);
+
+			// Size Setup
+			this.midLine = (short)(theme.HeightGaps * 3 + (measureText.Y + 5) * this.text.Length);
+			short height = (short)(theme.ButtonHeight + theme.HeightGaps * 2 + this.midLine);
+			if(height < theme.MinHeight) { height = theme.MinHeight; }
+
+			this.SetHeight(height);
+			this.SetWidth(theme.Width);
+		}
+
+		public void RunTick() {
+
+		}
+
+		public void Draw() {
+			UIThemeConfirmBox theme = UIHandler.theme.confirm;
+
+			// Draw Background
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX, this.trueY, this.width, this.height), theme.bg);
+
+			// Draw Outlines
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + 2, this.trueY + 2, this.width - 4, 1), theme.fg);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + 2, this.trueY + this.height - 3, this.width - 4, 1), theme.fg);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + 2, this.trueY + 2, 1, this.height - 4), theme.fg);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + this.width - 3, this.trueY + 2, 1, this.height - 4), theme.fg);
+
+			// Draw Notice
+			Systems.fonts.baseText.Draw(this.title, (short)(this.width / 2 - this.titleHalfWidth), this.trueY + theme.HeightGaps, theme.fg);
+
+			// Draw Each Text Line
+			for(byte i = 0; i < this.text.Length; i++) {
+				Systems.fonts.console.Draw(this.text[i], this.trueX + 20, this.trueY + theme.HeightGaps * 3 + (i * 17), theme.fg);
+			}
+
+			// Draw Midline
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.trueX + 60, this.midLine, this.width - 120, 1), theme.fg);
+		}
+	}
+}

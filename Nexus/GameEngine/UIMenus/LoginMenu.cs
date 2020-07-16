@@ -10,10 +10,10 @@ namespace Nexus.GameEngine {
 
 		// Login Components
 		private readonly TextBox textBox;
-		private readonly UIInput loginInput;
-		private readonly UIInput passInput;
-		private readonly UIButton loginButton;
-		private readonly UIButton registerButton;
+		private readonly UICreoInput loginInput;
+		private readonly UICreoInput passInput;
+		private readonly UICreoButton loginButton;
+		private readonly UICreoButton registerButton;
 
 		public LoginMenu(short width, short height) : base() {
 
@@ -21,10 +21,10 @@ namespace Nexus.GameEngine {
 			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
 
 			this.textBox = new TextBox(null, centerX, centerY, width, height);
-			this.loginInput = new UIInput(this.textBox, 20, 50);
-			this.passInput = new UIInput(this.textBox, 20, 135);
-			this.loginButton = new UIButton(this.textBox, "Login", 20, 220, null);
-			this.registerButton = new UIButton(this.textBox, "Register", 152, 220, null);
+			this.loginInput = new UICreoInput(this.textBox, 20, 50);
+			this.passInput = new UICreoInput(this.textBox, 20, 135);
+			this.loginButton = new UICreoButton(this.textBox, "Login", 20, 220, null);
+			this.registerButton = new UICreoButton(this.textBox, "Register", 152, 220, null);
 		}
 
 		public void RunTick() {
@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 				// Get Characters Pressed (doesn't assist with order)
 				string charsPressed = input.GetCharactersPressed();
 
-				UIInput comp = (UIInput)UIComponent.ComponentSelected;
+				UICreoInput comp = (UICreoInput)UIComponent.ComponentSelected;
 
 				if(charsPressed.Length > 0) {
 					comp.SetInputText(comp.text + charsPressed);

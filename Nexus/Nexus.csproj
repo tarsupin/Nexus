@@ -79,6 +79,8 @@
     <Compile Include="Config\DebugConfig.cs" />
     <Compile Include="Engine\Calc\Coords.cs" />
     <Compile Include="Engine\FPCalc\FPTrigCalc.cs" />
+    <Compile Include="Engine\UI\UIConfirmBox.cs" />
+    <Compile Include="Engine\UI\UIButton.cs" />
     <Compile Include="Engine\UI\UIToolTip.cs" />
     <Compile Include="Engine\UI\UITheme.cs" />
     <Compile Include="Engine\UI\UIContainNotifications.cs" />
@@ -89,7 +91,7 @@
     <Compile Include="Engine\Particles\ParticleHandler.cs" />
     <Compile Include="Engine\Particles\ParticleFree.cs" />
     <Compile Include="Engine\PagingSystem.cs" />
-    <Compile Include="Engine\GlobalUI.cs" />
+    <Compile Include="Engine\UI\UIGlobal.cs" />
     <Compile Include="Engine\UIHandler.cs" />
     <Compile Include="Engine\UI\UITypes.cs" />
     <Compile Include="Engine\WebHandler.cs" />
@@ -140,12 +142,12 @@
     <Compile Include="GameEngine\UIMenus\EditorGuideMenu.cs" />
     <Compile Include="GameEngine\UIMenus\LoginMenu.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
-    <Compile Include="GameEngine\UIComponents\UIInput.cs" />
-    <Compile Include="GameEngine\UIComponents\UIButton.cs" />
+    <Compile Include="GameEngine\UIComponents\UICreoInput.cs" />
+    <Compile Include="GameEngine\UIComponents\UICreoButton.cs" />
     <Compile Include="GameEngine\UIComponents\ToggleVolume.cs" />
-    <Compile Include="GameEngine\UIComponents\UIIconWithText.cs" />
+    <Compile Include="GameEngine\UIComponents\UICreoTextIcon.cs" />
     <Compile Include="GameEngine\UIComponents\WEMenu.cs" />
-    <Compile Include="GameEngine\UIComponents\UIIcon.cs" />
+    <Compile Include="GameEngine\UIComponents\UICreoIcon.cs" />
     <Compile Include="GameEngine\UIMenus\EmptyMenu.cs" />
     <Compile Include="GameEngine\UIMenus\MainMenu.cs" />
     <Compile Include="GameEngine\UIMenus\IMenu.cs" />

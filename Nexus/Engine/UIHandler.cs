@@ -4,22 +4,22 @@ using Nexus.Gameplay;
 
 namespace Nexus.Engine {
 
+	// UIHandler processes global UI states, and provides RunTick() and Draw() methods that run over ALL scenes.
+	// UIHandler also has a .theme value that allows overwriting themed positions, colors, sizes, visibility, etc.
 	public static class UIHandler {
 
-		// UI Handler
+		// UI State Tracking
 		private static bool mouseAlwaysVisible = false;
 		private static bool cornerMenuAlwaysVisible = false;
 		public static bool showCornerMenu { get; private set; }
 		public static UIState uiState { get; private set; }
 		public static IMenu menu { get; private set; }
 
-		public enum UIState : byte { Playing, Menu }
-
 		// Theme
 		public static UITheme theme { get; private set; }
 
 		// Global Component
-		public static GlobalUI globalUI;
+		public static UIGlobal globalUI;
 
 		// UI Atlas
 		public static Atlas atlas;
@@ -47,7 +47,14 @@ namespace Nexus.Engine {
 		public static void Setup() {
 			UIHandler.atlas = Systems.mapper.atlas[(byte)AtlasGroup.UI];
 			UIHandler.theme = new UITheme();
-			UIHandler.globalUI = new GlobalUI();
+			UIHandler.globalUI = new UIGlobal();
+			UIHandler.UpdateGlobalUITheme();
+
+			// TODO TEMP REMOVE
+			// TODO TEMP REMOVE
+			// TODO TEMP REMOVE
+			// TODO TEMP REMOVE
+			UIHandler.globalUI.confirmBox.SetConfirmBox("Testing this", "What an event this is. Which means we need it to... send an action. And params can be separate. Stored in static values? Which means we need it to... send an action. And params can be separate. Stored in static values?");
 		}
 
 		public static void SetUIOptions(bool mouseAlwaysVisible, bool cornerMenuAlwaysVisible) {
@@ -78,6 +85,12 @@ namespace Nexus.Engine {
 			Systems.game.IsMouseVisible = visible;
 		}
 
+		// Themes
+		public static void UpdateGlobalUITheme() {
+			UIHandler.globalUI.notifyBox.RunThemeUpdate();
+			UIHandler.globalUI.toolTip.RunThemeUpdate();
+		}
+
 		// Notifications
 		public static void AddNotification(UIAlertType type, string title, string text, int duration = 0) {
 			UIHandler.globalUI.notifyBox.AddIncomingNotification(type, title, text, duration);
@@ -89,6 +102,18 @@ namespace Nexus.Engine {
 				UIHandler.globalUI.toolTip._CreateToolTip(id, title, text, dir);
 				UIHandler.globalUI.toolTip._MaintainToolTip(id);
 			}
+		}
+
+		public static void RunTick() {
+			UIHandler.globalUI.notifyBox.RunTick();
+			UIHandler.globalUI.toolTip.RunTick();
+			UIHandler.globalUI.confirmBox.RunTick();
+		}
+
+		public static void Draw() {
+			UIHandler.globalUI.notifyBox.Draw();
+			UIHandler.globalUI.toolTip.Draw();
+			UIHandler.globalUI.confirmBox.Draw();
 		}
 	}
 }

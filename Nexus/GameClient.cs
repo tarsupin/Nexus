@@ -69,7 +69,7 @@ namespace Nexus {
 			Systems.input.PreProcess();
 			Systems.timer.RunUniTick();
 			Systems.scene.RunTick();
-			UIHandler.globalUI.RunTick();
+			UIHandler.RunTick();
 			SceneTransition.RunTransition();
 
 			base.Update(gameTime);
@@ -86,7 +86,7 @@ namespace Nexus {
 			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 			Systems.scene.Draw();
-			UIHandler.globalUI.Draw();
+			UIHandler.Draw();
 
 			this.spriteBatch.End();
 			base.Draw(gameTime);
