@@ -16,7 +16,8 @@ namespace Nexus.Engine {
 		public void SetConfirmBox(string title, string text) {
 
 			// Confirm Box Theme
-			UIThemeConfirmBox theme = UIHandler.theme.confirm;
+			UITheme theme = UIHandler.theme;
+			UIThemeConfirmBox cTheme = UIHandler.theme.confirm;
 
 			// Measure Strings
 			Vector2 measureTitle = UIHandler.theme.smallHeaderFont.font.MeasureString(title);
@@ -26,15 +27,15 @@ namespace Nexus.Engine {
 
 			// Text + Multi-Line Handler
 			this.title = title;
-			this.text = TextHelper.WrapTextSplit(UIHandler.theme.normalFont.font, text, theme.Width - 16 - 16);
+			this.text = TextHelper.WrapTextSplit(UIHandler.theme.normalFont.font, text, cTheme.Width - 16 - 16);
 
 			// Size Setup
-			this.midLine = (short)(theme.HeightGaps * 3 + (measureText.Y + 5) * this.text.Length);
-			short height = (short)(theme.ButtonHeight + theme.HeightGaps * 2 + this.midLine);
-			if(height < theme.MinHeight) { height = theme.MinHeight; }
+			this.midLine = (short)(cTheme.HeightGaps * 3 + (measureText.Y + 5) * this.text.Length);
+			short height = (short)(theme.button.Height + cTheme.HeightGaps * 2 + this.midLine);
+			if(height < cTheme.MinHeight) { height = cTheme.MinHeight; }
 
 			this.SetHeight(height);
-			this.SetWidth(theme.Width);
+			this.SetWidth(cTheme.Width);
 		}
 
 		public void RunTick() {

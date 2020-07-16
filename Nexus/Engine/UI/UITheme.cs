@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Nexus.GameEngine;
 using Nexus.Gameplay;
 
 namespace Nexus.Engine {
@@ -11,6 +10,7 @@ namespace Nexus.Engine {
 		public readonly UIThemeToolTip tooltips = new UIThemeToolTip();
 		public readonly UIThemeConfirmBox confirm = new UIThemeConfirmBox();
 		public readonly UIThemeStatus status = new UIThemeStatus();
+		public readonly UIThemeButton button = new UIThemeButton();
 
 		// Background Colors
 		public readonly Color NormBG = new Color(55, 55, 55, 220);
@@ -69,9 +69,22 @@ namespace Nexus.Engine {
 		public readonly short Width = 400;
 		public readonly short MinHeight = 250;
 		public readonly short HeightGaps = 20;
-		public readonly short ButtonHeight = 55;
-		public readonly short ButtonWidth = 120;
 		public readonly Color bg = new Color(55, 55, 55, 255);
 		public readonly Color fg = Color.White;
+	}
+
+	public class UIThemeButton {
+		public readonly short Height = 50;
+		public readonly short Width = 120;
+
+		// Background Colors
+		public readonly Color NormalBG = new Color(55, 55, 55, 255);
+		public readonly Color RejectBG = new Color(120, 55, 55, 255);
+		public readonly Color AcceptBG = new Color(55, 120, 55, 255);
+
+		// Outline Colors
+		public readonly Color NormalHover = new Color(65, 65, 65, 255);
+		public readonly Color RejectHover = new Color(130, 65, 65, 255);
+		public readonly Color AcceptHover = new Color(65, 130, 65, 255);
 	}
 }

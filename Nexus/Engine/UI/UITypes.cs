@@ -37,4 +37,10 @@ namespace Nexus.Engine {
 		Warning,
 		Success,
 	}
+
+	public enum UIConfirmType : byte {
+		Normal,
+		Approve,
+		Reject,
+	}
 }
