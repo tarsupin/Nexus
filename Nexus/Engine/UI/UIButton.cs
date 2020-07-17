@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-
-// TODO: Build UIButton
-// TODO: This class is currently incomplete. It requires a hover-over effect in RunTick(), interactive feature, etc.
+using System;
 
 namespace Nexus.Engine {
 
@@ -11,11 +9,14 @@ namespace Nexus.Engine {
 		private string title;
 		private short titleWidth;
 
+		// Button Action
+		public Action onClick { get; protected set; }
+
 		// Colors
 		private Color bg;
 		private Color hover;
 
-		public UIButton(UIComponent parent, UIConfirmType type, string title) : base(parent) {
+		public UIButton(UIComponent parent, UIConfirmType type, string title, Action clickAction) : base(parent) {
 
 			// Type Theme
 			UITheme theme = UIHandler.theme;
@@ -37,6 +38,7 @@ namespace Nexus.Engine {
 			}
 
 			// Essentials
+			this.onClick = clickAction;
 			this.title = title;
 			this.titleWidth = (short) UIHandler.theme.bigFont.font.MeasureString(title).X;
 
@@ -51,6 +53,8 @@ namespace Nexus.Engine {
 			// If clicked while hovering over the button:
 			if(this.MouseOver == UIMouseOverState.On && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 
+				// Run the action assigned to this button.
+				if(this.onClick is Action) { this.onClick(); }
 			}
 		}
 
