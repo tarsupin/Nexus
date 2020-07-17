@@ -19,7 +19,6 @@ namespace Nexus.Engine {
 			this.SetWidth(Systems.screen.windowWidth);
 			this.notifyBox = new UIContainNotifications(this);
 			this.toolTip = new UIToolTip(this);
-			this.confirmBox = new UIConfirmBox(this);
 		}
 	}
 }

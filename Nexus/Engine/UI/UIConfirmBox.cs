@@ -12,9 +12,11 @@ namespace Nexus.Engine {
 		private short midLine;
 		private short titleHalfWidth;
 
-		public UIConfirmBox(UIComponent parent) : base(parent) {}
+		// Buttons
+		private UIButton buttonConf;
+		private UIButton buttonDeny;
 
-		public void SetConfirmBox(string eventTag, string title, string text) {
+		public UIConfirmBox(UIComponent parent, string eventTag, string title, string text, string confirmText, string denyText = "") : base(parent) {
 
 			// Confirm Box Theme
 			UITheme theme = UIHandler.theme;
@@ -39,24 +41,29 @@ namespace Nexus.Engine {
 			this.SetHeight(height);
 			this.SetWidth(cTheme.Width);
 
-			// TODO: REMOVE. TEMPORARY TEST.
-			this.SetButtonsConfirmDeny("AgreeSay", "RejectItYeah");
-		}
-
-		public void SetButtonsConfirmDeny(string yesTitle = "Yes", string noTitle = "No") {
-			UIThemeConfirmBox cTheme = UIHandler.theme.confirm;
-
+			// Prepare Buttons
 			short midHor = (short)(this.width / 2);
 
-			UIButton button1 = new UIButton(this, this.eventTag + "_yes", UIConfirmType.Approve, yesTitle);
-			button1.SetRelativePosition((short)(midHor - button1.width - 10), (short)(this.midLine + cTheme.HeightGaps));
+			// Confirmation Button (Confirm + Deny)
+			this.buttonConf = new UIButton(this, UIConfirmType.Approve, confirmText);
+			this.buttonConf.SetRelativePosition((short)(midHor - this.buttonConf.width - 10), (short)(this.midLine + cTheme.HeightGaps));
 
-			UIButton button2 = new UIButton(this, this.eventTag + "_no", UIConfirmType.Reject, noTitle);
-			button2.SetRelativePosition((short)(midHor + 10), (short)(this.midLine + cTheme.HeightGaps));
+			// OK Button (No Deny Option)
+			if(denyText.Length > 0) {
+				this.buttonDeny = new UIButton(this, UIConfirmType.Reject, denyText);
+				this.buttonDeny.SetRelativePosition((short)(midHor + 10), (short)(this.midLine + cTheme.HeightGaps));
+			}
 		}
 
-		public void SetButtonOk(string okTitle = "OK") {
-			UIButton button = new UIButton(this, this.eventTag + "_ok", UIConfirmType.Normal, okTitle);
+		public void OnSubmit(UIConfirmType confirmType) {
+
+			// Prepare Event Type
+			EventType evType = EventType.Confirm_Ok;
+			if(confirmType == UIConfirmType.Approve) { evType = EventType.Confirm_Yes; }
+			else if(confirmType == UIConfirmType.Reject) { evType = EventType.Confirm_No; }
+
+			// Run the Action assigned to this Confirmation Box.
+			EventSys.TriggerEvent(EventCategory.Confirm, evType, this.eventTag, new EventComponentData(this));
 		}
 
 		public void RunTick() {

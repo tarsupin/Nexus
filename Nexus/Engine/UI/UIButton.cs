@@ -5,7 +5,7 @@ namespace Nexus.Engine {
 	public class UIButton : UIComponent {
 
 		// Essentials
-		private string eventTag;
+		private UIConfirmType confirmType;
 		private string title;
 		private short titleWidth;
 
@@ -13,29 +13,29 @@ namespace Nexus.Engine {
 		private Color bg;
 		private Color hover;
 
-		public UIButton(UIComponent parent, string eventTag, UIConfirmType type, string title) : base(parent) {
+		public UIButton(UIComponent parent, UIConfirmType confirmType, string title) : base(parent) {
 
 			// Type Theme
 			UITheme theme = UIHandler.theme;
 			UIThemeButton bTheme = theme.button;
 			
-			if(type == UIConfirmType.Normal) {
+			if(confirmType == UIConfirmType.Normal) {
 				this.bg = bTheme.NormalBG;
 				this.hover = bTheme.NormalHover;
 			}
 
-			else if(type == UIConfirmType.Approve) {
+			else if(confirmType == UIConfirmType.Approve) {
 				this.bg = bTheme.AcceptBG;
 				this.hover = bTheme.AcceptHover;
 			}
 
-			else if(type == UIConfirmType.Reject) {
+			else if(confirmType == UIConfirmType.Reject) {
 				this.bg = bTheme.RejectBG;
 				this.hover = bTheme.RejectHover;
 			}
 
 			// Essentials
-			this.eventTag = eventTag;
+			this.confirmType = confirmType;
 			this.title = title;
 			this.titleWidth = (short) UIHandler.theme.bigFont.font.MeasureString(title).X;
 
@@ -49,8 +49,14 @@ namespace Nexus.Engine {
 
 			// If clicked while hovering over the button:
 			if(this.MouseOver == UIMouseOverState.On && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.OnClick();
+			}
+		}
 
-				// Run the action assigned to this button.
+		protected virtual void OnClick() {
+			if(this.Parent is UIConfirmBox) {
+				UIConfirmBox confBox = (UIConfirmBox)this.Parent;
+				confBox.OnSubmit(this.confirmType);
 			}
 		}
 

@@ -7,14 +7,19 @@ namespace Nexus.GameEngine {
 	public static class GlobalScene {
 
 		// Global Event Listeners
-		public static List<EventListen> listeners;
+		public static List<EventListen> listeners = new List<EventListen>();
 
 		public static void Setup() {
-			EventSys.AttachListener(GlobalScene.listeners, EventCategory.Form, (byte) FormEvents.Submission, "", GlobalScene.MyTest);
+
+			// Activate Confirm Box
+			EventSys.AttachListener(GlobalScene.listeners, EventCategory.Confirm, EventType.Undefined, "", GlobalScene.RunConfirmBox);
 		}
 
-		private static void MyTest(EventData data) {
-
+		private static void RunConfirmBox(EventData data) {
+			EventComponentData cData = (EventComponentData) data;
+			if(data.eventCode == "testConf") {
+				var a = 1;
+			}
 		}
 
 		public static void RunTick() {}

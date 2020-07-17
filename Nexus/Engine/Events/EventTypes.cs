@@ -2,7 +2,8 @@
 namespace Nexus.Engine {
 
 	public enum EventCategory : byte {
-		Form,			// Form Events (Buttons, Inputs, etc)
+		Form,			// Form Events
+		Confirm,		// Confirmation Events
 		UI,				// UI Events
 		Notification,   // Notification Events
 		Timer,          // Timer Events
@@ -17,21 +18,30 @@ namespace Nexus.Engine {
 	public enum EventType : byte {
 		Undefined = 0,
 
+		// Confirm Events (5)
+		Confirm_Ok = 5,
+		Confirm_Yes = 6,
+		Confirm_No = 7,
+		Confirm_Ignore = 8,
+
 		// Form Events (10)
 		Form_Submission = 10,
 		Form_Reset = 11,
 
-		Form_HoverEnter = 20,
-		Form_HoverExit = 21,
-		Form_Focus = 22,
-		Form_Unfocus = 23,
-		Form_Select = 24,
-		Form_TeaseElement = 25,       // This is like pressing down on an element, but haven't released (which would activate it).
-		Form_ActivateElement = 26,
+		Form_HoverOn = 20,
+		Form_HoverOff = 21,
+		Form_FocusOn = 22,
+		Form_FocusOff = 23,
+		Form_SelectOn = 24,				// Selected an element
+		Form_SelectOff = 25,			// Unselected an element.
 
-		Form_ClearValue = 30,
-		Form_ChangeValue = 31,        // Sliders, Radios, Checkboxes, Input, etc.
-		Form_ChangeSelection = 32,
+		Form_ButtonDown = 30,			// Pressing down on button (doesn't mean it's been activated).
+		Form_ButtonUp = 31,				// Released button.
+		Form_ButtonActivate = 32,		// Button has been confirmed (full click).
+
+		Form_ClearValue = 40,
+		Form_ChangeValue = 41,			// Sliders, Radios, Checkboxes, Input, etc.
+		Form_ChangeSelection = 42,
 
 		// UI Events (60)
 		UI_Open = 60,
