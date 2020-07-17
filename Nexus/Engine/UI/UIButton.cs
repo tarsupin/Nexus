@@ -1,22 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 namespace Nexus.Engine {
 
 	public class UIButton : UIComponent {
 
 		// Essentials
+		private string eventTag;
 		private string title;
 		private short titleWidth;
-
-		// Button Action
-		public Action onClick { get; protected set; }
 
 		// Colors
 		private Color bg;
 		private Color hover;
 
-		public UIButton(UIComponent parent, UIConfirmType type, string title, Action clickAction) : base(parent) {
+		public UIButton(UIComponent parent, string eventTag, UIConfirmType type, string title) : base(parent) {
 
 			// Type Theme
 			UITheme theme = UIHandler.theme;
@@ -38,7 +35,7 @@ namespace Nexus.Engine {
 			}
 
 			// Essentials
-			this.onClick = clickAction;
+			this.eventTag = eventTag;
 			this.title = title;
 			this.titleWidth = (short) UIHandler.theme.bigFont.font.MeasureString(title).X;
 
@@ -54,7 +51,6 @@ namespace Nexus.Engine {
 			if(this.MouseOver == UIMouseOverState.On && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 
 				// Run the action assigned to this button.
-				if(this.onClick is Action) { this.onClick(); }
 			}
 		}
 
@@ -75,7 +71,7 @@ namespace Nexus.Engine {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX, posY, 2, bTheme.Height), Color.White);
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + bTheme.Width, posY, 2, bTheme.Height + 2), Color.White);
 
-			if(this.MouseOver == UIMouseOverState.On) {
+			if(this.MouseOver == UIMouseOverState.On && Cursor.LeftMouseState >= Cursor.MouseDownState.HeldDown) {
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, bTheme.Width - 3, 3), Color.DarkSlateGray);
 				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(posX + 2, posY + 2, 3, bTheme.Height - 3), Color.DarkSlateGray);
 				posX += 2;

@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-// TODO: Build UIConfirmBox
-// TODO: This class is currently incomplete. It requires buttons, interactive confirmations, responses, etc.
-
 namespace Nexus.Engine {
 
 	public class UIConfirmBox : UIComponent {
 
 		// Essentials
+		private string eventTag;		// Tag for the event.
 		private string title;           // The title or main text for the confirmation box.
 		private string[] text;          // Description for the confirmation box.
 
@@ -16,7 +14,7 @@ namespace Nexus.Engine {
 
 		public UIConfirmBox(UIComponent parent) : base(parent) {}
 
-		public void SetConfirmBox(string title, string text) {
+		public void SetConfirmBox(string eventTag, string title, string text) {
 
 			// Confirm Box Theme
 			UITheme theme = UIHandler.theme;
@@ -28,7 +26,8 @@ namespace Nexus.Engine {
 
 			this.titleHalfWidth = (short)(measureTitle.X / 2);
 
-			// Text + Multi-Line Handler
+			// Essentials
+			this.eventTag = eventTag;
 			this.title = title;
 			this.text = TextHelper.WrapTextSplit(UIHandler.theme.normalFont.font, text, cTheme.Width - 16 - 16);
 
@@ -49,15 +48,15 @@ namespace Nexus.Engine {
 
 			short midHor = (short)(this.width / 2);
 
-			UIButton button1 = new UIButton(this, UIConfirmType.Approve, yesTitle);
+			UIButton button1 = new UIButton(this, this.eventTag + "_yes", UIConfirmType.Approve, yesTitle);
 			button1.SetRelativePosition((short)(midHor - button1.width - 10), (short)(this.midLine + cTheme.HeightGaps));
 
-			UIButton button2 = new UIButton(this, UIConfirmType.Reject, noTitle);
+			UIButton button2 = new UIButton(this, this.eventTag + "_no", UIConfirmType.Reject, noTitle);
 			button2.SetRelativePosition((short)(midHor + 10), (short)(this.midLine + cTheme.HeightGaps));
 		}
 
 		public void SetButtonOk(string okTitle = "OK") {
-			UIButton button = new UIButton(this, UIConfirmType.Normal, okTitle);
+			UIButton button = new UIButton(this, this.eventTag + "_ok", UIConfirmType.Normal, okTitle);
 		}
 
 		public void RunTick() {

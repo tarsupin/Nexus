@@ -54,7 +54,7 @@ namespace Nexus.Engine {
 			// TODO TEMP REMOVE
 			// TODO TEMP REMOVE
 			// TODO TEMP REMOVE
-			UIHandler.globalUI.confirmBox.SetConfirmBox("Testing this", "What an event this is. Which means we need it to... send an action. And params can be separate. Stored in static values? Which means we need it to... send an action. And params can be separate. Stored in static values?");
+			UIHandler.globalUI.confirmBox.SetConfirmBox("testConf", "Testing this", "What an event this is. Which means we need it to... send an action. And params can be separate. Stored in static values? Which means we need it to... send an action. And params can be separate. Stored in static values?");
 		}
 
 		public static void SetUIOptions(bool mouseAlwaysVisible, bool cornerMenuAlwaysVisible) {
