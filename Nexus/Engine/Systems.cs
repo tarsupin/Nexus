@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
@@ -20,6 +21,9 @@ namespace Nexus.Engine {
 		public static GraphicsDeviceManager graphics;
 		public static SpriteBatch spriteBatch;
 		public static Scene scene = new ScenePlaceholder();
+
+		// Events
+		public static List<EventListen> listeners;
 
 		// Systems
 		public static readonly InputClient input = new InputClient();

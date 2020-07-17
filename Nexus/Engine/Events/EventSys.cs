@@ -1,88 +1,52 @@
-﻿using System.Collections.Generic;
+﻿using Nexus.GameEngine;
+using System;
+using System.Collections.Generic;
 
 namespace Nexus.Engine {
 
+	// Attach listeners in the Scene.StartScene() method. These listeners will wait for event feedback and run the action associated with it.
 	public static class EventSys {
 
-		public static EventList generic;	// Locally Defined Events, Scene-Specific Events
-		public static EventList form;		// Buttons, Forms, UI Events
-		public static EventList external;	// Web, Other Programs
-		public static EventList system;		// System-Exclusive Events (cannot edit)
-
-		public static void ClearEvents() {
-			byte mod = (byte)(Systems.timer.UniFrame % 10);
-
-			// Clear Event Groups
-			if(mod == 0) { EventSys.system.PurgeEventList(); }
-			else if(mod == 2) { EventSys.external.PurgeEventList(); }
-			else if(mod == 4) { EventSys.generic.PurgeEventList(); }
-			else if(mod == 6) { EventSys.form.PurgeEventList(); }
+		// EventSys.AttachListener(this.scene.listeners, EventCategory.Form, (byte) FormEvents.Submission, id, MyAction);
+		public static void AttachListener(List<EventListen> listeners, EventCategory cat, byte subCat, string code, Action<EventData> action) {
+			listeners.Add(new EventListen(cat, subCat, code, action));
 		}
-	}
-	
-	public class EventList {
-		public List<EventData> events;
 
-		// Loop through the event list; clear any that are outdated.
-		public void PurgeEventList() {
-			for(short i = (short)(this.events.Count); i > 0; i--) {
-				EventData ev = this.events[i];
-				if(ev.uniFrame < Systems.timer.UniFrame) {
-					this.events.RemoveAt(i);
-				}
+		public static void TriggerEvent(EventCategory cat, byte subCat, string code, EventData data) {
+
+			// Check if there are any scene listeners:
+			Scene scene = Systems.scene;
+
+			foreach(EventListen listen in scene.listeners) {
+
+				// Make sure the listener matches:
+				if(listen.cat != cat) { continue; }
+				if(listen.subCat != subCat && listen.subCat != 0) { continue; }
+				if(listen.code.Length > 0 && listen.code != code) { continue; }
+
+				// Trigger the Event
+				listen.action(data);
 			}
-		}
-
-		// Returns the first available event based on the tag watched, and processes it (clears it from the event list).
-		// Use this if the event tag is designed for one-off instances that won't overlap.
-		public EventData ProcessFirstEvent(string tag) {
-			return this.GetFirstEvent(tag, true);
-		}
-
-		// Returns the first available event based on the tag watched.
-		// Use this if it is impossible (or unnecessary) to have multiple returns from this tag.
-		public EventData GetFirstEvent(string tag, bool process = false) {
-
-			for(short i = (short)(this.events.Count); i > 0; i--) {
-				EventData ev = this.events[i];
-
-				// Match the Event
-				if(ev.uniFrame == Systems.timer.UniFrame && ev.tag == tag) {
-
-					// Process the event (if applicable)
-					if(process) {
-						this.events.RemoveAt(i);
-					}
-
-					return ev;
-				}
-			}
-
-			return null;
-		}
-
-		// Returns a list of all events that match the tag watched.
-		// Use this if it is possible to have multiple returns from the tag, such as for generic tags like "Message."
-		public List<EventData> GetListOfEvents(string tag) {
-			List<EventData> list = new List<EventData>();
-
-			for(short i = (short)(this.events.Count); i > 0; i--) {
-				EventData ev = this.events[i];
-
-				// Locate Matching Tags
-				if(ev.uniFrame == Systems.timer.UniFrame && ev.tag == tag) {
-					list.Add(ev);
-				}
-			}
-
-			return null;
 		}
 	}
 
+	public class EventListen {
+		public EventCategory cat;			// The event category to track. Set to "Undefined" for any category.
+		public byte subCat;					// The event sub-category to track. Set to 0 ("Undefined") for any sub-category.
+		public string code;					// The event key or code to distinguish it from others. Empty string to avoid narrowing results.
+		public Action<EventData> action;	// The action to run when the listener is found. Accepts one parameter: EventData.
+
+		public EventListen(EventCategory cat, byte subCat, string code, Action<EventData> action) {
+			this.cat = cat;
+			this.subCat = subCat;
+			this.code = code;
+			this.action = action;
+		}
+	}
+
+	// If additional data needs to be passed, can create a sub-class of EventData.
 	public class EventData {
-		public string tag;				// An event ID or category to track the events by. Can be generic (e.g. "Message") or specific ("Button_14")
-		public int uniFrame;			// The UniFrame that this event is designed to trigger on. Set to [Current UniFrame + 1] to ensure it gets detected.
-		public string instruction;		// An advanced instruction to include with the event.
-		public int value;				// A tracker, since many events might have a simple enum or numeric value to pass.
+		public string str;
+		public int num;
 	}
 }

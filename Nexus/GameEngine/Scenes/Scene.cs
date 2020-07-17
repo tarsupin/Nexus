@@ -1,4 +1,5 @@
 ﻿using Nexus.Engine;
+using System.Collections.Generic;
 
 namespace Nexus.GameEngine {
 
@@ -6,6 +7,9 @@ namespace Nexus.GameEngine {
 
 		// Scene Counter
 		public int idCounter;           // Tracks the last ID that was generated in the scene.
+
+		// Scene Event Listeners
+		public List<EventListen> listeners;
 
 		public Scene() {}
 

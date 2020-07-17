@@ -49,6 +49,7 @@ namespace Nexus {
 			Systems.screen.ResizeWindowToBestFit();
 			Systems.AddAudio(this);
 			UIHandler.Setup();
+			GlobalScene.Setup();
 
 			// Resize Window
 			Window.AllowUserResizing = true;
@@ -68,6 +69,7 @@ namespace Nexus {
 
 			Systems.input.PreProcess();
 			Systems.timer.RunUniTick();
+			GlobalScene.RunTick();
 			Systems.scene.RunTick();
 			UIHandler.RunTick();
 			SceneTransition.RunTransition();
