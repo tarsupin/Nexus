@@ -14,72 +14,92 @@ namespace Nexus.Engine {
 		Custom,         // Custom Events
 	}
 
-	public enum FormEvents : byte {
-		Undefined,
-		Submission,
-		Hover,
-		Focus,
-		Unfocus,
-		ChangeValue,		// Sliders, Radios, Checkboxes, Input, etc.
-		TeaseElement,		// This is like pressing down on an element, but haven't released (which would activate it).
-		ActivateElement,	
-	}
+	public enum EventType : byte {
+		Undefined = 0,
 
-	public enum UIEvents : byte {
-		Undefined,
-		Open,
-		Close,
-		StartResize,
-		EndResize,
-		StartDrag,
-		EndDrag,
-	}
+		// Form Events (10)
+		Form_Submission = 10,
+		Form_Reset = 11,
 
-	public enum NotificationEvents : byte {
-		Undefined,
-		Notice,
-		Success,
-		Warning,
-		Error,
-		CriticalError,
-	}
+		Form_HoverEnter = 20,
+		Form_HoverExit = 21,
+		Form_Focus = 22,
+		Form_Unfocus = 23,
+		Form_Select = 24,
+		Form_TeaseElement = 25,       // This is like pressing down on an element, but haven't released (which would activate it).
+		Form_ActivateElement = 26,
 
-	public enum TimerEvents : byte {
-		Undefined,
-		Start,
-		Interval,		// Occurs when a timer hits a particular interval.
-		Ended,
-	}
-	
-	// Files, Settings, Configs, etc.
-	public enum AlterEvents : byte {
-		Undefined,
-		Created,
-		Modified,
-		Removed,
-	}
+		Form_ClearValue = 30,
+		Form_ChangeValue = 31,        // Sliders, Radios, Checkboxes, Input, etc.
+		Form_ChangeSelection = 32,
 
-	public enum ExternalEvents : byte {
-		Undefined,
-		Request,
-		Response,
-		NoResponse,
-		EmptyResponse,
-		CannotCommunicate,
-		UnknownError,
-	}
+		// UI Events (60)
+		UI_Open = 60,
+		UI_Close = 61,
 
-	public enum CustomEvents : byte {
-		Undefined,
-		Custom1,
-		Custom2,
-		Custom3,
-		Custom4,
-		Custom5,
-		Custom6,
-		Custom7,
-		Custom8,
-		Custom9,
-		Custom10,
+		UI_StartResize = 70,
+		UI_EndResize = 71,
+
+		UI_StartDrag = 72,
+		UI_EndDrag = 73,
+
+		// Notification Events (170)
+		Notification_Standard = 170,
+		Notification_Important = 171,
+		Notification_Urgent = 172,
+		Notification_Success = 173,
+		Notification_Warning = 174,
+		Notification_Error = 175,
+		Notification_CriticalError = 176,
+		Notification_Other = 177,
+
+		// Timer Events (180)
+		Timer_Start = 180,
+		Timer_Interval = 181,       // Occurs when a timer hits a particular interval.
+		Timer_Ended = 182,
+		Timer_Other = 183,
+
+		// File Events (190)
+		File_Created = 190,
+		File_Modified = 191,
+		File_Removed = 192,
+		File_Other = 193,
+
+		// Settings Events (200)
+		Settings_Created = 200,
+		Settings_Modified = 201,
+		Settings_Removed = 202,
+		Settings_Other = 203,
+
+		// Web Events (210)
+		Web_Generic = 210,
+		Web_Request = 211,
+		Web_Response = 212,
+		Web_NoResponse = 213,
+		Web_EmptyResponse = 214,
+		Web_CannotCommunicate = 215,
+		Web_UnknownError = 216,
+
+		// Program Events (220)
+		Program_Generic = 220,
+		Program_Request = 221,
+		Program_Response = 222,
+		
+		// System Events (230)
+		System_Generic = 230,
+		System_Request = 221,
+		System_Response = 222,
+
+		// Custom Events (240)
+		Custom_1 = 240,
+		Custom_2 = 241,
+		Custom_3 = 242,
+		Custom_4 = 243,
+		Custom_5 = 244,
+		Custom_6 = 245,
+		Custom_7 = 246,
+		Custom_8 = 247,
+		Custom_9 = 248,
+		Custom_10 = 249,
 	}
 }

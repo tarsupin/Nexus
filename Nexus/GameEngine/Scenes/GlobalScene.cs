@@ -10,7 +10,11 @@ namespace Nexus.GameEngine {
 		public static List<EventListen> listeners;
 
 		public static void Setup() {
-			//EventSys.AttachListener(GlobalScene.listeners, EventCategory.Form, (byte)FormEvents.Submission, id, MyAction);
+			EventSys.AttachListener(GlobalScene.listeners, EventCategory.Form, (byte) FormEvents.Submission, "", GlobalScene.MyTest);
+		}
+
+		private static void MyTest(EventData data) {
+
 		}
 
 		public static void RunTick() {}
