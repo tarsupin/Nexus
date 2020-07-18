@@ -292,12 +292,6 @@ namespace Nexus.Objects {
 				// Reset Actions on Land
 				if(this.physics.touch.toBottom) {
 
-					// Only apply landing if the minimum jump time has not passed.
-					//if(status.action is JumpAction == false || JumpAction.MinimumTimePassed(status)) {
-					//	if(status.action is Action) { status.action.LandsOnGround(this); }
-					//	status.jumpsUsed = 0;
-					//}
-
 					// Apply Landing
 					if(status.action is Action) { status.action.LandsOnGround(this); }
 					status.jumpsUsed = 0;
@@ -326,7 +320,7 @@ namespace Nexus.Objects {
 						}
 
 						// Otherwise, JUMP.
-						else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
+						else if(status.jumpsUsed == 0) {
 							ActionMap.Jump.StartAction(this);
 						}
 					}

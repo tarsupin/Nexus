@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Nexus.Config;
+using Nexus.Engine;
 using Nexus.GameEngine;
 using Nexus.Gameplay;
 using Nexus.Objects;
@@ -22,6 +23,7 @@ namespace Nexus.ObjectComponents {
 
 			CharacterStatus status = character.status;
 			status.action = ActionMap.OnMover;
+			this.TrackMoverMomentum(character);
 		}
 
 		public void TrackMoverMomentum(Character character) {
