@@ -5,7 +5,7 @@ namespace Nexus.GameEngine {
 
 	public class ArenaScene : LevelScene {
 
-		public ArenaScene() : base() {
+		public ArenaScene(bool grantCampaignEquipment) : base(grantCampaignEquipment) {
 		
 			// Defaults
 			this.isSinglePlayer = false;

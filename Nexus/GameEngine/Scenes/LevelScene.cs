@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 		public int levelResetFrame = 0;
 		public bool isSinglePlayer;
 
-		public LevelScene() : base() {
+		public LevelScene(bool grantCampaignEquipment) : base() {
 
 			// Defaults
 			this.isSinglePlayer = true;
@@ -43,18 +43,20 @@ namespace Nexus.GameEngine {
 			// Restart the level, generate all rooms.
 			this.RestartLevel(true);
 
-			// Update Character with World Map abilities
-			Character character = Systems.localServer.MyCharacter;
-			CampaignState campaign = Systems.handler.campaignState;
+			// Update Character with World Map abilities (if applicable)
+			if(grantCampaignEquipment) {
+				Character character = Systems.localServer.MyCharacter;
+				CampaignState campaign = Systems.handler.campaignState;
 
-			// Update Character Equipment
-			Suit.AssignToCharacter(character, campaign.suit, true);
-			Hat.AssignToCharacter(character, campaign.hat, true);
-			Shoes.AssignShoe(character, campaign.shoes);
-			PowerAttack.AssignPower(character, campaign.powerAtt);
-			PowerMobility.AssignPower(character, campaign.powerMob);
-			character.wounds.SetHealth(campaign.health);
-			character.wounds.SetArmor(campaign.armor);
+				// Update Character Equipment
+				if(!character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
+				if(!character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
+				if(character.shoes is Shoes == false) { Shoes.AssignShoe(character, campaign.shoes); }
+				if(character.attackPower is PowerAttack == false) { PowerAttack.AssignPower(character, campaign.powerAtt); }
+				if(character.mobilityPower is PowerMobility == false) { PowerMobility.AssignPower(character, campaign.powerMob); }
+				if(character.wounds.Health < campaign.health) { character.wounds.SetHealth(campaign.health); }
+				if(character.wounds.Armor < campaign.armor) { character.wounds.SetArmor(campaign.armor); }
+			}
 
 			// Play or Stop Music
 			Systems.music.Play((byte) Systems.handler.levelContent.data.music);

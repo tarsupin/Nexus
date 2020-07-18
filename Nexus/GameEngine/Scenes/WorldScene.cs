@@ -370,7 +370,7 @@ namespace Nexus.GameEngine {
 				campaign.SaveCampaign();
 			}
 
-			SceneTransition.ToLevel(this.worldData.id, levelId);
+			SceneTransition.ToLevel(this.worldData.id, levelId, true);
 			return true;
 		}
 

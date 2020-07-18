@@ -48,6 +48,11 @@ namespace Nexus.Objects {
 				Hat.AssignToCharacter(character, ParamTrack.AssignHatIDs[(byte) paramList["hat"]], true);
 			}
 
+			// Shoes
+			if(paramList.ContainsKey("shoes") && paramList["shoes"] > 0) {
+				Shoes.AssignShoe(character, ParamTrack.AssignShoeIDs[(byte)paramList["shoes"]]);
+			}
+
 			// Mobility Power
 			if(paramList.ContainsKey("mob") && paramList["mob"] > 0) {
 				if(paramList["mob"] == 1) { Power.RemoveMobilityPower(character); }

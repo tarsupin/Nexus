@@ -49,7 +49,7 @@ namespace Nexus.GameEngine {
 		}
 
 		// Go to Level Scene (In World)
-		public static void ToLevel( string worldId, string levelId, bool runMenu = false, bool finalTest = false ) {
+		public static void ToLevel( string worldId, string levelId, bool grantCampaignEquipment = false, bool finalTest = false ) {
 			GameHandler handler = Systems.handler;
 
 			// If we're already in a Level Scene, verify that we're loading a level that's different from our current one.
@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 			handler.levelState.SetLevel(levelId, 0);
 
 			// Prepare Next Scene
-			SceneTransition.nextScene = new LevelScene();
+			SceneTransition.nextScene = new LevelScene(grantCampaignEquipment);
 		}
 		
 		// Download a Level
