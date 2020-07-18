@@ -128,7 +128,7 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public void TouchWall() {
-			this.dashReset = true;
+			if(this.dashReset == false) { this.dashReset = true; }
 		}
 	}
 }

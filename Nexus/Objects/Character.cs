@@ -289,8 +289,28 @@ namespace Nexus.Objects {
 			// As long as we're not currently sliding:
 			if(status.action is SlideAction == false) {
 
+				// Reset Actions on Land
+				if(this.physics.touch.toBottom) {
+
+					// Only apply landing if the minimum jump time has not passed.
+					//if(status.action is JumpAction == false || JumpAction.MinimumTimePassed(status)) {
+					//	if(status.action is Action) { status.action.LandsOnGround(this); }
+					//	status.jumpsUsed = 0;
+					//}
+
+					// Apply Landing
+					if(status.action is Action) { status.action.LandsOnGround(this); }
+					status.jumpsUsed = 0;
+
+					// Update Shoes
+					if(this.shoes is Shoes) { this.shoes.TouchWall(); }
+				}
+
+				// Attempt Jump
+				bool doJump = status.action is JumpAction == false && (input.isPressed(IKey.AButton) || (input.isDown(IKey.AButton) && status.rapidRejump >= Systems.timer.Frame));
+
 				// JUMP Button Pressed
-				if(input.isPressed(IKey.AButton)) {
+				if(doJump) {
 
 					// JUMP+DOWN (Slide or Platform Drop) is Activated
 					if(input.isDown(IKey.Down)) {
@@ -312,22 +332,9 @@ namespace Nexus.Objects {
 					}
 
 					// JUMP
-					else if(status.jumpsUsed == 0) { // Prevents immediate re-jump on landing.
+					else {
 						ActionMap.Jump.StartAction(this);
 					}
-				}
-
-				// Reset Actions on Land
-				else if(this.physics.touch.toBottom) {
-
-					// Only apply landing if the minimum jump time has not passed.
-					if(status.action is JumpAction == false || JumpAction.MinimumTimePassed(status)) {
-						if(status.action is Action) { status.action.LandsOnGround(this); }
-						status.jumpsUsed = 0;
-					}
-
-					// Update Shoes
-					if(this.shoes is Shoes) { this.shoes.TouchWall(); }
 				}
 			}
 		}
@@ -382,7 +389,7 @@ namespace Nexus.Objects {
 
 			// Attempted Air Jump
 			if(this.input.isPressed(IKey.AButton)) {
-				this.status.lastAirAPress = Systems.timer.Frame;
+				this.status.rapidRejump = Systems.timer.Frame + 5;
 
 				// Delayed Wall Jump
 				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
