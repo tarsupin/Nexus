@@ -241,9 +241,9 @@ namespace Nexus.Objects {
 				case (byte)GoodieSubType.Explosive: TNT.DetonateTNT(character); break;
 
 				// Shoes
-				case (byte)GoodieSubType.DashingShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Dashing); break;
-				case (byte)GoodieSubType.SpikeShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Spike); break;
-				case (byte)GoodieSubType.WingShoe: Shoes.AssignShoe(character, (byte) ShoeSubType.Wing); break;
+				case (byte)GoodieSubType.DashingShoe: this.CollectShoe(character, ShoeSubType.Dashing); break;
+				case (byte)GoodieSubType.SpikeShoe: this.CollectShoe(character, ShoeSubType.Spike); break;
+				case (byte)GoodieSubType.WingShoe: this.CollectShoe(character, ShoeSubType.Wing); break;
 			}
 
 			// SubTypes that can be maxed out, and therefore not collected at times.
@@ -347,6 +347,11 @@ namespace Nexus.Objects {
 			character.room.PlaySound(Systems.sounds.collectDisable, 1f, character.posX + 16, character.posY + 16);
 		}
 
+		private void CollectShoe(Character character, ShoeSubType shoeSub) {
+			Shoes.AssignShoe(character, (byte) shoeSub);
+			character.room.PlaySound(Systems.sounds.collectSubtle, 1f, character.posX + 16, character.posY + 16);
+		}
+		
 		private void CollectKey(Character character) {
 			character.trailKeys.AddKey();
 			character.room.PlaySound(Systems.sounds.collectKey, 1f, character.posX + 16, character.posY + 16);
