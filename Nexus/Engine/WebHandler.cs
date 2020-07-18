@@ -144,6 +144,8 @@ namespace Nexus.Engine {
 						WebHandler.ResponseMessage = json.reason;
 					}
 					return false;
+				} else {
+					WebHandler.ResponseMessage = "";
 				}
 
 				// Save Login Cookies
@@ -164,12 +166,48 @@ namespace Nexus.Engine {
 			Systems.settings.login.Token = cookies["Token"];
 			Systems.settings.login.SaveSettings();
 		}
+		
+		// ----------------------- //
+		// -- Register Commands -- //
+		// ----------------------- //
 
-		// -------------------- //
-		// -- Login Commands -- //
-		// -------------------- //
+		public class RegisterFormat {
+			[JsonProperty("success")]
+			public bool success { get; set; }
+			[JsonProperty("reason")]
+			public string reason { get; set; }
+		}
 
+		public static async Task<bool> RegisterRequest(string email, string username, string password) {
+			var data = new { email, username, password };
 
+			// All checks have passed. Request the Level.
+			try {
+
+				// Run the Login Request
+				Uri uri = new Uri(GameValues.CreoAPI + "register");
+				HttpResponseMessage response = await WebHandler.PostJSON(uri, data);
+				if(response == null || response.IsSuccessStatusCode == false) { return false; }
+				
+				// Extract the contents from the response.
+				string contents = await response.Content.ReadAsStringAsync();
+				RegisterFormat json = JsonConvert.DeserializeObject<RegisterFormat>(contents);
+
+				if(json.success == false) {
+					if(json.reason is string) {
+						WebHandler.ResponseMessage = json.reason;
+					}
+					return false;
+				} else {
+					WebHandler.ResponseMessage = "";
+				}
+
+				return true;
+
+			} catch(Exception ex) {
+				return false;
+			}
+		}
 
 		// -------------------- //
 		// -- Level Commands -- //

@@ -105,7 +105,13 @@ namespace Nexus.GameEngine {
 		// Close the menu, run a registration attempt, and notify of results.
 		public async void RunRegisterAttemmpt() {
 			UIHandler.SetMenu(null, false);
-			UIHandler.AddNotification(UIAlertType.Error, "THIS DOESNT WORK", "THIS HAS NOT BEEN BUILT YET.", 180);
+			bool registerAttempt = await WebHandler.RegisterRequest("NEEDEMAIL", this.loginInput.text, this.passInput.text);
+
+			if(registerAttempt) {
+				UIHandler.AddNotification(UIAlertType.Success, "Successfully Registered", "You have successfully joined Creo with the account `" + this.loginInput.text + "`.", 300);
+			} else {
+				UIHandler.AddNotification(UIAlertType.Error, "Registration Failed", WebHandler.ResponseMessage, 300);
+			}
 		}
 
 		public void Draw() {
