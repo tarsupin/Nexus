@@ -15,6 +15,9 @@ namespace Nexus.Engine {
 
 	public static class WebHandler {
 
+		// Track the last response message from a Web Handler request.
+		public static string ResponseMessage = "";
+
 		public static string LaunchURL(string url) {
 
 			// Attempt to Start the URL Process
@@ -137,7 +140,9 @@ namespace Nexus.Engine {
 				LoginFormat json = JsonConvert.DeserializeObject<LoginFormat>(contents);
 
 				if(json.success == false) {
-					// json.reason // Could apply this here. Set to static or something.
+					if(json.reason is string) {
+						WebHandler.ResponseMessage = json.reason;
+					}
 					return false;
 				}
 
@@ -159,6 +164,12 @@ namespace Nexus.Engine {
 			Systems.settings.login.Token = cookies["Token"];
 			Systems.settings.login.SaveSettings();
 		}
+
+		// -------------------- //
+		// -- Login Commands -- //
+		// -------------------- //
+
+
 
 		// -------------------- //
 		// -- Level Commands -- //

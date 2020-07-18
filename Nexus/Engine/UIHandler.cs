@@ -49,12 +49,6 @@ namespace Nexus.Engine {
 			UIHandler.theme = new UITheme();
 			UIHandler.globalUI = new UIGlobal();
 			UIHandler.UpdateGlobalUITheme();
-
-			// TODO TEMP REMOVE
-			// TODO TEMP REMOVE
-			// TODO TEMP REMOVE
-			// TODO TEMP REMOVE
-			UIHandler.globalUI.confirmBox = new UIConfirmBox(null, "testConf", "Testing this", "What an event this is. Which means we need it to... send an action. And params can be separate. Stored in static values? Which means we need it to... send an action. And params can be separate. Stored in static values?", "Agree", "Deny");
 		}
 
 		public static void SetUIOptions(bool mouseAlwaysVisible, bool cornerMenuAlwaysVisible) {
@@ -92,7 +86,7 @@ namespace Nexus.Engine {
 		}
 
 		// Notifications
-		public static void AddNotification(UIAlertType type, string title, string text, int duration = 0) {
+		public static void AddNotification(UIAlertType type, string title, string text, int duration) {
 			UIHandler.globalUI.notifyBox.AddIncomingNotification(type, title, text, duration);
 		}
 
@@ -107,13 +101,13 @@ namespace Nexus.Engine {
 		public static void RunTick() {
 			UIHandler.globalUI.notifyBox.RunTick();
 			UIHandler.globalUI.toolTip.RunTick();
-			UIHandler.globalUI.confirmBox.RunTick();
+			//UIHandler.globalUI.confirmBox.RunTick();
 		}
 
 		public static void Draw() {
 			UIHandler.globalUI.notifyBox.Draw();
 			UIHandler.globalUI.toolTip.Draw();
-			UIHandler.globalUI.confirmBox.Draw();
+			//UIHandler.globalUI.confirmBox.Draw();
 		}
 	}
 }

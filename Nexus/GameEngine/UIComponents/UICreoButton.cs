@@ -31,11 +31,6 @@ namespace Nexus.GameEngine {
 			this.MouseOver = this.GetMouseOverState();
 			if(this.MouseOver == UIMouseOverState.On) {
 				UIComponent.ComponentWithFocus = this;
-
-				// Mouse Clicked
-				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					this.onClick();
-				}
 			}
 			
 			// If the Mouse just exited this component:

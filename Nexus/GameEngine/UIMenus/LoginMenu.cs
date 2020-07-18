@@ -73,7 +73,39 @@ namespace Nexus.GameEngine {
 			this.loginInput.RunTick();
 			this.passInput.RunTick();
 			this.loginButton.RunTick();
+
+			// Clicked on Login Button.
+			if(UIComponent.ComponentWithFocus == this.loginButton && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.RunLoginAttemmpt();
+			}
+
 			this.registerButton.RunTick();
+
+			// Clicked on Login Button.
+			if(UIComponent.ComponentWithFocus == this.registerButton && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.RunRegisterAttemmpt();
+			}
+		}
+
+		// Close the menu, run a login attempt, and notify of results.
+		public async void RunLoginAttemmpt() {
+			UIHandler.SetMenu(null, false);
+
+			bool loginAttempt = await WebHandler.LoginRequest(this.loginInput.text, this.passInput.text);
+
+			if(loginAttempt) {
+				UIHandler.AddNotification(UIAlertType.Success, "Logged In", "You have successfully logged into Creo.", 180);
+			}
+
+			else {
+				UIHandler.AddNotification(UIAlertType.Error, "Login Failed", WebHandler.ResponseMessage, 300);
+			}
+		}
+
+		// Close the menu, run a registration attempt, and notify of results.
+		public async void RunRegisterAttemmpt() {
+			UIHandler.SetMenu(null, false);
+			UIHandler.AddNotification(UIAlertType.Error, "THIS DOESNT WORK", "THIS HAS NOT BEEN BUILT YET.", 180);
 		}
 
 		public void Draw() {
