@@ -18,7 +18,9 @@ namespace Nexus.ObjectComponents {
 		// Movement Statuses
 		public byte jumpsUsed;			// The number of jumps currently used.
 		public int nextSlide;			// The frame that the next slide is allowed (or after).
-		public int leaveWall;			// The frame # until leeway for a wall jump is no longer allowed.
+		public int leaveWall;           // The frame # until leeway for a wall jump is no longer allowed.
+		public int coyoteJump;          // The frame # allowance for Coyote Jumps (extra jump time after leaving ground).
+		public int lastAirAPress;		// The frame # that the character last pressed A Button while in mid-air (used in case you rapid-jump).
 		public DirCardinal grabDir;		// The direction a wall has been grabbed.
 
 		public CharacterStatus() {

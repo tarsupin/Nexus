@@ -46,6 +46,10 @@ namespace Nexus.ObjectComponents {
 		}
 
 		public static bool CanJump( Character character ) {
+
+			// If you're falling, but have a coyote jump allowance:
+			if(character.status.coyoteJump >= Systems.timer.Frame) { return true; }
+
 			return character.status.jumpsUsed < character.stats.JumpMaxTimes + (character.mobilityPower is LeapMobility ? 1 : 0);
 		}
 

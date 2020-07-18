@@ -243,6 +243,7 @@ namespace Nexus.Objects {
 		}
 
 		private void OnFloorUpdate() {
+			this.status.coyoteJump = Systems.timer.Frame + 4;
 
 			// Character Movement & Handling
 			FInt speedMult = (this.shoes is Shoes || this.input.isDown(IKey.XButton)) ? FInt.Create(1) : this.stats.SlowSpeedMult;
@@ -381,6 +382,7 @@ namespace Nexus.Objects {
 
 			// Attempted Air Jump
 			if(this.input.isPressed(IKey.AButton)) {
+				this.status.lastAirAPress = Systems.timer.Frame;
 
 				// Delayed Wall Jump
 				// Creates a smoother wall jump experience by giving a little leeway after leaving the wall.
