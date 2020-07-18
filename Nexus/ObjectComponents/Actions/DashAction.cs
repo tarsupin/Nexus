@@ -144,20 +144,10 @@ namespace Nexus.ObjectComponents {
 
 				// Add Vertical Shift
 				if(character.input.isReleased(IKey.Right) || character.input.isPressed(IKey.Left)) {
-					if(status.actionNum2 < 0) {
-						status.actionNum2 -= 7;
-					} else if(status.actionNum2 > 0) {
-						status.actionNum2 += 7;
-					}
 					status.actionNum1 -= 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Left) || character.input.isPressed(IKey.Right)) {
-					if(status.actionNum2 < 0) {
-						status.actionNum2 -= 7;
-					} else if(status.actionNum2 > 0) {
-						status.actionNum2 += 7;
-					}
 					status.actionNum1 += 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
@@ -165,20 +155,10 @@ namespace Nexus.ObjectComponents {
 
 				// Add Horizontal Shift
 				if(character.input.isReleased(IKey.Up) || character.input.isPressed(IKey.Down)) {
-					if(status.actionNum1 < 0) {
-						status.actionNum1 -= 7;
-					} else if(status.actionNum1 > 0) {
-						status.actionNum1 += 7;
-					}
 					status.actionNum2 += 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
 				} else if(character.input.isReleased(IKey.Down) || character.input.isPressed(IKey.Up)) {
-					if(status.actionNum1 < 0) {
-						status.actionNum1 -= 7;
-					} else if(status.actionNum1 > 0) {
-						status.actionNum1 += 7;
-					}
 					status.actionNum2 -= 7;
 					status.actionBool1 = true;
 					this.RestrictXMovement(character.status);
