@@ -86,7 +86,7 @@ namespace Nexus.GameEngine {
 				if(!handler.levelContent.LoadLevelData(levelId)) {
 
 					// If this is a personal level, allow it to be created.
-					if(myLevelNum > 0 && myLevelNum < GameValues.MaxLevelsAllowedPerUser) {
+					if(myLevelNum >= 0 && myLevelNum < GameValues.MaxLevelsAllowedPerUser) {
 						handler.levelContent.data = LevelContent.BuildEmptyLevel(levelId);
 						handler.levelContent.levelId = levelId;
 					}
