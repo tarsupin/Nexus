@@ -48,9 +48,16 @@ namespace Nexus.ObjectComponents {
 
 		public override void EndAction(Character character) {
 
-			// Transfer the mover's momentum to the character.
-			character.physics.velocity.X += FInt.Create(character.status.actionNum1);
-			character.physics.velocity.Y += FInt.Create(character.status.actionNum2);
+			// Transfer the mover's momentum to the character. Some transfers won't occur to make it feel better.
+			if(character.physics.velocity.X > 0 && character.status.actionNum1 > 0) {
+				character.physics.velocity.X += FInt.Create(character.status.actionNum1);
+			} else if(character.physics.velocity.X < 0 && character.status.actionNum1 < 0) {
+				character.physics.velocity.X += FInt.Create(character.status.actionNum1);
+			}
+
+			if(character.physics.velocity.Y < 0 && character.status.actionNum2 < 0) {
+				character.physics.velocity.Y += FInt.Create(character.status.actionNum2);
+			}
 
 			// Clear the Extra movement, because that will conflict with the existing momentum.
 			character.physics.ClearExtraMovement();
