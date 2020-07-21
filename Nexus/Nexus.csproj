@@ -83,10 +83,11 @@
     <Compile Include="Engine\FPCalc\FPTrigCalc.cs" />
     <Compile Include="Engine\UI\UIConfirmBox.cs" />
     <Compile Include="Engine\UI\UIButton.cs" />
+    <Compile Include="Engine\UI\UINotification.cs" />
     <Compile Include="Engine\UI\UIToolTip.cs" />
     <Compile Include="Engine\UI\UITheme.cs" />
     <Compile Include="Engine\UI\UIContainNotifications.cs" />
-    <Compile Include="Engine\UI\UINotification.cs" />
+    <Compile Include="Engine\UI\UIGroupNotify.cs" />
     <Compile Include="Engine\Helpers\TextHelper.cs" />
     <Compile Include="Engine\ChatConsole.cs" />
     <Compile Include="Engine\Geometry\Circle.cs" />
@@ -121,6 +122,8 @@
     <Compile Include="Engine\UI\UIStatusText.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolItems.cs" />
     <Compile Include="GameEngine\GameValues.cs" />
+    <Compile Include="GameEngine\Tutorials\TutorialEditor.cs" />
+    <Compile Include="GameEngine\Tutorials\Tutorial.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxMountains.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsUpgrades.cs" />
     <Compile Include="GameEngine\Params\AdvancedSets\ParamsCharacter.cs" />
@@ -334,7 +337,6 @@
     <Compile Include="Gameplay\World\WorldFormat.cs" />
     <Compile Include="Gameplay\World\WorldContent.cs" />
     <Compile Include="Gameplay\Level\LevelFormat.cs" />
-    <Compile Include="GameEngine\Loader.cs" />
     <Compile Include="GameEngine\SceneTransition.cs" />
     <Compile Include="GameEngine\Scenes\Scene.cs" />
     <Compile Include="Gameplay\Level\LevelContent.cs" />

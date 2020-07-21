@@ -3,7 +3,6 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
-using static Nexus.Engine.UIHandler;
 using static Nexus.GameEngine.FuncButton;
 using static Nexus.GameEngine.FuncTool;
 
@@ -12,6 +11,7 @@ namespace Nexus.GameEngine {
 	public class EditorScene : Scene {
 
 		public readonly EditorUI editorUI;
+		public readonly TutorialEditor tutorial;
 		public LevelContent levelContent;
 		public Dictionary<byte, EditorRoomScene> rooms;
 		public ObjectLimiter limiter;
@@ -22,6 +22,7 @@ namespace Nexus.GameEngine {
 			// References
 			this.levelContent = Systems.handler.levelContent;
 			this.limiter = new ObjectLimiter();
+			this.tutorial = new TutorialEditor(this);
 
 			// UI State
 			UIHandler.SetUIOptions(true, false);
@@ -79,6 +80,9 @@ namespace Nexus.GameEngine {
 
 			// Playing State
 			else {
+
+				// Run the Tutorial
+				this.tutorial.RunTick();
 
 				// Open Menu (Start)
 				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
@@ -159,6 +163,7 @@ namespace Nexus.GameEngine {
 			this.editorUI.Draw();
 			UIHandler.cornerMenu.Draw();
 			UIHandler.menu.Draw();
+			this.tutorial.Draw();
 		}
 
 		private void PrepareEmptyRoom(byte newRoomId) {

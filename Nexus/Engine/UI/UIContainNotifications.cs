@@ -8,14 +8,14 @@ namespace Nexus.Engine {
 		public const byte MaxNumberOfNotifications = 8;
 
 		// List of Notifications
-		private LinkedList<UINotification> notifications = new LinkedList<UINotification>();
+		private LinkedList<UIGroupNotify> notifications = new LinkedList<UIGroupNotify>();
 
 		// Draw Positions
 		private int startY;
 		private short incomingMoved;			// Tracks how much the Incoming Notification has moved.
 
 		// Incoming Notification
-		private UINotification incomingNotif;
+		private UIGroupNotify incomingNotif;
 		private bool comesFromTop;				// TRUE means the notifications come from above. FALSE means come from below.
 
 		public UIContainNotifications(UIComponent parent) : base(parent) {
@@ -28,18 +28,18 @@ namespace Nexus.Engine {
 			this.SendIncomingNotificationToList();
 
 			// Begin Incoming Notification
-			this.incomingNotif = new UINotification(this, type, title, text, (duration > 0 ? Systems.timer.UniFrame + duration : 0));
+			this.incomingNotif = new UIGroupNotify(this, type, title, text, (duration > 0 ? Systems.timer.UniFrame + duration : 0));
 			this.incomingMoved = 0; // Reset the Y notification movement.
 		}
 
 		public void SendIncomingNotificationToList() {
-			if(this.incomingNotif is UINotification) {
+			if(this.incomingNotif is UIGroupNotify) {
 				this.AddNotificationToList(this.incomingNotif);
 				this.incomingNotif = null;
 			}
 		}
 
-		public void AddNotificationToList(UINotification newNotif) {
+		public void AddNotificationToList(UIGroupNotify newNotif) {
 
 			// Prepend the Notification
 			this.notifications.AddFirst(newNotif);
@@ -51,12 +51,12 @@ namespace Nexus.Engine {
 		}
 
 		public void RunTick() {
-			if(this.notifications.Count == 0 && this.incomingNotif is UINotification == false) { return; }
+			if(this.notifications.Count == 0 && this.incomingNotif is UIGroupNotify == false) { return; }
 			
-			UINotification delNotif = null;
+			UIGroupNotify delNotif = null;
 
 			// Update the Incoming Notification Position, if applicable.
-			if(this.incomingNotif is UINotification) {
+			if(this.incomingNotif is UIGroupNotify) {
 
 				// Update the Incoming Notification's Y Total Movement.
 				this.incomingMoved += 2;
@@ -85,14 +85,14 @@ namespace Nexus.Engine {
 			}
 
 			// Remove a notification that was marked for deletion this frame.
-			if(delNotif is UINotification) {
+			if(delNotif is UIGroupNotify) {
 				this.notifications.Remove(delNotif);
 			}
 		}
 
 		// Draw All Notifications
 		public void Draw() {
-			if(this.notifications.Count == 0 && this.incomingNotif is UINotification == false) { return; }
+			if(this.notifications.Count == 0 && this.incomingNotif is UIGroupNotify == false) { return; }
 
 			UIThemeNotifications theme = UIHandler.theme.notifs;
 
@@ -104,7 +104,7 @@ namespace Nexus.Engine {
 			}
 
 			// Draw Incoming Notification (if applicable)
-			if(this.incomingNotif is UINotification) {
+			if(this.incomingNotif is UIGroupNotify) {
 
 				// Determine the starting position for the incoming notification:
 				int incPosY = this.startY + (this.comesFromTop ? -this.incomingNotif.height + this.incomingMoved : -this.incomingMoved);
@@ -124,7 +124,7 @@ namespace Nexus.Engine {
 
 			// Loop through Notifications
 			for(var i = 0; i < this.notifications.Count; i++) {
-				UINotification notif = this.notifications.ElementAt(i);
+				UIGroupNotify notif = this.notifications.ElementAt(i);
 
 				notif.Draw(posY);
 
@@ -133,7 +133,7 @@ namespace Nexus.Engine {
 					posY = posY + notif.height + theme.NotifGap;
 				} else {
 					if(i + 1 < this.notifications.Count) {
-						UINotification next = this.notifications.ElementAt(i + 1);
+						UIGroupNotify next = this.notifications.ElementAt(i + 1);
 						posY = posY - next.height - theme.NotifGap;
 					}
 				}
