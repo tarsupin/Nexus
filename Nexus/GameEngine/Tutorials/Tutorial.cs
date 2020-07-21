@@ -26,9 +26,7 @@ namespace Nexus.GameEngine {
 			this.notify.SetRelativePosition(posX, posY);
 
 			// Set Arrow (if applicable)
-			if(dir != DirRotate.Center) {
-				this.SetArrow(dir);
-			}
+			this.SetArrow(dir);
 		}
 
 		public void SetArrow(DirRotate dir) {

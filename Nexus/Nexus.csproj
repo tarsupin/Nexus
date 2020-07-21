@@ -122,6 +122,7 @@
     <Compile Include="Engine\UI\UIStatusText.cs" />
     <Compile Include="GameEngine\Editor\TileTools\TileToolItems.cs" />
     <Compile Include="GameEngine\GameValues.cs" />
+    <Compile Include="GameEngine\Tutorials\TutorialWorldEdit.cs" />
     <Compile Include="GameEngine\Tutorials\TutorialEditor.cs" />
     <Compile Include="GameEngine\Tutorials\Tutorial.cs" />
     <Compile Include="GameEngine\Parallax\ParallaxMountains.cs" />

@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 		public readonly PlayerInput playerInput;
 		public CampaignState campaign;
 		public Atlas atlas;
+		public readonly TutorialWorldEdit tutorial;
 
 		// Access to World Data
 		public WorldContent worldContent;
@@ -65,6 +66,7 @@ namespace Nexus.GameEngine {
 			this.playerInput = Systems.localServer.MyPlayer.input;
 			this.campaign = Systems.handler.campaignState;
 			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
+			this.tutorial = new TutorialWorldEdit(this);
 
 			// Prepare World Content
 			this.worldContent = Systems.handler.worldContent;
@@ -97,7 +99,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Start the Default WETool
-			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte) WorldSlotGroup.Terrain], 0);
+			WETools.SetWorldTileTool(WETileTool.WorldTileToolMap[(byte)WorldSlotGroup.Terrain], 0);
 
 			this.UpdateZoneValues();
 
@@ -139,6 +141,9 @@ namespace Nexus.GameEngine {
 			UIComponent.ComponentWithFocus = null;
 			Cursor.UpdateMouseState();
 			UIHandler.cornerMenu.RunTick();
+
+			// Run the Tutorial
+			this.tutorial.RunTick();
 
 			// Menu State
 			if(UIHandler.uiState == UIState.Menu) {
@@ -320,6 +325,7 @@ namespace Nexus.GameEngine {
 			}
 			UIHandler.cornerMenu.Draw();
 			UIHandler.menu.Draw();
+			this.tutorial.Draw();
 		}
 
 		private void DrawNodeInfo() {

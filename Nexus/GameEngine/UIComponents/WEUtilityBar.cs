@@ -15,14 +15,14 @@ namespace Nexus.GameEngine {
 		private WEScene scene;
 
 		private Dictionary<byte, WEFuncBut> buttonMap = new Dictionary<byte, WEFuncBut>() {
-			{ 11, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Info] },
-			{ 12, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Move] },
+			//{ 11, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Info] },
+			//{ 12, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Move] },
 			{ 13, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Eraser] },
 			{ 14, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Eyedrop] },
 			{ 15, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Wand] },
 			{ 16, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Settings] },
-			{ 17, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Undo] },
-			{ 18, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Redo] },
+			//{ 17, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Undo] },
+			//{ 18, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Redo] },
 			{ 19, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.RoomLeft] },
 			{ 20, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.Home] },
 			{ 21, WEFuncBut.WEFuncButMap[(byte) WEFuncButEnum.RoomRight] },

@@ -22,7 +22,11 @@ namespace Nexus.GameEngine {
 
 		public void RunTick() {
 			this.MouseOver = this.GetMouseOverState();
-			if(this.MouseOver == UIMouseOverState.On) { UIComponent.ComponentWithFocus = this; }
+
+			if(this.MouseOver == UIMouseOverState.On) {
+				UIComponent.ComponentWithFocus = this;
+				UIHandler.RunToolTip("scroll", "Tile Scroller", "Use the Mouse Scroll to change between tile variants.", UIPrimaryDirection.Left);
+			}
 
 			// Mouse Scroll (if WorldTileTool is selected as active tool)
 			if(WETools.WETileTool is WETileTool == true) {
@@ -34,6 +38,9 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
+
+			// Only draw the scroll bar if there is a tile tool selected.
+			if(WETools.WETileTool is WETileTool == false) { return; }
 
 			byte tileHeight = (byte)WorldmapEnum.TileHeight + 2;
 
