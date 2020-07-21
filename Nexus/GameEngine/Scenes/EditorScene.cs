@@ -72,6 +72,9 @@ namespace Nexus.GameEngine {
 			Cursor.UpdateMouseState();
 			UIHandler.cornerMenu.RunTick();
 
+			// Run the Tutorial
+			this.tutorial.RunTick();
+
 			// Menu State
 			if(UIHandler.uiState == UIState.Menu) {
 				UIHandler.menu.RunTick();
@@ -80,9 +83,6 @@ namespace Nexus.GameEngine {
 
 			// Playing State
 			else {
-
-				// Run the Tutorial
-				this.tutorial.RunTick();
 
 				// Open Menu (Start)
 				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }

@@ -19,8 +19,13 @@ namespace Nexus.GameEngine {
 		}
 
 		public void RunTick() {
+			if(EditorTools.tileTool is TileTool == false) { return; }
 			this.MouseOver = this.GetMouseOverState();
-			if(this.MouseOver == UIMouseOverState.On) { UIComponent.ComponentWithFocus = this; }
+
+			if(this.MouseOver == UIMouseOverState.On) {
+				UIComponent.ComponentWithFocus = this;
+				UIHandler.RunToolTip("scroll", "Tile Scroller", "Use the Mouse Scroll to change between tile variants.", UIPrimaryDirection.Left);
+			}
 
 			// Mouse Scroll (if TileTool is selected as active tool)
 			if(EditorTools.tileTool is TileTool == true) {
@@ -32,6 +37,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public void Draw() {
+			if(EditorTools.tileTool is TileTool == false) { return; }
 
 			byte tileHeight = (byte)TilemapEnum.TileHeight + 2;
 
@@ -45,45 +51,43 @@ namespace Nexus.GameEngine {
 			}
 
 			// Draw TileTool Subtype Buttons
-			if(EditorTools.tileTool is TileTool) {
-				List<EditorPlaceholder[]> placeholders = EditorTools.tileTool.placeholders;
+			List<EditorPlaceholder[]> placeholders = EditorTools.tileTool.placeholders;
 
-				// Placeholder Loop
-				byte len = (byte) placeholders.Count;
+			// Placeholder Loop
+			byte len = (byte) placeholders.Count;
 
-				EditorPlaceholder[] pData = placeholders[EditorTools.tileTool.index];
+			EditorPlaceholder[] pData = placeholders[EditorTools.tileTool.index];
 
-				byte phSubLen = (byte)pData.Length;
-				for(byte s = 0; s < phSubLen; s++) {
-					EditorPlaceholder ph = pData[s];
+			byte phSubLen = (byte)pData.Length;
+			for(byte s = 0; s < phSubLen; s++) {
+				EditorPlaceholder ph = pData[s];
 
-					byte subType = ph.subType;
-					byte tileId = ph.tileId;
+				byte subType = ph.subType;
+				byte tileId = ph.tileId;
 
-					// Draw Tiles
-					if(tileId > 0) {
-						if(Systems.mapper.TileDict.ContainsKey(tileId)) {
-							TileObject tgo = Systems.mapper.TileDict[tileId];
-							tgo.Draw(null, subType, this.x + 2, this.y + 50 * s + 2);
-						}
-					}
-
-					// Draw Objects
-					else if(ph.objectId > 0) {
-						ShadowTile.Draw(ph.objectId, ph.subType, null, this.x + 2, this.y + 50 * s + 2);
+				// Draw Tiles
+				if(tileId > 0) {
+					if(Systems.mapper.TileDict.ContainsKey(tileId)) {
+						TileObject tgo = Systems.mapper.TileDict[tileId];
+						tgo.Draw(null, subType, this.x + 2, this.y + 50 * s + 2);
 					}
 				}
 
-				// Highlight the active color
-				short my = (short) Snap.GridFloor(tileHeight, EditorTools.tileTool.subIndex * tileHeight - this.y);
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				// Draw Objects
+				else if(ph.objectId > 0) {
+					ShadowTile.Draw(ph.objectId, ph.subType, null, this.x + 2, this.y + 50 * s + 2);
+				}
 			}
+
+			// Highlight the active color
+			short my = (short) Snap.GridFloor(tileHeight, EditorTools.tileTool.subIndex * tileHeight - this.y);
+			Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 
 			// Hovering Visual
 			if(UIComponent.ComponentWithFocus is EditorScroller) {
-				short my = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
+				short my2 = (short) Snap.GridFloor(tileHeight, Cursor.MouseY - this.y);
 
-				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my * tileHeight, this.width, tileHeight), Color.White * 0.5f);
+				Systems.spriteBatch.Draw(Systems.tex2dDarkRed, new Rectangle(this.x, this.y + my2 * tileHeight, this.width, tileHeight), Color.White * 0.5f);
 			}
 		}
 	}

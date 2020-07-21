@@ -35,11 +35,11 @@ namespace Nexus.GameEngine {
 			if(dir == DirRotate.Left) {
 				this.arrowTexture = "Arrow/Left";
 				this.arrowX = this.notify.trueX - (byte) TilemapEnum.TileWidth - 8;
-				this.arrowY = this.notify.trueY + (this.notify.height / 2) - (byte) TilemapEnum.HalfHeight;
+				this.arrowY = this.notify.trueY + (this.notify.height / 2) - 8;
 			} else if(dir == DirRotate.Right) {
 				this.arrowTexture = "Arrow/Right";
 				this.arrowX = this.notify.trueX + this.notify.width + 8;
-				this.arrowY = this.notify.trueY + (this.notify.height / 2) - (byte) TilemapEnum.HalfHeight;
+				this.arrowY = this.notify.trueY + (this.notify.height / 2) - 8;
 			} else if(dir == DirRotate.Up) {
 				this.arrowTexture = "Arrow/Up";
 				this.arrowX = this.notify.trueX + (this.notify.width / 2) - (byte) TilemapEnum.HalfWidth;
@@ -53,8 +53,8 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void SetTutorialStep(short num) {
-			this.tutorialStep = num;
+		public void IncrementTutorialStep() {
+			this.tutorialStep = (short)(this.tutorialStep + 1);
 			this.ClearTutorialNote();
 		}
 

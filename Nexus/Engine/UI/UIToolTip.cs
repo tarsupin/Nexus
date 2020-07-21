@@ -77,7 +77,7 @@ namespace Nexus.Engine {
 
 				case UIPrimaryDirection.Left:
 					posX -= (this.width + theme.CursorGap);
-					posY += (short)(this.height / 2f);
+					posY -= (short)(this.height / 2f);
 					break;
 				
 				case UIPrimaryDirection.Right:
