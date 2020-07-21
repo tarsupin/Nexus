@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 			this.BuildTextures("Slab/Gray/");
 			this.tileId = (byte)TileEnum.SlabGray;
 			this.title = "Gray Slab Block";
-			this.description = "Hold Control to Auto-Tile";
+			this.description = "Hold `control` while clicking and dragging the mouse to Auto-Tile";
 		}
 	}
 }

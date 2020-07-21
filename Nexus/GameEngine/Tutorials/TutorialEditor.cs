@@ -34,6 +34,9 @@ namespace Nexus.GameEngine {
 
 		public void RunTick() {
 
+			// End the Tutorial if all steps have been reached.
+			if(this.tutorialStep > 13) { return; }
+
 			// Update Notification Fading
 			if(this.notify is UINotification) {
 				this.notify.RunTick();

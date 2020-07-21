@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 			this.BuildTextures("Log/");
 			this.tileId = (byte)TileEnum.Log;
 			this.title = "Log";
-			this.description = "Hold Control to Auto-Tile";
+			this.description = "Hold `control` while clicking and dragging the mouse to Auto-Tile";
 		}
 	}
 }

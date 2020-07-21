@@ -8,7 +8,7 @@ namespace Nexus.Objects {
 			this.BuildTextures("Slime/");
 			this.tileId = (byte)TileEnum.GroundSlime;
 			this.title = "Slime Block";
-			this.description = "Hold Control to Auto-Tile";
+			this.description = "Hold `control` while clicking and dragging the mouse to Auto-Tile";
 		}
 	}
 }
