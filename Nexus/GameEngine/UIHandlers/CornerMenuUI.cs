@@ -6,7 +6,7 @@ namespace Nexus.GameEngine {
 	public class CornerMenuUI {
 
 		// Corner Menu
-		private readonly UICreoIcon settings;
+		private readonly UICreoIcon mainMenu;
 		private readonly ToggleMusic music;
 		private readonly ToggleVolume volume;
 		private readonly UICreoIcon exit;
@@ -29,7 +29,7 @@ namespace Nexus.GameEngine {
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu
-			this.settings = new UICreoIcon(null, "Menu", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); }, "Controls", "View the Keys and Gamepad Controls." );
+			this.mainMenu = new UICreoIcon(null, "Menu", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); }, "Main Menu", "Open the Main Menu." );
 			this.music = new ToggleMusic(null, 76, 10, delegate () { Systems.settings.audio.ToggleMusic(); });
 			this.volume = new ToggleVolume(null, 142, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
 			this.exit = new UICreoIcon(null, "Quit", 208, 10, delegate () { Environment.Exit(0); }, "Quit Game", "Exit the Game." );
@@ -49,7 +49,7 @@ namespace Nexus.GameEngine {
 			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
-			this.settings.RunTick();
+			this.mainMenu.RunTick();
 			this.music.RunTick();
 			this.volume.RunTick();
 			this.exit.RunTick();
@@ -69,7 +69,7 @@ namespace Nexus.GameEngine {
 			if(!UIHandler.showCornerMenu) { return; }
 
 			// Corner Menu
-			this.settings.Draw();
+			this.mainMenu.Draw();
 			this.music.Draw();
 			this.volume.Draw();
 			this.exit.Draw();

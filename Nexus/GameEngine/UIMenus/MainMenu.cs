@@ -90,9 +90,10 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			// If the left mouse button was clicked, we leave the menu one way or another.
+			// If the left mouse button was clicked, we leave the menu unless it was opening the menu.
 			// It might click on an object below, but if not, we clicked off of the menu.
 			else if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				if(UIComponent.ComponentWithFocus is UICreoIcon) { return; }
 				UIHandler.SetMenu(null, false);
 			}
 
