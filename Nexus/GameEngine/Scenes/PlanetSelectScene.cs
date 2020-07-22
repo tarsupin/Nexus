@@ -70,13 +70,20 @@ namespace Nexus.GameEngine {
 
 		// References, Component
 		public Atlas atlas;
-		public readonly PlayerInput playerInput;
+		private readonly PlayerInput playerInput;
 		public PagingSystem paging;
 
 		// Screen UI
-		public Texture2D logo;
-		public const string versionBlurb = "Early Alpha Release";
-		public readonly short versionBlurbHalf;
+		private Texture2D logo;
+
+		private const string versionBlurb = "Early Alpha Release";
+		private readonly short versionBlurbHalf;
+
+		private const string openMenuBlurb = "Press Start (or Enter) to open the Main Menu.";
+		private readonly short openMenuHalf;
+
+		private int mouseHighX;
+		private int mouseHighY;
 
 		// Planets + Stars
 		public Dictionary<short, PlanetData> planets = new Dictionary<short, PlanetData>();
@@ -95,6 +102,7 @@ namespace Nexus.GameEngine {
 			// Screen UI
 			this.logo = Systems.game.Content.Load<Texture2D>("Images/creo-logo");
 			this.versionBlurbHalf = (short)(Systems.fonts.console.font.MeasureString(PlanetSelectScene.versionBlurb).X * 0.5f);
+			this.openMenuHalf = (short)(Systems.fonts.baseText.font.MeasureString(PlanetSelectScene.openMenuBlurb).X * 0.5f);
 
 			// Prepare Space
 			this.LoadPlanets("Planets", this.planets);
@@ -191,6 +199,9 @@ namespace Nexus.GameEngine {
 					Systems.sounds.click2.Play(0.5f, 0, 0.5f);
 				}
 
+				// Check if the mouse is hovering over a planet (and draw accordingly if so)
+				this.CheckPlanetHover();
+
 				// Activate Planet / World
 				if(playerInput.isPressed(IKey.AButton) == true) {
 					string worldID;
@@ -209,7 +220,7 @@ namespace Nexus.GameEngine {
 					UIHandler.SetMenu(UIHandler.mainMenu, true);
 				}
 			}
-
+			
 			// Menu State
 			else {
 				UIHandler.menu.RunTick();
@@ -217,6 +228,46 @@ namespace Nexus.GameEngine {
 
 			// Update Moon Positions
 			this.UpdateMoonPositions(this.paging, this.planets);
+		}
+
+		public void CheckPlanetHover() {
+
+			// Reset Mouse Highlight Positions
+			this.mouseHighX = 0;
+			this.mouseHighY = 0;
+
+			short posX = 280 - 200;
+			short posY = 350;
+
+			int mouseX = Cursor.MouseX;
+			int mouseY = Cursor.MouseY;
+
+			// Draw Planets
+			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
+
+				// Update Next Position
+				posX += 200;
+				if(posX >= 1180) { posY += 275; posX = 280; }
+
+				if(mouseX < posX - 60 || mouseX > posX + 95 || mouseY < posY - 60 || mouseY > posY + 135) {
+					continue;
+				}
+
+				this.mouseHighX = posX;
+				this.mouseHighY = posY;
+
+				// Activate Planet / World
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+					string worldID;
+
+					// Otherwise, load the worldID from the planet list.
+					short curVal = i;
+					worldID = this.planets[curVal].worldID;
+
+					SceneTransition.ToWorld(worldID);
+					return;
+				}
+			}
 		}
 
 		public void UpdateMoonPositions(PagingSystem paging, Dictionary<short, PlanetData> planets) {
@@ -244,7 +295,7 @@ namespace Nexus.GameEngine {
 				}
 			}
 		}
-
+		
 		public void DrawStar(StarData star) {
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(star.posX, star.posY, 3, 3), UIHandler.starColor);
 		}
@@ -258,10 +309,6 @@ namespace Nexus.GameEngine {
 			// Draw Background
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), UIHandler.spaceBG);
 
-			// Draw Scene UI
-			Systems.spriteBatch.Draw(this.logo, new Vector2(Systems.screen.windowHalfWidth - 298, 50), Color.White);
-			Systems.fonts.console.Draw(PlanetSelectScene.versionBlurb, Systems.screen.windowHalfWidth - this.versionBlurbHalf, 150, Color.White);
-
 			// Draw Stars
 			for(short starIndex = 0; starIndex < this.stars.Count; starIndex++) {
 				this.DrawStar(this.stars[starIndex]);
@@ -270,12 +317,22 @@ namespace Nexus.GameEngine {
 			short posX = 280;
 			short posY = 350;
 
+			// Draw Scene UI
+			Systems.spriteBatch.Draw(this.logo, new Vector2(Systems.screen.windowHalfWidth - 298, 50), Color.White);
+			Systems.fonts.console.Draw(PlanetSelectScene.versionBlurb, Systems.screen.windowHalfWidth - this.versionBlurbHalf, 150, Color.White);
+			Systems.fonts.baseText.Draw(PlanetSelectScene.openMenuBlurb, Systems.screen.windowHalfWidth - this.openMenuHalf, 210, Color.White);
+
 			// Draw Paging Selection
 			short highlightX = (short)(this.paging.selectX * 200 + posX);
 			short highlightY = (short)(this.paging.selectY * 275 + posY);
 
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector * (this.mouseHighY > 0 ? 0.35f : 1));
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), UIHandler.spaceBG);
+
+			if(this.mouseHighY > 0) {
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.mouseHighX - 60, this.mouseHighY - 60, 155, 195), UIHandler.mouseSelect);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.mouseHighX - 50, this.mouseHighY - 50, 135, 175), UIHandler.spaceBG);
+			}
 
 			// Draw Planets
 			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {

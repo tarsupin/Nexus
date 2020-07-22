@@ -29,7 +29,7 @@ namespace Nexus.GameEngine {
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu
-			this.settings = new UICreoIcon(null, "Settings", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); }, "Controls", "View the Keys and Gamepad Controls." );
+			this.settings = new UICreoIcon(null, "Menu", 10, 10, delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); }, "Controls", "View the Keys and Gamepad Controls." );
 			this.music = new ToggleMusic(null, 76, 10, delegate () { Systems.settings.audio.ToggleMusic(); });
 			this.volume = new ToggleVolume(null, 142, 10, delegate () { Systems.settings.audio.ToggleMute(); } );
 			this.exit = new UICreoIcon(null, "Quit", 208, 10, delegate () { Environment.Exit(0); }, "Quit Game", "Exit the Game." );

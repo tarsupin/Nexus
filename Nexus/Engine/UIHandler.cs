@@ -43,6 +43,7 @@ namespace Nexus.Engine {
 		public static Color spaceBG = new Color(18, 24, 58);
 		public static Color starColor = new Color(58, 63, 90);
 		public static Color selector = Color.DarkRed;
+		public static Color mouseSelect = Color.DarkCyan;
 
 		public static void Setup() {
 			UIHandler.atlas = Systems.mapper.atlas[(byte)AtlasGroup.UI];

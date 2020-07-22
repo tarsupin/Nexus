@@ -7,6 +7,7 @@ namespace Nexus.GameEngine {
 		private enum MenuOptionActive : byte {
 			Return,		// Center
 			Log,		// Left
+			Controls,	// Up-Left
 			Worlds,		// Up
 			Community,	// Down
 			MyLevels,	// Right
@@ -21,6 +22,7 @@ namespace Nexus.GameEngine {
 		// Center Menu
 		private readonly UICreoTextIcon ret;
 		private readonly UICreoTextIcon log;
+		private readonly UICreoTextIcon controls;
 		private readonly UICreoTextIcon worlds;
 		private readonly UICreoTextIcon community;
 		private readonly UICreoTextIcon myLevels;
@@ -38,11 +40,12 @@ namespace Nexus.GameEngine {
 
 			this.log = new UICreoTextIcon(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { UIHandler.SetMenu(UIHandler.loginMenu, true); } );
 
+			this.controls = new UICreoTextIcon(null, "Gamepad", "Controls", (short)(centerX - 66 - 50), (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); });
 			this.worlds = new UICreoTextIcon(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UICreoTextIcon(null, "Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UICreoTextIcon(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
 			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
-			this.credits = new UICreoTextIcon(null, "About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games/credits"); } );
+			this.credits = new UICreoTextIcon(null, "About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://creo.nexus.games/about.html"); } );
 		}
 
 		public void RunTick() {
@@ -58,6 +61,7 @@ namespace Nexus.GameEngine {
 
 			else if(input.isDown(IKey.Left)) {
 				if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.Credits; }
+				else if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.Controls; }
 				else { this.opt = MenuOptionActive.Log; }
 			}
 
@@ -73,6 +77,7 @@ namespace Nexus.GameEngine {
 
 				if (this.opt == MenuOptionActive.Return) { return; }
 				else if(this.opt == MenuOptionActive.Log) { this.log.ActivateIcon(); return; }
+				else if(this.opt == MenuOptionActive.Controls) { this.controls.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.Worlds) { this.worlds.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.Community) { this.community.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.MyLevels) { this.myLevels.ActivateIcon(); return; }
@@ -94,6 +99,7 @@ namespace Nexus.GameEngine {
 			// Center Menu
 			this.ret.RunTick();
 			this.log.RunTick();
+			this.controls.RunTick();
 			this.worlds.RunTick();
 			this.community.RunTick();
 			this.myLevels.RunTick();
@@ -105,6 +111,7 @@ namespace Nexus.GameEngine {
 			this.textBox.Draw();
 			this.ret.Draw(this.opt == MenuOptionActive.Return);
 			this.log.Draw(this.opt == MenuOptionActive.Log);
+			this.controls.Draw(this.opt == MenuOptionActive.Controls);
 			this.worlds.Draw(this.opt == MenuOptionActive.Worlds);
 			this.community.Draw(this.opt == MenuOptionActive.Community);
 			this.myLevels.Draw(this.opt == MenuOptionActive.MyLevels);

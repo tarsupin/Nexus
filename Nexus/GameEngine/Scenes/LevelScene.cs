@@ -49,8 +49,8 @@ namespace Nexus.GameEngine {
 				CampaignState campaign = Systems.handler.campaignState;
 
 				// Update Character Equipment
-				if(!character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
-				if(!character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
+				if(character.suit is Suit || !character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
+				if(character.hat is Hat == false || !character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
 				if(character.shoes is Shoes == false) { Shoes.AssignShoe(character, campaign.shoes); }
 				if(character.attackPower is PowerAttack == false) { PowerAttack.AssignPower(character, campaign.powerAtt); }
 				if(character.mobilityPower is PowerMobility == false) { PowerMobility.AssignPower(character, campaign.powerMob); }
