@@ -4,7 +4,6 @@ using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
-using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -152,12 +151,16 @@ namespace Nexus.GameEngine {
 			}
 
 			// Play UI is active:
+			InputClient input = Systems.input;
+			PlayerInput playerInput = Systems.localServer.MyPlayer.input;
 
-			// Open Menu (Start)
-			if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
+			// Open Menu
+			if(input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				UIHandler.SetMenu(UIHandler.mainMenu, true);
+			}
 
 			// Open Console (Tilde)
-			else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+			else if(input.LocalKeyPressed(Keys.OemTilde)) {
 				UIHandler.worldEditConsole.Open();
 			}
 

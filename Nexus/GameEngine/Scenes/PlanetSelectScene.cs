@@ -214,9 +214,8 @@ namespace Nexus.GameEngine {
 					return;
 				}
 
-				InputClient input = Systems.input;
-
-				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				// Open Menu
+				if(Systems.input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 					UIHandler.SetMenu(UIHandler.mainMenu, true);
 				}
 			}

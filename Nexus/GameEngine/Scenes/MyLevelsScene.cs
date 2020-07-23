@@ -122,7 +122,7 @@ namespace Nexus.GameEngine {
 				}
 
 				// Open Menu
-				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				if(input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 					UIHandler.SetMenu(UIHandler.mainMenu, true);
 				}
 			}

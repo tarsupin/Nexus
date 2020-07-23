@@ -84,11 +84,16 @@ namespace Nexus.GameEngine {
 			// Playing State
 			else {
 
-				// Open Menu (Start)
-				if(Systems.localServer.MyPlayer.input.isPressed(IKey.Start)) { UIHandler.SetMenu(UIHandler.mainMenu, true); }
+				InputClient input = Systems.input;
+				PlayerInput playerInput = Systems.localServer.MyPlayer.input;
+
+				// Open Menu
+				if(input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+					UIHandler.SetMenu(UIHandler.mainMenu, true);
+				}
 
 				// Open Console (Tilde)
-				else if(Systems.input.LocalKeyPressed(Keys.OemTilde)) {
+				else if(input.LocalKeyPressed(Keys.OemTilde)) {
 					UIHandler.editorConsole.Open();
 				}
 			}
