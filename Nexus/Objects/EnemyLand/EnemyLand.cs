@@ -29,11 +29,11 @@ namespace Nexus.Objects {
 			// Check if the enemy is about to run off of a cliff:
 			if(Systems.timer.IsTickFrame && this.physics.touch.toFloor) {
 				if(this.FaceRight) {
-					if(!CollideTile.IsBlockingCoord(this.room.tilemap, this.posX + this.bounds.Right + 4, this.posY + this.bounds.Bottom + 10, DirCardinal.Down)) {
+					if(!CollideTile.IsBlockingCoord(this.room.tilemap, this.posX + this.bounds.Right + 8, this.posY + this.bounds.Bottom + 10, DirCardinal.Down)) {
 						this.SetDirection(false);
 					}
 				} else {
-					if(!CollideTile.IsBlockingCoord(this.room.tilemap, this.posX + this.bounds.Left - 4, this.posY + this.bounds.Bottom + 10, DirCardinal.Down)) {
+					if(!CollideTile.IsBlockingCoord(this.room.tilemap, this.posX + this.bounds.Left - 8, this.posY + this.bounds.Bottom + 10, DirCardinal.Down)) {
 						this.SetDirection(true);
 					}
 				}
