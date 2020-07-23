@@ -20,8 +20,8 @@ namespace Nexus.GameEngine {
 
 		public void SetText(string title, string text, short endFrame = 0) {
 			this.alpha = 1;
-			this.title = title;
-			this.text = text;
+			this.title = title == null ? "" : title;
+			this.text = text == null ? "" : text;
 			this.measureTitle = Systems.fonts.baseText.font.MeasureString(this.title);
 			this.measureText = Systems.fonts.console.font.MeasureString(this.text);
 			this.endFrame = endFrame;

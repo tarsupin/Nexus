@@ -1,12 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
-using Nexus.ObjectComponents;
-using Nexus.Objects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -188,7 +185,7 @@ namespace Nexus.GameEngine {
 
 			// Activate Node
 			else if(playerInput.isPressed(IKey.AButton) == true) {
-				this.ActivateNode();
+				_ = this.ActivateNode();
 			}
 		}
 
@@ -263,6 +260,13 @@ namespace Nexus.GameEngine {
 						}
 					}
 				}
+
+				return;
+			}
+
+			// Check for Level Presence
+			if(NodeData.IsObjectANode(wtData[5], false, false, true)) {
+				_ = DisplayLevelInfo();
 			}
 		}
 
@@ -329,7 +333,7 @@ namespace Nexus.GameEngine {
 			this.ResetZone();
 		}
 
-		public async Task<bool> ActivateNode() {
+		public async Task<bool> RunNodeReadiness() {
 
 			// Can only activate if the character is at a Node.
 			if(!this.character.IsAtNode) { return false; }
@@ -350,15 +354,30 @@ namespace Nexus.GameEngine {
 
 			// Check if Level exists in file system.
 			if(!LevelContent.LevelExists(levelId)) {
-				bool success = await WebHandler.LevelRequest(levelId);
-				
+				bool discovered = await WebHandler.LevelRequest(levelId);
+
 				// If the level failed to be located (including online), delete the reference to it from the zone.
-				if(!success) {
+				if(!discovered) {
 					this.currentZone.nodes.Remove(coordId.ToString());
 					this.campaign.SaveCampaign();
 					return false;
 				}
 			}
+
+			return true;
+		}
+
+		public async Task<bool> ActivateNode() {
+
+			// Verify the Node is ready.
+			if(!await RunNodeReadiness()) { return false; }
+
+			// Get Current Tile Data
+			byte[] wtData = this.worldContent.GetWorldTileData(this.currentZone, this.character.curX, this.character.curY);
+
+			// Identify Level Data at this node:
+			int coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+			string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
 
 			// If the level is valid, we can enter the level.
 			bool isWon = this.campaign.IsLevelWon(this.campaign.zoneId, levelId);
@@ -371,6 +390,28 @@ namespace Nexus.GameEngine {
 			}
 
 			SceneTransition.ToLevel(this.worldData.id, levelId, true);
+			return true;
+		}
+		
+		public async Task<bool> DisplayLevelInfo() {
+
+			// Reset Status Text
+			this.worldUI.statusText.SetText(null, null);
+
+			// Verify the Node is ready.
+			if(!await RunNodeReadiness()) { return false; }
+
+			// Identify Level Data at this node:
+			int coordId = Coords.MapToInt(this.character.curX, this.character.curY);
+			string levelId = this.currentZone.nodes.ContainsKey(coordId.ToString()) ? this.currentZone.nodes[coordId.ToString()] : "";
+
+			// Make sure the level exists.
+			LevelFormat levelData = LevelContent.GetLevelData(levelId);
+			if(levelData == null) { return false; }
+
+			// Set Level Title and Description
+			this.worldUI.statusText.SetText(levelData.title, levelData.description);
+
 			return true;
 		}
 

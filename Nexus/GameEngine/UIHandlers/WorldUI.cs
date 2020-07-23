@@ -9,12 +9,14 @@ namespace Nexus.GameEngine {
 		public Atlas atlas;
 		private readonly short bottomRow;
 		private readonly WorldContent worldContent;
+		public readonly UIStatusText statusText;
 
 		public WorldUI( WorldScene scene ) {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
 			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) WorldmapEnum.TileHeight);
 			this.worldContent = this.scene.worldContent;
+			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
 		}
 
 		public void RunTick() {
@@ -24,8 +26,10 @@ namespace Nexus.GameEngine {
 		public void Draw() {
 
 			// Coins / Gems
-			this.atlas.Draw("Treasure/Gem", 10, 10);
+			//this.atlas.Draw("Treasure/Gem", 10, 10);
 			//Systems.fonts.counter.Draw(this.levelState.coins.ToString(), 65, 10, Color.White);
+
+			this.statusText.Draw();
 		}
 	}
 }
