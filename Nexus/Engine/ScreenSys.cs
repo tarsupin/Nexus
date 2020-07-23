@@ -45,9 +45,10 @@ namespace Nexus.Engine {
 			float preferredAspect = 1.6f;
 
 			// Output is Tall (Bars on top/bottom)
-			if(outputAspect <= preferredAspect) {
+			if(outputAspect < preferredAspect) {
 				int presentHeight = (int)((windowBounds.Width / preferredAspect) + 0.5f);
 				this.offsetY = (short)((windowBounds.Height - presentHeight) / 2);
+				this.aspectX = 1f;
 				this.aspectY = (presentHeight + this.offsetY * 2) / (float)presentHeight;
 				this.destRender = new Rectangle(0, this.offsetY, windowBounds.Width, presentHeight);
 			}
@@ -58,6 +59,7 @@ namespace Nexus.Engine {
 				int presentWidth = (int)((windowBounds.Height * preferredAspect) + 0.5f);
 				this.offsetX = (short)((windowBounds.Width - presentWidth) / 2);
 				this.aspectX = (presentWidth + this.offsetX * 2) / (float) presentWidth;
+				this.aspectY = 1f;
 				this.destRender = new Rectangle(this.offsetX, 0, presentWidth, windowBounds.Height);
 			}
 		}
