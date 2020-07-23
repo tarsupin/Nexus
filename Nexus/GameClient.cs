@@ -7,12 +7,15 @@ using Nexus.Scripts;
 using System;
 
 namespace Nexus {
+
 	public class GameClient : Game
     {
 		// XNA Graphics
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
 		private readonly Action loadInstructions;
+
+		public RenderTarget2D renderTarget;
 
 		public GameClient(Action LoadInstructions = null) {
 			graphics = new GraphicsDeviceManager(this);
@@ -33,7 +36,7 @@ namespace Nexus {
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();
-        }
+		}
 
 		/// Loaded once per game. Load all Game Content.
 		protected override void LoadContent()
@@ -49,12 +52,15 @@ namespace Nexus {
 			Systems.screen.ResizeWindowToBestFit();
 			Systems.AddAudio(this);
 			UIHandler.Setup();
-			GlobalScene.Setup();
+			//GlobalScene.Setup();
+
+			this.renderTarget = new RenderTarget2D(graphics.GraphicsDevice, Systems.screen.windowWidth, Systems.screen.windowHeight, false, SurfaceFormat.Color, DepthFormat.None, 8, RenderTargetUsage.DiscardContents);
 
 			// Resize Window
 			Window.AllowUserResizing = false;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
+			this.graphics.ToggleFullScreen();
 
 			// Process Extra Loading Instructions
 			loadInstructions();
@@ -69,7 +75,7 @@ namespace Nexus {
 
 			Systems.input.PreProcess();
 			Systems.timer.RunUniTick();
-			GlobalScene.RunTick();
+			//GlobalScene.RunTick();
 			Systems.scene.RunTick();
 			UIHandler.RunTick();
 			SceneTransition.RunTransition();
@@ -83,6 +89,10 @@ namespace Nexus {
 
 		/// This is called when the game should draw itself.
 		protected override void Draw(GameTime gameTime) {
+			this.DrawFullScreen(gameTime);
+		}
+
+		protected void DrawWindow(GameTime gameTime) {
 
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -93,7 +103,33 @@ namespace Nexus {
 			this.spriteBatch.End();
 			base.Draw(gameTime);
 		}
-    }
+
+		protected void DrawFullScreen(GameTime gameTime) {
+
+			//GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.SetRenderTarget(this.renderTarget);
+			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+			// Draw Background
+			spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.CornflowerBlue);
+
+			// Draw Scene
+			Systems.scene.Draw();
+			UIHandler.Draw();
+
+			this.spriteBatch.End();
+			base.Draw(gameTime);
+			GraphicsDevice.SetRenderTarget(null);
+
+			// Draw Render Target
+			GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
+			this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+
+
+			this.spriteBatch.Draw(this.renderTarget, Systems.screen.destRender, Color.White);
+			this.spriteBatch.End();
+		}
+	}
 
 	public static class Program {
 

@@ -13,6 +13,12 @@ namespace Nexus.Engine {
 		public short windowHalfWidth;
 		public short windowHalfHeight;
 
+		public Rectangle destRender;
+		public short offsetX = 0;
+		public short offsetY = 0;
+		public float aspectX = 1;
+		public float aspectY = 1;
+
 		public ScreenSys(GameClient game) {
 			this.graphics = game.graphics;
 			this.UpdateSizes();
@@ -21,8 +27,8 @@ namespace Nexus.Engine {
 		public void UpdateSizes() {
 
 			// Screen Size
-			this.screenWidth = (short) this.graphics.GraphicsDevice.DisplayMode.Width;
-			this.screenHeight = (short) this.graphics.GraphicsDevice.DisplayMode.Height;
+			this.screenWidth = (short)this.graphics.GraphicsDevice.DisplayMode.Width;
+			this.screenHeight = (short)this.graphics.GraphicsDevice.DisplayMode.Height;
 
 			// Window Size
 			this.windowWidth = (short) this.graphics.GraphicsDevice.Viewport.Width;
@@ -30,6 +36,30 @@ namespace Nexus.Engine {
 
 			this.windowHalfWidth = (short) Math.Floor((decimal) (this.windowWidth / 2));
 			this.windowHalfHeight = (short) Math.Floor((decimal) (this.windowHeight / 2));
+
+			// Prepare Destination Render Target
+			Rectangle windowBounds = Systems.game.Window.ClientBounds;
+
+			float outputAspect = windowBounds.Width / (float)windowBounds.Height;
+			//float preferredAspect = this.screenWidth / (float)this.screenHeight;
+			float preferredAspect = 1.5f;
+
+			// Output is Tall (Bars on top/bottom)
+			if(outputAspect <= preferredAspect) {
+				int presentHeight = (int)((windowBounds.Width / preferredAspect) + 0.5f);
+				this.offsetY = (short)((windowBounds.Height - presentHeight) / 2);
+				this.aspectY = (presentHeight + this.offsetY * 2) / (float)presentHeight;
+				this.destRender = new Rectangle(0, this.offsetY, windowBounds.Width, presentHeight);
+			}
+
+			// Output is Wide (Bars on left/right)
+			else
+			{
+				int presentWidth = (int)((windowBounds.Height * preferredAspect) + 0.5f);
+				this.offsetX = (short)((windowBounds.Width - presentWidth) / 2);
+				this.aspectX = (presentWidth + this.offsetX * 2) / (float) presentWidth;
+				this.destRender = new Rectangle(this.offsetX, 0, presentWidth, windowBounds.Height);
+			}
 		}
 
 		public void ResizeWindowTo( short width, short height ) {
