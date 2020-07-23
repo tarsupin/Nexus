@@ -42,7 +42,7 @@ namespace Nexus.Engine {
 
 			float outputAspect = windowBounds.Width / (float)windowBounds.Height;
 			//float preferredAspect = this.screenWidth / (float)this.screenHeight;
-			float preferredAspect = 1.5f;
+			float preferredAspect = 1.6f;
 
 			// Output is Tall (Bars on top/bottom)
 			if(outputAspect <= preferredAspect) {

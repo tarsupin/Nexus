@@ -15,8 +15,8 @@ namespace Nexus.Engine {
 		public static MouseState mouseState;
 		public static MouseState mouseStatePrev;
 
-		public static int MouseX { get { return (int)(Cursor.mouseState.X * Systems.screen.aspectX - Systems.screen.offsetX); } }
-		public static int MouseY { get { return (int)(Cursor.mouseState.Y * Systems.screen.aspectY - Systems.screen.offsetY); } }
+		public static int MouseX { get { return (int)((Cursor.mouseState.X - Systems.screen.offsetX) * Systems.screen.aspectX); } }
+		public static int MouseY { get { return (int)((Cursor.mouseState.Y - Systems.screen.offsetY) * Systems.screen.aspectY); } }
 
 		public static short TileGridX { get { return (short) Snap.GridFloor((short)TilemapEnum.TileWidth, Systems.camera.posX + Cursor.mouseState.X); } }
 		public static short TileGridY { get { return (short) Snap.GridFloor((short)TilemapEnum.TileHeight, Systems.camera.posY + Cursor.mouseState.Y); } }
