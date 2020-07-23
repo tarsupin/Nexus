@@ -52,7 +52,7 @@ namespace Nexus {
 			GlobalScene.Setup();
 
 			// Resize Window
-			Window.AllowUserResizing = true;
+			Window.AllowUserResizing = false;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
 

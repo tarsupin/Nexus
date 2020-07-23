@@ -4,7 +4,6 @@ using Nexus.Engine;
 using Nexus.Gameplay;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
-using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -49,13 +48,15 @@ namespace Nexus.GameEngine {
 				CampaignState campaign = Systems.handler.campaignState;
 
 				// Update Character Equipment
-				if(character.suit is Suit || !character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
-				if(character.hat is Hat == false || !character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
-				if(character.shoes is Shoes == false) { Shoes.AssignShoe(character, campaign.shoes); }
-				if(character.attackPower is PowerAttack == false) { PowerAttack.AssignPower(character, campaign.powerAtt); }
-				if(character.mobilityPower is PowerMobility == false) { PowerMobility.AssignPower(character, campaign.powerMob); }
-				if(character.wounds.Health < campaign.health) { character.wounds.SetHealth(campaign.health); }
-				if(character.wounds.Armor < campaign.armor) { character.wounds.SetArmor(campaign.armor); }
+				if(campaign is CampaignState) {
+					if(character.suit is Suit || !character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
+					if(character.hat is Hat == false || !character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
+					if(character.shoes is Shoes == false) { Shoes.AssignShoe(character, campaign.shoes); }
+					if(character.attackPower is PowerAttack == false) { PowerAttack.AssignPower(character, campaign.powerAtt); }
+					if(character.mobilityPower is PowerMobility == false) { PowerMobility.AssignPower(character, campaign.powerMob); }
+					if(character.wounds.Health < campaign.health) { character.wounds.SetHealth(campaign.health); }
+					if(character.wounds.Armor < campaign.armor) { character.wounds.SetArmor(campaign.armor); }
+				}
 			}
 
 			// Play or Stop Music
@@ -132,7 +133,7 @@ namespace Nexus.GameEngine {
 			else {
 
 				// Open Menu
-				if(input.LocalKeyPressed(Keys.Tab) || input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
+				if(input.LocalKeyPressed(Keys.Escape) || playerInput.isPressed(IKey.Start) || playerInput.isPressed(IKey.Select)) {
 					UIHandler.SetMenu(UIHandler.levelMenu, true);
 				}
 

@@ -12,14 +12,11 @@ namespace Nexus.GameEngine {
 		public static void Setup() {
 
 			// Activate Confirm Box
-			EventSys.AttachListener(GlobalScene.listeners, EventCategory.Confirm, EventType.Undefined, "", GlobalScene.RunConfirmBox);
+			//EventSys.AttachListener(GlobalScene.listeners, EventCategory.Confirm, EventType.Undefined, "", GlobalScene.RunConfirmBox);
 		}
 
 		private static void RunConfirmBox(EventData data) {
 			EventComponentData cData = (EventComponentData) data;
-			if(data.eventCode == "testConf") {
-				var a = 1;
-			}
 		}
 
 		public static void RunTick() {}
