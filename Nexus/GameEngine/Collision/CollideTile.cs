@@ -57,8 +57,8 @@ namespace Nexus.GameEngine {
 			}
 
 			// Tile may be blocking against specific directions:
-			if(dir == DirCardinal.Up) {
-				if(tileObj is PlatformFixedDown) { return true; }
+			if(dir == DirCardinal.Down) {
+				if(tileObj is PlatformFixedUp) { return true; }
 			}
 
 			return false;

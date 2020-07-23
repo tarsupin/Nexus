@@ -32,7 +32,7 @@ namespace Nexus {
 			// NOTE: Important to set this to false. Game can be stuttery if vSync enabled, because of monitor speed, tearing, etc. Read more:
 			// https://hardforum.com/threads/how-vsync-works-and-why-people-loathe-it.928593/
 			// https://www.geforce.com/hardware/technology/adaptive-vsync/technology
-			graphics.SynchronizeWithVerticalRetrace = false; // Vsync; may cause stutter if not used.
+			graphics.SynchronizeWithVerticalRetrace = true; // Vsync; may cause stutter if not used.
 
 			// Enumerate through components and initialize them as well.
 			base.Initialize();
@@ -60,7 +60,7 @@ namespace Nexus {
 			Window.AllowUserResizing = false;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
-			this.graphics.ToggleFullScreen();
+			//this.graphics.ToggleFullScreen();
 
 			// Process Extra Loading Instructions
 			loadInstructions();
@@ -89,7 +89,7 @@ namespace Nexus {
 
 		/// This is called when the game should draw itself.
 		protected override void Draw(GameTime gameTime) {
-			this.DrawFullScreen(gameTime);
+			this.DrawWindow(gameTime);
 		}
 
 		protected void DrawWindow(GameTime gameTime) {
