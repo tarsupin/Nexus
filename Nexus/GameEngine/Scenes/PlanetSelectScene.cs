@@ -8,7 +8,6 @@ using Nexus.ObjectComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -82,8 +81,9 @@ namespace Nexus.GameEngine {
 		private const string openMenuBlurb = "Press Start (or Enter) to open the Main Menu.";
 		private readonly short openMenuHalf;
 
-		private int mouseHighX;
-		private int mouseHighY;
+		// Mouse Highlight
+		private int mouseHighX = 0;
+		private int mouseHighY = 0;
 
 		// Planets + Stars
 		public Dictionary<short, PlanetData> planets = new Dictionary<short, PlanetData>();
@@ -326,7 +326,7 @@ namespace Nexus.GameEngine {
 			short highlightX = (short)(this.paging.selectX * 200 + posX);
 			short highlightY = (short)(this.paging.selectY * 275 + posY);
 
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector * (this.mouseHighY > 0 ? 0.35f : 1));
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector * (this.mouseHighY > 0 ? 0.45f : 1));
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), UIHandler.spaceBG);
 
 			if(this.mouseHighY > 0) {

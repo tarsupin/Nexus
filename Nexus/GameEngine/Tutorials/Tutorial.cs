@@ -51,7 +51,7 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public void IncrementTutorialStep() {
+		public virtual void IncrementTutorialStep() {
 			this.tutorialStep = (short)(this.tutorialStep + 1);
 			this.ClearTutorialNote();
 		}

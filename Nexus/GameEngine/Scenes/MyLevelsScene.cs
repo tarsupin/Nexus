@@ -6,7 +6,6 @@ using Nexus.Gameplay;
 using System;
 using System.Collections.Generic;
 using static Nexus.Engine.PagingSystem;
-using static Nexus.Engine.UIHandler;
 
 namespace Nexus.GameEngine {
 
@@ -21,6 +20,10 @@ namespace Nexus.GameEngine {
 		// References, Component
 		public readonly PlayerInput playerInput;
 		public PagingSystem paging;
+
+		// Mouse Highlight
+		private int mouseHighX = 0;
+		private int mouseHighY = 0;
 
 		// Levels
 		public Dictionary<short, LevelFormat> levels = new Dictionary<short, LevelFormat>();
@@ -108,7 +111,10 @@ namespace Nexus.GameEngine {
 					}
 				}
 
-				// Activate Planet / World
+				// Check if the mouse is hovering over a planet (and draw accordingly if so)
+				this.CheckPlanetHover();
+
+				// Activate Level
 				if(playerInput.isPressed(IKey.AButton) == true) {
 					short curVal = this.paging.CurrentSelectionVal;
 					SceneTransition.ToLevelEditor("", "__" + curVal.ToString(), curVal);
@@ -124,6 +130,40 @@ namespace Nexus.GameEngine {
 			// Menu State
 			else {
 				UIHandler.menu.RunTick();
+			}
+		}
+
+		public void CheckPlanetHover() {
+
+			// Reset Mouse Highlight Positions
+			this.mouseHighX = 0;
+			this.mouseHighY = 0;
+
+			short posX = 100 - 200;
+			short posY = 150;
+
+			int mouseX = Cursor.MouseX;
+			int mouseY = Cursor.MouseY;
+
+			// Draw Planets
+			for(short i = this.paging.MinVal; i < this.paging.MaxVal; i++) {
+
+				// Update Next Position
+				posX += 200;
+				if(posX >= 1380) { posY += 200; posX = 100; }
+
+				if(mouseX < posX - 60 || mouseX > posX + 95 || mouseY < posY - 60 || mouseY > posY + 135) {
+					continue;
+				}
+
+				this.mouseHighX = posX;
+				this.mouseHighY = posY;
+
+				// Activate Level
+				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+					SceneTransition.ToLevelEditor("", "__" + i.ToString(), i);
+					return;
+				}
 			}
 		}
 
@@ -143,8 +183,13 @@ namespace Nexus.GameEngine {
 			short highlightX = (short)(this.paging.selectX * 200 + posX);
 			short highlightY = (short)(this.paging.selectY * 200 + posY);
 
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), Color.DarkRed);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 60, highlightY - 60, 155, 195), UIHandler.selector * (this.mouseHighY > 0 ? 0.45f : 1));
 			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(highlightX - 50, highlightY - 50, 135, 175), Color.DarkSlateGray);
+
+			if(this.mouseHighY > 0) {
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.mouseHighX - 60, this.mouseHighY - 60, 155, 195), UIHandler.mouseSelect);
+				Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(this.mouseHighX - 50, this.mouseHighY - 50, 135, 175), Color.DarkSlateGray);
+			}
 
 			// Draw Levels
 			for(short levelNum = this.paging.MinVal; levelNum < this.paging.MaxVal; levelNum++) {

@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		public TutorialWorldEdit(WEScene scene) : base() {
 			this.scene = scene;
+			this.tutorialStep = (short)(Systems.settings.tutorial.WorldEditor);
 
 			this.tutorialMethods = new Dictionary<short, Action>();
 			this.tutorialMethods.Add(0, this.SelectingTiles);
@@ -32,10 +33,15 @@ namespace Nexus.GameEngine {
 			this.tutorialMethods.Add(13, this.HomeZone);
 		}
 
+		public override void IncrementTutorialStep() {
+			base.IncrementTutorialStep();
+			Systems.settings.tutorial.UpdateWorldEditorStep(this.tutorialStep);
+		}
+
 		public void RunTick() {
 
 			// End the Tutorial if all steps have been reached.
-			//if(this.tutorialStep > 13) { return; }
+			if(this.tutorialStep > 13 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
 
 			// Update Notification Fading
 			if(this.notify is UINotification) {
@@ -166,7 +172,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(973, (short)(Systems.screen.windowHeight - 220), "Change Zones", "Click the `Next Zone` button to switch to the next zone ID.", DirRotate.Down);
+			this.SetTutorialNote(610, (short)(Systems.screen.windowHeight - 220), "Change Zones", "Click the `Next Zone` button to switch to the next zone ID.", DirRotate.Down);
 		}
 
 		private void HomeZone() {
@@ -175,7 +181,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(923, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Zone` to return to the first zone.", DirRotate.Down);
+			this.SetTutorialNote(580, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Zone` to return to the first zone.", DirRotate.Down);
 		}
 
 		// Placing Nodes

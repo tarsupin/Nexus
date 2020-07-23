@@ -1,6 +1,7 @@
 ﻿using Nexus.Engine;
 
 namespace Nexus.Gameplay {
+
 	public class Settings {
 
 		public readonly AudioSettings audio;
@@ -8,6 +9,7 @@ namespace Nexus.Gameplay {
 		public readonly KeySettings input;
 		public readonly LoginSettings login;
 		public readonly MultiplayerSettings multiplayer;
+		public readonly TutorialSettings tutorial;
 
 		public Settings() {
 
@@ -19,6 +21,7 @@ namespace Nexus.Gameplay {
 			this.input = new KeySettings();
 			this.login = new LoginSettings();
 			this.multiplayer = new MultiplayerSettings();
+			this.tutorial = new TutorialSettings();
 		}
 	}
 }

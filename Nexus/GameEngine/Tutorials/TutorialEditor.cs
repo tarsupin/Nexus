@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		public TutorialEditor(EditorScene scene) : base() {
 			this.scene = scene;
+			this.tutorialStep = (short) (Systems.settings.tutorial.Editor);
 
 			this.tutorialMethods = new Dictionary<short, Action>();
 			this.tutorialMethods.Add(0, this.SelectingTiles);
@@ -32,10 +33,15 @@ namespace Nexus.GameEngine {
 			this.tutorialMethods.Add(13, this.HomeRoom);
 		}
 
+		public override void IncrementTutorialStep() {
+			base.IncrementTutorialStep();
+			Systems.settings.tutorial.UpdateEditorStep(this.tutorialStep);
+		}
+
 		public void RunTick() {
 
 			// End the Tutorial if all steps have been reached.
-			if(this.tutorialStep > 13) { return; }
+			if(this.tutorialStep > 13 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
 
 			// Update Notification Fading
 			if(this.notify is UINotification) {
