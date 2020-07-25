@@ -187,7 +187,11 @@ namespace Nexus.Engine {
 				// Run the Login Request
 				Uri uri = new Uri(GameValues.CreoAPI + "register");
 				HttpResponseMessage response = await WebHandler.PostJSON(uri, data);
-				if(response == null || response.IsSuccessStatusCode == false) { return false; }
+				
+				if(response == null || response.IsSuccessStatusCode == false) {
+					WebHandler.ResponseMessage = "No Response was provided.";
+					return false;
+				}
 				
 				// Extract the contents from the response.
 				string contents = await response.Content.ReadAsStringAsync();
