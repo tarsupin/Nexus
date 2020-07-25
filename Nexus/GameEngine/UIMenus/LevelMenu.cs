@@ -17,7 +17,7 @@ namespace Nexus.GameEngine {
 		private readonly TextBox textBox;
 
 		// Center Menu
-		private readonly UICreoTextIcon cont;
+		//private readonly UICreoTextIcon cont;
 		private readonly UICreoTextIcon retry;
 		private readonly UICreoTextIcon restart;
 		private readonly UICreoTextIcon toMain;
@@ -30,7 +30,7 @@ namespace Nexus.GameEngine {
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
 			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
 
-			this.cont = new UICreoTextIcon(null, "Continue", "Continue", centerX, centerY, delegate () {} );
+			//this.cont = new UICreoTextIcon(null, "Continue", "Continue", centerX, centerY, delegate () {} );
 			this.retry = new UICreoTextIcon(null, "Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );
 			this.restart = new UICreoTextIcon(null, "Restart", "Restart", (short)(centerX - 66 - 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(true); } );
 			this.toMain = new UICreoTextIcon(null, "Menu", "Main Menu", centerX, (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.mainMenu, true); } );
@@ -47,7 +47,6 @@ namespace Nexus.GameEngine {
 			else if(input.isDown(IKey.Left)) { this.opt = MenuOptionActive.Restart; }
 			else if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.ToMainMenu; }
 			else if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.EndLevel; }
-			else { this.opt = MenuOptionActive.Continue; }
 
 			// Check if the start button was released.
 			if(input.isPressed(IKey.AButton)) {
@@ -55,8 +54,8 @@ namespace Nexus.GameEngine {
 				// Close the Menu
 				UIHandler.SetMenu(null, false);
 
-				if (this.opt == MenuOptionActive.Continue) { return; }
-				else if(this.opt == MenuOptionActive.Retry) { this.retry.ActivateIcon(); return; }
+				//if (this.opt == MenuOptionActive.Continue) { return; }
+				if(this.opt == MenuOptionActive.Retry) { this.retry.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.Restart) { this.restart.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.ToMainMenu) { this.toMain.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.EndLevel) { this.endLevel.ActivateIcon(); return; }
@@ -74,7 +73,7 @@ namespace Nexus.GameEngine {
 			}
 
 			// Center Menu
-			this.cont.RunTick();
+			//this.cont.RunTick();
 			this.retry.RunTick();
 			this.restart.RunTick();
 			this.toMain.RunTick();
@@ -83,7 +82,7 @@ namespace Nexus.GameEngine {
 
 		public void Draw() {
 			this.textBox.Draw();
-			this.cont.Draw(this.opt == MenuOptionActive.Continue);
+			//this.cont.Draw(this.opt == MenuOptionActive.Continue);
 			this.retry.Draw(this.opt == MenuOptionActive.Retry);
 			this.restart.Draw(this.opt == MenuOptionActive.Restart);
 			this.toMain.Draw(this.opt == MenuOptionActive.ToMainMenu);
