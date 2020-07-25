@@ -15,8 +15,9 @@ namespace Nexus.GameEngine {
 				
 				{ "resize", ConsoleRoom.Resize },
 				
-				// Level
-				{ "level", EditorConsole.LevelChange },
+				// Loading Worlds and Levels
+				{ "load-world", WorldEditConsole.LoadWorldEditor },
+				{ "load-level", EditorConsole.LoadLevelEditor },
 
 				// Set Level Data
 				{ "title", ConsoleEditData.SetTitle },
@@ -30,10 +31,10 @@ namespace Nexus.GameEngine {
 			};
 		}
 
-		public static void LevelChange() {
+		public static void LoadLevelEditor() {
 			string currentIns = ConsoleTrack.GetArgAsString();
 
-			ConsoleTrack.possibleTabs = "Example: `level QCALQOD16`";
+			ConsoleTrack.possibleTabs = "Example: `load-level QCALQOD16`";
 			ConsoleTrack.helpText = "The level ID of the level to load.";
 
 			if(ConsoleTrack.activate) {

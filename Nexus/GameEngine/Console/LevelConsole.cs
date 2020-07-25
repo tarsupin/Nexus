@@ -17,8 +17,11 @@ namespace Nexus.GameEngine {
 				// Editor
 				{ "editor", ConsoleToEditor.ToEditor },
 
+				// Loading Worlds and Levels
+				{ "load-world", WorldConsole.WorldChange },
+				{ "load-level", ConsoleLevel.LoadLevel },
+
 				// Level
-				{ "level", ConsoleLevel.LevelChange },
 				{ "move", ConsoleLevel.ConsoleTeleport },
 				{ "save", ConsoleSave.SaveState },
 

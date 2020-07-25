@@ -15,6 +15,10 @@ namespace Nexus.GameEngine {
 				{ "setlevel", ConsoleWorldMap.SetLevel },
 				{ "setwarp", ConsoleWorldMap.SetWarp },
 				
+				// Loading Worlds and Levels
+				{ "load-world", WorldEditConsole.LoadWorldEditor },
+				{ "load-level", EditorConsole.LoadLevelEditor },
+
 				// Set World Data
 				{ "name", ConsoleWorldMap.SetName },
 				{ "desc", ConsoleWorldMap.SetDescription },
@@ -38,6 +42,17 @@ namespace Nexus.GameEngine {
 
 		public override void OnOpen() { 
 
+		}
+
+		public static void LoadWorldEditor() {
+			string currentIns = ConsoleTrack.GetArgAsString();
+
+			ConsoleTrack.possibleTabs = "Example: `load-world worldIdHere`";
+			ConsoleTrack.helpText = "The world ID of the world to load. Will load a world (if it exists).";
+
+			if(ConsoleTrack.activate) {
+				SceneTransition.ToLevelEditor("", currentIns);
+			}
 		}
 
 		public static void PublishWorld() {

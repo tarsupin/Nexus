@@ -6,10 +6,10 @@ namespace Nexus.GameEngine {
 
 	public static class ConsoleLevel {
 
-		public static void LevelChange() {
+		public static void LoadLevel() {
 			string currentIns = ConsoleTrack.GetArgAsString();
 
-			ConsoleTrack.possibleTabs = "Example: `level QCALQOD16`";
+			ConsoleTrack.possibleTabs = "Example: `load-level QCALQOD16`";
 			ConsoleTrack.helpText = "The level ID of the level to load.";
 
 			if(ConsoleTrack.activate) {

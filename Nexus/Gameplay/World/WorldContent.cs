@@ -23,6 +23,7 @@ namespace Nexus.Gameplay {
 
 			// Verify the presence of a World ID.
 			if(worldId.Length == 0) { return false; }
+			worldId = worldId.ToUpper();
 
 			string localPath = WorldContent.GetLocalWorldPath(worldId);
 
@@ -31,6 +32,7 @@ namespace Nexus.Gameplay {
 		}
 
 		public bool LoadWorldData(string worldId = "") {
+			worldId = worldId.ToUpper();
 
 			// Update the World ID, or use existing World ID if applicable.
 			if(WorldContent.WorldExists(worldId)) { this.worldId = worldId; }
@@ -50,11 +52,12 @@ namespace Nexus.Gameplay {
 
 		public bool LoadWorldData(WorldFormat worldData) {
 			this.data = worldData;
-			this.worldId = worldData.id;
+			this.worldId = worldData.id.ToUpper();
 			return true;
 		}
 
 		public static string GetLocalWorldPath(string worldId) {
+			worldId = worldId.ToUpper();
 			return "Worlds/" + worldId.Substring(0, 2) + "/" + worldId + ".json";
 		}
 
@@ -62,7 +65,7 @@ namespace Nexus.Gameplay {
 			WorldZoneFormat zone = WorldContent.BuildEmptyZone();
 
 			WorldFormat world = new WorldFormat {
-				id = worldId,
+				id = worldId.ToUpper(),
 				account = "",
 				mode = (byte) HardcoreMode.SoftCore,
 				name = "Unnamed World",
@@ -107,6 +110,7 @@ namespace Nexus.Gameplay {
 
 			// Can only save a world state if the world ID is assigned correctly.
 			if(this.worldId == null || this.worldId.Length == 0) { return; }
+			this.worldId = this.worldId.ToUpper();
 
 			// Determine the Destination Path and Destination Level ID
 			string localFile = WorldContent.GetLocalWorldPath(this.worldId);
