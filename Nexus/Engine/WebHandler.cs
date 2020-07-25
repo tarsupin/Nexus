@@ -326,6 +326,15 @@ namespace Nexus.Engine {
 		// -- World Commands -- //
 		// -------------------- //
 
+		public class WorldAPIFormat {
+			[JsonProperty("success")]
+			public bool success { get; set; }
+			[JsonProperty("worldId")]
+			public string worldId { get; set; }
+			[JsonProperty("reason")]
+			public string reason { get; set; }
+		}
+
 		public static async Task<bool> WorldRequest(string worldId) {
 
 			// Make sure the world doesn't already exist locally. If it does, there's no need to call the online API.
@@ -360,12 +369,18 @@ namespace Nexus.Engine {
 		public static async Task<string> WorldPublishRequest(string worldId) {
 
 			// Make sure the world is owned, i.e. it has the "__#" format.
-			if(worldId != "__World") { return "fail"; }
+			if(worldId != "__World") {
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid World", "You can only publish your own world. Access it in the Main Menu.", 300);
+				return "fail";
+			}
 
 			// Make sure we have the world loaded:
 			if(Systems.handler.worldContent == null || Systems.handler.worldContent.worldId != worldId) {
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid World", "The world did not have a valid ID, or was not loaded correctly.", 300);
 				return "fail";
 			}
+
+			UIHandler.AddNotification(UIAlertType.Warning, "Publishing World", "Please wait while we attempt to publish your world...", 180);
 
 			// All checks have passed. Attempt to publish the world.
 			try {
@@ -376,7 +391,23 @@ namespace Nexus.Engine {
 				// Run the World Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.worldContent.data), Encoding.UTF8, "application/json");
 				var response = await Systems.httpClient.PostAsync(GameValues.CreoAPI + "world/" + worldId, content);
-				return await response.Content.ReadAsStringAsync();
+				string responseStr = await response.Content.ReadAsStringAsync();
+
+				WorldAPIFormat json = JsonConvert.DeserializeObject<WorldAPIFormat>(responseStr);
+
+				if(json.success == false) {
+					if(json.reason is string) {
+						UIHandler.AddNotification(UIAlertType.Error, "Unable to Publish", json.reason, 300);
+					}
+					return "fail";
+				} else {
+					WebHandler.ResponseMessage = "";
+				}
+
+				UIHandler.AddNotification(UIAlertType.Success, "World Published", "World Code: " + json.worldId, 3000);
+
+				return responseStr;
+
 			} catch(Exception ex) {
 				return "fail";
 			}

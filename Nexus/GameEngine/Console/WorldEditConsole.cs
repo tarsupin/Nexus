@@ -21,6 +21,9 @@ namespace Nexus.GameEngine {
 				{ "mode", ConsoleWorldMap.SetMode },
 				{ "lives", ConsoleWorldMap.SetLives },
 				{ "music", ConsoleWorldMap.SetMusicTrack },
+
+				// Publishing
+				{ "publish", WorldEditConsole.PublishWorld },
 			};
 		}
 
