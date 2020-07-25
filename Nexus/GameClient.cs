@@ -60,7 +60,7 @@ namespace Nexus {
 			Window.AllowUserResizing = false;
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
-			//this.graphics.ToggleFullScreen();
+			this.graphics.ToggleFullScreen();
 
 			// Process Extra Loading Instructions
 			loadInstructions();
@@ -89,7 +89,7 @@ namespace Nexus {
 
 		/// This is called when the game should draw itself.
 		protected override void Draw(GameTime gameTime) {
-			this.DrawWindow(gameTime);
+			this.DrawFullScreen(gameTime);
 		}
 
 		protected void DrawWindow(GameTime gameTime) {
