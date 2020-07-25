@@ -11,15 +11,13 @@ namespace Nexus.GameEngine {
 		private readonly UICreoInput worldIdInput;
 		private readonly UICreoButton loadButton;
 
-		private int lastBack = 0;
-
 		public LoadWorldMenu(short width, short height) : base() {
 
 			short centerX = (short)(Systems.screen.windowHalfWidth - (short)(width * 0.5));
 			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
 
 			this.textBox = new TextBox(null, centerX, centerY, width, height);
-			this.worldIdInput = new UICreoInput(this.textBox, 20, 50);
+			this.worldIdInput = new UICreoInput(this.textBox, 20, 50, 22);
 			this.loadButton = new UICreoButton(this.textBox, "Load World", 20, 102, null);
 
 			UIComponent.ComponentSelected = this.worldIdInput;
@@ -34,39 +32,6 @@ namespace Nexus.GameEngine {
 			if(input.LocalKeyPressed(Keys.Escape)) {
 				UIHandler.SetMenu(null, false);
 				return;
-			}
-
-			// Key Handling
-			if(UIComponent.ComponentSelected is UICreoInput) {
-
-				// Get Characters Pressed (doesn't assist with order)
-				string charsPressed = input.GetCharactersPressed();
-
-				UICreoInput comp = (UICreoInput)UIComponent.ComponentSelected;
-
-				if(charsPressed.Length > 0) {
-					comp.SetInputText(comp.text + charsPressed);
-				}
-
-				// Backspace (+Shift, +Control)
-				if(input.LocalKeyDown(Keys.Back) && this.lastBack < Systems.timer.UniFrame) {
-					
-					if(input.LocalKeyPressed(Keys.Back)) {
-						this.lastBack = Systems.timer.UniFrame + 10;
-					} else {
-						this.lastBack = Systems.timer.UniFrame + 4;
-					}
-
-					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
-						comp.SetInputText("");
-					} else if(comp.text.Length > 0) {
-						comp.SetInputText(comp.text.Substring(0, comp.text.Length - 1));
-					}
-				}
-
-				if(comp.text.Length > 22) {
-					comp.SetInputText(comp.text.Substring(0, 22));
-				}
 			}
 
 			// Tab Between Options

@@ -38,9 +38,15 @@ namespace Nexus.GameEngine {
 
 			this.ret = new UICreoTextIcon(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
 
-			this.log = new UICreoTextIcon(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () { UIHandler.SetMenu(UIHandler.loginMenu, true); } );
+			this.log = new UICreoTextIcon(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () {
+				UIHandler.SetMenu(UIHandler.loginMenu, true);
+				UIHandler.loginMenu.ShowMenu();
+			});
 
-			this.controls = new UICreoTextIcon(null, "Gamepad", "Controls", (short)(centerX - 66 - 50), (short)(centerY - 66 - 50), delegate () { UIHandler.SetMenu(UIHandler.controlMenu, true); });
+			this.controls = new UICreoTextIcon(null, "Gamepad", "Controls", (short)(centerX - 66 - 50), (short)(centerY - 66 - 50), delegate () {
+				UIHandler.SetMenu(UIHandler.controlMenu, true);
+			});
+
 			this.worlds = new UICreoTextIcon(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.community = new UICreoTextIcon(null, "Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UICreoTextIcon(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );

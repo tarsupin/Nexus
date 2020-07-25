@@ -1,10 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nexus.Engine;
 using Nexus.Gameplay;
+using System;
 
 namespace Nexus.GameEngine {
 
 	public class UICreoInput : UIComponent {
+
+		private const string passBlock = "********************************"; // 32 long (should only need UIInput.charsVisible)
 
 		public const byte charsVisible = 26;
 		protected const string box = "Input/Box";
@@ -12,11 +16,15 @@ namespace Nexus.GameEngine {
 		protected const string outline = "Input/Outline";
 
 		private readonly short maxLen;
+		private readonly bool isPassword = false;
 		public string text { get; protected set; }
 
-		public UICreoInput( UIComponent parent, short posX, short posY, short maxLen = 45 ) : base(parent) {
+		private int lastBack = 0;
+
+		public UICreoInput( UIComponent parent, short posX, short posY, short maxLen = 45, bool isPassword = false ) : base(parent) {
 			this.maxLen = maxLen;
 			this.text = "";
+			this.isPassword = isPassword;
 
 			this.SetWidth(260);
 			this.SetHeight(40);
@@ -40,9 +48,39 @@ namespace Nexus.GameEngine {
 					UIComponent.ComponentSelected = this;
 				}
 			}
-			
+
 			// If the Mouse just exited this component:
 			//else if(this.MouseOver == UIMouseOverState.Exited) {}
+
+			// Key Handling
+			if(UIComponent.ComponentSelected == this) {
+				InputClient input = Systems.input;
+
+				// Get Characters Pressed (doesn't assist with order)
+				string charsPressed = input.GetCharactersPressed();
+
+				UICreoInput comp = (UICreoInput) UIComponent.ComponentSelected;
+
+				if(charsPressed.Length > 0) {
+					comp.SetInputText(comp.text + charsPressed);
+				}
+
+				// Backspace (+Shift, +Control)
+				if(input.LocalKeyDown(Keys.Back) && this.lastBack < Systems.timer.UniFrame) {
+
+					if(input.LocalKeyPressed(Keys.Back)) {
+						this.lastBack = Systems.timer.UniFrame + 10;
+					} else {
+						this.lastBack = Systems.timer.UniFrame + 4;
+					}
+
+					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
+						comp.SetInputText("");
+					} else if(comp.text.Length > 0) {
+						comp.SetInputText(comp.text.Substring(0, comp.text.Length - 1));
+					}
+				}
+			}
 		}
 
 		public void Draw() {
@@ -62,10 +100,12 @@ namespace Nexus.GameEngine {
 				UIHandler.atlas.Draw(UICreoInput.box, this.trueX, this.trueY);
 			}
 
-			if(this.text.Length > UICreoInput.charsVisible) {
-				Systems.fonts.console.Draw(this.text.Substring(this.text.Length - UICreoInput.charsVisible) + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
+			string text = this.isPassword ? UICreoInput.passBlock.Substring(0, Math.Min(30, this.text.Length)) : this.text;
+
+			if(text.Length > UICreoInput.charsVisible) {
+				Systems.fonts.console.Draw(text.Substring(text.Length - UICreoInput.charsVisible) + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
 			} else {
-				Systems.fonts.console.Draw(this.text + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
+				Systems.fonts.console.Draw(text + cursor, this.trueX + 17, this.trueY + 13, Color.DarkSlateGray);
 			}
 		}
 	}

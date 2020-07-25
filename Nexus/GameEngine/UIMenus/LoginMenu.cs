@@ -6,8 +6,6 @@ namespace Nexus.GameEngine {
 
 	public class LoginMenu : IMenu {
 
-		public const string passBlock = "********************************"; // 32 long (should only need UIInput.charsVisible)
-
 		// Login Components
 		private readonly TextBox textBox;
 		private readonly UICreoInput loginInput;
@@ -22,11 +20,15 @@ namespace Nexus.GameEngine {
 			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
 
 			this.textBox = new TextBox(null, centerX, centerY, width, height);
-			this.loginInput = new UICreoInput(this.textBox, 20, 50);
+			this.loginInput = new UICreoInput(this.textBox, 20, 50, 22);
 			this.emailInput = new UICreoInput(this.textBox, 20, 134);
-			this.passInput = new UICreoInput(this.textBox, 20, 218);
+			this.passInput = new UICreoInput(this.textBox, 20, 218, 45, true);
 			this.loginButton = new UICreoButton(this.textBox, "Login", 20, 302, null);
 			this.registerButton = new UICreoButton(this.textBox, "Register", 152, 302, null);
+		}
+
+		public void ShowMenu() {
+			UIComponent.ComponentSelected = this.loginInput;
 		}
 
 		public void RunTick() {
@@ -38,28 +40,6 @@ namespace Nexus.GameEngine {
 			if(input.LocalKeyPressed(Keys.Escape)) {
 				UIHandler.SetMenu(null, false);
 				return;
-			}
-
-			// Key Handling
-			if(UIComponent.ComponentSelected is UICreoInput) {
-
-				// Get Characters Pressed (doesn't assist with order)
-				string charsPressed = input.GetCharactersPressed();
-
-				UICreoInput comp = (UICreoInput)UIComponent.ComponentSelected;
-
-				if(charsPressed.Length > 0) {
-					comp.SetInputText(comp.text + charsPressed);
-				}
-
-				// Backspace (+Shift, +Control)
-				if(input.LocalKeyPressed(Keys.Back)) {
-					if(input.LocalKeyDown(Keys.LeftShift) || input.LocalKeyDown(Keys.RightShift) || input.LocalKeyDown(Keys.LeftControl) || input.LocalKeyDown(Keys.RightControl)) {
-						comp.SetInputText("");
-					} else if(comp.text.Length > 0) {
-						comp.SetInputText(comp.text.Substring(0, comp.text.Length - 1));
-					}
-				}
 			}
 
 			// Tab Between Options
@@ -81,7 +61,7 @@ namespace Nexus.GameEngine {
 
 			// Clicked on Login Button.
 			if(UIComponent.ComponentWithFocus == this.loginButton && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-				UIHandler.AddNotification(UIAlertType.Warning, "Attempting Login", "Please wait while a login is attempted...", 240);
+				UIHandler.AddNotification(UIAlertType.Warning, "Attempting Login", "Please wait while a login is attempted...", 180);
 				this.RunLoginAttemmpt();
 			}
 
@@ -89,7 +69,7 @@ namespace Nexus.GameEngine {
 
 			// Clicked on Register Button.
 			if(UIComponent.ComponentWithFocus == this.registerButton && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-				UIHandler.AddNotification(UIAlertType.Warning, "Attempting Registration", "Please wait while registration is attempted...", 240);
+				UIHandler.AddNotification(UIAlertType.Warning, "Attempting Registration", "Please wait while registration is attempted...", 180);
 				this.RunRegisterAttemmpt();
 			}
 		}
