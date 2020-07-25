@@ -372,7 +372,7 @@ namespace Nexus.Engine {
 		public static async Task<string> WorldPublishRequest(string worldId) {
 
 			// Make sure the world is owned, i.e. it has the "__#" format.
-			if(worldId != "__World") {
+			if(worldId != "__WORLD") {
 				UIHandler.AddNotification(UIAlertType.Error, "Invalid World", "You can only publish your own world. Access it in the Main Menu.", 300);
 				return "fail";
 			}

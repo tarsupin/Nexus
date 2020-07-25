@@ -78,7 +78,7 @@
 //			this.atlas = Systems.mapper.atlas[(byte)AtlasGroup.World];
 
 //			// Prepare Default Featured Planets (Choose World, My World)
-//			this.featured.Add(0, new PlanetDataOld("My World", "__World", 0, 0, new byte[] { 0, 0, 0 }));
+//			this.featured.Add(0, new PlanetDataOld("My World", "__WORLD", 0, 0, new byte[] { 0, 0, 0 }));
 //			this.featured.Add(1, new PlanetDataOld("Load World", "__Load", 0, 0, new byte[] { 0, 0, 0 }));
 
 //			// Load Planets and Featured Planets
@@ -199,9 +199,9 @@
 //						worldID = this.planets[curVal].worldID;
 //					}
 
-//					// If WorldID is "__World", go to your personal world.
-//					if(worldID == "__World") {
-//						SceneTransition.ToWorldEditor("__World");
+//					// If WorldID is "__WORLD", go to your personal world.
+//					if(worldID == "__WORLD") {
+//						SceneTransition.ToWorldEditor("__WORLD");
 //						return;
 //					}
 

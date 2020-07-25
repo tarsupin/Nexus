@@ -53,10 +53,10 @@ namespace Nexus.GameEngine {
 
 			this.worlds = new UICreoTextIcon(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
 			this.myLevels = new UICreoTextIcon(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
-			
-			//this.TOP_RIGHT = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
 
-			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", centerX, (short)(centerY + 66 + 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
+			//this.TOP_RIGHT = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__WORLD"); } );
+
+			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", centerX, (short)(centerY + 66 + 50), delegate () { SceneTransition.ToWorldEditor("__WORLD"); } );
 		}
 
 		public void RunTick() {

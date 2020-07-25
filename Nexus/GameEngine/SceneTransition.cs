@@ -121,7 +121,7 @@ namespace Nexus.GameEngine {
 				if(!handler.worldContent.LoadWorldData(worldId)) {
 					
 					// If this is a personal world, allow it to be created.
-					if(worldId == "__World") {
+					if(worldId == "__WORLD") {
 						handler.worldContent.data = WorldContent.BuildEmptyWorld(worldId);
 						handler.worldContent.worldId = worldId;
 					}
