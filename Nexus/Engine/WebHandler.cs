@@ -347,13 +347,15 @@ namespace Nexus.Engine {
 			try {
 				string json = await Systems.httpClient.GetStringAsync(GameValues.CreoAPI + "world/" + worldId);
 
+				// Load World
+				WorldFormat worldData = JsonConvert.DeserializeObject<WorldFormat>(json);
+
 				// If the retrieval fails:
-				if(json.IndexOf("success:\"fail") > -1) {
+				if(worldData.id != worldId) {
+					UIHandler.AddNotification(UIAlertType.Error, "Invalid World", "Was unable to locate the world ID `" + worldId + "`.", 300);
 					return false;
 				}
 
-				// Load World
-				WorldFormat worldData = JsonConvert.DeserializeObject<WorldFormat>(json);
 				worldData.id = worldId;
 				Systems.handler.worldContent.LoadWorldData(worldData);
 
