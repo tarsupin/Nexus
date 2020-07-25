@@ -28,6 +28,7 @@ namespace Nexus.Gameplay {
 
 		// Verify that the level exists in the level directory.
 		public static bool LevelExists(string levelId) {
+			levelId = levelId.ToUpper();
 			string fullLevelPath = LevelContent.GetFullLevelPath(levelId);
 			return File.Exists(fullLevelPath);
 		}
@@ -47,19 +48,23 @@ namespace Nexus.Gameplay {
 		}
 
 		public static string GetLocalLevelPath(string levelId) {
+			levelId = levelId.ToUpper();
 			return Path.Combine(levelId.Substring(0, 2), levelId + ".json");
 		}
 
 		public static string GetFullLevelDir(string destPath, string levelId) {
+			levelId = levelId.ToUpper();
 			return Path.Combine(destPath, levelId.Substring(0, 2));
 		}
 
 		public static string GetFullLevelPath(string levelId) {
+			levelId = levelId.ToUpper();
 			return Path.Combine(LevelContent.levelPath, LevelContent.GetLocalLevelPath(levelId));
 		}
 
 		public static LevelFormat GetLevelData(string levelId) {
 			if(levelId.Length == 0) { return null; }
+			levelId = levelId.ToUpper();
 
 			// Make sure the level exists:
 			string fullLevelPath = LevelContent.GetFullLevelPath(levelId);
@@ -75,6 +80,7 @@ namespace Nexus.Gameplay {
 		}
 
 		public bool LoadLevelData(string levelId = "") {
+			levelId = levelId.ToUpper();
 
 			// Update the Level ID, or use existing Level ID if applicable.
 			if(levelId.Length > 0) { this.levelId = levelId; } else { return false; }
@@ -97,14 +103,14 @@ namespace Nexus.Gameplay {
 
 		public bool LoadLevelData(LevelFormat levelData) {
 			this.data = levelData;
-			this.levelId = levelData.id;
+			this.levelId = levelData.id.ToUpper();
 			return true;
 		}
 
 		public static LevelFormat BuildEmptyLevel(string levelId) {
 
 			LevelFormat level = new LevelFormat {
-				id = levelId,
+				id = levelId.ToUpper(),
 				account = "",
 				title = "Unnamed Level",
 				description = "",
@@ -148,6 +154,7 @@ namespace Nexus.Gameplay {
 
 			// Can only save a level state if the level ID is assigned correctly.
 			if(destLevelId.Length == 0) { return; }
+			destLevelId = destLevelId.ToUpper();
 
 			// Make sure the directory exists:
 			if(!Directory.Exists(baseDir)) { Directory.CreateDirectory(baseDir); }

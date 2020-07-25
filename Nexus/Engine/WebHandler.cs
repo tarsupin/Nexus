@@ -227,6 +227,7 @@ namespace Nexus.Engine {
 		}
 
 		public static async Task<bool> LevelRequest(string levelId) {
+			levelId = levelId.ToUpper();
 
 			// Make sure the level doesn't already exist locally. If it does, there's no need to call the online API.
 			if(LevelContent.LevelExists(levelId)) {
