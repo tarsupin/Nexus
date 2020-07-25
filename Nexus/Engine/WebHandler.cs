@@ -217,6 +217,15 @@ namespace Nexus.Engine {
 		// -- Level Commands -- //
 		// -------------------- //
 
+		public class LevelAPIFormat {
+			[JsonProperty("success")]
+			public bool success { get; set; }
+			[JsonProperty("levelId")]
+			public string levelId { get; set; }
+			[JsonProperty("reason")]
+			public string reason { get; set; }
+		}
+
 		public static async Task<bool> LevelRequest(string levelId) {
 
 			// Make sure the level doesn't already exist locally. If it does, there's no need to call the online API.
@@ -256,18 +265,31 @@ namespace Nexus.Engine {
 
 			// Make sure we have the level loaded:
 			if(Systems.handler.levelContent == null || Systems.handler.levelContent.levelId != levelId) {
+				UIHandler.AddNotification(UIAlertType.Error, "Level Not Loaded", "The level did not load correctly. Unable to publish.", 300);
 				return "fail";
 			}
 
 			// Make sure the level is owned, i.e. it has the "__#" format.
-			if(levelId.IndexOf("__") != 0) { return "fail"; }
+			if(levelId.IndexOf("__") != 0) {
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Access", "You can only publish levels that are stored on the \"My Levels\" screen.", 300);
+				return "fail";
+			}
 
 			string testId = levelId.Replace("__", "");
 
 			bool success = byte.TryParse(testId, out byte levelNum);
 
-			if(!success) { return "fail"; }
-			if(levelNum > GameValues.MaxLevelsAllowedPerUser) { return "fail"; }
+			if(!success) {
+				UIHandler.AddNotification(UIAlertType.Error, "Invalid Format", "The level file was formatted incorrectly. Cannot publish.", 300);
+				return "fail";
+			}
+
+			if(levelNum > GameValues.MaxLevelsAllowedPerUser) {
+				UIHandler.AddNotification(UIAlertType.Error, "Exceeds Allowance", "Can only publish up to " + GameValues.MaxLevelsAllowedPerUser + " levels. This level (#" + levelNum + ") is invalid.", 300);
+				return "fail";
+			}
+
+			UIHandler.AddNotification(UIAlertType.Warning, "Publishing Level", "Please wait while we attempt to publish your level...", 180);
 
 			// All checks have passed. Attempt to publish the level.
 			try {
@@ -278,7 +300,22 @@ namespace Nexus.Engine {
 				// Run the Level Post
 				StringContent content = new StringContent(JsonConvert.SerializeObject(Systems.handler.levelContent.data), Encoding.UTF8, "application/json");
 				var response = await Systems.httpClient.PostAsync(GameValues.CreoAPI + "level/" + levelNum, content);
-				return await response.Content.ReadAsStringAsync();
+				string responseStr = await response.Content.ReadAsStringAsync();
+
+				LevelAPIFormat json = JsonConvert.DeserializeObject<LevelAPIFormat>(responseStr);
+
+				if(json.success == false) {
+					if(json.reason is string) {
+						UIHandler.AddNotification(UIAlertType.Error, "Unable to Publish", json.reason, 300);
+					}
+					return "fail";
+				} else {
+					WebHandler.ResponseMessage = "";
+				}
+
+				UIHandler.AddNotification(UIAlertType.Success, "Level Published", "Level Code: " + json.levelId, 3000);
+
+				return responseStr;
 
 			} catch(Exception ex) {
 				return "fail";

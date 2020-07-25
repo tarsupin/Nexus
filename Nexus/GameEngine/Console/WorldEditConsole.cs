@@ -36,5 +36,15 @@ namespace Nexus.GameEngine {
 		public override void OnOpen() { 
 
 		}
+
+		public static void PublishWorld() {
+			ConsoleTrack.possibleTabs = "";
+			ConsoleTrack.helpText = "This will publish your world, providing you with a world ID to share with players.";
+
+			// Attempt to Publish the Level
+			if(ConsoleTrack.activate) {
+				_ = WebHandler.WorldPublishRequest(Systems.handler.worldContent.worldId);
+			}
+		}
 	}
 }
