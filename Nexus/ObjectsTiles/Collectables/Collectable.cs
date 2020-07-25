@@ -31,7 +31,7 @@ namespace Nexus.Objects {
 		}
 
 		public virtual void Collect( RoomScene room, Character character, short gridX, short gridY ) {
-			room.tilemap.RemoveTile(gridX, gridY);
+			room.tilemap.ClearMainLayer(gridX, gridY);
 		}
 
 		public override void Draw(RoomScene room, byte subType, int posX, int posY) {
