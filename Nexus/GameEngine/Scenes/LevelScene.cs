@@ -49,7 +49,7 @@ namespace Nexus.GameEngine {
 
 				// Update Character Equipment
 				if(campaign is CampaignState) {
-					if(character.suit is Suit || !character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
+					if(character.suit is Suit == false || !character.suit.IsPowerSuit) { Suit.AssignToCharacter(character, campaign.suit, true); }
 					if(character.hat is Hat == false || !character.hat.IsPowerHat) { Hat.AssignToCharacter(character, campaign.hat, true); }
 					if(character.shoes is Shoes == false) { Shoes.AssignShoe(character, campaign.shoes); }
 					if(character.attackPower is PowerAttack == false) { PowerAttack.AssignPower(character, campaign.powerAtt); }
@@ -310,8 +310,6 @@ namespace Nexus.GameEngine {
 			// Update Camera Limitations
 			Systems.camera.UpdateScene(this.rooms[character.room.roomID], (byte)TilemapEnum.GapUp * (byte)TilemapEnum.TileHeight, (byte)TilemapEnum.GapLeft * (byte)TilemapEnum.TileWidth);
 
-			Systems.camera.CutToPosition(character.posX, character.posY);
-
 			// Reset Level State, Maintain Checkpoints.
 			LevelState levelState = Systems.handler.levelState;
 			levelState.SoftReset();
@@ -321,8 +319,11 @@ namespace Nexus.GameEngine {
 
 			if(checkpoint.active) {
 				levelState.checkpoint.active = false;
-				ActionMap.Transport.StartAction(character, checkpoint.roomId, levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
+				this.MoveCharacterToNewRoom(character, checkpoint.roomId);
+				character.physics.MoveToPos(levelState.checkpoint.gridX * (byte)TilemapEnum.TileWidth, levelState.checkpoint.gridY * (byte)TilemapEnum.TileHeight + (byte)TilemapEnum.TileHeight);
 			}
+
+			Systems.camera.CutToPosition(character.posX, character.posY);
 
 			// Freeze Character for brief moment:
 			character.frozenFrame = Systems.timer.Frame + 25;

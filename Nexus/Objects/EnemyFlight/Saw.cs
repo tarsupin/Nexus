@@ -64,6 +64,8 @@ namespace Nexus.Objects {
 			return true;
 		}
 
+		public override bool RunProjectileImpact(Projectile projectile) { return false; }
+
 		public override void Draw(int camX, int camY) {
 			this.Meta.Atlas.DrawAdvanced(this.SpriteName, this.posX - camX, this.posY - camY, null, this.rotation);
 		}
