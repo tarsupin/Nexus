@@ -46,7 +46,7 @@ namespace Nexus.ObjectComponents {
 				
 				// If you're moving upward against the wall, you can still kick off using wall delay:
 				else {
-					status.leaveWall = Systems.timer.Frame + 4;
+					status.leaveWall = Systems.timer.Frame + 7;
 				}
 
 				// Update Shoes
@@ -91,7 +91,7 @@ namespace Nexus.ObjectComponents {
 
 		public override void EndAction(Character character) {
 			base.EndAction(character);
-			character.status.leaveWall = Systems.timer.Frame + 4;
+			character.status.leaveWall = Systems.timer.Frame + 7;
 		}
 	}
 }
