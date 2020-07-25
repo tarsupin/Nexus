@@ -1,4 +1,5 @@
-﻿using Nexus.Engine;
+﻿using Microsoft.Xna.Framework;
+using Nexus.Engine;
 
 namespace Nexus.GameEngine {
 
@@ -19,24 +20,27 @@ namespace Nexus.GameEngine {
 
 		TextBox textBox;
 
+		private const string menuText = "Main Menu";
+		private readonly short menuTextPos = 0;
+
 		// Center Menu
-		private readonly UICreoTextIcon ret;
+		//private readonly UICreoTextIcon goBack;
 		private readonly UICreoTextIcon log;
 		private readonly UICreoTextIcon controls;
 		private readonly UICreoTextIcon worlds;
-		private readonly UICreoTextIcon community;
 		private readonly UICreoTextIcon myLevels;
 		private readonly UICreoTextIcon myWorld;
-		private readonly UICreoTextIcon credits;
 
 		public MainMenu() {
 
-			this.textBox = new TextBox(null, (short)(Systems.screen.windowHalfWidth - 150 - 16), (short)(Systems.screen.windowHalfHeight - 150 - 16), 316, 328);
+			this.textBox = new TextBox(null, (short)(Systems.screen.windowHalfWidth - 150 - 16), (short)(Systems.screen.windowHalfHeight - 150 - 16), 316, 378);
 
 			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
-			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
+			short centerY = (short)(Systems.screen.windowHalfHeight - 28 + 40);
 
-			this.ret = new UICreoTextIcon(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
+			this.menuTextPos = (short)(Systems.screen.windowHalfWidth - Systems.fonts.baseText.font.MeasureString(MainMenu.menuText).X * 0.5f);
+
+			//this.goBack = new UICreoTextIcon(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
 
 			this.log = new UICreoTextIcon(null, "Login", "Login", (short)(centerX - 66 - 50), centerY, delegate () {
 				UIHandler.SetMenu(UIHandler.loginMenu, true);
@@ -48,10 +52,11 @@ namespace Nexus.GameEngine {
 			});
 
 			this.worlds = new UICreoTextIcon(null, "MyWorld", "Worlds", centerX, (short)(centerY - 66 - 50), delegate () { SceneTransition.ToPlanetSelection(); } );
-			this.community = new UICreoTextIcon(null, "Community", "Community", centerX, (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://nexus.games"); } );
 			this.myLevels = new UICreoTextIcon(null, "MyLevels", "My Levels", (short)(centerX + 66 + 50), centerY, delegate () { SceneTransition.ToMyLevels(); } );
-			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
-			this.credits = new UICreoTextIcon(null, "About", "Credits", (short)(centerX - 66 - 50), (short)(centerY + 66 + 50), delegate () { WebHandler.LaunchURL("https://creo.nexus.games/about.html"); } );
+			
+			//this.TOP_RIGHT = new UICreoTextIcon(null, "MyWorld", "My World", (short)(centerX + 66 + 50), (short)(centerY - 66 - 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
+
+			this.myWorld = new UICreoTextIcon(null, "MyWorld", "My World", centerX, (short)(centerY + 66 + 50), delegate () { SceneTransition.ToWorldEditor("__World"); } );
 		}
 
 		public void RunTick() {
@@ -61,19 +66,16 @@ namespace Nexus.GameEngine {
 
 			// Determine which option is selected:
 			if(input.isDown(IKey.Right)) {
-				if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.MyWorld; }
-				else { this.opt = MenuOptionActive.MyLevels; }
+				this.opt = MenuOptionActive.MyLevels;
 			}
 
 			else if(input.isDown(IKey.Left)) {
-				if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.Credits; }
-				else if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.Controls; }
+				if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.Controls; }
 				else { this.opt = MenuOptionActive.Log; }
 			}
 
-			else if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.Community; }
+			else if(input.isDown(IKey.Down)) { this.opt = MenuOptionActive.MyWorld; }
 			else if(input.isDown(IKey.Up)) { this.opt = MenuOptionActive.Worlds; }
-			else { this.opt = MenuOptionActive.Return; }
 
 			// Check if the start button was pressed.
 			if(input.isPressed(IKey.AButton)) {
@@ -81,14 +83,12 @@ namespace Nexus.GameEngine {
 				// Close the Menu
 				UIHandler.SetMenu(null, false);
 
-				if (this.opt == MenuOptionActive.Return) { return; }
-				else if(this.opt == MenuOptionActive.Log) { this.log.ActivateIcon(); return; }
+				//if (this.opt == MenuOptionActive.Return) { return; }
+				if(this.opt == MenuOptionActive.Log) { this.log.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.Controls) { this.controls.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.Worlds) { this.worlds.ActivateIcon(); return; }
-				else if(this.opt == MenuOptionActive.Community) { this.community.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.MyLevels) { this.myLevels.ActivateIcon(); return; }
 				else if(this.opt == MenuOptionActive.MyWorld) { this.myWorld.ActivateIcon(); return; }
-				else if(this.opt == MenuOptionActive.Credits) { this.credits.ActivateIcon(); return; }
 			}
 
 			else if(input.isPressed(IKey.Start)) {
@@ -104,26 +104,25 @@ namespace Nexus.GameEngine {
 			}
 
 			// Center Menu
-			this.ret.RunTick();
+			//this.goBack.RunTick();
 			this.log.RunTick();
 			this.controls.RunTick();
 			this.worlds.RunTick();
-			this.community.RunTick();
 			this.myLevels.RunTick();
 			this.myWorld.RunTick();
-			this.credits.RunTick();
 		}
 
 		public void Draw() {
 			this.textBox.Draw();
-			this.ret.Draw(this.opt == MenuOptionActive.Return);
+
+			Systems.fonts.baseText.Draw(MainMenu.menuText, this.menuTextPos, this.textBox.trueY + 22, Color.White);
+
+			//this.goBack.Draw(this.opt == MenuOptionActive.Return);
 			this.log.Draw(this.opt == MenuOptionActive.Log);
 			this.controls.Draw(this.opt == MenuOptionActive.Controls);
 			this.worlds.Draw(this.opt == MenuOptionActive.Worlds);
-			this.community.Draw(this.opt == MenuOptionActive.Community);
 			this.myLevels.Draw(this.opt == MenuOptionActive.MyLevels);
 			this.myWorld.Draw(this.opt == MenuOptionActive.MyWorld);
-			this.credits.Draw(this.opt == MenuOptionActive.Credits);
 		}
 	}
 }
