@@ -68,7 +68,7 @@ namespace Nexus.Gameplay {
 				id = worldId.ToUpper(),
 				account = "",
 				mode = (byte) HardcoreMode.SoftCore,
-				name = "Unnamed World",
+				title = "Unnamed World",
 				description = "",
 				lives = 30,
 				version = 0,
@@ -101,7 +101,7 @@ namespace Nexus.Gameplay {
 		// Assign World Data
 		public void SetAccount(string account) { this.data.account = account; }
 		public void SetMode(byte mode) { this.data.mode = mode; }
-		public void SetName(string name) { this.data.name = name; }
+		public void SetName(string name) { this.data.title = name; }
 		public void SetDescription(string desc) { this.data.description = desc; }
 		public void SetLives(short lives) { this.data.lives = lives; }
 		public void SetMusicTrack(byte track) { this.data.music = (byte)track; } // MusicTrack enum

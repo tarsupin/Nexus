@@ -86,8 +86,8 @@ namespace Nexus.Gameplay {
 
 	public class PlanetFormat {
 
-		[JsonProperty("name")]
-		public string name { get; set; }
+		[JsonProperty("title")]
+		public string title { get; set; }
 
 		[JsonProperty("worldID")]
 		public string worldID { get; set; }

@@ -98,18 +98,18 @@ namespace Nexus.GameEngine {
 			}
 		}
 
-		public static void SetName() {
+		public static void SetTitle() {
 			string text = Sanitize.Title(ConsoleTrack.instructionText.Substring(4).TrimStart());
 			WEScene scene = (WEScene)Systems.scene;
 
 			if(text.Length > 0) {
-				ConsoleTrack.instructionText = "name " + text.Substring(0, Math.Min(text.Length, 24));
+				ConsoleTrack.instructionText = "title " + text.Substring(0, Math.Min(text.Length, 24));
 			}
 
 			short remain = (short)(24 - text.Length);
 
-			ConsoleTrack.possibleTabs = "Example: `name My World`";
-			ConsoleTrack.helpText = "Provide a world name. Currently: \"" + scene.worldData.name + "\". " + remain.ToString() + " characters remaining.";
+			ConsoleTrack.possibleTabs = "Example: `title My World`";
+			ConsoleTrack.helpText = "Provide a world title. Currently: \"" + scene.worldData.title + "\". " + remain.ToString() + " characters remaining.";
 
 			// Activate the Instruction
 			if(ConsoleTrack.activate) {
@@ -120,7 +120,7 @@ namespace Nexus.GameEngine {
 					return;
 				}
 
-				scene.worldContent.data.name = text;
+				scene.worldContent.data.title = text;
 				UIHandler.AddNotification(UIAlertType.Success, "New World Title", "World title set to: \"" + text + "\"", 240);
 			}
 		}

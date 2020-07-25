@@ -20,7 +20,7 @@ namespace Nexus.GameEngine {
 				{ "load-level", EditorConsole.LoadLevelEditor },
 
 				// Set World Data
-				{ "name", ConsoleWorldMap.SetName },
+				{ "title", ConsoleWorldMap.SetTitle },
 				{ "desc", ConsoleWorldMap.SetDescription },
 				{ "mode", ConsoleWorldMap.SetMode },
 				{ "lives", ConsoleWorldMap.SetLives },

@@ -13,7 +13,7 @@ namespace Nexus.GameEngine {
 
 	public class PlanetData {
 
-		public string name;
+		public string title;
 		public string sprite;
 		public string worldID;
 		public byte diff;
@@ -21,14 +21,14 @@ namespace Nexus.GameEngine {
 		public List<MoonData> moons;
 		public Vector2 textSize;
 
-		public PlanetData(string name, string worldID, byte planetID, byte diff, byte[] icon) {
-			this.name = name;
+		public PlanetData(string title, string worldID, byte planetID, byte diff, byte[] icon) {
+			this.title = title;
 			this.worldID = worldID;
 			this.sprite = PlanetInfo.Planets[(byte)planetID];
 			this.diff = diff;
 			this.icon = icon;
 			this.moons = new List<MoonData>();
-			this.textSize = Systems.fonts.baseText.font.MeasureString(name);
+			this.textSize = Systems.fonts.baseText.font.MeasureString(title);
 		}
 
 		public void AddMoon(byte moonID) {
@@ -123,7 +123,7 @@ namespace Nexus.GameEngine {
 			foreach(PlanetFormat planet in planetData.planets) {
 
 				// Add Planet
-				planetDict.Add(listID, new PlanetData(planet.name, planet.worldID, planet.planetID, planet.difficulty, planet.icon));
+				planetDict.Add(listID, new PlanetData(planet.title, planet.worldID, planet.planetID, planet.difficulty, planet.icon));
 
 				// Attach Moons to Planet
 				foreach(byte moonID in planet.moons) {
@@ -368,7 +368,7 @@ namespace Nexus.GameEngine {
 			this.atlas.DrawAdvanced(planetData.sprite, posX + 2, posY, Color.White, 0f, 4);
 
 			// Display Name
-			Systems.fonts.baseText.Draw(planetData.name, posX + 16 - (byte)Math.Floor(planetData.textSize.X * 0.5f), posY + 78, Color.White);
+			Systems.fonts.baseText.Draw(planetData.title, posX + 16 - (byte)Math.Floor(planetData.textSize.X * 0.5f), posY + 78, Color.White);
 
 			// Display Difficulty
 			short diffSize = (short)Systems.fonts.console.font.MeasureString(GameplayTypes.DiffName[(byte)planetData.diff]).X;

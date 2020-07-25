@@ -14,8 +14,8 @@ namespace Nexus.Gameplay {
 		[JsonProperty("mode")]
 		public byte mode { get; set; }
 
-		[JsonProperty("name")]
-		public string name { get; set; }
+		[JsonProperty("title")]
+		public string title { get; set; }
 		
 		[JsonProperty("description")]
 		public string description { get; set; }
