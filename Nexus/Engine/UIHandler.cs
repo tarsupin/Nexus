@@ -38,6 +38,7 @@ namespace Nexus.Engine {
 		public static readonly MainMenu mainMenu = new MainMenu();
 		public static readonly LevelMenu levelMenu = new LevelMenu();
 		public static readonly LoginMenu loginMenu = new LoginMenu(280, 386);
+		public static readonly LoadWorldMenu loadWorldMenu = new LoadWorldMenu(280, 150);
 
 		// Colors
 		public static Color spaceBG = new Color(18, 24, 58);

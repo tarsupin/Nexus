@@ -204,13 +204,7 @@ namespace Nexus.GameEngine {
 
 				// Activate Planet / World
 				if(playerInput.isPressed(IKey.AButton) == true) {
-					string worldID;
-
-					// Otherwise, load the worldID from the planet list.
-					short curVal = this.paging.CurrentSelectionVal;
-					worldID = this.planets[curVal].worldID;
-
-					SceneTransition.ToWorld(worldID);
+					this.LoadWorldById(this.planets[this.paging.CurrentSelectionVal].worldID);
 					return;
 				}
 
@@ -257,16 +251,22 @@ namespace Nexus.GameEngine {
 
 				// Activate Planet / World
 				if(Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
-					string worldID;
-
-					// Otherwise, load the worldID from the planet list.
-					short curVal = i;
-					worldID = this.planets[curVal].worldID;
-
-					SceneTransition.ToWorld(worldID);
+					this.LoadWorldById(this.planets[i].worldID);
 					return;
 				}
 			}
+		}
+
+		private void LoadWorldById(string worldID) {
+			
+			// Load the Special "Users World" menu.
+			if(worldID == "_users") {
+				UIHandler.SetMenu(UIHandler.loadWorldMenu, false);
+				return;
+			}
+
+			SceneTransition.ToWorld(worldID);
+			return;
 		}
 
 		public void UpdateMoonPositions(PagingSystem paging, Dictionary<short, PlanetData> planets) {

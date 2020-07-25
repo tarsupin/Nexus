@@ -147,6 +147,7 @@
     <Compile Include="GameEngine\UIComponents\ToggleMusic.cs" />
     <Compile Include="GameEngine\UIMenus\ControlMenu.cs" />
     <Compile Include="GameEngine\UIMenus\EditorGuideMenu.cs" />
+    <Compile Include="GameEngine\UIMenus\LoadWorldMenu.cs" />
     <Compile Include="GameEngine\UIMenus\LoginMenu.cs" />
     <Compile Include="GameEngine\UIComponents\TextBox.cs" />
     <Compile Include="GameEngine\UIComponents\UICreoInput.cs" />
