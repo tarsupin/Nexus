@@ -99,7 +99,7 @@ namespace Nexus.GameEngine {
 		}
 
 		public static void SetTitle() {
-			string text = Sanitize.Title(ConsoleTrack.instructionText.Substring(4).TrimStart());
+			string text = Sanitize.Title(ConsoleTrack.instructionText.Substring(5).TrimStart());
 			WEScene scene = (WEScene)Systems.scene;
 
 			if(text.Length > 0) {
