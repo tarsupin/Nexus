@@ -65,7 +65,7 @@ namespace Nexus.GameEngine {
 		}
 
 		private void PlacingTiles() {
-			if(WETools.WETileTool is WETileTool && UIHandler.uiState == UIState.Playing && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(WETools.WETileTool is WETileTool && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
 				return;
 			}
@@ -133,7 +133,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
+			this.SetTutorialNote(450, (short)(Systems.screen.windowHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
 		}
 
 		private void ResizeLevel() {

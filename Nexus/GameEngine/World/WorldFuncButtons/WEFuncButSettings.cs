@@ -9,11 +9,11 @@ namespace Nexus.GameEngine {
 			this.keyChar = "";
 			this.spriteName = "Small/Settings";
 			this.title = "Settings";
-			this.description = "No behavior at this time.";
+			this.description = "Opens console to allow editing World Functions.";
 		}
 
 		public override void ActivateWorldFuncButton() {
-			UIHandler.SetMenu(UIHandler.worldEditConsole, true);
+			UIHandler.worldEditConsole.Open();
 		}
 	}
 }
