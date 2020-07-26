@@ -16,6 +16,7 @@ namespace Nexus.GameEngine {
 			EditorScene scene = (EditorScene)Systems.scene;
 			scene.SwitchRoom(0);
 			UIHandler.AddNotification(UIAlertType.Normal, "Switched Room", "Switched to Home Room.", 180);
+			GameValues.LastAction = "EditorHomeButton";
 		}
 	}
 }

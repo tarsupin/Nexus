@@ -16,6 +16,7 @@ namespace Nexus.GameEngine {
 			if(scene.curRoomID > 0) {
 				scene.SwitchRoom((byte)(scene.curRoomID - 1));
 				UIHandler.AddNotification(UIAlertType.Normal, "Switched Room", "Now Viewing Room #" + (scene.curRoomID + 1) + ".", 180);
+				GameValues.LastAction = "EditorRoomLeftButton";
 			}
 		}
 	}

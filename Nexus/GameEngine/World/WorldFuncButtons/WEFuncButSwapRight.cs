@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 			WEScene scene = (WEScene)Systems.scene;
 			if(scene.campaign.zoneId < 8) {
 				scene.SwapZoneOrder();
+				GameValues.LastAction = "WESwapButton";
 			}
 		}
 	}

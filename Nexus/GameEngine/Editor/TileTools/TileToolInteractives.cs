@@ -7,6 +7,13 @@ namespace Nexus.GameEngine {
 
 	public class TileToolInteractives : TileTool {
 
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// The "TutorialEditor.cs" file relies on the index of this.placeholders being in specific positions for Characters.
+		//		e.g. EditorTools.tileTool.index == 0
+		// So either add a const value that can track this information, or keep them consistent.
+
 		public TileToolInteractives() : base() {
 
 			this.slotGroup = (byte)SlotGroup.Interactives;

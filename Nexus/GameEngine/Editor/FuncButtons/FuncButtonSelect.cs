@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			EditorTools.SetFuncTool(FuncTool.funcToolMap[(byte) FuncToolEnum.Select]);
+			GameValues.LastAction = "EditorSelectTool";
 		}
 	}
 }

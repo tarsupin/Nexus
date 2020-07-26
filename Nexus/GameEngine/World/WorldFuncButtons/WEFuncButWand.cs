@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateWorldFuncButton() {
 			WETools.SetWorldFuncTool(WEFuncTool.WEFuncToolMap[(byte)WEFuncToolEnum.Wand]);
+			GameValues.LastAction = "WEWandTool";
 		}
 	}
 }

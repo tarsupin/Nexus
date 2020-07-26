@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 			EditorScene scene = (EditorScene)Systems.scene;
 			if(scene.curRoomID < 8) {
 				scene.SwapRoomOrder();
+				GameValues.LastAction = "EditorSwapRightTool";
 			}
 		}
 	}

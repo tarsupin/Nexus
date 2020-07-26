@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			UIHandler.SetMenu(UIHandler.guideMenu, false);
+			GameValues.LastAction = "EditorInfoButton";
 		}
 	}
 }

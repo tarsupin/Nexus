@@ -12,6 +12,8 @@ namespace Nexus.GameEngine {
 
 		public Dictionary<short, Action> tutorialMethods;
 
+		public const byte finalStep = 19;
+
 		public TutorialWorldEdit(WEScene scene) : base() {
 			this.scene = scene;
 			this.tutorialStep = (short)(Systems.settings.tutorial.WorldEditor);
@@ -32,9 +34,11 @@ namespace Nexus.GameEngine {
 			this.tutorialMethods.Add(12, this.ChangeZone);
 			this.tutorialMethods.Add(13, this.HomeZone);
 			this.tutorialMethods.Add(14, this.PlaceLevelNode);
-			this.tutorialMethods.Add(15, this.PlaceCharacter);
-			this.tutorialMethods.Add(16, this.SaveWorld);
-			this.tutorialMethods.Add(17, this.PlayWorld);
+			this.tutorialMethods.Add(15, this.WandTool);
+			this.tutorialMethods.Add(16, this.ChangeLevelID);
+			this.tutorialMethods.Add(17, this.PlaceCharacter);
+			this.tutorialMethods.Add(18, this.SaveWorld);
+			this.tutorialMethods.Add(19, this.PlayWorld);
 		}
 
 		public override void IncrementTutorialStep() {
@@ -45,7 +49,7 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 
 			// End the Tutorial if all steps have been reached.
-			if(this.tutorialStep > 17 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
+			if(this.tutorialStep > TutorialWorldEdit.finalStep && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
 
 			// Update Notification Fading
 			if(this.notify is UINotification) {
@@ -125,6 +129,7 @@ namespace Nexus.GameEngine {
 		private void EraseTiles() {
 			if(Systems.input.LocalKeyDown(Keys.X) && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
+				UIHandler.AddNotification(UIAlertType.Warning, "About Erasing", "The eraser will NOT change terrain into ocean. If you want to place ocean, select (or clone) the ocean tile.", 300);
 				return;
 			}
 
@@ -197,6 +202,24 @@ namespace Nexus.GameEngine {
 
 			this.SetTutorialNote((short)(Systems.screen.windowHalfWidth - 200), (short)(Systems.screen.windowHeight - 220), "Place a Level Node", "Select \"Nodes\" from the tab menu and place a level node.", DirRotate.Up);
 		}
+
+		private void WandTool() {
+			if(GameValues.LastAction == "WEWandTool" || WETools.WETempTool is WEFuncToolWand || WETools.WEFuncTool is WEFuncToolWand) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(420, (short)(Systems.screen.windowHeight - 250), "Wand Tool", "Click the wand button (or hold down 'e') to use the wand tool. The wand is used to assign level IDs to Nodes.", DirRotate.Down);
+		}
+
+		private void ChangeLevelID() {
+			if(UIHandler.uiState == UIState.Menu && UIHandler.menu is Console && ConsoleTrack.instructionText.IndexOf("setLevel", StringComparison.OrdinalIgnoreCase) == 0) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Using the Wand", "With the wand tool selected, click on a node to edit the level ID assigned. A console will appear, with the option to assign a desired level ID.", DirRotate.Right);
+		}
 		
 		private void PlaceCharacter() {
 			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 3 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
@@ -205,11 +228,11 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu. Place it on a level node to assign the start position.", DirRotate.Right);
+			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Nodes\" category). Place it on a level node to assign the starting position.", DirRotate.Right);
 		}
-		
+
 		private void SaveWorld() {
-			if(UIHandler.uiState == UIState.Playing && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(GameValues.LastAction == "WESaveButton") {
 				this.IncrementTutorialStep();
 				return;
 			}
@@ -218,9 +241,8 @@ namespace Nexus.GameEngine {
 		}
 		
 		private void PlayWorld() {
-			if(UIHandler.uiState == UIState.Playing && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(GameValues.LastAction == "WEPlayButton") {
 				this.IncrementTutorialStep();
-				UIHandler.AddNotification(UIAlertType.Warning, "Playtest Fixes", "If something goes wrong, don't worry. Return to map editing or reset your position through the tilde (~) console.", 1500);
 				return;
 			}
 

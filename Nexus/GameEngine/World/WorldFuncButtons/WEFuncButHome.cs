@@ -15,6 +15,7 @@ namespace Nexus.GameEngine {
 		public override void ActivateWorldFuncButton() {
 			WEScene scene = (WEScene)Systems.scene;
 			scene.SwitchZone(0);
+			GameValues.LastAction = "WEHomeButton";
 		}
 	}
 }

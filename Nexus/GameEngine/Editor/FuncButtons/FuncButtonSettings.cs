@@ -13,6 +13,7 @@ namespace Nexus.GameEngine {
 
 		public override void ActivateFuncButton() {
 			UIHandler.editorConsole.Open();
+			GameValues.LastAction = "EditorConsoleButton";
 		}
 	}
 }

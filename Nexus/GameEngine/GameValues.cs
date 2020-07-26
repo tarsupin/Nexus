@@ -9,5 +9,8 @@
 
 		// Settings
 		public const short MaxLevelsAllowedPerUser = 200;
+
+		// Action Track
+		public static string LastAction = "";
 	}
 }

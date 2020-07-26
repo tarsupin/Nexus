@@ -14,6 +14,7 @@ namespace Nexus.GameEngine {
 		public override void ActivateFuncButton() {
 			Systems.handler.levelContent.SaveLevel();
 			UIHandler.AddNotification(UIAlertType.Success, "Level Saved", "Level has been saved.", 240);
+			GameValues.LastAction = "EditorSaveButton";
 		}
 	}
 }

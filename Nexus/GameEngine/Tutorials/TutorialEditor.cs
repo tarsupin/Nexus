@@ -12,6 +12,8 @@ namespace Nexus.GameEngine {
 
 		public Dictionary<short, Action> tutorialMethods;
 
+		public const byte finalStep = 18;
+
 		public TutorialEditor(EditorScene scene) : base() {
 			this.scene = scene;
 			this.tutorialStep = (short) (Systems.settings.tutorial.Editor);
@@ -31,6 +33,11 @@ namespace Nexus.GameEngine {
 			this.tutorialMethods.Add(11, this.FasterMove);
 			this.tutorialMethods.Add(12, this.ChangeRoom);
 			this.tutorialMethods.Add(13, this.HomeRoom);
+			this.tutorialMethods.Add(14, this.PlaceCharacter);
+			this.tutorialMethods.Add(15, this.WandTool);
+			this.tutorialMethods.Add(16, this.WandToolOnCharacter);
+			this.tutorialMethods.Add(17, this.SaveLevel);
+			this.tutorialMethods.Add(18, this.PlayLevel);
 		}
 
 		public override void IncrementTutorialStep() {
@@ -41,7 +48,7 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 
 			// End the Tutorial if all steps have been reached.
-			if(this.tutorialStep > 13 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
+			if(this.tutorialStep > TutorialEditor.finalStep && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
 
 			// Update Notification Fading
 			if(this.notify is UINotification) {
@@ -184,8 +191,54 @@ namespace Nexus.GameEngine {
 
 			this.SetTutorialNote(923, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Room` to return to the first room.", DirRotate.Down);
 		}
+
+		private void PlaceCharacter() {
+			if(EditorTools.tileTool is TileToolInteractives && EditorTools.tileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Interactives\" category). Place it to assign the start position.", DirRotate.Right);
+		}
 		
-		// Wand Tool
+		private void WandTool() {
+			if(GameValues.LastAction == "EditorWandTool" || EditorTools.tempTool is FuncToolWand || EditorTools.funcTool is FuncToolWand) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(500, 300, "Wand Tool", "Click the wand button (or hold down 'e') to use the wand tool. The wand is used to modify tile behaviors.", DirRotate.Right);
+		}
+		
+		private void WandToolOnCharacter() {
+			EditorScene scene = (EditorScene)Systems.scene;
+			if(scene.editorUI.moveParamMenu.visible || scene.editorUI.actParamMenu.visible) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(500, 150, "Using the Wand", "With the wand tool selected, click on the Character to edit it's parameters. Many objects, such as enemies and special tiles, can have their parameters modified with the wand.", DirRotate.Right);
+		}
+
+		private void SaveLevel() {
+			if(GameValues.LastAction == "EditorSaveButton") {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 220), "Save Level", "Press the `Save` button on the utility bar to save your level.", DirRotate.Down);
+		}
+
+		private void PlayLevel() {
+			if(GameValues.LastAction == "EditorPlayButton") {
+				this.IncrementTutorialStep();
+				UIHandler.AddNotification(UIAlertType.Warning, "Return to Editing", "You can return to level editing using the tilde (~) console. Just type `editor` into the console and press enter.", 1500);
+				return;
+			}
+
+			this.SetTutorialNote(750, (short)(Systems.screen.windowHeight - 220), "Play Your Level", "Press the `Play` button when you're ready to playtest the level.", DirRotate.Down);
+		}
+
 		// Selection Tool
 	}
 }

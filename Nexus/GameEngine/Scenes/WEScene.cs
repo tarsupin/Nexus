@@ -343,7 +343,7 @@ namespace Nexus.GameEngine {
 				string coordStr = Coords.MapToInt(gridX, gridY).ToString();
 
 				if(this.currentZone.nodes.ContainsKey(coordStr)) {
-					UIHandler.RunToolTip(coordStr, "Level " + this.currentZone.nodes[coordStr], "Tile Position: " + gridX + ", " + gridY, UIPrimaryDirection.Top);
+					UIHandler.RunToolTip(this.currentZone.nodes[coordStr], "Level " + this.currentZone.nodes[coordStr], "Tile Position: " + gridX + ", " + gridY, UIPrimaryDirection.Top);
 				} else {
 					UIHandler.RunToolTip(coordStr, "No Level Assigned", "Assign Tile (" + gridX + ", " + gridY + ") With Wand Tool.", UIPrimaryDirection.Top);
 				}
