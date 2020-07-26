@@ -31,6 +31,10 @@ namespace Nexus.GameEngine {
 			this.tutorialMethods.Add(11, this.FasterMove);
 			this.tutorialMethods.Add(12, this.ChangeZone);
 			this.tutorialMethods.Add(13, this.HomeZone);
+			this.tutorialMethods.Add(14, this.PlaceLevelNode);
+			this.tutorialMethods.Add(15, this.PlaceCharacter);
+			this.tutorialMethods.Add(16, this.SaveWorld);
+			this.tutorialMethods.Add(17, this.PlayWorld);
 		}
 
 		public override void IncrementTutorialStep() {
@@ -41,7 +45,7 @@ namespace Nexus.GameEngine {
 		public void RunTick() {
 
 			// End the Tutorial if all steps have been reached.
-			if(this.tutorialStep > 13 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
+			if(this.tutorialStep > 17 && (this.notify is UINotification == false || this.notify.alpha == 0)) { return; }
 
 			// Update Notification Fading
 			if(this.notify is UINotification) {
@@ -184,7 +188,45 @@ namespace Nexus.GameEngine {
 			this.SetTutorialNote(580, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Zone` to return to the first zone.", DirRotate.Down);
 		}
 
-		// Placing Nodes
+		private void PlaceLevelNode() {
+			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.IncrementTutorialStep();
+				UIHandler.AddNotification(UIAlertType.Normal, "Using Travel Nodes", "Place Nodes near each other to create pathways to travel across.", 300);
+				return;
+			}
+
+			this.SetTutorialNote((short)(Systems.screen.windowHalfWidth - 200), (short)(Systems.screen.windowHeight - 220), "Place a Level Node", "Select \"Nodes\" from the tab menu and place a level node.", DirRotate.Up);
+		}
+		
+		private void PlaceCharacter() {
+			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 3 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.IncrementTutorialStep();
+				UIHandler.AddNotification(UIAlertType.Normal, "Character Position", "Characters must be placed on a level node to work correctly.", 300);
+				return;
+			}
+
+			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu. Place it on a level node to assign the start position.", DirRotate.Right);
+		}
+		
+		private void SaveWorld() {
+			if(UIHandler.uiState == UIState.Playing && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.IncrementTutorialStep();
+				return;
+			}
+
+			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 220), "Save World", "Press the `Save` button on the utility bar to save your world.", DirRotate.Down);
+		}
+		
+		private void PlayWorld() {
+			if(UIHandler.uiState == UIState.Playing && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+				this.IncrementTutorialStep();
+				UIHandler.AddNotification(UIAlertType.Warning, "Playtest Fixes", "If something goes wrong, don't worry. Return to map editing or reset your position through the tilde (~) console.", 1500);
+				return;
+			}
+
+			this.SetTutorialNote(750, (short)(Systems.screen.windowHeight - 220), "Play Your World", "Press the `Play` button when you're ready to playtest the world.", DirRotate.Down);
+		}
+		
 		// Placing Objects - they go above other things.
 	}
 }

@@ -27,7 +27,7 @@ namespace Nexus.GameEngine {
 		public static void ResizeWidth() {
 			EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
 			int currentWidth = scene.xCount;
-			ConsoleTrack.possibleTabs = "Example: `resize hor 250`";
+			ConsoleTrack.possibleTabs = "Example: `resize width 250`";
 			ConsoleTrack.helpText = "Resize the level's width between " + (byte)TilemapEnum.MinWidth + " and " + (short)TilemapEnum.MaxTilesWide + ". Currently at " + currentWidth + ".";
 
 			// Prepare Width
@@ -44,7 +44,7 @@ namespace Nexus.GameEngine {
 		public static void ResizeHeight() {
 			EditorRoomScene scene = ((EditorScene)Systems.scene).CurrentRoom;
 			int currentHeight = scene.yCount;
-			ConsoleTrack.possibleTabs = "Example: `resize vert 180`";
+			ConsoleTrack.possibleTabs = "Example: `resize height 180`";
 			ConsoleTrack.helpText = "Resize the level's height between " + (byte)TilemapEnum.MinHeight + " and " + (short)TilemapEnum.MaxTilesHigh + ". Currently at " + currentHeight + ".";
 
 			// Prepare Height

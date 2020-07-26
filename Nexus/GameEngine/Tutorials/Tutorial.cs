@@ -57,7 +57,9 @@ namespace Nexus.GameEngine {
 		}
 
 		public void ClearTutorialNote() {
-			this.notify.SetExitFrame(Systems.timer.UniFrame + 10);
+			if(this.notify is UINotification) {
+				this.notify.SetExitFrame(Systems.timer.UniFrame + 10);
+			}
 		}
 
 		public void Draw() {

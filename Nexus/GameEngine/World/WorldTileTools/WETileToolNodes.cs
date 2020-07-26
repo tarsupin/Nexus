@@ -4,6 +4,13 @@ namespace Nexus.GameEngine {
 
 	public class WETileToolNodes : WETileTool {
 
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// WARNING: DO NOT CHANGE THIS FILE WITHOUT THE FOLLOWING:
+		// The "TutorialWorldEdit.cs" file relies on the index of this.placeholders being in specific positions for Level Nodes and Characters.
+		//		e.g. WETools.WETileTool.index == 0
+		// So either add a const value that can track this information, or keep them consistent.
+
 		public WETileToolNodes() : base() {
 
 			this.slotGroup = (byte)WorldSlotGroup.Nodes;
