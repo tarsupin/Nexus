@@ -51,7 +51,7 @@ namespace Nexus.GameEngine {
 			ConsoleTrack.helpText = "The world ID of the world to load. Will load a world (if it exists).";
 
 			if(ConsoleTrack.activate) {
-				SceneTransition.ToLevelEditor("", currentIns);
+				SceneTransition.ToWorldEditor(currentIns);
 			}
 		}
 
