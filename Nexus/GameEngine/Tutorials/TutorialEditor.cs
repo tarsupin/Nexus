@@ -226,13 +226,12 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 220), "Save Level", "Press the `Save` button on the utility bar to save your level.", DirRotate.Down);
+			this.SetTutorialNote(920, (short)(Systems.screen.windowHeight - 220), "Save Level", "Press the `Save` button on the utility bar to save your level.", DirRotate.Down);
 		}
 
 		private void PlayLevel() {
 			if(GameValues.LastAction == "EditorPlayButton") {
 				this.IncrementTutorialStep();
-				UIHandler.AddNotification(UIAlertType.Warning, "Return to Editing", "You can return to level editing using the tilde (~) console. Just type `editor` into the console and press enter.", 1500);
 				return;
 			}
 

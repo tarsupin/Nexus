@@ -63,7 +63,7 @@ namespace Nexus.Objects {
 			short startX = Math.Max((short) 0, (short)Math.Floor((double)(posX / (byte)TilemapEnum.TileWidth)));
 			short startY = Math.Max((short) 0, (short)Math.Floor((double)(posY / (byte)TilemapEnum.TileHeight)));
 			short endX = Math.Min(tilemap.XCount, (short)Math.Floor((double)((posX + width) / (byte)TilemapEnum.TileWidth)));
-			short endY = Math.Min(tilemap.YCount, (short)Math.Floor((double)((posY + height) / (byte)TilemapEnum.TileHeight)));
+			short endY = Math.Min((short)(tilemap.YCount + TilemapEnum.GapUp), (short)Math.Floor((double)((posY + height) / (byte)TilemapEnum.TileHeight)));
 
 			// Locate Chompers
 			var tilesFound = tilemap.GetTilesByMainIDsWithinArea(new byte[7] { (byte)TileEnum.ChomperFire, (byte)TileEnum.ChomperGrass, (byte)TileEnum.ChomperMetal, (byte)TileEnum.Plant, (byte)TileEnum.Box, (byte)TileEnum.Brick, (byte)TileEnum.Leaf }, startX, startY, endX, endY);
