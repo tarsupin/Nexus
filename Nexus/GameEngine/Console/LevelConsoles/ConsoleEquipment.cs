@@ -184,9 +184,9 @@ namespace Nexus.GameEngine {
 			{ "ryu", (byte) HeadSubType.RyuHead },
 			{ "poo", (byte) HeadSubType.PooHead },
 			{ "carl", (byte) HeadSubType.CarlHead },
-			{ "kirbs", (byte) HeadSubType.KirbsHead },
-			{ "panda", (byte) HeadSubType.PandaHead },
-			{ "neo", (byte) HeadSubType.NeoHead },
+			//{ "kirbs", (byte) HeadSubType.KirbsHead },
+			//{ "panda", (byte) HeadSubType.PandaHead },
+			//{ "neo", (byte) HeadSubType.NeoHead },
 		};
 
 		public static void CheatKey() {
