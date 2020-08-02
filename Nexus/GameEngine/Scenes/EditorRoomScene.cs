@@ -321,7 +321,7 @@ namespace Nexus.GameEngine {
 
 			// Check Tiles with special requirements (such as being restricted to one):
 			//if(type == ObjectEnum.Character) {
-			//	let tileLoc = Tile.scanLayerForTile(roomData, "mainLayer", "Character/Ryu");
+			//	let tileLoc = Tile.scanLayerForTile(roomData, "mainLayer", "Character/Lana");
 
 			//	// Delete the existing version:
 			//	if(tileLoc) { this.deleteTileLayer(roomData, "mainLayer", tileLoc.x, tileLoc.y); }

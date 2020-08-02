@@ -389,6 +389,7 @@
     <Compile Include="ObjectComponents\Heads\KirbsHead.cs" />
     <Compile Include="ObjectComponents\Heads\PooHead.cs" />
     <Compile Include="ObjectComponents\Heads\CarlHead.cs" />
+    <Compile Include="ObjectComponents\Heads\LanaHead.cs" />
     <Compile Include="ObjectComponents\Heads\RyuHead.cs" />
     <Compile Include="ObjectComponents\Heads\Head.cs" />
     <Compile Include="ObjectComponents\Impacts\Impact.cs" />

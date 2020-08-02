@@ -546,6 +546,7 @@ namespace Nexus.Gameplay {
 				{ (byte) OTerrainObjects.Dot_RD, "Dot_RD" },
 				
 				// Character Starting Points
+				{ (byte) OTerrainObjects.StartLana, "StartLana" },
 				{ (byte) OTerrainObjects.StartRyu, "StartRyu" },
 				{ (byte) OTerrainObjects.StartPoo, "StartPoo" },
 				{ (byte) OTerrainObjects.StartCarl, "StartCarl" },
@@ -553,6 +554,7 @@ namespace Nexus.Gameplay {
 
 			// World Characters
 			this.WorldCharacters = new Dictionary<byte, string>() {
+				{ (byte) HeadSubType.LanaHead, "StartLana" },
 				{ (byte) HeadSubType.RyuHead, "StartRyu" },
 				{ (byte) HeadSubType.PooHead, "StartPoo" },
 				{ (byte) HeadSubType.CarlHead, "StartCarl" },

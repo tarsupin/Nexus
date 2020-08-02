@@ -40,7 +40,7 @@ namespace Nexus.GameEngine {
 
 			// Assign Character Details based on Campaign State
 			this.faceRight = true;
-			this.head = Head.GetHeadBySubType((byte) HeadSubType.RyuHead);
+			this.head = Head.GetHeadBySubType((byte) HeadSubType.LanaHead);
 			this.hat = Hat.GetHatBySubType(0);
 			this.suit = Suit.GetSuitBySubType((byte) SuitSubType.RedBasic);
 

@@ -497,7 +497,7 @@ namespace Nexus.GameEngine {
 		public void PlaceObject(byte objectId, byte gridX, byte gridY) {
 
 			// Start Node Behavior
-			if(objectId >= (byte) OTerrainObjects.StartRyu) {
+			if(objectId >= (byte) OTerrainObjects.StartLana) {
 				this.AssignStartData(objectId, gridX, gridY);
 				return;
 			}
@@ -516,9 +516,10 @@ namespace Nexus.GameEngine {
 			if(!isVisibleNode) { return; }
 
 			// Prepare Character
-			byte character = (byte)HeadSubType.RyuHead;
+			byte character = (byte)HeadSubType.LanaHead;
 
 			switch(objectId) {
+				case (byte)OTerrainObjects.StartLana: character = (byte)HeadSubType.LanaHead; break;
 				case (byte)OTerrainObjects.StartRyu: character = (byte)HeadSubType.RyuHead; break;
 				case (byte)OTerrainObjects.StartPoo: character = (byte)HeadSubType.PooHead; break;
 				case (byte)OTerrainObjects.StartCarl: character = (byte)HeadSubType.CarlHead; break;

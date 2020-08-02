@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Nexus.Engine;
 using Nexus.ObjectComponents;
 using Nexus.Objects;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Nexus.Gameplay {
 		public byte lastDir;			// The last direction you moved from. Important for remembering paths.
 
 		// Character Nature
-		public byte head;               // Head Equipped (e.g. HeadSubType.Ryu)
+		public byte head;               // Head Equipped (e.g. HeadSubType.LanaHead)
 
 		// Character Survival
 		public byte lives;				// The number of lives you possess.
@@ -81,8 +82,21 @@ namespace Nexus.Gameplay {
 			this.armor = armor;
 		}
 
-		public void SetHead(byte head = (byte) HeadSubType.RyuHead) {
+		public void SetHead(byte head = (byte) HeadSubType.LanaHead) {
 			this.head = head;
+
+			if(Systems.settings.login.HeadVal > 0) {
+				this.head = Systems.settings.login.HeadVal;
+
+				Head curHead = Head.GetHeadBySubType(this.head);
+				Hat curHat = Hat.GetHatBySubType(this.hat);
+
+				if(curHead is Head && curHead.DefaultCosmeticHat is Hat) {
+					this.hat = curHead.DefaultCosmeticHat.subType;
+				} else {
+					if(curHat is Hat && curHat.IsCosmeticHat) { this.hat = 0; }
+				}
+			}
 		}
 
 		public void SetUpgrades(byte suit, byte hat, byte shoes, byte att, byte mob, byte health, byte armor) {
@@ -208,8 +222,8 @@ namespace Nexus.Gameplay {
 			this.SetPosition(campaign.curX, campaign.curY, campaign.lastDir);
 			this.SetLives(campaign.lives);
 			this.SetWounds(campaign.health, campaign.armor);
-			this.SetHead(campaign.head);
 			this.SetUpgrades(campaign.suit, campaign.hat, campaign.shoes, campaign.powerAtt, campaign.powerMob, campaign.health, campaign.armor);
+			this.SetHead(campaign.head);
 			this.SetLevelStatus(campaign.levelStatus);
 		}
 	}

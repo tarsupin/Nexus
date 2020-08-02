@@ -54,7 +54,7 @@ namespace Nexus.Objects {
 			this.trailKeys = new TrailingKeys(this);
 			this.heldItem = new HeldItem(this);
 			this.magiShield = new MagiShield(this);
-			this.nameplate = new Nameplate(this, "Ryu", false, false);
+			this.nameplate = new Nameplate(this, "Lana", false, false);
 
 			// Images and Animations
 			this.animate = new Animate(this, "/");
@@ -79,9 +79,10 @@ namespace Nexus.Objects {
 			// Apply Head
 			byte face = paramList.ContainsKey("face") ? (byte) paramList["face"] : (byte) 0;
 
-			if(face == 0) { HeadMap.RyuHead.ApplyHead(this, false); }
-			else if(face == 1) { HeadMap.PooHead.ApplyHead(this, false); }
-			else if(face == 2) { HeadMap.CarlHead.ApplyHead(this, false); }
+			if(face == 0) { HeadMap.LanaHead.ApplyHead(this, false); }
+			if(face == 1) { HeadMap.RyuHead.ApplyHead(this, false); }
+			else if(face == 2) { HeadMap.PooHead.ApplyHead(this, false); }
+			else if(face == 3) { HeadMap.CarlHead.ApplyHead(this, false); }
 
 			// Suit
 			if(paramList.ContainsKey("suit") && paramList["suit"] > 0) {
@@ -142,6 +143,15 @@ namespace Nexus.Objects {
 		public void AssignPlayer( Player player ) {
 			this.player = player;
 			this.input = player.input;
+
+			// If this is the player's character:
+			if(this.player == Systems.localServer.MyPlayer) {
+
+				// Update the character's head based on their personal setting.
+				if(Systems.settings.login.HeadVal > 0) {
+					Head.AssignToCharacter(this, (byte)Systems.settings.login.HeadVal, false);
+				}
+			}
 		}
 
 		public void ResetCharacter() {
@@ -156,7 +166,10 @@ namespace Nexus.Objects {
 			if(this.hat is Hat) { this.hat.DestroyHat(this, false); };
 
 			// Default Suit, Default Head
-			if(this.head == null) { HeadMap.RyuHead.ApplyHead(this, false); }
+			if(this.head == null) {
+				Head.AssignToCharacter(this, (byte) Systems.settings.login.HeadVal, false);
+			}
+
 			Suit.AssignToCharacter(this, (byte)SuitSubType.RedBasic, false);
 
 			// Reset Stats (NOT "STATUS")

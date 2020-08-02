@@ -31,7 +31,7 @@ namespace Nexus.GameEngine {
 				// Character Equipment
 				{ "suit", ConsoleEquipment.CheatCodeSuit },
 				{ "hat", ConsoleEquipment.CheatCodeHat },
-				{ "head", ConsoleEquipment.CheatCodeHead },
+				{ "head", ConsoleEquipment.ConsoleAssignHead },
 				{ "key", ConsoleEquipment.CheatKey },
 
 				// Character Powers

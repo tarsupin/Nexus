@@ -201,7 +201,7 @@ namespace Nexus.Gameplay {
 			return tiles[gridY][gridX];
 		}
 
-		public bool SetStartData(byte zoneId, byte gridX, byte gridY, byte character = (byte) HeadSubType.RyuHead) {
+		public bool SetStartData(byte zoneId, byte gridX, byte gridY, byte character = (byte) HeadSubType.LanaHead) {
 			this.data.start = new StartNodeFormat() {
 				x = gridX,
 				y = gridY,

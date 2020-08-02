@@ -253,9 +253,10 @@ namespace Nexus.Gameplay {
 		WoodBridgeV = 116,
 
 		// Characters (Reserve 200-230)
-		StartRyu = 200,
-		StartPoo = 201,
-		StartCarl = 202,
+		StartLana = 200,
+		StartRyu = 201,
+		StartPoo = 202,
+		StartCarl = 203,
 	}
 
 	public class RandTypeCur {

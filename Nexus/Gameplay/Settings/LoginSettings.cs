@@ -6,6 +6,7 @@ namespace Nexus.Gameplay {
 	public class LoginJson {
 		public string User;
 		public string Token;
+		public byte HeadVal;
 	}
 
 	public class LoginSettings : LoginJson {
@@ -22,6 +23,7 @@ namespace Nexus.Gameplay {
 				// Assign Settings
 				this.User = loginSettings.User;
 				this.Token = loginSettings.Token;
+				this.HeadVal = loginSettings.HeadVal;
 
 			// Assign Generic Settings & Create Login Settings
 			} else {
@@ -29,6 +31,7 @@ namespace Nexus.Gameplay {
 				// Assign Generic Settings
 				this.User = "";
 				this.Token = "";
+				this.HeadVal = 0;
 
 				// Create Login Settings
 				this.SaveSettings();
@@ -40,6 +43,7 @@ namespace Nexus.Gameplay {
 			LoginJson loginSettings = new LoginJson {
 				User = this.User,
 				Token = this.Token,
+				HeadVal = this.HeadVal,
 			};
 
 			string json = JsonConvert.SerializeObject(loginSettings);

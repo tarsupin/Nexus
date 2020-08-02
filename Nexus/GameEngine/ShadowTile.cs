@@ -266,7 +266,7 @@ namespace Nexus.Objects {
 			/////////////////////////////
 			
 			{ (byte) ObjectEnum.Character, new Dictionary<byte, string> {
-				{  (byte) 0, "Head/Ryu/Left" },
+				{  (byte) 0, "Head/Lana/Left" },
 			}},
 
 			// Special Objects

@@ -44,6 +44,7 @@ namespace Nexus.GameEngine {
 
 			// Character Start
 			this.placeholders.Add(new WEPlaceholder[] {
+				new WEPlaceholder() { obj = (byte) OTerrainObjects.StartLana },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StartRyu },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StartPoo },
 				new WEPlaceholder() { obj = (byte) OTerrainObjects.StartCarl },

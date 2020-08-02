@@ -152,7 +152,7 @@ namespace Nexus.GameEngine {
 			{ "top", (byte) HatSubType.TopHat },
 		};
 
-		public static void CheatCodeHead() {
+		public static void ConsoleAssignHead() {
 			string currentIns = ConsoleTrack.GetArgAsString();
 
 			// Update the tab lookup.
@@ -164,6 +164,8 @@ namespace Nexus.GameEngine {
 				// If "head" is the only instruction, give a random head to the character.
 				if(currentIns == string.Empty) {
 					Head.AssignToCharacter(ConsoleTrack.character, (byte)HeadSubType.RandomStandard, true);
+					Systems.settings.login.HeadVal = 0;
+					Systems.settings.login.SaveSettings();
 					return;
 				}
 
@@ -171,6 +173,8 @@ namespace Nexus.GameEngine {
 				if(headCodes.ContainsKey(currentIns)) {
 					byte subType = byte.Parse(headCodes[currentIns].ToString());
 					Head.AssignToCharacter(ConsoleTrack.character, (byte)subType, true);
+					Systems.settings.login.HeadVal = subType;
+					Systems.settings.login.SaveSettings();
 				}
 			}
 		}
@@ -180,7 +184,10 @@ namespace Nexus.GameEngine {
 			// Random Options
 			{ "any", (byte) HeadSubType.RandomStandard },
 
-			// Standard Heads
+			// Generic Heads
+			{ "lana", (byte) HeadSubType.LanaHead },
+
+			// Assigned Heads
 			{ "ryu", (byte) HeadSubType.RyuHead },
 			{ "poo", (byte) HeadSubType.PooHead },
 			{ "carl", (byte) HeadSubType.CarlHead },

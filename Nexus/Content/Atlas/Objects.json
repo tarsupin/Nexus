@@ -2403,7 +2403,7 @@
 	"sourceSize": {"w":38,"h":44},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"Head/Girl/Left":
+"Head/Lana/Left":
 {
 	"frame": {"x":1031,"y":390,"w":28,"h":32},
 	"rotated": false,
@@ -2412,7 +2412,7 @@
 	"sourceSize": {"w":38,"h":44},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"Head/Girl/Right":
+"Head/Lana/Right":
 {
 	"frame": {"x":1031,"y":424,"w":28,"h":32},
 	"rotated": false,
@@ -4948,6 +4948,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1594,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2216babdc7e697dc4766851e7d3e8f53:2aff48f13fe202991a359574e297e6cd:a3b4fbb1ebfc4051c9b289d315fb7fea$"
+	"smartupdate": "$TexturePacker:SmartUpdate:fa301e5fb302c690a9e3350d525566e3:2aff48f13fe202991a359574e297e6cd:a3b4fbb1ebfc4051c9b289d315fb7fea$"
 }
 }

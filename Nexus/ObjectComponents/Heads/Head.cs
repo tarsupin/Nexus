@@ -8,7 +8,10 @@ namespace Nexus.ObjectComponents {
 	public enum HeadSubType : byte {
 		None = 0,
 
-		// Standard Heads
+		// Generic Heads
+		LanaHead = 1,
+
+		// Assigned Heads
 		RyuHead = 5,
 		PooHead = 6,
 		CarlHead = 7,
@@ -24,6 +27,7 @@ namespace Nexus.ObjectComponents {
 	}
 
 	public static class HeadMap {
+		public static readonly LanaHead LanaHead = new LanaHead();
 		public static readonly RyuHead RyuHead = new RyuHead();
 		public static readonly PooHead PooHead = new PooHead();
 		public static readonly CarlHead CarlHead = new CarlHead();
@@ -58,13 +62,16 @@ namespace Nexus.ObjectComponents {
 
 			switch(subType) {
 
-				// Standard Heads
+				// Generic Heads
+				case (byte)HeadSubType.LanaHead: return HeadMap.LanaHead;
+
+				// Assigned Heads
 				case (byte)HeadSubType.RyuHead: return HeadMap.RyuHead;
 				case (byte)HeadSubType.PooHead: return HeadMap.PooHead;
 				case (byte)HeadSubType.CarlHead: return HeadMap.CarlHead;
 			}
 
-			return HeadMap.RyuHead;
+			return HeadMap.LanaHead;
 		}
 
 		public static void AssignToCharacter(Character character, byte subType, bool resetStats) {
@@ -80,7 +87,7 @@ namespace Nexus.ObjectComponents {
 				character.hat = null;
 				this.AssignHeadDefaultHat(character);
 			}
-
+			
 			// Reset Character Stats
 			if(resetStats && character.stats != null) { character.stats.ResetCharacterStats(); }
 		}

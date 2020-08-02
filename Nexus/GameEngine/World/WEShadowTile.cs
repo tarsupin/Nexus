@@ -32,6 +32,7 @@ namespace Nexus.GameEngine {
 			{ (byte) OTerrainObjects.Dot_LD, new string[2] { "Auto-Travel Dot", "This node is invisible and auto-travels. Travel is left and down." } },
 
 			// Character Starting Positions
+			{ (byte) OTerrainObjects.StartLana, new string[2] { "Lana Start Position", "Place on any level node. This assigns Lana as the world's play-through character." } },
 			{ (byte) OTerrainObjects.StartRyu, new string[2] { "Ryu Start Position", "Place on any level node. This assigns Ryu as the world's play-through character." } },
 			{ (byte) OTerrainObjects.StartPoo, new string[2] { "Poo Start Position", "Place on any level node. This assigns Poo as the world's play-through character." } },
 			{ (byte) OTerrainObjects.StartCarl, new string[2] { "Carl Start Position", "Place on any level node. This assigns Carl as the world's play-through character." } },
