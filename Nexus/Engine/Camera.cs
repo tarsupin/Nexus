@@ -45,7 +45,7 @@ namespace Nexus.Engine {
 			this.scene = scene;
 			this.speedMult = 0.08f; // 0.08f;
 			this.controlSpeed = 8;
-			this.SetSize(1440, 900);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
+			this.SetSize(ScreenSys.VirtualWidth, ScreenSys.VirtualHeight);        // TODO HIGH PRIORITY: Change camera size to window size, and update accordingly when resizing.
 			this.bounds = new BoundsCamera();
 			this.BindToScene(top, left, right, bottom);
 			this.shakeEnd = 0;

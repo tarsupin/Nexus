@@ -19,7 +19,9 @@ namespace Nexus {
 
 		public GameClient(Action LoadInstructions = null) {
 			graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+			graphics.PreferredBackBufferHeight = ScreenSys.VirtualWidth;
+			graphics.PreferredBackBufferWidth = ScreenSys.VirtualHeight;
+			Content.RootDirectory = "Content";
 			loadInstructions = LoadInstructions;
 		}
 
@@ -54,7 +56,7 @@ namespace Nexus {
 			UIHandler.Setup();
 			//GlobalScene.Setup();
 
-			this.renderTarget = new RenderTarget2D(graphics.GraphicsDevice, Systems.screen.windowWidth, Systems.screen.windowHeight, false, SurfaceFormat.Color, DepthFormat.None, 8, RenderTargetUsage.DiscardContents);
+			this.renderTarget = new RenderTarget2D(graphics.GraphicsDevice, ScreenSys.VirtualWidth, ScreenSys.VirtualHeight, false, SurfaceFormat.Color, DepthFormat.None, 8, RenderTargetUsage.DiscardContents);
 
 			// Resize Window
 			Window.AllowUserResizing = false;
@@ -62,9 +64,9 @@ namespace Nexus {
 			//Window.Position = new Point(0, 24);
 
 			#if DEBUG
-				//this.graphics.ToggleFullScreen();
+				Systems.screen.ResizeWindowToLargestFit();
 			#else
-				this.graphics.ToggleFullScreen();
+				//this.graphics.ToggleFullScreen();
 			#endif
 
 			// Process Extra Loading Instructions
@@ -96,7 +98,8 @@ namespace Nexus {
 		protected override void Draw(GameTime gameTime) {
 			
 			#if DEBUG
-				this.DrawWindow(gameTime);
+				//this.DrawWindow(gameTime);
+				this.DrawFullScreen(gameTime);
 			#else
 				this.DrawFullScreen(gameTime);
 			#endif
@@ -135,7 +138,6 @@ namespace Nexus {
 			// Draw Render Target
 			GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
 			this.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-
 
 			this.spriteBatch.Draw(this.renderTarget, Systems.screen.destRender, Color.White);
 			this.spriteBatch.End();

@@ -24,8 +24,8 @@ namespace Nexus.Gameplay {
 		GapDownPixel = TilemapEnum.GapDown * TilemapEnum.TileHeight,
 
 		// Min Sizes
-		MinWidth = 30,		// 1440 / 48 = 30
-		MinHeight = 19,		// 900 / 48 = 18.75
+		MinWidth = 30,      // ScreenSys.VirtualWidth / 48 = 30
+		MinHeight = 19,     // ScreenSys.VirtualHeight / 48 = 18.75
 
 		// Tilemap Limits
 		MaxTilesWide = 600,
