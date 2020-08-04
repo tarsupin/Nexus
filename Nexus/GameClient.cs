@@ -63,11 +63,7 @@ namespace Nexus {
 			Window.ClientSizeChanged += new EventHandler<EventArgs>(Systems.screen.OnResizeWindow);
 			//Window.Position = new Point(0, 24);
 
-			#if DEBUG
-				Systems.screen.ResizeWindowToLargestFit();
-			#else
-				//this.graphics.ToggleFullScreen();
-			#endif
+			Systems.screen.ResizeWindowToLargestFit();
 
 			// Process Extra Loading Instructions
 			loadInstructions();
@@ -96,29 +92,6 @@ namespace Nexus {
 
 		/// This is called when the game should draw itself.
 		protected override void Draw(GameTime gameTime) {
-			
-			#if DEBUG
-				//this.DrawWindow(gameTime);
-				this.DrawFullScreen(gameTime);
-			#else
-				this.DrawFullScreen(gameTime);
-			#endif
-
-		}
-
-		protected void DrawWindow(GameTime gameTime) {
-
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-
-			Systems.scene.Draw();
-			UIHandler.Draw();
-
-			this.spriteBatch.End();
-			base.Draw(gameTime);
-		}
-
-		protected void DrawFullScreen(GameTime gameTime) {
 
 			//GraphicsDevice.Clear(Color.CornflowerBlue);
 			GraphicsDevice.SetRenderTarget(this.renderTarget);
@@ -141,6 +114,18 @@ namespace Nexus {
 
 			this.spriteBatch.Draw(this.renderTarget, Systems.screen.destRender, Color.White);
 			this.spriteBatch.End();
+		}
+
+		protected void DrawWindow_Old(GameTime gameTime) {
+
+			GraphicsDevice.Clear(Color.CornflowerBlue);
+			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+
+			Systems.scene.Draw();
+			UIHandler.Draw();
+
+			this.spriteBatch.End();
+			base.Draw(gameTime);
 		}
 	}
 
