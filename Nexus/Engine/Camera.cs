@@ -66,8 +66,8 @@ namespace Nexus.Engine {
 		public void BindToScene( int top = 0, int left = 0, int right = 0, int bottom = 0 ) {
 			this.bounds.Top = top;
 			this.bounds.Left = left;
-			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.windowWidth;
-			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.windowHeight);
+			this.bounds.Right = right != 0 ? right : this.scene.Width - Systems.screen.viewWidth;
+			this.bounds.Bottom = bottom != 0 ? bottom : this.scene.Height - Math.Min(this.scene.Height, Systems.screen.viewHeight);
 		}
 
 		public void StayBoundedAuto( short extraWidth = 0, short extraHeight = 0 ) {

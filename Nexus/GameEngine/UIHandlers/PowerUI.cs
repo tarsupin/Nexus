@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 			short topRow = (short)10;
 			//short bottomRow = (short)(this.levelUI.bottomRow - 8);
 			Character character = Systems.localServer.MyCharacter;
-			short posX = (short)(Systems.screen.windowHalfWidth + (byte)(TilemapEnum.HalfWidth));
+			short posX = (short)(Systems.screen.viewHalfWidth + (byte)(TilemapEnum.HalfWidth));
 
 			// Power Positioning
 			if(character.mobilityPower != null) { posX -= (byte)(TilemapEnum.HalfWidth + 16); }

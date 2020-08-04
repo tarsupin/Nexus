@@ -56,18 +56,18 @@ namespace Nexus.Engine {
 			if(xRel == UIHorPosition.Left) {
 				this.x = xOffset;
 			} else if(xRel == UIHorPosition.Right) {
-				this.x = (short)((this.Parent is UIComponent ? this.Parent.width : Systems.screen.windowWidth) - this.width - xOffset);
+				this.x = (short)((this.Parent is UIComponent ? this.Parent.width : Systems.screen.viewWidth) - this.width - xOffset);
 			} else if(xRel == UIHorPosition.Center) {
-				this.x = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.width / 2f) : Systems.screen.windowHalfWidth) - Math.Floor(this.width / 2f) - xOffset);
+				this.x = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.width / 2f) : Systems.screen.viewHalfWidth) - Math.Floor(this.width / 2f) - xOffset);
 			}
 			
 			// Set Y Position
 			if(yRel == UIVertPosition.Top) {
 				this.y = yOffset;
 			} else if(yRel == UIVertPosition.Bottom) {
-				this.y = (short)((this.Parent is UIComponent ? this.Parent.height : Systems.screen.windowHeight) - this.height - yOffset);
+				this.y = (short)((this.Parent is UIComponent ? this.Parent.height : Systems.screen.viewHeight) - this.height - yOffset);
 			} else if(yRel == UIVertPosition.Center) {
-				this.y = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.height / 2f) : Systems.screen.windowHalfHeight) - Math.Floor(this.height / 2f) - yOffset);
+				this.y = (short)((this.Parent is UIComponent ? Math.Floor(this.Parent.height / 2f) : Systems.screen.viewHalfHeight) - Math.Floor(this.height / 2f) - yOffset);
 			}
 
 			this.UpdateTruePosition();

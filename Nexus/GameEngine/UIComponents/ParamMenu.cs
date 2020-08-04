@@ -97,7 +97,7 @@ namespace Nexus.GameEngine {
 
 			short yPos = (short)((WandData.gridY * (byte)TilemapEnum.TileHeight) - Systems.camera.posY);
 			if(yPos < 50) { yPos = 50; }
-			if(yPos + this.height > Systems.screen.windowHeight - 50) { yPos = (short)(Systems.screen.windowHeight - 50 - this.height); }
+			if(yPos + this.height > Systems.screen.viewHeight - 50) { yPos = (short)(Systems.screen.viewHeight - 50 - this.height); }
 
 			this.SetRelativePosition(xPos, yPos);
 		}

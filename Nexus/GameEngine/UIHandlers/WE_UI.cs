@@ -24,12 +24,12 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, (byte) WorldmapEnum.TileWidth, (byte) WorldmapEnum.TileHeight);
-			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.windowHeight - (byte)WorldmapEnum.TileHeight));
-			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth), 0);
-			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.utilityBar = new WEUtilityBar(null, this.scene, (byte)WorldmapEnum.TileWidth, (short)(Systems.screen.viewHeight - (byte)WorldmapEnum.TileHeight));
+			this.scroller = new WEScroller(null, this.scene, (short)(Systems.screen.viewWidth - (byte)WorldmapEnum.TileWidth), 0);
+			this.statusText = new UIStatusText(null, (short)Systems.screen.viewHalfWidth, 5);
 
 			// Tab Menu - WorldTileTool Listings
-			this.weMenu = new WEMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f), 4, 2);
+			this.weMenu = new WEMenu(null, (short)(Systems.screen.viewWidth * 0.5f), (short)(Systems.screen.viewHeight * 0.5f), 4, 2);
 
 			this.weMenu.SetMenuOption((byte) 1, Systems.mapper.atlas[(byte)AtlasGroup.World], "Mud/b1", "Terrain");
 			this.weMenu.SetMenuOption((byte) 2, Systems.mapper.atlas[(byte)AtlasGroup.World], "Desert/p7", "Detail");
@@ -61,7 +61,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw(Cursor.MiniGridX + ", " + Cursor.MiniGridY, 12, 5, Color.White);
 
 			// Zone Counter (Which Zone)
-			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.windowWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);
+			Systems.fonts.counter.Draw("Zone #" + this.scene.campaign.zoneId.ToString(), Systems.screen.viewWidth - (byte)WorldmapEnum.TileWidth - 184, 5, Color.White);
 
 			// Debug Render
 			if(DebugConfig.Debug) {

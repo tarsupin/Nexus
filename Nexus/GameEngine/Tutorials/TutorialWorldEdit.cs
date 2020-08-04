@@ -69,11 +69,11 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(50, (short)(Systems.screen.windowHeight - 220), "Selecting Tiles", "Change your active tile by selecting a different tile from the utility bar. You can click on it, or press the shortcut key (e.g. 1, 2, etc).", DirRotate.Down);
+			this.SetTutorialNote(50, (short)(Systems.screen.viewHeight - 220), "Selecting Tiles", "Change your active tile by selecting a different tile from the utility bar. You can click on it, or press the shortcut key (e.g. 1, 2, etc).", DirRotate.Down);
 		}
 
 		private void PlacingTiles() {
-			if(WETools.WETileTool is WETileTool && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(WETools.WETileTool is WETileTool && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.viewHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
 				return;
 			}
@@ -96,7 +96,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote((short)(Systems.screen.windowWidth - 480), 100, "Scroller Bar", "Use your mouse scroll to change the tile variant.", DirRotate.Right);
+			this.SetTutorialNote((short)(Systems.screen.viewWidth - 480), 100, "Scroller Bar", "Use your mouse scroll to change the tile variant.", DirRotate.Right);
 		}
 
 		private void TabMenu() {
@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote((short)(Systems.screen.windowHalfWidth - 200), (short)(Systems.screen.windowHeight - 220), "Tab Menu", "Press and hold the `tab` key to access the Tab Menu.", DirRotate.Up);
+			this.SetTutorialNote((short)(Systems.screen.viewHalfWidth - 200), (short)(Systems.screen.viewHeight - 220), "Tab Menu", "Press and hold the `tab` key to access the Tab Menu.", DirRotate.Up);
 		}
 
 		private void TabMenuUse() {
@@ -114,7 +114,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Using the Tab Menu", "While in the tab menu, click on a tileset archetype to work with those types of tiles.", DirRotate.Right);
+			this.SetTutorialNote(90, (short)(Systems.screen.viewHalfHeight - 70), "Using the Tab Menu", "While in the tab menu, click on a tileset archetype to work with those types of tiles.", DirRotate.Right);
 		}
 
 		private void CloningTiles() {
@@ -142,7 +142,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(450, (short)(Systems.screen.windowHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
+			this.SetTutorialNote(450, (short)(Systems.screen.viewHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
 		}
 
 		private void ResizeLevel() {
@@ -151,7 +151,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(80, (short)(Systems.screen.windowHeight - 250), "Level Resizing", "Try resizing the level width by typing `resize width 100`", DirRotate.Down);
+			this.SetTutorialNote(80, (short)(Systems.screen.viewHeight - 250), "Level Resizing", "Try resizing the level width by typing `resize width 100`", DirRotate.Down);
 		}
 
 		private void SetWorldName() {
@@ -160,7 +160,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(80, (short)(Systems.screen.windowHeight - 250), "Rename World", "Try renaming the world by typing `title My Test World`", DirRotate.Down);
+			this.SetTutorialNote(80, (short)(Systems.screen.viewHeight - 250), "Rename World", "Try renaming the world by typing `title My Test World`", DirRotate.Down);
 		}
 
 		private void FasterMove() {
@@ -181,7 +181,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(610, (short)(Systems.screen.windowHeight - 220), "Change Zones", "Click the `Next Zone` button to switch to the next zone ID.", DirRotate.Down);
+			this.SetTutorialNote(610, (short)(Systems.screen.viewHeight - 220), "Change Zones", "Click the `Next Zone` button to switch to the next zone ID.", DirRotate.Down);
 		}
 
 		private void HomeZone() {
@@ -190,17 +190,17 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(580, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Zone` to return to the first zone.", DirRotate.Down);
+			this.SetTutorialNote(580, (short)(Systems.screen.viewHeight - 220), "Return to Home", "Click the `Home Zone` to return to the first zone.", DirRotate.Down);
 		}
 
 		private void PlaceLevelNode() {
-			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.viewHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
 				UIHandler.AddNotification(UIAlertType.Normal, "Using Travel Nodes", "Place Nodes near each other to create pathways to travel across.", 300);
 				return;
 			}
 
-			this.SetTutorialNote((short)(Systems.screen.windowHalfWidth - 200), (short)(Systems.screen.windowHeight - 220), "Place a Level Node", "Select \"Nodes\" from the tab menu and place a level node.", DirRotate.Up);
+			this.SetTutorialNote((short)(Systems.screen.viewHalfWidth - 200), (short)(Systems.screen.viewHeight - 220), "Place a Level Node", "Select \"Nodes\" from the tab menu and place a level node.", DirRotate.Up);
 		}
 
 		private void WandTool() {
@@ -209,7 +209,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(420, (short)(Systems.screen.windowHeight - 250), "Wand Tool", "Click the wand button (or hold down 'e') to use the wand tool. The wand is used to assign level IDs to Nodes.", DirRotate.Down);
+			this.SetTutorialNote(420, (short)(Systems.screen.viewHeight - 250), "Wand Tool", "Click the wand button (or hold down 'e') to use the wand tool. The wand is used to assign level IDs to Nodes.", DirRotate.Down);
 		}
 
 		private void ChangeLevelID() {
@@ -218,17 +218,17 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Using the Wand", "With the wand tool selected, click on a node to edit the level ID assigned. A console will appear, with the option to assign a desired level ID.", DirRotate.Right);
+			this.SetTutorialNote(90, (short)(Systems.screen.viewHalfHeight - 70), "Using the Wand", "With the wand tool selected, click on a node to edit the level ID assigned. A console will appear, with the option to assign a desired level ID.", DirRotate.Right);
 		}
 		
 		private void PlaceCharacter() {
-			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 3 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(WETools.WETileTool is WETileToolNodes && WETools.WETileTool.index == 3 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.viewHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
 				UIHandler.AddNotification(UIAlertType.Normal, "Character Position", "Characters must be placed on a level node to work correctly.", 300);
 				return;
 			}
 
-			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Nodes\" category). Place it on a level node to assign the starting position.", DirRotate.Right);
+			this.SetTutorialNote(90, (short)(Systems.screen.viewHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Nodes\" category). Place it on a level node to assign the starting position.", DirRotate.Right);
 		}
 
 		private void SaveWorld() {
@@ -237,7 +237,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 220), "Save World", "Press the `Save` button on the utility bar to save your world.", DirRotate.Down);
+			this.SetTutorialNote(720, (short)(Systems.screen.viewHeight - 220), "Save World", "Press the `Save` button on the utility bar to save your world.", DirRotate.Down);
 		}
 		
 		private void PlayWorld() {
@@ -246,7 +246,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(750, (short)(Systems.screen.windowHeight - 220), "Play Your World", "Press the `Play` button when you're ready to playtest the world.", DirRotate.Down);
+			this.SetTutorialNote(750, (short)(Systems.screen.viewHeight - 220), "Play Your World", "Press the `Play` button when you're ready to playtest the world.", DirRotate.Down);
 		}
 		
 		// Placing Objects - they go above other things.

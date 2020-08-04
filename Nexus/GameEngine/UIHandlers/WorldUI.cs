@@ -14,9 +14,9 @@ namespace Nexus.GameEngine {
 		public WorldUI( WorldScene scene ) {
 			this.scene = scene;
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) WorldmapEnum.TileHeight);
+			this.bottomRow = (short) (Systems.screen.viewHeight - (byte) WorldmapEnum.TileHeight);
 			this.worldContent = this.scene.worldContent;
-			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.statusText = new UIStatusText(null, (short)Systems.screen.viewHalfWidth, 5);
 		}
 
 		public void RunTick() {

@@ -25,10 +25,10 @@ namespace Nexus.GameEngine {
 
 		public LevelMenu() {
 
-			this.textBox = new TextBox(null, (short)(Systems.screen.windowHalfWidth - 150 - 16), (short)(Systems.screen.windowHalfHeight - 150 - 16), 316, 328);
+			this.textBox = new TextBox(null, (short)(Systems.screen.viewHalfWidth - 150 - 16), (short)(Systems.screen.viewHalfHeight - 150 - 16), 316, 328);
 
-			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
-			short centerY = (short)(Systems.screen.windowHalfHeight - 28);
+			short centerX = (short)(Systems.screen.viewHalfWidth - 28);
+			short centerY = (short)(Systems.screen.viewHalfHeight - 28);
 
 			//this.cont = new UICreoTextIcon(null, "Continue", "Continue", centerX, centerY, delegate () {} );
 			this.retry = new UICreoTextIcon(null, "Retry", "Retry", (short)(centerX + 66 + 50), centerY, delegate () { ((LevelScene)Systems.scene).RestartLevel(false); } );

@@ -15,8 +15,8 @@ namespace Nexus.Engine {
 		public UIConfirmBox confirmBox;
 
 		public UIGlobal() : base(null) {
-			this.SetHeight(Systems.screen.windowHeight);
-			this.SetWidth(Systems.screen.windowWidth);
+			this.SetHeight(Systems.screen.viewHeight);
+			this.SetWidth(Systems.screen.viewWidth);
 			this.notifyBox = new UIContainNotifications(this);
 			this.toolTip = new UIToolTip(this);
 		}

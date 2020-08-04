@@ -11,10 +11,10 @@ namespace Nexus.Engine {
 		public GraphicsDeviceManager graphics;
 		public short screenWidth;
 		public short screenHeight;
-		public short windowWidth;
-		public short windowHeight;
-		public short windowHalfWidth;
-		public short windowHalfHeight;
+		public short viewWidth;
+		public short viewHeight;
+		public short viewHalfWidth;
+		public short viewHalfHeight;
 
 		public Rectangle destRender;
 		public short offsetX = 0;
@@ -24,6 +24,14 @@ namespace Nexus.Engine {
 
 		public ScreenSys(GameClient game) {
 			this.graphics = game.graphics;
+
+			// Fixed Window Size
+			this.viewWidth = (short) ScreenSys.VirtualWidth;
+			this.viewHeight = (short) ScreenSys.VirtualHeight;
+
+			this.viewHalfWidth = (short)Math.Floor((double)(ScreenSys.VirtualWidth / 2));
+			this.viewHalfHeight = (short)Math.Floor((double)(ScreenSys.VirtualHeight / 2));
+
 			this.UpdateSizes();
 		}
 
@@ -32,13 +40,6 @@ namespace Nexus.Engine {
 			// Screen Size
 			this.screenWidth = (short)this.graphics.GraphicsDevice.DisplayMode.Width;
 			this.screenHeight = (short)this.graphics.GraphicsDevice.DisplayMode.Height;
-
-			// Window Size
-			this.windowWidth = (short) this.graphics.GraphicsDevice.Viewport.Width;
-			this.windowHeight = (short) this.graphics.GraphicsDevice.Viewport.Height;
-
-			this.windowHalfWidth = (short) Math.Floor((decimal) (this.windowWidth / 2));
-			this.windowHalfHeight = (short) Math.Floor((decimal) (this.windowHeight / 2));
 
 			// Prepare Destination Render Target
 			Rectangle windowBounds = Systems.game.Window.ClientBounds;

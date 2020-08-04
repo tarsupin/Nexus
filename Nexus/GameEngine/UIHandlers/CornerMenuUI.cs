@@ -28,8 +28,8 @@ namespace Nexus.GameEngine {
 
 		public CornerMenuUI() {
 
-			short midX = (short)(Systems.screen.windowHalfWidth - 28);
-			short rightX = (short)(Systems.screen.windowWidth - 56 - 10);
+			short midX = (short)(Systems.screen.viewHalfWidth - 28);
+			short rightX = (short)(Systems.screen.viewWidth - 56 - 10);
 			//short bottomY = (short)(Systems.screen.windowHeight - 56 - 10);
 
 			// Corner Menu

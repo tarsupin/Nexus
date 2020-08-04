@@ -306,7 +306,7 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
 			// Draw Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), UIHandler.spaceBG);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.viewWidth, Systems.screen.viewHeight), UIHandler.spaceBG);
 
 			// Draw Stars
 			for(short starIndex = 0; starIndex < this.stars.Count; starIndex++) {
@@ -317,9 +317,9 @@ namespace Nexus.GameEngine {
 			short posY = 350;
 
 			// Draw Scene UI
-			Systems.spriteBatch.Draw(this.logo, new Vector2(Systems.screen.windowHalfWidth - 298, 50), Color.White);
-			Systems.fonts.console.Draw(PlanetSelectScene.versionBlurb, Systems.screen.windowHalfWidth - this.versionBlurbHalf, 150, Color.White);
-			Systems.fonts.baseText.Draw(PlanetSelectScene.openMenuBlurb, Systems.screen.windowHalfWidth - this.openMenuHalf, 210, Color.White);
+			Systems.spriteBatch.Draw(this.logo, new Vector2(Systems.screen.viewHalfWidth - 298, 50), Color.White);
+			Systems.fonts.console.Draw(PlanetSelectScene.versionBlurb, Systems.screen.viewHalfWidth - this.versionBlurbHalf, 150, Color.White);
+			Systems.fonts.baseText.Draw(PlanetSelectScene.openMenuBlurb, Systems.screen.viewHalfWidth - this.openMenuHalf, 210, Color.White);
 
 			// Draw Paging Selection
 			short highlightX = (short)(this.paging.selectX * 200 + posX);

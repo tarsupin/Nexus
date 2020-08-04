@@ -56,11 +56,11 @@ namespace Nexus.Engine {
 		public void AddLoopingObject( string spriteName, float parallaxDist, ParallaxLoopFlag lowFlag, ParallaxLoopFlag highFlag, float xVelocity, short width ) {
 
 			// Randomize X and Y starting position if they're unassigned.
-			float x = CalcRandom.IntBetween(-50, Systems.screen.windowWidth - 20);
+			float x = CalcRandom.IntBetween(-50, Systems.screen.viewWidth - 20);
 
 			// Randomly determine Y-Position based on where the object should be layered:
 			int high = 0;
-			int low = Systems.screen.windowHeight;
+			int low = Systems.screen.viewHeight;
 
 			switch(lowFlag) {
 				case ParallaxLoopFlag.Ground: low = this.groundLine; break;
@@ -123,7 +123,7 @@ namespace Nexus.Engine {
 			Camera camera = Systems.camera;
 			int camX = camera.posX;
 			int camY = camera.posY;
-			short windowWidth = Systems.screen.windowWidth;
+			short windowWidth = Systems.screen.viewWidth;
 
 			//// Draw Horizon
 			//if(this.horizonColor != null) {

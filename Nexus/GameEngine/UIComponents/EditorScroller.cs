@@ -14,7 +14,7 @@ namespace Nexus.GameEngine {
 
 		public EditorScroller( UIComponent parent, short posX, short posY) : base(parent) {
 			this.SetWidth((byte)TilemapEnum.TileWidth + 4);
-			this.SetHeight((short)Systems.screen.windowHeight);
+			this.SetHeight((short)Systems.screen.viewHeight);
 			this.SetRelativePosition(posX, posY);
 		}
 

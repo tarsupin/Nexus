@@ -23,12 +23,12 @@ namespace Nexus.GameEngine {
 
 			// UI Components
 			this.gridUI = new GridOverlay(null, (byte)TilemapEnum.TileWidth, (byte)TilemapEnum.TileHeight);
-			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.windowHeight - (byte)TilemapEnum.TileHeight));
-			this.scroller = new EditorScroller(null, (short)(Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth), 0);
-			this.statusText = new UIStatusText(null, (short)Systems.screen.windowHalfWidth, 5);
+			this.utilityBar = new UtilityBar(null, (byte)TilemapEnum.TileWidth, (short) (Systems.screen.viewHeight - (byte)TilemapEnum.TileHeight));
+			this.scroller = new EditorScroller(null, (short)(Systems.screen.viewWidth - (byte)TilemapEnum.TileWidth), 0);
+			this.statusText = new UIStatusText(null, (short)Systems.screen.viewHalfWidth, 5);
 
 			// Tab Menu - TileTool Listings
-			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.windowWidth * 0.5f), (short)(Systems.screen.windowHeight * 0.5f));
+			this.contextMenu = new ContextMenu(null, (short)(Systems.screen.viewWidth * 0.5f), (short)(Systems.screen.viewHeight * 0.5f));
 
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Ground, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Grass/S", "Ground");
 			this.contextMenu.SetMenuOption((byte) SlotGroup.Blocks, Systems.mapper.atlas[(byte)AtlasGroup.Tiles], "Brick/Brown", "Blocks");
@@ -76,7 +76,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw((Cursor.TileGridX + 1) + ", " + (Cursor.TileGridY + 1), 12, 5, Color.White);
 
 			// Room Counter (Which Room)
-			Systems.fonts.counter.Draw("Room #" + (this.scene.curRoomID + 1).ToString(), Systems.screen.windowWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
+			Systems.fonts.counter.Draw("Room #" + (this.scene.curRoomID + 1).ToString(), Systems.screen.viewWidth - (byte)TilemapEnum.TileWidth - 184, 5, Color.White);
 		}
 
 		public void DrawCurrentGridSquare() {

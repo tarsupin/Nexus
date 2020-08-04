@@ -22,8 +22,8 @@ namespace Nexus.GameEngine {
 
 			int left = Math.Max(0, -camX);
 			int top = Math.Max(0, -camY);
-			int right = Math.Min(Systems.screen.windowWidth, xCount * this.tileWidth - camX);
-			int bottom = Math.Min(Systems.screen.windowHeight, yCount * this.tileHeight - camY);
+			int right = Math.Min(Systems.screen.viewWidth, xCount * this.tileWidth - camX);
+			int bottom = Math.Min(Systems.screen.viewHeight, yCount * this.tileHeight - camY);
 
 			int offsetX = left == 0 ? -camX % this.tileWidth : left;
 			int offsetY = top == 0 ? -camY % this.tileHeight : top;
@@ -41,8 +41,8 @@ namespace Nexus.GameEngine {
 			// Draw Limits
 			if(camX <= left) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(left - 1, top, 3, bottom), GridOverlay.fadedRed); }
 			if(camY <= top) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(left, top - 1, right, 3), GridOverlay.fadedRed); }
-			if(camX + Systems.screen.windowWidth >= right) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(right - 1, top, 3, bottom), GridOverlay.fadedRed); }
-			if(camY + Systems.screen.windowHeight >= bottom) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(left, bottom - 1, right, 3), GridOverlay.fadedRed); }
+			if(camX + Systems.screen.viewWidth >= right) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(right - 1, top, 3, bottom), GridOverlay.fadedRed); }
+			if(camY + Systems.screen.viewHeight >= bottom) { Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(left, bottom - 1, right, 3), GridOverlay.fadedRed); }
 		}
 	}
 }

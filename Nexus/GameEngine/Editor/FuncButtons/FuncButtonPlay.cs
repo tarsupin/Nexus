@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 			GameValues.LastAction = "EditorPlayButton";
 
 			if(scene.tutorial.tutorialStep == TutorialEditor.finalStep) {
-				UIHandler.AddNotification(UIAlertType.Warning, "Playtest Fixes", "If something goes wrong, don't worry. Return to map editing or reset your position through the tilde (~) console.", 1500);
+				UIHandler.AddNotification(UIAlertType.Warning, "Playtest Fixes", "If something goes wrong, don't worry. You can open the tilde (~) console enter `editor` to return to the level editor.", 1500);
 			}
 
 			SceneTransition.ToLevel("", scene.levelContent.levelId);

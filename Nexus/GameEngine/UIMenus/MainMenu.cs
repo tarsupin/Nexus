@@ -33,12 +33,12 @@ namespace Nexus.GameEngine {
 
 		public MainMenu() {
 
-			this.textBox = new TextBox(null, (short)(Systems.screen.windowHalfWidth - 150 - 16), (short)(Systems.screen.windowHalfHeight - 150 - 16), 316, 378);
+			this.textBox = new TextBox(null, (short)(Systems.screen.viewHalfWidth - 150 - 16), (short)(Systems.screen.viewHalfHeight - 150 - 16), 316, 378);
 
-			short centerX = (short)(Systems.screen.windowHalfWidth - 28);
-			short centerY = (short)(Systems.screen.windowHalfHeight - 28 + 40);
+			short centerX = (short)(Systems.screen.viewHalfWidth - 28);
+			short centerY = (short)(Systems.screen.viewHalfHeight - 28 + 40);
 
-			this.menuTextPos = (short)(Systems.screen.windowHalfWidth - Systems.fonts.baseText.font.MeasureString(MainMenu.menuText).X * 0.5f);
+			this.menuTextPos = (short)(Systems.screen.viewHalfWidth - Systems.fonts.baseText.font.MeasureString(MainMenu.menuText).X * 0.5f);
 
 			//this.goBack = new UICreoTextIcon(null, "Back", "Return", centerX, centerY, delegate () { UIHandler.SetMenu(null, false); } );
 

@@ -174,7 +174,7 @@ namespace Nexus.GameEngine {
 			Systems.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
 			// Draw Background
-			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.DarkSlateGray);
+			Systems.spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.viewWidth, Systems.screen.viewHeight), Color.DarkSlateGray);
 
 			short posX = 100;
 			short posY = 150;

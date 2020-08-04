@@ -11,8 +11,8 @@ namespace Nexus.GameEngine {
 
 		public ControlMenu(short width, short height) : base() {
 
-			short centerX = (short)(Systems.screen.windowHalfWidth - (short)(width * 0.5));
-			short centerY = (short)(Systems.screen.windowHalfHeight - (short)(height * 0.5));
+			short centerX = (short)(Systems.screen.viewHalfWidth - (short)(width * 0.5));
+			short centerY = (short)(Systems.screen.viewHalfHeight - (short)(height * 0.5));
 
 			this.textBox = new TextBox(null, centerX, centerY, width, height);
 		}

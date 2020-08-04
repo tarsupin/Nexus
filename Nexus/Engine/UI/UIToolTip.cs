@@ -96,16 +96,16 @@ namespace Nexus.Engine {
 				posX = 10;
 			}
 
-			else if(posX > Systems.screen.windowWidth - this.width - 10) {
-				posX = Systems.screen.windowWidth - this.width - 10;
+			else if(posX > Systems.screen.viewWidth - this.width - 10) {
+				posX = Systems.screen.viewWidth - this.width - 10;
 			}
 
 			if(posY < 10) {
 				posY = 10;
 			}
 
-			else if(posY > Systems.screen.windowHeight - this.height - 10) {
-				posY = Systems.screen.windowHeight - this.height - 10;
+			else if(posY > Systems.screen.viewHeight - this.height - 10) {
+				posY = Systems.screen.viewHeight - this.height - 10;
 			}
 
 			// Set Position

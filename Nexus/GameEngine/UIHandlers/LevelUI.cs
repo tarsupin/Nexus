@@ -18,7 +18,7 @@ namespace Nexus.GameEngine {
 		public LevelUI() {
 			this.powerUI = new PowerUI(this);
 			this.atlas = Systems.mapper.atlas[(byte) AtlasGroup.Tiles];
-			this.bottomRow = (short) (Systems.screen.windowHeight - (byte) TilemapEnum.TileHeight);
+			this.bottomRow = (short) (Systems.screen.viewHeight - (byte) TilemapEnum.TileHeight);
 			this.levelState = Systems.handler.levelState;
 		}
 
@@ -29,7 +29,7 @@ namespace Nexus.GameEngine {
 			Systems.fonts.counter.Draw(this.levelState.coins.ToString(), 65, 10, Color.White);
 
 			// Timer
-			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.windowWidth - 90, 10, Color.White);
+			Systems.fonts.counter.Draw(this.levelState.TimeRemaining.ToString(), Systems.screen.viewWidth - 90, 10, Color.White);
 
 			// Health & Armor
 			if(Systems.localServer.MyPlayer.character is Character) {

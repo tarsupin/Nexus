@@ -125,7 +125,7 @@ namespace Nexus {
 			this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
 			// Draw Background
-			spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.CornflowerBlue);
+			spriteBatch.Draw(Systems.tex2dWhite, new Rectangle(0, 0, Systems.screen.viewWidth, Systems.screen.viewHeight), Color.CornflowerBlue);
 
 			// Draw Scene
 			Systems.scene.Draw();

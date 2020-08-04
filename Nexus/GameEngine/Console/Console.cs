@@ -202,11 +202,11 @@ namespace Nexus.GameEngine {
 			FontClass consoleFont = Systems.fonts.console;
 
 			// Draw Console Background
-			Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(0, Systems.screen.windowHeight - 100, Systems.screen.windowWidth, Systems.screen.windowHeight), Color.Black * 0.85f);
+			Systems.spriteBatch.Draw(Systems.tex2dBlack, new Rectangle(0, Systems.screen.viewHeight - 100, Systems.screen.viewWidth, Systems.screen.viewHeight), Color.Black * 0.85f);
 
 			// Draw Console Text
 			string consoleString = "> " + ConsoleTrack.instructionText;
-			consoleFont.Draw(consoleString + (Systems.timer.UniFrame % 40 < 20 ? "|" : ""), 10, Systems.screen.windowHeight - 90, Color.White);
+			consoleFont.Draw(consoleString + (Systems.timer.UniFrame % 40 < 20 ? "|" : ""), 10, Systems.screen.viewHeight - 90, Color.White);
 
 			// Draw Console Tab Highlight, if applicable
 			if(ConsoleTrack.tabLookup.Length > 0) {
@@ -214,17 +214,17 @@ namespace Nexus.GameEngine {
 				// Determine length of current instruction line:
 				Vector2 fontLen = consoleFont.font.MeasureString(consoleString);
 
-				consoleFont.Draw(ConsoleTrack.tabLookup, 10 + (int) Math.Round(fontLen.X), Systems.screen.windowHeight - 90, Color.DarkSlateGray);
+				consoleFont.Draw(ConsoleTrack.tabLookup, 10 + (int) Math.Round(fontLen.X), Systems.screen.viewHeight - 90, Color.DarkSlateGray);
 			}
 
 			// Draw Console Help Text, if applicable.
 			if(ConsoleTrack.helpText.Length > 0) {
-				consoleFont.Draw(ConsoleTrack.helpText, 10, Systems.screen.windowHeight - 75, Color.Gray);
+				consoleFont.Draw(ConsoleTrack.helpText, 10, Systems.screen.viewHeight - 75, Color.Gray);
 			}
 
 			// Draw Console Possible Tab Options, if applicable.
 			if(ConsoleTrack.possibleTabs.Length > 0) {
-				consoleFont.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.windowHeight - 60, Color.DarkTurquoise);
+				consoleFont.Draw(ConsoleTrack.possibleTabs, 10, Systems.screen.viewHeight - 60, Color.DarkTurquoise);
 			}
 
 			// Draw Chat Console, if applicable.

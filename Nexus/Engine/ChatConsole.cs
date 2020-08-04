@@ -60,7 +60,7 @@ namespace Nexus.Engine {
 		public static void Draw() {
 			if(!ChatConsole.isVisible) { return; }
 
-			short bottomPos = (short) (Systems.screen.windowHeight - ChatConsole.fromBottom);
+			short bottomPos = (short) (Systems.screen.viewHeight - ChatConsole.fromBottom);
 
 			// Draw Console Background
 			if(ChatConsole.showBackground) {

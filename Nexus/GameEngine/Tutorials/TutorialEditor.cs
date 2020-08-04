@@ -68,7 +68,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(50, (short)(Systems.screen.windowHeight - 220), "Selecting Tiles", "Select a tile from the utility bar by clicking on it, or by pressing the shortcut key (e.g. 1, 2, etc).", DirRotate.Down);
+			this.SetTutorialNote(50, (short)(Systems.screen.viewHeight - 220), "Selecting Tiles", "Select a tile from the utility bar by clicking on it, or by pressing the shortcut key (e.g. 1, 2, etc).", DirRotate.Down);
 		}
 		
 		private void PlacingTiles() {
@@ -86,7 +86,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote((short)(Systems.screen.windowWidth - 480), 300, "Scroller Bar", "Use your mouse scroll to change the tile variant.", DirRotate.Right);
+			this.SetTutorialNote((short)(Systems.screen.viewWidth - 480), 300, "Scroller Bar", "Use your mouse scroll to change the tile variant.", DirRotate.Right);
 		}
 
 		private void AutoTiling() {
@@ -105,7 +105,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote((short)(Systems.screen.windowHalfWidth - 200), (short)(Systems.screen.windowHeight - 220), "Tab Menu", "Press and hold the `tab` key to access the Tab Menu.", DirRotate.Up);
+			this.SetTutorialNote((short)(Systems.screen.viewHalfWidth - 200), (short)(Systems.screen.viewHeight - 220), "Tab Menu", "Press and hold the `tab` key to access the Tab Menu.", DirRotate.Up);
 		}
 		
 		private void TabMenuUse() {
@@ -114,7 +114,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote( 90, (short)(Systems.screen.windowHalfHeight - 70), "Using the Tab Menu", "While in the tab menu, click on a tileset archetype to work with those types of tiles.", DirRotate.Right);
+			this.SetTutorialNote( 90, (short)(Systems.screen.viewHalfHeight - 70), "Using the Tab Menu", "While in the tab menu, click on a tileset archetype to work with those types of tiles.", DirRotate.Right);
 		}
 		
 		private void CloningTiles() {
@@ -141,7 +141,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(720, (short)(Systems.screen.windowHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
+			this.SetTutorialNote(720, (short)(Systems.screen.viewHeight - 250), "Editing Console", "Open the Editor Console for additional options by pressing the tilde key `~`, or clicking the settings option.", DirRotate.Down);
 		}
 		
 		private void ResizeLevel() {
@@ -150,7 +150,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(80, (short)(Systems.screen.windowHeight - 250), "Level Resizing", "Try resizing the level width by typing `resize width 100`", DirRotate.Down);
+			this.SetTutorialNote(80, (short)(Systems.screen.viewHeight - 250), "Level Resizing", "Try resizing the level width by typing `resize width 100`", DirRotate.Down);
 		}
 		
 		private void SetLevelName() {
@@ -159,7 +159,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(80, (short)(Systems.screen.windowHeight - 250), "Rename Level", "Try renaming the level by typing `title My Test Level`", DirRotate.Down);
+			this.SetTutorialNote(80, (short)(Systems.screen.viewHeight - 250), "Rename Level", "Try renaming the level by typing `title My Test Level`", DirRotate.Down);
 		}
 
 		private void FasterMove() {
@@ -180,7 +180,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(973, (short)(Systems.screen.windowHeight - 220), "Change Rooms", "Click the `Next Room` button to switch to the next room ID.", DirRotate.Down);
+			this.SetTutorialNote(973, (short)(Systems.screen.viewHeight - 220), "Change Rooms", "Click the `Next Room` button to switch to the next room ID.", DirRotate.Down);
 		}
 		
 		private void HomeRoom() {
@@ -189,16 +189,16 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(923, (short)(Systems.screen.windowHeight - 220), "Return to Home", "Click the `Home Room` to return to the first room.", DirRotate.Down);
+			this.SetTutorialNote(923, (short)(Systems.screen.viewHeight - 220), "Return to Home", "Click the `Home Room` to return to the first room.", DirRotate.Down);
 		}
 
 		private void PlaceCharacter() {
-			if(EditorTools.tileTool is TileToolInteractives && EditorTools.tileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.windowHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
+			if(EditorTools.tileTool is TileToolInteractives && EditorTools.tileTool.index == 0 && UIHandler.uiState == UIState.Playing && Cursor.MouseY < Systems.screen.viewHeight - 100 && Cursor.LeftMouseState == Cursor.MouseDownState.Clicked) {
 				this.IncrementTutorialStep();
 				return;
 			}
 
-			this.SetTutorialNote(90, (short)(Systems.screen.windowHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Interactives\" category). Place it to assign the start position.", DirRotate.Right);
+			this.SetTutorialNote(90, (short)(Systems.screen.viewHalfHeight - 70), "Place a Character", "Select a character from the tab menu (the \"Interactives\" category). Place it to assign the start position.", DirRotate.Right);
 		}
 		
 		private void WandTool() {
@@ -226,7 +226,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(920, (short)(Systems.screen.windowHeight - 220), "Save Level", "Press the `Save` button on the utility bar to save your level.", DirRotate.Down);
+			this.SetTutorialNote(920, (short)(Systems.screen.viewHeight - 220), "Save Level", "Press the `Save` button on the utility bar to save your level.", DirRotate.Down);
 		}
 
 		private void PlayLevel() {
@@ -235,7 +235,7 @@ namespace Nexus.GameEngine {
 				return;
 			}
 
-			this.SetTutorialNote(750, (short)(Systems.screen.windowHeight - 220), "Play Your Level", "Press the `Play` button when you're ready to playtest the level.", DirRotate.Down);
+			this.SetTutorialNote(750, (short)(Systems.screen.viewHeight - 220), "Play Your Level", "Press the `Play` button when you're ready to playtest the level.", DirRotate.Down);
 		}
 
 		// Selection Tool
